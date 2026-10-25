@@ -1,4 +1,46 @@
 {
+ "Albacete v Eldense": {
+  "absent": [
+   {
+    "name": "Capi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pepe S\u00e1nchez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Samuel Obeng",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pau Cabanes",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "David Ruiz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Roberto L\u00f3pez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:20Z",
+  "away_missing_share": 0.1998208473608834,
+  "away_unavailable": 3,
+  "fotmob_id": 5868503,
+  "home_missing_share": 0.22238655915992694,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-10-25T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Atalanta v Frosinone": {
   "absent": [
    {
@@ -52,6 +94,80 @@
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T12:30:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Cadiz v Ceuta": {
+  "absent": [
+   {
+    "name": "Gonzalo Petit",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giorgi Gocholeishvili",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Iuri Tabatadze",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kenneth Obinna Mamah",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:20Z",
+  "away_missing_share": 0.10894419872881891,
+  "away_unavailable": 1,
+  "fotmob_id": 5868506,
+  "home_missing_share": 0.5403551646808702,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-25T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Celta v Betis": {
+  "absent": [
+   {
+    "name": "Jones El-Abdellaoui",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Rom\u00e1n",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "\u00c1lvaro N\u00fa\u00f1ez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juan Hern\u00e1ndez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Facundo Bernal",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "J\u00fanior Firpo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:20Z",
+  "away_missing_share": 0.15001782104363606,
+  "away_unavailable": 3,
+  "fotmob_id": 5868104,
+  "home_missing_share": 0.2489130170229534,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-25T15:15:00.000Z",
+  "lineup_type": "predicted"
  },
  "Club Brugge v St Truiden": {
   "absent": [

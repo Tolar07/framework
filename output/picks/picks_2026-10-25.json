@@ -266,7 +266,11 @@
     "home": 50977965,
     "away": 9375378
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:71925064",
    "sb_tid": "sr:tournament:39",
    "sb_market": {
@@ -316,7 +320,11 @@
     "home": 9125998,
     "away": 28023696
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:71925062",
    "sb_tid": "sr:tournament:39",
    "sb_market": {
@@ -388,7 +396,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Aarhus v Viborg",
@@ -456,7 +466,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72366398",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -465,8 +479,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.019230160416034203,
    "missing": {
@@ -528,7 +542,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Gent v Anderlecht",
@@ -2513,8 +2529,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.017229162647633522,
    "missing": {
@@ -2567,8 +2583,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.024535883065869513,
    "missing": {
@@ -2614,8 +2630,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.017584422088363527,
    "missing": null,
@@ -3036,7 +3052,11 @@
     "home": 9393985,
     "away": 26630526
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72177048",
    "sb_tid": "sr:tournament:215",
    "sb_market": {

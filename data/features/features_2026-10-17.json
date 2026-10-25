@@ -4659,20 +4659,20 @@
     "over25": 0.6005
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-17T11:13Z",
+    "away": 0.4851,
+    "btts": 0.6209,
+    "draw": 0.2474,
+    "home": 0.2675,
+    "over25": 0.6005
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-17T11:13Z",
+    "away": 0.4841,
+    "btts": 0.6091,
+    "draw": 0.251,
+    "home": 0.2649,
+    "over25": 0.5913
    }
   },
   "date": "2026-10-17",
@@ -4793,20 +4793,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-17T11:13Z",
+    "away": 0.3441,
+    "btts": 0.6068,
+    "draw": 0.259,
+    "home": 0.3969,
+    "over25": 0.5686
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-17T11:13Z",
+    "away": 0.3343,
+    "btts": 0.6005,
+    "draw": 0.2674,
+    "home": 0.3983,
+    "over25": 0.5699
    }
   },
   "date": "2026-10-17",
@@ -6176,12 +6176,12 @@
     "over25": "PENDING"
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-17T11:13Z",
+    "away": 0.2316,
+    "btts": 0.6776,
+    "draw": 0.2064,
+    "home": 0.5619,
+    "over25": 0.7096
    }
   },
   "date": "2026-10-17",

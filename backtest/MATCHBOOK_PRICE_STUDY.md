@@ -2,32 +2,32 @@
 
 Written by `backtest/matchbook_price_study.py` from `data/universe/graded_*.jsonl`: every SportyBet game the sweep watches, with Matchbook's best back price for the same market (`data/matchbook_prices.py`, public prices, no login). Matchbook prices are shown after its 2% commission. A study, not a selector.
 
-Games kicking off from 2026-10-16: 3103 graded.
+Games kicking off from 2026-10-16: 4739 graded.
 
 ## 1. Coverage — what Matchbook lists
 
 | Sport | Graded games | On Matchbook | Share |
 |---|---:|---:|---:|
-| basketball | 579 | 45 | 8% |
-| football | 2524 | 1036 | 41% |
+| basketball | 877 | 56 | 6% |
+| football | 3862 | 1442 | 37% |
 
 SportyBet markets on games Matchbook lists — how often Matchbook has the same market (1UP/2UP early payout is SportyBet-only):
 
 | Market | SportyBet | Matchbook too | Missing on Matchbook |
 |---|---:|---:|---:|
-| basketball hcp | 45 | 44 | 2% |
-| basketball lines | 20 | 0 | 100% |
-| basketball total | 45 | 43 | 4% |
-| basketball win | 45 | 44 | 2% |
-| football 1up | 913 | 0 | 100% |
-| football 1x2 | 1035 | 1015 | 2% |
-| football 2up | 913 | 0 | 100% |
-| football btts | 1018 | 943 | 7% |
-| football dc | 1032 | 969 | 6% |
-| football ladder | 186 | 0 | 100% |
-| football ou1.5 | 991 | 947 | 4% |
-| football ou2.5 | 1026 | 1011 | 1% |
-| football ou3.5 | 1007 | 971 | 4% |
+| basketball hcp | 56 | 55 | 2% |
+| basketball lines | 30 | 0 | 100% |
+| basketball total | 56 | 54 | 4% |
+| basketball win | 56 | 55 | 2% |
+| football 1up | 1277 | 0 | 100% |
+| football 1x2 | 1441 | 1406 | 2% |
+| football 2up | 1277 | 0 | 100% |
+| football btts | 1417 | 1299 | 8% |
+| football dc | 1438 | 1329 | 8% |
+| football ladder | 533 | 0 | 100% |
+| football ou1.5 | 1372 | 1305 | 5% |
+| football ou2.5 | 1429 | 1402 | 2% |
+| football ou3.5 | 1405 | 1347 | 4% |
 
 ## 2. Same market, both books
 
@@ -35,15 +35,15 @@ Every side priced at both. "SportyBet pays more" = SportyBet's price above Match
 
 | Market | Sides | SportyBet pays more | Return at SportyBet | Return at Matchbook |
 |---|---:|---:|---:|---:|
-| football 1x2 | 2943 | 20% | -9.0% ± 2.7% | -5.7% ± 2.9% |
-| football dc | 2805 | 4% | -8.1% ± 1.3% | -2.6% ± 1.5% |
-| football o/u2.5 | 1952 | 9% | -6.2% ± 2.2% | -2.9% ± 2.3% |
-| football o/u3.5 | 1872 | 12% | -7.1% ± 2.4% | -3.1% ± 2.6% |
-| football o/u1.5 | 1832 | 7% | -6.9% ± 3.0% | -1.5% ± 3.3% |
-| football btts | 1822 | 9% | -7.4% ± 2.2% | -3.5% ± 2.3% |
-| basketball win | 86 | 36% | +3.3% ± 17.0% | +0.6% ± 15.1% |
-| basketball hcp | 86 | 41% | -4.2% ± 10.4% | -5.3% ± 10.3% |
-| basketball total | 84 | 35% | -4.3% ± 10.5% | -4.5% ± 10.5% |
+| football 1x2 | 3945 | 21% | -8.0% ± 2.4% | -4.6% ± 2.5% |
+| football dc | 3735 | 4% | -7.8% ± 1.2% | -2.3% ± 1.3% |
+| football o/u2.5 | 2618 | 9% | -6.4% ± 1.9% | -3.2% ± 2.0% |
+| football o/u3.5 | 2520 | 13% | -7.5% ± 2.1% | -3.7% ± 2.2% |
+| football o/u1.5 | 2450 | 8% | -7.9% ± 2.6% | -2.6% ± 2.9% |
+| football btts | 2438 | 9% | -7.9% ± 1.9% | -4.1% ± 2.0% |
+| basketball win | 106 | 31% | +0.3% ± 14.4% | -1.6% ± 12.9% |
+| basketball hcp | 106 | 37% | -4.4% ± 9.3% | -4.9% ± 9.3% |
+| basketball total | 104 | 30% | -4.3% ± 9.4% | -4.4% ± 9.4% |
 
 ## 3. Mismatches — SportyBet above Matchbook's fair price
 
@@ -51,13 +51,13 @@ Sides where SportyBet's price beats the chance Matchbook's exchange gives (margi
 
 | Market | Mismatches | Won | Return at SportyBet |
 |---|---:|---:|---:|
-| football 1x2 | 139 | 29% | -6.1% ± 14.9% |
-| football o/u3.5 | 19 | 47% | -12.3% ± 23.6% |
-| football o/u2.5 | 18 | 56% | +29.7% ± 29.5% |
-| football o/u1.5 | 13 | 38% | +8.0% ± 45.8% |
-| football dc | 11 | 82% | +34.0% ± 22.7% |
-| football btts | 10 | 50% | +15.6% ± 39.8% |
-| basketball win | 10 | 50% | +124.4% ± 118.8% |
+| football 1x2 | 174 | 30% | -9.9% ± 12.6% |
+| football o/u3.5 | 28 | 43% | -25.0% ± 17.9% |
+| football o/u2.5 | 27 | 41% | -7.1% ± 22.9% |
+| football o/u1.5 | 24 | 25% | -28.2% ± 28.8% |
+| football dc | 14 | 79% | +26.1% ± 20.3% |
+| football btts | 12 | 42% | -3.7% ± 35.4% |
+| basketball win | 11 | 45% | +104.0% ± 109.4% |
 | basketball hcp | 6 | 83% | +63.3% ± 32.8% |
 
 Small samples first: a return needs a few hundred sides before it means anything; ± is one standard error.

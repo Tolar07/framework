@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24",
+ "updated": "2026-10-25",
  "days": 3,
  "sections": {
   "?": {
@@ -11,17 +11,17 @@
   },
   "accas": {
    "placed": 12,
-   "settled": 10,
+   "settled": 11,
    "won": 2,
-   "avg_odds": 2.54,
-   "return": -0.2426
+   "avg_odds": 2.57,
+   "return": -0.385
   },
   "all": {
    "placed": 55,
-   "settled": 25,
+   "settled": 26,
    "won": 4,
-   "avg_odds": 27.1,
-   "return": -0.6161
+   "avg_odds": 26.17,
+   "return": -0.6462
   },
   "alts": {
    "placed": 5,

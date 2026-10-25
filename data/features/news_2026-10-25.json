@@ -106,7 +106,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.20907826555693124,
   "away_unavailable": 5,
   "fotmob_id": 5802964,
@@ -222,7 +222,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.25366374975732625,
   "away_unavailable": 6,
   "fotmob_id": 5802965,
@@ -626,7 +626,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.33042711319904766,
   "away_unavailable": 5,
   "fotmob_id": 5881200,
@@ -811,11 +811,6 @@
     "type": "injury"
    },
    {
-    "name": "Andrei Borza",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Serdar Saat\u00e7i",
     "side": "away",
     "type": "injury"
@@ -826,14 +821,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.16082317292353085,
-  "away_unavailable": 3,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.07563211337537351,
+  "away_unavailable": 2,
   "fotmob_id": 5904780,
   "home_missing_share": 0.0646834110665481,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Hellas Verona v SC Pisa": {
   "absent": [
@@ -858,7 +853,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.04728080173828549,
   "away_unavailable": 1,
   "fotmob_id": 5967118,
@@ -1080,14 +1075,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.29547625145443834,
-  "away_unavailable": 5,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.2740253427498265,
+  "away_unavailable": 4,
   "fotmob_id": 5104936,
   "home_missing_share": 0.13449844707600261,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Inter v Fiorentina": {
   "absent": [
@@ -1198,22 +1193,17 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.07688451143883619,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.0759711126064783,
   "away_unavailable": 2,
   "fotmob_id": 5104933,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "LASK Linz v Salzburg": {
   "absent": [
-   {
-    "name": "Lukas Jungwirth",
-    "side": "home",
-    "type": "injury"
-   },
    {
     "name": "George Bello",
     "side": "home",
@@ -1225,11 +1215,6 @@
     "type": "injury"
    },
    {
-    "name": "Edmund Baidoo",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Nikolas Veratschnig",
     "side": "away",
     "type": "injury"
@@ -1238,16 +1223,21 @@
     "name": "Enrique Aguilar",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Justin Omoregie",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.26018107211197655,
-  "away_unavailable": 4,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.1140945279743363,
+  "away_unavailable": 3,
   "fotmob_id": 5846007,
-  "home_missing_share": 0.27027796123229636,
-  "home_unavailable": 3,
+  "home_missing_share": 0.13160933704790306,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lecce v Juventus": {
   "absent": [
@@ -1324,7 +1314,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.3161767921058633,
   "away_unavailable": 6,
   "fotmob_id": 5804015,
@@ -1440,7 +1430,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.2924318188235371,
   "away_unavailable": 5,
   "fotmob_id": 5802968,
@@ -1512,21 +1502,16 @@
     "name": "Oliver Hagen",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Oscar Johansson Schellhas",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.14568712795640518,
-  "away_unavailable": 3,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.13754580737377115,
+  "away_unavailable": 2,
   "fotmob_id": 5107632,
-  "home_missing_share": 0.09888754015122331,
+  "home_missing_share": 0.08485939304471662,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Molde v Fredrikstad FK": {
   "absent": [
@@ -1904,7 +1889,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.4003728078395869,
   "away_unavailable": 6,
   "fotmob_id": 5802970,
@@ -1980,11 +1965,6 @@
     "type": "injury"
    },
    {
-    "name": "Aleksander Hammer Kjelsen",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Marcus Haagensen Reed",
     "side": "away",
     "type": "injury"
@@ -1993,16 +1973,21 @@
     "name": "Simen Haram",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Philip Sandvik Aukland",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.36797871924500836,
-  "away_unavailable": 4,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.28308805962264827,
+  "away_unavailable": 3,
   "fotmob_id": 5104935,
-  "home_missing_share": 0.09979477548732635,
+  "home_missing_share": 0.11010559549516316,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Silkeborg v Nordsjaelland": {
   "absent": [
@@ -2239,14 +2224,14 @@
     "type": "injury"
    },
    {
-    "name": "Dominic Calvert-Lewin",
+    "name": "Joe Rodon",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
-  "away_missing_share": 0.34682094342186753,
-  "away_unavailable": 6,
+  "at": "2026-10-25T15:20Z",
+  "away_missing_share": 0.2722777861355717,
+  "away_unavailable": 5,
   "fotmob_id": 5795494,
   "home_missing_share": 0.21528717450593107,
   "home_unavailable": 5,
@@ -2276,7 +2261,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T15:00Z",
+  "at": "2026-10-25T15:20Z",
   "away_missing_share": 0.1798901593536783,
   "away_unavailable": 3,
   "fotmob_id": 5802971,

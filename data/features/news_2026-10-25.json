@@ -414,7 +414,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5811783,
@@ -885,7 +885,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:20Z",
+  "at": "2026-10-25T13:40Z",
   "away_missing_share": 0.3063782643723834,
   "away_unavailable": 6,
   "fotmob_id": 5881201,
@@ -949,7 +949,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5739535,
@@ -1551,14 +1551,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:20Z",
-  "away_missing_share": 0.3198734311921364,
+  "at": "2026-10-25T13:40Z",
+  "away_missing_share": 0.3501420081862482,
   "away_unavailable": 4,
   "fotmob_id": 5802969,
-  "home_missing_share": 0.08274060809086488,
+  "home_missing_share": 0.08031731491083778,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "NK Osijek v NK Rudes Zagreb": {
   "absent": [
@@ -1741,14 +1741,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:20Z",
-  "away_missing_share": 0.2005239306544978,
+  "at": "2026-10-25T13:40Z",
+  "away_missing_share": 0.14053231325944854,
   "away_unavailable": 5,
   "fotmob_id": 5943279,
-  "home_missing_share": 0.1714342076020185,
-  "home_unavailable": 4,
+  "home_missing_share": 0.10725715327637915,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "PSV Eindhoven v Feyenoord": {
   "absent": [
@@ -1825,14 +1825,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T13:20Z",
+  "at": "2026-10-25T13:40Z",
   "away_missing_share": 0.0526795067166672,
   "away_unavailable": 3,
   "fotmob_id": 5967116,
   "home_missing_share": 0.25432240208814183,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Rennes v Strasbourg": {
   "absent": [

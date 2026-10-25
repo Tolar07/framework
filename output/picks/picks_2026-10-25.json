@@ -736,8 +736,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.05029829940548103,
    "missing": null,
@@ -904,7 +904,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "NK Osijek v NK Rudes Zagreb",
@@ -1045,8 +1047,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.009220887507025433,
    "missing": {
@@ -1099,8 +1101,8 @@
     "spec": "total=2.5",
     "outcome": "Over 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.87,
+   "clv": 5.35,
    "stake_pct": 0.25,
    "ev": 0.029062400346338446,
    "missing": {
@@ -1308,7 +1310,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 5.6
   },
   {
    "fixture": "Monaco v Lille",
@@ -1334,7 +1338,11 @@
     "home": 153069557,
     "away": 122184919
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Lille missing 35%",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72036248",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1343,8 +1351,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 2.54,
    "stake_pct": 0.25,
    "ev": -0.05245238064222135,
    "missing": {
@@ -1835,8 +1843,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.0012639400512948207,
    "missing": {
@@ -1889,8 +1897,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.026237990935397804,
    "missing": {
@@ -1943,8 +1951,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0165867178747221,
    "missing": {
@@ -1997,8 +2005,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.003476844677716806,
    "missing": {
@@ -2060,7 +2068,9 @@
    "first_price": 1.36,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.37,
+   "drift_pct": 0.7
   },
   {
    "fixture": "Ath Bilbao v Getafe",
@@ -2478,7 +2488,11 @@
     "home": 19565939,
     "away": 11412192
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Palermo missing 25%",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:73093006",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2487,8 +2501,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 3.28,
    "stake_pct": 0.25,
    "ev": -0.012545250397379526,
    "missing": {
@@ -2834,7 +2848,11 @@
     "home": 51742816,
     "away": 2001091
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72936102",
    "sb_tid": "sr:tournament:185",
    "sb_market": {
@@ -2843,8 +2861,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -2.36,
    "stake_pct": 0.12,
    "ev": 0.001515913365343069,
    "missing": {

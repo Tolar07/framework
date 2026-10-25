@@ -1,8 +1,8 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-10-24 21:02Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-10-25 07:00Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
-**All 807 graded board singles**: stated 79.2%, landed 77.2% (calibration error -2.0 points) at an average price of 1.251, which needs 79.9% to break even. Return -3.5% ± 1.9.
+**All 811 graded board singles**: stated 79.3%, landed 77.2% (calibration error -2.1 points) at an average price of 1.251, which needs 79.9% to break even. Return -3.5% ± 1.9.
 
 The prediction is not the problem. The price is.
 
@@ -10,8 +10,8 @@ The prediction is not the problem. The price is.
 
 | band | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
-| 1.00–1.25 | 440 | 76.8% | 80.0% | 82.2% | -6.6% ± 2.5 | LOSING |
-| 1.25–1.30 | 246 | 81.3% | 79.3% | 78.9% | +3.0% ± 3.2 | no edge either way |
+| 1.00–1.25 | 442 | 76.9% | 80.0% | 82.2% | -6.4% ± 2.4 | LOSING |
+| 1.25–1.30 | 248 | 81.0% | 79.3% | 78.9% | +2.7% ± 3.2 | no edge either way |
 | 1.30–1.50 | 117 | 69.2% | 77.0% | 75.6% | -8.6% ± 5.7 | no edge either way |
 | 1.50–2.00 | 4 | 100.0% | 57.0% | 54.6% | +83.0% ± 7.7 | ahead |
 | 2.00+ | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
@@ -23,7 +23,7 @@ The prediction is not the problem. The price is.
 | BANKER | 3 | 100.0% | 76.1% | 80.0% | +25.0% ± 2.1 | ahead |
 | BOOK | 17 | 76.5% | 78.1% | 79.4% | -5.2% ± 13.2 | no edge either way |
 | MARKET | 189 | 79.4% | 80.2% | 80.7% | -1.6% ± 3.7 | no edge either way |
-| SAFE | 593 | 76.2% | 79.2% | 80.0% | -4.8% ± 2.2 | LOSING |
+| SAFE | 597 | 76.2% | 79.2% | 80.0% | -4.9% ± 2.2 | LOSING |
 | VALUE | 5 | 100.0% | 56.3% | 56.9% | +75.8% ± 9.4 | ahead |
 
 ## The other two populations

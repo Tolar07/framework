@@ -30,9 +30,9 @@
     "total": 235.5
    },
    "code": "GGXABV",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "127-116",
+   "close_value": 0.0963,
    "matchbook": {
     "back": 1.88,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 222.5
    },
    "code": "KEFKCL",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "131-122",
+   "close_value": 0.2087,
    "matchbook": {
     "back": 1.83,
     "listed": true

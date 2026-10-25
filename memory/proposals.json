@@ -38,9 +38,20 @@
   "league": "2. Bundesliga",
   "action": "block",
   "text": "stop picking Double chance in 2. Bundesliga",
-  "evidence": "8/14 won (57%; its prices need 80%), -4.00 units over 6 match day(s)",
+  "evidence": "11/18 won (61%; its prices need 80%), -4.24 units over 7 match day(s)",
   "status": "open",
   "opened": "2026-10-24",
+  "decided": null
+ },
+ {
+  "id": "P5",
+  "segment": "Double chance",
+  "league": "Serie B",
+  "action": "block",
+  "text": "stop picking Double chance in Serie B",
+  "evidence": "6/13 won (46%; its prices need 77%), -5.22 units over 6 match day(s)",
+  "status": "open",
+  "opened": "2026-10-25",
   "decided": null
  }
 ]

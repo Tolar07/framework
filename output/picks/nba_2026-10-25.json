@@ -14,7 +14,7 @@
     "sr:match:73719380"
    ],
    "odds": 14.6,
-   "result": null
+   "result": "lost"
   },
   {
    "name": "NBA acca B",
@@ -25,7 +25,7 @@
     "sr:match:73719384"
    ],
    "odds": 7.8,
-   "result": null
+   "result": "lost"
   }
  ],
  "picks": [
@@ -55,9 +55,9 @@
     "total": 231.5
    },
    "code": "M1HH7F",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "115-110",
+   "close_value": 0.2626,
    "matchbook": {
     "back": null,
     "listed": true
@@ -89,9 +89,9 @@
     "total": 231.5
    },
    "code": "XH1ANS",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "125-121",
+   "close_value": 0.2501,
    "matchbook": {
     "back": null,
     "listed": true
@@ -123,9 +123,9 @@
     "total": 233.5
    },
    "code": "K8XVUD",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "127-116",
+   "close_value": 0.091,
    "matchbook": {
     "back": null,
     "listed": true
@@ -157,9 +157,9 @@
     "total": 243.5
    },
    "code": "L00UZB",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "120-124",
+   "close_value": 0.1243,
    "matchbook": {
     "back": null,
     "listed": true
@@ -191,9 +191,9 @@
     "total": 230.5
    },
    "code": "N4ULAV",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "106-122",
+   "close_value": 0.1874,
    "matchbook": {
     "back": null,
     "listed": true
@@ -225,9 +225,9 @@
     "total": 230.5
    },
    "code": "N947VG",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "114-121",
+   "close_value": 0.1139,
    "matchbook": {
     "back": null,
     "listed": true
@@ -259,9 +259,9 @@
     "total": 237.5
    },
    "code": "L3PP2R",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "141-135",
+   "close_value": 0.0851,
    "matchbook": {
     "back": null,
     "listed": true

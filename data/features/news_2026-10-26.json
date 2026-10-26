@@ -139,14 +139,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T17:20Z",
-  "away_missing_share": 0.22429705619509382,
-  "away_unavailable": 5,
+  "at": "2026-10-26T17:40Z",
+  "away_missing_share": 0.2356782400014237,
+  "away_unavailable": 4,
   "fotmob_id": 5904782,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-26T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Montpellier v Red Star": {
   "absent": [],
@@ -229,7 +229,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T17:20Z",
+  "at": "2026-10-26T17:40Z",
   "away_missing_share": 0.19168441415407733,
   "away_unavailable": 4,
   "fotmob_id": 5887660,

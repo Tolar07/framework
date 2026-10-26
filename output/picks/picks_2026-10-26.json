@@ -32,8 +32,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.1,
    "stake_pct": 0.25,
    "ev": -0.03079903355134117,
    "missing": null,
@@ -576,7 +576,11 @@
     "home": 246784292,
     "away": 161146603
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72723280",
    "sb_tid": "sr:tournament:52",
    "sb_market": {

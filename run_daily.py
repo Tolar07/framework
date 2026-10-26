@@ -552,6 +552,20 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         _prof_db, _prof_st = _tp.load(), _ls.load()
     except Exception:  # noqa: BLE001 — no profiles: order 43 stands down, never guesses
         _prof_db, _prof_st = {}, {}
+    # TACTICAL MATCHUP (engine/tactics.py, Architect 2026-10-26): both teams'
+    # tactical profiles -> each side's expected goals -> a scoreline grid that
+    # prices every ladder outcome. Each chance moves toward it by the weight
+    # fitted on unseen matches (data/tactics/calibration.json; 0 = label only),
+    # capped at +/-5 pts; the board is told when another market fits better.
+    tactics_adjusted = tactics_read = 0
+    try:
+        from engine import tactics as _tx
+        _tac_db = _tx.load()
+        _tac_w = float(_tx.calibration().get("weight") or 0.0)
+        _tac_eff = _tx.proven_effects()
+    except Exception as e:  # noqa: BLE001 — no read: the board runs as before
+        _tac_db, _tac_w, _tac_eff = {}, 0.0, {}
+        all_flags.append(f"tactical matchup unavailable ({str(e)[:60]})")
 
     same_result_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
@@ -689,6 +703,24 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 _n = len(cands)
                 cands = [c for c in cands if not _shootout_under(c[2])]
                 shootout_unders += _n - len(cands)
+        _tac, _tgrid, _trules = None, None, {}
+        if (_tac_db or {}).get("teams"):
+            try:
+                _tac = _tx.fixture(p.home_team, p.away_team, _tac_db, _prof_st, _tac_eff)
+            except Exception:  # noqa: BLE001 — one fixture's read never stops the board
+                _tac = None
+        if _tac is not None:
+            tactics_read += 1
+            _tgrid = _tx.grid(_tac["xg_home"], _tac["xg_away"])
+            _trules = {k: r for k, _pr, r in ladder} if ladder else {}
+            if _tac_w > 0 and _trules:
+                _adj = []
+                for c in cands:
+                    d = (_tx.adjustment(c[0], fm.evaluate(_tgrid, _trules[c[2]])[0], _tac_w)
+                         if c[2] in _trules else 0.0)
+                    _adj.append(((round(c[0] + d, 4),) + c[1:]) if d else c)
+                    tactics_adjusted += bool(d)
+                cands = [c for c in _adj if c[0] >= DEPLOY_MIN_MODEL_PROB]
         if not cands:
             continue
 
@@ -805,6 +837,24 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
         bf.best_mes_ev, bf.best_model_prob = (ev if ev != -1.0 else None), cons
         bf.tier, bf.pick_model_prob, bf.pick_market_prob = tier, model_p, market_p
+        if _tac is not None:
+            _pp = _tac["probs"]
+            _pick_tac = (fm.evaluate(_tgrid, _trules[market])[0] if market in _trules else None)
+            _note = (_tx.better_market(market, cons, full_pool, _tgrid, _trules, fam)
+                     if _trules else None)
+            bf.matchup_record = {
+                "say": _tac["say"], "xg": [_tac["xg_home"], _tac["xg_away"]],
+                "btts": _pp["btts"], "over25": _pp["over25"], "over15": _pp["over15"],
+                "corners": _tac["corners"], "pick_matchup_chance": (None if _pick_tac is None
+                                                                    else round(_pick_tac, 3)),
+                "weight": _tac_w, "better_market": _note,
+                "formations": _tac["formations"], "tags": _tac["tags_home"] + _tac["tags_away"]}
+            bf.matchup_line = (
+                f"{_tac['say']} · xG {_tac['xg_home']:.2f}-{_tac['xg_away']:.2f} · BTTS {_pp['btts']:.0%}"
+                f" · O2.5 {_pp['over25']:.0%}"
+                + (f" · corners ~{_tac['corners']}" if _tac["corners"] else "")
+                + ("" if _pick_tac is None else f" · pick {_pick_tac:.0%} on the matchup")
+                + (f" · ⚑ {_note}" if _note else ""))
         # CERTAINTY: how sure we are the % is right — two independent sources
         # agreeing tightly is the evidence. One source (market-implied) or a
         # disagreement (BOOK/SPLIT) can't be cross-checked, so it's LOW.
@@ -829,6 +879,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                      f"priced above fair odds took the pick from the likeliest outcome")
     if approved_dropped:
         all_flags.append(f"approved blocks (order 39): {approved_dropped} outcome(s) not considered")
+    all_flags.append(f"tactical matchup: {tactics_read} fixture(s) read from the tactical profiles; "
+                     f"weight {_tac_w:g} (fitted on unseen matches; 0 = label only), "
+                     f"{tactics_adjusted} chance(s) moved (cap ±{_tx.CAP if _tac_db else 0:.0%})")
     if shootout_unders:
         all_flags.append(f"No Unders in a shootout (order 43): {shootout_unders} match Under outcome(s) "
                          "dropped where the team profiles read both sides scoring plenty")

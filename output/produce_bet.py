@@ -1358,6 +1358,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out += ["", "TEAM PROFILES (last 20 games each side — context, not a price):"]
             for bf in prof_rows:
                 out.append(f"   • {_canon_short(bf.fixture)}: {bf.profile_line}")
+        mu_rows = [bf for bf in shortlist if getattr(bf, "matchup_line", None)]
+        if mu_rows:
+            out += ["", "MATCHUP (tactical profiles: formations, press, line, counters, set pieces; "
+                        "⚑ = another market fits the matchup better):"]
+            for bf in mu_rows:
+                out.append(f"   • {_canon_short(bf.fixture)}: {bf.matchup_line}")
         out += [""] + _mega_lines("TABLE 2")
     out.append("")
 

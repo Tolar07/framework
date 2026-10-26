@@ -55,6 +55,8 @@ def _single(bf) -> dict:
             "kickoff_utc": getattr(bf, "kickoff_utc", None),
             "predicted_xi": getattr(bf, "predicted_xi", None),
             "lineup_check": None,
+            # tactical matchup read (engine/tactics.py), studied after the match
+            "matchup": getattr(bf, "matchup_record", None),
             # Closing-line value (improvement #5): SportyBet event + market
             # identity, so news_check.py can read the price just before kickoff.
             "sb_event_id": getattr(bf, "sb_event_id", None),

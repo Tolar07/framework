@@ -65,7 +65,7 @@ def buckets(legs: list, enough: Callable[[list], bool],
     `enough(legs)` says whether a cohort has what its acca kind needs; one that
     doesn't may take in the next cohort (MAX_FALLBACK_GAP_MINUTES), once."""
     rank = {id(leg): i for i, leg in enumerate(legs)}
-    timed = sorted((leg for leg in legs if ko(leg) is not None), key=lambda l: (ko(l), rank[id(l)]))
+    timed = sorted((leg for leg in legs if ko(leg) is not None), key=lambda leg: (ko(leg), rank[id(leg)]))
     raw: list[list] = []
     spread = timedelta(minutes=MAX_BUCKET_SPREAD_MINUTES)
     for leg in timed:
@@ -81,7 +81,7 @@ def buckets(legs: list, enough: Callable[[list], bool],
             b, merged = b + raw[i + 1], True
             i += 1
         i += 1
-        out.append((cohort_id(ko(b[0])), merged, sorted(b, key=lambda l: rank[id(l)])))
+        out.append((cohort_id(ko(b[0])), merged, sorted(b, key=lambda leg: rank[id(leg)])))
     return out
 
 
@@ -114,14 +114,17 @@ def _leg_detail(leg) -> dict:
             "pick": leg[1], "price": price, "chance": leg[2]}
 
 
+def _iso(d: datetime) -> str:
+    return d.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def slip_fields(legs: list) -> dict:
     """The cohort fields stored with a slip in picks_<date>.json."""
     kos = [k for k in (kickoff_dt(leg[0]) for leg in legs) if k is not None]
     reg = _REGISTRY.get(frozenset(_fixture(leg[0]) for leg in legs))
     cid, merged = reg if reg else ((cohort_id(min(kos)), False) if kos else (None, False))
-    iso = (lambda d: d.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     return {"cohort_id": cid, "cohort_merged": merged,
-            "earliest_kickoff_utc": iso(min(kos)) if kos else None,
-            "latest_kickoff_utc": iso(max(kos)) if kos else None,
+            "earliest_kickoff_utc": _iso(min(kos)) if kos else None,
+            "latest_kickoff_utc": _iso(max(kos)) if kos else None,
             "spread_minutes": int((max(kos) - min(kos)).total_seconds() // 60) if kos else None,
             "leg_detail": [_leg_detail(leg) for leg in legs]}

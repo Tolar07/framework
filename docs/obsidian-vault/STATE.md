@@ -65,6 +65,10 @@ recoverable (no artifact); the codes are in the Architect's Telegram.
 
 **2026-10-20 — research harness (autonomy plan item 4).** `memory/hypotheses.jsonl` holds ideas as declarative tests (bet rule on the graded universe, or a feature against the model); `research/runner.py` tests each walk-forward (`engine/walkforward.py`: earlier half vs later half, CLV against the last price) and writes `research/RESULTS.md`. An ACCEPTED bet rule goes to `memory/strategy_queue.jsonl` as a SHADOW strategy for the experiment engine (not merged yet; it will read the queue) — paper only. Seeded with 3: H001 SportyBet 1X2 3%+ above Matchbook fair — accepted as shadow (199 bets, +19.4% ± 14.1%: under 2 se, so it is a paper test, not evidence of an edge; it overlaps the parallel sharp list); H002 short home favourites 1.20-1.50 — inconclusive (422 bets, −1.9% ± 3.0%); H003 SportyBet Over 2.5 close as a model feature — inconclusive. `research/WEEKLY_BRIEF.md` is the prompt for a weekly scheduled research session (read-mostly: may change only the hypotheses, results, queue and its notes; one PR; one Telegram line via `research_note.yml`).
 
+## 2026-10-26 — Kickoff-cohort accas (Architect 18:20–18:30 UK)
+
+Every multi-leg slip is now built inside one 30-minute kickoff window (`engine/cohorts.py`); a sparse window merges only with the next one if it starts ≤ 60 min later, else its games stay singles. Inside each window the existing acca rules are unchanged. Each slip in `picks_<date>.json` carries `cohort_id`, `cohort_merged`, `earliest_kickoff_utc`, `latest_kickoff_utc`, `spread_minutes` and `leg_detail` for the live ticket monitor / rebooking session. Combined MEGA codes and the all-day board code are booked only when a kind's slips share one window. Standing order row added (ID pending). Replay of the real 2026-10-27 board: on main Acca A ran 17:30–19:45 and Mega 2 17:00–19:45; with cohorts every slip sits in one window. Test: `tests/cohort_accas_test.py` (simulated 57-fixture day 12:00–00:00).
+
 ## 2026-10-12 — P1 approved, same-result price shopping, paper-book finding
 
 - **P1 rejected** by the Architect ("I would rather you not block it and learn

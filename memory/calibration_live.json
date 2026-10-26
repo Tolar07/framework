@@ -1,15 +1,26 @@
 {
  "families": {
   "away": {
+   "a": 0.2217,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.2405,
+   "brier_after": 0.17958,
+   "brier_before": 0.18068,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
+  },
+  "btts": {
    "a": 0.0,
-   "adopted": "2026-10-24T08:19:13Z",
+   "adopted": "2026-10-26T09:14:06Z",
    "b": 1.0,
-   "brier_after": 0.21046,
-   "brier_before": 0.21085,
+   "brier_after": 0.24214,
+   "brier_before": 0.24495,
    "choice": "raw",
-   "holdout_from": "2026-10-18",
-   "n_fit": 368,
-   "n_holdout": 115
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
   },
   "dc_12": {
    "a": 0.2041,
@@ -23,26 +34,26 @@
    "n_holdout": 115
   },
   "dc_1x": {
-   "a": 0.0,
-   "adopted": "2026-10-24T08:19:13Z",
-   "b": 1.0,
-   "brier_after": 0.21049,
-   "brier_before": 0.2109,
-   "choice": "raw",
-   "holdout_from": "2026-10-18",
-   "n_fit": 368,
-   "n_holdout": 115
+   "a": -0.2224,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.2416,
+   "brier_after": 0.17963,
+   "brier_before": 0.18073,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
   },
   "dc_x2": {
-   "a": 0.0,
-   "adopted": "2026-10-25T08:37:37Z",
-   "b": 1.0,
-   "brier_after": 0.23282,
-   "brier_before": 0.23388,
-   "choice": "raw",
-   "holdout_from": "2026-10-23",
-   "n_fit": 464,
-   "n_holdout": 132
+   "a": -0.1217,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.3008,
+   "brier_after": 0.2268,
+   "brier_before": 0.22773,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
   },
   "draw": {
    "a": -0.2045,
@@ -56,39 +67,39 @@
    "n_holdout": 115
   },
   "home": {
-   "a": 0.0,
-   "adopted": "2026-10-25T08:37:37Z",
-   "b": 1.0,
-   "brier_after": 0.23287,
-   "brier_before": 0.23395,
-   "choice": "raw",
-   "holdout_from": "2026-10-23",
-   "n_fit": 464,
-   "n_holdout": 132
+   "a": 0.122,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.3021,
+   "brier_after": 0.22681,
+   "brier_before": 0.22773,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
   },
   "over_2.5": {
-   "a": 0.1881,
-   "adopted": "2026-10-21T05:12:44Z",
-   "b": 0.8737,
-   "brier_after": 0.23925,
-   "brier_before": 0.24002,
-   "choice": "refit",
-   "holdout_from": "2026-10-17",
-   "n_fit": 276,
+   "a": 0.0,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.0,
+   "brier_after": 0.24107,
+   "brier_before": 0.24155,
+   "choice": "raw",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
    "n_holdout": 180
   },
   "over_3.5": {
-   "a": 0.0,
-   "adopted": "2026-10-21T05:12:44Z",
-   "b": 1.0,
-   "brier_after": 0.22108,
-   "brier_before": 0.22503,
-   "choice": "raw",
-   "holdout_from": "2026-10-17",
-   "n_fit": 276,
+   "a": -0.0374,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 0.7171,
+   "brier_after": 0.22165,
+   "brier_before": 0.22303,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
    "n_holdout": 180
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-10-25T08:37:37Z"
+ "updated": "2026-10-26T09:14:06Z"
 }

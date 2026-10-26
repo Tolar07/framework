@@ -16,6 +16,7 @@ memory/conversations/
 !output/nba_ladders/*.jsonl
 !data/universe/*.jsonl
 !data/match_stats/*.jsonl
+!data/match_study/*.jsonl
 !data/study/*/live/*.jsonl
 # The live matchday snapshots (live.yml -> monitor/live_loop.py) and every
 # SportyBet NBA market at every look (engine/nba_markets.py). Both are written

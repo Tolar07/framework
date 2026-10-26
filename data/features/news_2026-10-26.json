@@ -151,5 +151,42 @@
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-26T17:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Santa Clara v Benfica": {
+  "absent": [
+   {
+    "name": "MT",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dj\u00e9 Tavares",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Leandro Barreiro",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jakub Kami\u0144ski",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Enzo Barrenechea",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T13:00Z",
+  "away_missing_share": 0.19168441415407733,
+  "away_unavailable": 4,
+  "fotmob_id": 5887660,
+  "home_missing_share": 0.26189352463658677,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-26T18:45:00.000Z",
+  "lineup_type": "predicted"
  }
 }

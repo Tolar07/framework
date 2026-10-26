@@ -468,7 +468,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Caykur Rizespor v Trabzonspor",
@@ -516,7 +518,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Galatasaray Istanbul v Fenerbahce Istanbul",

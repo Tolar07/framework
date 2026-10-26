@@ -1262,7 +1262,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 acca_code = acca_codes.get("Acca A")
                 safe3 = _build_safe3(deploy)
                 safe3_codes = _book(safe3)
-                if len(safe3) > 1:      # Table 3A mega: every 50%+ acca on one slip
+                from engine.cohorts import same_cohort as _one_window
+                # KICKOFF COHORTS (Architect 2026-10-26): a combined code joins only
+                # slips of one kickoff window; across windows it is not booked
+                if len(safe3) > 1 and not _one_window(safe3):
+                    all_flags.append("50+ MEGA not booked: the 50%+ accas sit in different kickoff windows")
+                if len(safe3) > 1 and _one_window(safe3):      # Table 3A mega: every 50%+ acca on one slip
                     _all3 = [(b3, p3, q3) for _n, ls3, _c in safe3 for b3, p3, q3 in ls3]
                     extra_codes.update({k.replace("ALL", "safe3_mega"): v for k, v in
                                         _book([("ALL", _all3, 0)]).items()})
@@ -1294,7 +1299,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 # COMBINED CODES (Architect 2026-10-09: "all the ACCAs ... combine
                 # everything and book it as one ... all the value bets ... all the
                 # alternate bets"): one slip each, beside the per-slip codes.
-                if len(accas) > 1:
+                if len(accas) > 1 and not _one_window(accas):
+                    all_flags.append("ACCAS MEGA not booked: the accas sit in different kickoff windows")
+                if len(accas) > 1 and _one_window(accas):
                     _alla = [(ba, pa, qa) for _n, lsa, _c in accas for ba, pa, qa in lsa]
                     extra_codes.update({k.replace("ALL", "accas_mega"): v for k, v in
                                         _book([("ALL", _alla, 0)]).items()})
@@ -1304,7 +1311,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             bf.probs.home_team, bf.probs.away_team, key)
                            for _n, _legs, _c in _slips if _n != _skip
                            for bf, _pick, _prob, key, _price in _legs]
-                    if len(_ls) > 1:
+                    if len(_ls) > 1 and not _one_window([s for s in _slips if s[0] != _skip]):
+                        all_flags.append(f"{_kind.upper()} not booked: its slips sit in different kickoff windows")
+                    elif len(_ls) > 1:
                         _code, _ = sbk.code_for_legs(sb_index, _ls)
                         if _code:
                             extra_codes[_kind] = _code
@@ -1329,9 +1338,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
                 megas = _build_megas(deploy)
-                if len(megas) > 1:
+                # KICKOFF COHORTS: megas are per kickoff window, so they are always
+                # booked as megas; the all-day board code is only for a day whose
+                # picks are in one window
+                if len(megas) > 1 or (megas and len(megas[0][1]) < len([b for b in finalists if _leg(b)[3]])):
                     mega_codes = _book(megas)
-                else:
+                elif megas:
                     board_legs = [l for l in (_leg(b) for b in finalists) if l[3]]
                     board_code, _ = sbk.code_for_legs(sb_index, board_legs)
                 all_flags.append(

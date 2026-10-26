@@ -152,9 +152,10 @@ assert all(rules.values()), rules
 cands = [(0.75, 0.0, "SB:10||Home or Away", 0, 0, Q(1.25)), (0.73, 0.0, "SB:29||Yes", 0, 0, Q(1.72)),
          (0.80, 0.0, "SB:18|total=1.5|Over 1.5", 0, 0, Q(1.22))]
 fam = lambda k: k.split("|")[0]  # noqa: E731
-note = tx.better_market("SB:10||Home or Away", 0.75, cands, g, rules, fam)
+note = tx.better_market("SB:10||Home or Away", 0.70, cands, g, rules, fam)
 assert note and "fits the matchup better" in note, note
 assert tx.better_market("SB:29||Yes", 0.73, [cands[1]], g, rules, fam) is None, "same market never flagged"
+assert tx.better_market("SB:29||Yes", 0.70, [c for c in cands if c[2] != "SB:29||Yes"] + [(0.9, 0, "SB:10||Home or Away", 0, 0, Q(1.9))], g, rules, fam) is None, "only goals markets are flagged"
 print("better-market flag: another family, above the matchup's fair odds: OK")
 
 ex = ts.explain(preds[-1])

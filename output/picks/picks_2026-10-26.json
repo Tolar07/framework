@@ -463,8 +463,8 @@
     "spec": "",
     "outcome": "1-4"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 1.64,
    "stake_pct": 0.25,
    "ev": -0.12025305703152744,
    "missing": {
@@ -517,8 +517,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 1.59,
    "stake_pct": 0.25,
    "ev": -0.017959571988947376,
    "missing": {
@@ -580,7 +580,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   }
  ],
  "accas": [

@@ -172,7 +172,7 @@
     "type": "injury"
    },
    {
-    "name": "Advan Kadu\u0161i\u0107",
+    "name": "Daouda Doumbia",
     "side": "home",
     "type": "injury"
    },
@@ -192,14 +192,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T16:00Z",
+  "at": "2026-10-26T16:20Z",
   "away_missing_share": 0.13620806315031064,
   "away_unavailable": 3,
   "fotmob_id": 5765946,
-  "home_missing_share": 0.2347427241643443,
-  "home_unavailable": 4,
+  "home_missing_share": 0.2175382984543838,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-26T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Santa Clara v Benfica": {
   "absent": [

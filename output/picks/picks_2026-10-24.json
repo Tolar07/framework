@@ -159,8 +159,8 @@
    "sharp_ev": -0.0263,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-3",
    "drift_price": 1.27,
    "drift_pct": -0.8
   },
@@ -312,8 +312,8 @@
    "sharp_ev": -0.0731,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "4-4",
    "drift_price": 1.26,
    "drift_pct": -0.8
   },
@@ -2227,8 +2227,8 @@
    "sharp_ev": -0.0383,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -2920,8 +2920,8 @@
    "sharp_ev": -0.0599,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.25,
    "drift_pct": -0.8
   },
@@ -6431,7 +6431,7 @@
     "Korona Kielce v GKS Katowice",
     "Westerlo v Beveren"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca J",
@@ -7610,11 +7610,11 @@
      "pick": "Under 3 goals",
      "price": 1.55,
      "chance": 0.521,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-1"
     }
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Value 20",
@@ -7887,7 +7887,7 @@
      0.7422
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Antwerp v Charleroi",
@@ -8067,7 +8067,7 @@
      0.7523
     ]
    ],
-   "ft": null
+   "ft": "4-4"
   },
   {
    "fixture": "RAAL La Louviere v Waregem",
@@ -10439,7 +10439,7 @@
      0.5972
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Aston Villa v Man City",
@@ -11319,7 +11319,7 @@
      0.6043
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Sudtirol v Sampdoria",
@@ -15701,7 +15701,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Westerlo or Beveren",
      "price": 1.27,
-     "result": null
+     "result": "lost",
+     "ft": "4-4"
     },
     {
      "fixture": "NK Varazdin v NK Slaven Belupo",
@@ -15788,7 +15789,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Den Haag or Heerenveen",
      "price": 1.28,
-     "result": null
+     "result": "won",
+     "ft": "2-3"
     },
     {
      "fixture": "FC Koln v Schalke",

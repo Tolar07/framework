@@ -830,6 +830,51 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_210c3d4911",
+   "parent_id": "ln_b34f09d959",
+   "generation": 12,
+   "bankroll": 2.12,
+   "stake": 1.0,
+   "wins": 3,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-13",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-25"
+  },
+  {
+   "lineage_id": "ln_29aed566b8",
+   "parent_id": "ln_46d12c4eb0",
+   "generation": 13,
+   "bankroll": 2.18,
+   "stake": 1.0,
+   "wins": 4,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-16",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-25"
+  },
+  {
+   "lineage_id": "ln_deddbc9ed4",
+   "parent_id": "ln_46d12c4eb0",
+   "generation": 13,
+   "bankroll": 2.14,
+   "stake": 1.0,
+   "wins": 4,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-16",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-25"
+  },
+  {
    "lineage_id": "ln_6d69aace96",
    "parent_id": "ln_210c3d4911",
    "generation": 13,
@@ -856,21 +901,6 @@
    "last_result": null,
    "to_breed": false,
    "holding": null
-  },
-  {
-   "lineage_id": "ln_210c3d4911",
-   "parent_id": "ln_b34f09d959",
-   "generation": 12,
-   "bankroll": 2.12,
-   "stake": 1.0,
-   "wins": 3,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-13",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-25"
   },
   {
    "lineage_id": "ln_6922f1fb3e",
@@ -929,21 +959,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_29aed566b8",
-   "parent_id": "ln_46d12c4eb0",
-   "generation": 13,
-   "bankroll": 2.18,
-   "stake": 1.0,
-   "wins": 4,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-16",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-25"
-  },
-  {
    "lineage_id": "ln_c5f112318c",
    "parent_id": "ln_deddbc9ed4",
    "generation": 14,
@@ -972,21 +987,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_deddbc9ed4",
-   "parent_id": "ln_46d12c4eb0",
-   "generation": 13,
-   "bankroll": 2.14,
-   "stake": 1.0,
-   "wins": 4,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-16",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-25"
-  },
-  {
    "lineage_id": "ln_2d5cf04b4d",
    "parent_id": "ln_5ba438d1ad",
    "generation": 13,
@@ -1012,12 +1012,7 @@
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-26",
-    "fixture": "Galatasaray Istanbul v Fenerbahce Istanbul",
-    "pick": "Galatasaray Istanbul or Fenerbahce Istanbul",
-    "price": 1.27
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_fc4308af0f",
@@ -1109,6 +1104,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-25",
+ "last_bred_date": "2026-10-26",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

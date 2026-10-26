@@ -78,6 +78,17 @@
   "kickoff_utc": "2026-10-26T16:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Boulogne v Reims": {
+  "absent": [],
+  "at": "2026-10-26T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803290,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-26T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Caykur Rizespor v Trabzonspor": {
   "absent": [
    {
@@ -145,6 +156,17 @@
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-26T18:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Montpellier v Red Star": {
+  "absent": [],
+  "at": "2026-10-26T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803294,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-26T19:45:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "NK Istra 1961 v HNK Hajduk Split": {
@@ -225,5 +247,53 @@
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-26T18:45:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Sevilla v Osasuna": {
+  "absent": [
+   {
+    "name": "Marc\u00e3o",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Sierra",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aimar Oroz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jorge Herrando",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Romain Del Castillo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T14:00Z",
+  "away_missing_share": 0.31133012931216014,
+  "away_unavailable": 3,
+  "fotmob_id": 5868109,
+  "home_missing_share": 0.023707749741032576,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-26T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Walsall v Salford": {
+  "absent": [],
+  "at": "2026-10-26T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5838013,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-26T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
  }
 }

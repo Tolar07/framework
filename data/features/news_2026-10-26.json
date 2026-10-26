@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T13:40Z",
+  "at": "2026-10-26T18:00Z",
   "away_missing_share": 0.21774678646556558,
   "away_unavailable": 2,
   "fotmob_id": 5868505,
@@ -229,14 +229,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T17:40Z",
-  "away_missing_share": 0.19168441415407733,
+  "at": "2026-10-26T18:00Z",
+  "away_missing_share": 0.23179163540716755,
   "away_unavailable": 4,
   "fotmob_id": 5887660,
-  "home_missing_share": 0.26189352463658677,
+  "home_missing_share": 0.26663455005235615,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-26T18:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sevilla v Osasuna": {
   "absent": [

@@ -75,7 +75,7 @@
  },
  "Boulogne v Reims": {
   "absent": [],
-  "at": "2026-10-26T18:40Z",
+  "at": "2026-10-26T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803290,
@@ -150,7 +150,7 @@
  },
  "Montpellier v Red Star": {
   "absent": [],
-  "at": "2026-10-26T18:40Z",
+  "at": "2026-10-26T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803294,
@@ -266,18 +266,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T18:40Z",
-  "away_missing_share": 0.31133012931216014,
+  "at": "2026-10-26T19:00Z",
+  "away_missing_share": 0.31387310346447533,
   "away_unavailable": 3,
   "fotmob_id": 5868109,
-  "home_missing_share": 0.023707749741032576,
+  "home_missing_share": 0.02380964259489088,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-26T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Walsall v Salford": {
   "absent": [],
-  "at": "2026-10-26T18:40Z",
+  "at": "2026-10-26T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838013,

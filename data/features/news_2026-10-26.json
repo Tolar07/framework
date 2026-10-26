@@ -1,4 +1,41 @@
 {
+ "Andorra v Burgos": {
+  "absent": [
+   {
+    "name": "Pau L\u00f3pez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gael Alonso",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alex Calvo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "David Gonz\u00e1lez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "K\u00e9vin Appin",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T13:40Z",
+  "away_missing_share": 0.21774678646556558,
+  "away_unavailable": 2,
+  "fotmob_id": 5868505,
+  "home_missing_share": 0.39378561056323863,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-26T19:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Besiktas Istanbul v Istanbul BB": {
   "absent": [
    {

@@ -56,6 +56,8 @@ board = [
     BoardFixture("Lech v Legia (Ekstraklasa)", None, _nd(),
                  on_deploy_shortlist=False, rejection_reason="Legia unrated"),
 ]
+for _b in board:                     # one kickoff window (engine/cohorts.py, 2026-10-26)
+    _b.kickoff_utc = "2026-10-27T19:45:00Z"
 full = render_canonical_board("Mode A", "Phase 2", ["Eredivisie", "Ekstraklasa"],
                               11, 1.66, ["Ekstraklasa: 1 unrated"], board)
 assert "PSV" in full and "Feyenoord" in full, "rated fixtures must render"
@@ -71,6 +73,8 @@ one = [BoardFixture("A v B (L)", _p(0.7, 0.2, 0.1), _ss(), on_deploy_shortlist=T
 assert _build_accas(one) == [], "fewer than two legs -> no acca"
 two = one + [BoardFixture("C v D (L)", _p(0.6, 0.25, 0.15), _ss(),
                           on_deploy_shortlist=True)]
+for _b in two:                       # one kickoff window (engine/cohorts.py, 2026-10-26)
+    _b.kickoff_utc = "2026-10-27T15:00:00Z"
 accas = _build_accas(two)
 assert len(accas) == 1 and accas[0][0] == "Acca A"
 # combined prob is the product of the leg probabilities (independence, stated)

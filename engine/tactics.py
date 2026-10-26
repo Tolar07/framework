@@ -57,6 +57,8 @@ HALF_LIFE_DAYS = 60.0                   # recent matches count more (a season is
 PRIOR_MATCHES = 4.0                     # shrink toward the league until a team has data
 MIN_MATCHES = 3                         # fewer -> no profile (PENDING)
 CAP = 0.05                              # largest move of a board chance, +/- 5 pts
+# BTTS, match total goals, home / away team goals (SportyBet market ids)
+GOALS_MARKETS = ("SB:29|", "SB:18|", "SB:19|", "SB:20|")
 SITUATIONS = ("open", "counter", "set_piece", "penalty", "header")
 
 
@@ -426,18 +428,20 @@ def adjustment(board_p: float, tactical_p: Optional[float], weight: float, cap: 
 
 def better_market(pick_key: str, pick_win: float, cands: list, tac_grid: np.ndarray, rules: dict,
                   family) -> Optional[str]:
-    """When an outcome of ANOTHER market family fits the matchup better than the
-    pick: matchup chance >= 55%, its price above the matchup's fair odds
-    (value >= +3%), and the matchup rates it at least as likely to land as the
-    board rates the pick minus 10 pts. Returns the note, or None."""
+    """When a GOALS outcome (BTTS, match goals, team goals — the markets a
+    tactical clash speaks to) of another family fits the matchup better than
+    the pick: matchup chance >= 55%, priced >= 5% above the matchup's fair
+    odds, and rated by the matchup within 5 pts of the board's pick. Returns
+    the note, or None."""
     from engine import full_markets as fmk
     best = None
     for c in cands:
         k, price = c[2], c[5].price
-        if k == pick_key or family(k) == family(pick_key) or k not in rules:
+        if (k == pick_key or family(k) == family(pick_key) or k not in rules
+                or not k.startswith(GOALS_MARKETS)):
             continue
         p = fmk.evaluate(tac_grid, rules[k])[0]
-        if p < 0.55 or p * price < 1.03 or p < pick_win - 0.10:
+        if p < 0.55 or p * price < 1.05 or p < pick_win - 0.05:
             continue
         if best is None or p * price > best[1] * best[2]:
             best = (k, p, price)

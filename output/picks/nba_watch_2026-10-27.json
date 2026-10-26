@@ -148,6 +148,43 @@
     "back": 1.92,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=122.5",
+   "outcome": "Under 122.5",
+   "outcome_id": "13",
+   "price": 1.93,
+   "chance": 0.5591,
+   "fair_price": 1.789,
+   "ev": 0.079,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-10-26T22:30:00.000119+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719408",
+   "home_key": "MIA",
+   "away_key": "DAL",
+   "espn_id": "401909871",
+   "espn_date": "2026-10-26",
+   "tip": "2026-10-26T23:30:00+00:00",
+   "home": "Miami Heat",
+   "away": "Dallas Mavericks",
+   "pick": "1st half Under 122.5 points",
+   "sharp": {
+    "ml_home": 1.3509,
+    "ml_away": 3.3,
+    "spread": -7.5,
+    "total": 240.5
+   },
+   "code": "JRUNWU",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 2.08,
+    "listed": true
+   }
   }
  ]
 }

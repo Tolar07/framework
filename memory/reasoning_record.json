@@ -42,19 +42,19 @@
   "ai": 0.2027
  },
  "nba": {
-  "graded": 21,
+  "graded": 28,
   "by_verdict": {
    "back": {
-    "n": 16,
-    "won": 11,
-    "flat_return": 0.3294,
-    "close_value": 0.18
+    "n": 18,
+    "won": 12,
+    "flat_return": 0.29,
+    "close_value": 0.1889
    },
    "lower": {
-    "n": 3,
-    "won": 3,
-    "flat_return": 0.8733,
-    "close_value": 0.1388
+    "n": 8,
+    "won": 5,
+    "flat_return": 0.1775,
+    "close_value": 0.1255
    },
    "veto": {
     "n": 2,

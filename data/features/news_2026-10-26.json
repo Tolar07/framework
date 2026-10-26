@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T18:00Z",
+  "at": "2026-10-26T18:20Z",
   "away_missing_share": 0.21774678646556558,
   "away_unavailable": 2,
   "fotmob_id": 5868505,
@@ -75,7 +75,7 @@
  },
  "Boulogne v Reims": {
   "absent": [],
-  "at": "2026-10-26T14:00Z",
+  "at": "2026-10-26T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803290,
@@ -150,7 +150,7 @@
  },
  "Montpellier v Red Star": {
   "absent": [],
-  "at": "2026-10-26T14:00Z",
+  "at": "2026-10-26T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803294,

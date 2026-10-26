@@ -1,0 +1,86 @@
+{
+ "Besiktas Istanbul v Istanbul BB": {
+  "absent": [
+   {
+    "name": "Orkun K\u00f6kc\u00fc",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fabio Miretti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "\u00dcmit Akda\u011f",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jerome Opoku",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Christopher Op\u00e9ri",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Edin Vi\u0161\u0107a",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T10:00Z",
+  "away_missing_share": 0.18440947954227818,
+  "away_unavailable": 3,
+  "fotmob_id": 5904783,
+  "home_missing_share": 0.3075017133278406,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-26T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Caykur Rizespor v Trabzonspor": {
+  "absent": [
+   {
+    "name": "Ahmed Kutucu",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Attila Mocsi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Can Bozdo\u011fan",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Arseniy Batagov",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Paul Onuachu",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mustafa Eskihella\u00e7",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T10:00Z",
+  "away_missing_share": 0.20437543838854583,
+  "away_unavailable": 5,
+  "fotmob_id": 5904779,
+  "home_missing_share": 0.19213450543600466,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-26T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

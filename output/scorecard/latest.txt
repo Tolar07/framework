@@ -1,0 +1,32 @@
+📊 CLV SCORECARD · 28 days to 2026-10-26
+CLV = price taken vs closing price; ± is the 95% margin; ▲ clearly positive, ▼ clearly negative, ○ not yet distinguishable from zero
+BOARD: singles by market family (CLV headline)
+  ALL: CLV +0.1% ±0.2 ○ n=855
+  Result & total: CLV +2.6% ±6.7 ○ n=2 (thin) · hit 0% (0/2) · ROI -100.0%
+  Away goals: CLV +0.3% ±1.3 ○ n=25 (thin) · hit 75% (21/28) · ROI -7.8%
+  Multigoals: CLV +0.3% ±0.7 ○ n=12 (thin) · hit 91% (10/11) · ROI +11.6%
+  Away no bet: CLV +0.3% ±0.5 ○ n=3 (thin) · hit 0% (0/3) · ROI -100.0%
+  Home goals: CLV +0.2% ±0.6 ○ n=57 · hit 82% (45/55) · ROI +1.6%
+  Double chance: CLV +0.2% ±0.2 ▲ n=384 · hit 76% (300/393) · ROI -3.5%
+  1X2: CLV +0.1% ±1.9 ○ n=5 (thin) · hit 100% (4/4) · ROI +27.5%
+  Over/Under: CLV +0.1% ±0.4 ○ n=223 · hit 77% (174/227) · ROI -4.3%
+  Asian handicap: CLV +0.1% ±0.6 ○ n=75 · hit 81% (75/93) · ROI -0.8%
+  Home win to nil: CLV -0.1% ±0.7 ○ n=23 (thin) · hit 62% (13/21) · ROI -24.2%
+BOARD: slips by strategy (a slip has no closing line)
+  50%+ accas: CLV n/a · hit 45% (32/71) · ROI -12.4%
+  Accas: CLV n/a · hit 30% (38/126) · ROI -27.5%
+  Alt accas: CLV n/a · hit 42% (14/33) · ROI -19.5%
+  Combined: CLV n/a · hit 15% (6/41) · ROI -85.4%
+  Megas: CLV n/a · hit 0% (0/33) · ROI -100.0%
+  CLV accas: CLV n/a · hit 14% (1/7) · ROI -69.4%
+SPORTYBET: real bets by section (stake-weighted ROI)
+  accas: CLV n/a · hit 18% (2/11) · ROI -38.5%
+  alts: CLV n/a · hit 50% (2/4) · ROI -36.5%
+  combined: CLV n/a · hit 0% (0/7) · ROI -100.0%
+  megas: CLV n/a · hit 0% (0/2) · ROI -100.0%
+  safe3: CLV n/a · hit 0% (0/2) · ROI -100.0%
+MATCHBOOK: live agent, all time (no £ shown)
+  ALL: CLV -0.1% ±0.5 ○ n=250 · hit 65% (162/250) · ROI -2.2%
+  framework pick: CLV -0.6% ±0.7 ○ n=103 · hit 66% (68/103) · ROI -5.3%
+  framework rated market: CLV +1.6% ±5.9 ○ n=10 (thin) · hit 60% (6/10) · ROI -5.2%
+  oracle (blind LLM): CLV +0.2% ±0.6 ○ n=137 · hit 64% (88/137) · ROI +2.5%

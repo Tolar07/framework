@@ -42,7 +42,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 2.4
   },
   {
    "fixture": "NK Istra 1961 v HNK Hajduk Split",

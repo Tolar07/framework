@@ -184,7 +184,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -5.5
   },
   {
    "fixture": "Sevilla v Osasuna",

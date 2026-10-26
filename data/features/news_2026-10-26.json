@@ -82,5 +82,47 @@
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-26T16:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "NK Istra 1961 v HNK Hajduk Split": {
+  "absent": [
+   {
+    "name": "Samuli Miettinen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antonio Mauri\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Advan Kadu\u0161i\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luka Hodak",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ivica Ivu\u0161i\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Roko Brajkovi\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-26T11:00Z",
+  "away_missing_share": 0.13620806315031064,
+  "away_unavailable": 3,
+  "fotmob_id": 5765946,
+  "home_missing_share": 0.2347427241643443,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-26T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
  }
 }

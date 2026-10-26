@@ -145,20 +145,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T11:23Z",
+    "away": 0.2425,
+    "btts": 0.5679,
+    "draw": 0.2652,
+    "home": 0.4923,
+    "over25": 0.53
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T11:23Z",
+    "away": 0.2441,
+    "btts": 0.5541,
+    "draw": 0.2573,
+    "home": 0.4985,
+    "over25": 0.5305
    }
   },
   "date": "2026-10-18",
@@ -2281,20 +2281,20 @@
     "over25": 0.7201
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T11:45Z",
+    "away": 0.4452,
+    "btts": 0.7083,
+    "draw": 0.2411,
+    "home": 0.3138,
+    "over25": 0.7113
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T11:45Z",
+    "away": 0.4475,
+    "btts": 0.6935,
+    "draw": 0.2384,
+    "home": 0.3141,
+    "over25": 0.7002
    }
   },
   "date": "2026-10-18",
@@ -3010,20 +3010,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T15:58Z",
+    "away": 0.0934,
+    "btts": 0.4481,
+    "draw": 0.1751,
+    "home": 0.7316,
+    "over25": 0.5514
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-18T15:58Z",
+    "away": 0.1095,
+    "btts": 0.4372,
+    "draw": 0.1797,
+    "home": 0.7108,
+    "over25": 0.5409
    }
   },
   "date": "2026-10-18",

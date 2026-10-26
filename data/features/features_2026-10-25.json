@@ -11,25 +11,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3143,
+    "btts": 0.6591,
+    "draw": 0.2475,
+    "home": 0.4381,
+    "over25": 0.6467
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3163,
+    "btts": 0.6532,
+    "draw": 0.2483,
+    "home": 0.4354,
+    "over25": 0.637
    }
   },
   "date": "2026-10-25",
   "fixture": "AZ Alkmaar v Twente",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "AZ Alkmaar",
   "league": "Eredivisie",
   "model_p": [
@@ -42,12 +42,43 @@
    0.592
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kees Smit",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Stije Resink",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jizz Hornkamp",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Stav Lemkin",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Filip Thorvaldsen",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Max Bruns",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T18:20Z",
+   "away_missing": 0.14768619991030343,
+   "edge": -0.2442,
+   "home_missing": 0.3919357673928046,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -78,25 +109,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3352,
+    "btts": 0.6355,
+    "draw": 0.2646,
+    "home": 0.4001,
+    "over25": 0.6039
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3392,
+    "btts": 0.625,
+    "draw": 0.2567,
+    "home": 0.4041,
+    "over25": 0.598
    }
   },
   "date": "2026-10-25",
   "fixture": "Aarhus v Viborg",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Aarhus",
   "league": "Danish Superliga",
   "model_p": [
@@ -145,25 +176,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.306,
+    "btts": 0.5902,
+    "draw": 0.2762,
+    "home": 0.4178,
+    "over25": 0.5387
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3163,
+    "btts": 0.5875,
+    "draw": 0.2711,
+    "home": 0.4126,
+    "over25": 0.5483
    }
   },
   "date": "2026-10-25",
   "fixture": "Albacete v Eldense",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Albacete",
   "league": "La Liga 2",
   "model_p": [
@@ -176,12 +207,43 @@
    0.537
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Capi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pepe S\u00e1nchez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Samuel Obeng",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pau Cabanes",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "David Ruiz",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Roberto L\u00f3pez",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.1998208473608834,
+   "edge": -0.0507,
+   "home_missing": 0.2505126360590848,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -212,25 +274,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3937,
+    "btts": 0.5427,
+    "draw": 0.2962,
+    "home": 0.3101,
+    "over25": 0.4747
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3954,
+    "btts": 0.5263,
+    "draw": 0.2893,
+    "home": 0.3153,
+    "over25": 0.4805
    }
   },
   "date": "2026-10-25",
   "fixture": "Angers v Lorient",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Angers",
   "league": "Ligue 1",
   "model_p": [
@@ -243,12 +305,33 @@
    0.505
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Emmanuel Biumla",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Noah Mbamba",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Panos Katseris",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mohamed Bamba",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.10512128148617503,
+   "edge": 0.0214,
+   "home_missing": 0.08371159217669316,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -279,25 +362,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1641,
+    "btts": 0.5077,
+    "draw": 0.2462,
+    "home": 0.5897,
+    "over25": 0.5051
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1842,
+    "btts": 0.4786,
+    "draw": 0.2456,
+    "home": 0.5702,
+    "over25": 0.4788
    }
   },
   "date": "2026-10-25",
   "fixture": "Aris Thessaloniki v Atromitos Athinon",
-  "ft": "PENDING",
+  "ft": "3-1",
   "home": "Aris Thessaloniki",
   "league": "Greek Super League",
   "model_p": [
@@ -310,12 +393,43 @@
    0.513
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Manu Garc\u00eda",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Loren Mor\u00f3n",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Giannis Gianniotas",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Cristopher N\u00fanez",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Jere Uronen",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Gerasimos Mitoglou",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T17:00Z",
+   "away_missing": 0.14953029631723286,
+   "edge": -0.0355,
+   "home_missing": 0.18501452387031153,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -346,25 +460,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2553,
+    "btts": 0.7083,
+    "draw": 0.2315,
+    "home": 0.5132,
+    "over25": 0.7201
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.266,
+    "btts": 0.6935,
+    "draw": 0.224,
+    "home": 0.5099,
+    "over25": 0.7188
    }
   },
   "date": "2026-10-25",
   "fixture": "Atalanta v Frosinone",
-  "ft": "PENDING",
+  "ft": "4-4",
   "home": "Atalanta",
   "league": "Serie A",
   "model_p": [
@@ -377,12 +491,33 @@
    0.67
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Giorgio Scalvini",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Giacomo Raspadori",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Odilon Kossounou",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Florian Grillitsch",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:20Z",
+   "away_missing": 0.029154237832078843,
+   "edge": -0.2917,
+   "home_missing": 0.32089123507456396,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -413,25 +548,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1381,
+    "btts": 0.4428,
+    "draw": 0.2367,
+    "home": 0.6252,
+    "over25": 0.4637
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1494,
+    "btts": 0.4344,
+    "draw": 0.2301,
+    "home": 0.6204,
+    "over25": 0.4689
    }
   },
   "date": "2026-10-25",
   "fixture": "Ath Bilbao v Getafe",
-  "ft": "PENDING",
+  "ft": "4-0",
   "home": "Ath Bilbao",
   "league": "La Liga",
   "model_p": [
@@ -480,25 +615,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2867,
+    "btts": 0.6072,
+    "draw": 0.2637,
+    "home": 0.4496,
+    "over25": 0.5679
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2881,
+    "btts": 0.5949,
+    "draw": 0.2626,
+    "home": 0.4493,
+    "over25": 0.5725
    }
   },
   "date": "2026-10-25",
   "fixture": "Auxerre v Le Mans FC",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Auxerre",
   "league": "Ligue 1",
   "model_p": [
@@ -511,12 +646,43 @@
    0.643
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "R\u00e9my Lascary",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bryan Okoh",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Marvin Senaya",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yasser Larouci",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Th\u00e9o Eyoum",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Harold Voyer",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.2618405034394937,
+   "edge": 0.1071,
+   "home_missing": 0.15469094954224472,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -547,20 +713,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.2362,
+    "btts": 0.7519,
+    "draw": 0.155,
+    "home": 0.6087,
+    "over25": 0.8129
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.2226,
+    "btts": 0.7362,
+    "draw": 0.1691,
+    "home": 0.6083,
+    "over25": 0.8046
    }
   },
   "date": "2026-10-25",
@@ -578,12 +744,43 @@
    0.693
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jules Kound\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dani Olmo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eric Garc\u00eda",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vin\u00edcius J\u00fanior",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Rodrygo",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ra\u00fal Asencio",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T19:00Z",
+   "away_missing": 0.19640357803867908,
+   "edge": 0.0265,
+   "home_missing": 0.1699185516733619,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -614,25 +811,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2299,
+    "btts": 0.6575,
+    "draw": 0.2149,
+    "home": 0.5553,
+    "over25": 0.6828
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2306,
+    "btts": 0.6436,
+    "draw": 0.2198,
+    "home": 0.5496,
+    "over25": 0.6635
    }
   },
   "date": "2026-10-25",
   "fixture": "Basel v Grasshopper Club Zurich",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Basel",
   "league": "Swiss Super League",
   "model_p": [
@@ -645,12 +842,43 @@
    0.619
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Gabriel Sigua",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Aaron Malouda",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Asane Sow",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Tim Meyer",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Pantaleo Creti",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Abdoulaye Diaby",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.31542084567646195,
+   "edge": 0.1698,
+   "home_missing": 0.14557733310475818,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -681,25 +909,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4332,
+    "btts": 0.6387,
+    "draw": 0.2555,
+    "home": 0.3114,
+    "over25": 0.6087
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4211,
+    "btts": 0.6266,
+    "draw": 0.2632,
+    "home": 0.3158,
+    "over25": 0.5995
    }
   },
   "date": "2026-10-25",
   "fixture": "Braunschweig v Hannover",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Braunschweig",
   "league": "2. Bundesliga",
   "model_p": [
@@ -712,12 +940,23 @@
    0.568
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Frederik J\u00e4kel",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mustapha Bundu",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T11:40Z",
+   "away_missing": 0.06699328579080847,
+   "edge": 0.0351,
+   "home_missing": 0.03185059950224512,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -748,25 +987,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2637,
+    "btts": 0.5514,
+    "draw": 0.2785,
+    "home": 0.4578,
+    "over25": 0.5025
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2706,
+    "btts": 0.5349,
+    "draw": 0.2785,
+    "home": 0.4509,
+    "over25": 0.4921
    }
   },
   "date": "2026-10-25",
   "fixture": "Cadiz v Ceuta",
-  "ft": "PENDING",
+  "ft": "3-1",
   "home": "Cadiz",
   "league": "La Liga 2",
   "model_p": [
@@ -779,12 +1018,33 @@
    0.515
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Gonzalo Petit",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Giorgi Gocholeishvili",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Iuri Tabatadze",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kenneth Obinna Mamah",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.10524952156631827,
+   "edge": -0.3525,
+   "home_missing": 0.4577437689264723,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -815,25 +1075,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1495,
+    "btts": 0.5367,
+    "draw": 0.2099,
+    "home": 0.6406,
+    "over25": 0.5819
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1571,
+    "btts": 0.5216,
+    "draw": 0.2143,
+    "home": 0.6286,
+    "over25": 0.5699
    }
   },
   "date": "2026-10-25",
   "fixture": "Castellon v Sp Gijon",
-  "ft": "PENDING",
+  "ft": "4-0",
   "home": "Castellon",
   "league": "La Liga 2",
   "model_p": [
@@ -846,12 +1106,43 @@
    0.483
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ousmane Nana Camara",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Fabrizio Brignani",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Juanjo Nieto",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Andr\u00e9s Ferrari",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nikita Iosifov",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Konrad de la Fuente",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T16:40Z",
+   "away_missing": 0.21020173530768324,
+   "edge": -0.0634,
+   "home_missing": 0.27359228519207407,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -882,25 +1173,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4142,
+    "btts": 0.5937,
+    "draw": 0.28,
+    "home": 0.3058,
+    "over25": 0.5436
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4155,
+    "btts": 0.5784,
+    "draw": 0.2762,
+    "home": 0.3083,
+    "over25": 0.544
    }
   },
   "date": "2026-10-25",
   "fixture": "Celta v Betis",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Celta",
   "league": "La Liga",
   "model_p": [
@@ -913,12 +1204,43 @@
    0.548
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jones El-Abdellaoui",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Miguel Rom\u00e1n",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "\u00c1lvaro N\u00fa\u00f1ez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Juan Hern\u00e1ndez",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Facundo Bernal",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "J\u00fanior Firpo",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.17150995505463906,
+   "edge": -0.0897,
+   "home_missing": 0.26125349542105825,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -949,25 +1271,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1178,
+    "btts": 0.6205,
+    "draw": 0.1546,
+    "home": 0.7276,
+    "over25": 0.7579
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1317,
+    "btts": 0.625,
+    "draw": 0.1561,
+    "home": 0.7122,
+    "over25": 0.7362
    }
   },
   "date": "2026-10-25",
   "fixture": "Club Brugge v St Truiden",
-  "ft": "PENDING",
+  "ft": "3-2",
   "home": "Club Brugge",
   "league": "Belgian Pro League",
   "model_p": [
@@ -980,12 +1302,18 @@
    0.581
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Joel Ord\u00f3\u00f1ez",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:40Z",
+   "away_missing": 0.0,
+   "edge": -0.2587,
+   "home_missing": 0.25870273147431355,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1016,25 +1344,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4035,
+    "btts": 0.6499,
+    "draw": 0.2612,
+    "home": 0.3353,
+    "over25": 0.6209
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3953,
+    "btts": 0.6341,
+    "draw": 0.2643,
+    "home": 0.3404,
+    "over25": 0.6143
    }
   },
   "date": "2026-10-25",
   "fixture": "Crystal Palace v Newcastle",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Crystal Palace",
   "league": "Premier League",
   "model_p": [
@@ -1047,12 +1375,38 @@
    0.643
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "J\u00f8rgen Strand Larsen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dean Henderson",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Chadi Riad",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Valentino Livramento",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ewen Jaouen",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:00Z",
+   "away_missing": 0.18318258682410865,
+   "edge": -0.1036,
+   "home_missing": 0.2867964357092954,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1083,25 +1437,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2152,
+    "btts": 0.5165,
+    "draw": 0.2639,
+    "home": 0.5209,
+    "over25": 0.4874
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2202,
+    "btts": 0.5092,
+    "draw": 0.2576,
+    "home": 0.5222,
+    "over25": 0.4883
    }
   },
   "date": "2026-10-25",
   "fixture": "Estoril v Moreirense",
-  "ft": "PENDING",
+  "ft": "1-3",
   "home": "Estoril",
   "league": "Primeira Liga",
   "model_p": [
@@ -1114,12 +1468,23 @@
    0.524
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Fabr\u00edcio Garcia",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Marac\u00e1s",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T14:40Z",
+   "away_missing": 0.04012457120126844,
+   "edge": 0.0062,
+   "home_missing": 0.033878824714608055,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1150,25 +1515,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1634,
+    "btts": 0.5937,
+    "draw": 0.2001,
+    "home": 0.6366,
+    "over25": 0.6498
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1688,
+    "btts": 0.5805,
+    "draw": 0.2011,
+    "home": 0.6301,
+    "over25": 0.6373
    }
   },
   "date": "2026-10-25",
   "fixture": "FC Sion v Lausanne-Sport",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "FC Sion",
   "league": "Swiss Super League",
   "model_p": [
@@ -1181,12 +1546,33 @@
    0.488
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Baltazar",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Tyler Fredricson",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Koba Koindredi",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Beyatt Lekoueiry",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.31144296340603717,
+   "edge": 0.21,
+   "home_missing": 0.10143219870890026,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1217,25 +1603,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.5146,
+    "btts": 0.6748,
+    "draw": 0.2234,
+    "home": 0.2621,
+    "over25": 0.6911
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.5194,
+    "btts": 0.6699,
+    "draw": 0.2251,
+    "home": 0.2555,
+    "over25": 0.6865
    }
   },
   "date": "2026-10-25",
   "fixture": "FC Thun v Lugano",
-  "ft": "PENDING",
+  "ft": "2-3",
   "home": "FC Thun",
   "league": "Swiss Super League",
   "model_p": [
@@ -1248,12 +1634,43 @@
    0.616
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jan Bamert",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Marc Gutbub",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Fabio Saiz",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Claudio Cassano",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Renato Steffen",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Carbone",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:00Z",
+   "away_missing": 0.07545110955386426,
+   "edge": -0.1569,
+   "home_missing": 0.23239465623728148,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1302,7 +1719,7 @@
   },
   "date": "2026-10-25",
   "fixture": "For Sittard v Excelsior",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "For Sittard",
   "league": "Eredivisie",
   "model_p": [
@@ -1351,25 +1768,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6543,
+    "btts": 0.6696,
+    "draw": 0.1864,
+    "home": 0.1593,
+    "over25": 0.7353
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6413,
+    "btts": 0.6532,
+    "draw": 0.1838,
+    "home": 0.1749,
+    "over25": 0.7261
    }
   },
   "date": "2026-10-25",
   "fixture": "Freiburg v Bayern Munich",
-  "ft": "PENDING",
+  "ft": "1-3",
   "home": "Freiburg",
   "league": "Bundesliga",
   "model_p": [
@@ -1382,12 +1799,38 @@
    0.682
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Yannik Engelhardt",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Florent Muslija",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jamal Musiala",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Aleksandar Pavlovi\u0107",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luis D\u00edaz",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.3229024332235908,
+   "edge": 0.2478,
+   "home_missing": 0.07512359957154326,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1418,25 +1861,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3461,
+    "btts": 0.5778,
+    "draw": 0.2789,
+    "home": 0.375,
+    "over25": 0.5226
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3398,
+    "btts": 0.5759,
+    "draw": 0.2718,
+    "home": 0.3883,
+    "over25": 0.5381
    }
   },
   "date": "2026-10-25",
   "fixture": "GAIS v IFK Goteborg",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "GAIS",
   "league": "Allsvenskan",
   "model_p": [
@@ -1449,12 +1892,43 @@
    0.483
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kevin Holm\u00e9n",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "R\u00f3bert Thorkelsson",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Blessing Asuman",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "August Erlingmark",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Arbnor Mu\u00e7olli",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ramon-Pascal Lundqvist",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:40Z",
+   "away_missing": 0.27531076613354444,
+   "edge": -0.0736,
+   "home_missing": 0.34894808319409437,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1516,12 +1990,38 @@
    0.534
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ken Nkuba",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Adri\u00e1n Palacios",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kenan Haroun",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Josu\u00e9 Homawoo",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mohamed El Hankouri",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:00Z",
+   "away_missing": 0.055441538307260396,
+   "edge": -0.0012,
+   "home_missing": 0.056602392032141874,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1552,25 +2052,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2645,
+    "btts": 0.5464,
+    "draw": 0.3005,
+    "home": 0.435,
+    "over25": 0.4787
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.282,
+    "btts": 0.5339,
+    "draw": 0.2887,
+    "home": 0.4293,
+    "over25": 0.4857
    }
   },
   "date": "2026-10-25",
   "fixture": "Genoa v Venezia FC",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Genoa",
   "league": "Serie A",
   "model_p": [
@@ -1583,12 +2083,43 @@
    0.619
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Lorenzo Venturino",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Djibril Sow",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Elias Havel",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Andrea Adorante",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Thierry Correia",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Marin \u0160verko",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:20Z",
+   "away_missing": 0.09644219502567723,
+   "edge": -0.078,
+   "home_missing": 0.1744422462637253,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1619,25 +2150,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3095,
+    "btts": 0.5423,
+    "draw": 0.2913,
+    "home": 0.3993,
+    "over25": 0.471
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.3279,
+    "btts": 0.5227,
+    "draw": 0.2894,
+    "home": 0.3827,
+    "over25": 0.4648
    }
   },
   "date": "2026-10-25",
   "fixture": "Gent v Anderlecht",
-  "ft": "PENDING",
+  "ft": "4-0",
   "home": "Gent",
   "league": "Belgian Pro League",
   "model_p": [
@@ -1650,12 +2181,38 @@
    0.534
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Josu\u00e9 Vergara",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mouhamed Ngom",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ilay Camara",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Lucas Hey",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Killian Sardella",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T17:00Z",
+   "away_missing": 0.1906163146124568,
+   "edge": 0.1168,
+   "home_missing": 0.07386425299911123,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1686,25 +2243,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.291,
+    "btts": 0.6005,
+    "draw": 0.2711,
+    "home": 0.4379,
+    "over25": 0.5608
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3043,
+    "btts": 0.5882,
+    "draw": 0.2681,
+    "home": 0.4276,
+    "over25": 0.5527
    }
   },
   "date": "2026-10-25",
   "fixture": "Goztepe Izmir v Corum FK",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Goztepe Izmir",
   "league": "Turkish Super Lig",
   "model_p": [
@@ -1717,12 +2274,38 @@
    0.693
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Furkan Bay\u0131r",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ibrahim Sabra",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Allan God\u00f3i",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Serdar Saat\u00e7i",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Feyttullah G\u00fcrl\u00fck",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.07563211337537351,
+   "edge": 0.0109,
+   "home_missing": 0.0646834110665481,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1753,25 +2336,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3087,
+    "btts": 0.5736,
+    "draw": 0.2864,
+    "home": 0.4049,
+    "over25": 0.5226
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3068,
+    "btts": 0.56,
+    "draw": 0.2797,
+    "home": 0.4135,
+    "over25": 0.5159
    }
   },
   "date": "2026-10-25",
   "fixture": "Hellas Verona v SC Pisa",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Hellas Verona",
   "league": "Serie B",
   "model_p": [
@@ -1784,12 +2367,33 @@
    0.715
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Suat Serdar",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Domagoj Bradari\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Seid Kora\u010d",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mateus Lusuardi",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.030452744264112513,
+   "edge": -0.233,
+   "home_missing": 0.26347430951598466,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1820,25 +2424,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T11:46Z",
+    "away": 0.5928,
+    "btts": 0.6291,
+    "draw": 0.2119,
+    "home": 0.1953,
+    "over25": 0.6637
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T11:46Z",
+    "away": 0.5904,
+    "btts": 0.6107,
+    "draw": 0.2115,
+    "home": 0.198,
+    "over25": 0.6475
    }
   },
   "date": "2026-10-25",
   "fixture": "Hibernian v Celtic",
-  "ft": "PENDING",
+  "ft": "1-2",
   "home": "Hibernian",
   "league": "Scottish Premiership",
   "model_p": [
@@ -1851,12 +2455,33 @@
    0.555
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Nathan Lowe",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Rocky Bushiri",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Callum Wright",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yang Hyun-Jun",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T11:20Z",
+   "away_missing": 0.0678636977211112,
+   "edge": -0.1441,
+   "home_missing": 0.21191493714554166,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1887,25 +2512,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4634,
+    "btts": 0.7285,
+    "draw": 0.2361,
+    "home": 0.3005,
+    "over25": 0.7418
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.4695,
+    "btts": 0.7203,
+    "draw": 0.2304,
+    "home": 0.3001,
+    "over25": 0.74
    }
   },
   "date": "2026-10-25",
   "fixture": "Hoffenheim v Leverkusen",
-  "ft": "PENDING",
+  "ft": "3-0",
   "home": "Hoffenheim",
   "league": "Bundesliga",
   "model_p": [
@@ -1918,12 +2543,43 @@
    0.705
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Albian Hajdari",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Patrick Wimmer",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nathan De Cat",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Christian Kofane",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Eliesse Ben Seghir",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Gu\u00e9la Dou\u00e9",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:00Z",
+   "away_missing": 0.29638673113760927,
+   "edge": 0.0358,
+   "home_missing": 0.2605506968992685,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1954,25 +2610,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3206,
+    "btts": 0.6323,
+    "draw": 0.2582,
+    "home": 0.4212,
+    "over25": 0.6077
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3323,
+    "btts": 0.6266,
+    "draw": 0.256,
+    "home": 0.4118,
+    "over25": 0.5995
    }
   },
   "date": "2026-10-25",
   "fixture": "Holstein Kiel v Dresden",
-  "ft": "PENDING",
+  "ft": "3-0",
   "home": "Holstein Kiel",
   "league": "2. Bundesliga",
   "model_p": [
@@ -1985,12 +2641,43 @@
    0.556
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Frederik Roslyng",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lasse Rosenboom",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Hamza Muqaj",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kenneth Schmidt",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Thomas Leon Keller",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Lars B\u00fcnning",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T11:40Z",
+   "away_missing": 0.12429268469903693,
+   "edge": -0.0866,
+   "home_missing": 0.2108576505052276,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2021,25 +2708,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.341,
+    "btts": 0.5931,
+    "draw": 0.2786,
+    "home": 0.3804,
+    "over25": 0.55
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3396,
+    "btts": 0.5859,
+    "draw": 0.2642,
+    "home": 0.3962,
+    "over25": 0.5512
    }
   },
   "date": "2026-10-25",
   "fixture": "Horsens v Sonderjyske",
-  "ft": "PENDING",
+  "ft": "5-1",
   "home": "Horsens",
   "league": "Danish Superliga",
   "model_p": [
@@ -2052,12 +2739,23 @@
    0.682
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Christian Vestergaard",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ole Kolskogen",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T14:20Z",
+   "away_missing": 0.0,
+   "edge": -0.1702,
+   "home_missing": 0.17019621488977135,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2088,25 +2786,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.5801,
+    "btts": 0.5658,
+    "draw": 0.2362,
+    "home": 0.1837,
+    "over25": 0.5784
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.5739,
+    "btts": 0.5556,
+    "draw": 0.2298,
+    "home": 0.1963,
+    "over25": 0.5808
    }
   },
   "date": "2026-10-25",
   "fixture": "Hull City v Brentford",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Hull City",
   "league": "Premier League",
   "model_p": [
@@ -2119,12 +2817,43 @@
    0.541
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ilyas Ansah",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Charlie Hughes",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nobel Mendy",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yehor Yarmoliuk",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Antoni Milambo",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Vitaly Janelt",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T13:00Z",
+   "away_missing": 0.18669255755570144,
+   "edge": -0.2001,
+   "home_missing": 0.3867445802639605,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2155,25 +2884,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.359,
+    "btts": 0.6321,
+    "draw": 0.2477,
+    "home": 0.3932,
+    "over25": 0.6143
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3529,
+    "btts": 0.6265,
+    "draw": 0.2527,
+    "home": 0.3945,
+    "over25": 0.6
    }
   },
   "date": "2026-10-25",
   "fixture": "IK Start v Sandefjord Fotball",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "IK Start",
   "league": "Eliteserien",
   "model_p": [
@@ -2186,12 +2915,43 @@
    0.553
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jens Huseb\u00f8",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Erlend Segberg",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Filip Manojlovi\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Filip Loftesnes-Bjune",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nikolaj M\u00f6ller",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Devon Koswal",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:20Z",
+   "away_missing": 0.2740253427498265,
+   "edge": 0.1395,
+   "home_missing": 0.13449844707600261,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2222,25 +2982,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T10:10Z",
+    "away": 0.1153,
+    "btts": 0.5956,
+    "draw": 0.171,
+    "home": 0.7136,
+    "over25": 0.6944
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T10:10Z",
+    "away": 0.1343,
+    "btts": 0.5852,
+    "draw": 0.1702,
+    "home": 0.6954,
+    "over25": 0.6889
    }
   },
   "date": "2026-10-25",
   "fixture": "Inter v Fiorentina",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Inter",
   "league": "Serie A",
   "model_p": [
@@ -2253,12 +3013,43 @@
    0.576
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Lautaro Mart\u00ednez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Curtis Jones",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Luis Henrique",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Arthur Atta",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Fabiano Parisi",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luca Ranieri",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T10:40Z",
+   "away_missing": 0.19243354810654992,
+   "edge": -0.1442,
+   "home_missing": 0.336645335250398,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2289,25 +3080,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2475,
+    "btts": 0.5985,
+    "draw": 0.2475,
+    "home": 0.5051,
+    "over25": 0.5728
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2521,
+    "btts": 0.5875,
+    "draw": 0.2555,
+    "home": 0.4924,
+    "over25": 0.5699
    }
   },
   "date": "2026-10-25",
   "fixture": "Jagiellonia v Wisla Plock",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Jagiellonia",
   "league": "Ekstraklasa",
   "model_p": [
@@ -2320,12 +3111,28 @@
    0.487
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Norbert Wojtuszek",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Adam Radwa\u0144ski",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Dani Pacheco",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:20Z",
+   "away_missing": 0.028448495397793885,
+   "edge": -0.1221,
+   "home_missing": 0.15052674266408184,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2356,25 +3163,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2104,
+    "btts": 0.5139,
+    "draw": 0.2825,
+    "home": 0.5071,
+    "over25": 0.4687
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.228,
+    "btts": 0.4961,
+    "draw": 0.2713,
+    "home": 0.5007,
+    "over25": 0.4661
    }
   },
   "date": "2026-10-25",
   "fixture": "Konyaspor v Genclerbirligi SK",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Konyaspor",
   "league": "Turkish Super Lig",
   "model_p": [
@@ -2387,12 +3194,28 @@
    0.444
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Adil Demirba\u011f",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "K\u00e9vin Rodrigues",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Peter Etebo",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:20Z",
+   "away_missing": 0.04330258602562585,
+   "edge": -0.076,
+   "home_missing": 0.11925335172101167,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2423,25 +3246,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3245,
+    "btts": 0.5743,
+    "draw": 0.2828,
+    "home": 0.3927,
+    "over25": 0.515
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3338,
+    "btts": 0.5469,
+    "draw": 0.2698,
+    "home": 0.3964,
+    "over25": 0.5013
    }
   },
   "date": "2026-10-25",
   "fixture": "Kristiansund BK v KFUM Oslo",
-  "ft": "PENDING",
+  "ft": "2-2",
   "home": "Kristiansund BK",
   "league": "Eliteserien",
   "model_p": [
@@ -2454,12 +3277,23 @@
    0.55
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ayoub Aleesami",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Amin Nouri",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:20Z",
+   "away_missing": 0.0759711126064783,
+   "edge": 0.076,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2490,25 +3324,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3288,
+    "btts": 0.6606,
+    "draw": 0.2348,
+    "home": 0.4364,
+    "over25": 0.6667
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3266,
+    "btts": 0.6627,
+    "draw": 0.2429,
+    "home": 0.4305,
+    "over25": 0.6563
    }
   },
   "date": "2026-10-25",
   "fixture": "LASK Linz v Salzburg",
-  "ft": "PENDING",
+  "ft": "1-3",
   "home": "LASK Linz",
   "league": "Austrian Bundesliga",
   "model_p": [
@@ -2521,12 +3355,38 @@
    0.629
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "George Bello",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ramiz Harakat\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nikolas Veratschnig",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Enrique Aguilar",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Justin Omoregie",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:20Z",
+   "away_missing": 0.1140945279743363,
+   "edge": -0.0175,
+   "home_missing": 0.13160933704790306,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2557,25 +3417,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.6325,
+    "btts": 0.495,
+    "draw": 0.2257,
+    "home": 0.1419,
+    "over25": 0.5213
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.6291,
+    "btts": 0.4817,
+    "draw": 0.2186,
+    "home": 0.1524,
+    "over25": 0.5297
    }
   },
   "date": "2026-10-25",
   "fixture": "Lecce v Juventus",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Lecce",
   "league": "Serie A",
   "model_p": [
@@ -2588,12 +3448,43 @@
    0.45
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ivan Ili\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Medon Berisha",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Santiago Pierotti",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kenan Y\u0131ld\u0131z",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kh\u00e9phren Thuram-Ulien",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Francisco Concei\u00e7\u00e3o",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T16:20Z",
+   "away_missing": 0.4540033753055989,
+   "edge": 0.1725,
+   "home_missing": 0.2815378671735338,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2624,25 +3515,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3553,
+    "btts": 0.6135,
+    "draw": 0.2706,
+    "home": 0.3741,
+    "over25": 0.5728
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.362,
+    "btts": 0.5974,
+    "draw": 0.2689,
+    "home": 0.3691,
+    "over25": 0.5614
    }
   },
   "date": "2026-10-25",
   "fixture": "Legia v Lech Poznan",
-  "ft": "PENDING",
+  "ft": "1-2",
   "home": "Legia",
   "league": "Ekstraklasa",
   "model_p": [
@@ -2655,12 +3546,38 @@
    0.583
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jakub \u017bew\u0142akow",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vahan Bichakhchyan",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Wojciech Mo\u0144ka",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Allahyar Sayyadmanesh",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ali Gholizadeh",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T16:20Z",
+   "away_missing": 0.31376143132454876,
+   "edge": 0.1702,
+   "home_missing": 0.14352979167110982,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2691,25 +3608,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3476,
+    "btts": 0.6878,
+    "draw": 0.2312,
+    "home": 0.4212,
+    "over25": 0.6959
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3453,
+    "btts": 0.692,
+    "draw": 0.2488,
+    "home": 0.406,
+    "over25": 0.6803
    }
   },
   "date": "2026-10-25",
   "fixture": "Lillestroem SK v SK Brann",
-  "ft": "PENDING",
+  "ft": "3-2",
   "home": "Lillestroem SK",
   "league": "Eliteserien",
   "model_p": [
@@ -2758,25 +3675,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2967,
+    "btts": 0.642,
+    "draw": 0.2516,
+    "home": 0.4517,
+    "over25": 0.6241
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3019,
+    "btts": 0.6326,
+    "draw": 0.2522,
+    "home": 0.4459,
+    "over25": 0.622
    }
   },
   "date": "2026-10-25",
   "fixture": "Liverpool v Brighton",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Liverpool",
   "league": "Premier League",
   "model_p": [
@@ -2789,12 +3706,43 @@
    0.607
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Dominik Szoboszlai",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Hugo Ekitik\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jeremie Frimpong",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yankuba Minteh",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mats Wieffer",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Evan Ferguson",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:00Z",
+   "away_missing": 0.40899423351875475,
+   "edge": 0.0733,
+   "home_missing": 0.3356551327114903,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2825,25 +3773,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.325,
+    "btts": 0.5902,
+    "draw": 0.2753,
+    "home": 0.3997,
+    "over25": 0.5387
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3256,
+    "btts": 0.5769,
+    "draw": 0.2776,
+    "home": 0.3968,
+    "over25": 0.5412
    }
   },
   "date": "2026-10-25",
   "fixture": "Man United v Bournemouth",
-  "ft": "PENDING",
+  "ft": "0-3",
   "home": "Man United",
   "league": "Premier League",
   "model_p": [
@@ -2856,12 +3804,43 @@
    0.634
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kobbie Mainoo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Benjamin \u0160e\u0161ko",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Patrick Dorgu",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Alex Scott",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Veljko Milosavljevi\u0107",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Alex T\u00f3th",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:00Z",
+   "away_missing": 0.2819212150839608,
+   "edge": -0.0895,
+   "home_missing": 0.37144266708233264,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2892,25 +3871,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1462,
+    "btts": 0.5764,
+    "draw": 0.1912,
+    "home": 0.6627,
+    "over25": 0.6452
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1583,
+    "btts": 0.5685,
+    "draw": 0.1929,
+    "home": 0.6489,
+    "over25": 0.6429
    }
   },
   "date": "2026-10-25",
   "fixture": "Marseille v Le Havre",
-  "ft": "PENDING",
+  "ft": "4-3",
   "home": "Marseille",
   "league": "Ligue 1",
   "model_p": [
@@ -2923,12 +3902,33 @@
    0.559
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Derek Cornelius",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Elias Jelert",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Stephan Zagadou",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Timoth\u00e9e Pemb\u00e9l\u00e9",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.20129814711381705,
+   "edge": 0.1902,
+   "home_missing": 0.011060428907883566,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2959,25 +3959,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1301,
+    "btts": 0.599,
+    "draw": 0.1735,
+    "home": 0.6964,
+    "over25": 0.7038
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1403,
+    "btts": 0.5844,
+    "draw": 0.1734,
+    "home": 0.6863,
+    "over25": 0.676
    }
   },
   "date": "2026-10-25",
   "fixture": "Midtjylland v Lyngby",
-  "ft": "PENDING",
+  "ft": "3-2",
   "home": "Midtjylland",
   "league": "Danish Superliga",
   "model_p": [
@@ -2990,12 +3990,38 @@
    0.609
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mikel Gogorza",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pedro Bravo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Martin Erli\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "\u00cdsak Thorvaldsson",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Oskar Snorre",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:00Z",
+   "away_missing": 0.09761702703718432,
+   "edge": -0.1902,
+   "home_missing": 0.2877710362358808,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3026,25 +4052,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.679,
+    "btts": 0.533,
+    "draw": 0.187,
+    "home": 0.134,
+    "over25": 0.6072
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6585,
+    "btts": 0.5348,
+    "draw": 0.1989,
+    "home": 0.1425,
+    "over25": 0.6061
    }
   },
   "date": "2026-10-25",
   "fixture": "Mjallby AIF v Hammarby IF",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Mjallby AIF",
   "league": "Allsvenskan",
   "model_p": [
@@ -3057,12 +4083,38 @@
    0.52
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ludvig Tidstrand",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Timo Stavitski",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Villum Dalsgaard",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Amin Boudri",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Oliver Hagen",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:20Z",
+   "away_missing": 0.13754580737377115,
+   "edge": 0.0527,
+   "home_missing": 0.08485939304471662,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3093,25 +4145,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1268,
+    "btts": 0.5862,
+    "draw": 0.1766,
+    "home": 0.6966,
+    "over25": 0.6897
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.137,
+    "btts": 0.5784,
+    "draw": 0.1828,
+    "home": 0.6802,
+    "over25": 0.6682
    }
   },
   "date": "2026-10-25",
   "fixture": "Molde v Fredrikstad FK",
-  "ft": "PENDING",
+  "ft": "5-1",
   "home": "Molde",
   "league": "Eliteserien",
   "model_p": [
@@ -3124,12 +4176,43 @@
    0.573
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Sivert Hansen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Halldor Stenevik",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Seydina Diop",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kennedy Okpaleke",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Sigurd Kvile",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Daniel Eid",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T17:20Z",
+   "away_missing": 0.1878907578569255,
+   "edge": 0.0135,
+   "home_missing": 0.1743532228705679,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3160,25 +4243,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2261,
+    "btts": 0.5799,
+    "draw": 0.2764,
+    "home": 0.4975,
+    "over25": 0.55
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2442,
+    "btts": 0.5685,
+    "draw": 0.2625,
+    "home": 0.4933,
+    "over25": 0.5527
    }
   },
   "date": "2026-10-25",
   "fixture": "Monaco v Lille",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Monaco",
   "league": "Ligue 1",
   "model_p": [
@@ -3191,12 +4274,38 @@
    0.528
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Stanis Idumbo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eric Dier",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Hamza Igamane",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ayase Ueda",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Tiago Santos",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:40Z",
+   "away_missing": 0.3501420081862482,
+   "edge": 0.2698,
+   "home_missing": 0.08031731491083778,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3245,7 +4354,7 @@
   },
   "date": "2026-10-25",
   "fixture": "Motherwell v Hearts",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Motherwell",
   "league": "Scottish Premiership",
   "model_p": [
@@ -3294,35 +4403,61 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1338,
+    "btts": 0.5217,
+    "draw": 0.2062,
+    "home": 0.66,
+    "over25": 0.5813
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1552,
+    "btts": 0.5326,
+    "draw": 0.2069,
+    "home": 0.6378,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-25",
   "fixture": "NK Osijek v NK Rudes Zagreb",
-  "ft": "PENDING",
+  "ft": "0-1",
   "home": "NK Osijek",
   "league": "HNL",
   "model_p": "PENDING",
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Anton Matkovi\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jona Je\u017ei\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vito \u010cai\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Allyson",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Stefan Vuki\u0107",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T16:40Z",
+   "away_missing": 0.16307077583336416,
+   "edge": -0.3139,
+   "home_missing": 0.4769310625649665,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3353,25 +4488,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.6601,
+    "btts": 0.4734,
+    "draw": 0.2121,
+    "home": 0.1278,
+    "over25": 0.5152
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.6527,
+    "btts": 0.4545,
+    "draw": 0.2105,
+    "home": 0.1368,
+    "over25": 0.5104
    }
   },
   "date": "2026-10-25",
   "fixture": "Nacional v Sp Braga",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Nacional",
   "league": "Primeira Liga",
   "model_p": [
@@ -3384,12 +4519,28 @@
    0.532
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ulisses Rocha",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "L\u00e9o Santos",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sikou Niakat\u00e9",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T17:20Z",
+   "away_missing": 0.05498111275189865,
+   "edge": -0.099,
+   "home_missing": 0.1539704178939843,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3420,25 +4571,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3245,
+    "btts": 0.7128,
+    "draw": 0.2414,
+    "home": 0.4341,
+    "over25": 0.7128
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3293,
+    "btts": 0.6935,
+    "draw": 0.2428,
+    "home": 0.4279,
+    "over25": 0.6889
    }
   },
   "date": "2026-10-25",
   "fixture": "Nijmegen v Groningen",
-  "ft": "PENDING",
+  "ft": "2-2",
   "home": "Nijmegen",
   "league": "Eredivisie",
   "model_p": [
@@ -3451,12 +4602,43 @@
    0.678
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Philippe Sandler",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Emre Mor",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bram Nuytinck",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Malcolm Jeng",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Tyrique Mercera",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Elvis van der Laan",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:40Z",
+   "away_missing": 0.15506429326489024,
+   "edge": 0.0871,
+   "home_missing": 0.06800843066257493,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3487,25 +4669,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.5493,
+    "btts": 0.5455,
+    "draw": 0.2568,
+    "home": 0.1939,
+    "over25": 0.539
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.5365,
+    "btts": 0.5319,
+    "draw": 0.2513,
+    "home": 0.2122,
+    "over25": 0.5238
    }
   },
   "date": "2026-10-25",
   "fixture": "OFI Crete v PAOK",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "OFI Crete",
   "league": "Greek Super League",
   "model_p": [
@@ -3518,12 +4700,43 @@
    0.639
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Nikos Christogeorgos",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Aaron Iseka",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nikos Marinakis",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Tom Louchet",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Fedor Chalov",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kiril Despodov",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T17:20Z",
+   "away_missing": 0.23799171495598875,
+   "edge": 0.1116,
+   "home_missing": 0.12637914019381752,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3554,25 +4767,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.0472,
+    "btts": 0.402,
+    "draw": 0.1127,
+    "home": 0.8401,
+    "over25": 0.6321
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.0595,
+    "btts": 0.3974,
+    "draw": 0.1269,
+    "home": 0.8136,
+    "over25": 0.6219
    }
   },
   "date": "2026-10-25",
   "fixture": "Olympiacos v PAE PS Kalamata",
-  "ft": "PENDING",
+  "ft": "5-0",
   "home": "Olympiacos",
   "league": "Greek Super League",
   "model_p": [
@@ -3585,12 +4798,43 @@
    0.414
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Panagiotis Retsos",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Ayoub El Kaabi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yusuf Yaz\u0131c\u0131",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Julio Alonso",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Djibril Diarra",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Stavros Angelis",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:40Z",
+   "away_missing": 0.14053231325944854,
+   "edge": 0.0333,
+   "home_missing": 0.10725715327637915,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3621,25 +4865,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3054,
+    "btts": 0.7312,
+    "draw": 0.2308,
+    "home": 0.4638,
+    "over25": 0.7393
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3135,
+    "btts": 0.7146,
+    "draw": 0.2325,
+    "home": 0.4541,
+    "over25": 0.7246
    }
   },
   "date": "2026-10-25",
   "fixture": "PSV Eindhoven v Feyenoord",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "PSV Eindhoven",
   "league": "Eredivisie",
   "model_p": [
@@ -3652,12 +4896,43 @@
    0.726
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ricardo Pepi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Paul Wanner",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jerdy Schouten",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jordan Bos",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Reiss Nelson",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Thomas Beelen",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:40Z",
+   "away_missing": 0.19305828921571816,
+   "edge": -0.2436,
+   "home_missing": 0.43670428160754227,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3688,25 +4963,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.133,
+    "btts": 0.5572,
+    "draw": 0.193,
+    "home": 0.674,
+    "over25": 0.6169
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1475,
+    "btts": 0.5376,
+    "draw": 0.1967,
+    "home": 0.6557,
+    "over25": 0.6061
    }
   },
   "date": "2026-10-25",
   "fixture": "Palermo v Carrarese",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Palermo",
   "league": "Serie B",
   "model_p": [
@@ -3719,12 +4994,43 @@
    0.47
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Gabriel Strefezza",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jesse Joronen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Federico Barba",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nicholas Bonfanti",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Colin Dagba",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Guido Pagliuca",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T13:40Z",
+   "away_missing": 0.0526795067166672,
+   "edge": -0.2016,
+   "home_missing": 0.25432240208814183,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3755,25 +5061,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2318,
+    "btts": 0.6419,
+    "draw": 0.2265,
+    "home": 0.5417,
+    "over25": 0.6667
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2387,
+    "btts": 0.6401,
+    "draw": 0.2251,
+    "home": 0.5362,
+    "over25": 0.6628
    }
   },
   "date": "2026-10-25",
   "fixture": "Rennes v Strasbourg",
-  "ft": "PENDING",
+  "ft": "3-0",
   "home": "Rennes",
   "league": "Ligue 1",
   "model_p": [
@@ -3786,12 +5092,33 @@
    0.719
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Est\u00e9ban Lepaul",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Joaqu\u00edn Panichelli",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Isma\u00ebl Doukour\u00e9",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Sebastian Nanasi",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.38110728947634537,
+   "edge": 0.1952,
+   "home_missing": 0.1858640251752602,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3822,25 +5149,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.4648,
+    "btts": 0.5215,
+    "draw": 0.2926,
+    "home": 0.2426,
+    "over25": 0.471
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.4562,
+    "btts": 0.5144,
+    "draw": 0.2833,
+    "home": 0.2605,
+    "over25": 0.4675
    }
   },
   "date": "2026-10-25",
   "fixture": "Rio Ave v Famalicao",
-  "ft": "PENDING",
+  "ft": "0-4",
   "home": "Rio Ave",
   "league": "Primeira Liga",
   "model_p": [
@@ -3853,12 +5180,33 @@
    0.463
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Cezary Miszta",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nelson Abbey",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Brandon Aguilera",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Gil Dias",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T17:00Z",
+   "away_missing": 0.031024607319476413,
+   "edge": -0.1866,
+   "home_missing": 0.21761458898328678,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3889,25 +5237,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1961,
+    "btts": 0.4187,
+    "draw": 0.3063,
+    "home": 0.4976,
+    "over25": 0.3469
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2214,
+    "btts": 0.4026,
+    "draw": 0.3035,
+    "home": 0.4752,
+    "over25": 0.3494
    }
   },
   "date": "2026-10-25",
   "fixture": "Sabadell v Tenerife",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Sabadell",
   "league": "La Liga 2",
   "model_p": [
@@ -3920,12 +5268,18 @@
    0.393
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Nicholas Gioacchini",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:20Z",
+   "away_missing": 0.0,
+   "edge": -0.0955,
+   "home_missing": 0.0954600040285407,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3956,25 +5310,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2557,
+    "btts": 0.6763,
+    "draw": 0.2344,
+    "home": 0.51,
+    "over25": 0.6911
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2618,
+    "btts": 0.6659,
+    "draw": 0.2324,
+    "home": 0.5059,
+    "over25": 0.6735
    }
   },
   "date": "2026-10-25",
   "fixture": "Sarpsborg 08 v Aalesunds FK",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Sarpsborg 08",
   "league": "Eliteserien",
   "model_p": [
@@ -3987,12 +5341,38 @@
    0.679
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Michael Opoku",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Frederik Carstensen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Marcus Haagensen Reed",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Simen Haram",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Philip Sandvik Aukland",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:20Z",
+   "away_missing": 0.28308805962264827,
+   "edge": 0.173,
+   "home_missing": 0.11010559549516316,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4023,25 +5403,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6325,
+    "btts": 0.6241,
+    "draw": 0.1973,
+    "home": 0.1701,
+    "over25": 0.6848
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6242,
+    "btts": 0.6107,
+    "draw": 0.199,
+    "home": 0.1769,
+    "over25": 0.6635
    }
   },
   "date": "2026-10-25",
   "fixture": "Silkeborg v Nordsjaelland",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Silkeborg",
   "league": "Danish Superliga",
   "model_p": [
@@ -4054,12 +5434,38 @@
    0.611
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Alexander Busch",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Villads Westh",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Pontus R\u00f6din",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Souleymane Alio",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Araphat Mohammed",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T12:00Z",
+   "away_missing": 0.02659764567450937,
+   "edge": -0.2118,
+   "home_missing": 0.23835201000986483,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4090,25 +5496,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T10:10Z",
+    "away": 0.4289,
+    "btts": 0.6402,
+    "draw": 0.2529,
+    "home": 0.3182,
+    "over25": 0.6256
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T10:10Z",
+    "away": 0.4287,
+    "btts": 0.6281,
+    "draw": 0.2515,
+    "home": 0.3197,
+    "over25": 0.6076
    }
   },
   "date": "2026-10-25",
   "fixture": "Slask Wroclaw v Wieczysta Krakow",
-  "ft": "PENDING",
+  "ft": "2-0",
   "home": "Slask Wroclaw",
   "league": "Ekstraklasa",
   "model_p": [
@@ -4121,12 +5527,33 @@
    0.717
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Irodotos Christodoulou",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Micha\u0142 Mokrzycki",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Marc Llinares",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Stefan Feiertag",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T10:40Z",
+   "away_missing": 0.03670218690825382,
+   "edge": -0.0775,
+   "home_missing": 0.114184652615777,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4157,25 +5584,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1677,
+    "btts": 0.6241,
+    "draw": 0.2061,
+    "home": 0.6262,
+    "over25": 0.6783
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.1825,
+    "btts": 0.611,
+    "draw": 0.2012,
+    "home": 0.6163,
+    "over25": 0.6628
    }
   },
   "date": "2026-10-25",
   "fixture": "Sociedad v Levante",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Sociedad",
   "league": "La Liga",
   "model_p": [
@@ -4188,12 +5615,33 @@
    0.692
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Luken Beitia",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "\u00c1lvaro Odriozola",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Enzo Bardeli",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Adri\u00e1n De La Fuente",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T16:40Z",
+   "away_missing": 0.16409860899906556,
+   "edge": 0.1518,
+   "home_missing": 0.012326022654252823,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4224,20 +5672,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.0739,
+    "btts": 0.5089,
+    "draw": 0.1216,
+    "home": 0.8045,
+    "over25": 0.7069
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.0805,
+    "btts": 0.5144,
+    "draw": 0.1299,
+    "home": 0.7897,
+    "over25": 0.6987
    }
   },
   "date": "2026-10-25",
@@ -4291,25 +5739,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6763,
+    "btts": 0.6355,
+    "draw": 0.1775,
+    "home": 0.1462,
+    "over25": 0.7201
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.6618,
+    "btts": 0.6203,
+    "draw": 0.1818,
+    "home": 0.1564,
+    "over25": 0.6987
    }
   },
   "date": "2026-10-25",
   "fixture": "Sparta Rotterdam v Ajax",
-  "ft": "PENDING",
+  "ft": "1-2",
   "home": "Sparta Rotterdam",
   "league": "Eredivisie",
   "model_p": [
@@ -4322,12 +5770,33 @@
    0.639
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Shunsuke Mito",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Caio Henrique",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kasper Dolberg",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Anton Gaaei",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:00Z",
+   "away_missing": 0.1852137189878088,
+   "edge": 0.1057,
+   "home_missing": 0.0794651292537672,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4389,12 +5858,33 @@
    0.481
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kevin Mac Allister",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ond\u0159ej Kri\u010dfalu\u0161i",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Rob Schoofs",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Joel Ndala",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T18:00Z",
+   "away_missing": 0.23901592468519284,
+   "edge": -0.1128,
+   "home_missing": 0.3518424967669465,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4425,25 +5915,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2023,
+    "btts": 0.6402,
+    "draw": 0.211,
+    "home": 0.5867,
+    "over25": 0.6711
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.2097,
+    "btts": 0.6203,
+    "draw": 0.222,
+    "home": 0.5684,
+    "over25": 0.6448
    }
   },
   "date": "2026-10-25",
   "fixture": "Sturm Graz v SV Ried",
-  "ft": "PENDING",
+  "ft": "2-2",
   "home": "Sturm Graz",
   "league": "Austrian Bundesliga",
   "model_p": [
@@ -4456,12 +5946,38 @@
    0.515
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Nelson Weiper",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Filip R\u00f3zga",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Leon Grgi\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Oliver Sorg",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Alessandro Goiginger",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T13:20Z",
+   "away_missing": 0.1688161743737647,
+   "edge": -0.3444,
+   "home_missing": 0.5132312360435644,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4492,25 +6008,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3736,
+    "btts": 0.5126,
+    "draw": 0.3058,
+    "home": 0.3206,
+    "over25": 0.4272
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.3672,
+    "btts": 0.5013,
+    "draw": 0.3016,
+    "home": 0.3312,
+    "over25": 0.4388
    }
   },
   "date": "2026-10-25",
   "fixture": "Sunderland v Leeds",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Sunderland",
   "league": "Premier League",
   "model_p": [
@@ -4523,12 +6039,43 @@
    0.535
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Daniel Ballard",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Wilson Isidor",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kevin Danso",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Joe Rodon",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Daniel James",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mateo Joseph",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.12362777868428772,
+   "edge": -0.1233,
+   "home_missing": 0.24689847968858689,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4559,25 +6106,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1463,
+    "btts": 0.5622,
+    "draw": 0.2162,
+    "home": 0.6375,
+    "over25": 0.6091
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1637,
+    "btts": 0.5556,
+    "draw": 0.2035,
+    "home": 0.6328,
+    "over25": 0.6143
    }
   },
   "date": "2026-10-25",
   "fixture": "Toulouse v Troyes",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Toulouse",
   "league": "Ligue 1",
   "model_p": [
@@ -4590,12 +6137,33 @@
    0.544
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Sion Oppong",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Isma\u00ebl Boura",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Yvann Titi",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Anis Ouzenadji",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T15:40Z",
+   "away_missing": 0.2005739596623224,
+   "edge": 0.1773,
+   "home_missing": 0.023301770873180496,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4626,25 +6194,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.5372,
+    "btts": 0.5327,
+    "draw": 0.2629,
+    "home": 0.1998,
+    "over25": 0.5075
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T16:35Z",
+    "away": 0.5278,
+    "btts": 0.5325,
+    "draw": 0.2597,
+    "home": 0.2125,
+    "over25": 0.5208
    }
   },
   "date": "2026-10-25",
   "fixture": "Udinese v Milan",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Udinese",
   "league": "Serie A",
   "model_p": [
@@ -4657,12 +6225,43 @@
    0.549
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Oumar Solet",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Idrissa Gueye",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vakoun Issouf Bayo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mario Gila",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Diego Moreira",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Alexis Saelemaekers",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-25T19:20Z",
+   "away_missing": 0.3365211480201178,
+   "edge": -0.0053,
+   "home_missing": 0.3418224216404712,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4760,25 +6359,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1609,
+    "btts": 0.5985,
+    "draw": 0.1995,
+    "home": 0.6395,
+    "over25": 0.6591
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.1743,
+    "btts": 0.5934,
+    "draw": 0.2003,
+    "home": 0.6254,
+    "over25": 0.6444
    }
   },
   "date": "2026-10-25",
   "fixture": "Viking FK v Tromsoe IL",
-  "ft": "PENDING",
+  "ft": "3-1",
   "home": "Viking FK",
   "league": "Eliteserien",
   "model_p": [
@@ -4791,12 +6390,38 @@
    0.601
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kristoffer Askildsen",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Martin Roseth",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Anders B\u00e6rtelsen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mathias T\u00f8nnessen",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Leon Hien",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-25T12:40Z",
+   "away_missing": 0.14618331443558966,
+   "edge": -0.0246,
+   "home_missing": 0.17083119484365028,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4827,25 +6452,25 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.7584,
+    "btts": 0.4886,
+    "draw": 0.1552,
+    "home": 0.0864,
+    "over25": 0.6355
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-25T12:01Z",
+    "away": 0.7363,
+    "btts": 0.484,
+    "draw": 0.1638,
+    "home": 0.1,
+    "over25": 0.6156
    }
   },
   "date": "2026-10-25",
   "fixture": "Volos NPS v Panathinaikos",
-  "ft": "PENDING",
+  "ft": "0-1",
   "home": "Volos NPS",
   "league": "Greek Super League",
   "model_p": [

@@ -62,21 +62,16 @@
     "name": "Christopher Op\u00e9ri",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Edin Vi\u0161\u0107a",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-26T15:00Z",
-  "away_missing_share": 0.18440947954227818,
-  "away_unavailable": 3,
+  "at": "2026-10-26T15:20Z",
+  "away_missing_share": 0.17601080451816176,
+  "away_unavailable": 2,
   "fotmob_id": 5904783,
-  "home_missing_share": 0.3075017133278406,
+  "home_missing_share": 0.3119914544012137,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-26T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Boulogne v Reims": {
   "absent": [],
@@ -97,12 +92,7 @@
     "type": "injury"
    },
    {
-    "name": "Attila Mocsi",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Can Bozdo\u011fan",
+    "name": "Khusniddin Alikulov",
     "side": "home",
     "type": "injury"
    },
@@ -117,19 +107,19 @@
     "type": "injury"
    },
    {
-    "name": "Mustafa Eskihella\u00e7",
+    "name": "Ruslan Malinovsky",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T15:00Z",
-  "away_missing_share": 0.20437543838854583,
-  "away_unavailable": 5,
+  "at": "2026-10-26T15:20Z",
+  "away_missing_share": 0.13889065709442866,
+  "away_unavailable": 4,
   "fotmob_id": 5904779,
-  "home_missing_share": 0.19213450543600466,
-  "home_unavailable": 4,
+  "home_missing_share": 0.10986027433304558,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-26T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Galatasaray Istanbul v Fenerbahce Istanbul": {
   "absent": [

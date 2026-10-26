@@ -998,7 +998,12 @@
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-27",
+    "fixture": "Luton v Doncaster Rovers",
+    "pick": "Doncaster Rovers (+2.5) Asian handicap",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_80b5c674bf",
@@ -1012,7 +1017,12 @@
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-27",
+    "fixture": "Sassuolo v Lazio",
+    "pick": "Under 4.5 goals",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_fc4308af0f",

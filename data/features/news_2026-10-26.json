@@ -12,7 +12,7 @@
     "type": "injury"
    },
    {
-    "name": "Alex Calvo",
+    "name": "Th\u00e9o Le Normand",
     "side": "home",
     "type": "injury"
    },
@@ -27,14 +27,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T18:20Z",
-  "away_missing_share": 0.21774678646556558,
+  "at": "2026-10-26T18:40Z",
+  "away_missing_share": 0.24310713155095803,
   "away_unavailable": 2,
   "fotmob_id": 5868505,
-  "home_missing_share": 0.39378561056323863,
-  "home_unavailable": 5,
+  "home_missing_share": 0.3116925109910385,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-26T19:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Besiktas Istanbul v Istanbul BB": {
   "absent": [
@@ -75,7 +75,7 @@
  },
  "Boulogne v Reims": {
   "absent": [],
-  "at": "2026-10-26T18:20Z",
+  "at": "2026-10-26T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803290,
@@ -150,7 +150,7 @@
  },
  "Montpellier v Red Star": {
   "absent": [],
-  "at": "2026-10-26T18:20Z",
+  "at": "2026-10-26T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803294,
@@ -266,7 +266,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-26T14:00Z",
+  "at": "2026-10-26T18:40Z",
   "away_missing_share": 0.31133012931216014,
   "away_unavailable": 3,
   "fotmob_id": 5868109,
@@ -277,7 +277,7 @@
  },
  "Walsall v Salford": {
   "absent": [],
-  "at": "2026-10-26T14:00Z",
+  "at": "2026-10-26T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838013,

@@ -330,7 +330,11 @@
     "home": 12306013,
     "away": 6047229
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:75865076",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -339,8 +343,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.06146679809609956,
    "missing": {
@@ -380,7 +384,11 @@
     "home": 3351121,
     "away": 19165054
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Reims at full strength",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72037398",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -389,8 +397,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.033242485732059235,
    "missing": {
@@ -430,7 +438,11 @@
     "home": 2572527,
     "away": 2946111
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:73323782",
    "sb_tid": "sr:tournament:25",
    "sb_market": {

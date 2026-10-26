@@ -75,14 +75,14 @@
  },
  "Boulogne v Reims": {
   "absent": [],
-  "at": "2026-10-26T19:00Z",
+  "at": "2026-10-26T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803290,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-26T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Caykur Rizespor v Trabzonspor": {
   "absent": [
@@ -150,14 +150,14 @@
  },
  "Montpellier v Red Star": {
   "absent": [],
-  "at": "2026-10-26T19:00Z",
+  "at": "2026-10-26T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803294,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-26T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "NK Istra 1961 v HNK Hajduk Split": {
   "absent": [
@@ -277,13 +277,13 @@
  },
  "Walsall v Salford": {
   "absent": [],
-  "at": "2026-10-26T19:00Z",
+  "at": "2026-10-26T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838013,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-26T20:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

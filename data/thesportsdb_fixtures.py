@@ -135,6 +135,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
     },
     "Ligue 1": {
         "Paris Saint-Germain": "Paris SG",
+        # same club: the fixtures feed's full name vs the fitted data's "Troyes"
+        "ESTAC Troyes": "Troyes",
     },
     "Primeira Liga": {
         "Braga": "Sp Braga",

@@ -1,0 +1,50 @@
+{
+ "date": "2026-10-21",
+ "picks_generated_at": "2026-10-20T05:51:29Z",
+ "run_at": "2026-10-20T20:53:05+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": true,
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Detroit Pistons v Boston Celtics",
+   "market": "NBA:68|total=114.5|Under 114.5",
+   "pick": "1st half Under 114.5 points",
+   "price": 1.95,
+   "model_chance": 0.6095,
+   "code": "UQ4WNK",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.6,
+   "confidence": 0.35,
+   "reasons": "The framework record is 'TOO FEW: no graded regular-season NBA picks in this family yet', so I stay close to the model chance with low confidence. The model chance of 0.6095 sits well above the break-even chance of 0.5128."
+  },
+  {
+   "fixture": "New York Knicks v Philadelphia 76ers",
+   "market": "NBA:68|total=118.5|Under 118.5",
+   "pick": "1st half Under 118.5 points",
+   "price": 1.95,
+   "model_chance": 0.5596,
+   "code": "URCHF3",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.55,
+   "confidence": 0.35,
+   "reasons": "Given the framework record is 'TOO FEW: no graded regular-season NBA picks in this family yet', I remain close to the model chance. The model chance of 0.5596 exceeds the break-even chance of 0.5128."
+  },
+  {
+   "fixture": "San Antonio Spurs v Oklahoma City Thunder",
+   "market": "NBA:68|total=112.5|Over 112.5",
+   "pick": "1st half Over 112.5 points",
+   "price": 1.95,
+   "model_chance": 0.6384,
+   "code": "LZ05QV",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.63,
+   "confidence": 0.35,
+   "reasons": "The framework record states 'TOO FEW: no graded regular-season NBA picks in this family yet', keeping my adjustment minimal. The model chance of 0.6384 easily clears the break-even chance of 0.5128."
+  }
+ ],
+ "sport": "nba"
+}

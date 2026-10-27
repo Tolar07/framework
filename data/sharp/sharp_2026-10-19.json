@@ -1,0 +1,43 @@
+{
+ "date": "2026-10-19",
+ "run_id": "SHARP-54159d39",
+ "fetched_utc": "2026-10-19T05:52:03Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 11,
+ "fixtures_priced_by_exchange": 6,
+ "picks": [
+  {
+   "league": "Ligue 2",
+   "home": "Rodez",
+   "away": "Montpellier",
+   "fixture": "Rodez v Montpellier (Ligue 2)",
+   "kickoff": "2026-10-19T18:45:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Home",
+   "key": "SB:1||Home",
+   "price": 2.95,
+   "outcome_id": "1",
+   "sharp_p": 0.3817,
+   "fair_price": 2.62,
+   "sharp_ev": 0.1259,
+   "code": "YCATVA",
+   "url": "http://www.sportybet.com/ng/?shareCode=YCATVA",
+   "result": "lost",
+   "ft": "0-3",
+   "run_id": "SHARP-54159d39"
+  }
+ ],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

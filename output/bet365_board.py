@@ -44,7 +44,16 @@ from engine import competitions as comp
 from engine import full_markets as fm
 from engine import markets as mkt
 from engine.slate import AGREE_PP, CERTAINTY_HIGH_PP, DEPLOY_MIN_MODEL_PROB, DEPLOY_ODDS_MIN
-from output.produce_bet import ACCA_LEG_MIN, ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes, kickoff
+from output.produce_bet import (
+    ACCA_LEG_MIN,
+    ACCA_MAX,
+    ACCA_MIN,
+    _acca_name,
+    _split_sizes,
+    goals_direction,
+    kickoff,
+    mix_groups,
+)
 
 # Flip to True once the Architect has checked the bet365 NAMES against the app.
 MENU_CONFIRMED = False
@@ -178,7 +187,7 @@ def choose(bf) -> dict | None:
     name = bet365_name(bf.best_market_key, home, away)
     if name:
         flagged = bf.news_level in ("CAUTION", "RISK")
-        return {"bf": bf, "name": name, "chance": bf.best_model_prob,
+        return {"bf": bf, "name": name, "chance": bf.best_model_prob, "key": bf.best_market_key,
                 "sb_price": bf.best_price, "certainty": bf.certainty or "LOW",
                 "same": True, "sb_pick": sb_pick,
                 "news": f"{bf.news_level}: {bf.news_note}" if flagged else None}
@@ -199,7 +208,7 @@ def choose(bf) -> dict | None:
     near = [c for c in pool if c[0] >= top - UNDER_PREF_PP and not _is_under(c[2])]
     c = max(near or pool, key=lambda c: (c[0], c[1]))
     lv = levels.get(c[2], {})
-    return {"bf": bf, "name": bet365_name(c[2], home, away), "chance": c[0],
+    return {"bf": bf, "name": bet365_name(c[2], home, away), "chance": c[0], "key": c[2],
             "sb_price": c[5].price, "certainty": _certainty(c[3], c[4]),
             "same": False, "sb_pick": sb_pick,
             "news": (f"{lv['level']}: {lv['note']}"
@@ -220,6 +229,21 @@ def picks(board: list) -> tuple[list[dict], list]:
     return got, missing
 
 
+def records(board: list, board_date: str) -> dict:
+    """The bet365 singles as data (Architect 2026-10-16: "the singles that were supposed
+    to be allocated to bet365 should be sent to the bot"): the Matchbook bot backs them
+    from its singles pot. 'same' = the SportyBet pick; otherwise bet365's own pick."""
+    got, _ = picks(board)
+    rows = []
+    for pk in got:
+        bf, p = pk["bf"], pk["bf"].probs
+        rows.append({"fixture": bf.fixture, "home": p.home_team, "away": p.away_team,
+                     "kickoff_utc": getattr(bf, "kickoff_utc", None), "market": pk["key"],
+                     "pick": pk["name"], "chance": pk["chance"], "certainty": pk["certainty"],
+                     "same": pk["same"], "news_level": getattr(bf, "news_level", None)})
+    return {"date": board_date, "singles": rows}
+
+
 _RULE = "─" * 34
 _BAR = "=" * 34
 
@@ -232,7 +256,7 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
     out = ["##########OLP XDV · BET365#########", _BAR, "",
            f"\U0001F4C5  {day} — bet365 board (sent to you only)",
            f"Run ID: {run_id or 'PENDING'} (same run as the SportyBet board)",
-           "Times are kickoff, Lagos time (WAT)", "",
+           "Times are kickoff, UK time", "",
            "Same fixtures, model and checks as the SportyBet board; each pick is "
            "limited to bets bet365 offers.",
            "• No booking codes on bet365 — find each match by country → league → match.",
@@ -243,6 +267,16 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
     if not MENU_CONFIRMED:
         out.append("⚠ bet365 market NAMES are a DRAFT — check them against your bet365 "
                    "app and tell Claude any that read differently there.")
+    try:   # BOTH TEAMS TO SCORE (Architect 2026-10-10: "for SportyBet and bet365")
+        from output.produce_bet import _build_btts
+        _bt = _build_btts(board)
+    except Exception:  # noqa: BLE001
+        _bt = []
+    if _bt:
+        out += ["", _RULE, "bet365 BOTH TEAMS TO SCORE (same games as SportyBet TABLE 3D)", _RULE]
+        for _bf, _pk, _ch, _k, _pr in _bt[0][1]:
+            out.append(f"• {kickoff(_bf)} {_bf.fixture.split(' (')[0]} — Both Teams to Score: Yes "
+                       f"({round(_ch*100)}%) · DEPLOY AT {deploy_at(_ch):.2f} · SportyBet {_pr:.2f}")
     out += ["", _RULE, "bet365 SINGLES", _RULE]
     if not got:
         out.append("No bet365 pick today — nothing on bet365's list clears 50% in the "
@@ -266,14 +300,13 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
 
     # order 40: only 75%+ picks go into an acca, 3 legs each
     legs = sorted((pk for pk in got if pk["chance"] >= ACCA_LEG_MIN), key=lambda x: -x["chance"])
-    sizes = _split_sizes(len(legs), ACCA_MIN, ACCA_MAX)
-    if sizes:
+    # order 42: at most one Under-goals and one Over-goals leg per acca
+    groups = mix_groups(legs, _split_sizes(len(legs), ACCA_MIN, ACCA_MAX),
+                        lambda pk: goals_direction(pk["name"]))
+    if groups:
         out += ["", _RULE, "bet365 ACCAS", "(build by hand on bet365, strongest legs first)",
                 _RULE]
-        i = 0
-        for n, size in enumerate(sizes):
-            g = legs[i:i + size]
-            i += size
+        for n, g in enumerate(groups):
             combo, floor = 1.0, 1.0
             for pk in g:
                 combo *= pk["chance"]

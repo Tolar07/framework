@@ -95,6 +95,9 @@ SPORTYBET_TOURNAMENT_ID = {
     "Swiss Super League": "sr:tournament:215",
     "Eliteserien": "sr:tournament:20",          # Norway (calendar-year season)
     "Allsvenskan": "sr:tournament:40",          # Sweden (calendar-year season)
+    # Turkish Cup (Turkiye Kupasi) — added 2026-10-07 (Architect: "yes add the
+    # Turkish Cup"). ID verified live: the event block "Turkiye / Turkiye Kupasi".
+    "Turkish Cup": "sr:tournament:96",
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact
@@ -231,6 +234,9 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "RC Strasbourg": "Strasbourg", "FC Nantes": "Nantes",
         "Le Havre AC": "Le Havre", "FC Lorient": "Lorient", "FC Metz": "Metz",
         "Toulouse FC": "Toulouse", "Angers SCO": "Angers",
+        # same club as the fitted data's "Troyes" (TheSportsDB's table has had it since 2026-10-21;
+        # SportyBet's feed, which supplies the fixtures when TheSportsDB has none, still flagged it)
+        "ESTAC Troyes": "Troyes",
     },
     "Ligue 2": {
         "EA Guingamp": "Guingamp", "FC Annecy": "Annecy", "Red Star FC": "Red Star",
@@ -339,14 +345,21 @@ def _load_all_events() -> tuple[dict[str, list[dict]], list[str]]:
     return by_tid, flags
 
 
+# SportyBet lists every line of a ladder, but only status 0 is open for betting:
+# status 1 = suspended, 2 = closed (shown with stale prices; a booking code for
+# it loads but cannot be placed — 2026-10-07). Only open markets count.
+def is_open(market: dict) -> bool:
+    return market.get("status") in (None, 0, "0")
+
+
 def parse_markets(event: dict) -> list[dict]:
-    """The FULL market ladder for one event (nothing dropped) — for display or
-    future use. {id, desc, specifier, outcomes:[{desc, odds}]}."""
+    """The market ladder for one event — every OPEN market (closed and
+    suspended lines dropped). {id, desc, specifier, outcomes:[{desc, odds}]}."""
     return [{
         "id": m.get("id"), "desc": m.get("desc"), "specifier": m.get("specifier", ""),
         "outcomes": [{"id": o.get("id"), "desc": o.get("desc"), "odds": o.get("odds")}
                      for o in m.get("outcomes", [])],
-    } for m in event.get("markets", [])]
+    } for m in event.get("markets", []) if is_open(m)]
 
 
 def _price(markets: list[dict], desc: str, outcome: str, specifier: str = "") -> Optional[float]:

@@ -100,14 +100,15 @@ def _first_half(ft: Optional[int], second: Optional[str]) -> Optional[int]:
     return ft - s
 
 
-def results_for_offset(offset: int, sign: Optional[str] = None) -> list[dict]:
+def results_for_offset(offset: int, sign: Optional[str] = None, sport: int = 1) -> list[dict]:
     """Events for a day relative to today (0 = today, -1 = yesterday, ...).
-    Past days are cached once fully settled."""
+    Past days are cached once fully settled. sport 1 = football (the default,
+    the grading source), 3 = basketball (engine/universe.py, 2026-10-07)."""
     day = date.fromordinal(date.today().toordinal() + offset).isoformat()
-    cache = _CACHE / f"{day}.json"
+    cache = _CACHE / (f"{day}.json" if sport == 1 else f"s{sport}_{day}.json")
     if offset < -1 and cache.exists():
         return json.loads(cache.read_text(encoding="utf-8"))
-    text = _get(_FEED.format(offset=offset),
+    text = _get(_FEED.replace("f_1_", f"f_{sport}_").format(offset=offset),
                 {"x-fsign": sign or feed_sign(), "Referer": "https://www.flashscore.co.uk/"})
     events = parse_feed(text)
     if offset < 0:
@@ -116,13 +117,13 @@ def results_for_offset(offset: int, sign: Optional[str] = None) -> list[dict]:
     return events
 
 
-def results_since(days_back: int = 7) -> list[dict]:
+def results_since(days_back: int = 7, sport: int = 1) -> list[dict]:
     """Every event from `days_back` days ago up to today (Flashscore keeps 7)."""
     sign = feed_sign()
     out = []
     for off in range(-min(days_back, 7), 1):
         try:
-            out += results_for_offset(off, sign)
+            out += results_for_offset(off, sign, sport)
         except Exception:  # noqa: BLE001 — a missing day stays ungraded
             continue
         time.sleep(0.3)
@@ -140,7 +141,20 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         (r"\bweds\b", "wednesday"), (r"\bwed\b", "wednesday"), (r"\brvs\b", "rovers"),
         (r"\bcelta b\b", "celta vigo b"), (r"\bpeterboro\b", "peterborough"),
         (r"\bpa\b", "park avenue"), (r"^wolves$", "wolverhampton wanderers"),
-        (r"^spurs$", "tottenham")]
+        (r"^spurs$", "tottenham"),
+        # Turkish clubs Flashscore lists under their current names (8 Oct 2026:
+        # the Turkish Cup tie stayed ungraded on the name mismatch).
+        (r"^denizli iy gureller$", "denizli idman yurdu"),
+        (r"^serik spor$", "serik belediyespor"),
+        (r"^sabah masazir$", "sabah baku"),          # Flashscore: 'Sabah Baku'
+        # 22 Oct 2026: two AI Survivor picks of 18 Oct stayed ungraded on these
+        # ('Go Ahead Eagles' v Flashscore's 'G.A. Eagles'; 'Istanbul BB' is
+        # Basaksehir's old name, 'Istanbul Buyuksehir Belediyespor').
+        (r"^g a eagles$", "go ahead eagles"),
+        (r"^istanbul bb$", "basaksehir"), (r"^istanbul basaksehir$", "basaksehir"),
+        # 26 Oct 2026: two 25 Oct singles stayed PENDING on these ('VfL 1899
+        # Osnabruck' v 'VfL Osnabruck'; SportyBet's 'Sp Lisbon' v 'Sporting CP').
+        (r"^vfl 1899 osnabruck$", "vfl osnabruck"), (r"^sporting lisbon$", "sporting cp")]
 
 
 def norm(name: str) -> str:
@@ -169,6 +183,25 @@ def _sim(a: str, b: str) -> float:
 
 MATCH_MIN = 0.85     # 'Man City' vs 'Manchester Utd' scores 0.81 — kept out
 
+# Youth / women's sides. On a Champions League day the UEFA Youth League plays
+# the same clubs ('Inter U19' v 'Club Brugge U19'); a senior pick must never
+# weigh them, or two candidates tie and the result is never graded (13 Oct
+# 2026: Inter v Club Brugge, Lens v Sporting, Sabah v Slavia stayed ungraded).
+_SECOND_XI = re.compile(r"\b(u1[5-9]|u2[0-3]|women|w|youth)\b", re.I)
+
+
+def _name_sim(ours: str, theirs: str) -> float:
+    """_sim, also trying the board's own alias for `ours` (engine/name_match.py
+    EXPLICIT, the table that rates feed spellings), counted only when the
+    alias is exactly Flashscore's name. Never lower than _sim alone.
+    12 Oct 2026: 'Vaalerenga IF' v Flashscore's 'Valerenga' scored 0.82 and
+    the won pick stayed ungraded; its alias 'Valerenga' matches."""
+    from engine.name_match import EXPLICIT
+    alias = EXPLICIT.get(ours)
+    if alias and norm(alias) == norm(theirs):
+        return 1.0      # exact alias only: 'AEK' must not reach 'AEK Larnaca' by containment
+    return _sim(ours, theirs)
+
 
 def find_result(events: list[dict], home: str, away: str,
                 match_date: str) -> Optional[dict]:
@@ -188,7 +221,10 @@ def find_result(events: list[dict], home: str, away: str,
             continue
         if abs((d - d0).days) > 1:
             continue
-        s = min(_sim(home, ev["home"]), _sim(away, ev["away"]))
+        if (_SECOND_XI.search(f'{ev["home"]} {ev["away"]}')
+                and not _SECOND_XI.search(f"{home} {away}")):
+            continue                     # a youth / women's game, not ours
+        s = min(_name_sim(home, ev["home"]), _name_sim(away, ev["away"]))
         if s >= MATCH_MIN:
             scored.append((s, ev))
     if not scored:

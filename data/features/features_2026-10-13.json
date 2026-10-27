@@ -1,0 +1,1069 @@
+{
+ "Arsenal v Lille": {
+  "away": "Lille",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.0692,
+    "btts": 0.4416,
+    "draw": 0.1319,
+    "home": 0.7989,
+    "over25": 0.6429
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Arsenal v Lille",
+  "ft": "3-0",
+  "home": "Arsenal",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Atletico Madrid v Man Utd": {
+  "away": "Man Utd",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.25,
+    "btts": 0.5882,
+    "draw": 0.2526,
+    "home": 0.4974,
+    "over25": 0.5823
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Atletico Madrid v Man Utd",
+  "ft": "2-0",
+  "home": "Atletico Madrid",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Birmingham v Preston": {
+  "away": "Preston",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.1349,
+    "btts": "PENDING",
+    "draw": 0.2038,
+    "home": 0.6613,
+    "over25": 0.5594
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.1454,
+    "btts": 0.4987,
+    "draw": 0.2061,
+    "home": 0.6485,
+    "over25": 0.5527
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Birmingham v Preston",
+  "ft": "4-0",
+  "home": "Birmingham",
+  "league": "Championship",
+  "model_p": [
+   0.544,
+   0.257,
+   0.199,
+   0.726,
+   0.465,
+   0.25,
+   0.482
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Bristol City v Blackburn": {
+  "away": "Blackburn",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.2838,
+    "btts": "PENDING",
+    "draw": 0.288,
+    "home": 0.4282,
+    "over25": 0.4392
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.2721,
+    "btts": 0.5249,
+    "draw": 0.2824,
+    "home": 0.4456,
+    "over25": 0.4792
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Bristol City v Blackburn",
+  "ft": "0-1",
+  "home": "Bristol City",
+  "league": "Championship",
+  "model_p": [
+   0.429,
+   0.29,
+   0.281,
+   0.682,
+   0.412,
+   0.207,
+   0.473
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Burnley v Charlton": {
+  "away": "Charlton",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.1601,
+    "btts": "PENDING",
+    "draw": 0.2421,
+    "home": 0.5979,
+    "over25": 0.5013
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.1802,
+    "btts": 0.5066,
+    "draw": 0.2346,
+    "home": 0.5852,
+    "over25": 0.5195
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Burnley v Charlton",
+  "ft": "2-2",
+  "home": "Burnley",
+  "league": "Championship",
+  "model_p": [
+   0.468,
+   0.265,
+   0.267,
+   0.75,
+   0.497,
+   0.277,
+   0.534
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Cardiff City v Watford": {
+  "away": "Watford",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.1959,
+    "btts": 0.6015,
+    "draw": 0.215,
+    "home": 0.589,
+    "over25": 0.6311
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Cardiff City v Watford",
+  "ft": "5-1",
+  "home": "Cardiff City",
+  "league": "Championship",
+  "model_p": [
+   0.489,
+   0.243,
+   0.269,
+   0.817,
+   0.606,
+   0.396,
+   0.618
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Galatasaray Istanbul v Barcelona": {
+  "away": "Barcelona",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.7472,
+    "btts": 0.6604,
+    "draw": 0.1381,
+    "home": 0.1148,
+    "over25": 0.8
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Galatasaray Istanbul v Barcelona",
+  "ft": "1-4",
+  "home": "Galatasaray Istanbul",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Inter v Club Brugge": {
+  "away": "Club Brugge",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.0888,
+    "btts": 0.5556,
+    "draw": 0.133,
+    "home": 0.7782,
+    "over25": 0.7261
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Inter v Club Brugge",
+  "ft": "PENDING",
+  "home": "Inter",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Lens v Sporting": {
+  "away": "Sporting",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.3702,
+    "btts": 0.6326,
+    "draw": 0.2623,
+    "home": 0.3675,
+    "over25": 0.6095
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Lens v Sporting",
+  "ft": "PENDING",
+  "home": "Lens",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Millwall v Swansea": {
+  "away": "Swansea",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.3108,
+    "btts": "PENDING",
+    "draw": 0.2882,
+    "home": 0.401,
+    "over25": 0.4687
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.3205,
+    "btts": 0.5209,
+    "draw": 0.2831,
+    "home": 0.3964,
+    "over25": 0.4675
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Millwall v Swansea",
+  "ft": "0-1",
+  "home": "Millwall",
+  "league": "Championship",
+  "model_p": [
+   0.438,
+   0.273,
+   0.289,
+   0.736,
+   0.478,
+   0.261,
+   0.525
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "RB Leipzig v PSV Eindhoven": {
+  "away": "PSV Eindhoven",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.1942,
+    "btts": 0.692,
+    "draw": 0.189,
+    "home": 0.6168,
+    "over25": 0.7544
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "RB Leipzig v PSV Eindhoven",
+  "ft": "1-0",
+  "home": "RB Leipzig",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Sabah Masazir v Slavia Prague": {
+  "away": "Slavia Prague",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.5051,
+    "btts": 0.611,
+    "draw": 0.2456,
+    "home": 0.2493,
+    "over25": 0.6143
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Sabah Masazir v Slavia Prague",
+  "ft": "PENDING",
+  "home": "Sabah Masazir",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Stoke v Middlesbrough": {
+  "away": "Middlesbrough",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.5036,
+    "btts": "PENDING",
+    "draw": 0.2544,
+    "home": 0.242,
+    "over25": 0.53
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.4695,
+    "btts": 0.5656,
+    "draw": 0.2613,
+    "home": 0.2692,
+    "over25": 0.5325
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Stoke v Middlesbrough",
+  "ft": "2-3",
+  "home": "Stoke",
+  "league": "Championship",
+  "model_p": [
+   0.287,
+   0.268,
+   0.444,
+   0.748,
+   0.494,
+   0.275,
+   0.537
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Viking FK v Bayern Munich": {
+  "away": "Bayern Munich",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.8519,
+    "btts": 0.5852,
+    "draw": 0.0895,
+    "home": 0.0586,
+    "over25": 0.8284
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Viking FK v Bayern Munich",
+  "ft": "3-3",
+  "home": "Viking FK",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Villarreal v Napoli": {
+  "away": "Napoli",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.2859,
+    "btts": 0.5949,
+    "draw": 0.2601,
+    "home": 0.454,
+    "over25": 0.574
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Villarreal v Napoli",
+  "ft": "3-1",
+  "home": "Villarreal",
+  "league": "Champions League",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Wolves v Bolton Wanderers": {
+  "away": "Bolton Wanderers",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.1297,
+    "btts": 0.5183,
+    "draw": 0.1856,
+    "home": 0.6848,
+    "over25": 0.6015
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Wolves v Bolton Wanderers",
+  "ft": "1-3",
+  "home": "Wolves",
+  "league": "Championship",
+  "model_p": [
+   0.583,
+   0.21,
+   0.207,
+   0.855,
+   0.656,
+   0.437,
+   0.625
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Wrexham v West Brom": {
+  "away": "West Brom",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.2772,
+    "btts": "PENDING",
+    "draw": 0.2851,
+    "home": 0.4377,
+    "over25": 0.4455
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "2026-10-13T14:04Z",
+    "away": 0.3012,
+    "btts": 0.5092,
+    "draw": 0.2878,
+    "home": 0.411,
+    "over25": 0.4487
+   }
+  },
+  "date": "2026-10-13",
+  "fixture": "Wrexham v West Brom",
+  "ft": "1-2",
+  "home": "Wrexham",
+  "league": "Championship",
+  "model_p": [
+   0.376,
+   0.291,
+   0.332,
+   0.682,
+   0.412,
+   0.207,
+   0.475
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "date": "2026-10-14",
+ "gone": [],
+ "reopen": [],
+ "first": {
+  "sr:match:73863898": {
+   "at": "20:52Z",
+   "spread": 1.5,
+   "total": 228.5,
+   "ml_home": 2.02,
+   "ml_away": 1.8197
+  },
+  "sr:match:73863900": {
+   "at": "20:52Z",
+   "spread": -10.5,
+   "total": 219.5,
+   "ml_home": 1.2439,
+   "ml_away": 4.2
+  },
+  "sr:match:73864182": {
+   "at": "20:52Z",
+   "spread": -8.5,
+   "total": 228.5,
+   "ml_home": 1.3226,
+   "ml_away": 3.5
+  },
+  "sr:match:73809698": {
+   "at": "20:52Z",
+   "spread": -1.5,
+   "total": 228.5,
+   "ml_home": 1.8,
+   "ml_away": 2.05
+  },
+  "sr:match:73864184": {
+   "at": "20:52Z",
+   "spread": 2.5,
+   "total": 228.5,
+   "ml_home": 2.2,
+   "ml_away": 1.7042
+  }
+ }
+}

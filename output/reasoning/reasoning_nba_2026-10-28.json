@@ -1,0 +1,68 @@
+{
+ "date": "2026-10-28",
+ "picks_generated_at": "2026-10-27T06:51:42Z",
+ "run_at": "2026-10-27T06:52:31+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Boston Celtics v Brooklyn Nets",
+   "market": "NBA:68|total=114.5|Under 114.5",
+   "pick": "1st half Under 114.5 points",
+   "price": 1.8,
+   "model_chance": 0.5932,
+   "code": "M4LW0J",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.58,
+   "confidence": 0.45,
+   "reasons": "The framework record is WINNING in this family, but the price of 1.80 fails to meet our required minimum odds of 1.90 for backing totals, leading us to apply lower confidence."
+  },
+  {
+   "fixture": "New York Knicks v Detroit Pistons",
+   "market": "NBA:68|total=112.5|Under 112.5",
+   "pick": "1st half Under 112.5 points",
+   "price": 1.9,
+   "model_chance": 0.5934,
+   "code": "LXW14S",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.59,
+   "confidence": 0.55,
+   "reasons": "The framework record is WINNING in this family, and the price of 1.90 satisfies our lesson requiring odds of 1.90 or higher."
+  },
+  {
+   "fixture": "San Antonio Spurs v Sacramento Kings",
+   "market": "NBA:68|total=117.5|Under 117.5",
+   "pick": "1st half Under 117.5 points",
+   "price": 1.96,
+   "model_chance": 0.5598,
+   "code": "M57PC6",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.56,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in this family, with a price of 1.96 fulfilling our rule on minimum odds of 1.90."
+  },
+  {
+   "fixture": "Los Angeles Lakers v Portland Trail Blazers",
+   "market": "NBA:68|total=121.5|Under 121.5",
+   "pick": "1st half Under 121.5 points",
+   "price": 1.95,
+   "model_chance": 0.5923,
+   "code": "Q1BC9G",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.59,
+   "confidence": 0.55,
+   "reasons": "The framework record is WINNING in this family, and the price of 1.95 satisfies our lesson requiring odds of 1.90 or higher."
+  }
+ ],
+ "sport": "nba"
+}

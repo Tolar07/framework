@@ -1,1 +1,57 @@
-[]
+[
+ {
+  "id": "P1",
+  "segment": "Asian handicap (underdog)",
+  "league": "FA Cup",
+  "action": "block",
+  "text": "stop picking Asian handicap (underdog) in FA Cup",
+  "evidence": "8/13 won (62%; its prices need 82%), -3.27 units over 2 match day(s)",
+  "status": "rejected",
+  "opened": "2026-10-07",
+  "decided": "2026-10-12"
+ },
+ {
+  "id": "P2",
+  "segment": "DC & total",
+  "league": "all",
+  "action": "block",
+  "text": "stop picking DC & total in any competition",
+  "evidence": "10/17 won (59%; its prices need 82%), -4.77 units over 10 match day(s)",
+  "status": "open",
+  "opened": "2026-10-18",
+  "decided": null
+ },
+ {
+  "id": "P3",
+  "segment": "Home win to nil",
+  "league": "all",
+  "action": "block",
+  "text": "stop picking Home win to nil in any competition",
+  "evidence": "14/22 won (64%; its prices need 82%), -4.88 units over 10 match day(s)",
+  "status": "open",
+  "opened": "2026-10-21",
+  "decided": null
+ },
+ {
+  "id": "P4",
+  "segment": "Double chance",
+  "league": "2. Bundesliga",
+  "action": "block",
+  "text": "stop picking Double chance in 2. Bundesliga",
+  "evidence": "11/18 won (61%; its prices need 80%), -4.24 units over 7 match day(s)",
+  "status": "open",
+  "opened": "2026-10-24",
+  "decided": null
+ },
+ {
+  "id": "P5",
+  "segment": "Double chance",
+  "league": "Serie B",
+  "action": "block",
+  "text": "stop picking Double chance in Serie B",
+  "evidence": "6/13 won (46%; its prices need 77%), -5.22 units over 6 match day(s)",
+  "status": "open",
+  "opened": "2026-10-25",
+  "decided": null
+ }
+]

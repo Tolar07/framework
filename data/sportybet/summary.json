@@ -1,0 +1,114 @@
+{
+ "updated": "2026-10-27",
+ "days": 3,
+ "sections": {
+  "?": {
+   "placed": 2,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "accas": {
+   "placed": 12,
+   "settled": 11,
+   "won": 2,
+   "avg_odds": 2.57,
+   "return": -0.385
+  },
+  "all": {
+   "placed": 55,
+   "settled": 26,
+   "won": 4,
+   "avg_odds": 26.17,
+   "return": -0.6462
+  },
+  "alts": {
+   "placed": 5,
+   "settled": 4,
+   "won": 2,
+   "avg_odds": 1.71,
+   "return": -0.3652
+  },
+  "board": {
+   "placed": 2,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "clv_accas": {
+   "placed": 4,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "combined": {
+   "placed": 7,
+   "settled": 7,
+   "won": 0,
+   "avg_odds": 77.39,
+   "return": -1.0
+  },
+  "megas": {
+   "placed": 2,
+   "settled": 2,
+   "won": 0,
+   "avg_odds": 49.75,
+   "return": -1.0
+  },
+  "nba": {
+   "placed": 6,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "nba_accas": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "safe3": {
+   "placed": 3,
+   "settled": 2,
+   "won": 0,
+   "avg_odds": 2.01,
+   "return": -1.0
+  },
+  "survivor": {
+   "placed": 3,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "survivor_mega": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "value": {
+   "placed": 7,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  }
+ },
+ "skipped": {
+  "odds moved": 2,
+  "odds moved (1.44 vs 1.9)": 1,
+  "odds moved (1.58 vs 1.9)": 1,
+  "odds moved (1.78 vs 1.9)": 1,
+  "odds moved (1.86 vs 1.97)": 1,
+  "odds moved (16.20 vs board 25.67)": 1,
+  "odds moved (about 426 vs board product a": 1,
+  "placed 22": 1
+ }
+}

@@ -1,0 +1,230 @@
+##########OLP XDV#########
+==================================
+
+📅  Thu 15 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261015-0552-8a593f | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 37 · Verified: 32
+KO = kickoff, Lagos time (WAT)
+
+⚠ 285 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                    Country · League        AI PICK · win%                                   Odds   Alt market                                           O1.5/O2.5  DC/BTTS     Src
+17:45  KKS Lech Poznan v Bayer Leverkusen         UEFA Europa League      KKS Lech Poznan or Bayer Leverkusen · 85%        @1.21  Bayer Leverkusen Under 3.5 goals @1.20               O85/O67    X281 / Y62  ✓ᴹ
+20:00  Hoffenheim v Besiktas Istanbul             UEFA Europa League      Hoffenheim or Besiktas Istanbul · 82%            @1.27  Hoffenheim or Besiktas Istanbul & Over 1.5 @1.44     O83/O63    1276 / Y63  ✓ᴹ
+17:45  Salzburg v AC Milan                        UEFA Europa League      Salzburg or AC Milan · 82%                       @1.29  Multigoals 2-5 @1.20                                 O81/O60    1275 / Y61  ✓ᴹ
+17:45  Lyon v Crystal Palace                      UEFA Europa League      Lyon or Crystal Palace · 81%                     @1.30  Multigoals 2-5 @1.20                                 O81/O60    1274 / Y62  ✓ᴹ
+17:45  Union Gilloise v Real Sociedad             UEFA Europa League      Union Gilloise or Real Sociedad · 81%            @1.31  Multigoals 2-5 @1.20                                 O81/O59    1273 / Y62  ✓ᴹ
+20:00  NEC Nijmegen v PFC Levski Sofia            UEFA Europa League      NEC Nijmegen or draw · 80%                       @1.27  Over 1.5 goals @1.24                                 O77/O54    1X76 / Y56  ✓ᴹ
+20:00  Ferencvarosi Budapest v Viktoria Plzen     UEFA Europa League      Over 1.5 goals · 80%                             @1.20  Ferencvarosi Budapest or Viktoria Plzen @1.28        O80/O58    1275 / Y59  ✓ᴹ
+20:00  Rennes v OFI Crete                         UEFA Europa League      OFI Crete (0:4) handicap · 80%                   @1.21  OFI Crete (+3.5) Asian handicap @1.21                O85/O68    1X92 / N51  ✓ᴹ
+17:45  SCU Torreense v Sunderland AFC             UEFA Europa League      Under 4.5 goals · 80%                            @1.23  Multigoals 2-5 @1.20                                 O80/O60    X289 / N52  ✓ᴹ
+20:00  Marseille v Olympiacos                     UEFA Europa League      Olympiacos (0:2) handicap · 80%                  @1.21  Marseille Under 2.5 goals @1.20                      O77/O54    1272 / Y58  ✓ᴹ
+20:00  Jagiellonia Bialystok v FC Ararat-Armenia  UEFA Europa League      Under 4.5 goals · 80%                            @1.23  Jagiellonia Bialystok Under 3.5 goals @1.20          O81/O60    1X87 / Y51  ✓ᴹ
+17:45  NK Celje v AC Omonia Nicosia               UEFA Europa League      NK Celje or AC Omonia Nicosia · 79%              @1.33  Over 1.5 goals @1.28                                 O75/O51    1272 / Y56  ✓ᴹ
+20:00  Bournemouth v Sturm Graz                   UEFA Europa League      Bournemouth Over 1.5 goals · 79%                 @1.23  Over 2.5 goals @1.34                                 O88/O72    1X93 / Y51  ✓ᴹ
+20:00  GNK Dinamo Zagreb v RSC Anderlecht         UEFA Europa League      Over 1.5 goals · 78%                             @1.23  GNK Dinamo Zagreb or RSC Anderlecht @1.30            O78/O55    1274 / Y58  ✓ᴹ
+20:00  Celta v Juventus                           UEFA Europa League      Celta or Juventus · 78%                          @1.36  Under 3.5 goals @1.29                                O70/U55    X272 / Y50  ✓ᴹ
+17:45  Sparta Prague v Lillestroem SK             UEFA Europa League      Sparta Prague or Draw & Over 1.5 · 77%           @1.23  Lillestroem SK Under 1.5 goals @1.24                 O84/O66    1X89 / Y53  ○ᴹ
+20:00  Benfica v Celtic                           UEFA Europa League      Benfica or Celtic & Over 1.5 · 76%               @1.21  Multigoals 2-5 @1.21                                 O87/O71    1X91 / Y53  ✓ᴹ
+17:45  Alkmaar v Hapoel Be`er Sheva FC            UEFA Europa League      Alkmaar Under 3.5 goals · 74%                    @1.30  Under 4.5 goals @1.32                                O84/O66    1X90 / Y52  ○ᴹ
+
+17:45  PFC CSKA Sofia v Monaco                    UEFA Conference League  PFC CSKA Sofia or Monaco · 85%                   @1.21  Over 1.5 goals @1.20                                 O80/O59    X284 / Y53  ✓ᴹ
+17:45  Kuopion Palloseura v Trabzonspor           UEFA Conference League  Kuopion Palloseura or Trabzonspor · 85%          @1.21  Under 4.5 goals @1.20                                O79/O57    X284 / Y51  ○ᴹ
+17:45  HNK Hajduk Split v Ajax                    UEFA Conference League  HNK Hajduk Split or Ajax · 84%                   @1.23  Under 4.5 goals @1.26                                O82/O62    X280 / Y59  ✓ᴹ
+17:45  KF Egnatia Rrogozhine v FC Midtjylland     UEFA Conference League  KF Egnatia Rrogozhine or FC Midtjylland · 84%    @1.23  Over 1.5 goals @1.24                                 O78/O55    X283 / Y51  ✓ᴹ
+17:45  Gent v AGF Aarhus                          UEFA Conference League  Gent or AGF Aarhus · 82%                         @1.25  Over 1.5 goals @1.26                                 O76/O53    1X80 / Y51  ✓ᴹ
+20:00  Heart of Midlothian FC v Nordsjaelland     UEFA Conference League  Heart of Midlothian FC or Nordsjaelland · 82%    @1.29  Heart of Midlothian FC Under 2.5 goals @1.20         O83/O62    1274 / Y64  ✓ᴹ
+17:45  Panathinaikos v FK Borac Banja Luka        UEFA Conference League  FK Borac Banja Luka (+3.5) Asian handicap · 81%  @1.20  Under 4.5 goals @1.27                                O82/O63    1X93 / N57  ✓ᴹ
+17:45  Mjallby AIF v Inter Club de Escaldes       UEFA Conference League  Over 1.5 goals · 81%                             @1.20  Mjallby AIF Under 3.5 goals @1.21                    O80/O59    1X89 / N52  ✓ᴹ
+17:45  Lugano v Crvena Zvezda                     UEFA Conference League  Crvena Zvezda (+1.5) Asian handicap · 81%        @1.20  Under 4.5 goals @1.20                                O79/O56    1274 / Y59  ✓ᴹ
+17:45  Riga FC v FC Kairat Almaty                 UEFA Conference League  Riga FC or draw · 80%                            @1.26  Riga FC Under 2.5 goals @1.21                        O72/U53    1X76 / Y50  ✓ᴹ
+17:45  CS Universitatea Craiova v Getafe          UEFA Conference League  Under 3.5 goals · 80%                            @1.23  CS Universitatea Craiova or Getafe @1.36             O66/U59    1270 / N54  ✓ᴹ
+20:00  FC Twente Enschede v FC Thun               UEFA Conference League  Under 5.5 goals · 80%                            @1.24  Multigoals 2-5 @1.23                                 O89/O75    1X92 / Y57  ✓ᴹ
+20:00  Freiburg v FK Jablonec                     UEFA Conference League  Freiburg or Draw & Over 1.5 · 79%                @1.20  Freiburg to win @1.26                                O83/O64    1X92 / N54  ✓ᴹ
+20:00  Copenhagen v Braga                         UEFA Conference League  Copenhagen Win to Nil — no · 77%                 @1.24  Copenhagen or Braga @1.35                            O70/U55    1271 / Y51  ○ᴹ
+20:00  Atalanta v Pafos FC                        UEFA Conference League  Under 4.5 goals · 77%                            @1.28  Atalanta Under 3.5 goals @1.25                       O83/O63    1X88 / Y52  ✓ᴹ
+20:00  SK Brann v Lincoln Red Imps                UEFA Conference League  Lincoln Red Imps (+3.5) Asian handicap · 75%     @1.29  Lincoln Red Imps (0:4) handicap @1.29                O86/O70    1X94 / N56  ✓ᴹ
+20:00  St. Truidense VV v FC Iberia 1999          UEFA Conference League  Under 4.5 goals · 75%                            @1.32  St. Truidense VV or FC Iberia 1999 & Over 1.5 @1.25  O84/O66    1X91 / N51  ○ᴹ
+
+20:00  Mansfield v Oxford United                  England · League One    ✓ Oxford United (+1.5) Asian handicap · 80%      @1.22  Mansfield Under 2.5 goals @1.21                      O79/O56    1275 / Y59  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+⚠ 1 fixture(s) unresolved — NO DATA — PENDING (no market data): Brighton v FK Kauno Zalgiris (🏆 UEFA Conference League)   (full detail: run log OLPXDV-20261015-0552-8a593f)
+
+TABLE 1 Mega 1 (18 legs · odds 49 · chance 1 in 35): X0DRT4   load ↦ www.sportybet.com/ng/?shareCode=X0DRT4
+TABLE 1 Mega 2 (18 legs · odds 58 · chance 1 in 88): SA2QX5   load ↦ www.sportybet.com/ng/?shareCode=SA2QX5
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                    Country · League        Pick                                       Chance  Odds   Certainty  Stake  Code
+17:45  Alkmaar v Hapoel Be`er Sheva FC            UEFA Europa League      Alkmaar Under 3.5 goals                    74%     @1.30  LOW        0.25%  GTH0VP
+17:45  KKS Lech Poznan v Bayer Leverkusen         UEFA Europa League      KKS Lech Poznan or Bayer Leverkusen        85%     @1.21  LOW        0.25%  SYQETD
+17:45  Lyon v Crystal Palace                      UEFA Europa League      Lyon or Crystal Palace                     81%     @1.30  LOW        0.25%  XGX76D
+17:45  NK Celje v AC Omonia Nicosia               UEFA Europa League      NK Celje or AC Omonia Nicosia              79%     @1.33  LOW        0.25%  P5LJA1
+17:45  Salzburg v AC Milan                        UEFA Europa League      Salzburg or AC Milan                       82%     @1.29  LOW        0.25%  RTBN4R
+17:45  SCU Torreense v Sunderland AFC             UEFA Europa League      Under 4.5 goals                            80%     @1.23  LOW        0.25%  ZBAEVR
+17:45  Sparta Prague v Lillestroem SK             UEFA Europa League      Sparta Prague or Draw & Over 1.5           77%     @1.23  LOW        0.25%  XM750M
+17:45  Union Gilloise v Real Sociedad             UEFA Europa League      Union Gilloise or Real Sociedad            81%     @1.31  LOW        0.25%  M0K57P
+20:00  Benfica v Celtic                           UEFA Europa League      Benfica or Celtic & Over 1.5               76%     @1.21  LOW        0.25%  H8WQKX
+20:00  Bournemouth v Sturm Graz                   UEFA Europa League      Bournemouth Over 1.5 goals                 79%     @1.23  LOW        0.25%  RMYKXH
+20:00  Celta v Juventus                           UEFA Europa League      Celta or Juventus                          78%     @1.36  LOW        0.25%  MH6UWG
+20:00  Ferencvarosi Budapest v Viktoria Plzen     UEFA Europa League      Over 1.5 goals                             80%     @1.20  LOW        0.25%  Z06KEW
+20:00  GNK Dinamo Zagreb v RSC Anderlecht         UEFA Europa League      Over 1.5 goals                             78%     @1.23  LOW        0.25%  GJAVC6
+20:00  Hoffenheim v Besiktas Istanbul             UEFA Europa League      Hoffenheim or Besiktas Istanbul            82%     @1.27  LOW        0.25%  SR54GZ
+20:00  Jagiellonia Bialystok v FC Ararat-Armenia  UEFA Europa League      Under 4.5 goals                            80%     @1.23  LOW        0.25%  WNVVP1
+20:00  Marseille v Olympiacos                     UEFA Europa League      Olympiacos (0:2) handicap                  80%     @1.21  LOW        0.25%  ZWW80Y
+20:00  NEC Nijmegen v PFC Levski Sofia            UEFA Europa League      NEC Nijmegen or draw                       80%     @1.27  LOW        0.25%  M3MFQZ
+20:00  Rennes v OFI Crete                         UEFA Europa League      OFI Crete (0:4) handicap                   80%     @1.21  LOW        0.25%  JVCAEB
+17:45  CS Universitatea Craiova v Getafe          UEFA Conference League  Under 3.5 goals                            80%     @1.23  LOW        0.25%  VD0ZW6
+17:45  Gent v AGF Aarhus                          UEFA Conference League  Gent or AGF Aarhus                         82%     @1.25  LOW        0.25%  YWCT07
+17:45  HNK Hajduk Split v Ajax                    UEFA Conference League  HNK Hajduk Split or Ajax                   84%     @1.23  LOW        0.25%  W7FASX
+17:45  KF Egnatia Rrogozhine v FC Midtjylland     UEFA Conference League  KF Egnatia Rrogozhine or FC Midtjylland    84%     @1.23  LOW        0.25%  PEGSVJ
+17:45  Kuopion Palloseura v Trabzonspor           UEFA Conference League  Kuopion Palloseura or Trabzonspor          85%     @1.21  LOW        0.25%  RZDWFL
+17:45  Lugano v Crvena Zvezda                     UEFA Conference League  Crvena Zvezda (+1.5) Asian handicap        81%     @1.20  LOW        0.25%  WW442T
+17:45  Mjallby AIF v Inter Club de Escaldes       UEFA Conference League  Over 1.5 goals                             81%     @1.20  LOW        0.25%  P44753
+17:45  Panathinaikos v FK Borac Banja Luka        UEFA Conference League  FK Borac Banja Luka (+3.5) Asian handicap  81%     @1.20  LOW        0.25%  R9T8BK
+17:45  PFC CSKA Sofia v Monaco                    UEFA Conference League  PFC CSKA Sofia or Monaco                   85%     @1.21  LOW        0.25%  SVEF4S
+17:45  Riga FC v FC Kairat Almaty                 UEFA Conference League  Riga FC or draw                            80%     @1.26  LOW        0.25%  M9USQ0
+20:00  Atalanta v Pafos FC                        UEFA Conference League  Under 4.5 goals                            77%     @1.28  LOW        0.25%  UGEAQ2
+20:00  Copenhagen v Braga                         UEFA Conference League  Copenhagen Win to Nil — no                 77%     @1.24  LOW        0.25%  H1J2RN
+20:00  FC Twente Enschede v FC Thun               UEFA Conference League  Under 5.5 goals                            80%     @1.24  LOW        0.25%  H25FWY
+20:00  Freiburg v FK Jablonec                     UEFA Conference League  Freiburg or Draw & Over 1.5                79%     @1.20  LOW        0.25%  HMNVP1
+20:00  Heart of Midlothian FC v Nordsjaelland     UEFA Conference League  Heart of Midlothian FC or Nordsjaelland    82%     @1.29  LOW        0.25%  SBQBNM
+20:00  SK Brann v Lincoln Red Imps                UEFA Conference League  Lincoln Red Imps (+3.5) Asian handicap     75%     @1.29  LOW        0.25%  G6TBXF
+20:00  St. Truidense VV v FC Iberia 1999          UEFA Conference League  Under 4.5 goals                            75%     @1.32  LOW        0.25%  H1Y5TR
+20:00  Mansfield v Oxford United                  England · League One    ✓ Oxford United (+1.5) Asian handicap      80%     @1.22  MEDIUM     0.25%  UYM336
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 27 of 36 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 9 quoted by no second book.
+
+⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • RISK: Bournemouth v Sturm Graz (🏆 UEFA Europa League) — AFC Bournemouth missing 41% of value (Alex Scott, Junior Kroupi, Veljko Milosavljević); support: Sturm Graz missing 48%
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Mansfield v Oxford United: tempo 3.2 goals/game · draw tendency 34% · both draw-prone · open, high-scoring pairing | Mansfield 1.7-1.4 a game, draws 40%, BTTS 60%, clean sheets 30%, SoT 4.2-3.8 | Oxford 2.1-1.1 a game, draws 29%, BTTS 71%, clean sheets 29%, SoT 4.6-4.6
+
+TABLE 2 Mega 1 (18 legs · odds 49 · chance 1 in 35): X0DRT4   load ↦ www.sportybet.com/ng/?shareCode=X0DRT4
+TABLE 2 Mega 2 (18 legs · odds 58 · chance 1 in 88): SA2QX5   load ↦ www.sportybet.com/ng/?shareCode=SA2QX5
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+7 accas · 29 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+2 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code XWD7UZ · 3 legs · odds 2.32 · chance 51%
+   • 20:00 Celta v Juventus (🏆 UEFA Europa League) — Celta or Juventus @1.36 (78%)
+   • 17:45 Union Gilloise v Real Sociedad (🏆 UEFA Europa League) — Union Gilloise or Real Sociedad @1.31 (81%)
+   • 17:45 Lyon v Crystal Palace (🏆 UEFA Europa League) — Lyon or Crystal Palace @1.30 (81%)
+Acca B · code X285Z4 · 3 legs · odds 2.21 · chance 53%
+   • 17:45 NK Celje v AC Omonia Nicosia (🏆 UEFA Europa League) — NK Celje or AC Omonia Nicosia @1.33 (79%)
+   • 17:45 Salzburg v AC Milan (🏆 UEFA Europa League) — Salzburg or AC Milan @1.29 (82%)
+   • 20:00 Heart of Midlothian FC v Nordsjaelland (🏆 UEFA Conference League) — Heart of Midlothian FC or Nordsjaelland @1.29 (82%)
+Acca C · code XHJANR · 4 legs · odds 2.32 · chance 49%
+   • 20:00 Hoffenheim v Besiktas Istanbul (🏆 UEFA Europa League) — Hoffenheim or Besiktas Istanbul @1.27 (82%)
+   • 17:45 HNK Hajduk Split v Ajax (🏆 UEFA Conference League) — HNK Hajduk Split or Ajax @1.23 (84%)
+   • 17:45 KKS Lech Poznan v Bayer Leverkusen (🏆 UEFA Europa League) — KKS Lech Poznan or Bayer Leverkusen @1.21 (85%)
+   • 17:45 KF Egnatia Rrogozhine v FC Midtjylland (🏆 UEFA Conference League) — KF Egnatia Rrogozhine or FC Midtjylland @1.23 (84%)
+Acca D · code XKCQU9 · 5 legs · odds 2.86 · chance 38%
+   • 17:45 Gent v AGF Aarhus (🏆 UEFA Conference League) — Gent or AGF Aarhus @1.25 (82%)
+   • 17:45 PFC CSKA Sofia v Monaco (🏆 UEFA Conference League) — PFC CSKA Sofia or Monaco @1.21 (85%)
+   • 17:45 Kuopion Palloseura v Trabzonspor (🏆 UEFA Conference League) — Kuopion Palloseura or Trabzonspor @1.21 (85%)
+   • 20:00 NEC Nijmegen v PFC Levski Sofia (🏆 UEFA Europa League) — NEC Nijmegen or draw @1.27 (80%)
+   • 17:45 SCU Torreense v Sunderland AFC (🏆 UEFA Europa League) — Under 4.5 goals @1.23 (80%)
+Acca E · code XBE8U2 · 5 legs · odds 2.74 · chance 34%
+   • 17:45 Riga FC v FC Kairat Almaty (🏆 UEFA Conference League) — Riga FC or draw @1.26 (80%)
+   • 20:00 FC Twente Enschede v FC Thun (🏆 UEFA Conference League) — Under 5.5 goals @1.24 (80%)
+   • 20:00 Mansfield v Oxford United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Oxford United (+1.5) Asian handicap @1.22 (80%)
+   • 17:45 Panathinaikos v FK Borac Banja Luka (🏆 UEFA Conference League) — FK Borac Banja Luka (+3.5) Asian handicap @1.20 (81%)
+   • 20:00 Ferencvarosi Budapest v Viktoria Plzen (🏆 UEFA Europa League) — Over 1.5 goals @1.20 (80%)
+Acca F · code RE397R · 4 legs · odds 2.29 · chance 40%
+   • 20:00 Atalanta v Pafos FC (🏆 UEFA Conference League) — Under 4.5 goals @1.28 (77%)
+   • 20:00 Bournemouth v Sturm Graz (🏆 UEFA Europa League) — Bournemouth Over 1.5 goals @1.23 (79%)
+   • 20:00 Rennes v OFI Crete (🏆 UEFA Europa League) — OFI Crete (0:4) handicap @1.21 (80%)
+   • 17:45 Lugano v Crvena Zvezda (🏆 UEFA Conference League) — Crvena Zvezda (+1.5) Asian handicap @1.20 (81%)
+Acca G · code XJ5428 · 5 legs · odds 2.86 · chance 30%
+   • 17:45 CS Universitatea Craiova v Getafe (🏆 UEFA Conference League) — Under 3.5 goals @1.23 (80%)
+   • 17:45 Mjallby AIF v Inter Club de Escaldes (🏆 UEFA Conference League) — Over 1.5 goals @1.20 (81%)
+   • 20:00 SK Brann v Lincoln Red Imps (🏆 UEFA Conference League) — Lincoln Red Imps (+3.5) Asian handicap @1.29 (75%)
+   • 20:00 Marseille v Olympiacos (🏆 UEFA Europa League) — Olympiacos (0:2) handicap @1.21 (80%)
+   • 20:00 Copenhagen v Braga (🏆 UEFA Conference League) — Copenhagen Win to Nil — no @1.24 (77%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 Mega 1 (18 legs · odds 49 · chance 1 in 35): X0DRT4   load ↦ www.sportybet.com/ng/?shareCode=X0DRT4
+TABLE 3 Mega 2 (18 legs · odds 58 · chance 1 in 88): SA2QX5   load ↦ www.sportybet.com/ng/?shareCode=SA2QX5
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code X285Z6 · 2 legs · odds 1.56 · chance 66%
+   • 20:00 Jagiellonia Bialystok v FC Ararat-Armenia (🏆 UEFA Europa League) — Jagiellonia Bialystok Under 3.5 goals @1.20 (81%)
+   • 20:00 GNK Dinamo Zagreb v RSC Anderlecht (🏆 UEFA Europa League) — GNK Dinamo Zagreb or RSC Anderlecht @1.30 (81%)
+Alt B · code WUWHB6 · 2 legs · odds 1.56 · chance 60%
+   • 17:45 Sparta Prague v Lillestroem SK (🏆 UEFA Europa League) — Lillestroem SK Under 1.5 goals @1.24 (77%)
+   • 20:00 Freiburg v FK Jablonec (🏆 UEFA Conference League) — Freiburg to win @1.26 (77%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: KKS Lech Poznan v Bayer Leverkusen (🏆 UEFA Europa League) — KKS Lech Poznan or Bayer Leverkusen (85%) @1.21 · code SYQETD
+Acca A: 3 legs, model 51% · code XWD7UZ
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 327 legs logged, mean CLV +0.32%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+ACCAS MEGA: Q5VQ4J (29 legs · every Table 3 acca on one slip · odds 610.74 · stake 0.1%)
+ALT MEGA: VLVW54 (4 legs · every alt acca on one slip · stake 0.1%)
+Mega 1: X0DRT4 (18 legs · odds 49 · stake 0.1%)
+Mega 2: SA2QX5 (18 legs · odds 58 · stake 0.1%)
+Acca A: XWD7UZ (3 legs · odds 2.32 · 51% · stake 0.25%)
+Acca B: X285Z4 (3 legs · odds 2.21 · 53% · stake 0.25%)
+Acca C: XHJANR (4 legs · odds 2.32 · 49% · stake 0.25%)
+Acca D: XKCQU9 (5 legs · odds 2.86 · 38% · stake 0.25%)
+Acca E: XBE8U2 (5 legs · odds 2.74 · 34% · stake 0.25%)
+Acca F: RE397R (4 legs · odds 2.29 · 40% · stake 0.25%)
+Acca G: XJ5428 (5 legs · odds 2.86 · 30% · stake 0.25%)
+Alt A: X285Z6 (2 legs · alt markets · odds 1.56 · 66% · stake 0.25%)
+Alt B: WUWHB6 (2 legs · alt markets · odds 1.56 · 60% · stake 0.25%)

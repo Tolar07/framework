@@ -1,0 +1,133 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Fri 16 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261016-0548-1b7266 (same run as the SportyBet board)
+Times are kickoff, UK time
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🇳🇱 Netherlands · Eredivisie
+ • 19:00 Heerenveen v Excelsior — Double Chance: Heerenveen or Excelsior
+   83% · deploy at 1.21+ · SportyBet @1.21 · MEDIUM
+
+🇩🇰 Denmark · Superliga
+ • 18:00 Horsens v Randers FC — Double Chance: Horsens or Randers FC
+   81% · deploy at 1.24+ · SportyBet @1.30 · HIGH
+
+🇵🇱 Poland · Ekstraklasa
+ • 17:00 Wieczysta Krakow v Rakow — Double Chance: Wieczysta Krakow or Rakow
+   83% · deploy at 1.22+ · SportyBet @1.26 · HIGH
+ • 19:30 Widzew Lodz v Wisla — Asian Handicap: Wisla +1.5
+   81% · deploy at 1.25+ · SportyBet @1.20 · HIGH
+
+🇭🇷 Croatia · HNL
+ • 17:00 NK Rudes Zagreb v HNK Rijeka — Goals Over/Under: Under 4.5
+   81% · deploy at 1.25+ · SportyBet @1.21 · LOW
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship
+ • 20:00 Burnley v Wolves — Double Chance: Burnley or Wolves
+   81% · deploy at 1.24+ · SportyBet @1.31 · HIGH
+
+🇮🇹 Italy · Serie A
+ • 19:45 Frosinone v Sassuolo — Double Chance: Frosinone or Sassuolo
+   84% · deploy at 1.20+ · SportyBet @1.28 · HIGH
+
+🇩🇪 Germany · Bundesliga
+ • 19:30 Ein Frankfurt v FC Koln — Double Chance: Ein Frankfurt or FC Koln
+   86% · deploy at 1.20+ · SportyBet @1.24 · HIGH
+
+🇫🇷 France · Ligue 1
+ • 19:45 Le Mans FC v Toulouse — ≠ Double Chance: Le Mans FC or Toulouse
+   82% · deploy at 1.22+ · SportyBet @1.31 · HIGH
+   (SportyBet pick: Toulouse Win to Nil — no — not on bet365)
+
+🇪🇸 Spain · La Liga
+ • 20:00 RC Deportivo de A Coruna v Levante — Double Chance: RC Deportivo de A Coruna or Levante
+   81% · deploy at 1.25+ · SportyBet @1.32 · LOW
+
+🇪🇸 Spain · La Liga 2 / Hypermotion
+ • 19:30 Leganes v Cordoba — Double Chance: Leganes or Cordoba
+   81% · deploy at 1.24+ · SportyBet @1.30 · HIGH
+
+🇮🇹 Italy · Serie B
+ • 19:30 Hellas Verona v Catanzaro — Double Chance: Hellas Verona or Catanzaro
+   83% · deploy at 1.21+ · SportyBet @1.27 · HIGH
+
+🇩🇪 Germany · 2. Bundesliga
+ • 17:30 Energie Cottbus v Nurnberg — Double Chance: Energie Cottbus or Nurnberg
+   85% · deploy at 1.20+ · SportyBet @1.23 · HIGH
+ • 17:30 Holstein Kiel v Hertha — Double Chance: Holstein Kiel or Hertha
+   83% · deploy at 1.21+ · SportyBet @1.26 · HIGH
+
+🇫🇷 France · Ligue 2
+ • 19:00 Reims v Dijon — Double Chance: Reims or draw
+   83% · deploy at 1.21+ · SportyBet @1.21 · MEDIUM
+ • 19:00 Grenoble v Boulogne — Goals Over/Under: Under 3.5
+   80% · deploy at 1.25+ · SportyBet @1.21 · HIGH
+ • 19:00 Guingamp v Pau FC — Asian Handicap: Pau FC +1.5
+   79% · deploy at 1.27+ · SportyBet @1.21 · HIGH
+ • 19:00 Annecy v Nancy — Double Chance: Annecy or Nancy
+   79% · deploy at 1.27+ · SportyBet @1.33 · HIGH
+ • 19:00 Laval v Clermont — Double Chance: Laval or Clermont
+   79% · deploy at 1.28+ · SportyBet @1.33 · MEDIUM
+
+🇹🇷 Turkey · Super Lig
+ • 18:00 Corum FK v Caykur Rizespor — Goals Over/Under: Over 1.5
+   81% · deploy at 1.24+ · SportyBet @1.22 · MEDIUM
+
+🇦🇹 Austria · Bundesliga
+ • 18:30 SK Rapid v TSV Hartberg — Team Goals: TSV Hartberg Under 1.5
+   76% · deploy at 1.32+ · SportyBet @1.23 · MEDIUM
+
+🇸🇪 Sweden · Allsvenskan
+ • 18:00 IF Brommapojkarna v Djurgardens IF — Asian Handicap: IF Brommapojkarna +2.5
+   79% · deploy at 1.27+ · SportyBet @1.25 · MEDIUM
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 61% · deploy at 1.73+ combined
+   • Ein Frankfurt v FC Koln (🇩🇪 Germany · Bundesliga) — Double Chance: Ein Frankfurt or FC Koln (86%)
+   • Energie Cottbus v Nurnberg (🇩🇪 Germany · 2. Bundesliga) — Double Chance: Energie Cottbus or Nurnberg (85%)
+   • Frosinone v Sassuolo (🇮🇹 Italy · Serie A) — Double Chance: Frosinone or Sassuolo (84%)
+bet365 Acca B · 3 legs · chance 57% · deploy at 1.77+ combined
+   • Holstein Kiel v Hertha (🇩🇪 Germany · 2. Bundesliga) — Double Chance: Holstein Kiel or Hertha (83%)
+   • Heerenveen v Excelsior (🇳🇱 Netherlands · Eredivisie) — Double Chance: Heerenveen or Excelsior (83%)
+   • Reims v Dijon (🇫🇷 France · Ligue 2) — Double Chance: Reims or draw (83%)
+bet365 Acca C · 3 legs · chance 56% · deploy at 1.80+ combined
+   • Hellas Verona v Catanzaro (🇮🇹 Italy · Serie B) — Double Chance: Hellas Verona or Catanzaro (83%)
+   • Wieczysta Krakow v Rakow (🇵🇱 Poland · Ekstraklasa) — Double Chance: Wieczysta Krakow or Rakow (83%)
+   • Le Mans FC v Toulouse (🇫🇷 France · Ligue 1) — Double Chance: Le Mans FC or Toulouse (82%)
+bet365 Acca D · 3 legs · chance 53% · deploy at 1.91+ combined
+   • Horsens v Randers FC (🇩🇰 Denmark · Superliga) — Double Chance: Horsens or Randers FC (81%)
+   • Burnley v Wolves (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Burnley or Wolves (81%)
+   • Leganes v Cordoba (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Leganes or Cordoba (81%)
+bet365 Acca E · 3 legs · chance 52% · deploy at 1.94+ combined
+   • Corum FK v Caykur Rizespor (🇹🇷 Turkey · Super Lig) — Goals Over/Under: Over 1.5 (81%)
+   • RC Deportivo de A Coruna v Levante (🇪🇸 Spain · La Liga) — Double Chance: RC Deportivo de A Coruna or Levante (81%)
+   • NK Rudes Zagreb v HNK Rijeka (🇭🇷 Croatia · HNL) — Goals Over/Under: Under 4.5 (81%)
+bet365 Acca F · 3 legs · chance 51% · deploy at 1.98+ combined
+   • Widzew Lodz v Wisla (🇵🇱 Poland · Ekstraklasa) — Asian Handicap: Wisla +1.5 (81%)
+   • Grenoble v Boulogne (🇫🇷 France · Ligue 2) — Goals Over/Under: Under 3.5 (80%)
+   • Guingamp v Pau FC (🇫🇷 France · Ligue 2) — Asian Handicap: Pau FC +1.5 (79%)
+bet365 Acca G · 2 legs · chance 63% · deploy at 1.61+ combined
+   • Annecy v Nancy (🇫🇷 France · Ligue 2) — Double Chance: Annecy or Nancy (79%)
+   • IF Brommapojkarna v Djurgardens IF (🇸🇪 Sweden · Allsvenskan) — Asian Handicap: IF Brommapojkarna +2.5 (79%)
+bet365 Acca H · 2 legs · chance 60% · deploy at 1.69+ combined
+   • Laval v Clermont (🇫🇷 France · Ligue 2) — Double Chance: Laval or Clermont (79%)
+   • SK Rapid v TSV Hartberg (🇦🇹 Austria · Bundesliga) — Team Goals: TSV Hartberg Under 1.5 (76%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

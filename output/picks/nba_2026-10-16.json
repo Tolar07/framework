@@ -1,0 +1,116 @@
+{
+ "date": "2026-10-16",
+ "run_id": "OLPXDV-20261015-0555-09be24",
+ "generated_at": "2026-10-15T05:55:56Z",
+ "mega_code": null,
+ "picks": [],
+ "study": [
+  {
+   "tip": "2026-10-15T23:30:00+00:00",
+   "stage": "preseason",
+   "home": "New York Knicks",
+   "away": "Toronto Raptors",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.46,
+     "chance": 0.6575,
+     "fair_price": 1.521,
+     "ev": -0.0401
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=2.5",
+     "outcome": "Home (+2.5)",
+     "price": 1.35,
+     "chance": 0.7204,
+     "fair_price": 1.388,
+     "ev": -0.0275
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=231.5",
+     "outcome": "Under 231.5",
+     "price": 1.5,
+     "chance": 0.6306,
+     "fair_price": 1.586,
+     "ev": -0.0542
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=113.5",
+     "outcome": "Over 113.5",
+     "price": 1.64,
+     "chance": 0.5765,
+     "fair_price": 1.735,
+     "ev": -0.0546
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=110.5",
+     "outcome": "Under 110.5",
+     "price": 1.8,
+     "chance": 0.5173,
+     "fair_price": 1.933,
+     "ev": -0.0689
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-16T00:30:00+00:00",
+   "stage": "preseason",
+   "home": "Houston Rockets",
+   "away": "Oklahoma City Thunder",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 2.35,
+     "chance": 0.4066,
+     "fair_price": 2.459,
+     "ev": -0.0444
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-3.5",
+     "outcome": "Away (+3.5)",
+     "price": 1.4,
+     "chance": 0.6953,
+     "fair_price": 1.438,
+     "ev": -0.0266
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=224.5",
+     "outcome": "Over 224.5",
+     "price": 1.9,
+     "chance": 0.5,
+     "fair_price": 2.0,
+     "ev": -0.05
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=112.5",
+     "outcome": "Over 112.5",
+     "price": 2.2,
+     "chance": 0.436,
+     "fair_price": 2.293,
+     "ev": -0.0408
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=113.5",
+     "outcome": "Over 113.5",
+     "price": 1.8,
+     "chance": 0.518,
+     "fair_price": 1.931,
+     "ev": -0.0676
+    }
+   ]
+  }
+ ],
+ "sent_at": "2026-10-15T05:56:05Z"
+}

@@ -161,8 +161,8 @@
    "ev": -0.04587378324378133,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": "no-90min-result",
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.23,
    "drift_pct": 0.0
   },
@@ -3025,7 +3025,7 @@
     "Sabadell v Andorra",
     "Harborough Town FC v St Albans City"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca L",

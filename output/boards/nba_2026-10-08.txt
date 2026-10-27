@@ -1,0 +1,44 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Thu 08 Oct 2026   ·   tip-off = Lagos time (WAT)
+Run ID: OLPXDV-20261007-1758-3b5ff3
+Games checked against the sharp line: 5
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+00:00  Indiana Pacers v Minnesota Timberwolves · PRESEASON (test only)
+   Minnesota Timberwolves Under 125.5 points (incl. OT) @1.61 · chance 67% · fair 1.49 · value +8.0%
+   code Z54MJS
+   bet365: Team Totals: MIN Timberwolves Under 125.5 · take at 1.57+
+
+01:00  Oklahoma City Thunder v Milwaukee Bucks · PRESEASON (test only)
+   Milwaukee Bucks Under 107.5 points (incl. OT) @1.58 · chance 69% · fair 1.46 · value +8.5%
+   code LEH80D
+   bet365: Team Totals: MIL Bucks Under 107.5 · take at 1.53+
+
+03:00  Portland Trail Blazers v Golden State Warriors · PRESEASON (test only)
+   Golden State Warriors Under 109.5 points (incl. OT) @1.60 · chance 77% · fair 1.29 · value +23.8%
+   code LMUX44
+   bet365: Team Totals: GS Warriors Under 109.5 · take at 1.36+
+
+All 3 picks on one slip: RPT5EJ
+
+bet365: no bet365 price feed (order 27), so none is shown — 'take at' is the
+lowest bet365 price that still clears this board's value bar. bet365 names are a draft until checked in the app.
+
+──────────────────────────────────
+NBA record: no graded regular-season pick yet (the season opens 20 Oct).
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.
+
+Checked and left out:
+ • Portland Trail Blazers v Golden State Warriors: Under 110.5 @1.58 looks +26% — too good to be true (stale line?), not picked

@@ -7,7 +7,7 @@ looks at what the run actually left behind on main — not at what "should"
 have happened — and sends the Architect ONE Telegram status:
 
   * the board run's own conclusion;
-  * the day's board, bet365 board and sent marker exist;
+  * the day's board and sent marker exist (the bet365 board is retired, 2026-10-16);
   * the board carries a Run ID (HR59);
   * the picks: how many, how many market families, the largest family's
     share (one family on most picks = every slip is the same bet), main and
@@ -116,7 +116,7 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
     ok: list[str] = []
     if subscribers is not None:
         (ok if subscribers else bad).append(
-            f"subscribers: {subscribers} chat(s) get every message except the bet365 board"
+            f"subscribers: {subscribers} chat(s) get the board"
             if subscribers else
             "subscribers: none — the TELEGRAM_SUBSCRIBER_CHAT_IDS secret is empty or "
             "not a repository secret, so only your chat gets the board")
@@ -126,8 +126,6 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
     else:
         (ok if facts["run_id"] else bad).append("Run ID " + ("present" if facts["run_id"]
                                                              else "MISSING (HR59)"))
-        (ok if facts["bet365"] else bad).append("bet365 board " + ("saved" if facts["bet365"]
-                                                                   else "MISSING"))
         if facts["no_data"]:
             bad.append(f"{facts['no_data']} fixture(s) NO DATA")
     if stats:
@@ -166,6 +164,17 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
                 if last.get("target") == day else
                 f"run log has no record for {day} (last: {last.get('target') or 'none'}) "
                 f"— memory/runs.jsonl")
+    # Autonomy (2026-10-20): the experiment engine's slots and the slip
+    # post-mortem, one line each, from memory/ (written before the board).
+    try:
+        from engine import experiments as _xp
+        from engine import leg_postmortem as _lp
+        if _xp.REGISTRY.exists():
+            ok.append("experiments: " + _xp.brief(_xp.load_registry()))
+        if _lp.OUT.exists():
+            ok.append(_lp.line(json.loads(_lp.OUT.read_text(encoding="utf-8"))))
+    except Exception as e:  # noqa: BLE001 — a status line, never a failed check
+        ok.append(f"experiments / post-mortem: unreadable ({e})")
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])
@@ -206,7 +215,7 @@ def main(argv: list[str] | None = None) -> int:
     print(text)
     if not a.no_send:
         from output import notify
-        sent, notes = notify.send_everyone(text)    # Architect + subscribers (order 33)
+        sent, notes = notify.send_architect(text)    # Architect only (order 33)
         print("status sent" if sent else "status NOT sent")
         print("\n".join(notes))
     return 0

@@ -1,0 +1,272 @@
+{
+ "Aston Villa v Viking FK": {
+  "absent": [
+   {
+    "name": "Amadou Onana",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Johan Manzambi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Matteo Ruggeri",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Martin Roseth",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Anders B\u00e6rtelsen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nicholas D'Agostino",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.13051225355875362,
+  "away_unavailable": 5,
+  "fotmob_id": 6106285,
+  "home_missing_share": 0.38013549039896727,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Bayern Munich v Arsenal": {
+  "absent": [
+   {
+    "name": "Jamal Musiala",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "William Saliba",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Piero Hincapi\u00e9",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Christos Tzolis",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.24085279379172655,
+  "away_unavailable": 3,
+  "fotmob_id": 6106238,
+  "home_missing_share": 0.23500800626744145,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Club Brugge v Lens": {
+  "absent": [
+   {
+    "name": "Joel Ord\u00f3\u00f1ez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Isma\u00eblo Ganiou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Abdallah Sima",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jhoanner Ch\u00e1vez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.15529456084010929,
+  "away_unavailable": 5,
+  "fotmob_id": 6106297,
+  "home_missing_share": 0.2545504384575578,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Como 1907 v Man Utd": {
+  "absent": [
+   {
+    "name": "Trevoh Chalobah",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jes\u00fas Rodr\u00edguez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Moise Kean",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kobbie Mainoo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Benjamin \u0160e\u0161ko",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Patrick Dorgu",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T16:00Z",
+  "away_missing_share": 0.4460253870409425,
+  "away_unavailable": 8,
+  "fotmob_id": 6106410,
+  "home_missing_share": 0.35639630095167996,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-21T16:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Lille v Galatasaray Istanbul": {
+  "absent": [
+   {
+    "name": "Hamza Igamane",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ayase Ueda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tiago Santos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rafael Le\u00e3o",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T16:00Z",
+  "away_missing_share": 0.15023593541315927,
+  "away_unavailable": 1,
+  "fotmob_id": 6106312,
+  "home_missing_share": 0.34323675910522095,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-21T16:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Reading v Leyton Orient": {
+  "absent": [],
+  "at": "2026-10-21T18:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837230,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Real Madrid v RB Leipzig": {
+  "absent": [
+   {
+    "name": "Rodrygo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ra\u00fal Asencio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ferland Mendy",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Assan Ou\u00e9draogo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marc Guiu",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.13609944872006796,
+  "away_unavailable": 2,
+  "fotmob_id": 6106244,
+  "home_missing_share": 0.0766093095208481,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Sporting v LASK Linz": {
+  "absent": [
+   {
+    "name": "Zeno Debast",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rodrigo Zalazar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nuno Santos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Moses Usor",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "George Bello",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ramiz Harakat\u00e9",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.27048790550108465,
+  "away_unavailable": 3,
+  "fotmob_id": 6106281,
+  "home_missing_share": 0.22348670050676003,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-21T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ }
+}

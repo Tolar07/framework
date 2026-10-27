@@ -1,0 +1,57 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Tue 13 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261013-0619-3046a9 (same run as the SportyBet board)
+Times are kickoff, Lagos time (WAT)
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🏆 UEFA Champions League
+ • 20:00 RB Leipzig v PSV Eindhoven — Double Chance: RB Leipzig or PSV Eindhoven
+   86% · deploy at 1.20+ · SportyBet @1.21 · LOW
+ • 20:00 Viking FK v Bayern Munich — Goals Over/Under: Under 6.5
+   82% · deploy at 1.23+ · SportyBet @1.22 · LOW
+ • 20:00 Atletico Madrid v Man Utd — Double Chance: Atletico Madrid or Man Utd
+   82% · deploy at 1.23+ · SportyBet @1.27 · LOW
+ • 17:45 Sabah Masazir v Slavia Prague — Double Chance: Sabah Masazir or Slavia Prague
+   81% · deploy at 1.24+ · SportyBet @1.29 · LOW
+ • 20:00 Villarreal v Napoli — Double Chance: Villarreal or Napoli
+   81% · deploy at 1.24+ · SportyBet @1.30 · LOW
+ • 20:00 Inter v Club Brugge — Team Goals: Club Brugge Under 1.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 20:00 Galatasaray Istanbul v Barcelona — Goals Over/Under: Over 2.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 17:45 Lens v Sporting — Team Goals: Lens Over 0.5
+   79% · deploy at 1.27+ · SportyBet @1.22 · LOW
+ • 20:00 Arsenal v Lille — Goals Over/Under: Under 4.5
+   77% · deploy at 1.30+ · SportyBet @1.27 · LOW
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 57% · deploy at 1.82+ combined
+   • RB Leipzig v PSV Eindhoven (🏆 UEFA Champions League) — Double Chance: RB Leipzig or PSV Eindhoven (86%)
+   • Viking FK v Bayern Munich (🏆 UEFA Champions League) — Goals Over/Under: Under 6.5 (82%)
+   • Atletico Madrid v Man Utd (🏆 UEFA Champions League) — Double Chance: Atletico Madrid or Man Utd (82%)
+bet365 Acca B · 3 legs · chance 53% · deploy at 1.92+ combined
+   • Sabah Masazir v Slavia Prague (🏆 UEFA Champions League) — Double Chance: Sabah Masazir or Slavia Prague (81%)
+   • Villarreal v Napoli (🏆 UEFA Champions League) — Double Chance: Villarreal or Napoli (81%)
+   • Inter v Club Brugge (🏆 UEFA Champions League) — Team Goals: Club Brugge Under 1.5 (80%)
+bet365 Acca C · 2 legs · chance 62% · deploy at 1.62+ combined
+   • Galatasaray Istanbul v Barcelona (🏆 UEFA Champions League) — Goals Over/Under: Over 2.5 (80%)
+   • Arsenal v Lille (🏆 UEFA Champions League) — Goals Over/Under: Under 4.5 (77%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

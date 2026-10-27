@@ -1,0 +1,581 @@
+{
+ "AIK v IF Elfsborg": {
+  "absent": [
+   {
+    "name": "Kevin Filling",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Charlie Pavey",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ibrahim Ciss\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Per Frick",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T17:20Z",
+  "away_missing_share": 0.020553463387772673,
+  "away_unavailable": 1,
+  "fotmob_id": 5107637,
+  "home_missing_share": 0.49967713239713213,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-27T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Altrincham v Kidderminster": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906526,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Ascoli Calcio 1898 v Sampdoria": {
+  "absent": [
+   {
+    "name": "Manuel Alagna",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mattia Viti",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Salvatore Esposito",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Bjorn Meijer",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.533060586977282,
+  "away_unavailable": 7,
+  "fotmob_id": 5967119,
+  "home_missing_share": 0.08490203494714461,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Barnet FC v York City FC": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837956,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Benevento Calcio v Catanzaro": {
+  "absent": [
+   {
+    "name": "Franck Tchaouna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Solomon Loubao",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T17:40Z",
+  "away_missing_share": 0.042820761069577246,
+  "away_unavailable": 2,
+  "fotmob_id": 5967120,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T18:00:00.000Z",
+  "lineup_type": "simple"
+ },
+ "Boston Utd v Gateshead": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906527,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Cesena v Empoli": {
+  "absent": [
+   {
+    "name": "Jonathan Klinsmann",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antonio Fiori",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Luca Schirone",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gerard Yepes",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marco Curto",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.1546731692547045,
+  "away_unavailable": 2,
+  "fotmob_id": 5967122,
+  "home_missing_share": 0.21732005062659404,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Fylde v Hartlepool": {
+  "absent": [],
+  "at": "2026-10-27T19:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906525,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "GNK Dinamo Zagreb v HNK Rijeka": {
+  "absent": [
+   {
+    "name": "Junior Ligue",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "T\u00e9o Bari\u0161i\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T16:20Z",
+  "away_missing_share": 0.16562966018296146,
+  "away_unavailable": 2,
+  "fotmob_id": 5765944,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T17:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Halifax v Barrow": {
+  "absent": [],
+  "at": "2026-10-27T19:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906528,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Hornchurch v Yeovil": {
+  "absent": [],
+  "at": "2026-10-27T19:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906529,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "L.R. Vicenza v Modena": {
+  "absent": [
+   {
+    "name": "Frank Tsadjout",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Sersanti",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "St\u00eanio",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Joris Manquant",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.14213913973869022,
+  "away_unavailable": 3,
+  "fotmob_id": 5967125,
+  "home_missing_share": 0.06296492053196415,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Leicester v Wigan": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837175,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Luton v Doncaster Rovers": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837189,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Mantova v Cremonese": {
+  "absent": [
+   {
+    "name": "Jonathan Silva",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Federico Chinetti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Michele Collocolo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Simone Pontisso",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fabio Gerli",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T18:20Z",
+  "away_missing_share": 0.15262970232171286,
+  "away_unavailable": 5,
+  "fotmob_id": 5967126,
+  "home_missing_share": 0.10030853579049799,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Milton Keynes Dons v Bromley FC": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837176,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Oxford United v Stockport County FC": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837190,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Padova v Sudtirol": {
+  "absent": [
+   {
+    "name": "Luca Zanimacchia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Lasagna",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gianluca Caprari",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Niklas Pyyhti\u00e4",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Hamza El Kaouakibi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Bjarki Steinn Bjarkason",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T18:20Z",
+  "away_missing_share": 0.21013479789638953,
+  "away_unavailable": 4,
+  "fotmob_id": 5967127,
+  "home_missing_share": 0.10490461379030458,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Roma v Cagliari": {
+  "absent": [
+   {
+    "name": "Manu Kon\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mile Svilar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenzo Pellegrini",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Riyad Idrissi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Harry Winks",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mattia Felici",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.12687288362297922,
+  "away_unavailable": 3,
+  "fotmob_id": 5749721,
+  "home_missing_share": 0.32175956137854406,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Sassuolo v Lazio": {
+  "absent": [
+   {
+    "name": "Isma\u00ebl Kon\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fedde Leysen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Daniel Boloca",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nicol\u00f2 Rovella",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Albert Gu\u00f0mundsson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adam Maru\u0161i\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T17:00Z",
+  "away_missing_share": 0.20386205977209906,
+  "away_unavailable": 3,
+  "fotmob_id": 5749727,
+  "home_missing_share": 0.30044814690054744,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-27T17:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Sheffield Wednesday v Cambridge United": {
+  "absent": [],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837193,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Tamworth v Scunthorpe United": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906530,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Torino v Como": {
+  "absent": [
+   {
+    "name": "Niccol\u00f2 Fortini",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rolando Mandragora",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ricardo Rodr\u00edguez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Trevoh Chalobah",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jes\u00fas Rodr\u00edguez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Moise Kean",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T19:00Z",
+  "away_missing_share": 0.3722687165208367,
+  "away_unavailable": 5,
+  "fotmob_id": 5749728,
+  "home_missing_share": 0.24335999517014642,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Virtus Entella v Avellino": {
+  "absent": [
+   {
+    "name": "Ivan Marconi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Davide Bariti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Daniel Fila",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenco \u0160imi\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.10897819275684881,
+  "away_unavailable": 2,
+  "fotmob_id": 5967123,
+  "home_missing_share": 0.1083123654911025,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-27T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Wealdstone v Solihull": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906531,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Woking v Boreham Wood": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906532,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Worthing v Southend": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906533,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ }
+}

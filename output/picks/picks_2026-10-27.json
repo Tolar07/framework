@@ -1,0 +1,3684 @@
+{
+ "date": "2026-10-27",
+ "generated_at": "2026-10-26T21:52:59Z",
+ "singles": [
+  {
+   "fixture": "GNK Dinamo Zagreb v HNK Rijeka",
+   "league": "HNL",
+   "home": "GNK Dinamo Zagreb",
+   "away": "HNK Rijeka",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.22,
+   "chance": 0.7791,
+   "chance_raw": 0.7791,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "Z9TMYR",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5765944,
+   "kickoff_utc": "2026-10-27T17:00:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
+   "sb_event_id": "sr:match:71913110",
+   "sb_tid": "sr:tournament:170",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.21,
+   "clv": 0.83,
+   "stake_pct": 0.25,
+   "ev": -0.049446335149923915,
+   "missing": {
+    "home": null,
+    "away": 1.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Sassuolo v Lazio",
+   "league": "Serie A",
+   "home": "Sassuolo",
+   "away": "Lazio",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "price": 1.22,
+   "chance": 0.8315,
+   "chance_raw": 0.8315,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "GYV2B7",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5749727,
+   "kickoff_utc": "2026-10-27T17:30:00.000Z",
+   "predicted_xi": {
+    "home": 72441200,
+    "away": 138604654
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
+   "sb_event_id": "sr:match:71945360",
+   "sb_tid": "sr:tournament:23",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": 1.23,
+   "clv": -0.81,
+   "stake_pct": 0.25,
+   "ev": 0.014386045332069886,
+   "missing": {
+    "home": 0.40371857948791484,
+    "away": 0.2555053837104644
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -2.5
+  },
+  {
+   "fixture": "Roma v Cagliari",
+   "league": "Serie A",
+   "home": "Roma",
+   "away": "Cagliari",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.8037,
+   "chance_raw": 0.8037,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "SBZ0Z7",
+   "news_level": "OK",
+   "news_note": "swapped from Roma to win (Roma missing 32% of value (Manu Kon\u00e9, Mile Svilar, Lorenzo Pellegrini); support: Cagliari missing 13%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5749721,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 221054328,
+    "away": 69603808
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:71945358",
+   "sb_tid": "sr:tournament:23",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.28,
+   "clv": -6.25,
+   "stake_pct": 0.25,
+   "ev": -0.0355300602389248,
+   "missing": {
+    "home": 0.3195747338238786,
+    "away": 0.12951490507235305
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 5.0
+  },
+  {
+   "fixture": "Torino v Como",
+   "league": "Serie A",
+   "home": "Torino",
+   "away": "Como",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.7981,
+   "chance_raw": 0.7981,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "PHYMX4",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5749728,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 75189800,
+    "away": 272869939
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:71945362",
+   "sb_tid": "sr:tournament:23",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.21,
+   "clv": -0.83,
+   "stake_pct": 0.25,
+   "ev": -0.042327591701338485,
+   "missing": {
+    "home": 0.259398994430772,
+    "away": 0.36738812905587365
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Benevento Calcio v Catanzaro",
+   "league": "Serie B",
+   "home": "Benevento Calcio",
+   "away": "Catanzaro",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Draw",
+   "pick": "Benevento Calcio or draw",
+   "price": 1.21,
+   "chance": 0.8016,
+   "chance_raw": 0.7697,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "P22NW0",
+   "news_level": "OK",
+   "news_note": "Benevento at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967120,
+   "kickoff_utc": "2026-10-27T18:00:00.000Z",
+   "predicted_xi": {
+    "home": 7456314,
+    "away": 10049511
+   },
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "17:40Z"
+   },
+   "sb_event_id": "sr:match:73093014",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Draw"
+   },
+   "closing_price": 1.16,
+   "clv": 4.31,
+   "stake_pct": 0.25,
+   "ev": -0.06868725494935446,
+   "missing": {
+    "home": 0.0,
+    "away": 0.04853962187408755
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -3.3
+  },
+  {
+   "fixture": "Ascoli Calcio 1898 v Sampdoria",
+   "league": "Serie B",
+   "home": "Ascoli Calcio 1898",
+   "away": "Sampdoria",
+   "kickoff": "2026-10-27",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Ascoli Calcio 1898 Over 0.5 goals",
+   "price": 1.23,
+   "chance": 0.7683,
+   "chance_raw": 0.7683,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "LD3VSK",
+   "news_level": "OK",
+   "news_note": "support: Sampdoria missing 52%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967119,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 5666635,
+    "away": 12045907
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Sampdoria missing 53%",
+    "at": "18:40Z"
+   },
+   "sb_event_id": "sr:match:73093012",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": 1.23,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.05503054338534985,
+   "missing": {
+    "home": 0.08166809116947629,
+    "away": 0.5234061380983909
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Padova v Sudtirol",
+   "league": "Serie B",
+   "home": "Padova",
+   "away": "Sudtirol",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Padova or Sudtirol",
+   "price": 1.34,
+   "chance": 0.7425,
+   "chance_raw": 0.7106,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "J9XS1G",
+   "news_level": "OK",
+   "news_note": "swapped from Padova Win to Nil \u2014 no (S\u00fcdtirol missing 17% of value (Niklas Pyyhti\u00e4, Hamza El Kaouakibi, Bjarki Steinn Bjarkason); support: Padova missing 13%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967127,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 12128955,
+    "away": 13253886
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
+   "sb_event_id": "sr:match:73093028",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.34,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.037136716494291844,
+   "missing": {
+    "home": 0.130558373698709,
+    "away": 0.16947764619894584
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.34,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 0.7
+  },
+  {
+   "fixture": "Cesena v Empoli",
+   "league": "Serie B",
+   "home": "Cesena",
+   "away": "Empoli",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Cesena or Empoli",
+   "price": 1.32,
+   "chance": 0.7648,
+   "chance_raw": 0.7329,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "UHGRHB",
+   "news_level": "OK",
+   "news_note": "swapped from Empoli (+1.5) Asian handicap (Empoli missing 13% of value (Gerard Yepes, Marco Curto); support: Cesena missing 18%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967122,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 14173072,
+    "away": 8342930
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
+   "sb_event_id": "sr:match:73093018",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.32,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.021992099049563563,
+   "missing": {
+    "home": 0.17799685119817674,
+    "away": 0.13219993790231524
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.32,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "L.R. Vicenza v Modena",
+   "league": "Serie B",
+   "home": "L.R. Vicenza",
+   "away": "Modena",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.23,
+   "chance": 0.7806,
+   "chance_raw": 0.7806,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "R4FHN4",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967125,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 5721324,
+    "away": 15717482
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
+   "sb_event_id": "sr:match:73093024",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.25,
+   "clv": -1.6,
+   "stake_pct": 0.25,
+   "ev": -0.039863468468733565,
+   "missing": {
+    "home": 0.09464756709609264,
+    "away": 0.13625643796747924
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 1.6
+  },
+  {
+   "fixture": "Mantova v Cremonese",
+   "league": "Serie B",
+   "home": "Mantova",
+   "away": "Cremonese",
+   "kickoff": "2026-10-27",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Mantova Over 0.5 goals",
+   "price": 1.25,
+   "chance": 0.7757,
+   "chance_raw": 0.7757,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "GZVX29",
+   "news_level": "OK",
+   "news_note": "support: Cremonese missing 14%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967126,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 10664232,
+    "away": 26703574
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Cremonese missing 15%",
+    "at": "18:20Z"
+   },
+   "sb_event_id": "sr:match:73093026",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": 1.26,
+   "clv": -0.79,
+   "stake_pct": 0.25,
+   "ev": -0.03037419088018245,
+   "missing": {
+    "home": 0.11106724708333622,
+    "away": 0.14019838860613323
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Virtus Entella v Avellino",
+   "league": "Serie B",
+   "home": "Virtus Entella",
+   "away": "Avellino",
+   "kickoff": "2026-10-27",
+   "market": "SB:16|hcp=-1.5|Away (+1.5)",
+   "pick": "Avellino (+1.5) Asian handicap",
+   "price": 1.23,
+   "chance": 0.789,
+   "chance_raw": 0.789,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "N7XX51",
+   "news_level": "OK",
+   "news_note": "Avellino at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5967123,
+   "kickoff_utc": "2026-10-27T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 5675664,
+    "away": 14744014
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "Avellino at full strength",
+    "at": "18:40Z"
+   },
+   "sb_event_id": "sr:match:73093020",
+   "sb_tid": "sr:tournament:53",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-1.5",
+    "outcome": "Away (+1.5)"
+   },
+   "closing_price": 1.22,
+   "clv": 0.82,
+   "stake_pct": 0.25,
+   "ev": -0.029539426721780004,
+   "missing": {
+    "home": 0.0,
+    "away": 0.09704746314304839
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Leicester v Wigan",
+   "league": "League One",
+   "home": "Leicester",
+   "away": "Wigan",
+   "kickoff": "2026-10-27",
+   "market": "SB:20|total=1.5|Under 1.5",
+   "pick": "Wigan Under 1.5 goals",
+   "price": 1.25,
+   "chance": 0.7566,
+   "chance_raw": 0.7566,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "MDSWDW",
+   "news_level": "OK",
+   "news_note": "Leicester City at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837175,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 28408014,
+    "away": 7101642
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "Leicester City at full strength",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:74838878",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 20,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Under 1.5"
+   },
+   "closing_price": 1.26,
+   "clv": -0.79,
+   "stake_pct": 0.25,
+   "ev": -0.054281981237463084,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Luton v Doncaster Rovers",
+   "league": "League One",
+   "home": "Luton",
+   "away": "Doncaster Rovers",
+   "kickoff": "2026-10-27",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Doncaster Rovers (+2.5) Asian handicap",
+   "price": 1.22,
+   "chance": 0.8121,
+   "chance_raw": 0.8121,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "JZ6AJV",
+   "news_level": "OK",
+   "news_note": "Doncaster Rovers at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837189,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 6288721,
+    "away": 4451588
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "Doncaster Rovers at full strength",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:75365068",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-2.5",
+    "outcome": "Away (+2.5)"
+   },
+   "closing_price": 1.27,
+   "clv": -3.94,
+   "stake_pct": 0.25,
+   "ev": -0.009177732488567014,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 4.1
+  },
+  {
+   "fixture": "Milton Keynes Dons v Bromley FC",
+   "league": "League One",
+   "home": "Milton Keynes Dons",
+   "away": "Bromley FC",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Milton Keynes Dons or Bromley FC",
+   "price": 1.22,
+   "chance": 0.8119,
+   "chance_raw": 0.78,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "UND45N",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837176,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 5127104,
+    "away": 2601722
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:75768806",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.21,
+   "clv": 0.83,
+   "stake_pct": 0.25,
+   "ev": -0.03865913631224571,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Oxford United v Stockport County FC",
+   "league": "League One",
+   "home": "Oxford United",
+   "away": "Stockport County FC",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.21,
+   "chance": 0.7975,
+   "chance_raw": 0.7975,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "QSU7JK",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837190,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 7013289,
+    "away": 5196295
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:74557818",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.19,
+   "clv": 1.68,
+   "stake_pct": 0.25,
+   "ev": -0.03497221285532026,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -1.7
+  },
+  {
+   "fixture": "Sheffield Wednesday v Cambridge United",
+   "league": "League One",
+   "home": "Sheffield Wednesday",
+   "away": "Cambridge United",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.7949,
+   "chance_raw": 0.7949,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "NFG5WZ",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837193,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 7749131,
+    "away": 3815403
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:75078276",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.19,
+   "clv": 0.84,
+   "stake_pct": 0.25,
+   "ev": -0.04608966154809613,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
+  },
+  {
+   "fixture": "Barnet FC v York City FC",
+   "league": "League Two",
+   "home": "Barnet FC",
+   "away": "York City FC",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Barnet FC or York City FC",
+   "price": 1.26,
+   "chance": 0.7976,
+   "chance_raw": 0.7657,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "SY7B7S",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837956,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 2343664,
+    "away": 971574
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:75089542",
+   "sb_tid": "sr:tournament:25",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.29,
+   "clv": -2.33,
+   "stake_pct": 0.25,
+   "ev": -0.025096400405482222,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.26,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Fylde v Hartlepool",
+   "league": "National League",
+   "home": "Fylde",
+   "away": "Hartlepool",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Fylde or Hartlepool",
+   "price": 1.22,
+   "chance": 0.8106,
+   "chance_raw": 0.7787,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "KMU264",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906525,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 387821,
+    "away": 1367806
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:40Z"
+   },
+   "sb_event_id": "sr:match:72740742",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.23,
+   "clv": -0.81,
+   "stake_pct": 0.25,
+   "ev": -0.04019221533403783,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Hornchurch v Yeovil",
+   "league": "National League",
+   "home": "Hornchurch",
+   "away": "Yeovil",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.25,
+   "chance": 0.7645,
+   "chance_raw": 0.7645,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "T6TV7X",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906529,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 271807,
+    "away": 601612
+   },
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "19:40Z"
+   },
+   "sb_event_id": "sr:match:72740750",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.25,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.044407861984763874,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Altrincham v Kidderminster",
+   "league": "National League",
+   "home": "Altrincham",
+   "away": "Kidderminster",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.24,
+   "chance": 0.7569,
+   "chance_raw": 0.7569,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "JWXWQC",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906526,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740744",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.27,
+   "clv": -2.36,
+   "stake_pct": 0.25,
+   "ev": -0.061463825354256985,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 2.4
+  },
+  {
+   "fixture": "Boston Utd v Gateshead",
+   "league": "National League",
+   "home": "Boston Utd",
+   "away": "Gateshead",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Boston Utd or Gateshead",
+   "price": 1.21,
+   "chance": 0.8159,
+   "chance_raw": 0.784,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "US94K3",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906527,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740746",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.22,
+   "clv": -0.82,
+   "stake_pct": 0.25,
+   "ev": -0.04168517397644378,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Halifax v Barrow",
+   "league": "National League",
+   "home": "Halifax",
+   "away": "Barrow",
+   "kickoff": "2026-10-27",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.22,
+   "chance": 0.7799,
+   "chance_raw": 0.7799,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "TMH6E4",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906528,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:40Z"
+   },
+   "sb_event_id": "sr:match:72740748",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.22,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.048498367274617094,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "Tamworth v Scunthorpe United",
+   "league": "National League",
+   "home": "Tamworth",
+   "away": "Scunthorpe United",
+   "kickoff": "2026-10-27",
+   "market": "SB:20|total=0.5|Over 0.5",
+   "pick": "Scunthorpe United Over 0.5 goals",
+   "price": 1.22,
+   "chance": 0.7847,
+   "chance_raw": 0.7847,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "GFHTYS",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906530,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Scunthorpe United at full strength",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740752",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 20,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": 1.2,
+   "clv": 1.67,
+   "stake_pct": 0.25,
+   "ev": -0.04272116042604257,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -1.6
+  },
+  {
+   "fixture": "Wealdstone v Solihull",
+   "league": "National League",
+   "home": "Wealdstone",
+   "away": "Solihull",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Wealdstone or Solihull",
+   "price": 1.26,
+   "chance": 0.8008,
+   "chance_raw": 0.7689,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "K74RXR",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906531,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 1232960,
+    "away": 669334
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740754",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.27,
+   "clv": -0.79,
+   "stake_pct": 0.25,
+   "ev": -0.021156698922277895,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.26,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Woking v Boreham Wood",
+   "league": "National League",
+   "home": "Woking",
+   "away": "Boreham Wood",
+   "kickoff": "2026-10-27",
+   "market": "SB:10||Home or Away",
+   "pick": "Woking or Boreham Wood",
+   "price": 1.24,
+   "chance": 0.8016,
+   "chance_raw": 0.7697,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "LE4N1P",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906532,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 901151,
+    "away": 1607177
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740756",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.2,
+   "clv": 3.33,
+   "stake_pct": 0.25,
+   "ev": -0.03560704860794894,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -3.2
+  },
+  {
+   "fixture": "Worthing v Southend",
+   "league": "National League",
+   "home": "Worthing",
+   "away": "Southend",
+   "kickoff": "2026-10-27",
+   "market": "SB:16|hcp=1.5|Home (+1.5)",
+   "pick": "Worthing (+1.5) Asian handicap",
+   "price": 1.24,
+   "chance": 0.7858,
+   "chance_raw": 0.7858,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "VJCTHM",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5906533,
+   "kickoff_utc": "2026-10-27T19:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Worthing at full strength",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72740758",
+   "sb_tid": "sr:tournament:173",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=1.5",
+    "outcome": "Home (+1.5)"
+   },
+   "closing_price": 1.24,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.025654236797204688,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
+  },
+  {
+   "fixture": "AIK v IF Elfsborg",
+   "league": "Allsvenskan",
+   "home": "AIK",
+   "away": "IF Elfsborg",
+   "kickoff": "2026-10-27",
+   "market": "SB:20|total=0.5|Over 0.5",
+   "pick": "IF Elfsborg Over 0.5 goals",
+   "price": 1.21,
+   "chance": 0.7873,
+   "chance_raw": 0.7873,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "MV30H0",
+   "news_level": "OK",
+   "news_note": "swapped from AIK (+1.5) Asian handicap (AIK missing 51% of value (Kevin Filling, Charlie Pavey, Ibrahim Ciss\u00e9))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5107637,
+   "kickoff_utc": "2026-10-27T18:00:00.000Z",
+   "predicted_xi": {
+    "home": 9026012,
+    "away": 9192524
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: AIK missing 50%",
+    "at": "17:20Z"
+   },
+   "sb_event_id": "sr:match:67126838",
+   "sb_tid": "sr:tournament:40",
+   "sb_market": {
+    "id": 20,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": 1.17,
+   "clv": 3.42,
+   "stake_pct": 0.25,
+   "ev": -0.047390010360543355,
+   "missing": {
+    "home": 0.5079209305330404,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.15,
+   "drift_pct": -5.0
+  }
+ ],
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "ZU7HKD",
+   "odds": 2.029,
+   "chance": 0.50925370496,
+   "legs": [
+    "Sassuolo v Lazio",
+    "Cesena v Empoli",
+    "Wealdstone v Solihull"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca B",
+   "code": "X5FA58",
+   "odds": 2.931,
+   "chance": 0.3115139322259985,
+   "legs": [
+    "Barnet FC v York City FC",
+    "Luton v Doncaster Rovers",
+    "Worthing v Southend",
+    "Virtus Entella v Avellino",
+    "Mantova v Cremonese"
+   ],
+   "result": null
+  }
+ ],
+ "safe3": [
+  {
+   "name": "50+ #1",
+   "code": "UQUKFD",
+   "odds": 1.801,
+   "chance": 0.5369651176259999,
+   "legs": [
+    "Boston Utd v Gateshead",
+    "Milton Keynes Dons v Bromley FC",
+    "Fylde v Hartlepool"
+   ],
+   "result": null
+  },
+  {
+   "name": "50+ #2",
+   "code": "QV9F1Y",
+   "odds": 1.8,
+   "chance": 0.5164275294719999,
+   "legs": [
+    "Roma v Cagliari",
+    "Benevento Calcio v Catanzaro",
+    "Woking v Boreham Wood"
+   ],
+   "result": null
+  }
+ ],
+ "megas": [
+  {
+   "name": "Mega 1",
+   "code": "KFQ0R1",
+   "odds": 16.421,
+   "chance": 0.04774346510615036,
+   "legs": [
+    "Sassuolo v Lazio",
+    "Boston Utd v Gateshead",
+    "Luton v Doncaster Rovers",
+    "Milton Keynes Dons v Bromley FC",
+    "Fylde v Hartlepool",
+    "Roma v Cagliari",
+    "Benevento Calcio v Catanzaro",
+    "Woking v Boreham Wood",
+    "Wealdstone v Solihull",
+    "Torino v Como",
+    "Barnet FC v York City FC",
+    "Oxford United v Stockport County FC",
+    "Sheffield Wednesday v Cambridge United",
+    "Virtus Entella v Avellino"
+   ],
+   "result": null
+  },
+  {
+   "name": "Mega 2",
+   "code": "H45J7P",
+   "odds": 17.657,
+   "chance": 0.034116768925072816,
+   "legs": [
+    "AIK v IF Elfsborg",
+    "Worthing v Southend",
+    "Tamworth v Scunthorpe United",
+    "L.R. Vicenza v Modena",
+    "Halifax v Barrow",
+    "GNK Dinamo Zagreb v HNK Rijeka",
+    "Mantova v Cremonese",
+    "Ascoli Calcio 1898 v Sampdoria",
+    "Cesena v Empoli",
+    "Hornchurch v Yeovil",
+    "Altrincham v Kidderminster",
+    "Leicester v Wigan",
+    "Padova v Sudtirol"
+   ],
+   "result": null
+  }
+ ],
+ "alts": [
+  {
+   "name": "Alt A",
+   "code": "S8DF2E",
+   "odds": 1.937,
+   "chance": 0.5346494632379999,
+   "legs": [
+    "Leicester v Wigan",
+    "Torino v Como",
+    "Tamworth v Scunthorpe United"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Leicester v Wigan",
+     "league": "League One",
+     "home": "Leicester",
+     "away": "Wigan",
+     "kickoff": "2026-10-27",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Leicester Under 3.5 goals",
+     "price": 1.22,
+     "chance": 0.8301,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Torino v Como",
+     "league": "Serie A",
+     "home": "Torino",
+     "away": "Como",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Torino or Como",
+     "price": 1.26,
+     "chance": 0.8054,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Tamworth v Scunthorpe United",
+     "league": "National League",
+     "home": "Tamworth",
+     "away": "Scunthorpe United",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Tamworth or Scunthorpe United",
+     "price": 1.26,
+     "chance": 0.7997,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt B",
+   "code": "PQ3XAJ",
+   "odds": 2.0,
+   "chance": 0.5079962844000001,
+   "legs": [
+    "Altrincham v Kidderminster",
+    "GNK Dinamo Zagreb v HNK Rijeka",
+    "Sheffield Wednesday v Cambridge United"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Altrincham v Kidderminster",
+     "league": "National League",
+     "home": "Altrincham",
+     "away": "Kidderminster",
+     "kickoff": "2026-10-27",
+     "market": "SB:19|total=2.5|Under 2.5",
+     "pick": "Altrincham Under 2.5 goals",
+     "price": 1.25,
+     "chance": 0.8065,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "GNK Dinamo Zagreb v HNK Rijeka",
+     "league": "HNL",
+     "home": "GNK Dinamo Zagreb",
+     "away": "HNK Rijeka",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "GNK Dinamo Zagreb or HNK Rijeka",
+     "price": 1.25,
+     "chance": 0.7953,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Sheffield Wednesday v Cambridge United",
+     "league": "League One",
+     "home": "Sheffield Wednesday",
+     "away": "Cambridge United",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Sheffield Wednesday or Cambridge United",
+     "price": 1.28,
+     "chance": 0.792,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt C",
+   "code": "QYJCNM",
+   "odds": 1.983,
+   "chance": 0.485260992216,
+   "legs": [
+    "Oxford United v Stockport County FC",
+    "AIK v IF Elfsborg",
+    "Halifax v Barrow"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Oxford United v Stockport County FC",
+     "league": "League One",
+     "home": "Oxford United",
+     "away": "Stockport County FC",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Oxford United or Stockport County FC",
+     "price": 1.27,
+     "chance": 0.7908,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "AIK v IF Elfsborg",
+     "league": "Allsvenskan",
+     "home": "AIK",
+     "away": "IF Elfsborg",
+     "kickoff": "2026-10-27",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.22,
+     "chance": 0.7854,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Halifax v Barrow",
+     "league": "National League",
+     "home": "Halifax",
+     "away": "Barrow",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Halifax or Barrow",
+     "price": 1.28,
+     "chance": 0.7813,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt D",
+   "code": "JFF002",
+   "odds": 2.129,
+   "chance": 0.462244108703,
+   "legs": [
+    "L.R. Vicenza v Modena",
+    "Hornchurch v Yeovil",
+    "Ascoli Calcio 1898 v Sampdoria"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "L.R. Vicenza v Modena",
+     "league": "Serie B",
+     "home": "L.R. Vicenza",
+     "away": "Modena",
+     "kickoff": "2026-10-27",
+     "market": "SB:20|total=2.5|Under 2.5",
+     "pick": "Modena Under 2.5 goals",
+     "price": 1.25,
+     "chance": 0.7807,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Hornchurch v Yeovil",
+     "league": "National League",
+     "home": "Hornchurch",
+     "away": "Yeovil",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Hornchurch or Yeovil",
+     "price": 1.29,
+     "chance": 0.7759,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Ascoli Calcio 1898 v Sampdoria",
+     "league": "Serie B",
+     "home": "Ascoli Calcio 1898",
+     "away": "Sampdoria",
+     "kickoff": "2026-10-27",
+     "market": "SB:10||Home or Away",
+     "pick": "Ascoli Calcio 1898 or Sampdoria",
+     "price": 1.32,
+     "chance": 0.7631,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "value": [
+  {
+   "name": "Value 1",
+   "code": "TT7MSM",
+   "odds": 1.78,
+   "chance": 0.5952,
+   "legs": [
+    "Leicester v Wigan"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Leicester v Wigan",
+     "league": "League One",
+     "home": "Leicester",
+     "away": "Wigan",
+     "kickoff": "2026-10-27",
+     "market": "SB:16|hcp=-1.5|Away (+1.5)",
+     "pick": "Wigan (+1.5) Asian handicap",
+     "price": 1.78,
+     "chance": 0.5952,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 2",
+   "code": "KKZN4S",
+   "odds": 1.62,
+   "chance": 0.512,
+   "legs": [
+    "Altrincham v Kidderminster"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Altrincham v Kidderminster",
+     "league": "National League",
+     "home": "Altrincham",
+     "away": "Kidderminster",
+     "kickoff": "2026-10-27",
+     "market": "SB:18|total=3|Under 3",
+     "pick": "Under 3 goals",
+     "price": 1.62,
+     "chance": 0.512,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 3",
+   "code": "GUZGLF",
+   "odds": 1.79,
+   "chance": 0.5759,
+   "legs": [
+    "Oxford United v Stockport County FC"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Oxford United v Stockport County FC",
+     "league": "League One",
+     "home": "Oxford United",
+     "away": "Stockport County FC",
+     "kickoff": "2026-10-27",
+     "market": "SB:16|hcp=0.5|Home (+0.5)",
+     "pick": "Oxford United (+0.5) Asian handicap",
+     "price": 1.79,
+     "chance": 0.5759,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 4",
+   "code": "UA58C7",
+   "odds": 1.5,
+   "chance": 0.544,
+   "legs": [
+    "Ascoli Calcio 1898 v Sampdoria"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Ascoli Calcio 1898 v Sampdoria",
+     "league": "Serie B",
+     "home": "Ascoli Calcio 1898",
+     "away": "Sampdoria",
+     "kickoff": "2026-10-27",
+     "market": "SB:18|total=3|Under 3",
+     "pick": "Under 3 goals",
+     "price": 1.5,
+     "chance": 0.544,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "rated": [
+  {
+   "fixture": "GNK Dinamo Zagreb v HNK Rijeka",
+   "league": "HNL",
+   "home": "GNK Dinamo Zagreb",
+   "away": "HNK Rijeka",
+   "kickoff": "2026-10-27",
+   "src": "market",
+   "p": [
+    0.552,
+    0.249,
+    0.199,
+    0.771,
+    0.551,
+    0.348,
+    0.55
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5508
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7791
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7634
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.6808
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7237
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7227
+    ],
+    [
+     "SB:29||Yes",
+     0.5411
+    ],
+    [
+     "SB:11||Home",
+     0.5588
+    ],
+    [
+     "SB:13||Home",
+     0.5508
+    ],
+    [
+     "SB:33||No",
+     0.7022
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6595
+    ],
+    [
+     "SB:548||1-3",
+     0.6211
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Sassuolo v Lazio",
+   "league": "Serie A",
+   "home": "Sassuolo",
+   "away": "Lazio",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.322,
+    0.258,
+    0.421,
+    0.732,
+    0.484,
+    0.266,
+    0.526
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8315
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7531
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7747
+    ],
+    [
+     "SB:16|hcp=1|Home (+1.0)",
+     0.5571
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.727
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7845
+    ],
+    [
+     "SB:29||Yes",
+     0.5784
+    ],
+    [
+     "SB:34||No",
+     0.7827
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.5949
+    ],
+    [
+     "SB:548||2-5",
+     0.7078
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.748
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Roma v Cagliari",
+   "league": "Serie A",
+   "home": "Roma",
+   "away": "Cagliari",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.677,
+    0.195,
+    0.128,
+    0.765,
+    0.533,
+    0.316,
+    0.462
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7192
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.8037
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7395
+    ],
+    [
+     "SB:16|hcp=-2|Away (+2.0)",
+     0.5278
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.8092
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5334
+    ],
+    [
+     "SB:29||No",
+     0.5239
+    ],
+    [
+     "SB:33||No",
+     0.5836
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5897
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7254
+    ],
+    [
+     "SB:548||2-5",
+     0.713
+    ],
+    [
+     "SB:60||Home",
+     0.5136
+    ],
+    [
+     "SB:63||Home or Away",
+     0.635
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Torino v Como",
+   "league": "Serie A",
+   "home": "Torino",
+   "away": "Como",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.217,
+    0.224,
+    0.559,
+    0.781,
+    0.551,
+    0.327,
+    0.544
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.569
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.825
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7735
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.6757
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.7832
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7039
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7081
+    ],
+    [
+     "SB:29||Yes",
+     0.5612
+    ],
+    [
+     "SB:12||Away",
+     0.5522
+    ],
+    [
+     "SB:34||No",
+     0.7133
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6421
+    ],
+    [
+     "SB:548||2-5",
+     0.7148
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.8109
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Benevento Calcio v Catanzaro",
+   "league": "Serie B",
+   "home": "Benevento Calcio",
+   "away": "Catanzaro",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.475,
+    0.266,
+    0.258,
+    0.794,
+    0.549,
+    0.325,
+    0.58
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5282
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7907
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.7697
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7004
+    ],
+    [
+     "SB:16|hcp=0|Home (0)",
+     0.5304
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7315
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.6943
+    ],
+    [
+     "SB:29||Yes",
+     0.5626
+    ],
+    [
+     "SB:13||Home",
+     0.5224
+    ],
+    [
+     "SB:33||No",
+     0.7288
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6394
+    ],
+    [
+     "SB:548||2-4",
+     0.6203
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6105
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Ascoli Calcio 1898 v Sampdoria",
+   "league": "Serie B",
+   "home": "Ascoli Calcio 1898",
+   "away": "Sampdoria",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.544,
+    0.295,
+    0.161,
+    0.64,
+    0.357,
+    0.166,
+    0.39
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7351
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7312
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7671
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7683
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7201
+    ],
+    [
+     "SB:33||No",
+     0.7258
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6589
+    ],
+    [
+     "SB:548||2-5",
+     0.6699
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.785
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Padova v Sudtirol",
+   "league": "Serie B",
+   "home": "Padova",
+   "away": "Sudtirol",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.374,
+    0.332,
+    0.293,
+    0.624,
+    0.339,
+    0.153,
+    0.426
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.6989
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7106
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.6837
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7091
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7066
+    ],
+    [
+     "SB:29||No",
+     0.5281
+    ],
+    [
+     "SB:33||No",
+     0.7628
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6311
+    ],
+    [
+     "SB:548||1-3",
+     0.6916
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.755
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Cesena v Empoli",
+   "league": "Serie B",
+   "home": "Cesena",
+   "away": "Empoli",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.413,
+    0.29,
+    0.297,
+    0.744,
+    0.478,
+    0.261,
+    0.536
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7516
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7329
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7916
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7657
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.6966
+    ],
+    [
+     "SB:29||Yes",
+     0.5369
+    ],
+    [
+     "SB:33||No",
+     0.7712
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6106
+    ],
+    [
+     "SB:548||2-5",
+     0.6921
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7506
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "L.R. Vicenza v Modena",
+   "league": "Serie B",
+   "home": "L.R. Vicenza",
+   "away": "Modena",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.284,
+    0.275,
+    0.44,
+    0.781,
+    0.53,
+    0.307,
+    0.573
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7806
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7458
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7608
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7067
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7807
+    ],
+    [
+     "SB:29||Yes",
+     0.5688
+    ],
+    [
+     "SB:34||No",
+     0.7687
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6056
+    ],
+    [
+     "SB:548||1-3",
+     0.6218
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7563
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Mantova v Cremonese",
+   "league": "Serie B",
+   "home": "Mantova",
+   "away": "Cremonese",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.532,
+    0.266,
+    0.201,
+    0.757,
+    0.497,
+    0.277,
+    0.518
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7394
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7347
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7656
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7757
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7026
+    ],
+    [
+     "SB:29||Yes",
+     0.5169
+    ],
+    [
+     "SB:33||No",
+     0.7412
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6426
+    ],
+    [
+     "SB:548||2-5",
+     0.6856
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7755
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Virtus Entella v Avellino",
+   "league": "Serie B",
+   "home": "Virtus Entella",
+   "away": "Avellino",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.395,
+    0.308,
+    0.297,
+    0.694,
+    0.416,
+    0.21,
+    0.488
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7677
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7193
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.789
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7434
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7294
+    ],
+    [
+     "SB:29||No",
+     0.522
+    ],
+    [
+     "SB:33||No",
+     0.7346
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6601
+    ],
+    [
+     "SB:548||1-3",
+     0.6868
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.778
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Leicester v Wigan",
+   "league": "League One",
+   "home": "Leicester",
+   "away": "Wigan",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.498,
+    0.259,
+    0.243,
+    0.716,
+    0.46,
+    0.245,
+    0.492
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6368
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8003
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7852
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.8301
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7566
+    ],
+    [
+     "SB:29||Yes",
+     0.5319
+    ],
+    [
+     "SB:13||Home",
+     0.6293
+    ],
+    [
+     "SB:33||No",
+     0.6603
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5309
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6893
+    ],
+    [
+     "SB:548||2-4",
+     0.6069
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6358
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Luton v Doncaster Rovers",
+   "league": "League One",
+   "home": "Luton",
+   "away": "Doncaster Rovers",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.568,
+    0.226,
+    0.206,
+    0.788,
+    0.557,
+    0.333,
+    0.548
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6101
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8029
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7881
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.8121
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6615
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7186
+    ],
+    [
+     "SB:29||Yes",
+     0.5656
+    ],
+    [
+     "SB:13||Home",
+     0.5977
+    ],
+    [
+     "SB:33||No",
+     0.6943
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5055
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6765
+    ],
+    [
+     "SB:548||2-4",
+     0.6127
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6315
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Milton Keynes Dons v Bromley FC",
+   "league": "League One",
+   "home": "Milton Keynes Dons",
+   "away": "Bromley FC",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.562,
+    0.221,
+    0.216,
+    0.811,
+    0.591,
+    0.367,
+    0.579
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5842
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.815
+    ],
+    [
+     "SB:10||Home or Away",
+     0.78
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.6541
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6843
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7058
+    ],
+    [
+     "SB:29||Yes",
+     0.569
+    ],
+    [
+     "SB:13||Home",
+     0.5722
+    ],
+    [
+     "SB:33||No",
+     0.7082
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6564
+    ],
+    [
+     "SB:548||2-4",
+     0.6151
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6246
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Oxford United v Stockport County FC",
+   "league": "League One",
+   "home": "Oxford United",
+   "away": "Stockport County FC",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.484,
+    0.233,
+    0.283,
+    0.816,
+    0.598,
+    0.375,
+    0.609
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7975
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7589
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7825
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7476
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7844
+    ],
+    [
+     "SB:29||Yes",
+     0.5918
+    ],
+    [
+     "SB:34||No",
+     0.7981
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6042
+    ],
+    [
+     "SB:548||2-4",
+     0.6162
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7294
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Sheffield Wednesday v Cambridge United",
+   "league": "League One",
+   "home": "Sheffield Wednesday",
+   "away": "Cambridge United",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.539,
+    0.229,
+    0.233,
+    0.801,
+    0.576,
+    0.352,
+    0.576
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7949
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7601
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7337
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7489
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7074
+    ],
+    [
+     "SB:29||Yes",
+     0.5819
+    ],
+    [
+     "SB:33||No",
+     0.7594
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6026
+    ],
+    [
+     "SB:548||2-4",
+     0.6169
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7673
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Barnet FC v York City FC",
+   "league": "League Two",
+   "home": "Barnet FC",
+   "away": "York City FC",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.491,
+    0.229,
+    0.281,
+    0.839,
+    0.633,
+    0.412,
+    0.637
+   ],
+   "pool": [
+    [
+     "SB:18|total=2|Over 2",
+     0.6165
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7657
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.5283
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7425
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7315
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7501
+    ],
+    [
+     "SB:29||Yes",
+     0.6261
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5223
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6301
+    ],
+    [
+     "SB:548||2-4",
+     0.6106
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7448
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Fylde v Hartlepool",
+   "league": "National League",
+   "home": "Fylde",
+   "away": "Hartlepool",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.592,
+    0.218,
+    0.191,
+    0.757,
+    0.52,
+    0.299,
+    0.503
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5651
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.801
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7787
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7769
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6925
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.681
+    ],
+    [
+     "SB:29||Yes",
+     0.5821
+    ],
+    [
+     "SB:11||Home",
+     0.5593
+    ],
+    [
+     "SB:13||Home",
+     0.5513
+    ],
+    [
+     "SB:33||No",
+     0.7259
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6412
+    ],
+    [
+     "SB:548||2-4",
+     0.6099
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.8009
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Hornchurch v Yeovil",
+   "league": "National League",
+   "home": "Hornchurch",
+   "away": "Yeovil",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.362,
+    0.252,
+    0.386,
+    0.733,
+    0.488,
+    0.27,
+    0.529
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7645
+    ],
+    [
+     "SB:10||Home or Away",
+     0.744
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.6534
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7297
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7592
+    ],
+    [
+     "SB:29||Yes",
+     0.5528
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6095
+    ],
+    [
+     "SB:548||1-3",
+     0.6428
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7294
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Altrincham v Kidderminster",
+   "league": "National League",
+   "home": "Altrincham",
+   "away": "Kidderminster",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.349,
+    0.288,
+    0.363,
+    0.618,
+    0.353,
+    0.163,
+    0.419
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7569
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7436
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7744
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8065
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.6844
+    ],
+    [
+     "SB:29||Yes",
+     0.5212
+    ],
+    [
+     "SB:33||No",
+     0.754
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6172
+    ],
+    [
+     "SB:548||1-3",
+     0.6523
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7641
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Boston Utd v Gateshead",
+   "league": "National League",
+   "home": "Boston Utd",
+   "away": "Gateshead",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.599,
+    0.21,
+    0.191,
+    0.781,
+    0.554,
+    0.33,
+    0.528
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5985
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8139
+    ],
+    [
+     "SB:10||Home or Away",
+     0.784
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.6448
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.68
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7175
+    ],
+    [
+     "SB:29||Yes",
+     0.5597
+    ],
+    [
+     "SB:11||Home",
+     0.5923
+    ],
+    [
+     "SB:13||Home",
+     0.5843
+    ],
+    [
+     "SB:33||No",
+     0.6968
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6608
+    ],
+    [
+     "SB:548||2-4",
+     0.6138
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6252
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Halifax v Barrow",
+   "league": "National League",
+   "home": "Halifax",
+   "away": "Barrow",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.377,
+    0.244,
+    0.379,
+    0.762,
+    0.527,
+    0.305,
+    0.56
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7799
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7494
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.6448
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7696
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7473
+    ],
+    [
+     "SB:29||Yes",
+     0.5739
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6
+    ],
+    [
+     "SB:548||1-3",
+     0.625
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.717
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Tamworth v Scunthorpe United",
+   "league": "National League",
+   "home": "Tamworth",
+   "away": "Scunthorpe United",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.392,
+    0.224,
+    0.384,
+    0.833,
+    0.633,
+    0.412,
+    0.643
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.784
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7678
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7784
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7518
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7847
+    ],
+    [
+     "SB:29||Yes",
+     0.643
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5423
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6359
+    ],
+    [
+     "SB:548||2-4",
+     0.6055
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.716
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Wealdstone v Solihull",
+   "league": "National League",
+   "home": "Wealdstone",
+   "away": "Solihull",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.507,
+    0.211,
+    0.282,
+    0.849,
+    0.66,
+    0.441,
+    0.65
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7907
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7689
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7527
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7333
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7653
+    ],
+    [
+     "SB:29||Yes",
+     0.6357
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.535
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6357
+    ],
+    [
+     "SB:548||2-4",
+     0.606
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7355
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Woking v Boreham Wood",
+   "league": "National League",
+   "home": "Woking",
+   "away": "Boreham Wood",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.296,
+    0.221,
+    0.483,
+    0.821,
+    0.615,
+    0.392,
+    0.619
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.5231
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8185
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7697
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.7449
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7032
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7228
+    ],
+    [
+     "SB:29||Yes",
+     0.5893
+    ],
+    [
+     "SB:11||Away",
+     0.5183
+    ],
+    [
+     "SB:12||Away",
+     0.5103
+    ],
+    [
+     "SB:34||No",
+     0.7498
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6185
+    ],
+    [
+     "SB:548||2-4",
+     0.6136
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7781
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Worthing v Southend",
+   "league": "National League",
+   "home": "Worthing",
+   "away": "Southend",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.419,
+    0.216,
+    0.365,
+    0.857,
+    0.674,
+    0.457,
+    0.674
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7528
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7744
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7858
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7618
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7376
+    ],
+    [
+     "SB:29||Yes",
+     0.6743
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5812
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6592
+    ],
+    [
+     "SB:548||1-4",
+     0.7031
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.6954
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "AIK v IF Elfsborg",
+   "league": "Allsvenskan",
+   "home": "AIK",
+   "away": "IF Elfsborg",
+   "kickoff": "2026-10-27",
+   "src": "model",
+   "p": [
+    0.363,
+    0.24,
+    0.397,
+    0.799,
+    0.576,
+    0.351,
+    0.601
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7854
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7515
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7912
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7416
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7968
+    ],
+    [
+     "SB:29||Yes",
+     0.5835
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.5938
+    ],
+    [
+     "SB:548||2-4",
+     0.6166
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7281
+    ]
+   ],
+   "ft": null
+  }
+ ],
+ "study": [],
+ "btts": [
+  {
+   "name": "BTTS",
+   "code": "ZVUXE3",
+   "odds": 1.958,
+   "chance": 0.43844216084056026,
+   "legs": [
+    "Worthing v Southend",
+    "Wealdstone v Solihull"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Worthing v Southend",
+     "league": "National League",
+     "home": "Worthing",
+     "away": "Southend",
+     "kickoff": "2026-10-27",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.35,
+     "chance": 0.6741789420106896,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Wealdstone v Solihull",
+     "league": "National League",
+     "home": "Wealdstone",
+     "away": "Solihull",
+     "kickoff": "2026-10-27",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.45,
+     "chance": 0.6503349979056575,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "singles_dropped": [],
+ "accas_dropped": [],
+ "safe3_dropped": [],
+ "clv_accas": [
+  {
+   "name": "CLV acca A",
+   "code": "PMNPV1",
+   "odds": 2.197,
+   "chance": 0.44731271013819146,
+   "legs": [
+    "Sassuolo v Lazio",
+    "Boston Utd v Gateshead",
+    "Luton v Doncaster Rovers",
+    "Milton Keynes Dons v Bromley FC"
+   ],
+   "result": null,
+   "families": [
+    "Asian handicap",
+    "Double chance",
+    "Home goals",
+    "Over/Under"
+   ]
+  },
+  {
+   "name": "CLV acca B",
+   "code": "KJYVBK",
+   "odds": 2.197,
+   "chance": 0.41861615539000313,
+   "legs": [
+    "Fylde v Hartlepool",
+    "Roma v Cagliari",
+    "Benevento Calcio v Catanzaro",
+    "Woking v Boreham Wood"
+   ],
+   "result": null,
+   "families": [
+    "Asian handicap",
+    "Double chance",
+    "Home goals",
+    "Over/Under"
+   ]
+  }
+ ],
+ "combined": [
+  {
+   "name": "ACCAS MEGA",
+   "of": "accas",
+   "code": "R8R5AZ",
+   "result": null
+  },
+  {
+   "name": "ALT MEGA",
+   "of": "alts",
+   "code": "J1ZAS9",
+   "result": null
+  },
+  {
+   "name": "VALUE MEGA",
+   "of": "value",
+   "code": "XU33C8",
+   "result": null
+  },
+  {
+   "name": "50+ MEGA",
+   "of": "safe3",
+   "code": "R73N26",
+   "result": null
+  }
+ ]
+}

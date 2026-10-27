@@ -1,0 +1,67 @@
+name: OLP XDV reasoning step
+
+# The framework's thinking step (engine/reasoning.py, Architect 2026-10-19: "give the entire
+# framework the thinking superpower"). After each board run, Gemini judges every single
+# (back / lower / veto, with reasons) into output/reasoning/reasoning_<date>.json, and every
+# past verdict is scored against its result in memory/reasoning_record.json.
+# IT ACTS (2026-10-23): the bots scale a single's stake by its verdict (back x1, lower x0.75, veto x0.5),
+# never dropping a pick; it searches Google for team news and learns from its own record (memory/reasoning_lessons.json).
+# The daily board starts it after each run; the crons below are backups. No GEMINI_API_KEY -> every verdict reads PENDING.
+on:
+  schedule:
+    - cron: "17 22 * * *"
+    - cron: "17 7 * * *"
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Judge the boards again even if already reasoned (e.g. after a model or prompt change)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-reasoning
+  cancel-in-progress: false
+
+jobs:
+  reason:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+
+      - name: Reason over today's and tomorrow's picks
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
+          OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-2.5-flash)
+          COGNITIVE_STAKES: ${{ vars.COGNITIVE_STAKES || '1' }}  # standing order 48: ON; set the variable to 0 to switch off
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}           # verdict panel (to-do #5): free NIM model
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}   # verdict panel: ":free" models ONLY (code guard)
+          PANEL_NVIDIA_MODEL: ${{ vars.PANEL_NVIDIA_MODEL }}
+          PANEL_OPENROUTER_MODEL: ${{ vars.PANEL_OPENROUTER_MODEL }}
+          VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
+          PYTHONIOENCODING: utf-8
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: python monitor/reasoning_run.py $FORCE
+
+      - name: Save
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
+          if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
+          git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && { echo "reasoning saved"; exit 0; }
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
+          echo "::warning::reasoning NOT saved: main kept moving"

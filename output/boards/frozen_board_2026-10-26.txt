@@ -1,0 +1,171 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 26 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261025-2148-aed217 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 12 · Verified: 11
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                     Country · League                          AI PICK · win%                                       Odds   Alt market                                 O1.5/O2.5  DC/BTTS     Src
+18:00  FC Copenhagen v Odense                      Denmark · Superliga                       ✓ Odense (+2.5) Asian handicap · 78%                 @1.25  Under 4.5 goals @1.24                      O86/O65    1X86 / Y59  ✓
+
+17:00  NK Istra 1961 v HNK Hajduk Split            Croatia · HNL                             Over 1.5 goals · 79%                                 @1.21  NK Istra 1961 or HNK Hajduk Split @1.25    O78/O57    X277 / Y57  ✓ᴹ
+
+19:30  Paris SG v Lyon                             France · Ligue 1                          ⇄✓ Multigoals 2-5 · 72%                              @1.20  Paris SG Under 3.5 goals @1.30             O78/O55    1276 / Y56  ✓
+
+18:45  Santa Clara v Benfica                       Portugal · Primeira Liga / Liga Portugal  ᴮ Over 1.5 goals · 76%                               @1.28  Multigoals 2-5 @1.22                       O72/U54    X280 / N53  ✓
+
+20:00  Sevilla v Osasuna                           Spain · La Liga                           ✓ Sevilla or Osasuna · 78%                           @1.33  Sevilla Over 0.5 goals @1.25               O74/U51    1274 / Y53  ✓
+
+19:30  Andorra v Burgos                            Spain · La Liga 2 / Hypermotion           ⇄✓ Andorra or Burgos · 77%                           @1.31  Under 3.5 goals @1.30                      O62/U64    1270 / N57  ✓
+
+19:45  Boulogne v Reims                            France · Ligue 2                          ✓ Reims Over 0.5 goals · 74%                         @1.30  Boulogne or Reims @1.34                    O70/U57    X279 / N53  ✓
+19:45  Montpellier v Red Star                      France · Ligue 2                          ✓ Over 1.5 goals · 74%                               @1.27  Montpellier or Red Star @1.31              O60/U68    1X74 / N60  ✓
+
+20:00  Walsall v Salford                           England · League Two                      ⇄✓ Walsall or Salford · 78%                          @1.29  Salford Under 2.5 goals @1.24              O65/U62    1270 / N55  ✓
+
+18:30  Galatasaray Istanbul v Fenerbahce Istanbul  Turkey · Super Lig                        ✓ Galatasaray Istanbul or Fenerbahce Istanbul · 81%  @1.27  Fenerbahce Istanbul Under 2.5 goals @1.20  O89/O70    1277 / Y70  ✓
+16:00  Caykur Rizespor v Trabzonspor               Turkey · Super Lig                        ✓ Caykur Rizespor or Trabzonspor · 80%               @1.28  Under 4.5 goals @1.24                      O78/O54    X277 / Y56  ✓
+16:00  Besiktas Istanbul v Istanbul BB             Turkey · Super Lig                        ✓ Multigoals 1-4 · 71%                               @1.24  Under 4.5 goals @1.36                      O81/O58    1274 / Y60  ○
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 12 deploy singles): NB6HKC   load ↦ www.sportybet.com/ng/?shareCode=NB6HKC
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                     Country · League                          Pick                                           Chance  Odds   Certainty  Stake  Code
+18:00  FC Copenhagen v Odense                      Denmark · Superliga                       ✓ Odense (+2.5) Asian handicap                 78%     @1.25  HIGH       0.25%  ZMF0M5
+17:00  NK Istra 1961 v HNK Hajduk Split            Croatia · HNL                             Over 1.5 goals                                 79%     @1.21  LOW        0.25%  ZVSUJD
+19:30  Paris SG v Lyon                             France · Ligue 1                          ⇄✓ Multigoals 2-5                              72%     @1.20  HIGH       0.25%  LGDE6W
+18:45  Santa Clara v Benfica                       Portugal · Primeira Liga / Liga Portugal  ᴮ Over 1.5 goals                               76%     @1.28  LOW        0.12%  X7QEMC
+20:00  Sevilla v Osasuna                           Spain · La Liga                           ✓ Sevilla or Osasuna                           78%     @1.33  HIGH       0.25%  YCYEG7
+19:30  Andorra v Burgos                            Spain · La Liga 2 / Hypermotion           ⇄✓ Andorra or Burgos                           77%     @1.31  HIGH       0.25%  X1PFJ9
+19:45  Montpellier v Red Star                      France · Ligue 2                          ✓ Over 1.5 goals                               74%     @1.27  MEDIUM     0.25%  JVG8QM
+19:45  Boulogne v Reims                            France · Ligue 2                          ✓ Reims Over 0.5 goals                         74%     @1.30  MEDIUM     0.25%  XTE6K4
+20:00  Walsall v Salford                           England · League Two                      ⇄✓ Walsall or Salford                          78%     @1.29  HIGH       0.25%  S0BY4C
+16:00  Besiktas Istanbul v Istanbul BB             Turkey · Super Lig                        ✓ Multigoals 1-4                               71%     @1.24  MEDIUM     0.25%  W0TJGB
+16:00  Caykur Rizespor v Trabzonspor               Turkey · Super Lig                        ✓ Caykur Rizespor or Trabzonspor               80%     @1.28  HIGH       0.25%  NDJZF6
+18:30  Galatasaray Istanbul v Fenerbahce Istanbul  Turkey · Super Lig                        ✓ Galatasaray Istanbul or Fenerbahce Istanbul  81%     @1.27  HIGH       0.25%  X5C9WP
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 10 of 12 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 2 quoted by no second book.
+Sharp check: 0 of 3 picks priced above the Betfair Exchange's fair odds (margin removed; average -5.2% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+⇄ SWITCHED — 3 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Paris SG v Lyon (🇫🇷 France · Ligue 1) — was Lyon (0:3) handicap (model and SportyBet disagree) → now Multigoals 2-5 (72%, HIGH)
+   • Andorra v Burgos (🇪🇸 Spain · La Liga 2 / Hypermotion) — was Under 3.5 goals (model and SportyBet disagree) → now Andorra or Burgos (77%, HIGH)
+   • Walsall v Salford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — was Walsall (2:0) handicap (model and SportyBet disagree) → now Walsall or Salford (78%, HIGH)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Paris SG v Lyon: tempo 3.0 goals/game · draw tendency 20% | Paris SG 2.0-1.1 a game, draws 15%, BTTS 60%, clean sheets 40%, SoT 6.8-3.8 | Lyon 1.6-1.2 a game, draws 25%, BTTS 60%, clean sheets 35%, SoT 4.5-4.5
+   • Santa Clara v Benfica: tempo 2.9 goals/game · draw tendency 30% | Santa Clara 1.4-0.8 a game, draws 35%, BTTS 40%, clean sheets 50%, SoT 3.1-3.0 | Benfica 2.6-0.9 a game, draws 25%, BTTS 65%, clean sheets 35%, SoT 6.2-3.2
+   • Sevilla v Osasuna: tempo 3.2 goals/game · draw tendency 22% · open, high-scoring pairing | Sevilla 1.6-1.8 a game, draws 22%, BTTS 78%, clean sheets 22%, SoT 4.3-5.0 | Osasuna 1.1-2.0 a game, draws 22%, BTTS 44%, clean sheets 33%, SoT 4.3-3.9
+   • Andorra v Burgos: tempo 2.6 goals/game · draw tendency 20% · a side often fails to score | Andorra 1.7-1.4 a game, draws 10%, BTTS 45%, clean sheets 25%, SoT 5.4-3.9 | Burgos 1.2-0.8 a game, draws 30%, BTTS 45%, clean sheets 45%, SoT 3.5-3.5
+   • Montpellier v Red Star: tempo 2.2 goals/game · draw tendency 32% · both draw-prone | Montpellier 1.2-0.6 a game, draws 40%, BTTS 35%, clean sheets 60%, SoT 4.7-4.0 | Red Star 1.4-1.2 a game, draws 25%, BTTS 55%, clean sheets 35%, SoT 4.7-4.2
+   • Boulogne v Reims: tempo 2.3 goals/game · draw tendency 55% · both draw-prone · a side often fails to score | Boulogne 0.8-1.1 a game, draws 50%, BTTS 40%, clean sheets 45%, SoT 3.1-3.9 | Reims 1.8-1.1 a game, draws 60%, BTTS 70%, clean sheets 30%, SoT 5.0-4.0
+   • Walsall v Salford: tempo 2.3 goals/game · draw tendency 32% · both draw-prone | Walsall 1.3-1.1 a game, draws 50%, BTTS 55%, clean sheets 35%, SoT 4.2-4.3 | Salford 1.3-0.8 a game, draws 15%, BTTS 40%, clean sheets 40%, SoT 4.0-3.2
+   • Besiktas Istanbul v Istanbul BB: tempo 2.8 goals/game · draw tendency 18% | Besiktas 1.8-1.1 a game, draws 10%, BTTS 45%, clean sheets 35%, SoT 6.2-3.7 | Buyuksehyr 1.6-1.1 a game, draws 25%, BTTS 45%, clean sheets 45%, SoT 4.4-4.0
+   • Caykur Rizespor v Trabzonspor: tempo 2.8 goals/game · draw tendency 18% | Rizespor 1.4-1.4 a game, draws 15%, BTTS 45%, clean sheets 25%, SoT 4.8-4.6 | Trabzonspor 1.8-0.9 a game, draws 20%, BTTS 60%, clean sheets 30%, SoT 5.1-4.5
+   • Galatasaray Istanbul v Fenerbahce Istanbul: tempo 3.4 goals/game · draw tendency 18% · open, high-scoring pairing | Galatasaray 1.9-1.3 a game, draws 10%, BTTS 55%, clean sheets 30%, SoT 6.0-3.8 | Fenerbahce 2.4-1.1 a game, draws 25%, BTTS 50%, clean sheets 40%, SoT 6.5-4.0
+
+TABLE 2 mega code (all 12 deploy singles): NB6HKC   load ↦ www.sportybet.com/ng/?shareCode=NB6HKC
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code HMWJFC · odds 2.10 · chance 50%
+   • 18:30 Galatasaray Istanbul v Fenerbahce Istanbul (🇹🇷 Turkey · Super Lig) — Galatasaray Istanbul or Fenerbahce Istanbul @1.27 (81%, HIGH)
+   • 16:00 Caykur Rizespor v Trabzonspor (🇹🇷 Turkey · Super Lig) — Caykur Rizespor or Trabzonspor @1.28 (80%, HIGH)
+   • 20:00 Walsall v Salford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Walsall or Salford @1.29 (78%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+1 accas · 4 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+4 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code VB0V4M · 4 legs · odds 2.79 · chance 35%
+   • 20:00 Sevilla v Osasuna (🇪🇸 Spain · La Liga) — Sevilla or Osasuna @1.33 (78%)
+   • 19:30 Andorra v Burgos (🇪🇸 Spain · La Liga 2 / Hypermotion) — Andorra or Burgos @1.31 (77%)
+   • 18:45 Santa Clara v Benfica (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Over 1.5 goals @1.28 (76%)
+   • 18:00 FC Copenhagen v Odense (🇩🇰 Denmark · Superliga) — Odense (+2.5) Asian handicap @1.25 (78%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 mega code (all 12 deploy singles): NB6HKC   load ↦ www.sportybet.com/ng/?shareCode=NB6HKC
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code WY3BNB · 3 legs · odds 2.13 · chance 48%
+   • 17:00 NK Istra 1961 v HNK Hajduk Split (🇭🇷 Croatia · HNL) — NK Istra 1961 or HNK Hajduk Split @1.25 (80%)
+   • 19:30 Paris SG v Lyon (🇫🇷 France · Ligue 1) — Paris SG Under 3.5 goals @1.30 (79%)
+   • 19:45 Montpellier v Red Star (🇫🇷 France · Ligue 2) — Montpellier or Red Star @1.31 (77%)
+Alt B · code P43Y3J · 2 legs · odds 1.82 · chance 58%
+   • 19:45 Boulogne v Reims (🇫🇷 France · Ligue 2) — Boulogne or Reims @1.34 (76%)
+   • 16:00 Besiktas Istanbul v Istanbul BB (🇹🇷 Turkey · Super Lig) — Under 4.5 goals @1.36 (75%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code M1G53D · 19:30 Paris SG v Lyon (🇫🇷 France · Ligue 1) — Lyon (0:2) handicap @1.85 (57%, value +6.1% · model 74% vs SportyBet 52%)
+Value 2 · code PMKTJ6 · 20:00 Walsall v Salford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Salford Under 1.5 goals @1.83 (57%, value +4.8% · model 72% vs SportyBet 52%)
+Value 3 · code ZJ5HRK · 19:45 Montpellier v Red Star (🇫🇷 France · Ligue 2) — Under 3 goals @1.53 (54%, value +3.9% · model 68% vs SportyBet 50%)
+Value 4 · code XCRRCR · 16:00 Besiktas Istanbul v Istanbul BB (🇹🇷 Turkey · Super Lig) — Under 3.5 goals @1.83 (56%, value +3.2% · model 65% vs SportyBet 54%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Galatasaray Istanbul v Fenerbahce Istanbul (🇹🇷 Turkey · Super Lig) — Galatasaray Istanbul or Fenerbahce Istanbul (81%) @1.27 · code X5C9WP
+Acca A: 4 legs, model 35% · code VB0V4M
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 841 legs logged, mean CLV +0.42%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+CLV acca A: WVN44S (4 legs · odds 2.54 · 40% · positive-CLV markets)
+CLV acca B: VB0V4M (4 legs · odds 2.79 · 35% · positive-CLV markets)
+50+ #1: HMWJFC (3 legs · odds 2.10 · 50% · stake 0.5%)
+Board MEGA: NB6HKC (12 legs · every single · stake 0.1%)
+ALT MEGA: X79EG6 (5 legs · every alt acca on one slip · stake 0.1%)
+VALUE MEGA: S0EP8U (4 legs · every value bet on one slip · stake 0.1%)
+Acca A: VB0V4M (4 legs · odds 2.79 · 35% · stake 0.25%)
+Alt A: WY3BNB (3 legs · alt markets · odds 2.13 · 48% · stake 0.25%)
+Alt B: P43Y3J (2 legs · alt markets · odds 1.82 · 58% · stake 0.25%)
+Value 1: M1G53D (1 leg · positive value · odds 1.85 · 57% · stake 0.25%)
+Value 2: PMKTJ6 (1 leg · positive value · odds 1.83 · 57% · stake 0.25%)
+Value 3: ZJ5HRK (1 leg · positive value · odds 1.53 · 54% · stake 0.25%)
+Value 4: XCRRCR (1 leg · positive value · odds 1.83 · 56% · stake 0.25%)

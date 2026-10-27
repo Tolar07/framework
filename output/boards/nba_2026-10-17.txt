@@ -1,0 +1,111 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Sat 17 Oct 2026   ·   tip-off = UK time
+Run ID: OLPXDV-20261016-0555-710ff7
+Games checked against the sharp line: 12
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+No SportyBet NBA price above the fair price today.
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+00:00  Detroit Pistons v Toronto Raptors · PRESEASON
+   Detroit Pistons to win (incl. OT) @1.25 · fair 1.32 · -5.3%
+   Detroit Pistons (-13.5) handicap @2.60 · fair 2.60 · +0.1%
+   Over 216.5 points (incl. OT) @1.73 · fair 1.84 · -5.9%
+   Detroit Pistons Over 111.5 points (incl. OT) @1.61 · fair 1.68 · -4.4%
+   Toronto Raptors Under 102.5 points (incl. OT) @2.20 · fair 2.33 · -5.5%
+
+00:00  Indiana Pacers v Milwaukee Bucks · PRESEASON
+   Indiana Pacers to win (incl. OT) @1.28 · fair 1.35 · -5.2%
+   Milwaukee Bucks (+4.5) handicap @2.60 · fair 2.60 · +0.1%
+   Over 237.5 points (incl. OT) @2.10 · fair 2.09 · +0.4%
+   Indiana Pacers Over 119.5 points (incl. OT) @1.60 · fair 1.64 · -2.3%
+   Milwaukee Bucks Over 115.5 points (incl. OT) @2.20 · fair 2.23 · -1.5%
+
+00:00  Orlando Magic v Miami Heat · PRESEASON
+   Orlando Magic to win (incl. OT) @1.70 · fair 1.77 · -4.2%
+   Orlando Magic (+1.5) handicap @1.61 · fair 1.63 · -1.0%
+   Over 230.5 points (incl. OT) @1.70 · fair 1.77 · -3.8%
+   Orlando Magic Over 117.5 points (incl. OT) @1.85 · fair 1.91 · -3.1%
+   Miami Heat Over 113.5 points (incl. OT) @1.64 · fair 1.75 · -6.4%
+
+00:00  Philadelphia 76ers v Boston Celtics · PRESEASON
+   Philadelphia 76ers to win (incl. OT) @1.37 · fair 1.43 · -4.1%
+   Philadelphia 76ers (-11.5) handicap @2.50 · fair 2.60 · -3.7%
+   Over 219.5 points (incl. OT) @1.71 · fair 1.77 · -3.2%
+   Philadelphia 76ers Over 114.5 points (incl. OT) @1.87 · fair 1.91 · -2.0%
+   Boston Celtics Over 105.5 points (incl. OT) @1.64 · fair 1.75 · -6.4%
+
+01:00  Chicago Bulls v Minnesota Timberwolves · PRESEASON
+   Minnesota Timberwolves to win (incl. OT) @1.82 · fair 1.92 · -5.0%
+   Minnesota Timberwolves (+2.5) handicap @1.63 · fair 1.63 · +0.2%
+   Under 239.5 points (incl. OT) @1.51 · fair 1.59 · -4.8%
+   Chicago Bulls Under 114.5 points (incl. OT) @2.15 · fair 2.27 · -5.2%
+   Minnesota Timberwolves Over 115.5 points (incl. OT) @1.67 · fair 1.75 · -4.7%
+
+01:00  Dallas Mavericks v Atlanta Hawks · PRESEASON
+   Atlanta Hawks to win (incl. OT) @1.96 · fair 2.04 · -4.1%
+   Dallas Mavericks (+2.5) handicap @1.64 · fair 1.63 · +0.8%
+   Over 229.5 points (incl. OT) @1.62 · fair 1.70 · -4.8%
+   Dallas Mavericks Over 114.5 points (incl. OT) @1.60 · fair 1.64 · -2.3%
+   Atlanta Hawks Under 118.5 points (incl. OT) @1.62 · fair 1.70 · -4.9%
+
+01:00  Memphis Grizzlies v Charlotte Hornets · PRESEASON
+   Charlotte Hornets to win (incl. OT) @1.82 · fair 1.92 · -5.0%
+   Charlotte Hornets (+2.5) handicap @1.64 · fair 1.63 · +0.8%
+   Over 224.5 points (incl. OT) @1.52 · fair 1.59 · -4.2%
+   Memphis Grizzlies Over 112.5 points (incl. OT) @1.62 · fair 1.74 · -6.6%
+   Charlotte Hornets Over 113.5 points (incl. OT) @1.65 · fair 1.70 · -3.0%
+
+01:00  New Orleans Pelicans v Washington Wizards · PRESEASON
+   New Orleans Pelicans to win (incl. OT) @2.10 · fair 2.19 · -4.0%
+   Washington Wizards (+1.5) handicap @1.64 · fair 1.63 · +0.8%
+   Over 232.5 points (incl. OT) @2.10 · fair 2.19 · -4.3%
+   New Orleans Pelicans Over 112.5 points (incl. OT) @1.67 · fair 1.79 · -6.6%
+   Washington Wizards Over 113.5 points (incl. OT) @1.60 · fair 1.65 · -3.2%
+
+01:00  San Antonio Spurs v Sacramento Kings · PRESEASON
+   Sacramento Kings (+21.5) handicap @1.44 · fair 1.49 · -3.6%
+   Over 232.5 points (incl. OT) @2.10 · fair 2.19 · -4.3%
+   San Antonio Spurs Over 121.5 points (incl. OT) @1.68 · fair 1.79 · -6.1%
+   Sacramento Kings Over 108.5 points (incl. OT) @2.10 · fair 2.15 · -2.3%
+
+03:00  Golden State Warriors v Portland Trail Blazers · PRESEASON
+   Portland Trail Blazers to win (incl. OT) @1.67 · fair 1.72 · -2.6%
+   Portland Trail Blazers (+1.5) handicap @1.58 · fair 1.56 · +1.5%
+   Under 227.5 points (incl. OT) @1.75 · fair 1.84 · -4.8%
+   Golden State Warriors Under 111.5 points (incl. OT) @1.90 · fair 1.96 · -2.9%
+   Portland Trail Blazers Over 114.5 points (incl. OT) @1.91 · fair 2.00 · -4.4%
+
+03:00  Phoenix Suns v Utah Jazz · PRESEASON
+   Phoenix Suns to win (incl. OT) @1.52 · fair 1.57 · -3.2%
+   Phoenix Suns (+1.5) handicap @1.45 · fair 1.49 · -2.9%
+   Under 231.5 points (incl. OT) @1.50 · fair 1.59 · -5.4%
+   Phoenix Suns Over 116.5 points (incl. OT) @2.10 · fair 2.21 · -4.8%
+   Utah Jazz Under 108.5 points (incl. OT) @2.20 · fair 2.33 · -5.5%
+
+03:30  Los Angeles Lakers v Denver Nuggets · PRESEASON
+   Los Angeles Lakers to win (incl. OT) @1.40 · fair 1.44 · -2.6%
+   Los Angeles Lakers (-12.5) handicap @2.95 · fair 3.02 · -2.4%
+   Under 228.5 points (incl. OT) @2.25 · fair 2.31 · -2.4%
+   Los Angeles Lakers Under 121.5 points (incl. OT) @1.61 · fair 1.72 · -6.4%
+   Denver Nuggets Under 115.5 points (incl. OT) @1.60 · fair 1.66 · -3.3%
+
+──────────────────────────────────
+NBA record: no graded regular-season pick yet (the season opens 20 Oct).
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

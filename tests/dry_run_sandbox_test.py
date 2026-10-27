@@ -33,7 +33,7 @@ def test_dry_run_sandbox() -> None:
         assert clv.CLVLog().path == tmp / "clv_log.json"
         assert freeze.paths("2026-10-05")[0].parent == tmp / "boards"
         from data import european_archive as eu
-        assert eu.PATH == tmp / "european_results.json"
+        assert eu.PATH == tmp / "european_results.json" and eu.CUP_PATH == tmp / "cup_results.json"
         from engine import loss_watch as lw
         assert lw.KNOWLEDGE_FILE == tmp / "knowledge.json" and lw.PROPOSALS_FILE == tmp / "proposals.json"
         # the scratch copy starts with the real records, so grading, learning

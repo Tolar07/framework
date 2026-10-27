@@ -1,0 +1,21 @@
+{
+ "date": "2026-10-21",
+ "gone": [],
+ "reopen": [],
+ "first": {
+  "sr:match:73682356": {
+   "at": "19:58Z",
+   "spread": -4.5,
+   "total": 231.5,
+   "ml_home": 1.5556,
+   "ml_away": 2.5
+  },
+  "sr:match:73682414": {
+   "at": "19:58Z",
+   "spread": 1.5,
+   "total": 230.5,
+   "ml_home": 1.9524,
+   "ml_away": 1.8696
+  }
+ }
+}

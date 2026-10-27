@@ -23,9 +23,16 @@ assert slate.BLOCKED_DEPLOY_MARKETS == {}, "Order 2: no market may be blocked (s
 for k in (mkt.HOME, mkt.DRAW, mkt.AWAY, mkt.OVER_25, mkt.UNDER_25):
     assert k in mkt.DEPLOYABLE, f"Order 2: {k} must be deployable"
 
-# 3. Odds band
+# 3. Odds band (amended 2026-10-14: the band holds, "safest 1.50" is withdrawn)
 assert (slate.DEPLOY_ODDS_MIN, slate.DEPLOY_ODDS_MAX, slate.DEPLOY_ODDS_SAFE) == (1.20, 2.00, 1.50), \
-    "Order 3: band is 1.20-2.00, safest 1.50"
+    "Order 3: band is 1.20-2.00; 1.50 is the midpoint label"
+_pb3 = (ROOT / "output" / "produce_bet.py").read_text(encoding="utf-8")
+assert "safest ~" not in _pb3, \
+    "Order 3 (amended 2026-10-14): the board no longer calls any price 'safest'"
+assert "PRICE_BAND_STUDY.md" in _pb3, \
+    "Order 3 (amended): the footer points at the record by band instead"
+assert (ROOT / "backtest" / "price_band_study.py").exists(), \
+    "Order 3 (amended): the record by band is regenerated from the ledgers"
 assert slate.in_deploy_band(2.00) and not slate.in_deploy_band(2.01)
 assert slate.in_deploy_band(1.20) and not slate.in_deploy_band(1.19)
 
@@ -41,9 +48,12 @@ assert all(4 <= x <= 5 for x in _split_sizes(78, 4, 5)) and sum(_split_sizes(78,
 
 # 6. Delivery schedule
 wf = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")
-assert '"47 20 * * *"' in wf and '"47 5 * * *"' in wf, "Order 6: ~10 PM + ~7 AM Lagos runs"
+assert all(f'"{c}"' in wf for c in ("47 20 * * *", "47 21 * * *", "47 5 * * *", "47 6 * * *")), \
+    "Order 6: ~10 PM + ~7 AM UK runs, a cron for BST and one for GMT"
+assert "TZ=Europe/London date +%H%M" in wf and "needs.when.outputs.go == 'yes'" in wf, \
+    "Order 6: a cron that lands before the slot's UK time sends nothing"
 assert "--only-production --heartbeat" in wf, "Order 6: production board + daily heartbeat"
-assert "date -u -d tomorrow" in wf, "Order 6: evening run builds the next day's board"
+assert "TZ=Europe/London date -d tomorrow" in wf, "Order 6: evening run builds the next (UK) day's board"
 assert "sent_${T}_${SLOT}" in wf, "Order 6: each day's board is sent once per slot (no duplicates)"
 assert "if: failure()" in wf, "Order 6: failure alert"
 
@@ -51,6 +61,18 @@ assert "if: failure()" in wf, "Order 6: failure alert"
 for lg in ("UEFA Nations League", "League One", "League Two", "National League", "FA Cup"):
     assert lg in SPORTYBET_TOURNAMENT_ID, f"Order 7: {lg} must be covered"
 assert len(SPORTYBET_TOURNAMENT_ID) >= 21, "Order 7: 16 leagues + UNL + English lower tiers + FA Cup"
+# 7 + 37 (amended 2026-10-14): the parallel sharp list covers only what a sharp
+# reference prices, and says so; the board's own coverage is untouched.
+from data.football_data_source import LEAGUE_CODES as _lc7
+_sharp7 = [lg for lg in SPORTYBET_TOURNAMENT_ID if _lc7.get(lg)]
+assert len(_sharp7) >= 19, \
+    f"Order 7 (amended): {len(_sharp7)} of the covered leagues have a football-data division code"
+# A league with no division code (CL, EL, Conference, FA Cup, the new-leagues
+# file's countries) has no exchange price here, so the parallel list must
+# produce nothing for it rather than guess (HR35).
+assert not _lc7.get("Champions League") and not _lc7.get("Danish Superliga")
+from engine import sharp_value as _sv7
+assert _sv7.fair_row({}, "Champions League", "Arsenal", "Bayern Munich") is None
 
 # 10. Alternative markets open; nothing dropped (market-implied fallback)
 for k in (mkt.DC_1X, mkt.DC_X2, mkt.DC_12, mkt.OVER_15, mkt.UNDER_15,
@@ -96,11 +118,12 @@ assert orchestrator.next_season_code("2526") == "2627"
 assert "BOOK" in slate.TIER_RANK and slate.CERTAINTY_HIGH_PP == 0.03
 from types import SimpleNamespace as _NS
 from output import produce_bet as pb
+_KO = "2026-10-27T15:00:00Z"   # one kickoff window for test accas (engine/cohorts.py, 2026-10-26)
 _legs = []
 for i, (p, c) in enumerate([(0.82, "HIGH"), (0.81, "HIGH"), (0.81, "HIGH"),
                             (0.95, "LOW"), (0.70, "MEDIUM"), (0.70, "MEDIUM"), (0.70, "MEDIUM")]):
     _legs.append(_NS(probs=object(), certainty=c, best_market=f"m{i}", best_model_prob=p,
-                     fixture=f"T{i} v U{i} (X)"))
+                     fixture=f"T{i} v U{i} (X)", kickoff_utc="2026-10-27T15:00:00Z"))
 _s3 = pb._build_safe3(_legs)
 assert len(_s3) == 1 and all(l[0].certainty == "HIGH" for l in _s3[0][1]), \
     "Order 15: 50%+ accas use high-certainty legs only and stop below 50%"
@@ -187,21 +210,24 @@ _fp = lambda h, a: _FP(home_team=h, away_team=a, lambda_home=1.6, lambda_away=1.
                        p_draw=0.2, p_away=0.2, p_over_15=0.78, p_over_25=0.55, p_over_35=0.32,
                        p_btts_yes=0.58)
 _bf28 = [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                         on_deploy_shortlist=True, best_price=1.33),
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.50),
          pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
-                         on_deploy_shortlist=True, best_price=1.21)]
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.40)]
 _bf28[0].kickoff_utc = "2026-10-04T16:30:00.000Z"      # SportyBet's format
 _bf28[1].kickoff_utc = None                            # no source gave a time
 _b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
-# Kickoff time on every pick, Lagos time (Architect 2026-09-19: "the country and the time")
+# Kickoff time on every pick, UK time (Architect 2026-09-19: "the country and the time";
+# 2026-10-15: "we are in the UK, not Lagos")
 assert pb.kickoff(_bf28[0]) == "17:30" and pb.kickoff(_bf28[1]) == "PENDING", \
-    "Order 28: kickoff in Lagos time; PENDING when no source gave one (HR35)"
+    "Order 28: kickoff in UK time (BST on 4 Oct); PENDING when no source gave one (HR35)"
 _late = pb.BoardFixture("X v Y (La Liga 2)", None, _v)
 _late.kickoff_utc = "2026-10-04T23:30:00Z"
-assert pb.kickoff(_late) == "00:30", "Order 28: Lagos is UTC+1 all year"
+assert pb.kickoff(_late) == "00:30", "Order 28: UK time is UTC+1 in BST"
+_late.kickoff_utc = "2026-11-04T23:30:00Z"
+assert pb.kickoff(_late) == "23:30", "Order 28: UK time is UTC+0 in GMT (from 25 Oct 2026)"
 _late.kickoff_utc = "2026-10-04"
 assert pb.kickoff(_late) == "PENDING", "Order 28: a date without a time is not a kickoff time"
-assert "KO = kickoff, Lagos time (WAT)" in _b28
+assert "KO = kickoff, UK time" in _b28
 _t1, _t2 = _b28.split("TABLE 2 · ")[0], _b28.split("TABLE 2 · ")[1].split("TABLE 3A")[0]
 for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
     assert "Country · League" in _part and "Spain · La Liga 2" in _part, \
@@ -211,6 +237,10 @@ for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
         and any(r.startswith("17:30 ") and "Sociedad B v Granada" in r for r in _rows) \
         and any(r.startswith("PENDING ") and "Greece v Germany" in r for r in _rows), \
         f"Order 28: {_name} shows each kickoff"
+# a pick with no kickoff can't join an acca (kickoff cohorts, 2026-10-26): give it one
+# in the same window to check the acca legs
+_bf28[1].kickoff_utc = "2026-10-04T16:45:00Z"
+_b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
 _t3 = _b28.split("TABLE 3 · ACCA ROUTE")[1]
 assert "Sociedad B v Granada (" in _t3 and "Spain · La Liga 2" in _t3 \
     and "Greece v Germany (\U0001F3C6 UEFA Nations League)" in _t3, \
@@ -228,15 +258,22 @@ assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the dai
 _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HEARTBEAT")[0]
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
+assert 'environ.get("BET365_SEND", "").strip() != "1"' in _b365_block, \
+    "Order 29 (2026-10-15): the bet365 board is saved but not sent unless BET365_SEND=1 (Matchbook replaced it)"
 
-# 33. Subscribers get everything the Architect gets except the bet365 board
+# 33. Subscribers get the full board and nothing else (Architect 2026-10-13; codes only 2026-10-09)
 from output import notify as _nt33
-for _wfn in ("daily.yml", "news.yml", "supervisor.yml", "watchdog.yml", "weekly.yml"):
+for _wfn in ("daily.yml", "supervisor.yml"):
     assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in \
         (ROOT / ".github/workflows" / _wfn).read_text(encoding="utf-8"), \
         f"Order 33: the subscriber secret reaches {_wfn}"
-assert "${TELEGRAM_SUBSCRIBER_CHAT_IDS//,/ }" in wf and "-o /dev/null" in wf, \
-    "Order 33: the failed-run alert reaches every subscriber, reply not logged"
+for _wfn in ("news.yml", "watchdog.yml", "weekly.yml"):
+    assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" not in \
+        (ROOT / ".github/workflows" / _wfn).read_text(encoding="utf-8"), \
+        f"Order 33: {_wfn} sends to the Architect only"
+_fail33 = wf.split("- name: Report failure to Telegram")[1]
+assert "SUBSCRIBER" not in _fail33 and "-o /dev/null" in _fail33, \
+    "Order 33: the failed-run alert goes to the Architect only, reply not logged"
 _sent33: list = []
 _env33 = {k: _os.environ.get(k) for k in
           ("TELEGRAM_CHAT_ID", "TELEGRAM_OWNER_CHAT_ID", "TELEGRAM_SUBSCRIBER_CHAT_IDS")}
@@ -252,6 +289,11 @@ try:
     assert _ok33 and "delivered to 1/2 subscriber chat(s)" in _notes33 and \
         any("…3333: NOT delivered" in n for n in _notes33), \
         f"Order 33: a failed subscriber is noted and never fails the send: {_notes33}"
+    _sent33.clear()
+    _sok33, _snotes33 = _nt33.send_subscribers("codes")
+    assert _sent33 == ["2222", "3333"], \
+        f"Order 33: the codes go to each subscriber once, never the Architect: {_sent33}"
+    assert not _sok33 and "codes delivered to 1/2 subscriber chat(s)" in _snotes33, _snotes33
 finally:
     _nt33.send_telegram = _send33  # type: ignore[assignment]
     for _k33, _val33 in _env33.items():
@@ -259,17 +301,30 @@ finally:
             _os.environ.pop(_k33, None)
         else:
             _os.environ[_k33] = _val33
+_brd33 = _rd_src.split("SEND GATE (HR59")[1].split("# bet365 BOARD")[0]
+assert "notify.send_architect(telegram_text)" in _brd33 and "notify.deliver(" not in _rd_src, \
+    "Order 33: the board goes to the Architect only"
+assert "notify.send_subscribers(telegram_text)" in _brd33, \
+    "Order 33 (2026-10-13): subscribers get the full board"
+assert "notify.send_subscribers(t_)" in _rd_src and "texts.append(check_text)" in _rd_src, \
+    "Order 33: subscribers get the resent frozen board and the codes check"
+_codes33 = pb.render_subscriber_codes(
+    "board table text\n\nALL CODES\nAcca A: Q13HC7 (4 legs · odds 2.27 · 45% · stake 0.25%)\n"
+    "Board MEGA: N2TNRF (24 legs · every single · stake 0.1%)\n\n====\nVERIFY RESULTS", [], "2026-10-09")
+assert "Acca A: Q13HC7" in _codes33 and "Board MEGA: N2TNRF" in _codes33, _codes33
+assert "stake" not in _codes33 and "board table text" not in _codes33 and "VERIFY" not in _codes33, \
+    f"Order 33: codes only — no stakes, tables or results: {_codes33}"
 assert _rd_src.count("notify.send_telegram(") == 1 and \
     "notify.send_telegram(b365_text, chat_id=owner_chat)" in _rd_src, \
     "Order 33: only the bet365 board bypasses the subscribers"
 _hb_block = _rd_src.split("# HEARTBEAT")[1]
-assert "notify.deliver(hb" in _hb_block, "Order 33: subscribers get the heartbeat"
+assert "notify.send_architect(hb)" in _hb_block and "notify.deliver(hb" not in _hb_block, \
+    "Order 33: the heartbeat goes to the Architect only"
 for _src in ("monitor/supervisor.py", "monitor/run_watchdog.py", "scripts/weekly_review.py",
              "news_check.py"):
     _txt = (ROOT / _src).read_text(encoding="utf-8")
-    assert "notify.send_telegram(" not in _txt and \
-        ("notify.send_everyone(" in _txt or "notify.deliver(" in _txt), \
-        f"Order 33: {_src} reaches the subscribers too"
+    assert "notify.send_architect(" in _txt and "notify.send_everyone(" not in _txt and \
+        "notify.deliver(" not in _txt, f"Order 33: {_src} goes to the Architect only"
 
 # 30. 17 Sep spec items kept: Run ID + send gate, NO-DATA line, competition chunks
 from output import notify as _nt
@@ -282,7 +337,7 @@ assert "notify.board_gate(telegram_text)" in _rd_src and "run_id=run_id" in _rd_
 _b30 = pb.render_canonical_board(
     "Mode A", "Phase 3", [], 0, None, [],
     [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                     on_deploy_shortlist=True, best_price=1.33),
+                     on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.33),
      pb.BoardFixture("Lech v Legia (Ekstraklasa)", None, _v)], run_id=_rid)
 assert f"Run ID: {_rid}" in _b30 and "Fixtures scanned: 2" in _b30, "Order 30: Run ID header"
 _t1_30 = _b30.split("TABLE 2 · ")[0]
@@ -314,11 +369,13 @@ for _i in range(6):
     # a 78% Over 1.5 alternative -> Alt A (order 40: a match in one acca at most).
     _main = 0.82 if _i < 3 else 0.72
     _b = pb.BoardFixture(f"H{_i} v A{_i} (La Liga 2)", _fp(f"H{_i}", f"A{_i}"), _v,
-                         on_deploy_shortlist=True, best_market_key="SB:10||Home or Away",
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key="SB:10||Home or Away",
                          best_market="Home or Away", best_price=1.30, best_model_prob=_main)
+    # order 42: the alt legs are of different kinds, so one alt acca may hold them all
+    _alt = ["SB:18|total=1.5|Over 1.5", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=4.5|Under 4.5"][_i % 3]
     _b.cand_pool = [_c31(_main, "SB:10||Home or Away", 1.30),
                     _c31(0.80, "SB:10||Home or Draw", 1.25),
-                    _c31(0.78, "SB:18|total=1.5|Over 1.5", 1.28)]
+                    _c31(0.78, _alt, 1.28)]
     _bfs31.append(_b)
 _alts31 = pb._build_alt_accas(_bfs31)
 assert _alts31 and all(_fam31(leg[3]) != "Double chance" for _n, ls, _c in _alts31 for leg in ls), \
@@ -332,7 +389,7 @@ assert "_build_alt_accas(deploy)" in _rd_src and "alts=_alt_accas(dep)" in _rd_s
 
 # 32. Shaky picks switch to a steadier market
 _b32 = pb.BoardFixture("Netherlands v Serbia (UEFA Nations League)", _fp("Netherlands", "Serbia"),
-                       _v, on_deploy_shortlist=True, best_market_key="SB:16|hcp=-3.5|Away (+3.5)",
+                       _v, on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key="SB:16|hcp=-3.5|Away (+3.5)",
                        best_price=1.29, best_model_prob=0.76, certainty="LOW", tier="BOOK")
 _b32.cand_pool = [
     (0.76, 0.0, "SB:16|hcp=-3.5|Away (+3.5)", 0.86, 0.76, _MQ(price=1.29)),   # the shaky pick
@@ -367,7 +424,12 @@ assert "if send and frozen is not None:" in _rd_src, \
 
 # 36. BTTS calibrated; BTTS-yes / over-goals value picks
 from engine import calibration as _cal
+# The shipped fit, not memory/calibration_live.json: the nightly refit (Architect
+# 2026-10-20, "auto") may adopt the raw chance when it scores better out of sample,
+# as it did for BTTS on 2026-10-26 (Brier 0.2450 -> 0.2421), which isn't a broken order.
+_cal.use(None)
 assert _cal.btts_yes(0.45) > 0.45 and _cal.btts_yes(0.75) < 0.75, "Order 36(a): BTTS calibrated"
+_cal.use(_cal.LIVE_PATH)
 assert "cal.model_prob(market, mkt.model_prob(market, p))" in _rd_src \
     and "md = (cal.model_prob(k, md[0]), md[1])" in _rd_src, \
     "Order 36(a): the calibrated BTTS feeds both selection routes"
@@ -385,7 +447,7 @@ from types import SimpleNamespace as _NS37
 assert pb.VALUE_BET_MIN_EV == 0.02, "Order 37: EV >= +2% on our chance"
 def _bf37(fix, src="model", pool=None, best="SB:1||Home"):
     return _NS37(fixture=fix, probs=_NS37(home_team="A", away_team="B"), prob_source=src,
-                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=None,
+                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=_KO,
                  kickoff_date="2026-10-06")
 _p37 = [(0.70, -0.03, "SB:1||Home", 0.72, 0.70, _MQ(price=1.38)),     # the main pick
         (0.61, 0.069, "SB:18|total=3.5|Under 3.5", 0.76, 0.55, _MQ(price=1.76)),
@@ -412,6 +474,9 @@ assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2"], \
 # 38. No underdog handicaps in the FA Cup
 from engine import full_markets as _fm38
 assert "FA Cup" in _rd.NO_DOG_HANDICAP_LEAGUES, "Order 38: FA Cup underdog handicaps are dropped"
+assert "Turkish Cup" in _rd.NO_DOG_HANDICAP_LEAGUES, "Order 38 (2026-10-07): Turkish Cup underdog handicaps are dropped too"
+from engine import freeze as _fz38
+assert _fz38.forbidden("SB:16|hcp=-1.5|Away (+1.5)", "Turkish Cup"), "Order 38: a frozen Turkish Cup underdog handicap is replaced"
 for _k in ("SB:16|hcp=-2.5|Away (+2.5)", "SB:16|hcp=1.5|Home (+1.5)", "SB:16|hcp=-0.5|Away (+0.5)",
            "SB:14|hcp=0:2|Away (0:2)", "SB:14|hcp=1:0|Home (1:0)"):
     assert _fm38.is_underdog_handicap(_k), f"Order 38: {_k} gives its side a start"
@@ -443,7 +508,7 @@ assert _tc39.handle("/approve P1").startswith("REFUSED"), \
 # 40. Accas: 3 legs, 75%+ picks, a match in one acca at most
 assert (pb.ACCA_MIN, pb.ACCA_MAX, pb.ACCA_LEG_MIN) == (3, 3, 0.75), "Order 40: 3-leg accas of 75%+ picks"
 _bfs40 = [pb.BoardFixture(f"P{_i} v Q{_i} (Serie A)", _fp(f"P{_i}", f"Q{_i}"), _v,
-                          on_deploy_shortlist=True, best_market="P to win",
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market="P to win",
                           best_model_prob=_p, certainty=_c)
           for _i, (_p, _c) in enumerate([(0.86, "HIGH"), (0.85, "HIGH"), (0.84, "HIGH"),
                                          (0.80, "LOW"), (0.79, "LOW"), (0.77, "LOW"),
@@ -453,14 +518,141 @@ _all40 = [l[0].fixture for _n, ls, _c in _s40 + _a40 for l in ls]
 assert len(_all40) == len(set(_all40)) == 7, "Order 40: every 75%+ pick in exactly one acca"
 assert not any(f.startswith(("P7 ", "P8 ")) for f in _all40), "Order 40: picks under 75% stay singles"
 assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 legs an acca"
+# Architect 2026-10-08/09: a TABLE 3 acca's odds are 2.00 to 3.00
+assert (pb.TABLE3_ODDS_MIN, pb.TABLE3_ODDS_MAX) == (2.00, 3.00), "Order 40: TABLE 3 odds 2.00-3.00"
+_bfo40 = [pb.BoardFixture(f"R{_i} v S{_i} (Serie A)", _fp(f"R{_i}", f"S{_i}"), _v,
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market="R to win",
+                          best_model_prob=0.95 - _i / 100, certainty="LOW", best_price=_pr)
+          for _i, _pr in enumerate([1.22, 1.21, 1.23, 1.25, 1.21, 1.24, 1.26, 1.20, 1.23,
+                                    1.25, 1.22, 1.24, 1.29, 1.25, 1.26, 1.29, 1.24])]
+_a40o = pb._build_accas(_bfo40)
+_odds40 = [round(pb._acca_odds(ls), 2) for _n, ls, _c in _a40o]
+assert _a40o and all(2.00 <= o <= 3.00 for o in _odds40), f"Order 40: TABLE 3 accas 2.00-3.00: {_odds40}"
+assert len(_a40o) == 4, f"Order 40: 17 legs of ~1.24 collapse to 4 accas, not 6: {_odds40}"
+_in40o = [l[0].fixture for _n, ls, _c in _a40o for l in ls]
+assert len(_in40o) == len(set(_in40o)), "Order 40: a match in one acca at most"
+assert len(_in40o) == 17, "Order 40: every 75%+ leg placed while the 3.00 cap allows"
+_orch40 = (ROOT / "orchestrator.py").read_text(encoding="utf-8")
+_fb40 = _orch40.split('errors.append(f"thesportsdb: {e}")')[1]
+assert _fb40.lstrip().startswith("if not upcoming_fixtures:") and "fixtures_from_odds" in _fb40, \
+    "fixtures: an EMPTY TheSportsDB answer falls back to the odds feed, not only an error"
 
-# 41. NBA paper board
+# 41. NBA board (live test since 2026-10-07)
 from engine import nba_value as _nv41
 assert (_nv41.MIN_EV_WINNER, _nv41.MIN_EV_LINE, _nv41.MAX_EV, _nv41.BAND) == (0.03, 0.05, 0.25, (1.20, 2.00)), \
     "Order 41: NBA picks only above the fair price; stale gaps left out"
 _nba41 = (ROOT / "run_nba.py").read_text(encoding="utf-8")
-assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone" not in _nba41, \
-    "Order 41: the NBA paper board goes to the Architect's own chat only"
+assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "notify.send_subscribers(text)" in _nba41, \
+    "Order 41 (2026-10-20): the NBA board goes to the Architect, then every subscriber, as football's"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
+assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
+    "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
+assert "STUDY LINES — not picks, nothing booked (order 41)" in _nba41 and "nm.save(looks, now)" in _nba41, \
+    "Order 41 (2026-10-13): study lines under the picks; every SportyBet market saved for the market study"
+
+from dataclasses import replace as _replace
+
+# 42. Acca mix: at most one Under-goals and one Over-goals leg an acca (2026-10-12)
+assert pb.MIX_MAX_PER_DIRECTION == 1, "Order 42: one Under and one Over leg per acca at most"
+assert [pb.goals_direction(k) for k in ("SB:18|total=3.5|Under 3.5", "SB:19|total=0.5|Over 0.5",
+                                        "OVER_2_5", "Torino Over 0.5 goals", "SB:547|total=1.5|Draw/Away & Over 1.5",
+                                        "SB:10||Home or Away", "SB:16|hcp=-2.5|Away (+2.5)", "SB:548||2-4")] \
+    == ["under", "over", "over", "over", "over", None, None, None], "Order 42: goals legs told apart"
+_k42 = ["SB:18|total=3.5|Under 3.5", "SB:18|total=4.5|Under 4.5", "SB:18|total=3.5|Under 3.5",
+        "SB:18|total=1.5|Over 1.5", "SB:19|total=0.5|Over 0.5", "SB:10||Home or Away",
+        "SB:10||Home or Draw", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=1.5|Over 1.5"]
+_bfs42 = [pb.BoardFixture(f"M{_i} v N{_i} (Serie A)", _fp(f"M{_i}", f"N{_i}"), _v,
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key=_k, best_market=f"pick {_i}",
+                          best_model_prob=0.90 - _i / 100, certainty="LOW", best_price=1.25)
+          for _i, _k in enumerate(_k42)]
+for _slips42 in (pb._build_accas(_bfs42), pb._build_accas([_replace(b, best_price=None) for b in _bfs42])):
+    assert _slips42, "Order 42: accas still built"
+    for _n42, _ls42, _c42 in _slips42:
+        _d42 = [pb.goals_direction(l[0].best_market_key) for l in _ls42]
+        assert _d42.count("under") <= 1 and _d42.count("over") <= 1, f"Order 42: {_n42} mixes {_d42}"
+_mega42 = pb._build_megas(_bfs42)
+assert sum(len(ls) for _n, ls, _c in _mega42) == len(_bfs42), "Order 42: the megas still carry every pick"
+_bfs42h = [_replace(b, certainty="HIGH") for b in _bfs42]
+for _n42, _ls42, _c42 in pb._build_safe3(_bfs42h):
+    _d42 = [pb.goals_direction(l[0].best_market_key) for l in _ls42]
+    assert _d42.count("under") <= 1 and _d42.count("over") <= 1, f"Order 42: {_n42} mixes {_d42}"
+from output import bet365_board as _b365_42
+assert "mix_groups(" in (ROOT / "output" / "bet365_board.py").read_text(encoding="utf-8") and _b365_42, \
+    "Order 42: the bet365 accas follow the mix too"
+
+# 43. Under 3.5 / 4.5 by team profile (2026-10-14)
+from data import team_profiles as _tp43
+from engine import calibration as _cal43
+assert 3.5 in _cal43.OVER and 4.5 in _cal43.OVER, "Order 43: the 3.5 and 4.5 lines are calibrated"
+_rd43 = (ROOT / "run_daily.py").read_text(encoding="utf-8")
+assert "_tp.is_shootout(_read)" in _rd43 and "_shootout_under(c[2])" in _rd43, \
+    "Order 43: match Unders up to 4.5 are dropped before a pick is chosen when the profile reads a shootout"
+assert _tp43.is_shootout({"lean": "BTTS yes / Over 2.5 — both expected to score"})
+assert not _tp43.is_shootout({"lean": "Under / double chance — goals look scarce"}) and not _tp43.is_shootout(None)
+
+# 37. Value against the sharp market — the parallel list (amended 2026-10-14)
+from engine import sharp_value as _sv37
+from monitor import sharp_list as _sl37
+assert _sv37.MIN_EV > 0, "Order 37 (amended): a pick must BEAT the exchange's fair price"
+assert _sv37.BAND[1] > slate.DEPLOY_ODDS_MAX, \
+    "Order 37 (amended): the parallel list reaches past the board's 2.00 ceiling"
+assert _sv37.MAX_EV > _sv37.MIN_EV, "Order 37 (amended): an impossible edge is not a pick"
+# Orders 4 and 11 do not apply to this list: no >=50% floor anywhere in it.
+assert "DEPLOY_MIN_MODEL_PROB" not in (ROOT / "engine" / "sharp_value.py").read_text(encoding="utf-8")
+# It is a separate store and never writes the board's.
+_sl37_src = (ROOT / "monitor" / "sharp_list.py").read_text(encoding="utf-8")
+assert 'STORE = ROOT / "data" / "sharp"' in _sl37_src and "output/boards" not in _sl37_src, \
+    "Order 37 (amended): the parallel list never touches the board or its codes"
+assert _sl37.STORE.name == "sharp"
+# A price at or below fair is never taken, however likely the outcome.
+_fair37 = {"h": 0.80, "d": 0.12, "a": 0.08}
+_rows37 = _sv37.scan([{"id": "1", "specifier": "", "status": 0,
+                       "outcomes": [{"id": "x", "desc": "Home", "odds": "1.24"}]}], _fair37)
+assert _rows37 and _sv37.pick(_rows37) is None, \
+    "Order 37 (amended): an 80% favourite at 1.24 is below fair (1.25) and is not taken"
+_wf37 = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
+assert "monitor/sharp_list.py --grade" in _wf37 and "data/sharp" in _wf37, \
+    "Order 37 (amended): the list runs and is graded with the board, every day"
+assert ('echo "skipped=yes" >> "$GITHUB_OUTPUT"' in _wf37
+        and "BOARD_SKIPPED:     ${{ steps.board.outputs.skipped }}" in _wf37
+        and 'if [ "$BOARD_SKIPPED" = "yes" ]' in _wf37), \
+    "Order 37: a late cron whose board was skipped as delivered never re-sends the sharp list"
+
+# 44. Matchbook closing-price learning (2026-10-15)
+import json as _j44, tempfile as _t44  # noqa: E401
+from engine import learning as _l44
+assert (_l44.MB_MIN_N, _l44.MB_MAX_SHIFT, _l44.MB_K) == (30, 0.05, 1.0), "Order 44: 30 bets, ±5 pts, 1 pt per 1% CLV"
+with _t44.TemporaryDirectory() as _d44:
+    _p44 = Path(_d44) / "s.json"
+    _p44.write_text(_j44.dumps({"groups": {
+        "framework family: Over/Under": {"clv_n": 40, "mean_clv": -0.20},
+        "framework family: Double chance": {"clv_n": 40, "mean_clv": 0.02},
+        "framework family: BTTS": {"clv_n": 29, "mean_clv": 0.10},
+        "family: 1X2": {"clv_n": 99, "mean_clv": 0.10}}}), encoding="utf-8")
+    _m44 = _l44.matchbook_shifts(_p44)
+assert _m44["Over/Under"]["shift"] == -0.05, "Order 44: capped at -5 pts"
+assert _m44["Double chance"]["shift"] == 0.02, "Order 44: +2% CLV lifts the family 2 pts"
+assert _m44["BTTS"]["shift"] == 0.0, "Order 44: nothing moves before 30 bets"
+assert "1X2" not in _m44, "Order 44: only the framework's own bets count, not the agent's oracle"
+assert _l44.shift({"matchbook": _m44}, "SB:18|total=2.5|Under 2.5", "?") == -0.05, "Order 44: applied to the pick's family"
+assert _l44.shift({"family": {"Over/Under": {"shift": -0.08}}, "matchbook": _m44},
+                  "SB:18|total=2.5|Under 2.5", "?") == -0.10, "Order 44: inside the overall ±10 pt cap"
+
+# Experiment engine (Architect 2026-10-20; order 45): swaps strategies within
+# slots only — 100 bets, CLV AND return both significant, 7-day cool-down, ON
+# by default; it never touches stakes, the CLV gate or the league list.
+import os as _os_x  # noqa: E402
+from engine import experiments as _xp  # noqa: E402
+assert (_xp.MIN_BETS, _xp.Z_BAR, _xp.COOLDOWN_DAYS) == (100, 1.645, 7), "experiment engine: promotion bar"
+_os_x.environ.pop("OLP_EXPERIMENTS", None)
+assert _xp.enabled(), "experiment engine: ON by default (Architect 2026-10-20)"
+assert _xp.SLOTS == ("singles", "accas", "safe3", "nba"), \
+    "experiment engine: only the boards' own slots, NBA included (Architect 2026-10-20)"
+_src_x = (ROOT / "engine" / "experiments.py").read_text(encoding="utf-8")
+for _forbidden in ("staking", "ARCHITECT_SIGNOFF", "CLV_GATE", "LEAGUES", "assert_paper_only"):
+    assert f"import {_forbidden}" not in _src_x and f"{_forbidden} =" not in _src_x, \
+        f"experiment engine must not touch {_forbidden}"
+assert "Experiment engine may swap strategies within slots" in (ROOT / "STANDING_ORDERS.md").read_text(
+    encoding="utf-8"), "experiment engine order recorded"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

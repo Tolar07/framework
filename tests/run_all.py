@@ -21,7 +21,10 @@ from pathlib import Path
 
 TESTS = Path(__file__).resolve().parent
 ROOT = TESTS.parent
-TIMEOUT_S = 600
+# The stress test runs the full live pipeline; on a big Saturday slate (120+
+# fixtures) it ran past 600 s and blocked a merge (2026-10-10). 1200 s still
+# fits the job's 30-minute limit.
+TIMEOUT_S = 1200
 
 
 def command_for(path: Path) -> list[str]:

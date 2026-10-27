@@ -1,5 +1,5 @@
 """
-Offline test of the NBA paper board (order 41): fair chances from the sharp
+Offline test of the NBA board (order 41, live test): fair chances from the sharp
 line, value picks only above the fair price, stale-line guard, settlement
 incl. overtime, and team matching.
 """
@@ -51,7 +51,45 @@ assert run_nba.nickname("Portland Trail Blazers") == "blazers"
 assert nv.display({"market_id": "223", "outcome": "Away (+11.5)"}, "OKC", "New Orleans Pelicans") \
     == "New Orleans Pelicans (+11.5) handicap"
 txt = run_nba.render([], "2026-10-21", "OLPXDV-20261020-2047-abcdef", 0, None, [])
-assert "PAPER BOARD" in txt and "Run ID: OLPXDV-20261020-2047-abcdef" in txt
+assert "LIVE TEST" in txt and "place it by hand" in txt and "Run ID: OLPXDV-20261020-2047-abcdef" in txt
 print("matching + board text: OK")
 
+# 1st half / 1st quarter totals (the Architect's low-Over / high-Under method)
+sh2 = NS(ml_home=1.9, ml_away=1.9, spread=-1.5, total=230.0)
+assert abs(nv.fair_chance("68", "total=115.5", "Over 115.5", sh2) - 0.5) < 0.01          # 0.502 x 230 = 115.5
+assert 0.84 < nv.fair_chance("68", "total=103.5", "Over 103.5", sh2) < 0.86              # 12 below
+assert 0.81 < nv.fair_chance("236", "total=50.5|quarternr=1", "Over 50.5", sh2) < 0.85  # 7.7 below 58.2
+assert nv.fair_chance("236", "total=50.5|quarternr=2", "Over 50.5", sh2) is None, "1st quarter only"
+assert nv.settle({"market_id": "236", "outcome": "Over 50.5", "specifier": "total=50.5|quarternr=1"},
+                 110, 100, [30, 25, 30, 25], [24, 25, 25, 26]) == "won"                 # Q1 = 54
+assert nv.settle({"market_id": "68", "outcome": "Under 104.5", "specifier": "total=104.5"},
+                 110, 100, [30, 25, 30, 25], [24, 25, 25, 26]) == "won"                 # H1 = 104 (OT never counts)
+assert nv.settle({"market_id": "68", "outcome": "Over 100.5", "specifier": "total=100.5"}, 1, 0, None, None) is None
+assert nv.display({"market_id": "236", "outcome": "Over 50.5"}, "A", "B") == "1st quarter Over 50.5 points"
+print("1st half / 1st quarter totals: OK")
+
+from datetime import date as _d
+assert run_nba.espn_days({"espn_date": "2026-10-08"}) == [_d(2026, 10, 7), _d(2026, 10, 8)], \
+    "a game after midnight UTC is on ESPN's US-date scoreboard (the day before)"
+print("grading looks on the US-date scoreboard: OK")
+
 print("\n✅ ALL NBA TESTS PASSED")
+
+
+# ACCAS (Architect 2026-10-21: "do an ACC for 11 fixtures, split it into two"):
+# from 4 picks two accas in tip-off order, fewer on one acca; graded leg by leg.
+_mk = lambda i, r=None: {"event_id": f"e{i}", "tip": f"2026-10-22T0{i}:00:00+00:00", "price": 1.9, "result": r}
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(5)])] == [3, 2]
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(10)])] == [5, 5]
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(3)])] == [3]
+assert run_nba.split_accas([_mk(0)]) == []
+_first = run_nba.split_accas([_mk(i) for i in (3, 0, 2, 1)])[0]
+assert [p["event_id"] for p in _first] == ["e0", "e1"], "the first acca holds the earliest tip-offs"
+_doc = {"picks": [_mk(0, "won"), _mk(1, "won"), _mk(2, "lost"), _mk(3, None)],
+        "accas": [{"legs": ["e0", "e1"], "result": None}, {"legs": ["e2", "e3"], "result": None},
+                  {"legs": ["e0", "e3"], "result": None}]}
+assert run_nba.grade_accas(_doc) and [a["result"] for a in _doc["accas"]] == ["won", "lost", None]
+_txt = run_nba.render([], "2026-10-22", "RID", 0, None, [],
+                      accas=[{"name": "NBA acca A", "code": "ABC123", "legs": ["e0", "e1"], "odds": 3.61}])
+assert "NBA acca A (2 picks, odds 3.61): ABC123" in _txt
+print("nba accas: OK")

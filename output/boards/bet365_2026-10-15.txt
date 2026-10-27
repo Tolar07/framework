@@ -1,0 +1,152 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Thu 15 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261015-0552-8a593f (same run as the SportyBet board)
+Times are kickoff, Lagos time (WAT)
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🏆 UEFA Europa League
+ • 17:45 KKS Lech Poznan v Bayer Leverkusen — Double Chance: KKS Lech Poznan or Bayer Leverkusen
+   85% · deploy at 1.20+ · SportyBet @1.21 · LOW
+ • 20:00 Hoffenheim v Besiktas Istanbul — Double Chance: Hoffenheim or Besiktas Istanbul
+   82% · deploy at 1.22+ · SportyBet @1.27 · LOW
+ • 17:45 Salzburg v AC Milan — Double Chance: Salzburg or AC Milan
+   82% · deploy at 1.23+ · SportyBet @1.29 · LOW
+ • 17:45 Lyon v Crystal Palace — Double Chance: Lyon or Crystal Palace
+   81% · deploy at 1.24+ · SportyBet @1.30 · LOW
+ • 17:45 Union Gilloise v Real Sociedad — Double Chance: Union Gilloise or Real Sociedad
+   81% · deploy at 1.24+ · SportyBet @1.31 · LOW
+ • 20:00 NEC Nijmegen v PFC Levski Sofia — Double Chance: NEC Nijmegen or draw
+   80% · deploy at 1.25+ · SportyBet @1.27 · LOW
+ • 20:00 Ferencvarosi Budapest v Viktoria Plzen — Goals Over/Under: Over 1.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 20:00 Rennes v OFI Crete — Handicap Result: OFI Crete +4
+   80% · deploy at 1.25+ · SportyBet @1.21 · LOW
+ • 17:45 SCU Torreense v Sunderland AFC — Goals Over/Under: Under 4.5
+   80% · deploy at 1.26+ · SportyBet @1.23 · LOW
+ • 20:00 Marseille v Olympiacos — Handicap Result: Olympiacos +2
+   80% · deploy at 1.26+ · SportyBet @1.21 · LOW
+ • 20:00 Jagiellonia Bialystok v FC Ararat-Armenia — Goals Over/Under: Under 4.5
+   80% · deploy at 1.26+ · SportyBet @1.23 · LOW
+ • 17:45 NK Celje v AC Omonia Nicosia — Double Chance: NK Celje or AC Omonia Nicosia
+   79% · deploy at 1.27+ · SportyBet @1.33 · LOW
+ • 20:00 Bournemouth v Sturm Graz — Team Goals: Bournemouth Over 1.5
+   79% · deploy at 1.27+ · SportyBet @1.23 · LOW
+   ⚠ RISK: AFC Bournemouth missing 41% of value (Alex Scott, Junior Kroupi, Veljko Milosavljević); support: Sturm Graz missing 48%
+ • 20:00 GNK Dinamo Zagreb v RSC Anderlecht — Goals Over/Under: Over 1.5
+   78% · deploy at 1.29+ · SportyBet @1.23 · LOW
+ • 20:00 Celta v Juventus — Double Chance: Celta or Juventus
+   78% · deploy at 1.29+ · SportyBet @1.36 · LOW
+ • 17:45 Sparta Prague v Lillestroem SK — Double Chance & Goals: Sparta Prague or Draw & Over 1.5
+   77% · deploy at 1.31+ · SportyBet @1.23 · LOW
+ • 20:00 Benfica v Celtic — Double Chance & Goals: Benfica or Celtic & Over 1.5
+   76% · deploy at 1.32+ · SportyBet @1.21 · LOW
+ • 17:45 Alkmaar v Hapoel Be`er Sheva FC — Team Goals: Alkmaar Under 3.5
+   74% · deploy at 1.35+ · SportyBet @1.30 · LOW
+
+🏆 UEFA Conference League
+ • 17:45 PFC CSKA Sofia v Monaco — Double Chance: PFC CSKA Sofia or Monaco
+   85% · deploy at 1.20+ · SportyBet @1.21 · LOW
+ • 17:45 Kuopion Palloseura v Trabzonspor — Double Chance: Kuopion Palloseura or Trabzonspor
+   85% · deploy at 1.20+ · SportyBet @1.21 · LOW
+ • 17:45 HNK Hajduk Split v Ajax — Double Chance: HNK Hajduk Split or Ajax
+   84% · deploy at 1.20+ · SportyBet @1.23 · LOW
+ • 17:45 KF Egnatia Rrogozhine v FC Midtjylland — Double Chance: KF Egnatia Rrogozhine or FC Midtjylland
+   84% · deploy at 1.20+ · SportyBet @1.23 · LOW
+ • 17:45 Gent v AGF Aarhus — Double Chance: Gent or AGF Aarhus
+   82% · deploy at 1.22+ · SportyBet @1.25 · LOW
+ • 20:00 Heart of Midlothian FC v Nordsjaelland — Double Chance: Heart of Midlothian FC or Nordsjaelland
+   82% · deploy at 1.23+ · SportyBet @1.29 · LOW
+ • 17:45 Panathinaikos v FK Borac Banja Luka — Asian Handicap: FK Borac Banja Luka +3.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · LOW
+ • 17:45 Mjallby AIF v Inter Club de Escaldes — Goals Over/Under: Over 1.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · LOW
+ • 17:45 Lugano v Crvena Zvezda — Asian Handicap: Crvena Zvezda +1.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · LOW
+ • 17:45 Riga FC v FC Kairat Almaty — Double Chance: Riga FC or draw
+   80% · deploy at 1.25+ · SportyBet @1.26 · LOW
+ • 17:45 CS Universitatea Craiova v Getafe — Goals Over/Under: Under 3.5
+   80% · deploy at 1.25+ · SportyBet @1.23 · LOW
+ • 20:00 FC Twente Enschede v FC Thun — Goals Over/Under: Under 5.5
+   80% · deploy at 1.26+ · SportyBet @1.24 · LOW
+ • 20:00 Freiburg v FK Jablonec — Double Chance & Goals: Freiburg or Draw & Over 1.5
+   79% · deploy at 1.27+ · SportyBet @1.20 · LOW
+ • 20:00 Copenhagen v Braga — ≠ Double Chance: Copenhagen or Braga
+   78% · deploy at 1.29+ · SportyBet @1.35 · LOW
+   (SportyBet pick: Copenhagen Win to Nil — no — not on bet365)
+ • 20:00 Atalanta v Pafos FC — Goals Over/Under: Under 4.5
+   77% · deploy at 1.30+ · SportyBet @1.28 · LOW
+ • 20:00 SK Brann v Lincoln Red Imps — Asian Handicap: Lincoln Red Imps +3.5
+   75% · deploy at 1.34+ · SportyBet @1.29 · LOW
+ • 20:00 St. Truidense VV v FC Iberia 1999 — Goals Over/Under: Under 4.5
+   75% · deploy at 1.34+ · SportyBet @1.32 · LOW
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One
+ • 20:00 Mansfield v Oxford United — Asian Handicap: Oxford United +1.5
+   80% · deploy at 1.25+ · SportyBet @1.22 · MEDIUM
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 61% · deploy at 1.73+ combined
+   • KKS Lech Poznan v Bayer Leverkusen (🏆 UEFA Europa League) — Double Chance: KKS Lech Poznan or Bayer Leverkusen (85%)
+   • PFC CSKA Sofia v Monaco (🏆 UEFA Conference League) — Double Chance: PFC CSKA Sofia or Monaco (85%)
+   • Kuopion Palloseura v Trabzonspor (🏆 UEFA Conference League) — Double Chance: Kuopion Palloseura or Trabzonspor (85%)
+bet365 Acca B · 3 legs · chance 58% · deploy at 1.76+ combined
+   • HNK Hajduk Split v Ajax (🏆 UEFA Conference League) — Double Chance: HNK Hajduk Split or Ajax (84%)
+   • KF Egnatia Rrogozhine v FC Midtjylland (🏆 UEFA Conference League) — Double Chance: KF Egnatia Rrogozhine or FC Midtjylland (84%)
+   • Hoffenheim v Besiktas Istanbul (🏆 UEFA Europa League) — Double Chance: Hoffenheim or Besiktas Istanbul (82%)
+bet365 Acca C · 3 legs · chance 55% · deploy at 1.85+ combined
+   • Gent v AGF Aarhus (🏆 UEFA Conference League) — Double Chance: Gent or AGF Aarhus (82%)
+   • Salzburg v AC Milan (🏆 UEFA Europa League) — Double Chance: Salzburg or AC Milan (82%)
+   • Heart of Midlothian FC v Nordsjaelland (🏆 UEFA Conference League) — Double Chance: Heart of Midlothian FC or Nordsjaelland (82%)
+bet365 Acca D · 3 legs · chance 53% · deploy at 1.91+ combined
+   • Lyon v Crystal Palace (🏆 UEFA Europa League) — Double Chance: Lyon or Crystal Palace (81%)
+   • Panathinaikos v FK Borac Banja Luka (🏆 UEFA Conference League) — Asian Handicap: FK Borac Banja Luka +3.5 (81%)
+   • Mjallby AIF v Inter Club de Escaldes (🏆 UEFA Conference League) — Goals Over/Under: Over 1.5 (81%)
+bet365 Acca E · 3 legs · chance 53% · deploy at 1.92+ combined
+   • Union Gilloise v Real Sociedad (🏆 UEFA Europa League) — Double Chance: Union Gilloise or Real Sociedad (81%)
+   • Lugano v Crvena Zvezda (🏆 UEFA Conference League) — Asian Handicap: Crvena Zvezda +1.5 (81%)
+   • Riga FC v FC Kairat Almaty (🏆 UEFA Conference League) — Double Chance: Riga FC or draw (80%)
+bet365 Acca F · 3 legs · chance 52% · deploy at 1.95+ combined
+   • Mansfield v Oxford United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Asian Handicap: Oxford United +1.5 (80%)
+   • NEC Nijmegen v PFC Levski Sofia (🏆 UEFA Europa League) — Double Chance: NEC Nijmegen or draw (80%)
+   • Ferencvarosi Budapest v Viktoria Plzen (🏆 UEFA Europa League) — Goals Over/Under: Over 1.5 (80%)
+bet365 Acca G · 3 legs · chance 51% · deploy at 1.97+ combined
+   • Rennes v OFI Crete (🏆 UEFA Europa League) — Handicap Result: OFI Crete +4 (80%)
+   • CS Universitatea Craiova v Getafe (🏆 UEFA Conference League) — Goals Over/Under: Under 3.5 (80%)
+   • Marseille v Olympiacos (🏆 UEFA Europa League) — Handicap Result: Olympiacos +2 (80%)
+bet365 Acca H · 3 legs · chance 50% · deploy at 2.03+ combined
+   • FC Twente Enschede v FC Thun (🏆 UEFA Conference League) — Goals Over/Under: Under 5.5 (80%)
+   • NK Celje v AC Omonia Nicosia (🏆 UEFA Europa League) — Double Chance: NK Celje or AC Omonia Nicosia (79%)
+   • Bournemouth v Sturm Graz (🏆 UEFA Europa League) — Team Goals: Bournemouth Over 1.5 (79%)
+bet365 Acca I · 3 legs · chance 49% · deploy at 2.06+ combined
+   • SCU Torreense v Sunderland AFC (🏆 UEFA Europa League) — Goals Over/Under: Under 4.5 (80%)
+   • Freiburg v FK Jablonec (🏆 UEFA Conference League) — Double Chance & Goals: Freiburg or Draw & Over 1.5 (79%)
+   • Celta v Juventus (🏆 UEFA Europa League) — Double Chance: Celta or Juventus (78%)
+bet365 Acca J · 3 legs · chance 48% · deploy at 2.10+ combined
+   • Jagiellonia Bialystok v FC Ararat-Armenia (🏆 UEFA Europa League) — Goals Over/Under: Under 4.5 (80%)
+   • GNK Dinamo Zagreb v RSC Anderlecht (🏆 UEFA Europa League) — Goals Over/Under: Over 1.5 (78%)
+   • Copenhagen v Braga (🏆 UEFA Conference League) — Double Chance: Copenhagen or Braga (78%)
+bet365 Acca K · 2 legs · chance 59% · deploy at 1.70+ combined
+   • Atalanta v Pafos FC (🏆 UEFA Conference League) — Goals Over/Under: Under 4.5 (77%)
+   • Sparta Prague v Lillestroem SK (🏆 UEFA Europa League) — Double Chance & Goals: Sparta Prague or Draw & Over 1.5 (77%)
+bet365 Acca L · 2 legs · chance 57% · deploy at 1.77+ combined
+   • Benfica v Celtic (🏆 UEFA Europa League) — Double Chance & Goals: Benfica or Celtic & Over 1.5 (76%)
+   • SK Brann v Lincoln Red Imps (🏆 UEFA Conference League) — Asian Handicap: Lincoln Red Imps +3.5 (75%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

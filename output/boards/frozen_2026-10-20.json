@@ -1,0 +1,5878 @@
+{
+ "date": "2026-10-20",
+ "frozen_at": "2026-10-19T20:55:40Z",
+ "run_id": "OLPXDV-20261019-2047-fb1ac5",
+ "board_code": null,
+ "ledger": {
+  "date": "2026-10-20",
+  "generated_at": "2026-10-19T20:55:13Z",
+  "singles": [
+   {
+    "fixture": "Wolves v Portsmouth",
+    "league": "Championship",
+    "home": "Wolves",
+    "away": "Portsmouth",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Wolves or Portsmouth",
+    "price": 1.24,
+    "chance": 0.8208,
+    "chance_raw": 0.7638,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "PNR2GM",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5836821,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 119103589,
+     "away": 17660147
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74235704",
+    "sb_tid": "sr:tournament:18",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04294617424114977,
+    "missing": {
+     "home": 0.18511174507795813,
+     "away": 0.30196815673222
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Fenerbahce Istanbul v Slavia Prague",
+    "league": "Champions League",
+    "home": "Fenerbahce Istanbul",
+    "away": "Slavia Prague",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Fenerbahce Istanbul or Slavia Prague",
+    "price": 1.24,
+    "chance": 0.8388,
+    "chance_raw": 0.7818,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "NP2V14",
+    "news_level": "OK",
+    "news_note": "swapped from Fenerbahce Istanbul or draw (Fenerbah\u00e7e missing 19% of value (Jayden Oosterwolde, Marco Asensio, Mert M\u00fcld\u00fcr); support: Slavia Prague missing 38%)",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106333,
+    "kickoff_utc": "2026-10-20T16:45:00.000Z",
+    "predicted_xi": {
+     "home": 159185469,
+     "away": 31718284
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165940",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.020630832665377463,
+    "missing": {
+     "home": 0.18606604706492427,
+     "away": 0.38064928883873933
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Sabah Masazir v Borussia Dortmund",
+    "league": "Champions League",
+    "home": "Sabah Masazir",
+    "away": "Borussia Dortmund",
+    "kickoff": "2026-10-20",
+    "market": "SB:547|total=1.5|Home/Away & Over 1.5",
+    "pick": "Sabah Masazir or Borussia Dortmund & Over 1.5",
+    "price": 1.25,
+    "chance": 0.7381,
+    "chance_raw": 0.7381,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "VC5TWY",
+    "news_level": "OK",
+    "news_note": "swapped from Borussia Dortmund Over 1.5 goals (Borussia Dortmund missing 16% of value (Konstantinos Karetsas, Giannis Konstantelias, Emre Can))",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106422,
+    "kickoff_utc": "2026-10-20T16:45:00.000Z",
+    "predicted_xi": {
+     "home": 8024831,
+     "away": 356398260
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165942",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 547,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Home/Away & Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.06741785073103868,
+    "missing": {
+     "home": 0.0,
+     "away": 0.164022358429697
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.25,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Liverpool v Villarreal",
+    "league": "Champions League",
+    "home": "Liverpool",
+    "away": "Villarreal",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Liverpool or Villarreal",
+    "price": 1.2,
+    "chance": 0.8567,
+    "chance_raw": 0.7997,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "G55N0G",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106248,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 419255543,
+     "away": 241159128
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165948",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03076236186697423,
+    "missing": {
+     "home": 0.4175563051746445,
+     "away": 0.06879960158256142
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Man City v AEK Athens",
+    "league": "Champions League",
+    "home": "Man City",
+    "away": "AEK Athens",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=5.5|Under 5.5",
+    "pick": "Under 5.5 goals",
+    "price": 1.24,
+    "chance": 0.7947,
+    "chance_raw": 0.7947,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "GWQLBK",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106257,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 939161804,
+     "away": 40267811
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165950",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=5.5",
+     "outcome": "Under 5.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.014624382823545723,
+    "missing": {
+     "home": 0.19438152896175856,
+     "away": 0.04446191679494678
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Napoli v Bodoe/Glimt",
+    "league": "Champions League",
+    "home": "Napoli",
+    "away": "Bodoe/Glimt",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Napoli or Bodoe/Glimt",
+    "price": 1.22,
+    "chance": 0.8457,
+    "chance_raw": 0.7887,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "SZB9DY",
+    "news_level": "OK",
+    "news_note": "swapped from Napoli or draw (Napoli missing 20% of value (Alessandro Buongiorno, David Neres, Antonio Vergara); support: Bod\u00f8/Glimt missing 19%)",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106320,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 205082801,
+     "away": 38751749
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165954",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.027994702555139916,
+    "missing": {
+     "home": 0.20450676757361277,
+     "away": 0.1859303476048673
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Porto v PSV Eindhoven",
+    "league": "Champions League",
+    "home": "Porto",
+    "away": "PSV Eindhoven",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Porto or PSV Eindhoven",
+    "price": 1.21,
+    "chance": 0.8495,
+    "chance_raw": 0.7925,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "P68R9C",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106287,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 269796680,
+     "away": 122926093
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165946",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03139377290267886,
+    "missing": {
+     "home": 0.09607194570519148,
+     "away": 0.5091405639815959
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.21,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "PSG v Barcelona",
+    "league": "Champions League",
+    "home": "PSG",
+    "away": "Barcelona",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "PSG or Barcelona",
+    "price": 1.24,
+    "chance": 0.8499,
+    "chance_raw": 0.7929,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "JMDST5",
+    "news_level": null,
+    "news_note": null,
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": null,
+    "kickoff_utc": "2026-10-20T19:00:00Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165952",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.006930464413660187,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Roma v Slovan Bratislava",
+    "league": "Champions League",
+    "home": "Roma",
+    "away": "Slovan Bratislava",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=5.5|Under 5.5",
+    "pick": "Under 5.5 goals",
+    "price": 1.23,
+    "chance": 0.8008,
+    "chance_raw": 0.8008,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "G8MT5B",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6106277,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 229644454,
+     "away": 9570187
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165944",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=5.5",
+     "outcome": "Under 5.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.015009445760137186,
+    "missing": {
+     "home": 0.31583614945132993,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Stuttgart v Atletico Madrid",
+    "league": "Champions League",
+    "home": "Stuttgart",
+    "away": "Atletico Madrid",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Stuttgart or Atletico Madrid",
+    "price": 1.29,
+    "chance": 0.8222,
+    "chance_raw": 0.7652,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "Y80HAG",
+    "news_level": null,
+    "news_note": null,
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": null,
+    "kickoff_utc": "2026-10-20T19:00:00Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:74165956",
+    "sb_tid": "sr:tournament:7",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0026189266095603125,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.29,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "AFC Wimbledon v Mansfield",
+    "league": "League One",
+    "home": "AFC Wimbledon",
+    "away": "Mansfield",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "AFC Wimbledon or Mansfield",
+    "price": 1.3,
+    "chance": 0.7906,
+    "chance_raw": 0.7336,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "YJG3FJ",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837219,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 3680251,
+     "away": 5102278
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341286",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03597569609409501,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.3,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Blackpool FC v Milton Keynes Dons",
+    "league": "League One",
+    "home": "Blackpool FC",
+    "away": "Milton Keynes Dons",
+    "kickoff": "2026-10-20",
+    "market": "SB:19|total=0.5|Over 0.5",
+    "pick": "Blackpool FC Over 0.5 goals",
+    "price": 1.2,
+    "chance": 0.7998,
+    "chance_raw": 0.7998,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "Z40HMH",
+    "news_level": "OK",
+    "news_note": "Blackpool at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837220,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 5370031,
+     "away": 5869170
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341288",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 19,
+     "desc": null,
+     "spec": "total=0.5",
+     "outcome": "Over 0.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04025491383569957,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Bromley FC v Leicester",
+    "league": "League One",
+    "home": "Bromley FC",
+    "away": "Leicester",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Bromley FC or Leicester",
+    "price": 1.24,
+    "chance": 0.8273,
+    "chance_raw": 0.7703,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "HZETL7",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837221,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2458728,
+     "away": 22754756
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341290",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.034871899730062994,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Burton v Bradford",
+    "league": "League One",
+    "home": "Burton",
+    "away": "Bradford",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Draw or Away",
+    "pick": "Bradford or draw",
+    "price": 1.29,
+    "chance": 0.7706,
+    "chance_raw": 0.7136,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "MT5B8G",
+    "news_level": "OK",
+    "news_note": "Bradford City at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837222,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 4781109,
+     "away": 4280773
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341292",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Draw or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.07943249631939109,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.29,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Cambridge United v Wycombe Wanderers",
+    "league": "League One",
+    "home": "Cambridge United",
+    "away": "Wycombe Wanderers",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Cambridge United or Wycombe Wanderers",
+    "price": 1.29,
+    "chance": 0.8038,
+    "chance_raw": 0.7468,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "MZWDVZ",
+    "news_level": "OK",
+    "news_note": "Cambridge United at full strength",
+    "switched_from": "Cambridge United Over 0.5 goals (the two prediction models disagree on the result)",
+    "orig_market": "SB:19|total=0.5|Over 0.5",
+    "fotmob_id": 5837223,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 4022152,
+     "away": 4095498
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341294",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.026277491606116365,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.29,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Doncaster Rovers v Stockport County FC",
+    "league": "League One",
+    "home": "Doncaster Rovers",
+    "away": "Stockport County FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Draw or Away",
+    "pick": "Stockport County FC or draw",
+    "price": 1.28,
+    "chance": 0.7877,
+    "chance_raw": 0.7307,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "GQLSW8",
+    "news_level": "OK",
+    "news_note": "Stockport County at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837224,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 4694659,
+     "away": 4996062
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341296",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Draw or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.06469808911990294,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.28,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Huddersfield v Peterborough United",
+    "league": "League One",
+    "home": "Huddersfield",
+    "away": "Peterborough United",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Huddersfield or Peterborough United",
+    "price": 1.2,
+    "chance": 0.8429,
+    "chance_raw": 0.7859,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "HDV36M",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837225,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 9235017,
+     "away": 5215595
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341298",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0473697919262942,
+    "missing": {
+     "home": 0.0,
+     "away": 0.04457646042680486
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Luton v Barnsley",
+    "league": "League One",
+    "home": "Luton",
+    "away": "Barnsley",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=-2.5|Away (+2.5)",
+    "pick": "Barnsley (+2.5) Asian handicap",
+    "price": 1.26,
+    "chance": 0.7888,
+    "chance_raw": 0.7888,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "SPLB83",
+    "news_level": "OK",
+    "news_note": "Barnsley at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837226,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 4960563,
+     "away": 5468593
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341300",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=-2.5",
+     "outcome": "Away (+2.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.006134942669463572,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.26,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Notts County v Sheffield Wednesday",
+    "league": "League One",
+    "home": "Notts County",
+    "away": "Sheffield Wednesday",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=1.5|Home (+1.5)",
+    "pick": "Notts County (+1.5) Asian handicap",
+    "price": 1.24,
+    "chance": 0.7804,
+    "chance_raw": 0.7804,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "MY1S5V",
+    "news_level": "OK",
+    "news_note": "Notts County at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837227,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2525747,
+     "away": 5964593
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341302",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=1.5",
+     "outcome": "Home (+1.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03225151316025199,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Oxford United v Wigan",
+    "league": "League One",
+    "home": "Oxford United",
+    "away": "Wigan",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Oxford United or Wigan",
+    "price": 1.29,
+    "chance": 0.8094,
+    "chance_raw": 0.7524,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "YSD3ZM",
+    "news_level": "OK",
+    "news_note": "Oxford United at full strength",
+    "switched_from": "Oxford United Over 0.5 goals (the two prediction models disagree on the result)",
+    "orig_market": "SB:19|total=0.5|Over 0.5",
+    "fotmob_id": 5837228,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 6083817,
+     "away": 6551072
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341304",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.01907097905518418,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.29,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Stevenage FC v Plymouth",
+    "league": "League One",
+    "home": "Stevenage FC",
+    "away": "Plymouth",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Stevenage FC or Plymouth",
+    "price": 1.32,
+    "chance": 0.7846,
+    "chance_raw": 0.7276,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "KG7JGZ",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837229,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 3397306,
+     "away": 6209502
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72341306",
+    "sb_tid": "sr:tournament:24",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.029029324179797533,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.32,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Barnet FC v Swindon",
+    "league": "League Two",
+    "home": "Barnet FC",
+    "away": "Swindon",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=-2.5|Away (+2.5)",
+    "pick": "Swindon (+2.5) Asian handicap",
+    "price": 1.23,
+    "chance": 0.7997,
+    "chance_raw": 0.7997,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "N3K831",
+    "news_level": "OK",
+    "news_note": "Swindon Town at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837991,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2654868,
+     "away": 1588111
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342232",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=-2.5",
+     "outcome": "Away (+2.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.01639425276525952,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Bristol Rvs v Salford",
+    "league": "League Two",
+    "home": "Bristol Rvs",
+    "away": "Salford",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.22,
+    "chance": 0.7729,
+    "chance_raw": 0.7729,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "Y3SS4Q",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837992,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2613152,
+     "away": 2732986
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342236",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.057057205592839444,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Cheltenham v Fleetwood Town",
+    "league": "League Two",
+    "home": "Cheltenham",
+    "away": "Fleetwood Town",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=1.5|Home (+1.5)",
+    "pick": "Cheltenham (+1.5) Asian handicap",
+    "price": 1.22,
+    "chance": 0.8036,
+    "chance_raw": 0.8036,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "VS8BRU",
+    "news_level": "OK",
+    "news_note": "Cheltenham Town at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837993,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 1770140,
+     "away": 2709647
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342240",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=1.5",
+     "outcome": "Home (+1.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.01962574276232054,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Chesterfield v Colchester United",
+    "league": "League Two",
+    "home": "Chesterfield",
+    "away": "Colchester United",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Chesterfield or Colchester United",
+    "price": 1.22,
+    "chance": 0.8227,
+    "chance_raw": 0.7657,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "W8RT6K",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837994,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 3159972,
+     "away": 1829830
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342244",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.05609946947636868,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Crawley Town v Shrewsbury",
+    "league": "League Two",
+    "home": "Crawley Town",
+    "away": "Shrewsbury",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Crawley Town or Shrewsbury",
+    "price": 1.32,
+    "chance": 0.7843,
+    "chance_raw": 0.7273,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "N0GZQS",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837995,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 1429569,
+     "away": 1993980
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342248",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.029427418331250732,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.32,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Exeter v Crewe",
+    "league": "League Two",
+    "home": "Exeter",
+    "away": "Crewe",
+    "kickoff": "2026-10-20",
+    "market": "SB:33||No",
+    "pick": "Exeter Win to Nil \u2014 no",
+    "price": 1.2,
+    "chance": 0.7724,
+    "chance_raw": 0.7724,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "YB4ES3",
+    "news_level": "OK",
+    "news_note": "Crewe Alexandra at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837996,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2119734,
+     "away": 2547984
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342252",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 33,
+     "desc": null,
+     "spec": "",
+     "outcome": "No"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.07313190333809316,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Northampton v Tranmere",
+    "league": "League Two",
+    "home": "Northampton",
+    "away": "Tranmere",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=-1.5|Away (+1.5)",
+    "pick": "Tranmere (+1.5) Asian handicap",
+    "price": 1.2,
+    "chance": 0.8105,
+    "chance_raw": 0.8105,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "XDAJMT",
+    "news_level": "OK",
+    "news_note": "Tranmere Rovers at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837998,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 1788647,
+     "away": 2231691
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342260",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=-1.5",
+     "outcome": "Away (+1.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.02745536493285816,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Rochdale v Grimsby",
+    "league": "League Two",
+    "home": "Rochdale",
+    "away": "Grimsby",
+    "kickoff": "2026-10-20",
+    "market": "SB:16|hcp=1.5|Home (+1.5)",
+    "pick": "Rochdale (+1.5) Asian handicap",
+    "price": 1.25,
+    "chance": 0.7796,
+    "chance_raw": 0.7796,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "KKGPHB",
+    "news_level": "OK",
+    "news_note": "Rochdale at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837999,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2271666,
+     "away": 2047942
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342264",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=1.5",
+     "outcome": "Home (+1.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.025533486942471928,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.25,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Rotherham v Newport County",
+    "league": "League Two",
+    "home": "Rotherham",
+    "away": "Newport County",
+    "kickoff": "2026-10-20",
+    "market": "SB:19|total=0.5|Over 0.5",
+    "pick": "Rotherham Over 0.5 goals",
+    "price": 1.23,
+    "chance": 0.7771,
+    "chance_raw": 0.7771,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "J7D91Z",
+    "news_level": "OK",
+    "news_note": "Rotherham United at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5838000,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2262409,
+     "away": 1646164
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342268",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 19,
+     "desc": null,
+     "spec": "total=0.5",
+     "outcome": "Over 0.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.044130411409531556,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Walsall v Oldham",
+    "league": "League Two",
+    "home": "Walsall",
+    "away": "Oldham",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Walsall or Oldham",
+    "price": 1.29,
+    "chance": 0.7873,
+    "chance_raw": 0.7303,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "H0DEB9",
+    "news_level": "OK",
+    "news_note": "pick does not depend on one team's lineup",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5838001,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 2223322,
+     "away": 2216888
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342272",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0475892913230217,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.29,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "York City FC v Accrington",
+    "league": "League Two",
+    "home": "York City FC",
+    "away": "Accrington",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Draw",
+    "pick": "York City FC or draw",
+    "price": 1.21,
+    "chance": 0.8437,
+    "chance_raw": 0.7867,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "HP154Y",
+    "news_level": "OK",
+    "news_note": "York City at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5838002,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 1091491,
+     "away": 1985163
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342276",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Draw"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04805461479009643,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.21,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Gillingham v Port Vale",
+    "league": "League Two",
+    "home": "Gillingham",
+    "away": "Port Vale",
+    "kickoff": "2026-10-20",
+    "market": "SB:34||No",
+    "pick": "Port Vale Win to Nil \u2014 no",
+    "price": 1.22,
+    "chance": 0.7851,
+    "chance_raw": 0.7851,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "XC1KL3",
+    "news_level": "OK",
+    "news_note": "Gillingham at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5837997,
+    "kickoff_utc": "2026-10-20T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 1626068,
+     "away": 2725710
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72342256",
+    "sb_tid": "sr:tournament:25",
+    "sb_market": {
+     "id": 34,
+     "desc": null,
+     "spec": "",
+     "outcome": "No"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04213698029571933,
+    "missing": {
+     "home": 0.0,
+     "away": 0.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Alvechurch v Spalding United",
+    "league": "FA Cup",
+    "home": "Alvechurch",
+    "away": "Spalding United",
+    "kickoff": "2026-10-20",
+    "market": "SB:20|total=0.5|Over 0.5",
+    "pick": "Spalding United Over 0.5 goals",
+    "price": 1.24,
+    "chance": 0.7736,
+    "chance_raw": 0.7736,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "ZKZ177",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456719,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723452",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 20,
+     "desc": null,
+     "spec": "total=0.5",
+     "outcome": "Over 0.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.040744749450440154,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Anstey Nomads v Macclesfield FC",
+    "league": "FA Cup",
+    "home": "Anstey Nomads",
+    "away": "Macclesfield FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.22,
+    "chance": 0.7825,
+    "chance_raw": 0.7825,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "R8MX9U",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456716,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723446",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04533411078443583,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Cray Wanderers v Bedford Town Football Club",
+    "league": "FA Cup",
+    "home": "Cray Wanderers",
+    "away": "Bedford Town Football Club",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.22,
+    "chance": 0.7927,
+    "chance_raw": 0.7927,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "MT5JUF",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456722,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723482",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.032893252946173734,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "FC United of Manchester v Altrincham FC",
+    "league": "FA Cup",
+    "home": "FC United of Manchester",
+    "away": "Altrincham FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.23,
+    "chance": 0.785,
+    "chance_raw": 0.785,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "M3A8DP",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456717,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723448",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0344601231835695,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Forest Green Rovers v Chesham United",
+    "league": "FA Cup",
+    "home": "Forest Green Rovers",
+    "away": "Chesham United",
+    "kickoff": "2026-10-20",
+    "market": "SB:19|total=3.5|Under 3.5",
+    "pick": "Forest Green Rovers Under 3.5 goals",
+    "price": 1.24,
+    "chance": 0.786,
+    "chance_raw": 0.786,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "QV6GLV",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456720,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723454",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 19,
+     "desc": null,
+     "spec": "total=3.5",
+     "outcome": "Under 3.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.025320066927697837,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Gloucester City v Barrow AFC",
+    "league": "FA Cup",
+    "home": "Gloucester City",
+    "away": "Barrow AFC",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.21,
+    "chance": 0.7972,
+    "chance_raw": 0.7972,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "PWBWNV",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456715,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723444",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03534618826364011,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.21,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Harrogate Town v Bury FC",
+    "league": "FA Cup",
+    "home": "Harrogate Town",
+    "away": "Bury FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Draw",
+    "pick": "Harrogate Town or draw",
+    "price": 1.23,
+    "chance": 0.8316,
+    "chance_raw": 0.7746,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "S5V6LV",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456718,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723450",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Draw"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.04724002080334766,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Stafford Rangers v Gateshead FC",
+    "league": "FA Cup",
+    "home": "Stafford Rangers",
+    "away": "Gateshead FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:33||No",
+    "pick": "Stafford Rangers Win to Nil \u2014 no",
+    "price": 1.23,
+    "chance": 0.7689,
+    "chance_raw": 0.7689,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "KA3TEP",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456714,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723442",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 33,
+     "desc": null,
+     "spec": "",
+     "outcome": "No"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.05426510400834661,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.23,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Tadley Calleva v Aldershot Town FC",
+    "league": "FA Cup",
+    "home": "Tadley Calleva",
+    "away": "Aldershot Town FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:10||Home or Away",
+    "pick": "Tadley Calleva or Aldershot Town FC",
+    "price": 1.2,
+    "chance": 0.8421,
+    "chance_raw": 0.7851,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "S72W2J",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456723,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723546",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.048237687516217154,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Worcester City v Chorley FC",
+    "league": "FA Cup",
+    "home": "Worcester City",
+    "away": "Chorley FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "pick": "Over 1.5 goals",
+    "price": 1.24,
+    "chance": 0.7776,
+    "chance_raw": 0.7776,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "P1ZWN5",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456713,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723440",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03575863192112361,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Yeovil Town v Leatherhead FC",
+    "league": "FA Cup",
+    "home": "Yeovil Town",
+    "away": "Leatherhead FC",
+    "kickoff": "2026-10-20",
+    "market": "SB:19|total=3.5|Under 3.5",
+    "pick": "Yeovil Town Under 3.5 goals",
+    "price": 1.22,
+    "chance": 0.7924,
+    "chance_raw": 0.7924,
+    "tier": "MARKET",
+    "certainty": "LOW",
+    "code": "MA10LE",
+    "news_level": "NO NEWS",
+    "news_note": "no team news published",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 6456721,
+    "kickoff_utc": "2026-10-20T18:45:00.000Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:75723456",
+    "sb_tid": "sr:tournament:19",
+    "sb_market": {
+     "id": 19,
+     "desc": null,
+     "spec": "total=3.5",
+     "outcome": "Under 3.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03326978794396751,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   }
+  ],
+  "accas": [
+   {
+    "name": "Acca A",
+    "code": "K1JJN0",
+    "odds": 2.063,
+    "chance": 0.5655988291320001,
+    "legs": [
+     "Stuttgart v Atletico Madrid",
+     "PSG v Barcelona",
+     "Oxford United v Wigan"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca B",
+    "code": "R8N6XX",
+    "odds": 2.161,
+    "chance": 0.516165461064,
+    "legs": [
+     "Fenerbahce Istanbul v Slavia Prague",
+     "Stevenage FC v Plymouth",
+     "Crawley Town v Shrewsbury"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca C",
+    "code": "KPKH1Y",
+    "odds": 2.179,
+    "chance": 0.511826728010598,
+    "legs": [
+     "Napoli v Bodoe/Glimt",
+     "Liverpool v Villarreal",
+     "Porto v PSV Eindhoven",
+     "Harrogate Town v Bury FC"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca D",
+    "code": "R990B5",
+    "odds": 2.457,
+    "chance": 0.42864929327717277,
+    "legs": [
+     "Wolves v Portsmouth",
+     "Walsall v Oldham",
+     "Tadley Calleva v Aldershot Town FC",
+     "Doncaster Rovers v Stockport County FC"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca E",
+    "code": "PWRTTK",
+    "odds": 2.459,
+    "chance": 0.39741167083072315,
+    "legs": [
+     "Chesterfield v Colchester United",
+     "Burton v Bradford",
+     "Luton v Barnsley",
+     "Man City v AEK Athens"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca F",
+    "code": "GZSXDA",
+    "odds": 2.792,
+    "chance": 0.31983810897431225,
+    "legs": [
+     "Roma v Slovan Bratislava",
+     "Barnet FC v Swindon",
+     "Cheltenham v Fleetwood Town",
+     "Rochdale v Grimsby",
+     "Gloucester City v Barrow AFC"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca G",
+    "code": "RK1WCT",
+    "odds": 2.251,
+    "chance": 0.39409568898323993,
+    "legs": [
+     "Forest Green Rovers v Chesham United",
+     "Northampton v Tranmere",
+     "Notts County v Sheffield Wednesday",
+     "Cray Wanderers v Bedford Town Football Club"
+    ],
+    "result": null
+   },
+   {
+    "name": "Acca H",
+    "code": "R9VTPW",
+    "odds": 2.702,
+    "chance": 0.2900355458816748,
+    "legs": [
+     "Yeovil Town v Leatherhead FC",
+     "FC United of Manchester v Altrincham FC",
+     "Gillingham v Port Vale",
+     "Stafford Rangers v Gateshead FC",
+     "Exeter v Crewe"
+    ],
+    "result": null
+   }
+  ],
+  "safe3": [
+   {
+    "name": "50+ #1",
+    "code": "XC2XWT",
+    "odds": 1.8,
+    "chance": 0.588338308129,
+    "legs": [
+     "York City FC v Accrington",
+     "Huddersfield v Peterborough United",
+     "Bromley FC v Leicester"
+    ],
+    "result": null
+   },
+   {
+    "name": "50+ #2",
+    "code": "W6XP28",
+    "odds": 2.012,
+    "chance": 0.5082603271439999,
+    "legs": [
+     "Cambridge United v Wycombe Wanderers",
+     "Blackpool FC v Milton Keynes Dons",
+     "AFC Wimbledon v Mansfield"
+    ],
+    "result": null
+   }
+  ],
+  "megas": [
+   {
+    "name": "Mega 1",
+    "code": "SG8YSD",
+    "odds": 93.742,
+    "chance": 0.013800776957321417,
+    "legs": [
+     "Liverpool v Villarreal",
+     "PSG v Barcelona",
+     "Porto v PSV Eindhoven",
+     "Napoli v Bodoe/Glimt",
+     "York City FC v Accrington",
+     "Huddersfield v Peterborough United",
+     "Tadley Calleva v Aldershot Town FC",
+     "Fenerbahce Istanbul v Slavia Prague",
+     "Harrogate Town v Bury FC",
+     "Bromley FC v Leicester",
+     "Chesterfield v Colchester United",
+     "Stuttgart v Atletico Madrid",
+     "Wolves v Portsmouth",
+     "Northampton v Tranmere",
+     "Oxford United v Wigan",
+     "Cambridge United v Wycombe Wanderers",
+     "Cheltenham v Fleetwood Town",
+     "Roma v Slovan Bratislava",
+     "Blackpool FC v Milton Keynes Dons",
+     "Barnet FC v Swindon",
+     "Gloucester City v Barrow AFC",
+     "Man City v AEK Athens"
+    ],
+    "result": null
+   },
+   {
+    "name": "Mega 2",
+    "code": "RLWAGZ",
+    "odds": 135.536,
+    "chance": 0.00420754273323204,
+    "legs": [
+     "Cray Wanderers v Bedford Town Football Club",
+     "Yeovil Town v Leatherhead FC",
+     "AFC Wimbledon v Mansfield",
+     "Luton v Barnsley",
+     "Doncaster Rovers v Stockport County FC",
+     "Walsall v Oldham",
+     "Forest Green Rovers v Chesham United",
+     "Gillingham v Port Vale",
+     "FC United of Manchester v Altrincham FC",
+     "Stevenage FC v Plymouth",
+     "Crawley Town v Shrewsbury",
+     "Anstey Nomads v Macclesfield FC",
+     "Notts County v Sheffield Wednesday",
+     "Rochdale v Grimsby",
+     "Worcester City v Chorley FC",
+     "Rotherham v Newport County",
+     "Alvechurch v Spalding United",
+     "Bristol Rvs v Salford",
+     "Exeter v Crewe",
+     "Burton v Bradford",
+     "Stafford Rangers v Gateshead FC",
+     "Sabah Masazir v Borussia Dortmund"
+    ],
+    "result": null
+   }
+  ],
+  "alts": [
+   {
+    "name": "Alt A",
+    "code": "RB3EFT",
+    "odds": 2.065,
+    "chance": 0.515314369044,
+    "legs": [
+     "Anstey Nomads v Macclesfield FC",
+     "Worcester City v Chorley FC",
+     "Alvechurch v Spalding United"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Anstey Nomads v Macclesfield FC",
+      "league": "FA Cup",
+      "home": "Anstey Nomads",
+      "away": "Macclesfield FC",
+      "kickoff": "2026-10-20",
+      "market": "SB:10||Home or Away",
+      "pick": "Anstey Nomads or Macclesfield FC",
+      "price": 1.27,
+      "chance": 0.8076,
+      "result": null,
+      "ft": null
+     },
+     {
+      "fixture": "Worcester City v Chorley FC",
+      "league": "FA Cup",
+      "home": "Worcester City",
+      "away": "Chorley FC",
+      "kickoff": "2026-10-20",
+      "market": "SB:10||Home or Away",
+      "pick": "Worcester City or Chorley FC",
+      "price": 1.27,
+      "chance": 0.7993,
+      "result": null,
+      "ft": null
+     },
+     {
+      "fixture": "Alvechurch v Spalding United",
+      "league": "FA Cup",
+      "home": "Alvechurch",
+      "away": "Spalding United",
+      "kickoff": "2026-10-20",
+      "market": "SB:10||Home or Away",
+      "pick": "Alvechurch or Spalding United",
+      "price": 1.28,
+      "chance": 0.7983,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Alt B",
+    "code": "G8Q0FY",
+    "odds": 1.703,
+    "chance": 0.6290072499999999,
+    "legs": [
+     "Bristol Rvs v Salford",
+     "Rotherham v Newport County"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Bristol Rvs v Salford",
+      "league": "League Two",
+      "home": "Bristol Rvs",
+      "away": "Salford",
+      "kickoff": "2026-10-20",
+      "market": "SB:10||Home or Away",
+      "pick": "Bristol Rvs or Salford",
+      "price": 1.31,
+      "chance": 0.7937,
+      "result": null,
+      "ft": null
+     },
+     {
+      "fixture": "Rotherham v Newport County",
+      "league": "League Two",
+      "home": "Rotherham",
+      "away": "Newport County",
+      "kickoff": "2026-10-20",
+      "market": "SB:10||Home or Away",
+      "pick": "Rotherham or Newport County",
+      "price": 1.3,
+      "chance": 0.7925,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   }
+  ],
+  "value": [
+   {
+    "name": "Value 1",
+    "code": "MQ9EN6",
+    "odds": 1.99,
+    "chance": 0.5156,
+    "legs": [
+     "Oxford United v Wigan"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Oxford United v Wigan",
+      "league": "League One",
+      "home": "Oxford United",
+      "away": "Wigan",
+      "kickoff": "2026-10-20",
+      "market": "SB:1||Home",
+      "pick": "Oxford United to win",
+      "price": 1.99,
+      "chance": 0.5156,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 2",
+    "code": "T963LX",
+    "odds": 1.37,
+    "chance": 0.6163,
+    "legs": [
+     "Exeter v Crewe"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Exeter v Crewe",
+      "league": "League Two",
+      "home": "Exeter",
+      "away": "Crewe",
+      "kickoff": "2026-10-20",
+      "market": "SB:18|total=3|Under 3",
+      "pick": "Under 3 goals",
+      "price": 1.37,
+      "chance": 0.6163,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 3",
+    "code": "NC4KY7",
+    "odds": 1.59,
+    "chance": 0.5083,
+    "legs": [
+     "Walsall v Oldham"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Walsall v Oldham",
+      "league": "League Two",
+      "home": "Walsall",
+      "away": "Oldham",
+      "kickoff": "2026-10-20",
+      "market": "SB:18|total=3|Under 3",
+      "pick": "Under 3 goals",
+      "price": 1.59,
+      "chance": 0.5083,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 4",
+    "code": "NCRDAK",
+    "odds": 1.55,
+    "chance": 0.5218,
+    "legs": [
+     "Crawley Town v Shrewsbury"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Crawley Town v Shrewsbury",
+      "league": "League Two",
+      "home": "Crawley Town",
+      "away": "Shrewsbury",
+      "kickoff": "2026-10-20",
+      "market": "SB:18|total=3|Under 3",
+      "pick": "Under 3 goals",
+      "price": 1.55,
+      "chance": 0.5218,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 5",
+    "code": "KPKH1Z",
+    "odds": 1.56,
+    "chance": 0.6561,
+    "legs": [
+     "Gillingham v Port Vale"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Gillingham v Port Vale",
+      "league": "League Two",
+      "home": "Gillingham",
+      "away": "Port Vale",
+      "kickoff": "2026-10-20",
+      "market": "SB:20|total=1.5|Under 1.5",
+      "pick": "Port Vale Under 1.5 goals",
+      "price": 1.56,
+      "chance": 0.6561,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   }
+  ],
+  "rated": [
+   {
+    "fixture": "Wolves v Portsmouth",
+    "league": "Championship",
+    "home": "Wolves",
+    "away": "Portsmouth",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.474,
+     0.254,
+     0.271,
+     0.76,
+     0.516,
+     0.297,
+     0.544
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5593
+     ],
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7779
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7638
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.6718
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.6718
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.7222
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7377
+     ],
+     [
+      "SB:29||Yes",
+      0.5318
+     ],
+     [
+      "SB:11||Home",
+      0.5673
+     ],
+     [
+      "SB:13||Home",
+      0.5593
+     ],
+     [
+      "SB:30||Both teams",
+      0.5262
+     ],
+     [
+      "SB:31||No",
+      0.6289
+     ],
+     [
+      "SB:33||No",
+      0.6896
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6698
+     ],
+     [
+      "SB:548||2-5",
+      0.7053
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6177
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Fenerbahce Istanbul v Slavia Prague",
+    "league": "Champions League",
+    "home": "Fenerbahce Istanbul",
+    "away": "Slavia Prague",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.581,
+     0.225,
+     0.195,
+     0.825,
+     0.622,
+     0.41,
+     0.587
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.577
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7824
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7952
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.7952
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.7952
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.6622
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6857
+     ],
+     [
+      "SB:29||Yes",
+      0.5919
+     ],
+     [
+      "SB:11||Home",
+      0.585
+     ],
+     [
+      "SB:13||Home",
+      0.577
+     ],
+     [
+      "SB:30||Both teams",
+      0.5919
+     ],
+     [
+      "SB:31||No",
+      0.679
+     ],
+     [
+      "SB:33||No",
+      0.7202
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6695
+     ],
+     [
+      "SB:548||2-5",
+      0.7232
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Sabah Masazir v Borussia Dortmund",
+    "league": "Champions League",
+    "home": "Sabah Masazir",
+    "away": "Borussia Dortmund",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.107,
+     0.151,
+     0.742,
+     0.86,
+     0.689,
+     0.483,
+     0.547
+    ],
+    "pool": [
+     [
+      "SB:1||Away",
+      0.7335
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7152
+     ],
+     [
+      "SB:14|hcp=3:0|Home (3:0)",
+      0.6786
+     ],
+     [
+      "SB:16|hcp=0.5|Away (-0.5)",
+      0.7335
+     ],
+     [
+      "SB:19|total=1.5|Under 1.5",
+      0.7673
+     ],
+     [
+      "SB:20|total=1.5|Over 1.5",
+      0.7403
+     ],
+     [
+      "SB:29||Yes",
+      0.5564
+     ],
+     [
+      "SB:30||Both teams",
+      0.5564
+     ],
+     [
+      "SB:32||No",
+      0.5991
+     ],
+     [
+      "SB:34||No",
+      0.6277
+     ],
+     [
+      "SB:37|total=1.5|Away & Over 1.5",
+      0.6579
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.7381
+     ],
+     [
+      "SB:548||2-5",
+      0.7202
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Liverpool v Villarreal",
+    "league": "Champions League",
+    "home": "Liverpool",
+    "away": "Villarreal",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.628,
+     0.199,
+     0.173,
+     0.846,
+     0.663,
+     0.456,
+     0.602
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6217
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.661
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7997
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7822
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7822
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.8052
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6871
+     ],
+     [
+      "SB:29||Yes",
+      0.6078
+     ],
+     [
+      "SB:11||Home",
+      0.6297
+     ],
+     [
+      "SB:13||Home",
+      0.6217
+     ],
+     [
+      "SB:30||Both teams",
+      0.6078
+     ],
+     [
+      "SB:31||No",
+      0.6778
+     ],
+     [
+      "SB:33||No",
+      0.711
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5462
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5223
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7132
+     ],
+     [
+      "SB:548||2-5",
+      0.7237
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Man City v AEK Athens",
+    "league": "Champions League",
+    "home": "Man City",
+    "away": "AEK Athens",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.881,
+     0.081,
+     0.038,
+     0.896,
+     0.753,
+     0.563,
+     0.433
+    ],
+    "pool": [
+     [
+      "SB:18|total=5.5|Under 5.5",
+      0.7947
+     ],
+     [
+      "SB:14|hcp=0:1|Home (0:1)",
+      0.7176
+     ],
+     [
+      "SB:16|hcp=-1.5|Home (-1.5)",
+      0.7176
+     ],
+     [
+      "SB:19|total=4.5|Under 4.5",
+      0.7554
+     ],
+     [
+      "SB:20|total=0.5|Under 0.5",
+      0.5488
+     ],
+     [
+      "SB:29||No",
+      0.5647
+     ],
+     [
+      "SB:23|variant=sr:exact_goals:3+|3+",
+      0.6407
+     ],
+     [
+      "SB:24|variant=sr:exact_goals:3+|0",
+      0.5488
+     ],
+     [
+      "SB:30||Only Home",
+      0.5213
+     ],
+     [
+      "SB:31||Yes",
+      0.5488
+     ],
+     [
+      "SB:33||Yes",
+      0.5213
+     ],
+     [
+      "SB:37|total=2.5|Home & Over 2.5",
+      0.7
+     ],
+     [
+      "SB:547|total=2.5|Home/Draw & Over 2.5",
+      0.7325
+     ],
+     [
+      "SB:546||Home/Draw & No",
+      0.5488
+     ],
+     [
+      "SB:548||2-5",
+      0.6987
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Napoli v Bodoe/Glimt",
+    "league": "Champions League",
+    "home": "Napoli",
+    "away": "Bodoe/Glimt",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.59,
+     0.215,
+     0.195,
+     0.843,
+     0.652,
+     0.447,
+     0.613
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5858
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6486
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7971
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.8102
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.8102
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.6355
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.6951
+     ],
+     [
+      "SB:29||Yes",
+      0.6143
+     ],
+     [
+      "SB:11||Home",
+      0.5938
+     ],
+     [
+      "SB:13||Home",
+      0.5858
+     ],
+     [
+      "SB:30||Both teams",
+      0.6143
+     ],
+     [
+      "SB:31||No",
+      0.6951
+     ],
+     [
+      "SB:33||No",
+      0.7305
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5095
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5237
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6854
+     ],
+     [
+      "SB:548||2-5",
+      0.7242
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Porto v PSV Eindhoven",
+    "league": "Champions League",
+    "home": "Porto",
+    "away": "PSV Eindhoven",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.612,
+     0.206,
+     0.182,
+     0.837,
+     0.643,
+     0.436,
+     0.593
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6057
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7621
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7925
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7982
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7982
+     ],
+     [
+      "SB:19|total=1.5|Over 1.5",
+      0.6403
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6904
+     ],
+     [
+      "SB:29||Yes",
+      0.5985
+     ],
+     [
+      "SB:11||Home",
+      0.6137
+     ],
+     [
+      "SB:13||Home",
+      0.6057
+     ],
+     [
+      "SB:30||Both teams",
+      0.5985
+     ],
+     [
+      "SB:31||No",
+      0.6749
+     ],
+     [
+      "SB:33||No",
+      0.7116
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5256
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5085
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6963
+     ],
+     [
+      "SB:548||1-4",
+      0.7253
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "PSG v Barcelona",
+    "league": "Champions League",
+    "home": "PSG",
+    "away": "Barcelona",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.393,
+     0.218,
+     0.389,
+     0.923,
+     0.808,
+     0.65,
+     0.779
+    ],
+    "pool": [
+     [
+      "SB:18|total=6|Under 6",
+      0.7374
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7929
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7748
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7748
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.6356
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.6379
+     ],
+     [
+      "SB:29||Yes",
+      0.7801
+     ],
+     [
+      "SB:11||Home",
+      0.402
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.7173
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.7343
+     ],
+     [
+      "SB:546||Home/Away & Yes",
+      0.5866
+     ],
+     [
+      "SB:548||1-5",
+      0.7238
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Roma v Slovan Bratislava",
+    "league": "Champions League",
+    "home": "Roma",
+    "away": "Slovan Bratislava",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.845,
+     0.1,
+     0.055,
+     0.892,
+     0.747,
+     0.554,
+     0.491
+    ],
+    "pool": [
+     [
+      "SB:18|total=5.5|Under 5.5",
+      0.8008
+     ],
+     [
+      "SB:14|hcp=0:4|Away (0:4)",
+      0.7215
+     ],
+     [
+      "SB:16|hcp=-3.5|Away (+3.5)",
+      0.7215
+     ],
+     [
+      "SB:19|total=4.5|Under 4.5",
+      0.7859
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.5173
+     ],
+     [
+      "SB:29||No",
+      0.5044
+     ],
+     [
+      "SB:23|variant=sr:exact_goals:3+|3+",
+      0.6061
+     ],
+     [
+      "SB:31||No",
+      0.5173
+     ],
+     [
+      "SB:33||No",
+      0.5375
+     ],
+     [
+      "SB:37|total=2.5|Home & Over 2.5",
+      0.6706
+     ],
+     [
+      "SB:547|total=2.5|Home/Draw & Over 2.5",
+      0.7137
+     ],
+     [
+      "SB:548||2-5",
+      0.7016
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Stuttgart v Atletico Madrid",
+    "league": "Champions League",
+    "home": "Stuttgart",
+    "away": "Atletico Madrid",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.302,
+     0.255,
+     0.444,
+     0.843,
+     0.65,
+     0.446,
+     0.655
+    ],
+    "pool": [
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6421
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7652
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7522
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7522
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.8116
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.7257
+     ],
+     [
+      "SB:29||Yes",
+      0.6487
+     ],
+     [
+      "SB:11||Away",
+      0.4557
+     ],
+     [
+      "SB:30||Both teams",
+      0.6487
+     ],
+     [
+      "SB:32||No",
+      0.7744
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5496
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.6441
+     ],
+     [
+      "SB:548||1-4",
+      0.7246
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "AFC Wimbledon v Mansfield",
+    "league": "League One",
+    "home": "AFC Wimbledon",
+    "away": "Mansfield",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.288,
+     0.277,
+     0.436,
+     0.691,
+     0.428,
+     0.219,
+     0.481
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7555
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7336
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7813
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7813
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6878
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.8127
+     ],
+     [
+      "SB:29||Yes",
+      0.5466
+     ],
+     [
+      "SB:11||Away",
+      0.444
+     ],
+     [
+      "SB:30||Both teams",
+      0.5321
+     ],
+     [
+      "SB:31||No",
+      0.7724
+     ],
+     [
+      "SB:32||No",
+      0.6878
+     ],
+     [
+      "SB:34||No",
+      0.7597
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6166
+     ],
+     [
+      "SB:548||2-5",
+      0.6877
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7588
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Blackpool FC v Milton Keynes Dons",
+    "league": "League One",
+    "home": "Blackpool FC",
+    "away": "Milton Keynes Dons",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.514,
+     0.241,
+     0.245,
+     0.778,
+     0.542,
+     0.319,
+     0.556
+    ],
+    "pool": [
+     [
+      "SB:18|total=4|Under 4",
+      0.6451
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7519
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.6667
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.7819
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7998
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7498
+     ],
+     [
+      "SB:29||Yes",
+      0.6034
+     ],
+     [
+      "SB:11||Home",
+      0.4266
+     ],
+     [
+      "SB:13||Home",
+      0.4186
+     ],
+     [
+      "SB:30||Both teams",
+      0.5995
+     ],
+     [
+      "SB:31||No",
+      0.7498
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.604
+     ],
+     [
+      "SB:548||2-4",
+      0.6156
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7271
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Bromley FC v Leicester",
+    "league": "League One",
+    "home": "Bromley FC",
+    "away": "Leicester",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.335,
+     0.231,
+     0.434,
+     0.843,
+     0.641,
+     0.421,
+     0.652
+    ],
+    "pool": [
+     [
+      "SB:1||Away",
+      0.5098
+     ],
+     [
+      "SB:18|total=2|Over 2",
+      0.6239
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7703
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.7394
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.7394
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7259
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.6993
+     ],
+     [
+      "SB:29||Yes",
+      0.609
+     ],
+     [
+      "SB:11||Away",
+      0.5178
+     ],
+     [
+      "SB:12||Away",
+      0.5098
+     ],
+     [
+      "SB:30||Both teams",
+      0.6185
+     ],
+     [
+      "SB:32||No",
+      0.7259
+     ],
+     [
+      "SB:34||No",
+      0.7662
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5189
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.6421
+     ],
+     [
+      "SB:548||2-4",
+      0.6087
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7712
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Burton v Bradford",
+    "league": "League One",
+    "home": "Burton",
+    "away": "Bradford",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.319,
+     0.307,
+     0.373,
+     0.607,
+     0.335,
+     0.151,
+     0.411
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7626
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7175
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7931
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7931
+     ],
+     [
+      "SB:19|total=1.5|Under 1.5",
+      0.7232
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7383
+     ],
+     [
+      "SB:29||Yes",
+      0.501
+     ],
+     [
+      "SB:11||Away",
+      0.4391
+     ],
+     [
+      "SB:31||No",
+      0.7383
+     ],
+     [
+      "SB:32||No",
+      0.6442
+     ],
+     [
+      "SB:34||No",
+      0.7384
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6489
+     ],
+     [
+      "SB:548||1-3",
+      0.6857
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7764
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Cambridge United v Wycombe Wanderers",
+    "league": "League One",
+    "home": "Cambridge United",
+    "away": "Wycombe Wanderers",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.476,
+     0.236,
+     0.287,
+     0.813,
+     0.593,
+     0.369,
+     0.607
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7864
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7468
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.7793
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.7793
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7948
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7353
+     ],
+     [
+      "SB:29||Yes",
+      0.5814
+     ],
+     [
+      "SB:11||Home",
+      0.4346
+     ],
+     [
+      "SB:13||Home",
+      0.4266
+     ],
+     [
+      "SB:30||Both teams",
+      0.5847
+     ],
+     [
+      "SB:31||No",
+      0.7353
+     ],
+     [
+      "SB:32||No",
+      0.7948
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.5917
+     ],
+     [
+      "SB:548||2-4",
+      0.6168
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7385
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Doncaster Rovers v Stockport County FC",
+    "league": "League One",
+    "home": "Doncaster Rovers",
+    "away": "Stockport County FC",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.283,
+     0.253,
+     0.465,
+     0.762,
+     0.519,
+     0.298,
+     0.55
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7861
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7506
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7383
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7383
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6955
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.761
+     ],
+     [
+      "SB:29||Yes",
+      0.5714
+     ],
+     [
+      "SB:11||Away",
+      0.4893
+     ],
+     [
+      "SB:30||Both teams",
+      0.5667
+     ],
+     [
+      "SB:32||No",
+      0.6955
+     ],
+     [
+      "SB:34||No",
+      0.7524
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6145
+     ],
+     [
+      "SB:548||1-3",
+      0.6184
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7715
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Huddersfield v Peterborough United",
+    "league": "League One",
+    "home": "Huddersfield",
+    "away": "Peterborough United",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.562,
+     0.222,
+     0.217,
+     0.814,
+     0.595,
+     0.371,
+     0.583
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5875
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6251
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7859
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.8121
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.8121
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.6462
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6839
+     ],
+     [
+      "SB:29||Yes",
+      0.5984
+     ],
+     [
+      "SB:11||Home",
+      0.5955
+     ],
+     [
+      "SB:13||Home",
+      0.5875
+     ],
+     [
+      "SB:30||Both teams",
+      0.5983
+     ],
+     [
+      "SB:31||No",
+      0.6807
+     ],
+     [
+      "SB:33||No",
+      0.7198
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5062
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5049
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6812
+     ],
+     [
+      "SB:548||1-4",
+      0.7315
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6442
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Luton v Barnsley",
+    "league": "League One",
+    "home": "Luton",
+    "away": "Barnsley",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.584,
+     0.206,
+     0.21,
+     0.853,
+     0.658,
+     0.439,
+     0.627
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6089
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6554
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7888
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7888
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.8058
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.6941
+     ],
+     [
+      "SB:29||Yes",
+      0.6161
+     ],
+     [
+      "SB:11||Home",
+      0.6169
+     ],
+     [
+      "SB:13||Home",
+      0.6089
+     ],
+     [
+      "SB:30||Both teams",
+      0.6223
+     ],
+     [
+      "SB:31||No",
+      0.6941
+     ],
+     [
+      "SB:33||No",
+      0.7261
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5374
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5369
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.708
+     ],
+     [
+      "SB:546||Home/Draw & Yes",
+      0.5056
+     ],
+     [
+      "SB:548||1-4",
+      0.7024
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6594
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Notts County v Sheffield Wednesday",
+    "league": "League One",
+    "home": "Notts County",
+    "away": "Sheffield Wednesday",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.276,
+     0.269,
+     0.455,
+     0.71,
+     0.451,
+     0.238,
+     0.496
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7595
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7356
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7804
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7804
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6935
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.8094
+     ],
+     [
+      "SB:29||Yes",
+      0.5512
+     ],
+     [
+      "SB:11||Away",
+      0.4438
+     ],
+     [
+      "SB:30||Both teams",
+      0.5389
+     ],
+     [
+      "SB:31||No",
+      0.7761
+     ],
+     [
+      "SB:32||No",
+      0.6935
+     ],
+     [
+      "SB:34||No",
+      0.7628
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6124
+     ],
+     [
+      "SB:548||2-5",
+      0.692
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.758
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Oxford United v Wigan",
+    "league": "League One",
+    "home": "Oxford United",
+    "away": "Wigan",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.635,
+     0.213,
+     0.152,
+     0.772,
+     0.532,
+     0.31,
+     0.491
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5156
+     ],
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7621
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7632
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.7632
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.7632
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.8137
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7185
+     ],
+     [
+      "SB:29||Yes",
+      0.5382
+     ],
+     [
+      "SB:11||Home",
+      0.5236
+     ],
+     [
+      "SB:13||Home",
+      0.5156
+     ],
+     [
+      "SB:30||Both teams",
+      0.5251
+     ],
+     [
+      "SB:31||No",
+      0.6464
+     ],
+     [
+      "SB:33||No",
+      0.7114
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6555
+     ],
+     [
+      "SB:548||2-5",
+      0.6986
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7978
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Stevenage FC v Plymouth",
+    "league": "League One",
+    "home": "Stevenage FC",
+    "away": "Plymouth",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.366,
+     0.277,
+     0.357,
+     0.704,
+     0.443,
+     0.231,
+     0.5
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7467
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7276
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.6334
+     ],
+     [
+      "SB:16|hcp=1|Home (+1.0)",
+      0.6334
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7291
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7276
+     ],
+     [
+      "SB:29||Yes",
+      0.5428
+     ],
+     [
+      "SB:30||Both teams",
+      0.5311
+     ],
+     [
+      "SB:31||No",
+      0.7276
+     ],
+     [
+      "SB:32||No",
+      0.7291
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6147
+     ],
+     [
+      "SB:548||2-5",
+      0.6842
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7165
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Barnet FC v Swindon",
+    "league": "League Two",
+    "home": "Barnet FC",
+    "away": "Swindon",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.584,
+     0.212,
+     0.204,
+     0.827,
+     0.616,
+     0.393,
+     0.591
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6097
+     ],
+     [
+      "SB:18|total=2|Over 2",
+      0.6203
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7997
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7997
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.6402
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7115
+     ],
+     [
+      "SB:29||Yes",
+      0.5769
+     ],
+     [
+      "SB:11||Home",
+      0.6177
+     ],
+     [
+      "SB:13||Home",
+      0.6097
+     ],
+     [
+      "SB:30||Both teams",
+      0.578
+     ],
+     [
+      "SB:31||No",
+      0.6554
+     ],
+     [
+      "SB:33||No",
+      0.6964
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.523
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6919
+     ],
+     [
+      "SB:548||2-4",
+      0.6096
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6444
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Bristol Rvs v Salford",
+    "league": "League Two",
+    "home": "Bristol Rvs",
+    "away": "Salford",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.344,
+     0.27,
+     0.387,
+     0.722,
+     0.466,
+     0.251,
+     0.518
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7729
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7367
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.633
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.633
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7457
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7521
+     ],
+     [
+      "SB:29||Yes",
+      0.5707
+     ],
+     [
+      "SB:30||Both teams",
+      0.5614
+     ],
+     [
+      "SB:31||No",
+      0.7521
+     ],
+     [
+      "SB:32||No",
+      0.7457
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6025
+     ],
+     [
+      "SB:548||1-3",
+      0.635
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.709
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Cheltenham v Fleetwood Town",
+    "league": "League Two",
+    "home": "Cheltenham",
+    "away": "Fleetwood Town",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.385,
+     0.263,
+     0.352,
+     0.744,
+     0.495,
+     0.276,
+     0.541
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7595
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7352
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.8036
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.8036
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7182
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7614
+     ],
+     [
+      "SB:29||Yes",
+      0.5529
+     ],
+     [
+      "SB:11||Away",
+      0.4102
+     ],
+     [
+      "SB:30||Both teams",
+      0.5469
+     ],
+     [
+      "SB:31||No",
+      0.7614
+     ],
+     [
+      "SB:32||No",
+      0.7182
+     ],
+     [
+      "SB:34||No",
+      0.7854
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6099
+     ],
+     [
+      "SB:548||2-5",
+      0.6953
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7386
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Chesterfield v Colchester United",
+    "league": "League Two",
+    "home": "Chesterfield",
+    "away": "Colchester United",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.477,
+     0.259,
+     0.265,
+     0.732,
+     0.48,
+     0.262,
+     0.515
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5537
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.83
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7657
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.6749
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.6749
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.7147
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7193
+     ],
+     [
+      "SB:29||Yes",
+      0.5548
+     ],
+     [
+      "SB:11||Home",
+      0.5617
+     ],
+     [
+      "SB:13||Home",
+      0.5537
+     ],
+     [
+      "SB:30||Both teams",
+      0.5451
+     ],
+     [
+      "SB:31||No",
+      0.6482
+     ],
+     [
+      "SB:33||No",
+      0.7044
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6531
+     ],
+     [
+      "SB:548||2-4",
+      0.6147
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6093
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Crawley Town v Shrewsbury",
+    "league": "League Two",
+    "home": "Crawley Town",
+    "away": "Shrewsbury",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.41,
+     0.285,
+     0.306,
+     0.669,
+     0.402,
+     0.199,
+     0.463
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7464
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7273
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.644
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.644
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7185
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7296
+     ],
+     [
+      "SB:29||Yes",
+      0.5416
+     ],
+     [
+      "SB:30||Both teams",
+      0.5247
+     ],
+     [
+      "SB:31||No",
+      0.7296
+     ],
+     [
+      "SB:32||No",
+      0.7185
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.616
+     ],
+     [
+      "SB:548||2-5",
+      0.6799
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7224
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Exeter v Crewe",
+    "league": "League Two",
+    "home": "Exeter",
+    "away": "Crewe",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.333,
+     0.36,
+     0.308,
+     0.466,
+     0.209,
+     0.075,
+     0.297
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7868
+     ],
+     [
+      "SB:10||Home or Away",
+      0.697
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.6628
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.6628
+     ],
+     [
+      "SB:19|total=1.5|Under 1.5",
+      0.6834
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7055
+     ],
+     [
+      "SB:29||No",
+      0.5137
+     ],
+     [
+      "SB:31||No",
+      0.655
+     ],
+     [
+      "SB:32||No",
+      0.6748
+     ],
+     [
+      "SB:33||No",
+      0.7724
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6222
+     ],
+     [
+      "SB:548||1-3",
+      0.6909
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7499
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Northampton v Tranmere",
+    "league": "League Two",
+    "home": "Northampton",
+    "away": "Tranmere",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.406,
+     0.312,
+     0.282,
+     0.585,
+     0.313,
+     0.136,
+     0.387
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7086
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7129
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.6972
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.8105
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7249
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7131
+     ],
+     [
+      "SB:29||Yes",
+      0.5018
+     ],
+     [
+      "SB:11||Home",
+      0.4181
+     ],
+     [
+      "SB:13||Home",
+      0.4101
+     ],
+     [
+      "SB:31||No",
+      0.6518
+     ],
+     [
+      "SB:32||No",
+      0.7249
+     ],
+     [
+      "SB:33||No",
+      0.7494
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.638
+     ],
+     [
+      "SB:548||1-3",
+      0.6879
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.765
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Rochdale v Grimsby",
+    "league": "League Two",
+    "home": "Rochdale",
+    "away": "Grimsby",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.312,
+     0.278,
+     0.41,
+     0.692,
+     0.429,
+     0.22,
+     0.485
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7707
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7381
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7796
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7796
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7034
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.8025
+     ],
+     [
+      "SB:29||Yes",
+      0.5634
+     ],
+     [
+      "SB:11||Away",
+      0.4421
+     ],
+     [
+      "SB:30||Both teams",
+      0.5496
+     ],
+     [
+      "SB:32||No",
+      0.7034
+     ],
+     [
+      "SB:34||No",
+      0.7697
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6065
+     ],
+     [
+      "SB:548||1-3",
+      0.6384
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7517
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Rotherham v Newport County",
+    "league": "League Two",
+    "home": "Rotherham",
+    "away": "Newport County",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.443,
+     0.253,
+     0.304,
+     0.767,
+     0.527,
+     0.305,
+     0.56
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7484
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7355
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.7761
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.7761
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7771
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.6863
+     ],
+     [
+      "SB:29||Yes",
+      0.537
+     ],
+     [
+      "SB:11||Home",
+      0.4505
+     ],
+     [
+      "SB:13||Home",
+      0.4425
+     ],
+     [
+      "SB:30||Both teams",
+      0.5337
+     ],
+     [
+      "SB:31||No",
+      0.6863
+     ],
+     [
+      "SB:32||No",
+      0.7771
+     ],
+     [
+      "SB:33||No",
+      0.7566
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6195
+     ],
+     [
+      "SB:548||2-5",
+      0.6905
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7584
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Walsall v Oldham",
+    "league": "League Two",
+    "home": "Walsall",
+    "away": "Oldham",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.411,
+     0.287,
+     0.303,
+     0.663,
+     0.395,
+     0.194,
+     0.457
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.757
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7303
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.6702
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.6702
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.754
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.708
+     ],
+     [
+      "SB:29||Yes",
+      0.5529
+     ],
+     [
+      "SB:11||Home",
+      0.4085
+     ],
+     [
+      "SB:13||Home",
+      0.4005
+     ],
+     [
+      "SB:30||Both teams",
+      0.5351
+     ],
+     [
+      "SB:31||No",
+      0.708
+     ],
+     [
+      "SB:32||No",
+      0.754
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6112
+     ],
+     [
+      "SB:548||1-3",
+      0.652
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7366
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "York City FC v Accrington",
+    "league": "League Two",
+    "home": "York City FC",
+    "away": "Accrington",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.574,
+     0.227,
+     0.198,
+     0.778,
+     0.542,
+     0.319,
+     0.532
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5533
+     ],
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7935
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7867
+     ],
+     [
+      "SB:14|hcp=1:0|Home (1:0)",
+      0.7867
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.7867
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.7122
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7118
+     ],
+     [
+      "SB:29||Yes",
+      0.5614
+     ],
+     [
+      "SB:11||Home",
+      0.5613
+     ],
+     [
+      "SB:13||Home",
+      0.5533
+     ],
+     [
+      "SB:30||Both teams",
+      0.5542
+     ],
+     [
+      "SB:31||No",
+      0.6551
+     ],
+     [
+      "SB:33||No",
+      0.7086
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6497
+     ],
+     [
+      "SB:548||2-4",
+      0.6171
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6116
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Gillingham v Port Vale",
+    "league": "League Two",
+    "home": "Gillingham",
+    "away": "Port Vale",
+    "kickoff": "2026-10-20",
+    "src": "model",
+    "p": [
+     0.45,
+     0.293,
+     0.257,
+     0.628,
+     0.358,
+     0.166,
+     0.417
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7615
+     ],
+     [
+      "SB:10||Home or Away",
+      0.717
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.6452
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.6452
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6931
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.6985
+     ],
+     [
+      "SB:29||Yes",
+      0.507
+     ],
+     [
+      "SB:31||No",
+      0.6985
+     ],
+     [
+      "SB:32||No",
+      0.6931
+     ],
+     [
+      "SB:34||No",
+      0.7851
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.628
+     ],
+     [
+      "SB:548||1-3",
+      0.6854
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7331
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Alvechurch v Spalding United",
+    "league": "FA Cup",
+    "home": "Alvechurch",
+    "away": "Spalding United",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.34,
+     0.254,
+     0.406,
+     0.759,
+     0.538,
+     0.331,
+     0.567
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7735
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7413
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7385
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7736
+     ],
+     [
+      "SB:29||Yes",
+      0.5713
+     ],
+     [
+      "SB:11||Away",
+      0.4071
+     ],
+     [
+      "SB:30||Both teams",
+      0.5713
+     ],
+     [
+      "SB:31||No",
+      0.7736
+     ],
+     [
+      "SB:32||No",
+      0.7385
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.5995
+     ],
+     [
+      "SB:548||2-5",
+      0.706
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Anstey Nomads v Macclesfield FC",
+    "league": "FA Cup",
+    "home": "Anstey Nomads",
+    "away": "Macclesfield FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.272,
+     0.25,
+     0.478,
+     0.771,
+     0.553,
+     0.349,
+     0.574
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7825
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7506
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7021
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.7648
+     ],
+     [
+      "SB:29||Yes",
+      0.57
+     ],
+     [
+      "SB:11||Away",
+      0.4814
+     ],
+     [
+      "SB:30||Both teams",
+      0.57
+     ],
+     [
+      "SB:32||No",
+      0.7021
+     ],
+     [
+      "SB:34||No",
+      0.7581
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6078
+     ],
+     [
+      "SB:548||1-3",
+      0.6176
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Cray Wanderers v Bedford Town Football Club",
+    "league": "FA Cup",
+    "home": "Cray Wanderers",
+    "away": "Bedford Town Football Club",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.354,
+     0.239,
+     0.407,
+     0.775,
+     0.563,
+     0.355,
+     0.586
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7927
+     ],
+     [
+      "SB:10||Home or Away",
+      0.747
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7567
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.8005
+     ],
+     [
+      "SB:29||Yes",
+      0.5933
+     ],
+     [
+      "SB:11||Away",
+      0.404
+     ],
+     [
+      "SB:30||Both teams",
+      0.5933
+     ],
+     [
+      "SB:31||No",
+      0.7841
+     ],
+     [
+      "SB:32||No",
+      0.7567
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.5922
+     ],
+     [
+      "SB:548||2-4",
+      0.6169
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "FC United of Manchester v Altrincham FC",
+    "league": "FA Cup",
+    "home": "FC United of Manchester",
+    "away": "Altrincham FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.28,
+     0.238,
+     0.481,
+     0.769,
+     0.553,
+     0.344,
+     0.573
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.785
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7511
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7051
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.7635
+     ],
+     [
+      "SB:29||Yes",
+      0.5732
+     ],
+     [
+      "SB:11||Away",
+      0.4804
+     ],
+     [
+      "SB:30||Both teams",
+      0.5732
+     ],
+     [
+      "SB:32||No",
+      0.7051
+     ],
+     [
+      "SB:34||No",
+      0.7603
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6048
+     ],
+     [
+      "SB:548||2-4",
+      0.6172
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Forest Green Rovers v Chesham United",
+    "league": "FA Cup",
+    "home": "Forest Green Rovers",
+    "away": "Chesham United",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.713,
+     0.174,
+     0.114,
+     0.812,
+     0.622,
+     0.412,
+     0.511
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.7051
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7796
+     ],
+     [
+      "SB:16|hcp=-0.5|Home (-0.5)",
+      0.7051
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.786
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.794
+     ],
+     [
+      "SB:29||Yes",
+      0.5153
+     ],
+     [
+      "SB:30||Both teams",
+      0.5153
+     ],
+     [
+      "SB:31||No",
+      0.5687
+     ],
+     [
+      "SB:33||No",
+      0.6092
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.6092
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7479
+     ],
+     [
+      "SB:548||2-4",
+      0.6091
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Gloucester City v Barrow AFC",
+    "league": "FA Cup",
+    "home": "Gloucester City",
+    "away": "Barrow AFC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.254,
+     0.227,
+     0.518,
+     0.778,
+     0.57,
+     0.357,
+     0.573
+    ],
+    "pool": [
+     [
+      "SB:1||Away",
+      0.5087
+     ],
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7972
+     ],
+     [
+      "SB:10||Home or Away",
+      0.76
+     ],
+     [
+      "SB:16|hcp=0|Away (0)",
+      0.5167
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6936
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.7325
+     ],
+     [
+      "SB:29||Yes",
+      0.5782
+     ],
+     [
+      "SB:11||Away",
+      0.5167
+     ],
+     [
+      "SB:12||Away",
+      0.5087
+     ],
+     [
+      "SB:30||Both teams",
+      0.5782
+     ],
+     [
+      "SB:32||No",
+      0.6936
+     ],
+     [
+      "SB:34||No",
+      0.7446
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6158
+     ],
+     [
+      "SB:548||2-4",
+      0.6165
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Harrogate Town v Bury FC",
+    "league": "FA Cup",
+    "home": "Harrogate Town",
+    "away": "Bury FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.545,
+     0.227,
+     0.227,
+     0.769,
+     0.553,
+     0.342,
+     0.547
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5365
+     ],
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.785
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7746
+     ],
+     [
+      "SB:16|hcp=0|Home (0)",
+      0.5445
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.727
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7049
+     ],
+     [
+      "SB:29||Yes",
+      0.5538
+     ],
+     [
+      "SB:11||Home",
+      0.5445
+     ],
+     [
+      "SB:13||Home",
+      0.5365
+     ],
+     [
+      "SB:30||Both teams",
+      0.5538
+     ],
+     [
+      "SB:31||No",
+      0.6617
+     ],
+     [
+      "SB:33||No",
+      0.7169
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6451
+     ],
+     [
+      "SB:548||2-4",
+      0.6172
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Stafford Rangers v Gateshead FC",
+    "league": "FA Cup",
+    "home": "Stafford Rangers",
+    "away": "Gateshead FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.416,
+     0.266,
+     0.319,
+     0.71,
+     0.471,
+     0.269,
+     0.515
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7454
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7272
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7487
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.6913
+     ],
+     [
+      "SB:29||Yes",
+      0.5176
+     ],
+     [
+      "SB:11||Home",
+      0.416
+     ],
+     [
+      "SB:13||Home",
+      0.408
+     ],
+     [
+      "SB:30||Both teams",
+      0.5176
+     ],
+     [
+      "SB:31||No",
+      0.6913
+     ],
+     [
+      "SB:32||No",
+      0.7487
+     ],
+     [
+      "SB:33||No",
+      0.7689
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6209
+     ],
+     [
+      "SB:548||2-6",
+      0.7083
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Tadley Calleva v Aldershot Town FC",
+    "league": "FA Cup",
+    "home": "Tadley Calleva",
+    "away": "Aldershot Town FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.191,
+     0.203,
+     0.607,
+     0.801,
+     0.606,
+     0.394,
+     0.566
+    ],
+    "pool": [
+     [
+      "SB:1||Away",
+      0.5976
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7914
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7851
+     ],
+     [
+      "SB:16|hcp=0|Away (0)",
+      0.6056
+     ],
+     [
+      "SB:19|total=1.5|Under 1.5",
+      0.7117
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.6568
+     ],
+     [
+      "SB:29||Yes",
+      0.573
+     ],
+     [
+      "SB:11||Away",
+      0.6056
+     ],
+     [
+      "SB:12||Away",
+      0.5976
+     ],
+     [
+      "SB:30||Both teams",
+      0.573
+     ],
+     [
+      "SB:32||No",
+      0.6554
+     ],
+     [
+      "SB:34||No",
+      0.6988
+     ],
+     [
+      "SB:37|total=1.5|Away & Over 1.5",
+      0.5078
+     ],
+     [
+      "SB:547|total=1.5|Draw/Away & Over 1.5",
+      0.6793
+     ],
+     [
+      "SB:548||2-4",
+      0.6121
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Worcester City v Chorley FC",
+    "league": "FA Cup",
+    "home": "Worcester City",
+    "away": "Chorley FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.352,
+     0.244,
+     0.404,
+     0.759,
+     0.541,
+     0.333,
+     0.573
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7776
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7423
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7452
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7734
+     ],
+     [
+      "SB:29||Yes",
+      0.5763
+     ],
+     [
+      "SB:11||Away",
+      0.4015
+     ],
+     [
+      "SB:30||Both teams",
+      0.5763
+     ],
+     [
+      "SB:31||No",
+      0.7734
+     ],
+     [
+      "SB:32||No",
+      0.7452
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.5971
+     ],
+     [
+      "SB:548||1-3",
+      0.6226
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Yeovil Town v Leatherhead FC",
+    "league": "FA Cup",
+    "home": "Yeovil Town",
+    "away": "Leatherhead FC",
+    "kickoff": "2026-10-20",
+    "src": "market",
+    "p": [
+     0.676,
+     0.173,
+     0.151,
+     0.822,
+     0.643,
+     0.437,
+     0.557
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6658
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7583
+     ],
+     [
+      "SB:16|hcp=-0.5|Home (-0.5)",
+      0.6658
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.7924
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7397
+     ],
+     [
+      "SB:29||Yes",
+      0.5673
+     ],
+     [
+      "SB:30||Both teams",
+      0.5673
+     ],
+     [
+      "SB:31||No",
+      0.6282
+     ],
+     [
+      "SB:33||No",
+      0.6642
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5817
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7352
+     ],
+     [
+      "SB:548||2-4",
+      0.6026
+     ]
+    ],
+    "ft": null
+   }
+  ],
+  "study": [],
+  "btts": [],
+  "combined": [
+   {
+    "name": "ACCAS MEGA",
+    "of": "accas",
+    "code": "MM1KU4",
+    "result": null
+   },
+   {
+    "name": "ALT MEGA",
+    "of": "alts",
+    "code": "MWUFR0",
+    "result": null
+   },
+   {
+    "name": "VALUE MEGA",
+    "of": "value",
+    "code": "LDMQ2M",
+    "result": null
+   },
+   {
+    "name": "50+ MEGA",
+    "of": "safe3",
+    "code": "RK1WCU",
+    "result": null
+   }
+  ]
+ },
+ "replacements": []
+}

@@ -82,8 +82,9 @@ def resolve_selection(event: dict, market_key: str) -> Optional[dict]:
         pk = parse_key(market_key)
         if not pk:
             return None
+        from pipeline.odds_sportybet import is_open
         for m in event.get("markets", []):
-            if int(m.get("id") or 0) != pk[0] or (m.get("specifier") or "") != pk[1]:
+            if int(m.get("id") or 0) != pk[0] or (m.get("specifier") or "") != pk[1] or not is_open(m):
                 continue
             for o in m.get("outcomes", []):
                 if o.get("desc") == pk[2] and o.get("id") is not None:
@@ -94,8 +95,9 @@ def resolve_selection(event: dict, market_key: str) -> Optional[dict]:
     if not spec:
         return None
     m_desc, specifier, o_desc = spec
+    from pipeline.odds_sportybet import is_open
     for m in event.get("markets", []):
-        if m.get("desc") != m_desc or (m.get("specifier") or "") != specifier:
+        if m.get("desc") != m_desc or (m.get("specifier") or "") != specifier or not is_open(m):
             continue
         for o in m.get("outcomes", []):
             if o.get("desc") == o_desc and o.get("id") is not None:

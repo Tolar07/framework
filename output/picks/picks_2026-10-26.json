@@ -1,0 +1,1699 @@
+{
+ "date": "2026-10-26",
+ "generated_at": "2026-10-25T21:59:04Z",
+ "singles": [
+  {
+   "fixture": "FC Copenhagen v Odense",
+   "league": "Danish Superliga",
+   "home": "FC Copenhagen",
+   "away": "Odense",
+   "kickoff": "2026-10-26",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Odense (+2.5) Asian handicap",
+   "price": 1.25,
+   "chance": 0.7754,
+   "chance_raw": 0.7754,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "ZMF0M5",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-26T18:00:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:71925060",
+   "sb_tid": "sr:tournament:39",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-2.5",
+    "outcome": "Away (+2.5)"
+   },
+   "closing_price": 1.29,
+   "clv": -3.1,
+   "stake_pct": 0.25,
+   "ev": -0.03079903355134117,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "1-1",
+   "drift_price": 1.28,
+   "drift_pct": 2.4
+  },
+  {
+   "fixture": "NK Istra 1961 v HNK Hajduk Split",
+   "league": "HNL",
+   "home": "NK Istra 1961",
+   "away": "HNK Hajduk Split",
+   "kickoff": "2026-10-26",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.21,
+   "chance": 0.7931,
+   "chance_raw": 0.7931,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "ZVSUJD",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5765946,
+   "kickoff_utc": "2026-10-26T17:00:00.000Z",
+   "predicted_xi": {
+    "home": 5247011,
+    "away": 11816342
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
+   "sb_event_id": "sr:match:71913106",
+   "sb_tid": "sr:tournament:170",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.18,
+   "clv": 2.54,
+   "stake_pct": 0.25,
+   "ev": -0.04036849779193796,
+   "missing": {
+    "home": 0.2347427241643443,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-2",
+   "drift_price": 1.18,
+   "drift_pct": -2.5
+  },
+  {
+   "fixture": "Paris SG v Lyon",
+   "league": "Ligue 1",
+   "home": "Paris SG",
+   "away": "Lyon",
+   "kickoff": "2026-10-26",
+   "market": "SB:548||2-5",
+   "pick": "Multigoals 2-5",
+   "price": 1.2,
+   "chance": 0.7163,
+   "chance_raw": 0.7163,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "LGDE6W",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": "Lyon (0:3) handicap (model and SportyBet disagree)",
+   "orig_market": "SB:14|hcp=0:3|Away (0:3)",
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-26T19:30:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:72036250",
+   "sb_tid": "sr:tournament:34",
+   "sb_market": {
+    "id": 548,
+    "desc": null,
+    "spec": "",
+    "outcome": "2-5"
+   },
+   "closing_price": 1.21,
+   "clv": -0.83,
+   "stake_pct": 0.25,
+   "ev": -0.14041391077484777,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
+  },
+  {
+   "fixture": "Santa Clara v Benfica",
+   "league": "Primeira Liga",
+   "home": "Santa Clara",
+   "away": "Benfica",
+   "kickoff": "2026-10-26",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.28,
+   "chance": 0.7584,
+   "chance_raw": 0.7584,
+   "tier": "BOOK",
+   "certainty": "LOW",
+   "code": "X7QEMC",
+   "news_level": "OK",
+   "news_note": "swapped from Santa Clara (+2.5) Asian handicap (Santa Clara missing 20% of value (MT); support: Benfica missing 13%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5887660,
+   "kickoff_utc": "2026-10-26T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 9696180,
+    "away": 214148938
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
+   "sb_event_id": "sr:match:72530976",
+   "sb_tid": "sr:tournament:238",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.21,
+   "clv": 5.79,
+   "stake_pct": 0.12,
+   "ev": -0.02928093146037114,
+   "missing": {
+    "home": 0.19717911730753976,
+    "away": 0.12864818028022057
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.28,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "1-2",
+   "drift_price": 1.21,
+   "drift_pct": -5.5
+  },
+  {
+   "fixture": "Sevilla v Osasuna",
+   "league": "La Liga",
+   "home": "Sevilla",
+   "away": "Osasuna",
+   "kickoff": "2026-10-26",
+   "market": "SB:10||Home or Away",
+   "pick": "Sevilla or Osasuna",
+   "price": 1.33,
+   "chance": 0.7762,
+   "chance_raw": 0.7355,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "YCYEG7",
+   "news_level": "OK",
+   "news_note": "swapped from Sevilla Under 2.5 goals (Osasuna missing 31% of value (Aimar Oroz, Jorge Herrando, Romain Del Castillo))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5868109,
+   "kickoff_utc": "2026-10-26T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 91190192,
+    "away": 42090548
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
+   "sb_event_id": "sr:match:72478662",
+   "sb_tid": "sr:tournament:8",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.32,
+   "clv": 0.76,
+   "stake_pct": 0.25,
+   "ev": -0.011131718927328338,
+   "missing": {
+    "home": 0.023707749741032576,
+    "away": 0.31133012931216014
+   },
+   "sharp_p": 0.7122,
+   "sharp_ev": -0.0527,
+   "first_price": 1.33,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-0",
+   "drift_price": 1.31,
+   "drift_pct": -1.5
+  },
+  {
+   "fixture": "Andorra v Burgos",
+   "league": "La Liga 2",
+   "home": "Andorra",
+   "away": "Burgos",
+   "kickoff": "2026-10-26",
+   "market": "SB:10||Home or Away",
+   "pick": "Andorra or Burgos",
+   "price": 1.31,
+   "chance": 0.7684,
+   "chance_raw": 0.7277,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "X1PFJ9",
+   "news_level": "OK",
+   "news_note": "swapped from Burgos (+1.5) Asian handicap (Burgos CF missing 22% of value (David Gonz\u00e1lez, K\u00e9vin Appin); support: FC Andorra missing 39%)",
+   "switched_from": "Under 3.5 goals (model and SportyBet disagree)",
+   "orig_market": "SB:18|total=3.5|Under 3.5",
+   "fotmob_id": 5868505,
+   "kickoff_utc": "2026-10-26T19:30:00.000Z",
+   "predicted_xi": {
+    "home": 5500168,
+    "away": 9203335
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
+   "sb_event_id": "sr:match:72477520",
+   "sb_tid": "sr:tournament:54",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.3,
+   "clv": 0.77,
+   "stake_pct": 0.25,
+   "ev": -0.03629830521116695,
+   "missing": {
+    "home": 0.39378561056323863,
+    "away": 0.21774678646556558
+   },
+   "sharp_p": 0.7251,
+   "sharp_ev": -0.0501,
+   "first_price": 1.31,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-3",
+   "drift_price": 1.3,
+   "drift_pct": -0.8,
+   "orig_result": "lost"
+  },
+  {
+   "fixture": "Montpellier v Red Star",
+   "league": "Ligue 2",
+   "home": "Montpellier",
+   "away": "Red Star",
+   "kickoff": "2026-10-26",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.27,
+   "chance": 0.739,
+   "chance_raw": 0.739,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "JVG8QM",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5803294,
+   "kickoff_utc": "2026-10-26T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 12306013,
+    "away": 6047229
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:75865076",
+   "sb_tid": "sr:tournament:182",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": 1.26,
+   "clv": 0.79,
+   "stake_pct": 0.25,
+   "ev": -0.06146679809609956,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-1",
+   "drift_price": 1.25,
+   "drift_pct": -1.6
+  },
+  {
+   "fixture": "Boulogne v Reims",
+   "league": "Ligue 2",
+   "home": "Boulogne",
+   "away": "Reims",
+   "kickoff": "2026-10-26",
+   "market": "SB:20|total=0.5|Over 0.5",
+   "pick": "Reims Over 0.5 goals",
+   "price": 1.3,
+   "chance": 0.7437,
+   "chance_raw": 0.7437,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "XTE6K4",
+   "news_level": "OK",
+   "news_note": "Reims at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5803290,
+   "kickoff_utc": "2026-10-26T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 3351121,
+    "away": 19165054
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "Reims at full strength",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:72037398",
+   "sb_tid": "sr:tournament:182",
+   "sb_market": {
+    "id": 20,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": 1.29,
+   "clv": 0.78,
+   "stake_pct": 0.25,
+   "ev": -0.033242485732059235,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.3,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "1-1",
+   "drift_price": 1.28,
+   "drift_pct": -1.5
+  },
+  {
+   "fixture": "Walsall v Salford",
+   "league": "League Two",
+   "home": "Walsall",
+   "away": "Salford",
+   "kickoff": "2026-10-26",
+   "market": "SB:10||Home or Away",
+   "pick": "Walsall or Salford",
+   "price": 1.29,
+   "chance": 0.7816,
+   "chance_raw": 0.7409,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "S0BY4C",
+   "news_level": "OK",
+   "news_note": "Walsall at full strength",
+   "switched_from": "Walsall (2:0) handicap (model and SportyBet disagree)",
+   "orig_market": "SB:14|hcp=2:0|Home (2:0)",
+   "fotmob_id": 5838013,
+   "kickoff_utc": "2026-10-26T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 2572527,
+    "away": 2946111
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
+   "sb_event_id": "sr:match:73323782",
+   "sb_tid": "sr:tournament:25",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.29,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.03391936872546952,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": 0.7345,
+   "sharp_ev": -0.0525,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-4",
+   "drift_price": 1.3,
+   "drift_pct": 0.8,
+   "orig_result": "lost"
+  },
+  {
+   "fixture": "Besiktas Istanbul v Istanbul BB",
+   "league": "Turkish Super Lig",
+   "home": "Besiktas Istanbul",
+   "away": "Istanbul BB",
+   "kickoff": "2026-10-26",
+   "market": "SB:548||1-4",
+   "pick": "Multigoals 1-4",
+   "price": 1.24,
+   "chance": 0.7095,
+   "chance_raw": 0.7095,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "W0TJGB",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5904783,
+   "kickoff_utc": "2026-10-26T16:00:00.000Z",
+   "predicted_xi": {
+    "home": 107634990,
+    "away": 27319644
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
+   "sb_event_id": "sr:match:72723282",
+   "sb_tid": "sr:tournament:52",
+   "sb_market": {
+    "id": 548,
+    "desc": null,
+    "spec": "",
+    "outcome": "1-4"
+   },
+   "closing_price": 1.22,
+   "clv": 1.64,
+   "stake_pct": 0.25,
+   "ev": -0.12025305703152744,
+   "missing": {
+    "home": 0.3075017133278406,
+    "away": 0.18440947954227818
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-0",
+   "drift_price": 1.22,
+   "drift_pct": -1.6
+  },
+  {
+   "fixture": "Caykur Rizespor v Trabzonspor",
+   "league": "Turkish Super Lig",
+   "home": "Caykur Rizespor",
+   "away": "Trabzonspor",
+   "kickoff": "2026-10-26",
+   "market": "SB:10||Home or Away",
+   "pick": "Caykur Rizespor or Trabzonspor",
+   "price": 1.28,
+   "chance": 0.7999,
+   "chance_raw": 0.7592,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "NDJZF6",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5904779,
+   "kickoff_utc": "2026-10-26T16:00:00.000Z",
+   "predicted_xi": {
+    "home": 21524559,
+    "away": 76938624
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
+   "sb_event_id": "sr:match:72723274",
+   "sb_tid": "sr:tournament:52",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.26,
+   "clv": 1.59,
+   "stake_pct": 0.25,
+   "ev": -0.017959571988947376,
+   "missing": {
+    "home": 0.19213450543600466,
+    "away": 0.20437543838854583
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.28,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "3-4",
+   "drift_price": 1.27,
+   "drift_pct": -0.8
+  },
+  {
+   "fixture": "Galatasaray Istanbul v Fenerbahce Istanbul",
+   "league": "Turkish Super Lig",
+   "home": "Galatasaray Istanbul",
+   "away": "Fenerbahce Istanbul",
+   "kickoff": "2026-10-26",
+   "market": "SB:10||Home or Away",
+   "pick": "Galatasaray Istanbul or Fenerbahce Istanbul",
+   "price": 1.27,
+   "chance": 0.8073,
+   "chance_raw": 0.7666,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "X5C9WP",
+   "news_level": "OK",
+   "news_note": "swapped from Fenerbahce Istanbul Over 0.5 goals (Fenerbah\u00e7e missing 22% of value (Jayden Oosterwolde, Marco Asensio, Nathan Ak\u00e9))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5904782,
+   "kickoff_utc": "2026-10-26T18:30:00.000Z",
+   "predicted_xi": {
+    "home": 246784292,
+    "away": 161146603
+   },
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
+   "sb_event_id": "sr:match:72723280",
+   "sb_tid": "sr:tournament:52",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": 1.27,
+   "clv": 0.0,
+   "stake_pct": 0.25,
+   "ev": -0.01625147209551403,
+   "missing": {
+    "home": 0.0,
+    "away": 0.22429705619509382
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": "won",
+   "ft": "2-1",
+   "drift_price": 1.27,
+   "drift_pct": 0.0
+  }
+ ],
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "VB0V4M",
+   "odds": 2.788,
+   "chance": 0.3507398529765888,
+   "legs": [
+    "Sevilla v Osasuna",
+    "Andorra v Burgos",
+    "Santa Clara v Benfica",
+    "FC Copenhagen v Odense"
+   ],
+   "result": "won"
+  }
+ ],
+ "safe3": [
+  {
+   "name": "50+ #1",
+   "code": "HMWJFC",
+   "odds": 2.097,
+   "chance": 0.504725445432,
+   "legs": [
+    "Galatasaray Istanbul v Fenerbahce Istanbul",
+    "Caykur Rizespor v Trabzonspor",
+    "Walsall v Salford"
+   ],
+   "result": "won"
+  }
+ ],
+ "megas": [],
+ "alts": [
+  {
+   "name": "Alt A",
+   "code": "WY3BNB",
+   "odds": 2.129,
+   "chance": 0.483911646348,
+   "legs": [
+    "NK Istra 1961 v HNK Hajduk Split",
+    "Paris SG v Lyon",
+    "Montpellier v Red Star"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "NK Istra 1961 v HNK Hajduk Split",
+     "league": "HNL",
+     "home": "NK Istra 1961",
+     "away": "HNK Hajduk Split",
+     "kickoff": "2026-10-26",
+     "market": "SB:10||Home or Away",
+     "pick": "NK Istra 1961 or HNK Hajduk Split",
+     "price": 1.25,
+     "chance": 0.8021,
+     "result": "lost",
+     "ft": "2-2"
+    },
+    {
+     "fixture": "Paris SG v Lyon",
+     "league": "Ligue 1",
+     "home": "Paris SG",
+     "away": "Lyon",
+     "kickoff": "2026-10-26",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Paris SG Under 3.5 goals",
+     "price": 1.3,
+     "chance": 0.7874,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Montpellier v Red Star",
+     "league": "Ligue 2",
+     "home": "Montpellier",
+     "away": "Red Star",
+     "kickoff": "2026-10-26",
+     "market": "SB:10||Home or Away",
+     "pick": "Montpellier or Red Star",
+     "price": 1.31,
+     "chance": 0.7662,
+     "result": "won",
+     "ft": "2-1"
+    }
+   ],
+   "result": "lost"
+  },
+  {
+   "name": "Alt B",
+   "code": "P43Y3J",
+   "odds": 1.822,
+   "chance": 0.5764389400000001,
+   "legs": [
+    "Boulogne v Reims",
+    "Besiktas Istanbul v Istanbul BB"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Boulogne v Reims",
+     "league": "Ligue 2",
+     "home": "Boulogne",
+     "away": "Reims",
+     "kickoff": "2026-10-26",
+     "market": "SB:10||Home or Away",
+     "pick": "Boulogne or Reims",
+     "price": 1.34,
+     "chance": 0.7639,
+     "result": "lost",
+     "ft": "1-1"
+    },
+    {
+     "fixture": "Besiktas Istanbul v Istanbul BB",
+     "league": "Turkish Super Lig",
+     "home": "Besiktas Istanbul",
+     "away": "Istanbul BB",
+     "kickoff": "2026-10-26",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.36,
+     "chance": 0.7546,
+     "result": "won",
+     "ft": "2-0"
+    }
+   ],
+   "result": "lost"
+  }
+ ],
+ "value": [
+  {
+   "name": "Value 1",
+   "code": "M1G53D",
+   "odds": 1.85,
+   "chance": 0.5733,
+   "legs": [
+    "Paris SG v Lyon"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Paris SG v Lyon",
+     "league": "Ligue 1",
+     "home": "Paris SG",
+     "away": "Lyon",
+     "kickoff": "2026-10-26",
+     "market": "SB:14|hcp=0:2|Away (0:2)",
+     "pick": "Lyon (0:2) handicap",
+     "price": 1.85,
+     "chance": 0.5733,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 2",
+   "code": "PMKTJ6",
+   "odds": 1.83,
+   "chance": 0.5725,
+   "legs": [
+    "Walsall v Salford"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Walsall v Salford",
+     "league": "League Two",
+     "home": "Walsall",
+     "away": "Salford",
+     "kickoff": "2026-10-26",
+     "market": "SB:20|total=1.5|Under 1.5",
+     "pick": "Salford Under 1.5 goals",
+     "price": 1.83,
+     "chance": 0.5725,
+     "result": "lost",
+     "ft": "2-4"
+    }
+   ],
+   "result": "lost"
+  },
+  {
+   "name": "Value 3",
+   "code": "ZJ5HRK",
+   "odds": 1.53,
+   "chance": 0.5418,
+   "legs": [
+    "Montpellier v Red Star"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Montpellier v Red Star",
+     "league": "Ligue 2",
+     "home": "Montpellier",
+     "away": "Red Star",
+     "kickoff": "2026-10-26",
+     "market": "SB:18|total=3|Under 3",
+     "pick": "Under 3 goals",
+     "price": 1.53,
+     "chance": 0.5418,
+     "result": "void",
+     "ft": "2-1"
+    }
+   ],
+   "result": "won"
+  },
+  {
+   "name": "Value 4",
+   "code": "XCRRCR",
+   "odds": 1.83,
+   "chance": 0.5637,
+   "legs": [
+    "Besiktas Istanbul v Istanbul BB"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Besiktas Istanbul v Istanbul BB",
+     "league": "Turkish Super Lig",
+     "home": "Besiktas Istanbul",
+     "away": "Istanbul BB",
+     "kickoff": "2026-10-26",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.83,
+     "chance": 0.5637,
+     "result": "won",
+     "ft": "2-0"
+    }
+   ],
+   "result": "won"
+  }
+ ],
+ "rated": [
+  {
+   "fixture": "FC Copenhagen v Odense",
+   "league": "Danish Superliga",
+   "home": "FC Copenhagen",
+   "away": "Odense",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.656,
+    0.207,
+    0.137,
+    0.858,
+    0.648,
+    0.428,
+    0.586
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6403
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7944
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7754
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.6494
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7388
+    ],
+    [
+     "SB:29||Yes",
+     0.5631
+    ],
+    [
+     "SB:13||Home",
+     0.6403
+    ],
+    [
+     "SB:33||No",
+     0.6725
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5537
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.716
+    ],
+    [
+     "SB:548||2-4",
+     0.6116
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6494
+    ]
+   ],
+   "ft": "1-1"
+  },
+  {
+   "fixture": "NK Istra 1961 v HNK Hajduk Split",
+   "league": "HNL",
+   "home": "NK Istra 1961",
+   "away": "HNK Hajduk Split",
+   "kickoff": "2026-10-26",
+   "src": "market",
+   "p": [
+    0.228,
+    0.246,
+    0.526,
+    0.78,
+    0.57,
+    0.363,
+    0.572
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.523
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7931
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7614
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.7616
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.685
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7278
+    ],
+    [
+     "SB:29||Yes",
+     0.5685
+    ],
+    [
+     "SB:11||Away",
+     0.531
+    ],
+    [
+     "SB:12||Away",
+     0.523
+    ],
+    [
+     "SB:34||No",
+     0.7321
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6288
+    ],
+    [
+     "SB:548||2-4",
+     0.6169
+    ]
+   ],
+   "ft": "2-2"
+  },
+  {
+   "fixture": "Paris SG v Lyon",
+   "league": "Ligue 1",
+   "home": "Paris SG",
+   "away": "Lyon",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.487,
+    0.242,
+    0.27,
+    0.782,
+    0.546,
+    0.323,
+    0.562
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6362
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7426
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7601
+    ],
+    [
+     "SB:16|hcp=-2|Away (+2.0)",
+     0.5733
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7874
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.703
+    ],
+    [
+     "SB:29||Yes",
+     0.5947
+    ],
+    [
+     "SB:33||No",
+     0.6973
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5608
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5084
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7197
+    ],
+    [
+     "SB:548||2-5",
+     0.7163
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6585
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Santa Clara v Benfica",
+   "league": "Primeira Liga",
+   "home": "Santa Clara",
+   "away": "Benfica",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.198,
+    0.234,
+    0.568,
+    0.715,
+    0.465,
+    0.25,
+    0.466
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.6536
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7584
+    ],
+    [
+     "SB:16|hcp=2.5|Home (+2.5)",
+     0.794
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.5175
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6886
+    ],
+    [
+     "SB:29||No",
+     0.5422
+    ],
+    [
+     "SB:12||Away",
+     0.6536
+    ],
+    [
+     "SB:34||No",
+     0.5848
+    ],
+    [
+     "SB:37|total=4.5|Away & Under 4.5",
+     0.5379
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.7435
+    ],
+    [
+     "SB:548||2-5",
+     0.6915
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6171
+    ]
+   ],
+   "ft": "1-2"
+  },
+  {
+   "fixture": "Sevilla v Osasuna",
+   "league": "La Liga",
+   "home": "Sevilla",
+   "away": "Osasuna",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.435,
+    0.263,
+    0.302,
+    0.744,
+    0.492,
+    0.275,
+    0.529
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7608
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7355
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7457
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7559
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8119
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7364
+    ],
+    [
+     "SB:29||No",
+     0.5061
+    ],
+    [
+     "SB:33||No",
+     0.7147
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6685
+    ],
+    [
+     "SB:548||2-6",
+     0.6953
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.8025
+    ]
+   ],
+   "ft": "2-0"
+  },
+  {
+   "fixture": "Andorra v Burgos",
+   "league": "La Liga 2",
+   "home": "Andorra",
+   "away": "Burgos",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.355,
+    0.296,
+    0.349,
+    0.624,
+    0.355,
+    0.165,
+    0.426
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7707
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7277
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.8024
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7356
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7027
+    ],
+    [
+     "SB:29||Yes",
+     0.5105
+    ],
+    [
+     "SB:33||No",
+     0.7527
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6297
+    ],
+    [
+     "SB:548||1-3",
+     0.6817
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7614
+    ]
+   ],
+   "ft": "2-3"
+  },
+  {
+   "fixture": "Montpellier v Red Star",
+   "league": "Ligue 2",
+   "home": "Montpellier",
+   "away": "Red Star",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.413,
+    0.322,
+    0.264,
+    0.604,
+    0.324,
+    0.144,
+    0.402
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.752
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7255
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.5957
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.6786
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7371
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.6849
+    ],
+    [
+     "SB:29||Yes",
+     0.5346
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6134
+    ],
+    [
+     "SB:548||2-5",
+     0.6667
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7433
+    ]
+   ],
+   "ft": "2-1"
+  },
+  {
+   "fixture": "Boulogne v Reims",
+   "league": "Ligue 2",
+   "home": "Boulogne",
+   "away": "Reims",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.214,
+    0.278,
+    0.508,
+    0.699,
+    0.43,
+    0.221,
+    0.467
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7068
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7232
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.7166
+    ],
+    [
+     "SB:16|hcp=1|Home (+1.0)",
+     0.5585
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7226
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7437
+    ],
+    [
+     "SB:29||No",
+     0.5034
+    ],
+    [
+     "SB:34||No",
+     0.7366
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6525
+    ],
+    [
+     "SB:548||1-3",
+     0.6859
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7712
+    ]
+   ],
+   "ft": "1-1"
+  },
+  {
+   "fixture": "Walsall v Salford",
+   "league": "League Two",
+   "home": "Walsall",
+   "away": "Salford",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.384,
+    0.295,
+    0.321,
+    0.651,
+    0.381,
+    0.183,
+    0.449
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7668
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7409
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7934
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.6797
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7085
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.8145
+    ],
+    [
+     "SB:29||Yes",
+     0.5597
+    ],
+    [
+     "SB:34||No",
+     0.7796
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6069
+    ],
+    [
+     "SB:548||1-3",
+     0.6422
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.744
+    ]
+   ],
+   "ft": "2-4"
+  },
+  {
+   "fixture": "Besiktas Istanbul v Istanbul BB",
+   "league": "Turkish Super Lig",
+   "home": "Besiktas Istanbul",
+   "away": "Istanbul BB",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.48,
+    0.258,
+    0.262,
+    0.811,
+    0.575,
+    0.351,
+    0.6
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6352
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7546
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7624
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7938
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7106
+    ],
+    [
+     "SB:29||Yes",
+     0.5851
+    ],
+    [
+     "SB:33||No",
+     0.6928
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.56
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5005
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7214
+    ],
+    [
+     "SB:548||2-5",
+     0.7232
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6615
+    ]
+   ],
+   "ft": "2-0"
+  },
+  {
+   "fixture": "Caykur Rizespor v Trabzonspor",
+   "league": "Turkish Super Lig",
+   "home": "Caykur Rizespor",
+   "away": "Trabzonspor",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.232,
+    0.262,
+    0.506,
+    0.784,
+    0.535,
+    0.312,
+    0.56
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8121
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7592
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.7325
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7145
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7361
+    ],
+    [
+     "SB:29||Yes",
+     0.6003
+    ],
+    [
+     "SB:34||No",
+     0.7658
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6133
+    ],
+    [
+     "SB:548||2-5",
+     0.7203
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7648
+    ]
+   ],
+   "ft": "3-4"
+  },
+  {
+   "fixture": "Galatasaray Istanbul v Fenerbahce Istanbul",
+   "league": "Turkish Super Lig",
+   "home": "Galatasaray Istanbul",
+   "away": "Fenerbahce Istanbul",
+   "kickoff": "2026-10-26",
+   "src": "model",
+   "p": [
+    0.45,
+    0.234,
+    0.316,
+    0.886,
+    0.701,
+    0.49,
+    0.704
+   ],
+   "pool": [
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.6539
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7666
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.753
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7214
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.8044
+    ],
+    [
+     "SB:29||Yes",
+     0.641
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5577
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6483
+    ],
+    [
+     "SB:548||2-5",
+     0.7247
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7266
+    ]
+   ],
+   "ft": "2-1"
+  }
+ ],
+ "study": [],
+ "btts": [],
+ "singles_dropped": [],
+ "accas_dropped": [],
+ "safe3_dropped": [],
+ "clv_accas": [
+  {
+   "name": "CLV acca A",
+   "code": "WVN44S",
+   "odds": 2.537,
+   "chance": 0.4002977507721193,
+   "legs": [
+    "Galatasaray Istanbul v Fenerbahce Istanbul",
+    "Caykur Rizespor v Trabzonspor",
+    "NK Istra 1961 v HNK Hajduk Split",
+    "Walsall v Salford"
+   ],
+   "result": "won",
+   "families": [
+    "Asian handicap",
+    "Double chance",
+    "Home goals",
+    "Over/Under"
+   ]
+  },
+  {
+   "name": "CLV acca B",
+   "code": "VB0V4M",
+   "odds": 2.788,
+   "chance": 0.3507398529765887,
+   "legs": [
+    "Sevilla v Osasuna",
+    "FC Copenhagen v Odense",
+    "Andorra v Burgos",
+    "Santa Clara v Benfica"
+   ],
+   "result": "won",
+   "families": [
+    "Asian handicap",
+    "Double chance",
+    "Home goals",
+    "Over/Under"
+   ]
+  }
+ ],
+ "combined": [
+  {
+   "name": "ALT MEGA",
+   "of": "alts",
+   "code": "X79EG6",
+   "result": "lost"
+  },
+  {
+   "name": "VALUE MEGA",
+   "of": "value",
+   "code": "S0EP8U",
+   "result": null
+  }
+ ]
+}

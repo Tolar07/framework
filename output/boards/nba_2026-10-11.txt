@@ -1,0 +1,22 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Sun 11 Oct 2026   ·   tip-off = Lagos time (WAT)
+Run ID: OLPXDV-20261010-0557-256a4c
+Games checked against the sharp line: 7
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+No SportyBet NBA price above the fair price today.
+──────────────────────────────────
+NBA record: no graded regular-season pick yet (the season opens 20 Oct).
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

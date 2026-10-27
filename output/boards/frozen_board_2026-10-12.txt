@@ -1,0 +1,188 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 12 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261011-2048-240a9f | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 18 · Verified: 18
+KO = kickoff, Lagos time (WAT)
+
+⚠ 283 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                          AI PICK · win%                             Odds   Alt market                                O1.5/O2.5  DC/BTTS     Src
+18:00  Aarhus v Sonderjyske             Denmark · Superliga                       ✓ Sonderjyske (+2.5) Asian handicap · 81%  @1.21  Aarhus or Sonderjyske @1.21               O85/O64    1X80 / Y62  ✓
+
+17:00  Radomiak Radom v Motor Lublin    Poland · Ekstraklasa                      ✓ Under 4.5 goals · 81%                    @1.22  Radomiak Radom or Motor Lublin @1.28      O82/O58    1272 / Y62  ✓
+19:30  GKS Katowice v Wieczysta Krakow  Poland · Ekstraklasa                      ✓ Wieczysta Krakow Over 0.5 goals · 75%    @1.24  GKS Katowice or Wieczysta Krakow @1.27    O89/O70    1X82 / Y66  ✓
+
+17:30  Atalanta v Venezia FC            Italy · Serie A                           ✓ Atalanta or Venezia FC · 80%             @1.22  Under 4.5 goals @1.28                     O87/O72    1283 / Y64  ✓
+19:45  Torino v Udinese                 Italy · Serie A                           ⇄✓ Torino Over 0.5 goals · 74%             @1.31  Under 3.5 goals @1.30                     O77/O54    1276 / Y57  ✓
+
+20:15  Famalicao v Alverca              Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao Over 0.5 goals · 78%           @1.22  Alverca Clean Sheet — no @1.21            O65/U62    1X80 / N59  ✓
+
+20:00  Coventry City v Newcastle        England · Premier League                  ✓ Under 4.5 goals · 84%                    @1.21  Coventry City or Newcastle @1.31          O74/U51    1273 / Y53  ✓
+
+20:00  Levante v Sevilla                Spain · La Liga                           ⇄✓ Levante or Sevilla · 73%                @1.35  Under 3.5 goals @1.32                     O78/O54    1276 / Y56  ✓
+
+17:30  Oviedo v Eibar                   Spain · La Liga 2 / Hypermotion           ✓ Under 3.5 goals · 80%                    @1.23  Oviedo or Eibar @1.34                     O64/U63    1271 / N56  ✓
+15:15  Burgos v Granada                 Spain · La Liga 2 / Hypermotion           ✓ Under 3.5 goals · 79%                    @1.25  Burgos Over 0.5 goals @1.32               O65/U61    1X79 / N58  ✓
+13:00  Valladolid v Albacete            Spain · La Liga 2 / Hypermotion           ⇄✓ Under 3.5 goals · 75%                   @1.34  Valladolid Over 0.5 goals @1.21           O67/U59    1271 / N53  ✓
+20:00  Tenerife v Girona                Spain · La Liga 2 / Hypermotion           ⇄✓ Tenerife or Girona · 72%                @1.34  Under 3.5 goals @1.25                     O76/O52    1274 / Y55  ✓
+
+19:45  Dijon v Metz                     France · Ligue 2                          ✓ Over 1.5 goals · 78%                     @1.22  Metz Over 0.5 goals @1.23                 O74/U52    1272 / Y54  ✓
+
+18:00  Eyupspor v Goztepe Izmir         Turkey · Super Lig                        ✓ Over 1.5 goals · 77%                     @1.25  Eyupspor or Goztepe Izmir @1.30           O73/U53    1271 / Y53  ✓
+
+16:00  PAOK v PAE PS Kalamata           Greece · Super League                     ✓ Under 4.5 goals · 77%                    @1.27  PAOK or PAE PS Kalamata & Over 1.5 @1.24  O86/O64    1X93 / N50  ✓
+
+18:00  KFUM Oslo v Vaalerenga IF        Norway · Eliteserien                      ✓ Vaalerenga IF Over 0.5 goals · 79%       @1.20  KFUM Oslo (+1.5) Asian handicap @1.22     O84/O64    1277 / Y64  ✓
+
+18:00  IF Elfsborg v Halmstads BK       Sweden · Allsvenskan                      ✓ Halmstads BK Under 1.5 goals · 81%       @1.20  IF Elfsborg Under 3.5 goals @1.21         O71/U55    1X86 / N57  ✓
+18:00  Malmo v Kalmar FF                Sweden · Allsvenskan                      ⇄✓ Over 1.5 goals · 78%                    @1.24  Malmo (+0.5) Asian handicap @1.23         O77/O52    1X83 / Y51  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 18 deploy singles): LU0PSW   load ↦ www.sportybet.com/ng/?shareCode=LU0PSW
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                          Pick                                 Chance  Odds   Certainty  Stake  Code
+18:00  Aarhus v Sonderjyske             Denmark · Superliga                       ✓ Sonderjyske (+2.5) Asian handicap  81%     @1.21  HIGH       0.25%  NSPD9S
+17:00  Radomiak Radom v Motor Lublin    Poland · Ekstraklasa                      ✓ Under 4.5 goals                    81%     @1.22  HIGH       0.25%  G9R4J1
+19:30  GKS Katowice v Wieczysta Krakow  Poland · Ekstraklasa                      ✓ Wieczysta Krakow Over 0.5 goals    75%     @1.24  MEDIUM     0.25%  L2VYBD
+17:30  Atalanta v Venezia FC            Italy · Serie A                           ✓ Atalanta or Venezia FC             80%     @1.22  HIGH       0.25%  N2TMAT
+19:45  Torino v Udinese                 Italy · Serie A                           ⇄✓ Torino Over 0.5 goals             74%     @1.31  HIGH       0.25%  PDA9NV
+20:15  Famalicao v Alverca              Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao Over 0.5 goals           78%     @1.22  HIGH       0.25%  V3KUCC
+20:00  Coventry City v Newcastle        England · Premier League                  ✓ Under 4.5 goals                    84%     @1.21  MEDIUM     0.25%  ZPCQ4J
+20:00  Levante v Sevilla                Spain · La Liga                           ⇄✓ Levante or Sevilla                73%     @1.35  HIGH       0.25%  Y1MMC2
+13:00  Valladolid v Albacete            Spain · La Liga 2 / Hypermotion           ⇄✓ Under 3.5 goals                   75%     @1.34  MEDIUM     0.25%  N7P769
+15:15  Burgos v Granada                 Spain · La Liga 2 / Hypermotion           ✓ Under 3.5 goals                    79%     @1.25  MEDIUM     0.25%  LXM6YB
+17:30  Oviedo v Eibar                   Spain · La Liga 2 / Hypermotion           ✓ Under 3.5 goals                    80%     @1.23  MEDIUM     0.25%  NY5BHR
+20:00  Tenerife v Girona                Spain · La Liga 2 / Hypermotion           ⇄✓ Tenerife or Girona                72%     @1.34  HIGH       0.25%  WRT7UM
+19:45  Dijon v Metz                     France · Ligue 2                          ✓ Over 1.5 goals                     78%     @1.22  HIGH       0.25%  UZPZPC
+18:00  Eyupspor v Goztepe Izmir         Turkey · Super Lig                        ✓ Over 1.5 goals                     77%     @1.25  HIGH       0.25%  H0UNWM
+16:00  PAOK v PAE PS Kalamata           Greece · Super League                     ✓ Under 4.5 goals                    77%     @1.27  HIGH       0.25%  WLUGRH
+18:00  KFUM Oslo v Vaalerenga IF        Norway · Eliteserien                      ✓ Vaalerenga IF Over 0.5 goals       79%     @1.20  MEDIUM     0.25%  HWPZKE
+18:00  IF Elfsborg v Halmstads BK       Sweden · Allsvenskan                      ✓ Halmstads BK Under 1.5 goals       81%     @1.20  MEDIUM     0.25%  NQ97HL
+18:00  Malmo v Kalmar FF                Sweden · Allsvenskan                      ⇄✓ Over 1.5 goals                    78%     @1.24  HIGH       0.25%  VEDHH0
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 18 of 18 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+Sharp check: 1 of 2 picks priced above the Betfair Exchange's fair odds (margin removed; average +1.9% vs fair). Above fair = real value; below = the bookmaker's margin.
+   • Tenerife v Girona (🇪🇸 Spain · La Liga 2 / Hypermotion) — Tenerife or Girona @1.34: +8.3% vs fair
+
+⇄ SWITCHED — 5 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Torino v Udinese (🇮🇹 Italy · Serie A) — was Under 3.5 goals (LOW certainty) → now Torino Over 0.5 goals (74%, HIGH)
+   • Levante v Sevilla (🇪🇸 Spain · La Liga) — was Under 3.5 goals (model and SportyBet disagree) → now Levante or Sevilla (73%, HIGH)
+   • Valladolid v Albacete (🇪🇸 Spain · La Liga 2 / Hypermotion) — was Valladolid Over 0.5 goals (LOW certainty) → now Under 3.5 goals (75%, MEDIUM)
+   • Tenerife v Girona (🇪🇸 Spain · La Liga 2 / Hypermotion) — was Under 3.5 goals (LOW certainty) → now Tenerife or Girona (72%, HIGH)
+   • Malmo v Kalmar FF (🇸🇪 Sweden · Allsvenskan) — was Malmo (+0.5) Asian handicap (the two prediction models disagree on the result) → now Over 1.5 goals (78%, HIGH)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Torino v Udinese: tempo 2.8 goals/game · draw tendency 22% · a side often fails to score | Torino 1.4-1.6 a game, draws 25%, BTTS 70%, clean sheets 15%, SoT 3.3-4.8 | Udinese 1.4-1.2 a game, draws 20%, BTTS 40%, clean sheets 30%, SoT 4.2-4.4
+   • Famalicao v Alverca: tempo 2.2 goals/game · draw tendency 45% · both draw-prone | Famalicao 1.2-0.8 a game, draws 50%, BTTS 45%, clean sheets 45%, SoT 4.1-3.1 | Alverca 1.1-1.4 a game, draws 40%, BTTS 70%, clean sheets 10%, SoT 3.7-4.5
+   • Levante v Sevilla: tempo 3.0 goals/game · draw tendency 24% · a side often fails to score | Levante 1.3-2.0 a game, draws 33%, BTTS 50%, clean sheets 33%, SoT 3.7-5.8 | Sevilla 1.4-1.3 a game, draws 14%, BTTS 71%, clean sheets 29%, SoT 4.1-4.1
+   • Valladolid v Albacete: tempo 2.5 goals/game · draw tendency 18% · a side often fails to score | Valladolid 0.8-1.2 a game, draws 20%, BTTS 35%, clean sheets 25%, SoT 3.4-3.8 | Albacete 1.3-1.5 a game, draws 15%, BTTS 65%, clean sheets 10%, SoT 4.3-5.0
+   • Burgos v Granada: tempo 2.7 goals/game · draw tendency 20% | Burgos 1.4-0.8 a game, draws 30%, BTTS 45%, clean sheets 50%, SoT 3.3-3.6 | Granada 1.4-1.8 a game, draws 10%, BTTS 55%, clean sheets 25%, SoT 4.2-4.8
+   • Oviedo v Eibar: tempo 2.4 goals/game · draw tendency 15% · a side often fails to score | Oviedo 1.0-1.0 a game, draws 25%, BTTS 25%, clean sheets 62%, SoT 4.1-3.6 | Eibar 1.9-0.8 a game, draws 5%, BTTS 45%, clean sheets 55%, SoT 4.1-4.4
+   • Tenerife v Girona: tempo 2.8 goals/game · draw tendency 25% | Tenerife 1.2-1.5 a game, draws 25%, BTTS 50%, clean sheets 25%, SoT 3.0-3.0 | Girona 1.8-1.0 a game, draws 25%, BTTS 62%, clean sheets 38%, SoT 5.1-4.4
+   • Dijon v Metz: tempo 2.6 goals/game · draw tendency 50% · both draw-prone | Dijon 1.4-1.4 a game, draws 43%, BTTS 86%, clean sheets 0%, SoT 5.4-5.0 | Metz 1.4-1.0 a game, draws 57%, BTTS 71%, clean sheets 14%, SoT 4.0-5.3
+   • Eyupspor v Goztepe Izmir: tempo 2.9 goals/game · draw tendency 32% · both draw-prone · a side often fails to score | Eyupspor 0.9-1.8 a game, draws 15%, BTTS 35%, clean sheets 20%, SoT 3.1-5.1 | Goztep 1.3-1.8 a game, draws 50%, BTTS 60%, clean sheets 25%, SoT 4.8-4.2
+
+TABLE 2 mega code (all 18 deploy singles): LU0PSW   load ↦ www.sportybet.com/ng/?shareCode=LU0PSW
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code WN4DGJ · odds 1.80 · chance 52%
+   • 18:00 Aarhus v Sonderjyske (🇩🇰 Denmark · Superliga) — Sonderjyske (+2.5) Asian handicap @1.21 (81%, HIGH)
+   • 17:00 Radomiak Radom v Motor Lublin (🇵🇱 Poland · Ekstraklasa) — Under 4.5 goals @1.22 (81%, HIGH)
+   • 17:30 Atalanta v Venezia FC (🇮🇹 Italy · Serie A) — Atalanta or Venezia FC @1.22 (80%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40)
+──────────────────────────────────
+
+2 accas · 10 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+4 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code TVWBXG · 5 legs · odds 2.84 · chance 32%
+   • 20:00 Coventry City v Newcastle (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Under 4.5 goals @1.21 (84%)
+   • 15:15 Burgos v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.25 (79%)
+   • 17:30 Oviedo v Eibar (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.23 (80%)
+   • 16:00 PAOK v PAE PS Kalamata (🇬🇷 Greece · Super League) — Under 4.5 goals @1.27 (77%)
+   • 18:00 KFUM Oslo v Vaalerenga IF (🇳🇴 Norway · Eliteserien) — Vaalerenga IF Over 0.5 goals @1.20 (79%)
+Acca B · code NGXK1F · 5 legs · odds 2.77 · chance 29%
+   • 18:00 IF Elfsborg v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — Halmstads BK Under 1.5 goals @1.20 (81%)
+   • 18:00 Eyupspor v Goztepe Izmir (🇹🇷 Turkey · Super Lig) — Over 1.5 goals @1.25 (77%)
+   • 18:00 Malmo v Kalmar FF (🇸🇪 Sweden · Allsvenskan) — Over 1.5 goals @1.24 (78%)
+   • 20:15 Famalicao v Alverca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Famalicao Over 0.5 goals @1.22 (78%)
+   • 19:45 Dijon v Metz (🇫🇷 France · Ligue 2) — Over 1.5 goals @1.22 (78%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 mega code (all 18 deploy singles): LU0PSW   load ↦ www.sportybet.com/ng/?shareCode=LU0PSW
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code P023J8 · 3 legs · odds 1.92 · chance 45%
+   • 19:30 GKS Katowice v Wieczysta Krakow (🇵🇱 Poland · Ekstraklasa) — GKS Katowice or Wieczysta Krakow @1.27 (77%)
+   • 13:00 Valladolid v Albacete (🇪🇸 Spain · La Liga 2 / Hypermotion) — Valladolid Over 0.5 goals @1.21 (77%)
+   • 20:00 Tenerife v Girona (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.25 (76%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code G2P6FG · 20:00 Coventry City v Newcastle (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Under 3.5 goals @1.53 (68%, value +3.4% · model 73% vs SportyBet 66%)
+Value 2 · code WK6687 · 18:00 IF Elfsborg v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — Under 3.5 goals @1.55 (66%, value +2.2% · model 77% vs SportyBet 62%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Coventry City v Newcastle (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Under 4.5 goals (84%) @1.21 · code ZPCQ4J
+Acca A: 5 legs, model 32% · code TVWBXG
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+50+ #1: WN4DGJ (3 legs · odds 1.80 · 52% · stake 0.5%)
+Board MEGA: LU0PSW (18 legs · every single · stake 0.1%)
+ACCAS MEGA: GFBAG1 (10 legs · every Table 3 acca on one slip · odds 7.85 · stake 0.1%)
+ALT MEGA: P023J8 (3 legs · every alt acca on one slip · stake 0.1%)
+VALUE MEGA: LMWN7X (2 legs · every value bet on one slip · stake 0.1%)
+Acca A: TVWBXG (5 legs · odds 2.84 · 32% · stake 0.25%)
+Acca B: NGXK1F (5 legs · odds 2.77 · 29% · stake 0.25%)
+Alt A: P023J8 (3 legs · alt markets · odds 1.92 · 45% · stake 0.25%)
+Value 1: G2P6FG (1 leg · positive value · odds 1.53 · 68% · stake 0.25%)
+Value 2: WK6687 (1 leg · positive value · odds 1.55 · 66% · stake 0.25%)

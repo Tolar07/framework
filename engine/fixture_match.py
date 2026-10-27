@@ -59,8 +59,16 @@ ALIASES = {
 }
 
 
+# Letters NFKD can't fold to ASCII; dropping them split one club into two names
+# (Nordsjælland / Nordsjaelland, Kasımpaşa / Kasimpasa, Płock / Plock).
+_TRANSLIT = str.maketrans({"æ": "ae", "Æ": "Ae", "ø": "o", "Ø": "O", "ı": "i", "ł": "l",
+                           "Ł": "L", "đ": "d", "Đ": "D", "ß": "ss", "þ": "th", "ð": "d"})
+
+
 def _norm(name: str) -> str:
-    s = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower()
+    s = unicodedata.normalize("NFKD", name.translate(_TRANSLIT)).encode("ascii", "ignore").decode().lower()
+    # Scandinavian "aa" is the feeds' spelling of "å" (Vasteraas / Västerås).
+    s = s.replace("aa", "a")
     s = s.replace("&", " and ").replace("'", "").replace(".", " ")
     s = " ".join(re.split(r"[^a-z0-9]+", s)).strip()
     return ALIASES.get(s, s)

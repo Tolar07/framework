@@ -1,0 +1,73 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Wed 14 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261014-0549-de0209 (same run as the SportyBet board)
+Times are kickoff, Lagos time (WAT)
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship
+ • 20:00 Lincoln City v West Ham — Double Chance: West Ham or draw
+   85% · deploy at 1.20+ · SportyBet @1.20 · HIGH
+ • 19:45 Portsmouth v Sheffield United — Asian Handicap: Sheffield United +1.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · HIGH
+ • 19:45 QPR v Derby — Double Chance: QPR or Derby
+   81% · deploy at 1.24+ · SportyBet @1.26 · MEDIUM
+ • 19:45 Norwich v Southampton — Asian Handicap: Southampton +1.5
+   80% · deploy at 1.25+ · SportyBet @1.22 · MEDIUM
+
+🏆 UEFA Champions League
+ • 20:00 Aston Villa v Fenerbahce Istanbul — Double Chance: Aston Villa or Fenerbahce Istanbul
+   84% · deploy at 1.20+ · SportyBet @1.23 · LOW
+ • 20:00 Bodoe/Glimt v Borussia Dortmund — Double Chance: Bodoe/Glimt or Borussia Dortmund
+   83% · deploy at 1.21+ · SportyBet @1.26 · LOW
+ • 20:00 Roma v Real Madrid — Double Chance: Roma or Real Madrid
+   83% · deploy at 1.21+ · SportyBet @1.27 · LOW
+ • 17:45 Feyenoord v Como 1907 — Double Chance: Feyenoord or Como 1907
+   83% · deploy at 1.21+ · SportyBet @1.26 · LOW
+ • 20:00 Man City v PSG — Double Chance: Man City or PSG
+   83% · deploy at 1.21+ · SportyBet @1.27 · LOW
+ • 20:00 Betis v Porto — Team Goals: Betis Over 0.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · LOW
+ • 20:00 Shakhtar D v AEK Athens — ≠ Double Chance: Shakhtar D or AEK Athens
+   79% · deploy at 1.27+ · SportyBet @1.32 · LOW
+   (SportyBet pick: AEK Athens Win to Nil — no — not on bet365)
+ • 20:00 Slovan Bratislava v Stuttgart — Team Goals: Stuttgart Over 1.5
+   76% · deploy at 1.32+ · SportyBet @1.28 · LOW
+ • 17:45 LASK Linz v Liverpool — Goals Over/Under: Under 4.5
+   74% · deploy at 1.35+ · SportyBet @1.33 · LOW
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 59% · deploy at 1.74+ combined
+   • Lincoln City v West Ham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: West Ham or draw (85%)
+   • Aston Villa v Fenerbahce Istanbul (🏆 UEFA Champions League) — Double Chance: Aston Villa or Fenerbahce Istanbul (84%)
+   • Bodoe/Glimt v Borussia Dortmund (🏆 UEFA Champions League) — Double Chance: Bodoe/Glimt or Borussia Dortmund (83%)
+bet365 Acca B · 3 legs · chance 57% · deploy at 1.77+ combined
+   • Roma v Real Madrid (🏆 UEFA Champions League) — Double Chance: Roma or Real Madrid (83%)
+   • Feyenoord v Como 1907 (🏆 UEFA Champions League) — Double Chance: Feyenoord or Como 1907 (83%)
+   • Man City v PSG (🏆 UEFA Champions League) — Double Chance: Man City or PSG (83%)
+bet365 Acca C · 3 legs · chance 53% · deploy at 1.91+ combined
+   • Portsmouth v Sheffield United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Asian Handicap: Sheffield United +1.5 (81%)
+   • QPR v Derby (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: QPR or Derby (81%)
+   • Betis v Porto (🏆 UEFA Champions League) — Team Goals: Betis Over 0.5 (81%)
+bet365 Acca D · 3 legs · chance 48% · deploy at 2.10+ combined
+   • Norwich v Southampton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Asian Handicap: Southampton +1.5 (80%)
+   • Shakhtar D v AEK Athens (🏆 UEFA Champions League) — Double Chance: Shakhtar D or AEK Athens (79%)
+   • Slovan Bratislava v Stuttgart (🏆 UEFA Champions League) — Team Goals: Stuttgart Over 1.5 (76%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

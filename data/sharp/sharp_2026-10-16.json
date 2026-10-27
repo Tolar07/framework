@@ -1,0 +1,64 @@
+{
+ "date": "2026-10-16",
+ "run_id": "SHARP-97e168cc",
+ "fetched_utc": "2026-10-16T11:55:44Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 22,
+ "fixtures_priced_by_exchange": 11,
+ "picks": [
+  {
+   "league": "2. Bundesliga",
+   "home": "Holstein Kiel",
+   "away": "Hertha",
+   "fixture": "Holstein Kiel v Hertha (2. Bundesliga)",
+   "kickoff": "2026-10-16T16:30:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Away",
+   "key": "SB:1||Away",
+   "price": 2.4,
+   "outcome_id": "3",
+   "sharp_p": 0.4408,
+   "fair_price": 2.269,
+   "sharp_ev": 0.0579,
+   "code": "Y9708L",
+   "url": "http://www.sportybet.com/ng/?shareCode=Y9708L",
+   "result": "lost",
+   "ft": "0-0",
+   "run_id": "SHARP-97e168cc"
+  },
+  {
+   "league": "La Liga 2",
+   "home": "Leganes",
+   "away": "Cordoba",
+   "fixture": "Leganes v Cordoba (La Liga 2)",
+   "kickoff": "2026-10-16T18:30:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 1.81,
+   "outcome_id": "12",
+   "sharp_p": 0.5749,
+   "fair_price": 1.739,
+   "sharp_ev": 0.0406,
+   "code": "S70YJP",
+   "url": "http://www.sportybet.com/ng/?shareCode=S70YJP",
+   "result": "lost",
+   "ft": "0-1",
+   "run_id": "SHARP-97e168cc"
+  }
+ ],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv pulled live"
+ ]
+}

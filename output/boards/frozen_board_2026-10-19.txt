@@ -1,0 +1,153 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 19 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261018-2048-1ea0e0 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 11 · Verified: 11
+KO = kickoff, UK time
+
+⚠ 284 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                          AI PICK · win%                            Odds   Alt market                               O1.5/O2.5  DC/BTTS     Src
+18:00  Viborg v Midtjylland             Denmark · Superliga                       ✓ Under 4.5 goals · 81%                   @1.23  Viborg or Midtjylland @1.28              O80/O56    1273 / Y60  ✓
+
+18:00  Wisla Plock v Radomiak Radom     Poland · Ekstraklasa                      ✓ Wisla Plock or draw · 78%               @1.28  Wisla Plock Win to Nil — no @1.22        O75/U52    1X74 / Y54  ✓
+
+17:30  Monza v Cagliari                 Italy · Serie A                           ✓ Monza Win to Nil — no · 77%             @1.24  Monza or Cagliari @1.36                  O82/O61    1278 / Y60  ✓
+19:45  Parma v Torino                   Italy · Serie A                           ✓ Parma or Torino · 76%                   @1.38  Under 3.5 goals @1.24                    O68/U58    1273 / N53  ✓
+
+20:15  Sp Braga v Gil Vicente           Portugal · Primeira Liga / Liga Portugal  ✓ Sp Braga or Gil Vicente · 80%           @1.25  Sp Braga Under 2.5 goals @1.31           O69/U57    1X74 / N53  ✓
+
+20:00  Tottenham v Coventry City        England · Premier League                  ᴮ Tottenham or Coventry City · 85%        @1.21  Multigoals 2-5 @1.20                     O72/U54    1X74 / Y50  ✓
+
+20:00  Getafe v Vallecano               Spain · La Liga                           ✓ Getafe or Vallecano · 74%               @1.39  Multigoals 1-3 @1.22                     O59/U68    1268 / N61  ✓
+
+19:30  Celta B v Tenerife               Spain · La Liga 2 / Hypermotion           ✓ Celta B or Tenerife · 78%               @1.34  Celta B Over 0.5 goals @1.32             O81/O58    1277 / Y60  ✓
+
+19:45  Rodez v Montpellier              France · Ligue 2                          ✓ Rodez (+1.5) Asian handicap · 80%       @1.21  Montpellier Under 2.5 goals @1.23        O67/U61    X270 / N53  ✓
+
+18:00  Trabzonspor v Besiktas Istanbul  Turkey · Super Lig                        ✓ Trabzonspor or Besiktas Istanbul · 80%  @1.29  Trabzonspor (+1.5) Asian handicap @1.20  O82/O58    1X74 / Y60  ✓
+
+18:00  Degerfors IF v Kalmar FF         Sweden · Allsvenskan                      ✓ Degerfors IF or Kalmar FF · 77%         @1.33  Under 3.5 goals @1.30                    O63/U64    1X70 / N57  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 11 deploy singles): P6W2YG   load ↦ www.sportybet.com/ng/?shareCode=P6W2YG
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                          Pick                                Chance  Odds   Certainty  Stake  Code
+18:00  Viborg v Midtjylland             Denmark · Superliga                       ✓ Under 4.5 goals                   81%     @1.23  MEDIUM     0.25%  S2SX54
+18:00  Wisla Plock v Radomiak Radom     Poland · Ekstraklasa                      ✓ Wisla Plock or draw               78%     @1.28  HIGH       0.25%  L5LMJL
+17:30  Monza v Cagliari                 Italy · Serie A                           ✓ Monza Win to Nil — no             77%     @1.24  HIGH       0.25%  X7NDB4
+19:45  Parma v Torino                   Italy · Serie A                           ✓ Parma or Torino                   76%     @1.38  HIGH       0.25%  Y67W8Y
+20:15  Sp Braga v Gil Vicente           Portugal · Primeira Liga / Liga Portugal  ✓ Sp Braga or Gil Vicente           80%     @1.25  HIGH       0.25%  L3JUNB
+20:00  Tottenham v Coventry City        England · Premier League                  ᴮ Tottenham or Coventry City        85%     @1.21  LOW        0.12%  TQ6VZF
+20:00  Getafe v Vallecano               Spain · La Liga                           ✓ Getafe or Vallecano               74%     @1.39  HIGH       0.25%  T27J5L
+19:30  Celta B v Tenerife               Spain · La Liga 2 / Hypermotion           ✓ Celta B or Tenerife               78%     @1.34  MEDIUM     0.25%  PVF09W
+19:45  Rodez v Montpellier              France · Ligue 2                          ✓ Rodez (+1.5) Asian handicap       80%     @1.21  MEDIUM     0.25%  M07W6N
+18:00  Trabzonspor v Besiktas Istanbul  Turkey · Super Lig                        ✓ Trabzonspor or Besiktas Istanbul  80%     @1.29  HIGH       0.25%  LS6JR4
+18:00  Degerfors IF v Kalmar FF         Sweden · Allsvenskan                      ✓ Degerfors IF or Kalmar FF         77%     @1.33  MEDIUM     0.25%  VSYZYP
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 11 of 11 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+Sharp check: 0 of 4 picks priced above the Betfair Exchange's fair odds (margin removed; average -6.2% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Monza v Cagliari: tempo 3.0 goals/game · draw tendency 18% · a side often fails to score | Monza 1.5-2.5 a game, draws 17%, BTTS 100%, clean sheets 0%, SoT 6.0-5.2 | Cagliari 0.9-1.1 a game, draws 20%, BTTS 45%, clean sheets 30%, SoT 3.5-4.3
+   • Parma v Torino: tempo 2.5 goals/game · draw tendency 22% · a side often fails to score | Parma 0.8-1.3 a game, draws 25%, BTTS 45%, clean sheets 25%, SoT 2.8-4.6 | Torino 1.4-1.5 a game, draws 20%, BTTS 70%, clean sheets 15%, SoT 3.3-4.7
+   • Sp Braga v Gil Vicente: tempo 2.6 goals/game · draw tendency 32% · both draw-prone | Sp Braga 1.4-1.3 a game, draws 35%, BTTS 70%, clean sheets 30%, SoT 3.9-3.2 | Gil Vicente 1.1-1.3 a game, draws 30%, BTTS 50%, clean sheets 30%, SoT 4.1-3.4
+   • Tottenham v Coventry City: tempo 2.6 goals/game · draw tendency 15% · a side often fails to score | Tottenham 0.8-1.6 a game, draws 30%, BTTS 55%, clean sheets 20%, SoT 3.9-4.2 | Coventry 0.8-1.8 a game, draws 0%, BTTS 17%, clean sheets 17%, SoT 3.7-4.7
+   • Getafe v Vallecano: tempo 2.8 goals/game · draw tendency 27% · a side often fails to score | Getafe 0.5-1.2 a game, draws 25%, BTTS 25%, clean sheets 25%, SoT 2.5-4.9 | Vallecano 1.6-2.3 a game, draws 29%, BTTS 100%, clean sheets 0%, SoT 4.6-5.6
+   • Celta B v Tenerife: tempo 2.9 goals/game · draw tendency 28% | Celta B 1.6-1.7 a game, draws 22%, BTTS 56%, clean sheets 22%, SoT 5.2-5.1 | Tenerife 1.2-1.4 a game, draws 33%, BTTS 56%, clean sheets 22%, SoT 3.0-3.1
+   • Rodez v Montpellier: tempo 2.4 goals/game · draw tendency 32% · both draw-prone | Rodez 1.6-1.4 a game, draws 25%, BTTS 65%, clean sheets 20%, SoT 4.6-4.4 | Montpellier 1.2-0.7 a game, draws 40%, BTTS 40%, clean sheets 55%, SoT 4.5-4.3
+   • Trabzonspor v Besiktas Istanbul: tempo 2.9 goals/game · draw tendency 15% | Trabzonspor 1.8-1.1 a game, draws 20%, BTTS 65%, clean sheets 25%, SoT 5.1-4.2 | Besiktas 1.9-1.1 a game, draws 10%, BTTS 50%, clean sheets 35%, SoT 6.0-3.6
+
+TABLE 2 mega code (all 11 deploy singles): P6W2YG   load ↦ www.sportybet.com/ng/?shareCode=P6W2YG
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code UVMRDY · odds 2.06 · chance 50%
+   • 20:15 Sp Braga v Gil Vicente (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Sp Braga or Gil Vicente @1.25 (80%, HIGH)
+   • 18:00 Trabzonspor v Besiktas Istanbul (🇹🇷 Turkey · Super Lig) — Trabzonspor or Besiktas Istanbul @1.29 (80%, HIGH)
+   • 18:00 Wisla Plock v Radomiak Radom (🇵🇱 Poland · Ekstraklasa) — Wisla Plock or draw @1.28 (78%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+2 accas · 7 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+1 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code UPHPL3 · 3 legs · odds 2.24 · chance 51%
+   • 19:45 Parma v Torino (🇮🇹 Italy · Serie A) — Parma or Torino @1.38 (76%)
+   • 19:30 Celta B v Tenerife (🇪🇸 Spain · La Liga 2 / Hypermotion) — Celta B or Tenerife @1.34 (78%)
+   • 20:00 Tottenham v Coventry City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Tottenham or Coventry City @1.21 (85%)
+Acca B · code HLKWN3 · 4 legs · odds 2.45 · chance 39%
+   • 18:00 Degerfors IF v Kalmar FF (🇸🇪 Sweden · Allsvenskan) — Degerfors IF or Kalmar FF @1.33 (77%)
+   • 18:00 Viborg v Midtjylland (🇩🇰 Denmark · Superliga) — Under 4.5 goals @1.23 (81%)
+   • 19:45 Rodez v Montpellier (🇫🇷 France · Ligue 2) — Rodez (+1.5) Asian handicap @1.21 (80%)
+   • 17:30 Monza v Cagliari (🇮🇹 Italy · Serie A) — Monza Win to Nil — no @1.24 (77%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 mega code (all 11 deploy singles): P6W2YG   load ↦ www.sportybet.com/ng/?shareCode=P6W2YG
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code NQZ59J · 18:00 Trabzonspor v Besiktas Istanbul (🇹🇷 Turkey · Super Lig) — Trabzonspor (draw no bet) @1.95 (50%, value +2.4% · model 48% vs SportyBet 37%)
+Value 2 · code RK035J · 19:45 Rodez v Montpellier (🇫🇷 France · Ligue 2) — Under 4 goals @1.25 (70%, value +2.4% · model 81% vs SportyBet 66%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Tottenham v Coventry City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Tottenham or Coventry City (85%) @1.21 · code TQ6VZF
+Acca A: 3 legs, model 51% · code UPHPL3
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 521 legs logged, mean CLV +0.27%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+50+ #1: UVMRDY (3 legs · odds 2.06 · 50% · stake 0.5%)
+Board MEGA: P6W2YG (11 legs · every single · stake 0.1%)
+ACCAS MEGA: HSPXWF (7 legs · every Table 3 acca on one slip · odds 5.49 · stake 0.1%)
+VALUE MEGA: W6XBWN (2 legs · every value bet on one slip · stake 0.1%)
+Acca A: UPHPL3 (3 legs · odds 2.24 · 51% · stake 0.25%)
+Acca B: HLKWN3 (4 legs · odds 2.45 · 39% · stake 0.25%)
+Value 1: NQZ59J (1 leg · positive value · odds 1.95 · 50% · stake 0.25%)
+Value 2: RK035J (1 leg · positive value · odds 1.25 · 70% · stake 0.25%)

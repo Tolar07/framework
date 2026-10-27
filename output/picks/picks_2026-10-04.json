@@ -91,8 +91,8 @@
    "ev": -0.026328721646560527,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "drift_price": 1.23,
    "drift_pct": -0.8
   },
@@ -612,7 +612,7 @@
     "Wales v Denmark",
     "Sabadell v Andorra"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -706,8 +706,8 @@
      "pick": "Andorra Clean Sheet \u2014 no",
      "price": 1.22,
      "chance": 0.7852,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-0"
     },
     {
      "fixture": "Kosovo v Austria",
@@ -723,7 +723,7 @@
      "ft": "1-1"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Alt B",
@@ -895,7 +895,7 @@
     0.273,
     0.481
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Sp Gijon v Celta B",

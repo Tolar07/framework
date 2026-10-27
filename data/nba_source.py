@@ -48,6 +48,8 @@ class Game:
     home_name: str = ""                # ESPN display name, e.g. "Boston Celtics"
     away_name: str = ""
     tip: str = ""                      # tip-off, ISO UTC ("2026-10-07T00:00Z")
+    q_home: Optional[list] = None      # points per quarter (overtime periods after Q4)
+    q_away: Optional[list] = None
 
 
 def _get(url: str, tries: int = 3) -> Optional[dict]:
@@ -102,6 +104,11 @@ def scoreboard(d: date, use_cache: bool = True) -> list[Game]:
                 g.hs, g.as_ = int(side["home"]["score"]), int(side["away"]["score"])
             except (KeyError, TypeError, ValueError):
                 g.completed = False
+            try:
+                g.q_home = [int(x["value"]) for x in side["home"].get("linescores", [])]
+                g.q_away = [int(x["value"]) for x in side["away"].get("linescores", [])]
+            except (KeyError, TypeError, ValueError):
+                g.q_home = g.q_away = None
         out.append(g)
     return out
 

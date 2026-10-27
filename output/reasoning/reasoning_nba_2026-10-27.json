@@ -1,0 +1,82 @@
+{
+ "date": "2026-10-27",
+ "picks_generated_at": "2026-10-26T06:51:45Z",
+ "run_at": "2026-10-26T06:52:47+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Charlotte Hornets v Washington Wizards",
+   "market": "NBA:68|total=117.5|Under 117.5",
+   "pick": "1st half Under 117.5 points",
+   "price": 1.97,
+   "model_chance": 0.6091,
+   "code": "WEC15V",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5391,
+   "confidence": 0.45,
+   "reasons": "The framework record in this family is LOSING, which pulls our ai_chance down from the model chance of 0.6091. However, the price of 1.97 satisfies our lesson requiring odds of 1.90 or higher, so we apply lower confidence."
+  },
+  {
+   "fixture": "Boston Celtics v Chicago Bulls",
+   "market": "NBA:68|total=113.5|Over 113.5",
+   "pick": "1st half Over 113.5 points",
+   "price": 1.94,
+   "model_chance": 0.6226,
+   "code": "P4HXAG",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5526,
+   "confidence": 0.45,
+   "reasons": "The framework record in this family is LOSING, which requires a downward adjustment to the model chance of 0.6226. The price of 1.94 fulfills our lesson on odds, allowing us to back with lower confidence."
+  },
+  {
+   "fixture": "Houston Rockets v Atlanta Hawks",
+   "market": "NBA:68|total=111.5|Over 111.5",
+   "pick": "1st half Over 111.5 points",
+   "price": 1.9,
+   "model_chance": 0.6224,
+   "code": "Q60LQC",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5524,
+   "confidence": 0.45,
+   "reasons": "The framework record in this family is LOSING, pulling the model chance of 0.6224 down. Since the price meets our minimum of 1.90 per our lessons, we proceed with lower confidence."
+  },
+  {
+   "fixture": "Utah Jazz v Memphis Grizzlies",
+   "market": "NBA:223|hcp=1.5|Home (+1.5)",
+   "pick": "Utah Jazz (+1.5) handicap",
+   "price": 1.79,
+   "model_chance": 0.5867,
+   "code": "TKVQYM",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5767,
+   "confidence": 0.4,
+   "reasons": "The framework record states TOO FEW picks in this family, so we keep our adjustment minimal. Given the price of 1.79 and modest value points, we take a lower confidence stance."
+  },
+  {
+   "fixture": "Denver Nuggets v Golden State Warriors",
+   "market": "NBA:68|total=113.5|Over 113.5",
+   "pick": "1st half Over 113.5 points",
+   "price": 1.9,
+   "model_chance": 0.6385,
+   "code": "TLWDU7",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5685,
+   "confidence": 0.45,
+   "reasons": "The framework record in this family is LOSING, requiring a downward adjustment from the model chance of 0.6385. The price of 1.90 satisfies our lesson requiring odds of 1.90 or higher, permitting a lower confidence pick."
+  }
+ ],
+ "sport": "nba"
+}

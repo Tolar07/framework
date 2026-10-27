@@ -21,7 +21,8 @@ with tempfile.TemporaryDirectory() as d:
 
 def bf(i, key, p):
     return NS(fixture=f"H{i} v A{i} (La Liga)", best_market_key=key, best_model_prob=p,
-              probs=NS(home_team=f"H{i}", away_team=f"A{i}"))
+              probs=NS(home_team=f"H{i}", away_team=f"A{i}"),
+              kickoff_utc="2026-10-27T15:00:00Z")   # one kickoff window (engine/cohorts.py)
 
 
 deploy = [bf(i, "DC_1X", 0.70 + i / 100) for i in range(9)] + [bf(20, "SB:16|hcp=-1|Home", 0.95)]
@@ -32,4 +33,8 @@ assert abs(slips[0][1][0][2] - 0.78) < 1e-9, "the likeliest leg first"
 assert all(b.best_market_key == "DC_1X" for _n, l, _c in slips for b, _p, _q in l), "only positive-CLV families"
 assert ca.build(deploy[:2], st) == [], "fewer than 3 legs: no acca"
 assert "Double chance +0.40% over 60" in ca.note(st, slips)
+# KICKOFF COHORTS (2026-10-26): legs of different windows never share a CLV acca
+late = [NS(**{**vars(b), "kickoff_utc": "2026-10-27T20:00:00Z"}) for b in deploy[:4]]
+mixed = ca.build(late + deploy[4:9], st)
+assert all(len({b.kickoff_utc for b, _p, _q in l}) == 1 for _n, l, _c in mixed), "one window per acca"
 print("clv accas: OK")

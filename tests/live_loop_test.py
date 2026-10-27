@@ -14,7 +14,9 @@ What it pins down, all offline:
     let go, said once — it can never hold the day open, and a day older than
     yesterday is never tracked (2026-10-18: one loop followed the 17th all day);
   * the Telegram route is the Architect's chat only (order 33) — the workflow
-    must not carry the subscriber secret.
+    must not carry the subscriber secret;
+  * pacing: only an event that changes an open bet (board pick) goes at once,
+    HT/FT of the rest go as one round-up, everything else in a 30-min digest.
 """
 from __future__ import annotations
 
@@ -221,6 +223,52 @@ check("worth_telling: a goal always goes through", len(_goal) == 1)
 _goal2 = ll.worth_telling(["[16:54] CHANGE Norwich 2-0 Southampton (24') · xG 0.6-0.1"], _said)
 check("worth_telling: and so does the next one — events are never deduped",
       len(_goal2) == 1)
+
+# --------------------------------------------------------------------------
+# Pacing (Architect 2026-10-25): instant only for an event that changes an open
+# bet; HT/FT of the rest as round-ups; everything else in a 30-minute digest.
+_board = " · board: Southampton (+1.5) Asian handicap @1.22"
+_study = " · study: Total goals Over 2.5 @1.80"
+check("lane: a goal in a board match goes at once",
+      ll.lane("[16:52] CHANGE Norwich 1-0 Southampton (20') · xG 0.3-0.1" + _board) == "instant")
+check("lane: full time of a board match goes at once (it settles the bet)",
+      ll.lane("[18:52] FULL TIME Norwich 1-0 Southampton (FT) · xG 0.3-0.1" + _board) == "instant")
+check("lane: half time of a board match changes no bet -> round-up",
+      ll.lane("[17:47] HALF TIME Norwich 1-0 Southampton (HT) · xG 0.3-0.1" + _board) == "roundup")
+check("lane: a goal in a study match waits for the digest",
+      ll.lane("[16:52] CHANGE Norwich 1-0 Southampton (20') · xG 0.3-0.1" + _study) == "digest")
+check("lane: full time of a no-call match -> round-up",
+      ll.lane("[18:52] FULL TIME Real 2-1 Inter (FT) · xG 1-1 · no call") == "roundup")
+check("lane: 'no full time' is never read as full time",
+      ll.lane("[20:00Z] NO FULL TIME Norwich v Southampton — 4 h after kickoff") == "digest")
+check("lane: a feed failure waits for the digest",
+      ll.lane("[16:46Z] Feyenoord v Como: poll failed (timed out)") == "digest")
+
+_t = datetime(2026, 10, 25, 15, 0, tzinfo=UTC)
+_box = ll.Outbox(_t)
+_now = _box.add(["[15:10] CHANGE A 1-0 B (10') · board: A @1.5",
+                 "[15:10] CHANGE C 1-0 D (10') · study: C @2.0"], _t + timedelta(minutes=10))
+check("outbox: the open-bet goal is returned to send now, the study goal is held",
+      len(_now) == 1 and "board:" in _now[0] and len(_box.digest) == 1)
+check("outbox: nothing is due before the half hour",
+      _box.due(_t + timedelta(minutes=20)) is None)
+_d = _box.due(_t + timedelta(minutes=30))
+check("outbox: the digest goes at the half hour, with what was held",
+      _d is not None and "DIGEST" in _d and "C 1-0 D" in _d, f"{_d}")
+check("outbox: an empty half hour says nothing", _box.due(_t + timedelta(minutes=61)) is None)
+_box.add(["[15:47] HALF TIME A 1-0 B (HT) · board: A @1.5"], _t + timedelta(minutes=47))
+_box.add(["[15:49] HALF TIME C 0-0 D (HT) · no call",
+          "[15:49] CHANGE E 0-1 F (40') · no call"], _t + timedelta(minutes=49))
+check("outbox: a round-up is held so matches that kicked off together share it",
+      _box.due(_t + timedelta(minutes=50)) is None)
+_r = _box.due(_t + timedelta(minutes=53))
+check("outbox: one round-up carries every half time and the waiting digest lines",
+      _r is not None and "ROUND-UP" in _r and "A 1-0 B" in _r and "C 0-0 D" in _r
+      and "E 0-1 F" in _r and not _box.digest, f"{_r}")
+_box.add(["[16:30] CHANGE G 1-0 H (5') · no call"], _t + timedelta(minutes=90))
+_f = _box.due(_t + timedelta(minutes=91), flush=True)
+check("outbox: end of day / hand-off flushes what is held — nothing is lost",
+      _f is not None and "G 1-0 H" in _f and not _box.digest)
 
 # snap()'s null-safety, on the payload shape that actually broke it
 _src = (ROOT / "monitor" / "live_tracker.py").read_text(encoding="utf-8")

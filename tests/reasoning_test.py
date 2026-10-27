@@ -284,6 +284,14 @@ def test_value_singles_get_verdicts_with_their_code():
     assert R.value_legs(dict(PICKS, value=[{"code": "X", "alt_legs": [PICKS["singles"][0]]}])) == []
 
 
+def test_eval_summary_compares_chances_on_the_same_picks():
+    rows = [dict(model_chance=0.8, ai_chance=0.8, market_chance=0.6, anchored_chance=0.65, won=False),
+            dict(model_chance=0.5, ai_chance=0.5, market_chance=None, anchored_chance=None, won=True)]
+    s = R.eval_summary(rows)
+    assert s["n"] == 1 and s["model_chance"] == 0.64 and s["market_chance"] == 0.36
+    assert R.eval_summary([])["model_chance"] is None
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

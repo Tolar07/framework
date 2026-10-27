@@ -157,14 +157,14 @@
  },
  "Fylde v Hartlepool": {
   "absent": [],
-  "at": "2026-10-27T19:20Z",
+  "at": "2026-10-27T19:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906525,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "GNK Dinamo Zagreb v HNK Rijeka": {
   "absent": [
@@ -190,18 +190,18 @@
  },
  "Halifax v Barrow": {
   "absent": [],
-  "at": "2026-10-27T19:20Z",
+  "at": "2026-10-27T19:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906528,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Hornchurch v Yeovil": {
   "absent": [],
-  "at": "2026-10-27T19:20Z",
+  "at": "2026-10-27T19:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906529,

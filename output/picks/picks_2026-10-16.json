@@ -517,8 +517,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.32,
    "drift_pct": 0.0
   },
@@ -2187,7 +2187,7 @@
      0.6893
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Leganes v Cordoba",

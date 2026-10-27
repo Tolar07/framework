@@ -159,8 +159,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-4",
    "drift_price": 1.19,
    "drift_pct": -3.3
   },
@@ -429,8 +429,8 @@
    "sharp_ev": null,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-0",
    "drift_price": 1.29,
    "drift_pct": -0.8
   },
@@ -1327,8 +1327,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-3",
    "drift_price": 1.22,
    "drift_pct": -2.4
   },
@@ -1489,8 +1489,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.23,
    "drift_pct": -2.4
   },
@@ -2393,7 +2393,7 @@
      0.611
     ]
    ],
-   "ft": null
+   "ft": "2-4"
   },
   {
    "fixture": "Juventus v Rennes",
@@ -2773,7 +2773,7 @@
      0.7227
     ]
    ],
-   "ft": null
+   "ft": "4-0"
   },
   {
    "fixture": "AC Omonia Nicosia v Benfica",
@@ -4045,7 +4045,7 @@
      0.6958
     ]
    ],
-   "ft": null
+   "ft": "1-3"
   },
   {
    "fixture": "Nordsjaelland v PFC CSKA Sofia",
@@ -4273,7 +4273,7 @@
      0.7223
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "AGF Aarhus v KF Egnatia Rrogozhine",

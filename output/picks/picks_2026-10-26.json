@@ -247,8 +247,8 @@
    "sharp_ev": -0.0527,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.31,
    "drift_pct": -1.5
   },
@@ -464,10 +464,11 @@
    "sharp_ev": -0.0525,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-4",
    "drift_price": 1.3,
-   "drift_pct": 0.8
+   "drift_pct": 0.8,
+   "orig_result": "lost"
   },
   {
    "fixture": "Besiktas Istanbul v Istanbul BB",
@@ -644,7 +645,7 @@
     "Santa Clara v Benfica",
     "FC Copenhagen v Odense"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "safe3": [
@@ -658,7 +659,7 @@
     "Caykur Rizespor v Trabzonspor",
     "Walsall v Salford"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "megas": [],
@@ -801,11 +802,11 @@
      "pick": "Salford Under 1.5 goals",
      "price": 1.83,
      "chance": 0.5725,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "2-4"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Value 3",
@@ -1197,7 +1198,7 @@
      0.8025
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Andorra v Burgos",
@@ -1445,7 +1446,7 @@
      0.744
     ]
    ],
-   "ft": null
+   "ft": "2-4"
   },
   {
    "fixture": "Besiktas Istanbul v Istanbul BB",
@@ -1653,7 +1654,7 @@
     "NK Istra 1961 v HNK Hajduk Split",
     "Walsall v Salford"
    ],
-   "result": null,
+   "result": "won",
    "families": [
     "Asian handicap",
     "Double chance",
@@ -1672,7 +1673,7 @@
     "Andorra v Burgos",
     "Santa Clara v Benfica"
    ],
-   "result": null,
+   "result": "won",
    "families": [
     "Asian handicap",
     "Double chance",
@@ -1686,7 +1687,7 @@
    "name": "ALT MEGA",
    "of": "alts",
    "code": "X79EG6",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "VALUE MEGA",

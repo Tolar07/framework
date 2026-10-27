@@ -17,7 +17,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T16:40Z",
+  "at": "2026-10-27T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107637,
@@ -87,7 +87,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T16:40Z",
+  "at": "2026-10-27T17:00Z",
   "away_missing_share": 0.04853962187408755,
   "away_unavailable": 3,
   "fotmob_id": 5967120,
@@ -387,12 +387,12 @@
     "type": "injury"
    },
    {
-    "name": "Jay Idzes",
+    "name": "Fedde Leysen",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Fedde Leysen",
+    "name": "Daniel Boloca",
     "side": "home",
     "type": "injury"
    },
@@ -412,14 +412,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T16:40Z",
+  "at": "2026-10-27T17:00Z",
   "away_missing_share": 0.20386205977209906,
   "away_unavailable": 3,
   "fotmob_id": 5749727,
-  "home_missing_share": 0.39262618746090217,
-  "home_unavailable": 4,
+  "home_missing_share": 0.30044814690054744,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-27T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sheffield Wednesday v Cambridge United": {
   "absent": [],

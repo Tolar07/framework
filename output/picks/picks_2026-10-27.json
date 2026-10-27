@@ -147,8 +147,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -6.25,
    "stake_pct": 0.25,
    "ev": -0.0355300602389248,
    "missing": {
@@ -201,8 +201,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.042327591701338485,
    "missing": {
@@ -633,8 +633,8 @@
     "spec": "total=1.5",
     "outcome": "Under 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.054281981237463084,
    "missing": {
@@ -674,7 +674,11 @@
     "home": 6288721,
     "away": 4451588
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Doncaster Rovers at full strength",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:75365068",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -683,8 +687,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -3.94,
    "stake_pct": 0.25,
    "ev": -0.009177732488567014,
    "missing": {
@@ -724,7 +728,11 @@
     "home": 5127104,
     "away": 2601722
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:75768806",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -733,8 +741,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03865913631224571,
    "missing": {
@@ -787,8 +795,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.25,
    "ev": -0.03497221285532026,
    "missing": {
@@ -841,8 +849,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.04608966154809613,
    "missing": {
@@ -895,8 +903,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -2.33,
    "stake_pct": 0.25,
    "ev": -0.025096400405482222,
    "missing": {
@@ -945,8 +953,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.04019221533403783,
    "missing": {
@@ -995,8 +1003,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.044407861984763874,
    "missing": {
@@ -1033,7 +1041,11 @@
    "fotmob_id": 5906526,
    "kickoff_utc": "2026-10-27T19:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740744",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1042,8 +1054,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -2.36,
    "stake_pct": 0.25,
    "ev": -0.061463825354256985,
    "missing": null,
@@ -1077,7 +1089,11 @@
    "fotmob_id": 5906527,
    "kickoff_utc": "2026-10-27T19:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740746",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1086,8 +1102,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.04168517397644378,
    "missing": null,
@@ -1130,8 +1146,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.048498367274617094,
    "missing": null,
@@ -1165,7 +1181,11 @@
    "fotmob_id": 5906530,
    "kickoff_utc": "2026-10-27T19:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Scunthorpe United at full strength",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740752",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1174,8 +1194,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.04272116042604257,
    "missing": null,
@@ -1212,7 +1232,11 @@
     "home": 1232960,
     "away": 669334
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740754",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1221,8 +1245,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.021156698922277895,
    "missing": {
@@ -1262,7 +1286,11 @@
     "home": 901151,
     "away": 1607177
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740756",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1271,8 +1299,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 3.33,
    "stake_pct": 0.25,
    "ev": -0.03560704860794894,
    "missing": {
@@ -1309,7 +1337,11 @@
    "fotmob_id": 5906533,
    "kickoff_utc": "2026-10-27T19:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Worthing at full strength",
+    "at": "19:20Z"
+   },
    "sb_event_id": "sr:match:72740758",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -1318,8 +1350,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.025654236797204688,
    "missing": null,

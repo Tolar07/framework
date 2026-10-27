@@ -33,14 +33,14 @@
  },
  "Altrincham v Kidderminster": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906526,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Ascoli Calcio 1898 v Sampdoria": {
   "absent": [
@@ -109,14 +109,14 @@
  },
  "Boston Utd v Gateshead": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906527,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Cesena v Empoli": {
   "absent": [
@@ -157,7 +157,7 @@
  },
  "Fylde v Hartlepool": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906525,
@@ -190,7 +190,7 @@
  },
  "Halifax v Barrow": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906528,
@@ -201,7 +201,7 @@
  },
  "Hornchurch v Yeovil": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906529,
@@ -462,14 +462,14 @@
  },
  "Tamworth v Scunthorpe United": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906530,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Torino v Como": {
   "absent": [
@@ -547,24 +547,35 @@
  },
  "Wealdstone v Solihull": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906531,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Woking v Boreham Wood": {
   "absent": [],
-  "at": "2026-10-27T19:00Z",
+  "at": "2026-10-27T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906532,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
+ },
+ "Worthing v Southend": {
+  "absent": [],
+  "at": "2026-10-27T19:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906533,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T19:45:00.000Z",
+  "lineup_type": "confirmed"
  }
 }

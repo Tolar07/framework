@@ -3,12 +3,12 @@
   "away": "Twente",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3448,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2514,
+    "home": 0.4037,
+    "over25": 0.642
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -168,12 +168,12 @@
   "away": "Eldense",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3046,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2829,
+    "home": 0.4125,
+    "over25": 0.5377
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -266,12 +266,12 @@
   "away": "Lorient",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4146,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.297,
+    "home": 0.2884,
+    "over25": 0.4724
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -452,12 +452,12 @@
   "away": "Frosinone",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2688,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2313,
+    "home": 0.4998,
+    "over25": 0.7327
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -540,12 +540,12 @@
   "away": "Getafe",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1378,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.242,
+    "home": 0.6202,
+    "over25": 0.4737
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -705,12 +705,12 @@
   "away": "Real Madrid",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2417,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1502,
+    "home": 0.6081,
+    "over25": 0.8223
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -731,7 +731,7 @@
   },
   "date": "2026-10-25",
   "fixture": "Barcelona v Real Madrid",
-  "ft": "PENDING",
+  "ft": "1-2",
   "home": "Barcelona",
   "league": "La Liga",
   "model_p": [
@@ -901,12 +901,12 @@
   "away": "Hannover",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4212,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2582,
+    "home": 0.3206,
+    "over25": 0.6005
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -979,12 +979,12 @@
   "away": "Ceuta",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.241,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2745,
+    "home": 0.4844,
+    "over25": 0.5051
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1067,12 +1067,12 @@
   "away": "Sp Gijon",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1543,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2245,
+    "home": 0.6212,
+    "over25": 0.5658
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -1165,12 +1165,12 @@
   "away": "Betis",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3478,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2969,
+    "home": 0.3553,
+    "over25": 0.4962
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1263,12 +1263,12 @@
   "away": "St Truiden",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.0947,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1462,
+    "home": 0.7591,
+    "over25": 0.7593
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1336,12 +1336,12 @@
   "away": "Newcastle",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3536,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.277,
+    "home": 0.3694,
+    "over25": 0.5784
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1429,12 +1429,12 @@
   "away": "Moreirense",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2211,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2764,
+    "home": 0.5025,
+    "over25": 0.4874
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1693,12 +1693,12 @@
   "away": "Excelsior",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3741,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2803,
+    "home": 0.3455,
+    "over25": 0.535
    },
    "sharp": {
     "at": "PENDING",
@@ -1760,12 +1760,12 @@
   "away": "Bayern Munich",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.6806,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1774,
+    "home": 0.142,
+    "over25": 0.7519
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -1951,12 +1951,12 @@
   "away": "Standard",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1867,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2413,
+    "home": 0.572,
+    "over25": 0.6005
    },
    "sharp": {
     "at": "PENDING",
@@ -1977,7 +1977,7 @@
   },
   "date": "2026-10-25",
   "fixture": "Genk v Standard",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Genk",
   "league": "Belgian Pro League",
   "model_p": [
@@ -2142,12 +2142,12 @@
   "away": "Anderlecht",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.342,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2961,
+    "home": 0.362,
+    "over25": 0.4673
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -2416,12 +2416,12 @@
   "away": "Celtic",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5891,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2118,
+    "home": 0.1991,
+    "over25": 0.6637
    },
    "sharp": {
     "at": "2026-10-25T11:46Z",
@@ -2504,12 +2504,12 @@
   "away": "Leverkusen",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4634,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2361,
+    "home": 0.3005,
+    "over25": 0.7201
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -2602,12 +2602,12 @@
   "away": "Dresden",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3206,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2582,
+    "home": 0.4212,
+    "over25": 0.6077
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -2974,12 +2974,12 @@
   "away": "Fiorentina",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1215,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1718,
+    "home": 0.7067,
+    "over25": 0.7006
    },
    "sharp": {
     "at": "2026-10-25T10:10Z",
@@ -3409,12 +3409,12 @@
   "away": "Juventus",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.6481,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.217,
+    "home": 0.1349,
+    "over25": 0.5213
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -3667,12 +3667,12 @@
   "away": "Brighton",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2661,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2495,
+    "home": 0.4844,
+    "over25": 0.6143
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -3765,12 +3765,12 @@
   "away": "Bournemouth",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3317,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2764,
+    "home": 0.3918,
+    "over25": 0.53
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -3863,12 +3863,12 @@
   "away": "Le Havre",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1374,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.194,
+    "home": 0.6686,
+    "over25": 0.653
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -4235,12 +4235,12 @@
   "away": "Lille",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2218,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2662,
+    "home": 0.5119,
+    "over25": 0.5486
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -4328,12 +4328,12 @@
   "away": "Hearts",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5081,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2429,
+    "home": 0.249,
+    "over25": 0.6091
    },
    "sharp": {
     "at": "PENDING",
@@ -4480,12 +4480,12 @@
   "away": "Sp Braga",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.6292,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2297,
+    "home": 0.1411,
+    "over25": 0.5509
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -4563,12 +4563,12 @@
   "away": "Groningen",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.272,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2364,
+    "home": 0.4916,
+    "over25": 0.6798
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -4661,12 +4661,12 @@
   "away": "PAOK",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5609,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2482,
+    "home": 0.1909,
+    "over25": 0.5377
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -4857,12 +4857,12 @@
   "away": "Feyenoord",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3024,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.234,
+    "home": 0.4636,
+    "over25": 0.7443
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -4955,12 +4955,12 @@
   "away": "Carrarese",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1409,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2144,
+    "home": 0.6447,
+    "over25": 0.5736
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -5053,12 +5053,12 @@
   "away": "Strasbourg",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.23,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2355,
+    "home": 0.5346,
+    "over25": 0.6158
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -5141,12 +5141,12 @@
   "away": "Famalicao",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4587,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2872,
+    "home": 0.2541,
+    "over25": 0.4886
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -5229,12 +5229,12 @@
   "away": "Tenerife",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1835,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3003,
+    "home": 0.5162,
+    "over25": 0.3645
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -5576,12 +5576,12 @@
   "away": "Levante",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1609,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2036,
+    "home": 0.6355,
+    "over25": 0.6897
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -5690,7 +5690,7 @@
   },
   "date": "2026-10-25",
   "fixture": "Sp Lisbon v Academico de Viseu FC",
-  "ft": "PENDING",
+  "ft": "1-2",
   "home": "Sp Lisbon",
   "league": "Primeira Liga",
   "model_p": [
@@ -5731,12 +5731,12 @@
   "away": "Ajax",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.6401,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1945,
+    "home": 0.1654,
+    "over25": 0.7113
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -5819,12 +5819,12 @@
   "away": "Cercle Brugge",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.0992,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1711,
+    "home": 0.7297,
+    "over25": 0.6321
    },
    "sharp": {
     "at": "PENDING",
@@ -5845,7 +5845,7 @@
   },
   "date": "2026-10-25",
   "fixture": "St. Gilloise v Cercle Brugge",
-  "ft": "PENDING",
+  "ft": "5-2",
   "home": "St. Gilloise",
   "league": "Belgian Pro League",
   "model_p": [
@@ -6000,12 +6000,12 @@
   "away": "Leeds",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3361,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3061,
+    "home": 0.3578,
+    "over25": 0.4564
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -6098,12 +6098,12 @@
   "away": "Troyes",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1648,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2248,
+    "home": 0.6104,
+    "over25": 0.5971
    },
    "sharp": {
     "at": "2026-10-25T12:01Z",
@@ -6186,12 +6186,12 @@
   "away": "Milan",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5353,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2655,
+    "home": 0.1991,
+    "over25": 0.5025
    },
    "sharp": {
     "at": "2026-10-25T16:35Z",
@@ -6310,7 +6310,7 @@
   },
   "date": "2026-10-25",
   "fixture": "VfL 1899 Osnabruck v Greuther Furth",
-  "ft": "PENDING",
+  "ft": "3-0",
   "home": "VfL 1899 Osnabruck",
   "league": "2. Bundesliga",
   "model_p": [

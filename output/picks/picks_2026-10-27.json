@@ -134,7 +134,11 @@
     "home": 221054328,
     "away": 69603808
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:71945358",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -184,7 +188,11 @@
     "home": 75189800,
     "away": 272869939
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:71945362",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -612,7 +620,11 @@
     "home": 28408014,
     "away": 7101642
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Leicester City at full strength",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:74838878",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -762,7 +774,11 @@
     "home": 7013289,
     "away": 5196295
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:74557818",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -812,7 +828,11 @@
     "home": 7749131,
     "away": 3815403
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:75078276",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -862,7 +882,11 @@
     "home": 2343664,
     "away": 971574
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "sb_event_id": "sr:match:75089542",
    "sb_tid": "sr:tournament:25",
    "sb_market": {

@@ -5,7 +5,7 @@ REASONING RUN — the framework's thinking step over today's and tomorrow's pick
     python monitor/reasoning_run.py [--date YYYY-MM-DD] [--force]
 
 A picks file is reasoned once per generated_at: a board rebuilt later is reasoned again.
-Advisory only: it writes output/reasoning/ and memory/reasoning_record.json, nothing else.
+It writes output/reasoning/, memory/reasoning_record.json and memory/reasoning_lessons.json, nothing else.
 """
 from __future__ import annotations
 
@@ -69,6 +69,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"NBA {d}: {len(doc['picks'])} picks · model {doc['model']} · "
               + ", ".join(f"{p['verdict']} {p['pick']}" for p in doc["picks"])
               + (f" · {doc['note']}" if doc["note"] else ""))
+    # the cognitive core grades its own past verdicts (history + post-mortem lessons) before the record
+    print(f"cognitive core: {R.grade_cognitive(now=now)} newly graded")
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))

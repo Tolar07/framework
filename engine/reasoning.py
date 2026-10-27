@@ -246,7 +246,7 @@ SEARCH_LOG: list = []        # per batch: searches run, or why search failed (co
 
 def _ask_grounded(post: Callable, key: str, model: str, rows: list[dict], prompt: str) -> dict:
     """Gemini's own endpoint with the Google Search tool, so the judgement can use today's news."""
-    r = post(f"{NATIVE_URL}/models/{model}:generateContent", params={"key": key}, timeout=180,
+    r = post(f"{NATIVE_URL}/models/{model}:generateContent", headers={"x-goog-api-key": key}, timeout=180,
              json={"contents": [{"role": "user", "parts": [{"text": prompt + json.dumps(rows, ensure_ascii=False)}]}],
                    "tools": [{"google_search": {}}], "generationConfig": {"temperature": 0.2}})
     r.raise_for_status()
@@ -341,7 +341,8 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": False,
            "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)", "note": None, "picks": []}
-    prompt = teaching("football" if prompt is PROMPT else "nba") + prompt
+    sport = "football" if prompt is PROMPT else "nba"
+    prompt = teaching(sport) + prompt
     answers: dict = {}
     if not key:
         doc["note"] = "NO DATA — PENDING: GEMINI_API_KEY not set"
@@ -375,7 +376,29 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
                              "model_chance": s.get("chance"), "code": s.get("code"),
                              "pool": bool(s.get("pool")),
                              **_clean(answers.get(row["id"]))})
+    if os.getenv("COGNITIVE_CORE", "1").strip() != "0":
+        _cognitive(doc, singles, sport, key, post)
     return doc
+
+
+def _cognitive(doc: dict, singles: list[dict], sport: str, key: Optional[str], post: Callable) -> None:
+    """The cognitive core (engine/cognitive_core.py, to-do #3) on every pick: a "cognitive" block per
+    pick. It moves the stake only with earned authority and COGNITIVE_STAKES on; otherwise it is
+    advice, scored by grade_cognitive() until it earns the right."""
+    from engine import cognitive_core as CC
+    try:
+        cogs = CC.evaluate([CC.context_from_single(s, sport) for s in singles], key, post if key else None)
+    except Exception as e:  # noqa: BLE001 — the core never blocks the reasoning document
+        doc["cognitive"] = {"error": f"{type(e).__name__}: {str(e)[:160]}"}
+        return
+    for x, c in zip(doc["picks"], cogs):
+        x["cognitive"] = c
+        if c["stakes_on"] and c["mode"] == "authority":
+            x["stake_factor"] = c["stake_multiplier"]
+    doc["cognitive"] = {"model": CC.model(), "stakes_on": CC.stakes_on(),
+                        "verdicts": {v: sum(c["cio_verdict"] == v for c in cogs) for v in CC.VERDICTS},
+                        "fallback": sum(c["source"] == "fallback" for c in cogs),
+                        "authority": sum(c["mode"] == "authority" for c in cogs)}
 
 
 # ---------------------------------------------------------------- NBA (Architect 2026-10-20: "The way we
@@ -496,7 +519,8 @@ def record_nba(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
 # self-improvement"). Every run shows the model its own scorecard, its recent mistakes with the reasons
 # it gave, and the lessons it wrote for itself; once a day reflect() rewrites those lessons from the
 # graded record. Lessons live in memory/reasoning_lessons.json, so they persist from run to run.
-def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> list[dict]:
+def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR,
+                    with_pending: bool = False) -> list[dict]:
     """Every past verdict with its result, oldest first: date, fixture, pick, verdict, chances, reasons, won."""
     out = []
     pat, src = ("reasoning_nba_*.json", "nba_{}.json") if sport == "nba" else ("reasoning_2*.json", "picks_{}.json")
@@ -514,8 +538,9 @@ def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir
             by = {(s.get("fixture"), s.get("market")): s for s in d.get("singles") or []}
         for x in r.get("picks") or []:
             s = by.get((x.get("fixture"), x.get("market"))) or {}
-            if x.get("verdict") in VERDICTS and s.get("result") in ("won", "lost"):
+            if (x.get("verdict") in VERDICTS or (with_pending and x.get("cognitive")))                     and s.get("result") in ("won", "lost"):
                 out.append({"date": r["date"], "fixture": x.get("fixture"), "pick": x.get("pick"),
+                            "market": x.get("market"), "cognitive": x.get("cognitive"), "ft": s.get("ft"),
                             "price": x.get("price"), "verdict": x["verdict"], "model_chance": x.get("model_chance"),
                             "ai_chance": x.get("ai_chance"), "reasons": x.get("reasons") or "",
                             "won": s["result"] == "won"})
@@ -622,8 +647,34 @@ def reflect(sport: str, key: Optional[str] = None, get: Optional[Callable] = Non
     return None
 
 
+def grade_cognitive(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: Path = RECORD,
+                    lessons_path: Path = LESSONS, key: Optional[str] = None, post: Optional[Callable] = None,
+                    max_postmortems: int = 10, now: Optional[datetime] = None) -> int:
+    """Stage 5 of the cognitive core over every graded pick that carries a cognitive block: each is
+    added to the history once (memory/reasoning_record.json "cognitive_history"); confident BACKs
+    that lost get a post-mortem lesson (at most max_postmortems per run, the free tier's quota)."""
+    import requests
+    from engine import cognitive_core as CC
+    key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
+    post = post or requests.post
+    added = pm = 0
+    for sport in ("football", "nba"):
+        for r in graded_verdicts(sport, out_dir, ledger_dir, with_pending=True):
+            c = r.get("cognitive")
+            if not isinstance(c, dict) or not c.get("cio_verdict"):
+                continue
+            v = {**c, "id": f"{sport}|{r['date']}|{r['fixture']}|{r['market']}", "date": r["date"],
+                 "fixture": r["fixture"], "pick": r.get("pick"), "price": r.get("price")}
+            row = CC.grade_and_learn(v, r["won"], {"ft": r.get("ft")}, key=key if pm < max_postmortems else "",
+                                     post=post, record_path=record_path, lessons_path=lessons_path, now=now)
+            if row:
+                added += 1
+                pm += row["verdict"] == "BACK" and not row["won"] and (row["base_prob"] or 0) >= CC.POSTMORTEM_MIN_BASE
+    return added
+
+
 # ---------------------------------------------------------------- the record
-def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
+def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: Path = RECORD) -> dict:
     """Every past verdict against the graded result: hit rate and flat-stake return by
     verdict. Thinking earns weight only if 'veto' loses more and 'back' wins more.
     Closing-line value (%) is scored per verdict too, once the close is in, result or not:
@@ -667,8 +718,13 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
     if sc:
         brier["model"] = round(sum((float(r[3]) - r[1]) ** 2 for r in sc) / len(sc), 4)
         brier["ai"] = round(sum((float(r[4]) - r[1]) ** 2 for r in sc) / len(sc), 4)
+    # the cognitive core's graded history and its earned authority per (domain, family): the one
+    # place authority is decided (engine/cognitive_core.earned_authority), kept across rewrites
+    from engine import cognitive_core as CC
+    hist = CC.load_history(record_path)
     return {"updated": datetime.now(UTC).date().isoformat(), "graded": len(rows), "by_verdict": by,
-            "brier": brier, "nba": record_nba(out_dir, ledger_dir)}
+            "brier": brier, "nba": record_nba(out_dir, ledger_dir),
+            "cognitive_authority": CC.authority_table(hist), "cognitive_history": hist}
 
 
 def summary_line(rec: dict) -> str:

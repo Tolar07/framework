@@ -1,0 +1,29 @@
+{
+ "GNK Dinamo Zagreb v HNK Rijeka": {
+  "absent": [
+   {
+    "name": "Toni Fruk",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Junior Ligue",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Samuel Vignato",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T11:00Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 5,
+  "fotmob_id": 5765944,
+  "home_missing_share": null,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T17:00:00.000Z",
+  "lineup_type": "unavailable"
+ }
+}

@@ -1424,7 +1424,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             n = sum(len(l) for _, l, _ in safe3)
             code = extra_codes.get("safe3_mega") or "PENDING"
             out += ["", f"TABLE 3A mega code (all {len(safe3)} accas, {n} legs): {code}"
@@ -1454,7 +1454,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
-        out += ["", "Every deploy pick on one slip (the same slip as Table 2's mega):"] \
+        out += ["", "Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):"] \
             + _mega_lines("TABLE 3")
     out.append("")
 
@@ -1580,7 +1580,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
                        f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}% · "
                        f"stake 0.5%)")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             out.append(f"50+ MEGA: {extra_codes.get('safe3_mega') or 'PENDING'} "
                        f"({sum(len(l) for _, l, _ in safe3)} legs · all 50%+ accas · stake 0.1%)")
         if mega_codes is None and board_code:

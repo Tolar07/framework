@@ -41,6 +41,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
+          OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-2.5-flash)
+          COGNITIVE_STAKES: ${{ vars.COGNITIVE_STAKES || '1' }}  # standing order 48: ON; set the variable to 0 to switch off
           PYTHONIOENCODING: utf-8
           FORCE: ${{ inputs.force && '--force' || '' }}
         run: python monitor/reasoning_run.py $FORCE

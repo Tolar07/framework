@@ -71,6 +71,11 @@ def main(argv: list[str] | None = None) -> int:
               + (f" · {doc['note']}" if doc["note"] else ""))
     # the cognitive core grades its own past verdicts (history + post-mortem lessons) before the record
     print(f"cognitive core: {R.grade_cognitive(now=now)} newly graded")
+    from engine import verdict_panel as VP     # to-do #5: the panel's out-of-sample record
+    try:
+        print(f"verdict panel: {VP.grade(now=now)} newly graded · {VP.summary_line()}")
+    except Exception as e:  # noqa: BLE001 — never blocks the verdict record
+        print(f"verdict panel: grading failed: {e}")
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))

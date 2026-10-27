@@ -1,0 +1,22 @@
+{
+ "history": [],
+ "updated": "2026-10-27",
+ "authority": {},
+ "members": {
+  "gemini": {
+   "weight": 1.0,
+   "n": 0,
+   "dropped": null
+  },
+  "nvidia": {
+   "weight": 1.0,
+   "n": 0,
+   "dropped": null
+  },
+  "openrouter": {
+   "weight": 1.0,
+   "n": 0,
+   "dropped": null
+  }
+ }
+}

@@ -156,7 +156,12 @@ note = tx.better_market("SB:10||Home or Away", 0.70, cands, g, rules, fam)
 assert note and "fits the matchup better" in note, note
 assert tx.better_market("SB:29||Yes", 0.73, [cands[1]], g, rules, fam) is None, "same market never flagged"
 assert tx.better_market("SB:29||Yes", 0.70, [c for c in cands if c[2] != "SB:29||Yes"] + [(0.9, 0, "SB:10||Home or Away", 0, 0, Q(1.9))], g, rules, fam) is None, "only goals markets are flagged"
-print("better-market flag: another family, above the matchup's fair odds: OK")
+rules["SB:18|total=4.5|Under 4.5"] = fm.rule_for(18, "total=4.5", "Under 4.5")
+assert rules["SB:18|total=4.5|Under 4.5"]
+_under = [(0.74, 0.0, "SB:18|total=4.5|Under 4.5", 0, 0, Q(2.00))]
+assert tx.better_market("SB:10||Home or Away", 0.70, _under, g, rules, fam) is None, \
+    "an Under is never suggested, however well priced (order 12)"
+print("better-market flag: another family, above the matchup's fair odds, never an Under: OK")
 
 ex = ts.explain(preds[-1])
 assert ex["why"] and ex["btts_call"] in ("right", "wrong") and "say" in ex["expected"]

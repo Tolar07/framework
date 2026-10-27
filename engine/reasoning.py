@@ -401,6 +401,12 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
             pk["anchored_edge"] = round(a - 1 / float(s["price"]), 4)
     if os.getenv("COGNITIVE_CORE", "1").strip() != "0":
         _cognitive(doc, singles, sport, key, post)
+    # to-do #5: the verdict as a probability anchored on the sharp price, from a panel of free models
+    # (engine/verdict_panel.py); shadow until it beats the live verdict on CLV and Brier out of sample
+    if os.getenv("VERDICT_PANEL", "1").strip() != "0" and key:
+        from engine import verdict_panel as VP
+        VP.apply(doc, singles, sport, get=get, post=post,
+                 keys={"gemini": key, **{n: os.getenv(VP.MEMBERS[n]["key"], "").strip() for n in ("nvidia", "openrouter")}})
     return doc
 
 

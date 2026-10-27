@@ -158,7 +158,7 @@ def test_nba_board_is_reasoned_with_its_own_prompt_and_families():
 
     def post(url, json=None, **kw):
         import json as j
-        seen["prompt"] = json["messages"][0]["content"]
+        seen.setdefault("prompt", json["messages"][0]["content"])   # the verdict's, not the panel's (later)
         ans = {"picks": [{"id": 0, "verdict": "back", "ai_chance": 0.6, "confidence": 0.5, "reasons": "a"},
                          {"id": 1, "verdict": "lower", "ai_chance": 0.38, "confidence": 0.5, "reasons": "b"}]}
         return Resp({"choices": [{"message": {"content": j.dumps(ans)}}]})

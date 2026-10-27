@@ -102,7 +102,7 @@ def sync() -> None:
 
 def persist(now: datetime) -> str:
     """Save the round's lineup checks, drift and closing prices at once."""
-    _git("add", "output/picks", "data/features")
+    _git("add", "output/picks", "data/features", "output/reasoning")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"lineup check {now:%H:%M} [skip ci]")
@@ -144,6 +144,11 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"[{now:%H:%M}Z] {news_check.run(now=now)}")
             except Exception as e:  # noqa: BLE001 — one bad round never ends the loop
                 print(f"[{now:%H:%M}Z] round failed: {e}")
+            try:                    # to-do #5: the verdict panel again at T-75..T-45 with the line-ups
+                from engine import verdict_panel
+                print(f"[{now:%H:%M}Z] {verdict_panel.lineup_pass(now)}")
+            except Exception as e:  # noqa: BLE001 — never ends the loop
+                print(f"[{now:%H:%M}Z] line-up pass failed: {e}")
             try:                    # team news for EVERY rated fixture (item 5), not only picks
                 from data import fixture_features
                 print(f"[{now:%H:%M}Z] {fixture_features.capture_news(now)}")

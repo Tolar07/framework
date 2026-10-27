@@ -43,6 +43,11 @@ jobs:
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
           OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-2.5-flash)
           COGNITIVE_STAKES: ${{ vars.COGNITIVE_STAKES || '1' }}  # standing order 48: ON; set the variable to 0 to switch off
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}           # verdict panel (to-do #5): free NIM model
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}   # verdict panel: ":free" models ONLY (code guard)
+          PANEL_NVIDIA_MODEL: ${{ vars.PANEL_NVIDIA_MODEL }}
+          PANEL_OPENROUTER_MODEL: ${{ vars.PANEL_OPENROUTER_MODEL }}
+          VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
           PYTHONIOENCODING: utf-8
           FORCE: ${{ inputs.force && '--force' || '' }}
         run: python monitor/reasoning_run.py $FORCE
@@ -51,7 +56,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
+          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
           if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
           git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           for i in 1 2 3; do

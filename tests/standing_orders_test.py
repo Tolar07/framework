@@ -638,7 +638,7 @@ assert _l44.shift({"matchbook": _m44}, "SB:18|total=2.5|Under 2.5", "?") == -0.0
 assert _l44.shift({"family": {"Over/Under": {"shift": -0.08}}, "matchbook": _m44},
                   "SB:18|total=2.5|Under 2.5", "?") == -0.10, "Order 44: inside the overall ±10 pt cap"
 
-# Experiment engine (Architect 2026-10-20; ID pending): swaps strategies within
+# Experiment engine (Architect 2026-10-20; order 45): swaps strategies within
 # slots only — 100 bets, CLV AND return both significant, 7-day cool-down, ON
 # by default; it never touches stakes, the CLV gate or the league list.
 import os as _os_x  # noqa: E402

@@ -80,6 +80,13 @@ Rules:
   half-way to market_chance. "missing_value_share" is the share of each team's squad value
   unavailable (injured, suspended, not in the predicted XI): 0.30+ on the side your pick needs is a
   concrete reason to pull the chance down, on the other side a reason to keep or raise it.
+- "tactical_matchup" (2026-10-26, null when a team has no profile) is what both teams' tactical
+  profiles expect: each side's expected goals ("xg"), BTTS / Over chances, the tactical clashes in
+  play ("say", "tags": counter side v high line, set pieces, press v build-up ...), the pick's own
+  chance on the matchup ("pick_matchup_chance") and "better_market" when another market fits the
+  matchup better. A pick_matchup_chance well below model_chance is a concrete reason to pull the
+  chance down; name the clash in your reasons. "weight" 0 means the matchup has not yet proven
+  itself against the price: lean on it lightly.
 - "ai_chance" is YOUR estimate, not a copy. Start from model_chance and move it for each concrete
   reason in the context: a LOSING record in the family (the model has been overconfident there)
   pulls it down by about the gap between "won" and "needs"; key absences for the picked side pull
@@ -188,6 +195,10 @@ def context(singles: list[dict]) -> list[dict]:
             "framework_record_in_family": say_framework(fw.get(fam)),
             "matchbook_record_in_family": say_matchbook(mb.get(fam)),
             "paper_record_in_family": say_paper(paper.get(fam)),
+            # tactical matchup (engine/tactics.py): the expectation from both
+            # teams' profiles, the pick's chance on it, and a better-fitting
+            # market when there is one
+            "tactical_matchup": s.get("matchup"),
         })
     return out
 

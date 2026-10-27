@@ -19,6 +19,7 @@ from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
                           DEPLOY_ODDS_SAFE, DEPLOY_MIN_MODEL_PROB)
 from engine import markets as mkt
 from engine import competitions as comp
+from engine import cohorts
 from verification.id403 import VerificationResult, Tier, stamp
 
 
@@ -904,10 +905,18 @@ def _build_accas(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple
     # price >= 1) won 12 of 12 (+24.7% at £1); legs priced under fair won 79%
     # and lost money, and Table 3 accas landed 5 of 19 (-46%). So legs are taken
     # best value first: Acca A carries the value legs, the weakest go last.
-    legs.sort(key=lambda l: -((l[2] or 0) * (getattr(l[0], "best_price", None) or 0)))
+    value = (lambda l: (l[2] or 0) * (getattr(l[0], "best_price", None) or 0))
+    legs.sort(key=lambda l: -value(l))
     if len(legs) < 2:
         return []
-    out = _table3_groups(legs)
+    # KICKOFF COHORTS (Architect 2026-10-26, engine/cohorts.py): the rules above
+    # run inside each 30-minute kickoff window; Acca A is still the best value.
+    out = []
+    for cid, merged, b in cohorts.buckets(legs, _table3_enough):
+        for g in _table3_groups(b):
+            cohorts.remember(g, cid, merged)
+            out.append(g)
+    out.sort(key=lambda g: -value(g[0]))
     named = []
     for n, g in enumerate(out):
         combo = 1.0
@@ -915,6 +924,14 @@ def _build_accas(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple
             combo *= prob
         named.append((_acca_name(n), g, combo))
     return named if raw else _engine_keep("accas", named)
+
+
+def _table3_enough(legs: list) -> bool:
+    """A cohort can make a TABLE 3 acca: 2+ legs reaching 2.00 together."""
+    if len(legs) < 2:
+        return False
+    return (any(getattr(l[0], "best_price", None) is None for l in legs)
+            or _acca_odds(legs) >= TABLE3_ODDS_MIN)
 
 
 def _table3_groups(legs: list[tuple]) -> list[list]:
@@ -960,15 +977,23 @@ def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs = _ranked_legs(shortlist)
     if len(legs) < 2:
         return []
-    k = -(-len(legs) // MEGA_MAX_LEGS)
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), 2, -(-len(legs) // k))):
-        g = legs[i:i + size]
-        i += size
-        combo = 1.0
-        for _, _, prob in g:
-            combo *= prob
-        out.append((f"Mega {n + 1}", g, combo))
+    # KICKOFF COHORTS (Architect 2026-10-26): "a 14:45 leg never shares a slip
+    # with a 20:00 leg" — so a mega is every pick of one kickoff cohort, not of
+    # the day; a pick alone in its window stays a single.
+    out = []
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= 2):
+        if len(b) < 2:
+            continue
+        k = -(-len(b) // MEGA_MAX_LEGS)
+        i = 0
+        for size in _split_sizes(len(b), 2, -(-len(b) // k)):
+            g = b[i:i + size]
+            i += size
+            combo = 1.0
+            for _, _, prob in g:
+                combo *= prob
+            cohorts.remember(g, cid, merged)
+            out.append((f"Mega {len(out) + 1}", g, combo))
     return out
 
 
@@ -1061,8 +1086,14 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs.sort(key=lambda t: -t[2])
     if len(legs) < 2:
         return []
+    groups = []
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= 2):
+        for g in mix_groups(b, _split_sizes(len(b), ACCA_MIN, ACCA_MAX)):
+            cohorts.remember(g, cid, merged)
+            groups.append(g)
+    groups.sort(key=lambda g: -g[0][2])
     out = []
-    for n, g in enumerate(mix_groups(legs, _split_sizes(len(legs), ACCA_MIN, ACCA_MAX))):
+    for n, g in enumerate(groups):
         combo = 1.0
         for leg in g:
             combo *= leg[2]
@@ -1115,8 +1146,19 @@ def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
     if len(acca) > 1:
         taken = (_used(_build_safe3(shortlist, raw=True)) | _used(_build_accas(shortlist, raw=True))
                  | _used(_build_alt_accas(shortlist)))
-        acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken]
-        acca = (mix_groups([leg[:5] for leg in acca], [ACCA_MAX]) or [[]])[0]
+        acca = [leg[:5] for leg in acca if _canon_short(leg[0].fixture) not in taken]
+        # one Value acca, from the first kickoff cohort (best value first) that
+        # can make one — never legs of two different windows
+        rank = {id(leg): i for i, leg in enumerate(acca)}
+        best: list = []
+        for cid, merged, b in sorted(cohorts.buckets(acca, lambda b: len(b) >= 2),
+                                     key=lambda t: rank[id(t[2][0])]):
+            g = (mix_groups(b, [ACCA_MAX]) or [[]])[0]
+            if len(g) > 1:
+                cohorts.remember(g, cid, merged)
+                best = g
+                break
+        acca = best
     if len(acca) > 1:
         combo = 1.0
         for leg in acca:
@@ -1145,17 +1187,22 @@ def _build_safe3(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple
     legs = [l for l in _acca_legs(shortlist)
             if l[0].certainty in _CERT_ORDER]
     legs.sort(key=lambda t: (_CERT_ORDER[t[0].certainty], -t[2]))
-    out = []
-    for g in mix_groups(legs, [SAFE3_LEGS] * (len(legs) // SAFE3_LEGS)):
-        if len(g) < SAFE3_LEGS:
-            break
-        g = sorted(g, key=lambda t: -t[2])
-        combo = 1.0
-        for _, _, prob in g:
-            combo *= prob
-        if combo < SAFE3_MIN_CHANCE:
-            break
-        out.append((f"50+ #{len(out) + 1}", g, combo))
+    built = []
+    # KICKOFF COHORTS (Architect 2026-10-26): the same rule inside each window
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= SAFE3_LEGS):
+        for g in mix_groups(b, [SAFE3_LEGS] * (len(b) // SAFE3_LEGS)):
+            if len(g) < SAFE3_LEGS:
+                break
+            g = sorted(g, key=lambda t: -t[2])
+            combo = 1.0
+            for _, _, prob in g:
+                combo *= prob
+            if combo < SAFE3_MIN_CHANCE:
+                break
+            cohorts.remember(g, cid, merged)
+            built.append((g, combo))
+    built.sort(key=lambda t: -t[1])
+    out = [(f"50+ #{i}", g, combo) for i, (g, combo) in enumerate(built, 1)]
     return out if raw else _engine_keep("safe3", out)
 
 
@@ -1377,7 +1424,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             n = sum(len(l) for _, l, _ in safe3)
             code = extra_codes.get("safe3_mega") or "PENDING"
             out += ["", f"TABLE 3A mega code (all {len(safe3)} accas, {n} legs): {code}"
@@ -1407,7 +1454,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
-        out += ["", "Every deploy pick on one slip (the same slip as Table 2's mega):"] \
+        out += ["", "Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):"] \
             + _mega_lines("TABLE 3")
     out.append("")
 
@@ -1533,7 +1580,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
                        f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}% · "
                        f"stake 0.5%)")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             out.append(f"50+ MEGA: {extra_codes.get('safe3_mega') or 'PENDING'} "
                        f"({sum(len(l) for _, l, _ in safe3)} legs · all 50%+ accas · stake 0.1%)")
         if mega_codes is None and board_code:
@@ -1633,7 +1680,15 @@ def _build_btts(board: list) -> list[tuple]:
             continue
         rows.append((bf, "Both teams to score — yes", ch, mkt.BTTS_YES, price))
     rows.sort(key=lambda r: -r[2])
+    # KICKOFF COHORTS (Architect 2026-10-26): one slip, so one kickoff window —
+    # the window with the most BTTS games (then the strongest), up to 6 of them
+    cands = [(cid, merged, b) for cid, merged, b in cohorts.buckets(rows, lambda b: len(b) >= 2)
+             if len(b) >= 2]
+    if not cands:
+        return []
+    cid, merged, rows = max(cands, key=lambda t: (min(len(t[2]), BTTS_MAX_LEGS), t[2][0][2]))
     rows = rows[:BTTS_MAX_LEGS]
+    cohorts.remember(rows, cid, merged)
     if len(rows) < 2:
         return []
     combo = 1.0

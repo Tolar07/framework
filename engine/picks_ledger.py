@@ -121,7 +121,14 @@ def _slip(name, legs, combo, code) -> dict:
     for bf, _pick, _prob in legs:
         odds *= bf.best_price or 1.0
     return {"name": name, "code": code, "odds": round(odds, 3), "chance": combo,
-            "legs": [bf.fixture.split(" (")[0] for bf, _p, _q in legs], "result": None}
+            "legs": [bf.fixture.split(" (")[0] for bf, _p, _q in legs], "result": None,
+            **_cohort(legs)}
+
+
+def _cohort(legs) -> dict:
+    """Kickoff-cohort fields + per-leg detail (engine/cohorts.py, 2026-10-26)."""
+    from engine.cohorts import slip_fields
+    return slip_fields(list(legs))
 
 
 def _alt_slip(name, legs, combo, code) -> dict:
@@ -138,7 +145,7 @@ def _alt_slip(name, legs, combo, code) -> dict:
                           "kickoff": bf.kickoff_date, "market": key, "pick": pick,
                           "price": price, "chance": prob, "result": None, "ft": None}
                          for bf, pick, prob, key, price in legs],
-            "result": None}
+            "result": None, **_cohort(legs)}
 
 
 def _engine_dropped(slot: str) -> list:

@@ -60,11 +60,19 @@ def build(deploy: list, stats: dict) -> list[tuple]:
         seen.add(fx)
         legs.append((bf, mkt.display(bf.best_market_key, bf.probs.home_team, bf.probs.away_team),
                      bf.best_model_prob))
+    # KICKOFF COHORTS (Architect 2026-10-26, engine/cohorts.py): an acca's legs
+    # all kick off in one 30-minute window; the strongest windows go first.
+    from engine import cohorts
+    groups = []
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= MIN_LEGS):
+        for i in range(0, len(b), MAX_LEGS):
+            group = b[i:i + MAX_LEGS]
+            if len(group) >= MIN_LEGS:
+                cohorts.remember(group, cid, merged)
+                groups.append(group)
+    groups.sort(key=lambda g: -g[0][2])
     out = []
-    for i in range(MAX_SLIPS):
-        group = legs[i * MAX_LEGS:(i + 1) * MAX_LEGS]
-        if len(group) < MIN_LEGS:
-            break
+    for i, group in enumerate(groups[:MAX_SLIPS]):
         combo = 1.0
         for _b, _p, q in group:
             combo *= q

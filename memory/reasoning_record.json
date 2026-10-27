@@ -9,9 +9,9 @@
    "flat_return": -0.1037,
    "model_said": 0.797,
    "ai_said": 0.801,
-   "clv_n": 25,
-   "mean_clv": 0.37,
-   "beat_close": 13
+   "clv_n": 28,
+   "mean_clv": 0.33,
+   "beat_close": 14
   },
   "lower": {
    "n": 43,
@@ -20,8 +20,8 @@
    "flat_return": -0.0258,
    "model_said": 0.813,
    "ai_said": 0.8,
-   "clv_n": 45,
-   "mean_clv": 0.48,
+   "clv_n": 46,
+   "mean_clv": 0.45,
    "beat_close": 23
   },
   "veto": {
@@ -31,9 +31,9 @@
    "flat_return": -0.0259,
    "model_said": 0.789,
    "ai_said": 0.769,
-   "clv_n": 68,
-   "mean_clv": 0.23,
-   "beat_close": 29
+   "clv_n": 74,
+   "mean_clv": 0.3,
+   "beat_close": 32
   }
  },
  "brier": {
@@ -63,5 +63,7 @@
     "close_value": 0.2283
    }
   }
- }
+ },
+ "cognitive_authority": {},
+ "cognitive_history": []
 }

@@ -298,3 +298,11 @@ def test_market_chance_and_absences_reach_the_verdict():
     assert row["missing_value_share"] == {"home": 0.47, "away": 0.25}
     assert R.context(PICKS["singles"])[0]["missing_value_share"] is None
     assert "market_chance" in R.PROMPT and "market_chance" in R.PROMPT_NBA
+
+
+def test_anchored_chance_stays_within_the_band_of_the_market():
+    assert R.anchored_chance(0.90, 0.70) == 0.75
+    assert R.anchored_chance(0.40, 0.70) == 0.65
+    assert R.anchored_chance(0.72, 0.70) == 0.72
+    assert R.anchored_chance(0.72, None) == 0.72      # no market price: the AI's own
+    assert R.anchored_chance(None, 0.70) is None

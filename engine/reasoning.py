@@ -566,7 +566,19 @@ def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir
                             "market": x.get("market"), "cognitive": x.get("cognitive"), "ft": s.get("ft"),
                             "price": x.get("price"), "verdict": x["verdict"], "model_chance": x.get("model_chance"),
                             "ai_chance": x.get("ai_chance"), "reasons": x.get("reasons") or "",
+                            "market_chance": x.get("market_chance"), "anchored_chance": x.get("anchored_chance"),
                             "won": s["result"] == "won"})
+    return out
+
+
+def eval_summary(rows: list[dict]) -> dict:
+    """Verdict step 1/3 eval: Brier score of each chance on the SAME graded picks (lower is better), only
+    picks that carry every chance compared, so the numbers are like for like."""
+    keys = ("model_chance", "ai_chance", "market_chance", "anchored_chance")
+    have = [r for r in rows if all(r.get(k) is not None for k in keys)]
+    out = {"n": len(have)}
+    for k in keys:
+        out[k] = round(sum((float(r[k]) - (1 if r["won"] else 0)) ** 2 for r in have) / len(have), 4) if have else None
     return out
 
 

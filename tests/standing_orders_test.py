@@ -424,7 +424,12 @@ assert "if send and frozen is not None:" in _rd_src, \
 
 # 36. BTTS calibrated; BTTS-yes / over-goals value picks
 from engine import calibration as _cal
+# The shipped fit, not memory/calibration_live.json: the nightly refit (Architect
+# 2026-10-20, "auto") may adopt the raw chance when it scores better out of sample,
+# as it did for BTTS on 2026-10-26 (Brier 0.2450 -> 0.2421), which isn't a broken order.
+_cal.use(None)
 assert _cal.btts_yes(0.45) > 0.45 and _cal.btts_yes(0.75) < 0.75, "Order 36(a): BTTS calibrated"
+_cal.use(_cal.LIVE_PATH)
 assert "cal.model_prob(market, mkt.model_prob(market, p))" in _rd_src \
     and "md = (cal.model_prob(k, md[0]), md[1])" in _rd_src, \
     "Order 36(a): the calibrated BTTS feeds both selection routes"

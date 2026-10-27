@@ -223,9 +223,14 @@ def pick_model(get: Callable, key: str) -> Optional[str]:
 
 
 def _parse(text: str) -> dict:
-    text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
-    m = re.search(r"\{.*\}", text, re.S)          # a grounded answer may wrap the JSON in prose
-    return {p.get("id"): p for p in json.loads(m.group(0) if m else text).get("picks") or []}
+    """The first JSON object in the answer (a grounded answer may wrap it in prose or add a second)."""
+    text = re.sub(r"```(?:json)?", "", text).strip()
+    i = text.find("{")
+    obj, _ = json.JSONDecoder().raw_decode(text[i:] if i >= 0 else text)
+    return {p.get("id"): p for p in obj.get("picks") or []}
+
+
+SEARCH_LOG: list = []        # per batch: searches run, or why search failed (copied into the doc)
 
 
 def _ask_grounded(post: Callable, key: str, model: str, rows: list[dict], prompt: str) -> dict:
@@ -234,8 +239,11 @@ def _ask_grounded(post: Callable, key: str, model: str, rows: list[dict], prompt
              json={"contents": [{"role": "user", "parts": [{"text": prompt + json.dumps(rows, ensure_ascii=False)}]}],
                    "tools": [{"google_search": {}}], "generationConfig": {"temperature": 0.2}})
     r.raise_for_status()
-    parts = ((r.json().get("candidates") or [{}])[0].get("content") or {}).get("parts") or []
-    return _parse("".join(p.get("text", "") for p in parts))
+    cand = (r.json().get("candidates") or [{}])[0]
+    parts = (cand.get("content") or {}).get("parts") or []
+    got = _parse("".join(p.get("text", "") for p in parts))
+    SEARCH_LOG.append({"model": model, "searches": len((cand.get("groundingMetadata") or {}).get("webSearchQueries") or [])})
+    return got
 
 
 def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional[Callable] = None,
@@ -246,8 +254,8 @@ def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional
     if search:
         try:
             return _ask_grounded(post, key, model, rows, prompt)
-        except Exception:  # noqa: BLE001 — search refused or unparsable: judge without it
-            pass
+        except Exception as e:  # noqa: BLE001 — search refused or unparsable: judge without it
+            SEARCH_LOG.append({"model": model, "error": f"{type(e).__name__}: {str(e)[:160]}"})
     for attempt in range(3):           # the free tier answers 503/429 when busy: wait and retry
         r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
                  json={"model": model, "temperature": 0.2, "response_format": {"type": "json_object"},
@@ -327,6 +335,7 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
     if not key:
         doc["note"] = "NO DATA — PENDING: GEMINI_API_KEY not set"
     else:
+        SEARCH_LOG.clear()
         chain = model_chain(get, key)
         doc["model"] = chain[0] if chain else None
         if not chain:
@@ -346,6 +355,9 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
                 doc["note"] = f"PARTLY PENDING: {type(err).__name__}: {str(err)[:160]}"
         if used:
             doc["model"] = ", ".join(dict.fromkeys(used))
+        doc["search"] = {"batches_searched": sum(1 for x in SEARCH_LOG if "searches" in x),
+                         "queries": sum(x.get("searches", 0) for x in SEARCH_LOG),
+                         "errors": [x["error"] for x in SEARCH_LOG if "error" in x][:3]}
     for row, s in zip(rows, singles):
         doc["picks"].append({"fixture": s.get("fixture"), "market": s.get("market"),
                              "pick": row["pick"], "price": s.get("price"),

@@ -428,17 +428,17 @@ def adjustment(board_p: float, tactical_p: Optional[float], weight: float, cap: 
 
 def better_market(pick_key: str, pick_win: float, cands: list, tac_grid: np.ndarray, rules: dict,
                   family) -> Optional[str]:
-    """When a GOALS outcome (BTTS, match goals, team goals — the markets a
+    """When a GOALS outcome (BTTS yes, match and team Overs — the markets a
     tactical clash speaks to) of another family fits the matchup better than
     the pick: matchup chance >= 55%, priced >= 5% above the matchup's fair
-    odds, and rated by the matchup within 5 pts of the board's pick. Returns
-    the note, or None."""
+    odds, and rated by the matchup within 5 pts of the board's pick. Unders and
+    BTTS-no are never suggested (order 12). Returns the note, or None."""
     from engine import full_markets as fmk
     best = None
     for c in cands:
         k, price = c[2], c[5].price
         if (k == pick_key or family(k) == family(pick_key) or k not in rules
-                or not k.startswith(GOALS_MARKETS)):
+                or not k.startswith(GOALS_MARKETS) or "Under" in k or k.endswith("|No")):
             continue
         p = fmk.evaluate(tac_grid, rules[k])[0]
         if p < 0.55 or p * price < 1.05 or p < pick_win - 0.05:

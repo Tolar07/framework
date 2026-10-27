@@ -1,4 +1,58 @@
 {
+ "AIK v IF Elfsborg": {
+  "absent": [
+   {
+    "name": "Kevin Filling",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Charlie Pavey",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ibrahim Ciss\u00e9",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107637,
+  "home_missing_share": 0.5079209305330404,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-27T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Benevento Calcio v Catanzaro": {
+  "absent": [
+   {
+    "name": "Franck Tchaouna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Andrej Pogacar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Solomon Loubao",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T12:00Z",
+  "away_missing_share": 0.04853962187408755,
+  "away_unavailable": 3,
+  "fotmob_id": 5967120,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-27T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "GNK Dinamo Zagreb v HNK Rijeka": {
   "absent": [
    {

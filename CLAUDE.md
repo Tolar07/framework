@@ -26,16 +26,23 @@ inference — read those three files, the code, or the run history.
 
 ## THE LIVE LOOP — DO NOT BREAK IT
 
-Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
+Everything runs in GitHub Actions on `main`. Times are UTC unless marked; the board slots (21:47 / 06:47) and every time on the boards are UK time, daylight saving included (`engine/uktime.py`, Architect 2026-10-15: "we are in the UK, not Lagos").
 
 | Workflow | When | What |
 |---|---|---|
-| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
+| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/`, `data/sharp` (the parallel sharp-value list, order 37 amended) |
 | `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
 | `news.yml` | one job looping every 20 min, 09:00-20:40, started by `daily.yml` after each board (backup cron every 2 h) | `monitor/news_loop.py` → `news_check.py` — confirmed lineups, price drift, closing price per pick; saved each round |
-| `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief /proposals /approve /reject |
+| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h, started by `daily.yml`'s evening run (backup cron 16:05/19:05/22:05) | `monitor/nba_watch.py` — sharp line vs SportyBet; booked picks (live test, placed by hand) + LAG notes to the Architect only; ladder snapshots; saved each round |
+| `live.yml` | one job following the whole matchday, started by `daily.yml` after each board (backup crons 11:09/14:09/17:09/19:09) | `monitor/live_loop.py` -> `live_tracker.round_once` — every fixture on the day's board polled every 2 min: FotMob score/xG/shots/reds beside SportyBet's live prices; one Telegram to the Architect per round that has an event (goal, red, HT, FT); snapshots committed as it goes; hands off before the 6 h limit |
+| `nba_live.yml` | one job per NBA night, backup crons 16:09/19:09/22:09/01:09/04:09 | `monitor/nba_live.py` — the NBA board's games polled from ESPN every 2 min; one Telegram to the Architect per round with an event (tip-off, quarter ends, half time, final) and where each pick stands; snapshots committed (2026-10-20, NBA treated as football) |
+| `universe.yml` | every 3 h | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore (strict match), archived to `data/universe/`; `backtest/UNIVERSE_STUDY.md` daily; FotMob post-match stats of rated fixtures → `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md`. Studies, never selectors |
+| `commands.yml` | one job looping every 5 min, started by `daily.yml` and by an hourly backup cron | `monitor/commands_loop.py` → `telegram_commands.poll_once()` — answers /status /board /verify /why /log /note /debrief /proposals /approve /reject; saves each round that answered something; hands off before the 6 h limit |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
+| `profiles.yml` | Mondays 04:41 | `data/team_profiles.py` + `data/league_strength.py` — rebuilds every team's FotMob profile (29 competitions) and the cross-league strength ratings into `data/teams/`. **Order 43 reads these on every board**; they were rebuilt by hand until 2026-10-14 |
+| `matchbook_ledger.yml` | 05:23 daily | `monitor/matchbook_ledger.py` — the live Matchbook agent's graded ledger (private repo, read-only deploy key) summarised ANONYMOUSLY into `data/matchbook/summary.json`: won vs expected, CLV against Matchbook's close. ORDER 44 shifts each market family's chances by it (±5 pts, 30+ bets); in the weekly review |
+| `reasoning.yml` | after every board run (+ 3 backup crons) | `monitor/reasoning_run.py` → `engine/reasoning.py` — Gemini (secret `GEMINI_API_KEY`) judges every single: back / lower / veto, its own chance, reasons, from the pick, its news and the framework's and Matchbook's record in that market family → `output/reasoning/reasoning_<date>.json`; every past verdict scored against its result → `memory/reasoning_record.json`. ADVISORY ONLY (Architect 2026-10-19): changes, drops and stakes nothing until its record earns it a say |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` — agent 10's results review: last 7 days by market family and league, slips landed, learning in force, proposals (nothing auto-changed) |
 | `claude-review.yml` | every PR | Claude code review (code-reviewer + compliance agents' brief); does nothing until the `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` secret is set |
 | `backtest.yml` | 2nd of every month + manual | full CLV backtest; metrics history committed (`backtest/results/`) |
@@ -44,12 +51,16 @@ What each piece is protecting — read before changing it:
 
 | Thing | Why it is the way it is |
 |---|---|
-| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. |
+| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main; saved to main on its own by `monitor/push_marker.py` right after delivery) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. The marker used to ride in the persist commit, which a rebase conflict dropped — the 8 Oct board went out twice. |
 | Late-evening guard in `daily.yml` (`date -u +%H` >= 12) | GitHub sometimes fires the evening cron after midnight UTC; without the guard the run jumps a day ahead (2026-10-01). |
 | `--only-production` + `--heartbeat` | Board only on pick days; a short "system alive" heartbeat every day. A dry day is silence on the board, never a fake board. |
 | `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |
+| GitHub's crons are late or dropped — the loops exist because of it | Measured 13–14 Oct: `daily.yml`'s crons fired 3–7 h late, `commands.yml` ran 6 times in 35 h against an hourly schedule, `weekly.yml` ran ~9 h late two Mondays running, `universe.yml`'s 3-hourly ticks arrived 6–8 h apart. Nothing FAILED — the scheduler is simply unreliable. So: the Architect's Routines start each board on time, the crons are backup STARTERS, and `news.yml` / `live.yml` / `commands.yml` each keep ONE job up doing the work on their own clock (`monitor/loop_util.py`: one loop at a time, hand off before 6 h, save as you go). Don't "simplify" a loop back into a cron tick. |
+| Live tracker as an Actions job, not a session (`live.yml`) | The tracker's first version was run from a Claude session because an all-day Actions job was thought to cost "three times the free Actions minutes". This repo is PUBLIC, so those minutes are unmetered — the job is free and the session was not (it cost the Architect tokens for every goal, and stopped when the session did). Same `round_once`, so both paths see the same events. |
 | Pre-kickoff loop (`monitor/news_loop.py`, started by `daily.yml`) | GitHub dropped `news.yml`'s 20-minute cron almost every time. One loop at a time (a newer run exits while an older one is going), saved every round, handed on before the 6-hour job limit — break any of these and alerts go missing or repeat. |
 | `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
+| NBA line watch (`monitor/nba_watch.py`): one loop, git only inside Actions, one pick per game | Same reasons as the pre-kickoff loop; a desktop run must never reset the checkout; a game already on the board is never picked twice. |
+| `engine/nba_teams.py` (SportyBet id decides; an id/name conflict is skipped, a new id flagged) | Matches SportyBet NBA games to ESPN's sharp line. A wrong match would price one game off another game's line. |
 | SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
 | Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |
 | Fixture check (`verification/fixture_check.py`) + price check (`pipeline/odds_verify.py`), standing order 27 | Free second sources (ESPN, football-data). A match only CONFLICTs on positive evidence — another source lists it postponed/cancelled on a strong name match; a spelling that won't pair adds nothing, or real fixtures would drop off the deploy list. Prices are compared with margins removed: raw prices of two honest books differ ~4.5%. |
@@ -104,6 +115,12 @@ Say plainly when something is not implemented; do not debug it as a fault.
 - **The price check is a label only** (`pipeline/odds_verify.py`). A price
   CONFLICT is shown on the board; nothing selects, stakes or blocks on it —
   making it gate anything is the Architect's decision.
+- **The sharp check is a label on the board, and a SELECTOR only on the
+  parallel list.** `pipeline/sharp.py` labels each board pick with its value
+  against the Betfair Exchange and the board is sent regardless (orders 3, 4,
+  11 unchanged). `monitor/sharp_list.py` is the separate test that selects on
+  it — its own store (`data/sharp/`), its own codes, the same grader. Don't
+  "fix" the board to match it: the comparison is the point.
 - Market-implied fixtures (`ᴹ` on the board, `prob_source == "market"`)
   carry the bookmaker's numbers, not the model's; no edge is claimed.
 

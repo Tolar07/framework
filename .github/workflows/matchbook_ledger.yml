@@ -1,0 +1,117 @@
+name: OLP XDV Matchbook evidence
+
+# Architect 2026-10-15: constant back-and-forth between the live Matchbook agent
+# and the framework, so the bot and the framework improve each other.
+#
+# Bot <- framework: the agent reads output/picks/ every 15 minutes (no change here).
+# Bot -> framework: this job. It reads the agent's graded ledger from its PRIVATE
+# repo with a read-only deploy key (secret MATCHBOOK_LEDGER_KEY) and writes an
+# ANONYMISED summary to data/matchbook/summary.json — counts, won vs expected,
+# CLV against Matchbook's closing price. THIS REPO IS PUBLIC: no stake, no £,
+# no id ever lands here (tests/matchbook_ledger_test.py). ORDER 44: engine/learning.py
+# shifts each market family by its CLV against Matchbook's close (±5 pts, 30+ bets).
+#
+# Daily, early, before the morning board. Off the hour because GitHub drops :00 ticks.
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: matchbook-ledger
+  cancel-in-progress: false
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the agent's ledger (read-only deploy key)
+        id: fetch
+        continue-on-error: true
+        env:
+          KEY: ${{ secrets.MATCHBOOK_LEDGER_KEY }}
+        run: |
+          if [ -z "$KEY" ]; then
+            echo "::warning::MATCHBOOK_LEDGER_KEY not set — Matchbook evidence PENDING"
+            exit 1
+          fi
+          mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/mb && chmod 600 ~/.ssh/mb
+          trap 'rm -f ~/.ssh/mb' EXIT                  # the key never outlives this step, pass or fail
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          # The key goes to EVERY git command that talks to the private repo, not just
+          # the clone. --filter=blob:none means the clone brings commits and folder
+          # lists only; `sparse-checkout set ledger` is what downloads the ledger's
+          # contents, and before 2026-10-16 it ran without the key: GitHub refused it
+          # (Permission denied (publickey) on ledger/ledger.jsonl), every run since
+          # 15 Oct, and continue-on-error kept the badge green over a PENDING summary.
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/mb -o IdentitiesOnly=yes"
+          git clone -q --depth 1 --filter=blob:none --sparse git@github.com:Tolar07/matchbook-agent.git "$RUNNER_TEMP/mb"
+          git -C "$RUNNER_TEMP/mb" sparse-checkout set ledger
+          ls -la "$RUNNER_TEMP/mb/ledger"
+          # A fetch that brings no ledger is a failed fetch, not an empty one.
+          if [ ! -s "$RUNNER_TEMP/mb/ledger/ledger.jsonl" ]; then
+            echo "::warning::ledger/ledger.jsonl missing or empty — Matchbook evidence PENDING"
+            exit 1
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Summarise (anonymised)
+        if: steps.fetch.outcome == 'success'
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/matchbook_ledger.py "$RUNNER_TEMP/mb/ledger/ledger.jsonl" data/matchbook/summary.json "$RUNNER_TEMP/mb/ledger/paper.jsonl"
+
+      - name: Save
+        if: steps.fetch.outcome == 'success'
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add data/matchbook || true
+          if git diff --staged --quiet; then echo "Matchbook evidence unchanged"; exit 0; fi
+          git commit -q -m "Matchbook evidence $(date -u +%Y-%m-%d) [skip ci]"
+          if ! git pull --rebase -q origin main; then
+            git rebase --abort || true
+            echo "::warning::matchbook evidence: main moved and a file conflicted — NOT saved this run"
+            exit 0
+          fi
+          git push -q origin HEAD:main && echo "Matchbook evidence saved to main"
+
+      # The Architect's real SportyBet bets: the placer on the PC writes
+      # data/sportybet/placed_<date>.json; this joins them to the board's grading.
+      # Independent of the Matchbook key.
+      - name: SportyBet evidence (real bets, anonymised)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          git pull -q --rebase origin main || true
+          python monitor/sportybet_ledger.py
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add data/sportybet || true
+          if git diff --staged --quiet; then echo "SportyBet evidence unchanged"; exit 0; fi
+          git commit -q -m "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]"
+          if ! git pull --rebase -q origin main; then
+            git rebase --abort || true
+            echo "::warning::sportybet evidence: main moved and a file conflicted — NOT saved this run"
+            exit 0
+          fi
+          git push -q origin HEAD:main && echo "SportyBet evidence saved to main"
+
+      # LAST, so a failed fetch still runs every step above that can run, then
+      # turns the run RED. continue-on-error alone left 15 and 16 Oct green while
+      # nothing was read: the watchdog, the run list and the Architect all saw a
+      # pass. A missing ledger is a fault to look at, not a quiet PENDING.
+      - name: Fail the run if the ledger was not read
+        if: steps.fetch.outcome != 'success'
+        run: |
+          echo "::error::Matchbook ledger NOT read — data/matchbook/summary.json not updated (evidence PENDING). See the 'Fetch the agent's ledger' step."
+          exit 1

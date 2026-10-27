@@ -67,6 +67,15 @@ SLUGS = {
     "Primeira Liga": "por.1",
     "Belgian Pro League": "bel.1",
     "Danish Superliga": "den.1",
+    # Added 2026-10-09 (Architect: every fixture verified) — each slug answered
+    # with that league's games: tur.1 Galatasaray v Kasimpasa, nor.1 Brann v
+    # Viking, swe.1 Goteborg v Vasteras, gre.1 / aut.1 the weekend's games.
+    "Turkish Super Lig": "tur.1",
+    "Eliteserien": "nor.1",
+    "Allsvenskan": "swe.1",
+    "Greek Super League": "gre.1",
+    "Austrian Bundesliga": "aut.1",
+    "Swiss Super League": "sui.1",
     "UEFA Nations League": "uefa.nations",
     "Champions League": "uefa.champions",
     "Europa League": "uefa.europa",

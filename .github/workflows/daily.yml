@@ -1,17 +1,24 @@
 name: OLP XDV daily board
 
-# Nigeria is UTC+1 year-round (no DST), so Africa/Lagos = UTC+1. GitHub cron is
-# always UTC. Two runs a day (Architect's request 2026-09-30):
-#   ~21:47 Lagos (20:47 UTC) — EVENING: prepare the next match day's board.
-#   ~06:47 Lagos (05:47 UTC) — MORNING: refresh with the latest prices/lineups.
+# Two runs a day (Architect's request 2026-09-30), on the UK clock (Architect
+# 2026-10-15: "we are in the UK, not Lagos" -> "UK time for everything"):
+#   21:47 UK — EVENING: prepare the next match day's board.
+#   06:47 UK — MORNING: refresh with the latest prices/lineups.
+# UK time follows daylight saving and GitHub cron is always UTC, so each slot
+# has two crons: the UTC hour of the slot in BST (UTC+1) and in GMT (UTC+0).
+# The `when` job lets only the one on the slot's UK time through; the other
+# lands an hour EARLY (skipped) or an hour late (a backup the duplicate guard
+# skips). The board clock (clock.yml) starts each slot on time anyway.
 # Deliberately OFF the top of the hour: GitHub delays and sometimes DROPS
 # scheduled runs under the :00 load spike (2026-09-30: the 21:00 run fired 3.5h
 # late and the 06:00 run never fired). Firing at :47 also lands the board just
-# before 10 PM / 7 AM Lagos.
+# before 10 PM / 7 AM.
 on:
   schedule:
-    - cron: "47 20 * * *"   # ~21:47 Africa/Lagos — evening prep run
-    - cron: "47 5 * * *"    # ~06:47 Africa/Lagos — morning refresh run
+    - cron: "47 20 * * *"   # 21:47 UK in BST — evening prep run
+    - cron: "47 21 * * *"   # 21:47 UK in GMT
+    - cron: "47 5 * * *"    # 06:47 UK in BST — morning refresh run
+    - cron: "47 6 * * *"    # 06:47 UK in GMT
   workflow_dispatch:        # manual trigger (e.g. to send a given day's board now)
     inputs:
       target_date:
@@ -22,6 +29,10 @@ on:
         description: "evening | morning = scheduled slot (sent at most once per day); manual = always send"
         required: false
         default: "manual"
+      refreeze:
+        description: "yes = publish a FRESH board with new codes for a day whose codes are frozen (order 35; only when the Architect asks)"
+        required: false
+        default: "no"
 
 # Needed so the run can commit the CLV log back — without persistence the
 # paper log resets every run and the Phase 3 gate can never accumulate.
@@ -34,7 +45,33 @@ concurrency:
   cancel-in-progress: false   # never kill a run mid-write of the CLV log
 
 jobs:
+  # UK TIME GATE: a scheduled run that fires before its slot's UK time (in GMT,
+  # the BST cron lands an hour early) ends here and sends nothing — not the
+  # board, not the NBA board, not the sharp list. Dispatches always go through.
+  when:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      go: ${{ steps.uk.outputs.go }}
+    steps:
+      - id: uk
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          UKHM=$((10#$(TZ=Europe/London date +%H%M)))
+          go=yes
+          case "$SCHEDULE" in
+            "47 20 * * *"|"47 21 * * *") if [ "$UKHM" -ge 1200 ] && [ "$UKHM" -lt 2147 ]; then go=no; fi ;;
+            "47 5 * * *"|"47 6 * * *")   if [ "$UKHM" -ge 300 ] && [ "$UKHM" -lt 647 ]; then go=no; fi ;;
+          esac
+          if [ "$go" = no ]; then
+            echo "SKIP: $(TZ=Europe/London date +%H:%M) UK is before this slot's UK time — the next cron or the board clock runs it"
+          fi
+          echo "go=$go" >> "$GITHUB_OUTPUT"
+
   board:
+    needs: when
+    if: needs.when.outputs.go == 'yes'
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -60,7 +97,20 @@ jobs:
           key: olp-xdv-data-${{ github.run_id }}
           restore-keys: olp-xdv-data-
 
+      # EXPERIMENT ENGINE (engine/experiments.py, Architect 2026-10-20): every
+      # strategy scored in shadow; a promotion / demotion is applied to
+      # memory/strategies.json BEFORE the board reads it, one Telegram line per
+      # change. A failure here leaves every slot as it was — never blocks the board.
+      - name: Experiment engine (shadow strategies, promotion)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+        run: python monitor/experiment_run.py
+
       - name: Run the daily board
+        id: board
         env:
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
@@ -75,13 +125,14 @@ jobs:
           # Optional: a separate Architect-only chat for the bet365 board
           # (standing order 29). Unset = TELEGRAM_CHAT_ID, the Architect's chat.
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
-          # Subscribers (order 33): comma-separated chat ids that get everything
-          # the Architect gets — board, heartbeat, alerts — except the bet365 board.
+          # Subscribers (order 33): comma-separated chat ids that get the board
+          # and nothing else (no heartbeat, alerts or bet365 board).
           TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           TARGET_DATE_INPUT:  ${{ github.event.inputs.target_date }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
+          REFREEZE_INPUT:     ${{ github.event.inputs.refreeze }}
         # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
         # request 2026-09-30). --only-production sends the canonical board ONLY on
         # days with real picks; --heartbeat sends a short 'system alive' ping
@@ -100,18 +151,19 @@ jobs:
         # and checked against the LATEST main (not this run's checkout SHA).
         # slot=manual (the default for hand dispatches) always sends.
         run: |
-          if [ "$SCHEDULE" = "47 20 * * *" ]; then
+          # Card dates are UK dates (Architect 2026-10-15: "UK time for everything").
+          if [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SCHEDULE" = "47 21 * * *" ]; then
             SLOT=evening
             # Evening run builds TOMORROW's card. If GitHub fired it so late it
-            # is already past midnight UTC, "tomorrow" has become today — build
+            # is already past midnight UK, "tomorrow" has become today — build
             # today's card instead of jumping a day ahead (2026-10-01 incident).
-            if [ "$(date -u +%H)" -ge 12 ]; then T=$(date -u -d tomorrow +%F); else T=$(date -u +%F); fi
-          elif [ "$SCHEDULE" = "47 5 * * *" ]; then
+            if [ "$(TZ=Europe/London date +%H)" -ge 12 ]; then T=$(TZ=Europe/London date -d tomorrow +%F); else T=$(TZ=Europe/London date +%F); fi
+          elif [ "$SCHEDULE" = "47 5 * * *" ] || [ "$SCHEDULE" = "47 6 * * *" ]; then
             SLOT=morning
-            T=$(date -u +%F)
+            T=$(TZ=Europe/London date +%F)
           else
             SLOT="${SLOT_INPUT:-manual}"
-            T="${TARGET_DATE_INPUT:-$(date -u +%F)}"
+            T="${TARGET_DATE_INPUT:-$(TZ=Europe/London date +%F)}"
           fi
           if ! [[ "$T" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
             echo "invalid target_date '$T' (want YYYY-MM-DD)"; exit 1
@@ -124,37 +176,103 @@ jobs:
             git fetch -q origin main
             if git cat-file -e "origin/main:$MARKER" 2>/dev/null; then
               echo "SKIP: the $SLOT board for $T was already delivered ($MARKER) — no duplicate send."
+              echo "skipped=yes" >> "$GITHUB_OUTPUT"
               exit 0
             fi
           fi
           ARGS="--only-production --heartbeat --target-date $T --slot $SLOT"
+          if [ "$REFREEZE_INPUT" = "yes" ] && [ "$SLOT" = "manual" ]; then ARGS="$ARGS --refreeze"; fi
           echo "schedule='$SCHEDULE' slot=$SLOT -> run_daily.py $ARGS"
           python run_daily.py $ARGS
           if [ "$SLOT" != "manual" ]; then
             date -u +%FT%TZ > "$MARKER"
+            # Save the marker to main NOW, on its own (monitor/push_marker.py).
+            # It used to ride in the persist commit, which a rebase conflict can
+            # drop — then a late GitHub cron re-sent the board (2026-10-08).
+            python monitor/push_marker.py "$MARKER" "board sent $T $SLOT [skip ci]" || true
           fi
 
-      # NBA PAPER BOARD (standing order 41): after the evening football board,
-      # SportyBet NBA prices that beat the sharp line, to the Architect's own
-      # chat only; grades earlier NBA picks first. Paper only — never fails
-      # the football run. A manual dispatch resends the day's board.
-      - name: NBA paper board
+      # NBA BOARD (standing order 41, live test at £1 a pick): SportyBet NBA
+      # prices that beat the sharp line, to the Architect, then every subscriber (2026-10-20);
+      # grades earlier NBA picks first. Built by the MORNING run for that
+      # night's games, 11-17 h before tip-off (Architect 2026-10-07: "at least
+      # 12 hours or 6 hours before kickoff"); the evening run only sends it if
+      # the morning board was missed (a board already sent is never resent).
+      # Never fails the football run. A manual dispatch resends the night's board.
+      - name: NBA board
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          # subscribers get the NBA board as they get the football board (order 41, 2026-10-20)
+          TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
         run: |
-          if [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SLOT_INPUT" = "evening" ]; then
-            python run_nba.py
-          elif [ -z "$SCHEDULE" ] && [ "${SLOT_INPUT:-manual}" = "manual" ]; then
-            python run_nba.py --resend
+          if [ "$SCHEDULE" = "47 5 * * *" ] || [ "$SCHEDULE" = "47 6 * * *" ] || [ "$SLOT_INPUT" = "morning" ]; then
+            python run_nba.py --night "$(date -u +%F)"
+          elif [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SCHEDULE" = "47 21 * * *" ] || [ "$SLOT_INPUT" = "evening" ]; then
+            # backup: tonight's board, unless it was already built and sent
+            if [ "$(date -u +%H)" -ge 5 ]; then N=$(date -u +%F); else N=$(date -u -d yesterday +%F); fi
+            python run_nba.py --night "$N"
           else
-            echo "NBA paper board runs with the evening board only"
+            python run_nba.py --resend
           fi
+          # the NBA studies: every SportyBet market against the results, and the ladder spreads
+          python backtest/nba_market_study.py || true
+          python backtest/nba_ladder_study.py || true
+
+      # SHARP VALUE LIST (Architect 2026-10-14) — the parallel selection, run on
+      # the SAME target day as the board so one grader measures both on the same
+      # fixtures. One rule: SportyBet must pay more than the Betfair Exchange's
+      # fair price. It never touches the board, its picks or its codes; most days
+      # it is short and some days empty. Grades its own earlier picks first.
+      - name: Sharp value list (parallel test)
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          SCHEDULE:          ${{ github.event.schedule }}
+          TARGET_DATE_INPUT: ${{ github.event.inputs.target_date }}
+          SLOT_INPUT:        ${{ github.event.inputs.slot }}
+          BOARD_SKIPPED:     ${{ steps.board.outputs.skipped }}
+        run: |
+          # A late GitHub cron whose board was skipped as already delivered must
+          # not send the list a second time (2026-10-18: one list went out at
+          # 21:48, 23:36 and 00:43 UK). It still grades.
+          if [ "$BOARD_SKIPPED" = "yes" ]; then
+            echo "SKIP: this slot's board was already delivered — sharp list not re-sent"
+            python monitor/sharp_list.py --grade
+            exit 0
+          fi
+          if [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SCHEDULE" = "47 21 * * *" ]; then
+            if [ "$(TZ=Europe/London date +%H)" -ge 12 ]; then T=$(TZ=Europe/London date -d tomorrow +%F); else T=$(TZ=Europe/London date +%F); fi
+          elif [ "$SCHEDULE" = "47 5 * * *" ] || [ "$SCHEDULE" = "47 6 * * *" ]; then
+            T=$(TZ=Europe/London date +%F)
+          else
+            T="${TARGET_DATE_INPUT:-$(TZ=Europe/London date +%F)}"
+          fi
+          if ! [[ "$T" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "invalid target_date '$T' (want YYYY-MM-DD)"; exit 1
+          fi
+          python monitor/sharp_list.py --grade
+          python monitor/sharp_list.py --target-date "$T" --telegram
+          # The record the board's footer points at (order 3 amended): the
+          # board's own graded singles by price band and by tier, the study
+          # picks and the sharp list, all from the ledgers, all one grader.
+          python backtest/price_band_study.py > /dev/null
+
+      # The pre-kickoff loop captures SportyBet's own closing price onto the picks
+      # ledger; this is what carries it into the CLV log the Phase 3 gate reads
+      # (without it the gate saw 35 of 307 legs — see clv/clv_sync.py).
+      - name: Sync captured closing prices into the CLV log
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python clv/clv_sync.py
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
@@ -169,10 +287,101 @@ jobs:
           git add data/survivor 2>/dev/null || true
           # European club results archive (data/european_archive.py).
           git add data/european 2>/dev/null || true
+          # Turkish Cup results + clubs' divisions (data/european_archive.archive_cups).
+          git add data/cups 2>/dev/null || true
+          # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
+          git add output/nba_ladders 2>/dev/null || true
+          # Every SportyBet NBA market at every look (engine/nba_markets.py) + the NBA studies.
+          git add output/nba_markets backtest/NBA_MARKET_STUDY.md backtest/NBA_LADDER_STUDY.md 2>/dev/null || true
+          # The parallel sharp-value list and its grades (monitor/sharp_list.py)
+          # and the record by price band the board's footer points at (order 3).
+          git add data/sharp backtest/PRICE_BAND_STUDY.md 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
-          git pull --rebase -q origin main || true
-          git push || echo "nothing to push"
+          # 2026-10-15 (Architect: "fix the conflict ... make sure everything is
+          # saved ... so you don't lose anything"): the evening board's commit
+          # (picks_2026-10-15.json with the codes already sent) was DROPPED
+          # because the NBA line watch appended to the same nba_markets file.
+          # Now: append-only logs merge by union (.gitattributes); the rebase +
+          # push is retried 4 times (main moves while the loops save); from the
+          # 3rd try a file both sides changed keeps THIS RUN's copy (-X theirs:
+          # in a rebase "theirs" is the commit being replayed) — the board and
+          # its codes cannot be rebuilt, a loop rewrites its own file next round.
+          saved=no
+          for attempt in 1 2 3 4; do
+            X=""; [ "$attempt" -ge 3 ] && X="-X theirs"
+            if git pull --rebase --autostash -q $X origin main; then
+              if git push -q origin HEAD:main; then saved=yes; break; fi
+            else
+              git rebase --abort || true
+            fi
+            sleep $((attempt * 5))
+          done
+          if [ "$saved" = yes ]; then
+            echo "persist: board/picks/CLV saved to main (try $attempt)"
+            # an if, not `[ ] && echo`: a false test as the step's last command
+            # exits 1 and fails a run that saved fine (15 Oct 2026, run 38689118184)
+            if [ "$attempt" -ge 3 ]; then
+              echo "::warning::persist: saved on try $attempt, keeping this run's copy of any file both sides changed"
+            fi
+          else
+            # not exit 1: the steps below start the news / live / commands loops
+            echo "::error::persist: board/picks/CLV NOT saved after 4 tries — the codes sent are only in Telegram"
+          fi
+
+      # Start the NBA line watch (nba_watch.yml -> monitor/nba_watch.py) after the
+      # evening NBA board: every 15 min while a game tips within 6 h. Its own
+      # cron ticks are backups; a second loop exits at once. Never fails the run.
+      - name: Start the NBA line watch
+        if: github.event.schedule == '47 20 * * *' || github.event.schedule == '47 21 * * *' || github.event.inputs.slot == 'evening'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \n            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \n            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/nba_watch.yml/dispatches" \n            -d '{"ref":"main"}') || code=000
+          echo "NBA line watch start requested (HTTP ${code}; 204 = started)"
+
+      # Start the universe sweep (universe.yml -> monitor/universe_sweep.py) after
+      # every board run: GitHub's own 3-hourly cron for it is unreliable, so each
+      # board guarantees a sweep (grade, archive, studies). Its concurrency group
+      # queues it behind a sweep already running. Never fails the run.
+      - name: Start the universe sweep
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST             -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/universe.yml/dispatches"             -d '{"ref":"main"}') || code=000
+          echo "universe sweep start requested (HTTP ${code}; 204 = started)"
+
+      # Start the reasoning step (reasoning.yml -> monitor/reasoning_run.py) after every
+      # board run, so Gemini's advisory verdicts sit beside the picks the Matchbook agent
+      # reads. Its crons are backups. Never fails the run.
+      - name: Start the reasoning step
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/reasoning.yml/dispatches" \
+            -d '{"ref":"main"}') || code=000
+          echo "reasoning step start requested (HTTP ${code}; 204 = started)"
+
+      # Start the live matchday tracker (live.yml -> monitor/live_loop.py) once
+      # the day's board is saved: it follows every fixture on the board minute
+      # by minute and Telegrams the Architect on each goal, red card, half time
+      # and full time (Architect 2026-10-14: "let GitHub give me the update").
+      # A loop already running makes the new one exit; too early and it exits
+      # too. Free: this repo is public, so Actions minutes are unmetered.
+      # Never fails the board run.
+      - name: Start the live matchday tracker
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/live.yml/dispatches" \
+            -d '{"ref":"main"}') || code=000
+          echo "live tracker start requested (HTTP ${code}; 204 = started)"
 
       # Start the pre-kickoff loop (news.yml -> monitor/news_loop.py) once the
       # day's board is saved. The morning board is started on time by a
@@ -193,17 +402,14 @@ jobs:
       # and re-adopted as canonical. A failed run is an operational alert, not
       # paper-calibration noise — it fires only on failure() so the phone hears
       # about a broken run (no board) but nothing else.
-      # The Architect's chat and every subscriber chat (order 33). The reply is
-      # discarded: it names the chat, and this public repo's run logs are public.
+      # The Architect's chat only — subscribers get the board alone (order 33).
+      # The reply is discarded: it names the chat, and run logs are public.
       - name: Report failure to Telegram
         if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
         run: |
           MSG="OLP XDV: a scheduled run FAILED. No board from this run — this is a system failure, not a quiet slate. Run log: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          for CID in $(printf '%s\n' "${TELEGRAM_CHAT_ID}" ${TELEGRAM_SUBSCRIBER_CHAT_IDS//,/ } | awk 'NF && !seen[$1]++'); do
-            curl -s -o /dev/null -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              -d chat_id="${CID}" --data-urlencode text="${MSG}" || true
-          done
+          curl -s -o /dev/null -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode text="${MSG}" || true

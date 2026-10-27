@@ -126,8 +126,8 @@ print("bet365 picks: OK")
 # --- the board text ---
 same.kickoff_utc = "2026-10-04T16:30:00.000Z"
 txt = b365.render([same, swap, none, risk, off], board_date="2026-10-04")
-assert "Times are kickoff, Lagos time (WAT)" in txt and " • 17:30 Sociedad B v Granada — " in txt, \
-    "order 28: each bet365 single shows its kickoff (Lagos)"
+assert "Times are kickoff, UK time" in txt and " • 17:30 Sociedad B v Granada — " in txt, \
+    "order 28: each bet365 single shows its kickoff (UK time; BST on 4 Oct)"
 assert " • PENDING " in txt, "HR35: no kickoff time reads PENDING, never a guess"
 assert txt.startswith("##########OLP XDV · BET365#########")
 assert "Sun 04 Oct 2026" in txt and "sent to you only" in txt
@@ -148,4 +148,15 @@ assert "@1.2" not in txt.split("bet365 SINGLES")[1].replace("SportyBet @", ""), 
 empty = b365.render([off], board_date="2026-10-04")
 assert "No bet365 pick today" in empty
 print("bet365 board render: OK")
+
+# --- the bet365 singles as data for the Matchbook bot (Architect 2026-10-16) ---
+import json as _json  # noqa: E402
+rec = b365.records([same, swap, none, risk, off], "2026-10-04")
+assert rec["date"] == "2026-10-04" and len(rec["singles"]) == 3
+_sw = [r for r in rec["singles"] if not r["same"]][0]
+assert _sw["pick"] == "Double Chance: Lithuania or draw" and _sw["market"] and "|" in _sw["market"], \
+    "bet365's own pick carries its SportyBet market key, so the bot can find it on Matchbook"
+assert [r for r in rec["singles"] if r["same"]][0]["kickoff_utc"] == "2026-10-04T16:30:00.000Z"
+_json.dumps(rec)
+print("bet365 records: OK")
 print("bet365_board_test: OK")

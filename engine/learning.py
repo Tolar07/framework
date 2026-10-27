@@ -25,13 +25,19 @@ shift (`chance_raw`) — all 2026-10-05.
 
 The shifted chance is what ranks the candidates and what must clear the 50%
 floor, so a market family that keeps losing drops off the board on its own
-and one that keeps winning rises. Results are never guessed (HR35): only
-won/lost singles count; voids and ungraded picks are ignored.
+and one that keeps winning rises. Results are never guessed (HR35): ungraded
+picks are ignored. A VOID (stake back: a draw-no-bet draw, an Asian or goals
+whole-line push) counts as a pick that did NOT win, with no profit or loss:
+the stated chance is the chance of winning outright, push included in the
+rest (run_daily: EV = win x price + push - 1). Dropping voids compared wins
+among the non-voids with that outright chance and read Draw no bet as
++18.8pp (127/173 vs 88.9 expected, 21 Oct board), lifting it by the full cap.
 """
 from __future__ import annotations
 
 import json
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Optional
 
 WINDOW_DAYS = 90
@@ -44,6 +50,19 @@ MIN_DAYS = 5        # distinct match days a segment's results must span
 Z_MIN = 2.0
 SHRINK = 30
 MAX_SHIFT = 0.10
+
+# ORDER 44 (Architect 2026-10-15: "framework automatically favour what's better than
+# price ... for it to be profitable"): the live Matchbook agent bets this repo's picks
+# and rated markets and measures each against Matchbook's CLOSING price
+# (data/matchbook/summary.json, matchbook_ledger.yml). Per market family, over the
+# framework's own bets only: shift = MB_K x mean CLV, capped at +/-MB_MAX_SHIFT, once the
+# family has MB_MIN_N bets with a closing price. A family that keeps beating a sharp
+# exchange's close is lifted (it wins more picks); one that keeps losing to it is cut
+# (it drops off the board). Inside the same overall MAX_SHIFT cap as the rest.
+MB_SUMMARY = Path(__file__).resolve().parent.parent / "data" / "matchbook" / "summary.json"
+MB_MIN_N = 30
+MB_K = 1.0
+MB_MAX_SHIFT = 0.05
 
 # Readable names for the market families on the board / heartbeat.
 _SB_NAMES = {"1": "1X2", "10": "Double chance", "11": "Draw no bet",
@@ -103,13 +122,15 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
         if not (since <= doc["date"] < today):
             continue
         for s in doc["singles"]:
-            if s.get("result") not in ("won", "lost") or s.get("chance") is None:
+            if s.get("result") not in ("won", "lost", "void") or s.get("chance") is None:
                 continue
             # Learn from the chance BEFORE any learned correction (2026-10-05):
             # learning from already-shifted chances re-measured its own shift.
             c = s.get("chance_raw", s["chance"])
             picks.append((family(s.get("market")), s.get("league") or "?",
-                          (s["result"] == "won", float(c), s.get("price"),
+                          # a void has no price here: no profit or loss in the ROI
+                          (s["result"] == "won", float(c),
+                           s.get("price") if s["result"] != "void" else None,
                            (s.get("kickoff") or doc["date"])[:10])))
         rated_rows += _rated_rows(doc)
     fam: dict = {}
@@ -127,7 +148,24 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
     for f, league, (won, c, price, day) in picks:
         c2 = min(0.999, max(0.001, c + fam_seg[f]["shift"]))
         lg.setdefault(league, []).append((won, c2, price, day))
-    return {"family": fam_seg, "league": {k: _seg(v) for k, v in lg.items()}}
+    return {"family": fam_seg, "league": {k: _seg(v) for k, v in lg.items()},
+            "matchbook": matchbook_shifts()}
+
+
+def matchbook_shifts(path: Path = MB_SUMMARY) -> dict:
+    """ORDER 44: {family: {'n', 'mean_clv', 'shift'}} from the Matchbook evidence."""
+    try:
+        groups = json.loads(path.read_text(encoding="utf-8")).get("groups") or {}
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for key, g in groups.items():
+        if not key.startswith("framework family: "):
+            continue
+        n, clv = g.get("clv_n") or 0, g.get("mean_clv")
+        sh = max(-MB_MAX_SHIFT, min(MB_MAX_SHIFT, MB_K * clv)) if (clv is not None and n >= MB_MIN_N) else 0.0
+        out[key.split(": ", 1)[1]] = {"n": n, "mean_clv": clv, "shift": round(sh, 4)}
+    return out
 
 
 def _rated_rows(doc: dict) -> list:
@@ -151,7 +189,7 @@ def _rated_rows(doc: dict) -> list:
             if (r.get("fixture"), f) in picked or chance is None:
                 continue
             res = _settle(key, hg, ag)
-            if res in ("won", "lost"):
+            if res in ("won", "lost", "void"):        # a void is "did not win" (see top)
                 out.append((f, (res == "won", float(chance), None, day)))
     return out
 
@@ -161,7 +199,8 @@ def shift(model: dict, key: Optional[str], league: str) -> float:
     if not model:
         return 0.0
     s = (model.get("family", {}).get(family(key), {}).get("shift", 0.0)
-         + model.get("league", {}).get(league, {}).get("shift", 0.0))
+         + model.get("league", {}).get(league, {}).get("shift", 0.0)
+         + model.get("matchbook", {}).get(family(key), {}).get("shift", 0.0))   # order 44
     return max(-MAX_SHIFT, min(MAX_SHIFT, s))
 
 
@@ -171,11 +210,14 @@ def summary(model: dict, top: int = 4) -> str:
             for kind in ("family", "league") for name, v in model.get(kind, {}).items()
             if v["shift"]]
     graded = sum(v["n"] for v in model.get("family", {}).values())
+    mb = [f"{k} {v['shift']*100:+.1f}pp (CLV {v['mean_clv']:+.1%} over {v['n']})"
+          for k, v in sorted(model.get("matchbook", {}).items()) if v["shift"]]
+    mb_txt = (" · Matchbook close (order 44): " + ", ".join(mb)) if mb else ""
     if not segs:
         return (f"Learning: {graded} graded single(s) so far — corrections start once a "
                 f"market family or league has {MIN_N}+ results over {MIN_DAYS}+ match days "
-                f"and its results are clearly off its stated chances.")
+                f"and its results are clearly off its stated chances.{mb_txt}")
     segs.sort(key=lambda x: (-x[0], x[1], x[2]))
     parts = [f"{name} {v['shift']*100:+.1f}pp ({v['wins']}/{v['n']} won vs "
              f"{v['expected']:.1f} expected)" for _a, _k, name, v in segs[:top]]
-    return f"Learning from {graded} graded singles: " + " · ".join(parts)
+    return f"Learning from {graded} graded singles: " + " · ".join(parts) + mb_txt

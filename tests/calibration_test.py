@@ -8,6 +8,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import calibration as cal  # noqa: E402
 
+# These check the fitted constants; the nightly refit's file is tested in
+# tests/retrain_test.py.
+cal.use(None)
+
 
 def test_btts_calibration() -> None:
     # the model under-rates BTTS at the low end and over-spreads at the top
@@ -24,7 +28,7 @@ def test_btts_calibration() -> None:
 def test_keys_and_complement() -> None:
     assert cal.is_btts_key("BTTS_YES") is True and cal.is_btts_key("BTTS_NO") is False
     assert cal.is_btts_key("SB:29||Yes") is True and cal.is_btts_key("SB:29||No") is False
-    for k in ("OVER_3_5", "DC_1X", "SB:18|total=3.5|Over 3.5", "SB:19|total=1.5|Over 1.5",
+    for k in ("DC_1X", "SB:18|total=5.5|Over 5.5", "SB:19|total=1.5|Over 1.5",
               "SB:546||Home/Draw & Yes"):
         assert cal.is_btts_key(k) is None
         assert cal.model_prob(k, 0.6) == 0.6          # other markets unchanged
@@ -42,8 +46,13 @@ def test_goals_lines() -> None:
         u = cal.model_prob(f"SB:18|total={line}|Under {line}", 1 - raw)
         assert abs(o + u - 1) < 1e-9 and o == cal.over(line, raw)
     assert cal.model_prob("UNDER_1_5", 0.25) == 1 - cal.over(1.5, 0.75)
-    assert cal.goals_key("SB:18|total=3.5|Over 3.5") is None
-    assert cal.over(3.5, 0.3) == 0.3
+    # 3.5 and 4.5 (Architect 2026-10-14, GOALS_LINE_STUDY): the model's top-end
+    # Unders were over-confident — a raw 80% Under 3.5 reads ~75%
+    assert abs(cal.model_prob("SB:18|total=3.5|Under 3.5", 0.80) - 0.749) < 0.002
+    assert cal.model_prob("UNDER_3_5", 0.80) == cal.model_prob("SB:18|total=3.5|Under 3.5", 0.80)
+    assert cal.goals_key("SB:18|total=4.5|Under 4.5") == (4.5, False)
+    assert cal.goals_key("SB:18|total=5.5|Over 5.5") is None, "untested lines stay raw"
+    assert cal.over(5.5, 0.1) == 0.1
 
 
 if __name__ == "__main__":

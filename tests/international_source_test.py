@@ -34,7 +34,7 @@ assert got == [("2023-03-25", "Germany", "Serbia", 2, 1, "H"),
                ("2023-06-20", "Netherlands", "Portugal", 1, 1, "D")], got
 assert len(skipped) == 1 and skipped[0]["date"] == "2026-10-01", "NA score is skipped, never guessed"
 assert all(r.league == "UEFA Nations League" for r in res)
-assert any("CLV stays NO DATA" in f for f in flags), "must flag that CLV can't be measured"
+assert any("SportyBet closing capture" in f for f in flags), "must say where CLV comes from"
 print("UEFA-only pool, neutral excluded, window + NA handled: OK")
 
 try:

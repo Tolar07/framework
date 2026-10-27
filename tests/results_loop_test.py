@@ -29,6 +29,11 @@ assert fs.find_result(ev, "Bristol Rvs", "Crewe", "2026-09-20") is None, "wrong 
 assert fs.find_result(ev, "Man City", "Crewe", "2026-10-03") is None
 assert fs._sim("Man City", "Manchester Utd") < fs.MATCH_MIN, "Man City must never match Man Utd"
 assert fs.find_result(ev, "Czech Republic", "Spain", "2026-10-03") is None, "home/away order matters"
+_ev12 = [{"home": "KFUM Oslo", "away": "Valerenga", "kickoff_utc": "2026-10-12T17:00:00Z", "fthg": 2, "ftag": 1},
+         {"home": "AEK Larnaca", "away": "Omonia", "kickoff_utc": "2026-10-12T17:00:00Z", "fthg": 0, "ftag": 0}]
+assert fs.find_result(_ev12, "KFUM Oslo", "Vaalerenga IF", "2026-10-12")["fthg"] == 2, \
+    "a feed spelling with a name_match alias grades (12 Oct: KFUM v Vaalerenga stayed ungraded)"
+assert fs.find_result(_ev12, "AEK Athens", "Omonia", "2026-10-12") is None, "an alias counts only when exact"
 print("strict name/date matching: OK")
 
 # --- ledger grading ---------------------------------------------------------
@@ -61,5 +66,41 @@ with tempfile.TemporaryDirectory() as d:
     card = pl.scorecard(7, today="2026-10-04")
     assert "1W-0L-1V" in card and "+0.80u" in card, card
 print("ledger grading + scorecard: OK")
+
+# --- after extra time: settled only when every possible 90' score agrees ----
+AET = ("SA÷1¬~ZA÷ENGLAND: FA Cup - Qualification¬~AA÷x9¬AD÷1791312300¬AB÷3¬AC÷10¬"
+       "AE÷Scarborough¬AF÷Macclesfield¬AG÷1¬AH÷2¬BC÷0¬BD÷1¬")
+ev2 = fs.parse_feed(AET)
+assert ev2[0]["finished_other"] and (ev2[0]["fh_home"], ev2[0]["fh_away"]) == (1, 1)
+# HT 1-1, final 1-2 (aet) -> 90' was 1-1 or 1-2
+assert pl._settle_90_bounds("1X2_HOME", ev2[0]) == "lost", "home won neither way"
+assert pl._settle_90_bounds("1X2_AWAY", ev2[0]) is None, "1-1 or 1-2: never guessed"
+assert pl._settle_90_bounds(fm.key(18, "total=1.5", "Over 1.5"), ev2[0]) == "won"
+with tempfile.TemporaryDirectory() as d:
+    pl.LEDGER_DIR = Path(d)
+    doc = {"date": "2026-10-06", "generated_at": "", "singles": [
+        {"fixture": "Scarborough v Macclesfield", "league": "FA Cup", "home": "Scarborough",
+         "away": "Macclesfield", "kickoff": "2026-10-06", "market": "1X2_HOME", "pick": "x",
+         "price": 2.5, "chance": 0.4, "tier": "SAFE", "certainty": "LOW", "code": "S",
+         "result": "no-90min-result", "ft": None}], "accas": [], "safe3": [], "megas": []}
+    (Path(d) / "picks_2026-10-06.json").write_text(json.dumps(doc), encoding="utf-8")
+    pl.grade_all(ev2, today="2026-10-07")
+    out = json.loads((Path(d) / "picks_2026-10-06.json").read_text(encoding="utf-8"))
+    assert out["singles"][0]["result"] == "lost", "an earlier no-90min-result is re-checked"
+print("after extra time: settled from the half-time..final range only when certain: OK")
+
+assert fs._sim("Denizli Idman Yurdu", "Denizli IY Gureller") == 1.0
+assert fs._sim("Serik Belediyespor", "Serik Spor") == 1.0
+print("Turkish club aliases: OK")
+
+# A UEFA Youth League game of the same clubs never blocks the senior result.
+_ucl = [{"league": "EUROPE: Champions League", "home": "Inter", "away": "Club Brugge KV", "fthg": 3,
+         "ftag": 4, "finished_regular": True, "finished_other": False, "kickoff_utc": "2026-10-13T19:00:00Z"},
+        {"league": "EUROPE: UEFA Youth League", "home": "Inter U19", "away": "Club Brugge U19", "fthg": 1,
+         "ftag": 1, "finished_regular": True, "finished_other": False, "kickoff_utc": "2026-10-13T13:00:00Z"}]
+assert fs.find_result(_ucl, "Inter", "Club Brugge", "2026-10-13")["ftag"] == 4
+assert fs.find_result(_ucl, "Inter U19", "Club Brugge U19", "2026-10-13")["ftag"] == 1
+assert fs._sim("Sabah Masazir", "Sabah Baku") == 1.0
+print("youth games ignored for senior picks; Sabah alias: OK")
 
 print("\n✅ ALL RESULTS-LOOP TESTS PASSED")

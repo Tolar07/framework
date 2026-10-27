@@ -14,14 +14,24 @@ Raw 35% -> 48%, 45% -> 53%, 55% -> 57%, 65% -> 61%, 75% -> 66%.
 
 It corrects the model's BTTS yes/no chance (basic market and SportyBet's
 ladder market 29) and its match-total Over/Under 1.5 and 2.5 (basic markets
-and ladder market 18). The scoreline grid, other lines, team totals and the
-combos are unchanged. The bookmaker's side is never
+and ladder market 18), and from 2026-10-14 the 3.5 and 4.5 lines. The scoreline
+grid, other lines, team totals and the combos are unchanged. The bookmaker's side is never
 touched. Refit with backtest/btts_study.py as seasons are added.
+
+NIGHTLY REFIT (Architect 2026-10-20, "auto"): engine/retrain.py refits these
+on every graded rated fixture and writes any fit that beats the live one on
+games it was not fitted on to memory/calibration_live.json. This module reads
+that file at import; a family missing from it, or a missing / unreadable file,
+uses the constants below.
 """
 from __future__ import annotations
 
+import json
 import math
+from pathlib import Path
 from typing import Optional
+
+LIVE_PATH = Path(__file__).resolve().parent.parent / "memory" / "calibration_live.json"
 
 BTTS_A = 0.1892
 BTTS_B = 0.4371
@@ -29,9 +39,53 @@ BTTS_B = 0.4371
 # Goals lines (same study, same method; 2026-10-05). The model under-rates
 # goals: it said Over 2.5 50.6% on average and 53.5% landed, Over 1.5 74.6% vs
 # 77.5%. Leave-one-league-out Brier: Over 2.5 0.2517 -> 0.2463 (better in 11 of
-# 13 leagues), Over 1.5 0.1755 -> 0.1725 (10 of 13). Only the two lines that
-# were tested are corrected; Over/Under 3.5 and team totals are unchanged.
-OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170)}
+# 13 leagues), Over 1.5 0.1755 -> 0.1725 (10 of 13).
+# 3.5 and 4.5 (Architect 2026-10-14, backtest/GOALS_LINE_STUDY.md, 3,598
+# walk-forward matches): right on average but over-confident on the Under at the
+# top — a model 80-90% Under 3.5 landed 75.7%. Leave-one-league-out Brier: 3.5
+# 0.2087 -> 0.2066 (11 of 13 leagues), 4.5 0.1169 -> 0.1156 (10 of 13). Raw
+# Under 3.5 80% -> 74.9%, 85% -> 78.0%. Team totals are unchanged.
+OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170),
+        3.5: (-0.4096, 0.4947), 4.5: (-0.8932, 0.5389)}
+
+
+# The fitted defaults, by family name (engine/retrain.py's names).
+# MATCH RESULT + DOUBLE CHANCE (2026-10-21, the Architect's "do what you will do next"):
+# the board's 1.30-1.50 picks, mostly these markets, won 69% where the model said 73%.
+# They start uncalibrated (A=0, B=1: the raw chance, nothing changes); the nightly retrain
+# (engine/retrain.py) adopts a fit only when it beats the raw chance out of sample.
+RESULT_FAMILIES = ("home", "draw", "away", "dc_1x", "dc_x2", "dc_12")
+
+DEFAULTS = {"btts": (BTTS_A, BTTS_B), **{f"over_{k}": v for k, v in OVER.items()},
+            **{f: (0.0, 1.0) for f in RESULT_FAMILIES}}
+
+
+def load_params(path: Optional[Path] = LIVE_PATH) -> dict[str, tuple[float, float]]:
+    """Live (A, B) per family: the file's where valid (finite, B > 0), else the default."""
+    params = dict(DEFAULTS)
+    if path is None:
+        return params
+    try:
+        fams = json.loads(Path(path).read_text(encoding="utf-8")).get("families") or {}
+    except (OSError, ValueError, AttributeError):
+        return params
+    for fam, v in fams.items():
+        try:
+            a, b = float(v["a"]), float(v["b"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if fam in params and math.isfinite(a) and math.isfinite(b) and b > 0:
+            params[fam] = (a, b)
+    return params
+
+
+PARAMS = load_params()
+
+
+def use(path: Optional[Path]) -> None:
+    """Reload the live parameters (None = the constants above). For tests."""
+    global PARAMS
+    PARAMS = load_params(path)
 
 
 def _platt(raw: float, a: float, b: float) -> float:
@@ -41,20 +95,21 @@ def _platt(raw: float, a: float, b: float) -> float:
 
 def btts_yes(raw: Optional[float]) -> Optional[float]:
     """The model's BTTS-yes chance, calibrated."""
-    return None if raw is None else _platt(raw, BTTS_A, BTTS_B)
+    return None if raw is None else _platt(raw, *PARAMS["btts"])
 
 
 def over(line: float, raw: Optional[float]) -> Optional[float]:
     """The model's Over-<line> chance, calibrated where the line was tested."""
     if raw is None or line not in OVER:
         return raw
-    return _platt(raw, *OVER[line])
+    return _platt(raw, *PARAMS.get(f"over_{line}", OVER[line]))
 
 
 def goals_key(key: str) -> Optional[tuple[float, bool]]:
-    """(line, is_over) for a MATCH-total Over/Under 1.5 or 2.5 key, else None."""
+    """(line, is_over) for a MATCH-total Over/Under key on a calibrated line, else None."""
     fixed = {"OVER_1_5": (1.5, True), "UNDER_1_5": (1.5, False),
-             "OVER_2_5": (2.5, True), "UNDER_2_5": (2.5, False)}
+             "OVER_2_5": (2.5, True), "UNDER_2_5": (2.5, False),
+             "OVER_3_5": (3.5, True), "UNDER_3_5": (3.5, False)}
     if key in fixed:
         return fixed[key]
     if key and key.startswith("SB:18|"):
@@ -67,6 +122,19 @@ def goals_key(key: str) -> Optional[tuple[float, bool]]:
         if line in OVER and side.startswith(("over", "under")):
             return line, side.startswith("over")
     return None
+
+
+_RESULT_KEYS = {"1X2_HOME": "home", "1X2_DRAW": "draw", "1X2_AWAY": "away",
+                "DC_1X": "dc_1x", "DC_X2": "dc_x2", "DC_12": "dc_12",
+                "SB:1||Home": "home", "SB:1||Draw": "draw", "SB:1||Away": "away",
+                "SB:10||Home or Draw": "dc_1x", "SB:10||Draw or Away": "dc_x2",
+                "SB:10||Home or Away": "dc_12"}
+
+
+def result_family(key: str) -> Optional[str]:
+    """'home' / 'draw' / 'away' / 'dc_1x' / 'dc_x2' / 'dc_12' for a full-time result or
+    double-chance key (basic or SportyBet ladder), else None."""
+    return _RESULT_KEYS.get(key or "")
 
 
 def is_btts_key(key: str) -> Optional[bool]:
@@ -87,6 +155,10 @@ def model_prob(key: str, raw: Optional[float]) -> Optional[float]:
     that same outcome (for BTTS-no, the raw no-chance)."""
     if raw is None:
         return None
+    rf = result_family(key)
+    if rf is not None:
+        a, b = PARAMS.get(rf, (0.0, 1.0))
+        return raw if (a, b) == (0.0, 1.0) else _platt(raw, a, b)
     g = goals_key(key)
     if g is not None:
         line, is_over = g

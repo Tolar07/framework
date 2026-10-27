@@ -8,7 +8,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from monitor import run_watchdog as wd  # noqa: E402
 
-START = datetime(2026, 10, 3, 18, 0, tzinfo=UTC)
+# The evening slot is 21:47 UK = 20:47 UTC in BST; the window opens 10 min before.
+START = datetime(2026, 10, 3, 20, 37, tzinfo=UTC)
 
 
 def run(created, status="completed", conclusion="success"):
@@ -50,7 +51,7 @@ def test_run_still_going_is_left_alone():
 def test_window_start_per_slot():
     now = datetime(2026, 10, 3, 23, 17, tzinfo=UTC)
     assert wd.window_start("evening", now) == START
-    assert wd.window_start("morning", now.replace(hour=8)).hour == 3
+    assert wd.window_start("morning", now.replace(hour=8)) == datetime(2026, 10, 3, 5, 37, tzinfo=UTC)
 
 
 def test_evening_check_after_midnight_looks_at_the_evening_just_past():
@@ -66,6 +67,18 @@ def test_target_date_matches_daily_yml():
     assert wd.target_date("evening", START) == date(2026, 10, 4)   # tomorrow's card
     morning = datetime(2026, 10, 3, 3, 0, tzinfo=UTC)
     assert wd.target_date("morning", morning) == date(2026, 10, 3)  # today's card
+
+
+def test_winter_window_follows_the_uk_clock():
+    # From 25 Oct 2026 the UK is on GMT: 21:47 UK = 21:47 UTC.
+    now = datetime(2026, 10, 26, 23, 17, tzinfo=UTC)
+    start = wd.window_start("evening", now)
+    assert start == datetime(2026, 10, 26, 21, 37, tzinfo=UTC)
+    assert wd.target_date("evening", start) == date(2026, 10, 27)
+    # daily.yml's BST cron fires at 20:47 UTC, an hour early in GMT, and ends at
+    # its UK-time gate with 'success' having sent nothing: it is not the board.
+    state, _ = wd.check_runs([run("2026-10-26T20:48:00Z")], start)
+    assert state == wd.MISSED
 
 
 class _Patch:
@@ -123,6 +136,20 @@ def test_ok_running_and_failed_send_nothing():
         with _Patch(runs=runs) as p:
             assert wd.main(["--slot", "evening"], now=NOW) == 0
         assert not p.started and not p.sent
+
+
+def test_early_check_in_winter_does_nothing():
+    # GMT: the 21:23 UTC check is 21:23 UK, before the 21:47 UK board.
+    with _Patch() as p:
+        assert wd.main(["--slot", "evening"], now=datetime(2026, 10, 26, 21, 23, tzinfo=UTC)) == 0
+        assert wd.main(["--slot", "morning"], now=datetime(2026, 10, 27, 6, 23, tzinfo=UTC)) == 0
+    assert not p.started and not p.sent
+
+
+def test_winter_missed_slot_is_started_for_the_uk_card():
+    with _Patch(runs=[run("2026-10-26T20:48:00Z")]) as p:
+        assert wd.main(["--slot", "evening"], now=datetime(2026, 10, 26, 22, 23, tzinfo=UTC)) == 0
+    assert p.started == [("evening", date(2026, 10, 27))] and "22:23 UK time" in p.sent[0]
 
 
 def test_unreadable_history_alerts_without_starting():

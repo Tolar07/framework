@@ -207,10 +207,33 @@ def subscriber_chats() -> list[str]:
     return out
 
 
+def send_architect(body: str) -> tuple[bool, list[str]]:
+    """The Architect's own chat only (order 33): everything that is not the
+    board — heartbeat, pre-kickoff alerts, run alerts, the supervisor status,
+    the weekly review. Subscribers never see it."""
+    return send_telegram(body)
+
+
+def send_subscribers(body: str) -> tuple[bool, list[str]]:
+    """Every subscriber chat only (order 33, Architect 2026-10-09: subscribers
+    get the booking codes and nothing else). Returns (all delivered, notes);
+    a subscriber that fails is a note, never a failed run. Chats named by
+    their last four digits only — run logs of this public repo are public."""
+    subs = subscriber_chats()
+    sent, notes = 0, []
+    for cid in subs:
+        s_ok, s_notes = send_telegram(body, chat_id=cid)
+        sent += s_ok
+        if not s_ok:
+            notes.append(f"subscriber chat …{cid[-4:]}: NOT delivered ({s_notes[-1]})")
+    if subs:
+        notes.append(f"codes delivered to {sent}/{len(subs)} subscriber chat(s)")
+    return sent == len(subs), notes
+
+
 def send_everyone(body: str) -> tuple[bool, list[str]]:
-    """The Architect's chat, then every subscriber chat (order 33). Everything
-    that reaches the phone goes this way EXCEPT the bet365 board (order 29),
-    which is sent with send_telegram to the Architect's own chat only.
+    """The Architect's chat, then every subscriber chat (order 33). Only the
+    board goes this way (via deliver); everything else is send_architect.
 
     Returns (Architect's chat delivered, notes). A subscriber that fails is a
     note and never fails the caller. Notes name a subscriber by the last four
@@ -230,7 +253,8 @@ def send_everyone(body: str) -> tuple[bool, list[str]]:
 
 def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
     """Write the board to disk, then send it to the Architect and every
-    subscriber (order 33). Returns (delivered_ok, notes).
+    subscriber (order 33: subscribers get the board and nothing else).
+    Returns (delivered_ok, notes).
 
     Disk first, deliberately: a failed send must never lose the board. The
     boolean matters — the caller previously discarded it and logged "run

@@ -71,8 +71,12 @@ def _price(event: dict, mk: dict):
     return None
 
 
-def _due(doc: dict, now: datetime, field: str, lo_min: int, hi_min: int) -> list:
-    return [s for s in doc["singles"]
+def _due(doc: dict, now: datetime, field: str, lo_min: int, hi_min: int,
+         dropped: bool = False) -> list:
+    # dropped=True adds the picks the experiment engine kept off the board
+    # (engine/experiments.py): their closing price scores the default rule
+    pool = doc["singles"] + (doc.get("singles_dropped", []) if dropped else [])
+    return [s for s in pool
             if s.get(field) is None and s.get("sb_event_id") and s.get("sb_tid")
             and s.get("sb_market") and s.get("price") and s.get("kickoff_utc")
             and _when(s["kickoff_utc"])
@@ -106,7 +110,7 @@ def capture_closing(doc: dict, now: datetime) -> int:
     CLOSE_WINDOW_MIN, record SportyBet's current price and the CLV vs the
     board's entry price — CLV% = (entry / closing - 1) x 100; positive means
     the market moved our way (the pick shortened after we took it)."""
-    due = _due(doc, now, "closing_price", 0, CLOSE_WINDOW_MIN)
+    due = _due(doc, now, "closing_price", 0, CLOSE_WINDOW_MIN, dropped=True)
     px = _current_prices(due)
     for s in due:
         if id(s) in px:
@@ -200,7 +204,7 @@ def run(now: datetime | None = None, send: bool = True) -> str:
     msg = "\n".join(lines)
     if send:
         from output import notify
-        ok_sent, notes = notify.deliver(msg, save_to=None)
+        ok_sent, notes = notify.send_architect(msg)  # Architect only (order 33)
         print("\n".join(notes))
     return msg
 

@@ -92,9 +92,10 @@ def _unrated_detail(model, home: str, away: str) -> str:
 # claimed). FA Cup: a cup across tiers. European club competitions + HNL
 # (2026-10-05): the cross-league model is anchored on 2024/25 and its history
 # source (API-Football free plan) cannot see the current season, so they are
-# market-implied until a current-season model exists for them.
+# market-implied until a current-season model exists for them. Turkish Cup
+# (2026-10-07): a cup across every tier, amateur clubs included.
 MARKET_ONLY_LEAGUES = {"FA Cup", "Champions League", "Europa League",
-                       "Conference League", "HNL"}
+                       "Conference League", "HNL", "Turkish Cup"}
 
 
 def _odds_by_pair(league: str) -> tuple[dict, list[str]]:
@@ -199,6 +200,7 @@ def scan_one_league(league: str, season: str,
         # fallback for whoever runs this on a paid plan.
         errors: list[str] = []
         upcoming_fixtures = []
+        odds_answered = False
         try:
             fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season)
             upcoming_fixtures = tsdb.as_pairs(fixtures)
@@ -209,13 +211,20 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
         except Exception as e:
             errors.append(f"thesportsdb: {e}")
+        if not upcoming_fixtures:
             # Fall back to deriving fixtures from the ODDS feed. A priced event
             # is an upcoming fixture, so a league with history and live prices
             # but no fixtures-source league ID (Ekstraklasa) is recovered
-            # rather than scanning as NO DATA.
+            # rather than scanning as NO DATA. Also when TheSportsDB answers
+            # with NOTHING in the window (not only when it errors): on
+            # 2026-10-08 it returned no Friday games for the Bundesliga,
+            # Ligue 1, La Liga, Eredivisie, Championship and Premier League,
+            # so Dortmund v Werder, Lens v Lyon, PSV, Malaga v Espanyol and
+            # West Ham v QPR never reached the board.
             try:
                 import pipeline.odds as _odds
                 pairs, dates, oflags = _odds.fixtures_from_odds(league)
+                odds_answered = True     # SportyBet answered: an empty list means no games on offer
                 if pairs:
                     upcoming_fixtures = pairs
                     fixture_dates.update(dates)
@@ -230,7 +239,11 @@ def scan_one_league(league: str, season: str,
                 except Exception as e3:
                     errors.append(f"api-football: {e3}")
 
-        if not upcoming_fixtures:
+        if not upcoming_fixtures and odds_answered:
+            # The book itself lists no games (a cup between rounds, an international
+            # break over): nothing is missing, so this is a note, not a problem.
+            flags.append(f"{league}: no fixtures on offer in the window (SportyBet lists none)")
+        elif not upcoming_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"
             flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
 

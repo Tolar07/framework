@@ -1,21 +1,30 @@
 """
-NBA PAPER BOARD (standing order 41, Architect 2026-10-06) — run once a day
-from the evening run, after the football board.
+NBA BOARD (standing order 41, Architect 2026-10-06; LIVE TEST since 2026-10-07) — built once a
+day by the MORNING run (06:47 UK) for that coming night's games, so the codes
+arrive 11-17 hours before tip-off (Architect 2026-10-07: "I need at least 12
+hours or 6 hours before kickoff"). The evening run is only a backup for a
+missed morning board — a board already sent is never sent twice.
 
   1. grade every earlier NBA pick whose game has finished (ESPN final score,
      overtime included) and record its CLOSING value — the pick's price
      against the sharp closing line — the honest test of a price edge;
   2. read SportyBet's NBA games (regular season + preseason) and ESPN's
-     sharp lines for every game tipping off in the next HOURS hours;
+     sharp lines for every game of the NBA NIGHT: 10:00 UTC to 10:00 UTC the
+     next day (every US game day, matinees and the late West Coast games);
   3. list only prices ABOVE the fair price (engine/nba_value.py), one per
-     game, each with its own SportyBet booking code, + one code for them all;
-  4. send it to the Architect's own chat only, as a PAPER board: no stake,
-     no capital, until the graded record says otherwise.
+     game, each with its own SportyBet booking code, + the night's picks split
+     over two accas (one acca under 4 picks; Architect 2026-10-21);
+  4. send it to the Architect's chat, then every subscriber chat as the football
+     board goes (Architect 2026-10-20: "The way we are treating football, that's how
+     NBA should be treated too"), as a LIVE TEST: the Architect places a pick by hand
+     from its code (order 26); the framework never stakes. The experiment engine's
+     live NBA rule (slot "nba") decides which picks stay; dropped ones are graded.
 
 Preseason games are shown and graded as a pipeline test but kept OUT of the
 record (starters are rested — not a fair test of anything).
 
-  python run_nba.py              build, grade, send
+  python run_nba.py              build, grade, send (tonight's night)
+  python run_nba.py --night D    the night starting 10:00 UTC on date D
   python run_nba.py --no-send    build + grade, print, don't send
   python run_nba.py --rebuild    replace an already-built board for the day
 
@@ -29,7 +38,7 @@ import os
 import secrets
 import sys
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -37,15 +46,21 @@ ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
 from data import nba_source as ns  # noqa: E402
+from engine import nba_ext_model as xm  # noqa: E402
+from engine import nba_ladder as nl  # noqa: E402
+from engine import nba_markets as nm  # noqa: E402
+from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
 BOARD_DIR = ROOT / "output" / "boards"
-LAGOS = timezone(timedelta(hours=1))
-HOURS = 26
+from engine.uktime import UK  # noqa: E402 — tip-off times on the UK clock (Architect 2026-10-15)
+
+LAGOS = UK      # old name kept for imports
+NIGHT_START = 10       # UTC hour an NBA night begins (no NBA game tips 06:30-10:00 UTC)
 TOURNAMENTS = {"sr:tournament:132": "regular", "sr:tournament:2382": "preseason"}
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
-         "?sportId=sr:sport:2&marketId=219,223,225&pageSize=100&pageNum={page}")
+         "?sportId=sr:sport:2&marketId=219,223,225,68,236,227,228,18,66,303&pageSize=100&pageNum={page}")
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 _RULE = "──────────────────────────────────"
@@ -82,30 +97,59 @@ def _tip_utc(ms) -> datetime:
     return datetime.fromtimestamp(ms / 1000, tz=timezone.utc)
 
 
-def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int]:
-    """(picks, notes, games scanned) for games tipping off in (now, now + hours]."""
+def night_start(night: date) -> datetime:
+    return datetime(night.year, night.month, night.day, NIGHT_START, tzinfo=UTC)
+
+
+def night_of(now: datetime) -> date:
+    """The night a run without --night targets: today's from 05:00 UTC on
+    (the latest NBA tip-off is ~04:30 UTC), before that yesterday's (whose late
+    games may still be to come)."""
+    return now.date() if now.hour >= 5 else (now - timedelta(days=1)).date()
+
+
+def night_key(tip: datetime) -> str:
+    """The board / ledger date of the night a game belongs to: the date the
+    night ENDS (a game at 23:00 UTC on the 7th belongs to board 2026-10-08)."""
+    return ((tip - timedelta(hours=NIGHT_START)).date() + timedelta(days=1)).isoformat()
+
+
+def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[str], int, list[dict]]:
+    """(picks, notes, games scanned, study lines) for the night's games not yet tipped off."""
+    start = night_start(night or night_of(now))
+    end = start + timedelta(hours=24)
     notes: list[str] = []
     try:
         evs = sportybet_events()
     except Exception as e:  # noqa: BLE001
-        return [], [f"SportyBet NBA feed unavailable ({str(e)[:80]}) — no board"], 0
+        return [], [f"SportyBet NBA feed unavailable ({str(e)[:80]}) — no board"], 0, []
     evs = [(st, e) for st, e in evs if e.get("estimateStartTime")
-           and now < _tip_utc(e["estimateStartTime"]) <= now + timedelta(hours=hours)]
+           and max(now, start) < _tip_utc(e["estimateStartTime"]) < end]
     days = sorted({(_tip_utc(e["estimateStartTime"]) + d).date()
                    for _s, e in evs for d in (timedelta(hours=-6), timedelta(0))})
     espn = [g for d in days for g in ns.scoreboard(d, use_cache=False)]
-    picks, scanned = [], 0
+    # Shadow only: the external NBA_Betting model's view is stored beside each
+    # pick for later grading; it never chooses, drops or reorders a pick.
+    ext_db = os.environ.get("NBA_EXT_MODEL_DB", "").strip()
+    ext_rows = xm.load(ext_db, days) if ext_db else []
+    picks, scanned, snaps, looks, study = [], 0, [], [], []
     for stage, e in evs:
         tip = _tip_utc(e["estimateStartTime"])
-        hn, an = nickname(e.get("homeTeamName")), nickname(e.get("awayTeamName"))
-        g = next((g for g in espn if nickname(g.home_name) == hn and nickname(g.away_name) == an
+        label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
+        ht, hnote = nt.sportybet(e.get("homeTeamName"), e.get("homeTeamId"))
+        at, anote = nt.sportybet(e.get("awayTeamName"), e.get("awayTeamId"))
+        notes += [n for n in (hnote, anote) if n]
+        if ht is None or at is None:
+            continue
+        g = next((g for g in espn if nt.by_espn(g.home) == ht and nt.by_espn(g.away) == at
                   and abs((datetime.fromisoformat(g.tip.replace("Z", "+00:00")) - tip).total_seconds()) < 6 * 3600),
                  None)
-        label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
         if g is None:
             notes.append(f"{label}: no ESPN game matched — skipped")
             continue
         ns.attach_odds(g, use_cache=False)
+        snaps.append(nl.snapshot_row(now, stage, e, ht.key, at.key, g))   # ladder study
+        looks.append(nm.snapshot(now, stage, e.get("eventId"), ht.key, at.key, g))   # every-market study
         if not (g.ml_home and g.ml_away):
             notes.append(f"{label}: no sharp line yet — skipped")
             continue
@@ -117,37 +161,99 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
                          f"{abs(sb_p - sharp_p):.0%} on the winner — stale or mismatched, skipped")
             continue
         found, suspect = nv.candidates(e, g)
+        study.append({"tip": tip.isoformat(), "stage": stage, "home": e.get("homeTeamName"),
+                      "away": e.get("awayTeamName"), "lines": nv.study_lines(e, g)})
         for s in suspect:
             notes.append(f"{label}: {s['outcome']} @{s['price']:.2f} looks {s['ev']:+.0%} — "
                          f"too good to be true (stale line?), not picked")
         if not found:
             continue
         best = max(found, key=lambda r: (r["ev"], r["chance"]))
+        if ext_rows:
+            ext = xm.view(best, xm.match(ext_rows, ht.key, at.key, tip.date()))
+            if ext:
+                best = {**best, "ext_model": ext}
         picks.append({**best, "stage": stage, "event_id": e.get("eventId"),
+                      "home_key": ht.key, "away_key": at.key,
                       "espn_id": g.id, "espn_date": g.tip[:10], "tip": tip.isoformat(),
                       "home": e.get("homeTeamName"), "away": e.get("awayTeamName"),
                       "pick": nv.display(best, e.get("homeTeamName"), e.get("awayTeamName")),
                       "sharp": {"ml_home": g.ml_home, "ml_away": g.ml_away,
                                 "spread": g.spread, "total": g.total},
                       "code": None, "result": None, "score": None, "close_value": None})
+    nl.save(snaps, now)
+    nm.save(looks, now)
     picks.sort(key=lambda p: p["tip"])
-    return picks, notes, scanned
+    study.sort(key=lambda x: x["tip"])
+    if picks:
+        # bet365 retired (Architect 2026-10-16): each pick carries Matchbook's back price instead
+        from data import matchbook_prices as mbp
+        mb = mbp.nba_events()
+        for p in picks:
+            p["matchbook"] = {"back": mbp.nba_back(mb, p), "listed": mbp.nba_listed(mb, p)}
+    return picks, notes, scanned, study
 
 
-def book(picks: list[dict]) -> Optional[str]:
-    """Own code per pick; returns one code for all picks (2+), or None."""
+# The Architect, 2026-10-21, on the 10-leg "all picks on one slip" code: "do an ACC for
+# 11 fixtures, split it into two, and book it". From ACCA_SPLIT_MIN picks the night's picks
+# go on two accas in tip-off order (the first half one slip, the rest the other); fewer go
+# on one acca. The one-slip mega is no longer booked.
+ACCA_SPLIT_MIN = 4
+
+
+def split_accas(picks: list[dict]) -> list[list[dict]]:
+    ordered = sorted(picks, key=lambda p: p["tip"])
+    if len(ordered) < 2:
+        return []
+    if len(ordered) < ACCA_SPLIT_MIN:
+        return [ordered]
+    half = (len(ordered) + 1) // 2
+    return [ordered[:half], ordered[half:]]
+
+
+def _sel(p: dict) -> dict:
+    return {"eventId": p["event_id"], "marketId": p["market_id"],
+            "specifier": p["specifier"], "outcomeId": p["outcome_id"]}
+
+
+def book(picks: list[dict]) -> list[dict]:
+    """Own code per pick; returns the night's accas [{name, code, legs, odds}]."""
     from pipeline.sportybet_booking import create_booking_code
-    sels = []
     for p in picks:
-        sel = {"eventId": p["event_id"], "marketId": p["market_id"],
-               "specifier": p["specifier"], "outcomeId": p["outcome_id"]}
-        code, _url, _ = create_booking_code([sel])
+        code, _url, _ = create_booking_code([_sel(p)])
         p["code"] = code
-        sels.append(sel)
-    if len(sels) > 1:
-        code, _url, _ = create_booking_code(sels)
-        return code
-    return None
+    accas = []
+    for i, group in enumerate(split_accas(picks)):
+        code, _url, _ = create_booking_code([_sel(p) for p in group])
+        odds = 1.0
+        for p in group:
+            odds *= p["price"]
+        accas.append({"name": f"NBA acca {'AB'[i]}", "code": code, "legs": [p["event_id"] for p in group],
+                      "odds": round(odds, 2), "result": None})
+    return accas
+
+
+def grade_accas(doc: dict) -> bool:
+    """An acca is won when every leg won, lost as soon as one leg lost. True if any changed."""
+    res = {p["event_id"]: p.get("result") for p in doc.get("picks", [])}
+    changed = False
+    for a in doc.get("accas") or []:
+        if a.get("result"):
+            continue
+        legs = [res.get(e) for e in a["legs"]]
+        r = "lost" if "lost" in legs else "won" if legs and all(x == "won" for x in legs) else None
+        if r:
+            a["result"], changed = r, True
+    return changed
+
+
+def espn_days(p: dict) -> list:
+    """The ESPN scoreboard days that can hold a pick's game. ESPN files a game
+    under its US date, so a tip-off after midnight UTC (most NBA games) sits
+    on the day BEFORE its UTC date (8 Oct 2026: OKC v MIL, 00:00Z on the 8th,
+    is on ESPN's 7 Oct scoreboard)."""
+    d = datetime.fromisoformat(p["espn_date"]).date()
+    return [d - timedelta(days=1), d]
 
 
 def grade(now: datetime) -> list[str]:
@@ -156,19 +262,20 @@ def grade(now: datetime) -> list[str]:
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         changed = False
-        for p in doc.get("picks", []):
+        for p in doc.get("picks", []) + doc.get("picks_dropped", []):   # dropped ones too (experiment engine)
             if p.get("result") or datetime.fromisoformat(p["tip"]) > now - timedelta(hours=3):
                 continue
-            day = datetime.fromisoformat(p["espn_date"]).date()
-            g = next((x for x in ns.scoreboard(day, use_cache=False) if x.id == p["espn_id"]), None)
+            g = next((x for day in espn_days(p) for x in ns.scoreboard(day, use_cache=False)
+                      if x.id == p["espn_id"]), None)
             if g is None or not g.completed:
                 continue
-            p["result"] = nv.settle(p, g.hs, g.as_)
+            p["result"] = nv.settle(p, g.hs, g.as_, g.q_home, g.q_away)
             p["score"] = f"{g.hs}-{g.as_}"
             ns.attach_odds(g, use_cache=False)          # the closing line
             pc = nv.fair_chance(p["market_id"], p["specifier"], p["outcome"], g)
             p["close_value"] = round(pc * p["price"] - 1, 4) if pc else None
             changed = True
+        changed = grade_accas(doc) or changed
         if changed:
             path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
             notes.append(f"graded {path.name}")
@@ -176,64 +283,110 @@ def grade(now: datetime) -> list[str]:
 
 
 def scorecard() -> str:
-    """The paper record: regular-season picks only (preseason is a pipeline test)."""
+    """The graded record: regular-season picks only (preseason is a pipeline test).
+    The board's picks and the line watch's (monitor/nba_watch.py) are kept apart."""
     rows = []
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
         rows += [p for p in json.loads(path.read_text(encoding="utf-8")).get("picks", [])
                  if p.get("stage") == "regular" and p.get("result") in ("won", "lost")]
-    if not rows:
-        return "Paper record: no graded regular-season pick yet (the season opens 20 Oct)."
-    w = sum(p["result"] == "won" for p in rows)
-    ret = sum(p["price"] for p in rows if p["result"] == "won") - len(rows)
-    cv = [p["close_value"] for p in rows if p.get("close_value") is not None]
-    cvs = f" · beat the closing line on average by {100 * sum(cv) / len(cv):+.1f}%" if cv else ""
-    return (f"Paper record (regular season): {len(rows)} picks · won {w} ({100 * w / len(rows):.0f}%) · "
-            f"£1 each returned {ret:+.2f} ({100 * ret / len(rows):+.1f}%){cvs}")
+    board = [p for p in rows if p.get("source") != "watch"]
+    watch = [p for p in rows if p.get("source") == "watch"]
+    if not board and not watch:
+        return "NBA record: no graded regular-season pick yet (the season opens 20 Oct)."
+    out = []
+    for name, ps in (("NBA record (regular season)", board), ("Line watch record", watch)):
+        if not ps:
+            continue
+        w = sum(p["result"] == "won" for p in ps)
+        ret = sum(p["price"] for p in ps if p["result"] == "won") - len(ps)
+        cv = [p["close_value"] for p in ps if p.get("close_value") is not None]
+        cvs = f" · beat the closing line on average by {100 * sum(cv) / len(cv):+.1f}%" if cv else ""
+        out.append(f"{name}: {len(ps)} picks · won {w} ({100 * w / len(ps):.0f}%) · "
+                   f"£1 each returned {ret:+.2f} ({100 * ret / len(ps):+.1f}%){cvs}")
+    return "\n".join(out)
 
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
-           mega: Optional[str], notes: list[str]) -> str:
-    L = ["##########OLP XDV · NBA #########", "🏀 PAPER BOARD — no real money (order 41)",
+           mega: Optional[str], notes: list[str], study: list[dict] | None = None,
+           accas: list[dict] | None = None) -> str:
+    L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          "==================================", "",
-         f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = Lagos time (WAT)",
+         f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = UK time",
          f"Run ID: {run_id}", f"Games checked against the sharp line: {scanned}", "",
          "Only prices where SportyBet pays MORE than the fair price (the sharp line, margin",
          "removed). One pick per game. Value = chance × price − 1.", "", _RULE, "PICKS", _RULE, ""]
     if not picks:
         L.append("No SportyBet NBA price above the fair price today.")
     for p in picks:
-        tip = datetime.fromisoformat(p["tip"]).astimezone(LAGOS)
+        tip = datetime.fromisoformat(p["tip"]).astimezone(UK)
         tag = " · PRESEASON (test only)" if p["stage"] == "preseason" else ""
         L += [f"{tip:%H:%M}  {p['home']} v {p['away']}{tag}",
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "
               f"· value {p['ev']:+.1%}",
-              f"   code {p['code'] or 'PENDING'}", ""]
+              f"   code {p['code'] or 'PENDING'}"]
+        if "matchbook" in p:
+            mbx = (p.get("matchbook") or {}).get("back")
+            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else
+                     "   Matchbook: listed, no back price yet (the bot offers its own)"
+                     if (p.get("matchbook") or {}).get("listed") else "   Matchbook: not listed")
+        L.append("")
     if mega:
         L += [f"All {len(picks)} picks on one slip: {mega}", ""]
+    for a in accas or []:
+        L += [f"{a['name']} ({len(a['legs'])} picks, odds {a['odds']:.2f}): {a['code'] or 'PENDING'}"]
+    if accas:
+        L.append("")
+    if study:
+        L += [_RULE, "STUDY LINES — not picks, nothing booked (order 41)", _RULE,
+              "Each market's SportyBet line closest to the fair price, value or not:",
+              "value = chance × price − 1; most sit below 0 (SportyBet's margin).", ""]
+        for g in study:
+            if not g["lines"]:
+                continue
+            tip = datetime.fromisoformat(g["tip"]).astimezone(UK)
+            tag = " · PRESEASON" if g["stage"] == "preseason" else ""
+            L.append(f"{tip:%H:%M}  {g['home']} v {g['away']}{tag}")
+            L += [f"   {nv.display(r, g['home'], g['away'])} @{r['price']:.2f} · fair {r['fair_price']:.2f} "
+                  f"· {r['ev']:+.1%}" for r in g["lines"]]
+            L.append("")
     L += [_RULE, scorecard(), "",
           "Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board",
-          "tests the one route left — SportyBet paying above the sharp price — on paper only."]
-    flagged = [n for n in notes if "too good" in n or "disagree" in n]
+          "tests the one route left — SportyBet paying above the sharp price — as a live test.",
+          "The framework never stakes: every bet is placed by hand from its code."]
+    flagged = [n for n in notes if "too good" in n or "disagree" in n or n.startswith("mapping:")]
     if flagged:
         L += ["", "Checked and left out:"] + [f" • {n}" for n in flagged[:8]]
     return "\n".join(L)
+
+
+def live_rule(picks: list[dict]) -> tuple[list[dict], list[dict]]:
+    """(kept, dropped) under the experiment engine's live NBA rule (engine/experiments.py,
+    slot "nba"; Architect 2026-10-20: NBA treated as football is). The default keeps every
+    pick; a dropped pick is recorded and graded, never booked or sent."""
+    from engine import experiments as X
+    st = X.live_rules().get("nba")
+    if st is None or st.keep is None:
+        return picks, []
+    keep = [p for p in picks if st.keep(X.nba_leg(p), {})]
+    return keep, [p for p in picks if p not in keep]
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-send", action="store_true")
     ap.add_argument("--rebuild", action="store_true")
-    ap.add_argument("--hours", type=int, default=HOURS)
+    ap.add_argument("--night", help="YYYY-MM-DD: the night starting 10:00 UTC that day (default: tonight)")
     ap.add_argument("--resend", action="store_true", help="send again even if already sent")
     a = ap.parse_args()
     now = datetime.now(timezone.utc)
     for n in grade(now):
         print(f"  {n}")
-    picks, notes, scanned = build(now, a.hours)
+    night = date.fromisoformat(a.night) if a.night else night_of(now)
+    picks, notes, scanned, study = build(now, night)
+    picks, dropped = live_rule(picks)
     for n in notes:
         print(f"  ⚠ {n}")
-    first_tip = picks[0]["tip"] if picks else (now + timedelta(hours=6)).isoformat()
-    board_date = datetime.fromisoformat(first_tip).astimezone(LAGOS).date().isoformat()
+    board_date = night_key(night_start(night))
     ledger = LEDGER_DIR / f"nba_{board_date}.json"
     text_path = BOARD_DIR / f"nba_{board_date}.txt"
     if ledger.exists() and text_path.exists() and not a.rebuild:
@@ -241,13 +394,16 @@ def main() -> int:
         print(f"  NBA board for {board_date} already built — resending it (use --rebuild to replace)")
     else:
         run_id = _run_id(now)
-        mega = book(picks) if picks else None
-        text = render(picks, board_date, run_id, scanned, mega, notes)
+        accas = book(picks) if picks else []
+        text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": mega, "picks": picks}, indent=1), encoding="utf-8")
+                                      "mega_code": None, "accas": accas, "picks": picks,
+                                      "picks_dropped": dropped,
+                                      "study": study}, indent=1),
+                          encoding="utf-8")
         text_path.write_text(text, encoding="utf-8")
     print(text)
     if a.no_send:
@@ -263,7 +419,10 @@ def main() -> int:
     if doc.get("sent_at") and not (a.resend or a.rebuild):
         print(f"  NBA board for {board_date} already sent at {doc['sent_at']} — not sent twice")
         return 0
-    ok, sent = notify.send_telegram(text, chat_id=owner)     # the Architect only
+    ok, sent = notify.send_telegram(text, chat_id=owner)     # the Architect's chat first
+    if ok:      # then every subscriber, as the football board (Architect 2026-10-20: NBA treated as football)
+        _s_ok, s_notes = notify.send_subscribers(text)
+        sent += s_notes
     for n in sent:
         print(f"  NBA board: {n}")
     if ok and doc:

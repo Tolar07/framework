@@ -28,8 +28,11 @@ DEPLOY_POOL_CAP = 1000  # ID402 hard cap on THE CALL
 #     a loss and never deploys it.
 #   * DEPLOY_ODDS_MIN = 1.20 — the floor. Below this the return doesn't justify
 #     the stake; 1.20+ is where the "assured outcome" picks live.
-#   * DEPLOY_ODDS_SAFE = 1.50 — the safest target inside the band, used only to
-#     rank/label; it is not a gate.
+#   * DEPLOY_ODDS_SAFE = 1.50 — the band's MIDPOINT label, not a gate and no
+#     longer called "safest" (order 3 amended 2026-10-14). Of 332 graded board
+#     singles the 1.30-1.50 band landed 53.3% against a 75.2% break-even,
+#     -29.4% +/- 12.3 over 30 picks: the worst band on the board, not the
+#     safest. Evidence: backtest/PRICE_BAND_STUDY.md, regenerated per run.
 # This narrows what can carry capital (like the MARKET GATE); it never widens it.
 DEPLOY_ODDS_MIN = 1.20
 DEPLOY_ODDS_MAX = 2.00
@@ -115,6 +118,7 @@ WHITELIST_LEAGUES = (
     "Swiss Super League",
     "Eliteserien",             # Norway — calendar-year season (2026-10-05)
     "Allsvenskan",             # Sweden — calendar-year season (2026-10-05)
+    "Turkish Cup",             # 2026-10-07, market-implied (a cup across every tier)
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

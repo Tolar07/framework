@@ -9,6 +9,7 @@ HR35 hard guardrail carried through: completeness never overrides honesty.
 A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 """
 from __future__ import annotations
+import re
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta, timezone
 from typing import Optional
@@ -18,6 +19,7 @@ from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
                           DEPLOY_ODDS_SAFE, DEPLOY_MIN_MODEL_PROB)
 from engine import markets as mkt
 from engine import competitions as comp
+from engine import cohorts
 from verification.id403 import VerificationResult, Tier, stamp
 
 
@@ -121,6 +123,28 @@ class BoardFixture:
     booking_url: Optional[str] = None
 
 
+# The pipeline's "data flags" carry every run note, most of them only where a price or
+# rating came from. On 21 Oct the board read "312 data flags" for a handful of real gaps
+# (the Architect, 2026-10-21: "resolve it"). A PROBLEM is a line saying data is missing,
+# wrong or unavailable; everything else is a source note, kept in the saved board.
+_PROBLEM = re.compile(r"NO DATA|unavailable|not found|failed|error|could not|missing|"
+                      r"no results available|disagree|\b[1-9]\d* differ|\b[1-9]\d* conflict", re.I)
+
+
+def split_flags(flags: list[str]) -> tuple[list[str], list[str]]:
+    """(problems, notes), each de-duplicated in order."""
+    problems, notes, no_close = [], [], 0
+    for f in dict.fromkeys(flags):
+        if "no closing price in source" in f:
+            no_close += 1        # football-data has no SportyBet-market closes; one line for all
+        else:
+            (problems if _PROBLEM.search(f) else notes).append(f)
+    if no_close:
+        notes.append(f"{no_close} graded leg(s) have no football-data closing price (SportyBet "
+                     f"markets); their CLV comes from the picks' own SportyBet closing capture")
+    return problems, notes
+
+
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
                   data_flags: list[str]) -> str:
@@ -132,9 +156,13 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None
         else f"Calibration: {calibration_count} legs logged, CLV logged: ZERO",
     ]
-    if data_flags:
+    problems, notes = split_flags(data_flags)
+    if problems:
         lines.append("DATA FLAGS (surfaced first, per HR53/ID403):")
-        lines.extend(f"  ⚠ {flag}" for flag in data_flags)
+        lines.extend(f"  ⚠ {flag}" for flag in problems)
+    if notes:
+        lines.append("SOURCE NOTES (where the data came from, not problems):")
+        lines.extend(f"  · {flag}" for flag in notes)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
                   "NOT a demonstrated profitable edge.")
     return "\n".join(lines)
@@ -729,7 +757,77 @@ def _canon_short(fixture: str) -> str:
 # accas, value acca — each takes only matches no earlier acca used.
 ACCA_MIN, ACCA_MAX = 3, 3
 ACCA_LEG_MIN = 0.75
+# Architect 2026-10-08/09: a TABLE 3 acca is "meaningful": its combined SportyBet
+# odds are 2.00 at least ("I don't want it to be less than 2 odds") and 3.00 at
+# most ("2.1 ... or 2.5"), so fewer, longer accas ("collapse it from 6 to like
+# 4"). Each acca takes the strongest remaining legs until it reaches 2.00, never
+# passing 3.00 or TABLE3_MAX_LEGS. Applies to TABLE 3 only; 3A/3B/3C keep 3 legs.
+TABLE3_ODDS_MIN = 2.00
+TABLE3_ODDS_MAX = 3.00
+TABLE3_MAX_LEGS = 6
 MEGA_MAX_LEGS = 26             # SportyBet won't take 78 on one slip: split into parts
+
+
+# ACCA MIX (Architect 2026-10-12, order 42: "Do the acca mix"). On 12 Oct
+# Acca A carried four Under-goals legs and Acca B five goals-line legs: one
+# high-scoring evening sinks a slip built from one kind of bet. So an acca holds
+# at most ONE Under-goals leg and at most ONE Over-goals leg (match or team
+# goals, a goals combo); its other legs come from other markets. It changes
+# which legs share a slip, never a fixture's pick. The megas are exempt: they
+# are the one place every pick is combined (order 5). A leg that fits no acca
+# stays a single.
+MIX_MAX_PER_DIRECTION = 1
+
+
+def goals_direction(key_or_text: Optional[str]) -> Optional[str]:
+    """'over' / 'under' for a goals-line outcome (a market key like
+    'SB:18|total=3.5|Under 3.5', 'OVER_2_5', or the pick's words like
+    'Torino Over 0.5 goals'), else None (results, double chance, handicaps,
+    BTTS, multigoals ...)."""
+    if not key_or_text:
+        return None
+    s = key_or_text.split("|")[-1].lower().replace("_", " ")
+    words = s.replace("&", " ").replace("/", " ").split()
+    if "under" in words:
+        return "under"
+    if "over" in words:
+        return "over"
+    return None
+
+
+def _leg_direction(leg) -> Optional[str]:
+    """Goals direction of an acca leg: (bf, pick, prob[, key, price])."""
+    if len(leg) > 3 and isinstance(leg[3], str):
+        return goals_direction(leg[3])
+    bf = leg[0]
+    key = getattr(bf, "best_market_key", None) if getattr(bf, "best_market", None) == leg[1] else None
+    return goals_direction(key) or goals_direction(leg[1])
+
+
+def mix_ok(group: list, leg, direction=_leg_direction) -> bool:
+    """True when `leg` can join `group` under the acca mix (order 42)."""
+    d = direction(leg)
+    return d is None or sum(direction(x) == d for x in group) < MIX_MAX_PER_DIRECTION
+
+
+def mix_groups(legs: list, sizes: list[int], direction=_leg_direction) -> list[list]:
+    """Legs (best first) into groups of the given sizes, each taking the best
+    remaining legs the mix allows; a group that can't reach 2 legs is dropped
+    and its legs stay singles."""
+    pool, out = list(legs), []
+    for size in sizes:
+        g: list = []
+        for leg in list(pool):
+            if len(g) >= size:
+                break
+            if mix_ok(g, leg, direction):
+                g.append(leg)
+                pool.remove(leg)
+        if len(g) >= 2:
+            out.append(g)
+        else:
+            pool = g + pool
+    return out
 
 
 def _split_sizes(n: int, lo: int, hi: int) -> list[int]:
@@ -772,25 +870,105 @@ def _used(slips: list[tuple]) -> set[str]:
     return {_canon_short(leg[0].fixture) for _n, legs, _c in slips for leg in legs}
 
 
-def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
+# EXPERIMENT ENGINE (engine/experiments.py): a promoted slip rule keeps or
+# drops whole slips of its slot; run_daily.py sets SLIP_RULES from the live
+# registry. Dropped slips are kept in ENGINE_DROPPED for the ledger (graded,
+# never sent). raw=True is the board's own build — used for "a match is in one
+# acca at most", so dropping a slip never reshuffles the other tables.
+SLIP_RULES: dict = {}       # slot ("accas" | "safe3") -> callable([BoardFixture]) -> bool
+ENGINE_DROPPED: dict = {}   # slot -> {slip name: (name, legs, combo)}
+
+
+def _engine_keep(slot: str, groups: list[tuple]) -> list[tuple]:
+    rule = SLIP_RULES.get(slot)
+    if not rule:
+        return groups
+    kept = []
+    for g in groups:
+        if rule([leg[0] for leg in g[1]]):
+            kept.append(g)
+        else:
+            ENGINE_DROPPED.setdefault(slot, {})[g[0]] = g
+    return kept
+
+
+def _build_accas(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple]:
     """Deploy picks of 75%+ grouped into accumulators of up to 3 legs,
     strongest legs first (Acca A = the top legs, then B, C, ...), leaving out
     the matches a 50+ acca already holds — a match is in one acca at most
     (order 40). Combined model probability = PRODUCT of the legs (an explicit
     independence assumption, stated on the board). [] if < 2 legs."""
-    taken = _used(_build_safe3(shortlist))
+    taken = _used(_build_safe3(shortlist, raw=True))
     legs = [l for l in _acca_legs(shortlist) if _canon_short(l[0].fixture) not in taken]
+    # VALUE FIRST (Architect 2026-10-10: "be more strategic with the ACCA").
+    # Graded 3-10 Oct: 75%+ legs priced at or above our fair odds (chance x
+    # price >= 1) won 12 of 12 (+24.7% at £1); legs priced under fair won 79%
+    # and lost money, and Table 3 accas landed 5 of 19 (-46%). So legs are taken
+    # best value first: Acca A carries the value legs, the weakest go last.
+    value = (lambda l: (l[2] or 0) * (getattr(l[0], "best_price", None) or 0))
+    legs.sort(key=lambda l: -value(l))
     if len(legs) < 2:
         return []
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
-        g = legs[i:i + size]
-        i += size
+    # KICKOFF COHORTS (Architect 2026-10-26, engine/cohorts.py): the rules above
+    # run inside each 30-minute kickoff window; Acca A is still the best value.
+    out = []
+    for cid, merged, b in cohorts.buckets(legs, _table3_enough):
+        for g in _table3_groups(b):
+            cohorts.remember(g, cid, merged)
+            out.append(g)
+    out.sort(key=lambda g: -value(g[0]))
+    named = []
+    for n, g in enumerate(out):
         combo = 1.0
         for _, _, prob in g:
             combo *= prob
-        out.append((_acca_name(n), g, combo))
-    return out
+        named.append((_acca_name(n), g, combo))
+    return named if raw else _engine_keep("accas", named)
+
+
+def _table3_enough(legs: list) -> bool:
+    """A cohort can make a TABLE 3 acca: 2+ legs reaching 2.00 together."""
+    if len(legs) < 2:
+        return False
+    return (any(getattr(l[0], "best_price", None) is None for l in legs)
+            or _acca_odds(legs) >= TABLE3_ODDS_MIN)
+
+
+def _table3_groups(legs: list[tuple]) -> list[list]:
+    """Ranked legs (strongest first) -> TABLE 3 accas of TABLE3_ODDS_MIN to
+    TABLE3_ODDS_MAX combined odds. An acca keeps taking the next leg that fits
+    under the max until it reaches the min (or TABLE3_MAX_LEGS). Legs left over
+    that can't make a 2.00 acca of their own join the last acca while it stays
+    within the max; any still left stay singles (Table 2).
+
+    A leg without a quoted price can't be measured against the odds band, so
+    a slate with one keeps the plain 3-leg grouping (order 40)."""
+    if any(getattr(leg[0], "best_price", None) is None for leg in legs):
+        return mix_groups(legs, _split_sizes(len(legs), ACCA_MIN, ACCA_MAX))
+    groups: list[list] = []
+    pool = list(legs)
+    while pool:
+        g: list = []
+        for leg in list(pool):
+            if _acca_odds(g) >= TABLE3_ODDS_MIN or len(g) >= TABLE3_MAX_LEGS:
+                break
+            if _acca_odds(g + [leg]) <= TABLE3_ODDS_MAX and mix_ok(g, leg):
+                g.append(leg)
+                pool.remove(leg)
+        if not g:
+            break
+        if _acca_odds(g) >= TABLE3_ODDS_MIN and len(g) >= 2:
+            groups.append(g)
+            continue
+        # too few legs left for a 2.00 acca: top up the last accas, else singles
+        for leg in g:
+            for last in reversed(groups):
+                if (len(last) < TABLE3_MAX_LEGS and _acca_odds(last + [leg]) <= TABLE3_ODDS_MAX
+                        and mix_ok(last, leg)):
+                    last.append(leg)
+                    break
+        break
+    return groups
 
 
 def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
@@ -799,15 +977,23 @@ def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs = _ranked_legs(shortlist)
     if len(legs) < 2:
         return []
-    k = -(-len(legs) // MEGA_MAX_LEGS)
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), 2, -(-len(legs) // k))):
-        g = legs[i:i + size]
-        i += size
-        combo = 1.0
-        for _, _, prob in g:
-            combo *= prob
-        out.append((f"Mega {n + 1}", g, combo))
+    # KICKOFF COHORTS (Architect 2026-10-26): "a 14:45 leg never shares a slip
+    # with a 20:00 leg" — so a mega is every pick of one kickoff cohort, not of
+    # the day; a pick alone in its window stays a single.
+    out = []
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= 2):
+        if len(b) < 2:
+            continue
+        k = -(-len(b) // MEGA_MAX_LEGS)
+        i = 0
+        for size in _split_sizes(len(b), 2, -(-len(b) // k)):
+            g = b[i:i + size]
+            i += size
+            combo = 1.0
+            for _, _, prob in g:
+                combo *= prob
+            cohorts.remember(g, cid, merged)
+            out.append((f"Mega {len(out) + 1}", g, combo))
     return out
 
 
@@ -887,7 +1073,7 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     """[(name, [(bf, pick, prob, key, price)], combo)] — deploy fixtures whose
     alternative leg is 75%+ and that no 50+ or main acca already holds
     (order 40), strongest first, in accas of up to 3 legs."""
-    taken = _used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
+    taken = _used(_build_safe3(shortlist, raw=True)) | _used(_build_accas(shortlist, raw=True))
     legs = []
     for bf in shortlist:
         if bf.probs is None or _canon_short(bf.fixture) in taken:
@@ -900,10 +1086,14 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs.sort(key=lambda t: -t[2])
     if len(legs) < 2:
         return []
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
-        g = legs[i:i + size]
-        i += size
+    groups = []
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= 2):
+        for g in mix_groups(b, _split_sizes(len(b), ACCA_MIN, ACCA_MAX)):
+            cohorts.remember(g, cid, merged)
+            groups.append(g)
+    groups.sort(key=lambda g: -g[0][2])
+    out = []
+    for n, g in enumerate(groups):
         combo = 1.0
         for leg in g:
             combo *= leg[2]
@@ -954,14 +1144,26 @@ def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
     out = [(f"Value {i}", [leg[:5]], leg[2]) for i, leg in enumerate(legs, 1)]
     acca = [leg for leg in legs if leg[2] >= ACCA_LEG_MIN]
     if len(acca) > 1:
-        taken = (_used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
+        taken = (_used(_build_safe3(shortlist, raw=True)) | _used(_build_accas(shortlist, raw=True))
                  | _used(_build_alt_accas(shortlist)))
-        acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken][:ACCA_MAX]
+        acca = [leg[:5] for leg in acca if _canon_short(leg[0].fixture) not in taken]
+        # one Value acca, from the first kickoff cohort (best value first) that
+        # can make one — never legs of two different windows
+        rank = {id(leg): i for i, leg in enumerate(acca)}
+        best: list = []
+        for cid, merged, b in sorted(cohorts.buckets(acca, lambda b: len(b) >= 2),
+                                     key=lambda t: rank[id(t[2][0])]):
+            g = (mix_groups(b, [ACCA_MAX]) or [[]])[0]
+            if len(g) > 1:
+                cohorts.remember(g, cid, merged)
+                best = g
+                break
+        acca = best
     if len(acca) > 1:
         combo = 1.0
         for leg in acca:
             combo *= leg[2]
-        out.append(("Value acca", [leg[:5] for leg in acca], combo))
+        out.append(("Value acca", acca, combo))
     return out
 
 
@@ -977,7 +1179,7 @@ SAFE3_MIN_CHANCE = 0.50
 _CERT_ORDER = {"HIGH": 0, "MEDIUM": 1}
 
 
-def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
+def _build_safe3(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple]:
     """3-leg accas with a combined chance of 50%+, built ONLY from
     high-certainty legs (HIGH first, then MEDIUM — never LOW: a leg whose %
     we can't trust can't carry a 50%+ promise). Strongest legs first; stops
@@ -985,23 +1187,33 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
     legs = [l for l in _acca_legs(shortlist)
             if l[0].certainty in _CERT_ORDER]
     legs.sort(key=lambda t: (_CERT_ORDER[t[0].certainty], -t[2]))
-    out = []
-    for i in range(0, len(legs) - SAFE3_LEGS + 1, SAFE3_LEGS):
-        g = sorted(legs[i:i + SAFE3_LEGS], key=lambda t: -t[2])
-        combo = 1.0
-        for _, _, prob in g:
-            combo *= prob
-        if combo < SAFE3_MIN_CHANCE:
-            break
-        out.append((f"50+ #{len(out) + 1}", g, combo))
-    return out
+    built = []
+    # KICKOFF COHORTS (Architect 2026-10-26): the same rule inside each window
+    for cid, merged, b in cohorts.buckets(legs, lambda b: len(b) >= SAFE3_LEGS):
+        for g in mix_groups(b, [SAFE3_LEGS] * (len(b) // SAFE3_LEGS)):
+            if len(g) < SAFE3_LEGS:
+                break
+            g = sorted(g, key=lambda t: -t[2])
+            combo = 1.0
+            for _, _, prob in g:
+                combo *= prob
+            if combo < SAFE3_MIN_CHANCE:
+                break
+            cohorts.remember(g, cid, merged)
+            built.append((g, combo))
+    built.sort(key=lambda t: -t[1])
+    out = [(f"50+ #{i}", g, combo) for i, (g, combo) in enumerate(built, 1)]
+    return out if raw else _engine_keep("safe3", out)
 
 
-LAGOS = timezone(timedelta(hours=1))      # WAT — Nigeria has no daylight saving
+from engine.uktime import UK  # noqa: E402 — the Architect's clock (UK, DST-aware)
+
+LAGOS = UK      # old name kept for imports; every board time is UK time now
 
 
 def kickoff(bf) -> str:
-    """Kickoff in Lagos time, HH:MM (order 28), from the kickoff the run
+    """Kickoff in UK time, HH:MM (order 28; Architect 2026-10-15: "we are in
+    the UK"), BST/GMT as the date requires, from the kickoff the run
     fetched (SportyBet's event start, or FotMob's for deploy picks). PENDING
     when no source gave a time — never a guessed one (HR35)."""
     ko = getattr(bf, "kickoff_utc", None) or ""
@@ -1013,7 +1225,7 @@ def kickoff(bf) -> str:
         return "PENDING"
     if when.tzinfo is None:
         when = when.replace(tzinfo=UTC)
-    return when.astimezone(LAGOS).strftime("%H:%M")
+    return when.astimezone(UK).strftime("%H:%M")
 
 
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
@@ -1045,12 +1257,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
            f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)",
            f"Run ID: {run_id or 'PENDING'} | {phase}",
            f"Fixtures scanned: {len(board)} · Verified: {verified}",
-           "KO = kickoff, Lagos time (WAT)", ""]
+           "KO = kickoff, UK time", ""]
 
-    if data_flags:
-        out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "
-                   f"saved board / VERIFY RESULTS")
-        out.append("")
+    # No flag line on the board the Architect reads (2026-10-21: "I don't want to see the
+    # data flag again ... fix all these issues before it gets to me"). Problems stay in the
+    # saved board's PART 0, where the nightly data-fix task reads and fixes them.
 
     # --- TABLE 1 · full market grid + AI pick ---
     out += [_CANON_RULE, "TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK",
@@ -1106,7 +1317,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
         out.append("Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · "
-                   "ESPN · football-data) · ○ = one source only · ⚠ = sources disagree "
+                   "ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree "
                    "(e.g. postponed) — not deployed")
     if no_data:
         out += ["", f"⚠ {len(no_data)} fixture(s) unresolved — NO DATA — PENDING (no "
@@ -1194,6 +1405,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out += ["", "TEAM PROFILES (last 20 games each side — context, not a price):"]
             for bf in prof_rows:
                 out.append(f"   • {_canon_short(bf.fixture)}: {bf.profile_line}")
+        mu_rows = [bf for bf in shortlist if getattr(bf, "matchup_line", None)]
+        if mu_rows:
+            out += ["", "MATCHUP (tactical profiles: formations, press, line, counters, set pieces; "
+                        "⚑ = another market fits the matchup better):"]
+            for bf in mu_rows:
+                out.append(f"   • {_canon_short(bf.fixture)}: {bf.matchup_line}")
         out += [""] + _mega_lines("TABLE 2")
     out.append("")
 
@@ -1213,7 +1430,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             n = sum(len(l) for _, l, _ in safe3)
             code = extra_codes.get("safe3_mega") or "PENDING"
             out += ["", f"TABLE 3A mega code (all {len(safe3)} accas, {n} legs): {code}"
@@ -1222,7 +1439,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
 
     # --- TABLE 3 · ACCA route ---
     out += [_CANON_RULE, "TABLE 3 · ACCA ROUTE",
-            "(3 legs each, 75%+ picks only, a match in one acca at most — order 40)",
+            "(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40;"
+            " one Under-goals and one Over-goals leg at most — order 42)",
             _CANON_RULE, ""]
     accas = _build_accas(shortlist)
     if not accas:
@@ -1242,7 +1460,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
-        out += ["", "Every deploy pick on one slip (the same slip as Table 2's mega):"] \
+        out += ["", "Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):"] \
             + _mega_lines("TABLE 3")
     out.append("")
 
@@ -1327,27 +1545,66 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                      "SportyBet today (HR35: shown, never fabricated).")
     out += [_CANON_BAR,
             "Honest edge: not a demonstrated edge · Capital: Architect only.",
-            f"Deploy odds band: {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f} "
-            f"(safest ~{DEPLOY_ODDS_SAFE:.2f}); picks above 2.00 are never deployed.",
+            # Order 3 amended 2026-10-14: "safest 1.50" withdrawn — of 332 graded
+            # singles the 1.30-1.50 band is the board's worst (-29.4% over 30).
+            # The footer points at the record instead of naming a safe price.
+            f"Deploy odds band: {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f}; picks above "
+            f"{DEPLOY_ODDS_MAX:.2f} are never deployed. No price inside the band is "
+            f"'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).",
             f"Calibration: {calibration_count} legs logged, {clv}.",
             code_line,
             _CANON_BAR]
 
+    # --- TABLE 3D · BOTH TEAMS TO SCORE (Architect 2026-10-10) ---
+    try:
+        _btts = _build_btts(board)
+    except Exception:  # noqa: BLE001 — a display table never breaks the board
+        _btts = []
+    if _btts:
+        _bname, _blegs, _bcombo = _btts[0]
+        _bodds = 1.0
+        for _r in _blegs:
+            _bodds *= _r[4]
+        out += [_CANON_RULE, "TABLE 3D · BOTH TEAMS TO SCORE",
+                f"(the {len(_blegs)} strongest BTTS-yes games, {round(BTTS_MIN*100)}%+ "
+                f"model chance, one slip)", _CANON_RULE]
+        for _bf, _pk, _ch, _k, _pr in _blegs:
+            out.append(f"   • {kickoff(_bf)} "
+                       f"{comp.where(_bf.fixture.split(' (')[0], _bf.fixture.rsplit('(', 1)[-1].rstrip(')'))} "
+                       f"— BTTS yes @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f})")
+        out.append(f"BTTS slip: {extra_codes.get('btts') or 'PENDING'} "
+                   f"({len(_blegs)} legs · odds {_bodds:.2f} · {round(_bcombo*100)}%)")
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3 or board_code or alts or values:
+    if accas or mega_codes or safe3 or board_code or alts or values or extra_codes.get("clv_accas"):
         out += ["", "ALL CODES"]
+        for _s in extra_codes.get("clv_accas") or []:     # engine/clv_accas.py (2026-10-21)
+            out.append(f"{_s['name']}: {_s['code'] or 'PENDING'} ({len(_s['legs'])} legs · odds "
+                       f"{_s['odds']:.2f} · {round(_s['chance']*100)}% · positive-CLV markets)")
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
                        f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}% · "
                        f"stake 0.5%)")
-        if len(safe3) > 1:
+        if len(safe3) > 1 and cohorts.same_cohort(safe3):
             out.append(f"50+ MEGA: {extra_codes.get('safe3_mega') or 'PENDING'} "
                        f"({sum(len(l) for _, l, _ in safe3)} legs · all 50%+ accas · stake 0.1%)")
         if mega_codes is None and board_code:
             out.append(f"Board MEGA: {board_code} ({len(shortlist)} legs · every single · "
                        f"stake 0.1%)")
+        if extra_codes.get("accas_mega"):
+            out.append(f"ACCAS MEGA: {extra_codes['accas_mega']} "
+                       f"({sum(len(l) for _, l, _ in accas)} legs · every Table 3 acca on one slip · "
+                       f"odds {_acca_odds([x for _, l, _ in accas for x in l]):,.2f} · stake 0.1%)")
+        if extra_codes.get("alts_mega"):
+            out.append(f"ALT MEGA: {extra_codes['alts_mega']} "
+                       f"({extra_codes.get('alts_mega_legs', '?')} legs · every alt acca on one slip · stake 0.1%)")
+        if extra_codes.get("btts"):
+            out.append(f"BTTS: {extra_codes['btts']} "
+                       f"({extra_codes.get('btts_legs', '?')} legs · both teams to score · stake 0.1%)")
+        if extra_codes.get("value_mega"):
+            out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
+                       f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
         megas = _build_megas(shortlist) if mega_codes is not None else []
         for name, legs, combo in megas:
             out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "
@@ -1368,10 +1625,88 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     return "\n".join(out)
 
 
+def render_subscriber_codes(board_text: str, board: list, board_date: str) -> str:
+    """What a subscriber gets (order 33, Architect 2026-10-09: "just send them
+    the codes, the booking codes ... they just only need the code"): each
+    deploy single's code, then every acca / mega / alt / value code from the
+    board's ALL CODES block — no tables, chances, stakes or analysis."""
+    try:
+        from datetime import date as _d
+        day = _d.fromisoformat(board_date).strftime("%a %d %b")
+    except (TypeError, ValueError):
+        day = board_date or ""
+    out = [f"OLP XDV · {day} · booking codes",
+           "Load a code on SportyBet: Betslip → Load code (or sportybet.com/ng/?shareCode=CODE)"]
+    singles = sorted((bf for bf in board
+                      if getattr(bf, "on_deploy_shortlist", False) and getattr(bf, "booking_code", None)),
+                     key=lambda bf: kickoff(bf))
+    if singles:
+        out += ["", "SINGLES"]
+        for bf in singles:
+            pick, _p = _deploy_pick(bf)
+            price = f" @{bf.best_price:.2f}" if bf.best_price else ""
+            out.append(f"{kickoff(bf)} {_canon_short(bf.fixture)} — {pick}{price}: {bf.booking_code}")
+    parts = (board_text or "").split("\nALL CODES\n", 1)
+    if len(parts) == 2:
+        rows = []
+        for line in parts[1].splitlines():
+            if line.startswith("===="):
+                break
+            if line.strip():
+                rows.append(re.sub(r" · stake [0-9.]+%", "", line))
+        if rows:
+            out += ["", "ACCAS · MEGAS · VALUE"] + rows
+    if len(out) == 2:
+        out += ["", "No booking codes today."]
+    return "\n".join(out)
+
+
+# BOTH TEAMS TO SCORE table (Architect 2026-10-10: "I want it on board. Do it
+# for SportyBet and bet365"): over 1.5 out-ranks BTTS-yes on nearly every game,
+# so BTTS never became a pick. TABLE 3D lists the strongest BTTS-yes games
+# (calibrated model chance >= BTTS_MIN, SportyBet price 1.20-2.00, model-rated
+# fixtures only) and books them on one slip.
+BTTS_MIN = 0.65
+BTTS_MAX_LEGS = 6
+
+
+def _build_btts(board: list) -> list[tuple]:
+    """[("BTTS", legs, combined chance)] or []. A leg is (bf, pick, chance,
+    market key, SportyBet price) - the alt-slip shape the ledger grades."""
+    from engine.calibration import btts_yes as _cal
+    rows = []
+    for bf in board:
+        p = getattr(bf, "probs", None)
+        if p is None or getattr(bf, "prob_source", "model") != "model":
+            continue
+        ch = _cal(p.p_btts_yes)
+        price = getattr(bf, "btts_price", None)
+        if ch is None or ch < BTTS_MIN or not price \
+                or not (DEPLOY_ODDS_MIN <= price <= DEPLOY_ODDS_MAX):
+            continue
+        rows.append((bf, "Both teams to score — yes", ch, mkt.BTTS_YES, price))
+    rows.sort(key=lambda r: -r[2])
+    # KICKOFF COHORTS (Architect 2026-10-26): one slip, so one kickoff window —
+    # the window with the most BTTS games (then the strongest), up to 6 of them
+    cands = [(cid, merged, b) for cid, merged, b in cohorts.buckets(rows, lambda b: len(b) >= 2)
+             if len(b) >= 2]
+    if not cands:
+        return []
+    cid, merged, rows = max(cands, key=lambda t: (min(len(t[2]), BTTS_MAX_LEGS), t[2][0][2]))
+    rows = rows[:BTTS_MAX_LEGS]
+    cohorts.remember(rows, cid, merged)
+    if len(rows) < 2:
+        return []
+    combo = 1.0
+    for r in rows:
+        combo *= r[2]
+    return [("BTTS", rows, combo)]
+
+
 def _acca_odds(legs) -> float:
     odds = 1.0
     for bf, _pick, _prob in legs:
-        odds *= bf.best_price or 1.0
+        odds *= getattr(bf, "best_price", None) or 1.0
     return odds
 
 
@@ -1387,9 +1722,7 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         f"Leagues: {', '.join(leagues_scanned)}\n"
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
-    if data_flags:
-        parts.append("DATA FLAGS (surfaced first, per HR53/ID403)\n"
-                     + "\n".join(f"⚠ {f}" for f in data_flags))
+    # data flags stay off the Architect's message (2026-10-21); see render_canonical_board
     parts.append(render_recommended_table(shortlist))
     detail = render_pick_detail(shortlist)
     if detail:

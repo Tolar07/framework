@@ -1,0 +1,78 @@
+name: OLP XDV live matchday tracker
+
+# Architect 2026-10-14: "This live tracker, can it be a GitHub action? I don't
+# want it taking too much token ... Let GitHub give me the update."
+#
+# monitor/live_tracker.py was built to run from a Claude session, on the belief
+# that an all-day Actions job "would use about three times the free Actions
+# minutes". That was wrong for this repo: Tolar07/framework is PUBLIC, and
+# GitHub-hosted minutes are unmetered on public repositories. The job is free;
+# the session was not.
+#
+# ONE job follows the whole matchday (monitor/live_loop.py), polling every 120 s.
+# Telegram is paced (Architect 2026-10-25): a goal, red card or full time in a
+# match with a board pick goes at once; HT/FT of the rest go as one round-up;
+# everything else waits for a 30-minute digest. A quiet half hour says nothing. The
+# live snapshots are committed to main as it goes, so a dropped job costs
+# minutes, not the day.
+#
+# Started by daily.yml after each board; the crons below are a backup starter,
+# and a run that finds an older loop going exits at once. A job may run 6 hours
+# at most, so the loop hands off to a fresh run before the limit.
+on:
+  schedule:
+    - cron: "9 11,14,17,19 * * *"   # backup starters, off the hour (GitHub drops :00)
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Matchday to track (YYYY-MM-DD). Blank = today UTC."
+        required: false
+        default: ""
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
+
+permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # commit the live snapshots as the day goes
+
+# No concurrency group, deliberately (same as news.yml, commands.yml and
+# nba_watch.yml). With a loop that runs for hours, every starter that fired
+# meanwhile sat queued in the group and was cancelled by the next one — a run
+# history full of "cancelled", and a stuck loop blocked every later day
+# (2026-10-18). The single-loop guard in live_loop.py does the job instead: a
+# newer run exits at once while an older one is going.
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Follow the matchday and report each event
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          # The Architect's own chat only (order 33) — never a subscriber, so
+          # TELEGRAM_SUBSCRIBER_CHAT_IDS is deliberately not passed here.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          DAY_INPUT:          ${{ github.event.inputs.day }}
+          HANDOFF:            ${{ github.event.inputs.handoff }}
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          ARGS=""
+          if [ -n "$DAY_INPUT" ]; then
+            if ! [[ "$DAY_INPUT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+              echo "invalid day '$DAY_INPUT' (want YYYY-MM-DD)"; exit 1
+            fi
+            ARGS="--day $DAY_INPUT"
+          fi
+          if [ "$HANDOFF" = "true" ]; then ARGS="$ARGS --handoff"; fi
+          python monitor/live_loop.py $ARGS

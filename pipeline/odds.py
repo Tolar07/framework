@@ -360,11 +360,13 @@ def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
     from pipeline.odds_footballdata import fetch_odds_footballdata
 
     # 1) SportyBet (free, primary)
+    sb_answered = False
     try:
         fixtures, sf = fetch_odds_sportybet(league)
         flags += sf
         if fixtures:
             return fixtures, flags
+        sb_answered, sb_mark = True, len(flags)
     except Exception as e:  # noqa: BLE001 — degrade to the next free source
         flags.append(f"{league}: SportyBet fetch failed ({e}) — trying football-data")
 
@@ -391,6 +393,10 @@ def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
     except Exception as e:  # noqa: BLE001
         flags.append(f"{league}: the-odds-api fetch failed ({e})")
 
+    if sb_answered:
+        # SportyBet, the book bet into, answered with no games (a cup between
+        # rounds): the other sources not covering it is no gap, so one note only.
+        return [], flags[:sb_mark] + [f"{league}: no games on offer (SportyBet lists none)"]
     flags.append(f"{league}: no source produced prices — NO DATA — PENDING")
     return [], flags
 

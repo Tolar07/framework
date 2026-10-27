@@ -2218,3 +2218,19 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 **Authority:** Architect direct instruction (2026-08-20). This ratification codifies the hard rule into the ID register per HR33/HR44. No capital, staking, fabrication, verification or honest-edge behaviour changed — this is a gate that prevents bad codes from shipping, consistent with HR35.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-10-27 · Standing order 48: COGNITIVE CORE STAKE MULTIPLIERS — ratified
+
+**What the Architect said:** "for item one, yes" (2026-10-27 10:35, answering whether the cognitive core's
+stake multipliers may act).
+
+**What changed:** `engine/cognitive_core.py` (to-do #3) judges each pick in five stages (regime flags,
+a structured Gemini debate, a firewall of +-0.08, earned authority per (domain, family), grading with
+post-mortem lessons). Where authority is earned its verdict sets the single's stake factor: BACK 1.15,
+LOWER 0.5, VETO 0.0. Without authority nothing changes (shadow mode). `COGNITIVE_STAKES` (repo variable,
+default ON) switches the multipliers off with `0`.
+
+**Authority:** Architect direct approval, 2026-10-27. Protected constants (ARCHITECT_SIGNOFF, the CLV
+gate, capital deployment) and protected files are untouched.

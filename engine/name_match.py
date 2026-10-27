@@ -97,6 +97,12 @@ EXPLICIT = {
     "Mjallby AIF": "Mjallby",
     "Orgryte IS": "Orgryte",
     "Vasteraas SK": "Vasteras SK",
+    # Back in the top flight for 2026/27 (2026-10-21): the model now has their
+    # current-season games, but under football-data's spelling; unrated for 12 days.
+    "RC Deportivo de A Coruna": "La Coruna",
+    "Racing Santander": "Santander",
+    "Academico de Viseu FC": "Academico Viseu",
+    "Maritimo Madeira": "Maritimo",
 }
 
 

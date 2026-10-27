@@ -1,0 +1,259 @@
+##########OLP XDV#########
+==================================
+
+📅  Wed 28 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261027-2147-feb3ab | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 37 · Verified: 30
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                                           Country · League           AI PICK · win%                                Odds   Alt market                                                               O1.5/O2.5  DC/BTTS     Src
+20:00  Hearts v Rangers                                                  Scotland · Premiership     ✓ Hearts or Rangers · 79%                     @1.29  Hearts (+1.5) Asian handicap @1.26                                       O77/O53    1275 / Y57  ✓
+19:45  St Mirren v Hibernian                                             Scotland · Premiership     ✓ Over 1.5 goals · 78%                        @1.21  St Mirren or Hibernian @1.29                                             O68/U58    1272 / N53  ✓
+19:45  Aberdeen v Falkirk                                                Scotland · Premiership     ✓ Aberdeen or Falkirk · 77%                   @1.30  Aberdeen Over 0.5 goals @1.21                                            O71/U55    1273 / Y50  ✓
+19:45  Dundee v Kilmarnock                                               Scotland · Premiership     ✓ Dundee Win to Nil — no · 77%                @1.22  Dundee or Kilmarnock @1.28                                               O81/O58    1277 / Y59  ✓
+19:45  St Johnstone v Motherwell                                         Scotland · Premiership     ✓ Over 1.5 goals · 76%                        @1.26  St Johnstone or Motherwell @1.31                                         O74/U51    1274 / Y53  ✓
+19:45  Celtic v Dundee United                                            Scotland · Premiership     ✓ Celtic or Dundee United & Over 1.5 · 74%    @1.21  Under 4.5 goals @1.41                                                    O86/O67    1X87 / Y56  ✓
+
+19:45  Monza v Napoli                                                    Italy · Serie A            ✓ Over 1.5 goals · 80%                        @1.21  Monza or Napoli @1.27                                                    O85/O66    1279 / Y65  ✓
+17:30  Milan v Bologna                                                   Italy · Serie A            ✓ Milan or Bologna · 79%                      @1.27  Over 1.5 goals @1.26                                                     O74/U51    1X77 / Y51  ✓
+19:45  Genoa v Juventus                                                  Italy · Serie A            ✓ Genoa or Juventus · 78%                     @1.28  Under 3.5 goals @1.30                                                    O68/U58    X281 / N58  ✓
+17:30  Parma v Udinese                                                   Italy · Serie A            ✓ Udinese Win to Nil — no · 77%               @1.23  Parma or Udinese @1.37                                                   O67/U59    1272 / N53  ✓
+17:30  Venezia FC v Inter                                                Italy · Serie A            ᴮ Venezia FC or Inter & Over 1.5 · 76%        @1.25  Over 2.5 goals @1.36                                                     O93/O81    X291 / Y64  ✓
+
+18:00  SC Pisa v Palermo                                                 Italy · Serie B            ✓ Over 1.5 goals · 78%                        @1.22  SC Pisa or Palermo @1.31                                                 O80/O55    1273 / Y59  ✓
+19:00  Carrarese v SS Arezzo                                             Italy · Serie B            ✓ Carrarese or SS Arezzo · 77%                @1.32  Carrarese Over 0.5 goals @1.26                                           O78/O54    1X81 / Y53  ✓
+19:00  Juve Stabia v Hellas Verona                                       Italy · Serie B            ✓ Over 1.5 goals · 75%                        @1.28  Juve Stabia or Hellas Verona @1.32                                       O77/O51    1272 / Y56  ✓
+
+19:45  Forest Green Rovers v Eastleigh                                   England · National League  ✓ Eastleigh (+2.5) Asian handicap · 81%       @1.21  Forest Green Rovers or Eastleigh @1.20                                   O83/O63    1280 / Y59  ✓
+19:45  Carlisle v Harrogate                                              England · National League  ✓ Carlisle Win to Nil — no · 79%              @1.20  Under 4.5 goals @1.22                                                    O84/O65    1278 / Y65  ✓
+19:45  Sutton v Aldershot                                                England · National League  ✓ Over 1.5 goals · 78%                        @1.23  Sutton or Aldershot @1.26                                                O76/O53    1276 / Y56  ✓
+
+18:00  IF Brommapojkarna v BK Hacken                                     Sweden · Allsvenskan       ✓ IF Brommapojkarna or BK Hacken · 80%        @1.24  Under 4.5 goals @1.24                                                    O84/O64    1277 / Y65  ✓
+18:00  Halmstads BK v Malmo                                              Sweden · Allsvenskan       ✓ Halmstads BK or Malmo · 80%                 @1.24  Malmo Under 2.5 goals @1.39                                              O69/U57    X281 / N56  ✓
+18:00  IFK Goteborg v Djurgardens IF                                     Sweden · Allsvenskan       ✓ IFK Goteborg or Djurgardens IF · 79%        @1.27  Djurgardens IF (+0.5) Asian handicap @1.34                               O79/O56    X279 / Y55  ✓
+18:00  Degerfors IF v Vasteraas SK                                       Sweden · Allsvenskan       ✓ Over 1.5 goals · 74%                        @1.29  Degerfors IF or Vasteraas SK @1.32                                       O72/U54    1273 / Y50  ✓
+
+12:00  Balikesirspor v Arnavutkoy Belediyesi Genclik Ve Spor             Turkey · Turkish Cup       Over 1.5 goals · 80%                          @1.21  Balikesirspor or Arnavutkoy Belediyesi Genclik Ve Spor @1.25             O78/O57    1276 / Y58  ○ᴹ
+10:30  Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor  Turkey · Turkish Cup       68 Aksaray Belediyespor Over 0.5 goals · 79%  @1.20  Eskisehir Anadolu Spor Faaliyetleri AS or 68 Aksaray Belediyespor @1.28  O75/O53    1274 / Y56  ○ᴹ
+15:00  Sakaryaspor v Bursa Yildirim Spor                                 Turkey · Turkish Cup       Over 1.5 goals · 79%                          @1.21  Sakaryaspor or Bursa Yildirim Spor @1.22                                 O78/O57    1X83 / Y54  ✓ᴹ
+10:30  Silivrispor v Halide Edip Adivarspor                              Turkey · Turkish Cup       Over 1.5 goals · 79%                          @1.21  Silivrispor or Halide Edip Adivarspor @1.27                              O78/O57    1274 / Y59  ○ᴹ
+10:30  Serik Belediyespor v Hakkari Zap Spor                             Turkey · Turkish Cup       Serik Belediyespor Under 3.5 goals · 79%      @1.23  Under 4.5 goals @1.25                                                    O81/O62    1X87 / Y52  ○ᴹ
+12:30  Fethiyespor v Eyupspor                                            Turkey · Turkish Cup       Eyupspor Win to Nil — no · 79%                @1.20  Eyupspor Under 2.5 goals @1.22                                           O77/O55    1274 / Y58  ✓ᴹ
+10:30  Menemenspor AS v Karacabey Belediyespor                           Turkey · Turkish Cup       Menemenspor AS Over 0.5 goals · 77%           @1.23  Menemenspor AS or Karacabey Belediyespor @1.31                           O76/O53    1272 / Y58  ○ᴹ
+10:30  Duzcespor v Isparta 32 Spor                                       Turkey · Turkish Cup       Over 1.5 goals · 76%                          @1.25  Duzcespor or Isparta 32 Spor @1.31                                       O75/O53    1272 / Y57  ✓ᴹ
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+⚠ 8 fixture(s) unresolved — NO DATA — PENDING (no market data): Ankaraspor v Kirklarelispor (🇹🇷 Turkey · Turkish Cup) · Belediye Derincespor v Malatya Yesilyurt Belediyespor (🇹🇷 Turkey · Turkish Cup) · Kars 36 Spor v Antalyaspor (🇹🇷 Turkey · Turkish Cup) · Adana 1954 FK v Belediye Kutahyaspor (🇹🇷 Turkey · Turkish Cup) · Fatih Karagumruk Istanbul v Somaspor (🇹🇷 Turkey · Turkish Cup) · Sanliurfaspor v Golcukspor (🇹🇷 Turkey · Turkish Cup) · Umraniyespor v Kucukcekmece Sinop Spor AS (🇹🇷 Turkey · Turkish Cup) · 52 Orduspor FK v Hekimoglu Trabzon (🇹🇷 Turkey · Turkish Cup)   (full detail: run log OLPXDV-20261027-2147-feb3ab)
+
+TABLE 1 Mega 1 (5 legs · odds 3 · chance 1 in 3): N7Y973   load ↦ www.sportybet.com/ng/?shareCode=N7Y973
+TABLE 1 Mega 2 (2 legs · odds 1 · chance 1 in 2): R1DUTE   load ↦ www.sportybet.com/ng/?shareCode=R1DUTE
+TABLE 1 Mega 3 (8 legs · odds 6 · chance 1 in 7): PYP7RT   load ↦ www.sportybet.com/ng/?shareCode=PYP7RT
+TABLE 1 Mega 4 (2 legs · odds 2 · chance 1 in 2): S5YKL0   load ↦ www.sportybet.com/ng/?shareCode=S5YKL0
+TABLE 1 Mega 5 (11 legs · odds 10 · chance 1 in 15): RAKXGH   load ↦ www.sportybet.com/ng/?shareCode=RAKXGH
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                                           Country · League           Pick                                    Chance  Odds   Certainty  Stake  Code
+19:45  Aberdeen v Falkirk                                                Scotland · Premiership     ✓ Aberdeen or Falkirk                   77%     @1.30  HIGH       0.25%  U0A8ZB
+19:45  Celtic v Dundee United                                            Scotland · Premiership     ✓ Celtic or Dundee United & Over 1.5    74%     @1.21  MEDIUM     0.25%  R813CK
+19:45  Dundee v Kilmarnock                                               Scotland · Premiership     ✓ Dundee Win to Nil — no                77%     @1.22  HIGH       0.25%  HSD8J2
+19:45  St Mirren v Hibernian                                             Scotland · Premiership     ✓ Over 1.5 goals                        78%     @1.21  MEDIUM     0.25%  SJ3490
+19:45  St Johnstone v Motherwell                                         Scotland · Premiership     ✓ Over 1.5 goals                        76%     @1.26  HIGH       0.25%  ZUMAZK
+20:00  Hearts v Rangers                                                  Scotland · Premiership     ✓ Hearts or Rangers                     79%     @1.29  HIGH       0.25%  YQL56U
+17:30  Milan v Bologna                                                   Italy · Serie A            ✓ Milan or Bologna                      79%     @1.27  HIGH       0.25%  MUZRBM
+17:30  Parma v Udinese                                                   Italy · Serie A            ✓ Udinese Win to Nil — no               77%     @1.23  HIGH       0.25%  S0YJK0
+17:30  Venezia FC v Inter                                                Italy · Serie A            ᴮ Venezia FC or Inter & Over 1.5        76%     @1.25  LOW        0.12%  PGXEJK
+19:45  Genoa v Juventus                                                  Italy · Serie A            ✓ Genoa or Juventus                     78%     @1.28  HIGH       0.25%  Q7S09M
+19:45  Monza v Napoli                                                    Italy · Serie A            ✓ Over 1.5 goals                        80%     @1.21  MEDIUM     0.25%  ZRGD7T
+18:00  SC Pisa v Palermo                                                 Italy · Serie B            ✓ Over 1.5 goals                        78%     @1.22  HIGH       0.25%  KGXMT1
+19:00  Carrarese v SS Arezzo                                             Italy · Serie B            ✓ Carrarese or SS Arezzo                77%     @1.32  MEDIUM     0.25%  HYAJ2S
+19:00  Juve Stabia v Hellas Verona                                       Italy · Serie B            ✓ Over 1.5 goals                        75%     @1.28  MEDIUM     0.25%  NP81RD
+19:45  Carlisle v Harrogate                                              England · National League  ✓ Carlisle Win to Nil — no              79%     @1.20  MEDIUM     0.25%  MZKHT7
+19:45  Forest Green Rovers v Eastleigh                                   England · National League  ✓ Eastleigh (+2.5) Asian handicap       81%     @1.21  HIGH       0.25%  WTU096
+19:45  Sutton v Aldershot                                                England · National League  ✓ Over 1.5 goals                        78%     @1.23  HIGH       0.25%  NZMR11
+18:00  Degerfors IF v Vasteraas SK                                       Sweden · Allsvenskan       ✓ Over 1.5 goals                        74%     @1.29  HIGH       0.25%  T03A8P
+18:00  Halmstads BK v Malmo                                              Sweden · Allsvenskan       ✓ Halmstads BK or Malmo                 80%     @1.24  HIGH       0.25%  TE5U2Q
+18:00  IF Brommapojkarna v BK Hacken                                     Sweden · Allsvenskan       ✓ IF Brommapojkarna or BK Hacken        80%     @1.24  HIGH       0.25%  Q46G2L
+18:00  IFK Goteborg v Djurgardens IF                                     Sweden · Allsvenskan       ✓ IFK Goteborg or Djurgardens IF        79%     @1.27  HIGH       0.25%  M3D8M8
+10:30  Duzcespor v Isparta 32 Spor                                       Turkey · Turkish Cup       Over 1.5 goals                          76%     @1.25  LOW        0.12%  HRL0D0
+10:30  Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor  Turkey · Turkish Cup       68 Aksaray Belediyespor Over 0.5 goals  79%     @1.20  LOW        0.12%  RXDA8Q
+10:30  Menemenspor AS v Karacabey Belediyespor                           Turkey · Turkish Cup       Menemenspor AS Over 0.5 goals           77%     @1.23  LOW        0.12%  J9Y44Q
+10:30  Serik Belediyespor v Hakkari Zap Spor                             Turkey · Turkish Cup       Serik Belediyespor Under 3.5 goals      79%     @1.23  LOW        0.12%  REVK4C
+10:30  Silivrispor v Halide Edip Adivarspor                              Turkey · Turkish Cup       Over 1.5 goals                          79%     @1.21  LOW        0.12%  QBJFAG
+12:00  Balikesirspor v Arnavutkoy Belediyesi Genclik Ve Spor             Turkey · Turkish Cup       Over 1.5 goals                          80%     @1.21  LOW        0.12%  Z7U9CY
+12:30  Fethiyespor v Eyupspor                                            Turkey · Turkish Cup       Eyupspor Win to Nil — no                79%     @1.20  LOW        0.12%  W0A3H8
+15:00  Sakaryaspor v Bursa Yildirim Spor                                 Turkey · Turkish Cup       Over 1.5 goals                          79%     @1.21  LOW        0.12%  ULK9UB
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 21 of 29 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 8 quoted by no second book.
+Sharp check: 0 of 4 picks priced above the Betfair Exchange's fair odds (margin removed; average -4.3% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Aberdeen v Falkirk: tempo 3.0 goals/game · draw tendency 20% · a side often fails to score | Aberdeen 1.2-1.4 a game, draws 20%, BTTS 45%, clean sheets 25%, SoT 2.9-4.6 | Falkirk 1.5-1.9 a game, draws 20%, BTTS 75%, clean sheets 15%, SoT 3.7-5.1
+   • Celtic v Dundee United: tempo 3.0 goals/game · draw tendency 15% | Celtic 2.4-0.8 a game, draws 0%, BTTS 65%, clean sheets 25%, SoT 6.8-3.5 | Dundee United 1.4-1.4 a game, draws 30%, BTTS 45%, clean sheets 30%, SoT 5.3-4.8
+   • Dundee v Kilmarnock: tempo 3.0 goals/game · draw tendency 18% | Dundee 1.4-1.4 a game, draws 20%, BTTS 65%, clean sheets 20%, SoT 4.0-5.6 | Kilmarnock 1.4-1.8 a game, draws 15%, BTTS 45%, clean sheets 30%, SoT 4.1-5.0
+   • St Mirren v Hibernian: tempo 2.5 goals/game · draw tendency 15% · a side often fails to score | St Mirren 0.9-1.5 a game, draws 10%, BTTS 35%, clean sheets 25%, SoT 3.9-4.2 | Hibernian 1.1-1.4 a game, draws 20%, BTTS 65%, clean sheets 15%, SoT 3.4-4.7
+   • St Johnstone v Motherwell: tempo 2.8 goals/game · draw tendency 25% · a side often fails to score | St Johnstone 1.1-1.5 a game, draws 30%, BTTS 60%, clean sheets 10%, SoT 3.4-5.5 | Motherwell 1.1-1.8 a game, draws 20%, BTTS 55%, clean sheets 20%, SoT 4.6-4.9
+   • Hearts v Rangers: tempo 3.4 goals/game · draw tendency 15% · open, high-scoring pairing | Hearts 1.9-1.2 a game, draws 15%, BTTS 65%, clean sheets 30%, SoT 5.1-2.7 | Rangers 2.2-1.4 a game, draws 15%, BTTS 70%, clean sheets 30%, SoT 6.5-3.4
+   • Milan v Bologna: tempo 2.4 goals/game · draw tendency 20% · a side often fails to score | Milan 1.4-1.1 a game, draws 20%, BTTS 45%, clean sheets 35%, SoT 4.2-4.0 | Bologna 1.1-1.2 a game, draws 20%, BTTS 40%, clean sheets 30%, SoT 3.5-3.5
+   • Parma v Udinese: tempo 2.4 goals/game · draw tendency 22% · a side often fails to score | Parma 0.7-1.5 a game, draws 25%, BTTS 45%, clean sheets 20%, SoT 2.8-4.7 | Udinese 1.3-1.4 a game, draws 20%, BTTS 35%, clean sheets 30%, SoT 4.3-4.8
+   • Venezia FC v Inter: tempo 3.3 goals/game · draw tendency 15% · open, high-scoring pairing · a side often fails to score | Venezia 0.8-2.1 a game, draws 0%, BTTS 38%, clean sheets 12%, SoT 4.4-6.9 | Inter 2.5-1.2 a game, draws 30%, BTTS 65%, clean sheets 30%, SoT 6.1-3.4
+   • Genoa v Juventus: tempo 2.2 goals/game · draw tendency 25% · a side often fails to score | Genoa 0.8-1.4 a game, draws 15%, BTTS 40%, clean sheets 20%, SoT 3.0-4.2 | Juventus 1.4-0.8 a game, draws 35%, BTTS 35%, clean sheets 55%, SoT 5.7-2.8
+   • Monza v Napoli: tempo 3.3 goals/game · draw tendency 16% · open, high-scoring pairing | Monza 1.9-2.2 a game, draws 12%, BTTS 88%, clean sheets 12%, SoT 5.6-5.4 | Napoli 1.6-0.9 a game, draws 20%, BTTS 45%, clean sheets 45%, SoT 5.3-3.4
+   • SC Pisa v Palermo: tempo 3.0 goals/game · draw tendency 22% | Pisa 1.9-1.2 a game, draws 25%, BTTS 62%, clean sheets 25%, SoT 6.5-3.1 | Palermo 1.7-1.1 a game, draws 20%, BTTS 60%, clean sheets 30%, SoT 5.5-4.3
+   • Carrarese v SS Arezzo: tempo 2.8 goals/game · draw tendency 21% · a side often fails to score | Carrarese 1.1-1.2 a game, draws 30%, BTTS 50%, clean sheets 20%, SoT 3.6-3.8 | Arezzo 1.0-2.1 a game, draws 12%, BTTS 50%, clean sheets 25%, SoT 3.0-4.9
+   • Juve Stabia v Hellas Verona: tempo 2.9 goals/game · draw tendency 44% · both draw-prone | Juve Stabia 1.1-1.1 a game, draws 50%, BTTS 60%, clean sheets 20%, SoT 4.2-4.2 | Verona 1.9-1.6 a game, draws 38%, BTTS 88%, clean sheets 12%, SoT 5.5-3.5
+   • Carlisle v Harrogate: tempo 3.3 goals/game · draw tendency 21% · open, high-scoring pairing | Carlisle 1.8-1.2 a game, draws 35%, BTTS 65%, clean sheets 30%, SoT 6.3-4.1 | Harrogate 2.3-1.3 a game, draws 7%, BTTS 71%, clean sheets 29%, SoT 6.7-3.1
+   • Forest Green Rovers v Eastleigh: tempo 3.2 goals/game · draw tendency 22% · open, high-scoring pairing | Forest Green 1.9-1.4 a game, draws 20%, BTTS 60%, clean sheets 25%, SoT 4.8-4.6 | Eastleigh 1.4-1.6 a game, draws 25%, BTTS 70%, clean sheets 15%, SoT 2.8-4.3
+   • Sutton v Aldershot: tempo 2.6 goals/game · draw tendency 20% · a side often fails to score | Sutton 0.9-1.7 a game, draws 20%, BTTS 45%, clean sheets 15%, SoT 3.5-3.7 | Aldershot 1.1-1.4 a game, draws 20%, BTTS 55%, clean sheets 10%, SoT 4.1-4.9
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Aberdeen v Falkirk: Aberdeen: aerial threat v weak in the air -> no strong goals lean · xG 1.85-1.00 · BTTS 53% · O2.5 54% · corners ~11.8 · pick 72% on the matchup
+   • Celtic v Dundee United: Dundee United: counter side v high line; Dundee United: set-piece threat v weak set-piece defence; Dundee United: aerial threat v weak in the air; Dundee United: high press v build-up side -> BTTS & goals · xG 2.04-1.12 · BTTS 59% · O2.5 61% · corners ~11.7 · pick 59% on the matchup
+   • Dundee v Kilmarnock: Dundee FC: set-piece threat v weak set-piece defence; Dundee FC: aerial threat v weak in the air -> BTTS & goals · xG 1.84-1.21 · BTTS 59% · O2.5 59% · corners ~11.4 · pick 75% on the matchup
+   • St Mirren v Hibernian: St. Mirren: counter side v high line; St. Mirren: high press v build-up side -> BTTS & goals · xG 1.85-1.62 · BTTS 68% · O2.5 67% · corners ~10.9 · pick 86% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 84% @ 1.30 (value +9%)
+   • St Johnstone v Motherwell: Motherwell: possession side v low block -> BTTS & goals · xG 1.89-1.57 · BTTS 67% · O2.5 67% · corners ~11.1 · pick 86% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 85% @ 1.26 (value +7%)
+   • Milan v Bologna: Bologna: high press v build-up side; Bologna: blunt attack v tight defence -> no strong goals lean · xG 1.52-1.08 · BTTS 52% · O2.5 48% · corners ~8.4 · pick 73% on the matchup
+   • Parma v Udinese: Parma: counter side v high line -> no strong goals lean · xG 1.65-1.07 · BTTS 53% · O2.5 51% · corners ~9.0 · pick 72% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 81% @ 1.40 (value +13%)
+   • Venezia FC v Inter: Venezia: counter side v high line; Venezia: counter side v counter-exposed; Inter: set-piece threat v weak set-piece defence; Inter: aerial threat v weak in the air; Inter: elite attack v leaky defence -> BTTS & goals · xG 1.44-3.16 · BTTS 73% · O2.5 84% · corners ~9.4 · pick 82% on the matchup · ⚑ Both teams to score — yes fits the matchup better: matchup 73% @ 1.60 (value +17%)
+   • Genoa v Juventus: Genoa: high press v build-up side; Genoa: blunt attack v tight defence; Juventus: possession side v low block -> unders / one side blank · xG 0.74-1.51 · BTTS 41% · O2.5 39% · corners ~9.7 · pick 78% on the matchup
+   • Monza v Napoli: Monza: aerial threat v weak in the air; Monza: counter side v counter-exposed -> BTTS & goals · xG 1.72-1.73 · BTTS 68% · O2.5 67% · corners ~9.6 · pick 86% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 82% @ 1.44 (value +18%)
+   • SC Pisa v Palermo: Pisa: counter side v high line; Pisa: elite attack v leaky defence -> BTTS & goals · xG 2.11-1.64 · BTTS 71% · O2.5 72% · corners ~10.9 · pick 71% on the matchup · ⚑ Over 1.5 goals fits the matchup better: matchup 89% @ 1.22 (value +8%)
+   • Carrarese v SS Arezzo: no tactical clash flagged -> no strong goals lean · xG 1.74-0.88 · BTTS 48% · O2.5 49% · corners ~9.6 · pick 77% on the matchup
+   • Juve Stabia v Hellas Verona: Juve Stabia: high press v build-up side -> BTTS & goals · xG 1.82-1.22 · BTTS 59% · O2.5 59% · corners ~9.2 · pick 81% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 84% @ 1.31 (value +10%)
+   • Degerfors IF v Vasteraas SK: Västerås SK: counter side v counter-exposed -> no strong goals lean · xG 1.44-1.38 · BTTS 57% · O2.5 53% · corners ~10.0 · pick 77% on the matchup
+   • Halmstads BK v Malmo: Malmö FF: aerial threat v weak in the air; Malmö FF: possession side v low block -> no strong goals lean · xG 1.00-1.57 · BTTS 50% · O2.5 47% · corners ~11.5 · pick 76% on the matchup
+   • IF Brommapojkarna v BK Hacken: Brommapojkarna: counter side v high line; Brommapojkarna: blunt attack v tight defence; Häcken: possession side v low block -> no strong goals lean · xG 1.09-1.32 · BTTS 49% · O2.5 43% · corners ~10.9 · pick 73% on the matchup
+   • IFK Goteborg v Djurgardens IF: IFK Göteborg: high press v build-up side; Djurgården: counter side v counter-exposed -> no strong goals lean · xG 1.26-1.28 · BTTS 52% · O2.5 47% · corners ~10.5 · pick 73% on the matchup
+
+TABLE 2 Mega 1 (5 legs · odds 3 · chance 1 in 3): N7Y973   load ↦ www.sportybet.com/ng/?shareCode=N7Y973
+TABLE 2 Mega 2 (2 legs · odds 1 · chance 1 in 2): R1DUTE   load ↦ www.sportybet.com/ng/?shareCode=R1DUTE
+TABLE 2 Mega 3 (8 legs · odds 6 · chance 1 in 7): PYP7RT   load ↦ www.sportybet.com/ng/?shareCode=PYP7RT
+TABLE 2 Mega 4 (2 legs · odds 2 · chance 1 in 2): S5YKL0   load ↦ www.sportybet.com/ng/?shareCode=S5YKL0
+TABLE 2 Mega 5 (11 legs · odds 10 · chance 1 in 15): RAKXGH   load ↦ www.sportybet.com/ng/?shareCode=RAKXGH
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code PY2ED8 · odds 1.95 · chance 51%
+   • 18:00 IF Brommapojkarna v BK Hacken (🇸🇪 Sweden · Allsvenskan) — IF Brommapojkarna or BK Hacken @1.24 (80%, HIGH)
+   • 18:00 Halmstads BK v Malmo (🇸🇪 Sweden · Allsvenskan) — Halmstads BK or Malmo @1.24 (80%, HIGH)
+   • 17:30 Milan v Bologna (🇮🇹 Italy · Serie A) — Milan or Bologna @1.27 (79%, HIGH)
+50+ #2 · code K5AQ24 · odds 2.00 · chance 50%
+   • 19:45 Forest Green Rovers v Eastleigh (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Eastleigh (+2.5) Asian handicap @1.21 (81%, HIGH)
+   • 20:00 Hearts v Rangers (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Hearts or Rangers @1.29 (79%, HIGH)
+   • 19:45 Genoa v Juventus (🇮🇹 Italy · Serie A) — Genoa or Juventus @1.28 (78%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+1 accas · 4 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+2 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code PRBW3Q · 4 legs · odds 2.49 · chance 38%
+   • 19:00 Carrarese v SS Arezzo (🇮🇹 Italy · Serie B) — Carrarese or SS Arezzo @1.32 (77%)
+   • 19:45 Aberdeen v Falkirk (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Aberdeen or Falkirk @1.30 (77%)
+   • 19:45 Monza v Napoli (🇮🇹 Italy · Serie A) — Over 1.5 goals @1.21 (80%)
+   • 19:45 Carlisle v Harrogate (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Carlisle Win to Nil — no @1.20 (79%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (5 legs · odds 3 · chance 1 in 3): N7Y973   load ↦ www.sportybet.com/ng/?shareCode=N7Y973
+TABLE 3 Mega 2 (2 legs · odds 1 · chance 1 in 2): R1DUTE   load ↦ www.sportybet.com/ng/?shareCode=R1DUTE
+TABLE 3 Mega 3 (8 legs · odds 6 · chance 1 in 7): PYP7RT   load ↦ www.sportybet.com/ng/?shareCode=PYP7RT
+TABLE 3 Mega 4 (2 legs · odds 2 · chance 1 in 2): S5YKL0   load ↦ www.sportybet.com/ng/?shareCode=S5YKL0
+TABLE 3 Mega 5 (11 legs · odds 10 · chance 1 in 15): RAKXGH   load ↦ www.sportybet.com/ng/?shareCode=RAKXGH
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code GUD1DY · 2 legs · odds 1.52 · chance 63%
+   • 12:30 Fethiyespor v Eyupspor (🇹🇷 Turkey · Turkish Cup) — Eyupspor Under 2.5 goals @1.22 (80%)
+   • 12:00 Balikesirspor v Arnavutkoy Belediyesi Genclik Ve Spor (🇹🇷 Turkey · Turkish Cup) — Balikesirspor or Arnavutkoy Belediyesi Genclik Ve Spor @1.25 (79%)
+Alt B · code P08K7E · 3 legs · odds 2.08 · chance 49%
+   • 19:45 Dundee v Kilmarnock (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Dundee or Kilmarnock @1.28 (80%)
+   • 19:45 Sutton v Aldershot (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Sutton or Aldershot @1.26 (79%)
+   • 19:45 St Mirren v Hibernian (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — St Mirren or Hibernian @1.29 (78%)
+Alt C · code MKAGPA · 3 legs · odds 2.03 · chance 47%
+   • 10:30 Silivrispor v Halide Edip Adivarspor (🇹🇷 Turkey · Turkish Cup) — Silivrispor or Halide Edip Adivarspor @1.27 (78%)
+   • 10:30 Serik Belediyespor v Hakkari Zap Spor (🇹🇷 Turkey · Turkish Cup) — Under 4.5 goals @1.25 (78%)
+   • 10:30 Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor (🇹🇷 Turkey · Turkish Cup) — Eskisehir Anadolu Spor Faaliyetleri AS or 68 Aksaray Belediyespor @1.28 (77%)
+Alt D · code T1XQEP · 3 legs · odds 2.37 · chance 45%
+   • 18:00 SC Pisa v Palermo (🇮🇹 Italy · Serie B) — SC Pisa or Palermo @1.31 (78%)
+   • 18:00 Degerfors IF v Vasteraas SK (🇸🇪 Sweden · Allsvenskan) — Degerfors IF or Vasteraas SK @1.32 (77%)
+   • 17:30 Parma v Udinese (🇮🇹 Italy · Serie A) — Parma or Udinese @1.37 (75%)
+Alt E · code R4FVP8 · 2 legs · odds 1.73 · chance 59%
+   • 19:45 St Johnstone v Motherwell (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — St Johnstone or Motherwell @1.31 (77%)
+   • 19:00 Juve Stabia v Hellas Verona (🇮🇹 Italy · Serie B) — Juve Stabia or Hellas Verona @1.32 (77%)
+Alt F · code ZF5Y0X · 2 legs · odds 1.72 · chance 59%
+   • 10:30 Menemenspor AS v Karacabey Belediyespor (🇹🇷 Turkey · Turkish Cup) — Menemenspor AS or Karacabey Belediyespor @1.31 (77%)
+   • 10:30 Duzcespor v Isparta 32 Spor (🇹🇷 Turkey · Turkish Cup) — Duzcespor or Isparta 32 Spor @1.31 (77%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code TFDEUW · 19:45 Celtic v Dundee United (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Under 4.5 goals @1.41 (72%, value +2.2% · model 81% vs SportyBet 70%)
+Value 2 · code TG087S · 19:45 St Mirren v Hibernian (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Under 4 goals @1.26 (69%, value +2.0% · model 79% vs SportyBet 65%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Forest Green Rovers v Eastleigh (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Eastleigh (+2.5) Asian handicap (81%) @1.21 · code WTU096
+Acca A: 4 legs, model 38% · code PRBW3Q
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 936 legs logged, mean CLV +0.44%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+CLV acca A: NZMRUT (4 legs · odds 2.48 · 41% · positive-CLV markets)
+CLV acca B: HJV5VH (4 legs · odds 2.42 · 39% · positive-CLV markets)
+50+ #1: PY2ED8 (3 legs · odds 1.95 · 51% · stake 0.5%)
+50+ #2: K5AQ24 (3 legs · odds 2.00 · 50% · stake 0.5%)
+VALUE MEGA: TGM1L9 (2 legs · every value bet on one slip · stake 0.1%)
+Mega 1: N7Y973 (5 legs · odds 3 · stake 0.1%)
+Mega 2: R1DUTE (2 legs · odds 1 · stake 0.1%)
+Mega 3: PYP7RT (8 legs · odds 6 · stake 0.1%)
+Mega 4: S5YKL0 (2 legs · odds 2 · stake 0.1%)
+Mega 5: RAKXGH (11 legs · odds 10 · stake 0.1%)
+Acca A: PRBW3Q (4 legs · odds 2.49 · 38% · stake 0.25%)
+Alt A: GUD1DY (2 legs · alt markets · odds 1.52 · 63% · stake 0.25%)
+Alt B: P08K7E (3 legs · alt markets · odds 2.08 · 49% · stake 0.25%)
+Alt C: MKAGPA (3 legs · alt markets · odds 2.03 · 47% · stake 0.25%)
+Alt D: T1XQEP (3 legs · alt markets · odds 2.37 · 45% · stake 0.25%)
+Alt E: R4FVP8 (2 legs · alt markets · odds 1.73 · 59% · stake 0.25%)
+Alt F: ZF5Y0X (2 legs · alt markets · odds 1.72 · 59% · stake 0.25%)
+Value 1: TFDEUW (1 leg · positive value · odds 1.41 · 72% · stake 0.25%)
+Value 2: TG087S (1 leg · positive value · odds 1.26 · 69% · stake 0.25%)

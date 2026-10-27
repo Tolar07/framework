@@ -1,0 +1,81 @@
+{
+ "date": "2026-10-28",
+ "run_id": "SHARP-abe933fe",
+ "fetched_utc": "2026-10-27T21:53:58Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 37,
+ "fixtures_priced_by_exchange": 12,
+ "picks": [
+  {
+   "league": "National League",
+   "home": "Carlisle",
+   "away": "Harrogate",
+   "fixture": "Carlisle v Harrogate (National League)",
+   "kickoff": "2026-10-28T19:45:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Draw or Away",
+   "key": "SB:10||Draw or Away",
+   "price": 1.67,
+   "outcome_id": "11",
+   "sharp_p": 0.6812,
+   "fair_price": 1.468,
+   "sharp_ev": 0.1377,
+   "code": "YD2EAG",
+   "url": "http://www.sportybet.com/ng/?shareCode=YD2EAG",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-abe933fe"
+  },
+  {
+   "league": "National League",
+   "home": "Sutton",
+   "away": "Aldershot",
+   "fixture": "Sutton v Aldershot (National League)",
+   "kickoff": "2026-10-28T19:45:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Draw or Away",
+   "key": "SB:10||Draw or Away",
+   "price": 1.81,
+   "outcome_id": "11",
+   "sharp_p": 0.635,
+   "fair_price": 1.575,
+   "sharp_ev": 0.1494,
+   "code": "MJ2VYV",
+   "url": "http://www.sportybet.com/ng/?shareCode=MJ2VYV",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-abe933fe"
+  }
+ ],
+ "suspect": [
+  {
+   "league": "National League",
+   "home": "Sutton",
+   "away": "Aldershot",
+   "fixture": "Sutton v Aldershot (National League)",
+   "kickoff": "2026-10-28T19:45:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Draw",
+   "key": "SB:1||Draw",
+   "price": 3.7,
+   "outcome_id": "2",
+   "sharp_p": 0.4041,
+   "fair_price": 2.475,
+   "sharp_ev": 0.4952
+  }
+ ],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

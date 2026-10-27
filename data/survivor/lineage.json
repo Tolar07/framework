@@ -875,6 +875,34 @@
    "retired": "2026-10-25"
   },
   {
+   "lineage_id": "ln_80b5c674bf",
+   "parent_id": "ln_5ba438d1ad",
+   "generation": 13,
+   "bankroll": 1.04,
+   "stake": 1.0,
+   "wins": 3,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-17",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_fc4308af0f",
+   "parent_id": "ln_fa3260c064",
+   "generation": 13,
+   "bankroll": 0.74,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-24",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_6d69aace96",
    "parent_id": "ln_210c3d4911",
    "generation": 13,
@@ -987,61 +1015,47 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_d74271c72a",
+   "parent_id": "ln_2d5cf04b4d",
+   "generation": 14,
+   "bankroll": 1.12,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-27",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_664a31a23d",
+   "parent_id": "ln_2d5cf04b4d",
+   "generation": 14,
+   "bankroll": 1.12,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-27",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_2d5cf04b4d",
    "parent_id": "ln_5ba438d1ad",
    "generation": 13,
-   "bankroll": 2.03,
+   "bankroll": 2.25,
    "stake": 1.0,
-   "wins": 3,
+   "wins": 4,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-27",
-    "fixture": "Luton v Doncaster Rovers",
-    "pick": "Doncaster Rovers (+2.5) Asian handicap",
-    "price": 1.22
-   }
-  },
-  {
-   "lineage_id": "ln_80b5c674bf",
-   "parent_id": "ln_5ba438d1ad",
-   "generation": 13,
-   "bankroll": 2.04,
-   "stake": 1.0,
-   "wins": 3,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-17",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-27",
-    "fixture": "Sassuolo v Lazio",
-    "pick": "Under 4.5 goals",
-    "price": 1.22
-   }
-  },
-  {
-   "lineage_id": "ln_fc4308af0f",
-   "parent_id": "ln_fa3260c064",
-   "generation": 13,
-   "bankroll": 1.74,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-24",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-27",
-    "fixture": "Roma v Cagliari",
-    "pick": "Roma Under 3.5 goals",
-    "price": 1.22
-   }
+   "holding": null,
+   "retired": "2026-10-27"
   },
   {
    "lineage_id": "ln_dd8ad42a16",
@@ -1077,23 +1091,47 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_eb01c8a92a",
+   "parent_id": "ln_ab05e65eb3",
+   "generation": 12,
+   "bankroll": 1.03,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-27",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_7723ee9dd3",
+   "parent_id": "ln_ab05e65eb3",
+   "generation": 12,
+   "bankroll": 1.03,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-27",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_ab05e65eb3",
    "parent_id": "ln_d80398a8ed",
    "generation": 11,
-   "bankroll": 1.84,
+   "bankroll": 2.07,
    "stake": 1.0,
-   "wins": 3,
+   "wins": 4,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-27",
-    "fixture": "Torino v Como",
-    "pick": "Under 4.5 goals",
-    "price": 1.23
-   }
+   "holding": null,
+   "retired": "2026-10-27"
   },
   {
    "lineage_id": "ln_65b957fbdd",
@@ -1107,7 +1145,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-28",
+    "fixture": "Forest Green Rovers v Eastleigh",
+    "pick": "Eastleigh (+2.5) Asian handicap",
+    "price": 1.21
+   }
   },
   {
    "lineage_id": "ln_d01e8d1687",

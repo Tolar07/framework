@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.5344808370103808,
   "away_unavailable": 7,
   "fotmob_id": 5967119,
@@ -82,24 +82,19 @@
     "type": "injury"
    },
    {
-    "name": "Andrej Pogacar",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Solomon Loubao",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T17:20Z",
-  "away_missing_share": 0.04853962187408755,
-  "away_unavailable": 3,
+  "at": "2026-10-27T17:40Z",
+  "away_missing_share": 0.042820761069577246,
+  "away_unavailable": 2,
   "fotmob_id": 5967120,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Cesena v Empoli": {
   "absent": [
@@ -129,7 +124,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.13219993790231524,
   "away_unavailable": 2,
   "fotmob_id": 5967122,
@@ -210,7 +205,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.13625643796747924,
   "away_unavailable": 3,
   "fotmob_id": 5967125,
@@ -269,7 +264,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.14019838860613323,
   "away_unavailable": 5,
   "fotmob_id": 5967126,
@@ -333,7 +328,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.16947764619894584,
   "away_unavailable": 4,
   "fotmob_id": 5967127,
@@ -502,7 +497,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T13:00Z",
+  "at": "2026-10-27T17:40Z",
   "away_missing_share": 0.11479321189209109,
   "away_unavailable": 2,
   "fotmob_id": 5967123,

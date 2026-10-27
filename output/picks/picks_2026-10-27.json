@@ -234,7 +234,11 @@
     "home": 7456314,
     "away": 10049511
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:73093014",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -243,8 +247,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.16,
+   "clv": 4.31,
    "stake_pct": 0.25,
    "ev": -0.06868725494935446,
    "missing": {
@@ -1317,8 +1321,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 3.42,
    "stake_pct": 0.25,
    "ev": -0.047390010360543355,
    "missing": {

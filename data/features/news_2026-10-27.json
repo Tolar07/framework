@@ -25,5 +25,47 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T17:00:00.000Z",
   "lineup_type": "unavailable"
+ },
+ "Sassuolo v Lazio": {
+  "absent": [
+   {
+    "name": "Isma\u00ebl Kon\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jay Idzes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fedde Leysen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nicol\u00f2 Rovella",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Albert Gu\u00f0mundsson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adam Maru\u0161i\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-27T11:40Z",
+  "away_missing_share": 0.20386205977209906,
+  "away_unavailable": 3,
+  "fotmob_id": 5749727,
+  "home_missing_share": 0.39262618746090217,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-27T17:30:00.000Z",
+  "lineup_type": "predicted"
  }
 }

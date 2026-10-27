@@ -151,7 +151,10 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         # ('Go Ahead Eagles' v Flashscore's 'G.A. Eagles'; 'Istanbul BB' is
         # Basaksehir's old name, 'Istanbul Buyuksehir Belediyespor').
         (r"^g a eagles$", "go ahead eagles"),
-        (r"^istanbul bb$", "basaksehir"), (r"^istanbul basaksehir$", "basaksehir")]
+        (r"^istanbul bb$", "basaksehir"), (r"^istanbul basaksehir$", "basaksehir"),
+        # 26 Oct 2026: two 25 Oct singles stayed PENDING on these ('VfL 1899
+        # Osnabruck' v 'VfL Osnabruck'; SportyBet's 'Sp Lisbon' v 'Sporting CP').
+        (r"^vfl 1899 osnabruck$", "vfl osnabruck"), (r"^sporting lisbon$", "sporting cp")]
 
 
 def norm(name: str) -> str:

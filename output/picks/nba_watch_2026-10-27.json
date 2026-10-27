@@ -185,6 +185,43 @@
     "back": 2.08,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=121.5",
+   "outcome": "Under 121.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5758,
+   "fair_price": 1.737,
+   "ev": 0.1516,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); sharp line moved since 20:59Z: spread -1.5 \u2192 +1.5",
+   "found_at": "2026-10-27T00:30:00.000154+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719416",
+   "home_key": "UTA",
+   "away_key": "MEM",
+   "espn_id": "401909875",
+   "espn_date": "2026-10-27",
+   "tip": "2026-10-27T01:00:00+00:00",
+   "home": "Utah Jazz",
+   "away": "Memphis Grizzlies",
+   "pick": "1st half Under 121.5 points",
+   "sharp": {
+    "ml_home": 1.9091,
+    "ml_away": 1.9091,
+    "spread": 1.5,
+    "total": 237.5
+   },
+   "code": "RG2UPD",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.91,
+    "listed": true
+   }
   }
  ]
 }

@@ -9,9 +9,10 @@ name: OLP XDV live matchday tracker
 # GitHub-hosted minutes are unmetered on public repositories. The job is free;
 # the session was not.
 #
-# ONE job follows the whole matchday (monitor/live_loop.py), polling every 120 s
-# and sending the Architect a Telegram message for each round that has an event
-# — a goal, a red card, half time, full time. A quiet round says nothing. The
+# ONE job follows the whole matchday (monitor/live_loop.py), polling every 120 s.
+# Telegram is paced (Architect 2026-10-25): a goal, red card or full time in a
+# match with a board pick goes at once; HT/FT of the rest go as one round-up;
+# everything else waits for a 30-minute digest. A quiet half hour says nothing. The
 # live snapshots are committed to main as it goes, so a dropped job costs
 # minutes, not the day.
 #

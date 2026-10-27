@@ -147,29 +147,24 @@
  "GNK Dinamo Zagreb v HNK Rijeka": {
   "absent": [
    {
-    "name": "Toni Fruk",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Junior Ligue",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Samuel Vignato",
+    "name": "T\u00e9o Bari\u0161i\u0107",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T16:00Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 5,
+  "at": "2026-10-27T16:20Z",
+  "away_missing_share": 0.16562966018296146,
+  "away_unavailable": 2,
   "fotmob_id": 5765944,
-  "home_missing_share": null,
+  "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-27T17:00:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Hornchurch v Yeovil": {
   "absent": [],
@@ -417,7 +412,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T16:00Z",
+  "at": "2026-10-27T16:20Z",
   "away_missing_share": 0.20386205977209906,
   "away_unavailable": 3,
   "fotmob_id": 5749727,

@@ -266,12 +266,66 @@ def _settle_90_bounds(market: str, ev: dict) -> Optional[str]:
     return outs.pop() if len(outs) == 1 and "unknown" not in outs else None
 
 
-def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
-    """Grade every ungraded single + slip in past ledgers. Returns flags."""
+def _fotmob_event(matches: list[dict], home: str, away: str, fotmob_id=None) -> Optional[dict]:
+    """A finished FotMob match as a Flashscore-shaped event, or None. By the
+    pick's own FotMob id when it has one, else the same strict, unambiguous
+    two-name match as Flashscore grading (never a guess, ID48). FotMob gives
+    no half-time score here, so first-half markets stay with Flashscore."""
+    from data.fotmob import find_match
+    m = next((x for x in matches if fotmob_id and x.get("id") == fotmob_id), None) \
+        or find_match(matches, home, away)
+    if not m or not m.get("finished") or m.get("awarded"):
+        return None
+    hg, ag = (m.get("score") or [None, None])[:2]
+    if hg is None or ag is None:
+        return None
+    reason = m.get("reason") or ""
+    return {"home": m["home"], "away": m["away"], "kickoff_utc": m.get("kickoff_utc", ""),
+            "fthg": hg, "ftag": ag, "fh_home": None, "fh_away": None,
+            "finished_regular": reason == "FT", "finished_other": reason in ("AET", "Pen", "AP"),
+            "source": "FotMob"}
+
+
+def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) -> list[str]:
+    """Grade every ungraded single + slip in past ledgers. Returns flags.
+    `fotmob_day(day) -> matches` (data.fotmob.matches_on) is the second
+    source: a game Flashscore misses or names differently is looked up there
+    (26 Oct 2026: five 25 Oct singles, Barcelona v Real Madrid among them,
+    stayed PENDING on Flashscore alone)."""
     from data.flashscore_results import find_result
+    from engine import half
     today = today or date.today().isoformat()
     flags = []
     by_day = _index_by_day(events)
+    fm_cache: dict = {}
+    via_fotmob = [0]
+
+    def find(evs, home, away, day, fotmob_id=None, market=None):
+        ev = find_result(evs, home, away, day)
+        if ev or fotmob_day is None or (market and half.is_first_half(market)):
+            return ev
+        try:
+            d0 = date.fromisoformat(day[:10])
+        except ValueError:
+            return None
+        seen, matches = set(), []
+        for k in (-1, 0, 1):
+            key = (d0 + timedelta(days=k)).isoformat()
+            if key > today:
+                continue
+            if key not in fm_cache:
+                try:
+                    fm_cache[key] = fotmob_day(key)
+                except Exception:  # noqa: BLE001 - a FotMob outage leaves the pick pending
+                    fm_cache[key] = []
+            for m in fm_cache[key]:
+                if m.get("id") not in seen:
+                    seen.add(m.get("id"))
+                    matches.append(m)
+        ev = _fotmob_event(matches, home, away, fotmob_id)
+        if ev:
+            via_fotmob[0] += 1
+        return ev
     for path in sorted(LEDGER_DIR.glob("picks_*.json")) + sorted(SUPERSEDED_DIR.glob("picks_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         if doc["date"] > today:
@@ -281,7 +335,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
         dropped = doc.get("singles_dropped", [])
         for s in doc["singles"] + doc.get("study", []) + dropped:
             if s["result"] in (None, "no-90min-result"):
-                ev = find_result(events, s["home"], s["away"], s["kickoff"] or doc["date"])
+                ev = find(events, s["home"], s["away"], s["kickoff"] or doc["date"],
+                          s.get("fotmob_id"), s["market"])
                 if ev and ev["finished_regular"]:
                     s["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
                     s["result"] = _settle(s["market"], ev["fthg"], ev["ftag"])
@@ -305,8 +360,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                      + doc.get("value", []) + doc.get("btts", [])):                         # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] in (None, "no-90min-result"):
-                    ev = find_result(events, leg["home"], leg["away"],
-                                     leg["kickoff"] or doc["date"])
+                    ev = find(events, leg["home"], leg["away"], leg["kickoff"] or doc["date"],
+                              leg.get("fotmob_id"), leg["market"])
                     if ev and ev["finished_regular"]:
                         leg["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
                         leg["result"] = _settle_ev(leg["market"], ev)
@@ -348,7 +403,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
         for r in rated:
             if r["ft"] is None and recent:
                 day = r["kickoff"] or doc["date"]
-                ev = find_result(_events_near(by_day, day), r["home"], r["away"], day)
+                ev = find(_events_near(by_day, day), r["home"], r["away"], day, r.get("fotmob_id"))
                 if ev and ev["finished_regular"]:
                     r["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
                     changed += 1
@@ -362,6 +417,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             flags.append(f"picks {doc['date']}: {graded} graded, {pending} pending"
                          + (f"; {rated_done}/{len(rated)} rated fixtures graded" if rated else "")
                          + " (Flashscore)")
+    if via_fotmob[0]:
+        flags.append(f"{via_fotmob[0]} result(s) Flashscore lacked were taken from FotMob")
     return flags
 
 

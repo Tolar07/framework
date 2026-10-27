@@ -1,7 +1,7 @@
 {
  "football": {
-  "date": "2026-10-26",
-  "graded": 119,
+  "date": "2026-10-27",
+  "graded": 128,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
    "Veto Double Chance '12' (lay-the-draw) bets whenever the market family or Matchbook record is LOSING.",
@@ -9,12 +9,12 @@
    "Do not veto Asian Handicap +1.5 or +2.5 selections on small model-to-breakeven deficits (<3%): positive handicap cushions perform strongly.",
    "Veto 'Win to Nil — no' at odds <=1.24 when the framework record is LOSING.",
    "Veto Under 3.5 totals in lower league/cup fixtures; reserve Under backing for high cushions (Under 4.5 and Under 5.5).",
-   "Strictly veto Over 1.5 goals at short odds (1.20–1.24) when the framework record is LOSING.",
+   "Strictly veto Over 1.5 goals at short odds (1.20–1.28) when the framework record is LOSING.",
    "Veto Double Chance '12' matches when missing player value exceeds 20% for either side to avoid unexpected draws.",
    "Avoid Double Chance '12' at odds above 1.30: higher-priced lines carry unbacked volatility.",
    "Veto Over 0.5 goals bets when the AI chance is below break-even and the framework record is LOSING."
   ],
-  "summary": "Refined and kept concrete lessons covering Double Chance vetoes, Asian handicaps, Win to Nil rules, and Over 0.5 goals market thresholds based on recent performance.",
+  "summary": "Refined the Over 1.5 goals odds ceiling rule to encompass odds up to 1.28 based on recent correct vetoes.",
   "history": [
    {
     "date": "2026-10-23",
@@ -25,17 +25,22 @@
     "date": "2026-10-26",
     "graded": 119,
     "n": 9
+   },
+   {
+    "date": "2026-10-27",
+    "graded": 128,
+    "n": 9
    }
   ]
  },
  "nba": {
-  "date": "2026-10-26",
-  "graded": 21,
+  "date": "2026-10-27",
+  "graded": 28,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
    "When backing 1st half NBA totals with model probabilities above 0.60, require odds of 1.90 or higher to maintain positive expected value."
   ],
-  "summary": "Retained the core lesson on odds thresholds for 1st half NBA totals as it aligns with successful outcomes.",
+  "summary": "Retained the core lesson on NBA 1st half totals pricing while dropping unverified or redundant notes to maintain a clean, testable rule set.",
   "history": [
    {
     "date": "2026-10-23",
@@ -45,6 +50,11 @@
    {
     "date": "2026-10-26",
     "graded": 21,
+    "n": 1
+   },
+   {
+    "date": "2026-10-27",
+    "graded": 28,
     "n": 1
    }
   ]

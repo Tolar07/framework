@@ -278,6 +278,23 @@ def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional
     return _parse(r.json()["choices"][0]["message"]["content"])
 
 
+ANCHOR_BAND = 0.05               # the anchored chance may sit at most this far from the sharp market's chance
+
+
+def anchored_chance(ai_chance, market_chance) -> Optional[float]:
+    """Verdict step 3 (2026-10-27): the AI's chance anchored on the de-margined sharp price. It may move
+    ANCHOR_BAND either way from market_chance and no further; with no market price it is the AI's own."""
+    try:
+        ai = float(ai_chance)
+    except (TypeError, ValueError):
+        return None
+    try:
+        mk = float(market_chance)
+    except (TypeError, ValueError):
+        return round(ai, 4)
+    return round(min(mk + ANCHOR_BAND, max(mk - ANCHOR_BAND, ai)), 4)
+
+
 def _clean(p: Optional[dict]) -> dict:
     if not p:
         return {"verdict": "PENDING", "reasons": "no answer for this pick", "stake_factor": 1.0}
@@ -376,6 +393,12 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
                              "model_chance": s.get("chance"), "code": s.get("code"),
                              "pool": bool(s.get("pool")),
                              **_clean(answers.get(row["id"]))})
+        pk = doc["picks"][-1]            # recorded for the eval set only: stakes still follow the verdict
+        a = anchored_chance(pk.get("ai_chance"), s.get("sharp_p"))
+        if a is not None and s.get("price"):
+            pk["market_chance"] = s.get("sharp_p")
+            pk["anchored_chance"] = a
+            pk["anchored_edge"] = round(a - 1 / float(s["price"]), 4)
     if os.getenv("COGNITIVE_CORE", "1").strip() != "0":
         _cognitive(doc, singles, sport, key, post)
     return doc

@@ -1,10 +1,12 @@
 {
  "date": "2026-10-27",
  "gone": [
-  "sr:match:73719414|68|total=111.5|Over 111.5"
+  "sr:match:73719414|68|total=111.5|Over 111.5",
+  "sr:match:73719416|223|hcp=1.5|Home (+1.5)"
  ],
  "reopen": [
-  "sr:match:73719414"
+  "sr:match:73719414",
+  "sr:match:73719416"
  ],
  "first": {
   "sr:match:73719402": {

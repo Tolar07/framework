@@ -1304,7 +1304,11 @@
     "home": 9026012,
     "away": 9192524
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: AIK missing 50%",
+    "at": "17:20Z"
+   },
    "sb_event_id": "sr:match:67126838",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

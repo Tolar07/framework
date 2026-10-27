@@ -15,16 +15,21 @@
     "name": "Ibrahim Ciss\u00e9",
     "side": "home",
     "type": "injury"
+   },
+   {
+    "name": "Per Frick",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-27T17:00Z",
-  "away_missing_share": 0.0,
-  "away_unavailable": 0,
+  "at": "2026-10-27T17:20Z",
+  "away_missing_share": 0.020553463387772673,
+  "away_unavailable": 1,
   "fotmob_id": 5107637,
-  "home_missing_share": 0.5079209305330404,
+  "home_missing_share": 0.49967713239713213,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-27T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Ascoli Calcio 1898 v Sampdoria": {
   "absent": [
@@ -87,7 +92,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T17:00Z",
+  "at": "2026-10-27T17:20Z",
   "away_missing_share": 0.04853962187408755,
   "away_unavailable": 3,
   "fotmob_id": 5967120,

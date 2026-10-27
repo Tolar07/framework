@@ -294,7 +294,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Padova v Sudtirol",
@@ -342,7 +344,9 @@
    "first_price": 1.34,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 0.7
   },
   {
    "fixture": "Cesena v Empoli",
@@ -390,7 +394,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 0.0
   },
   {
    "fixture": "L.R. Vicenza v Modena",
@@ -438,7 +444,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Mantova v Cremonese",
@@ -486,7 +494,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Virtus Entella v Avellino",
@@ -534,7 +544,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Leicester v Wigan",

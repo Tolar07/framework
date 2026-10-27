@@ -485,7 +485,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     all_flags += gflags
     try:
         from engine import picks_ledger
-        all_flags += picks_ledger.grade_all(fs_events)
+        from data import fotmob
+        all_flags += picks_ledger.grade_all(fs_events, fotmob_day=fotmob.matches_on)
         scorecard_text = picks_ledger.scorecard(7)
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks scorecard unavailable ({e})")

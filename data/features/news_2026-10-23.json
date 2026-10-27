@@ -1,0 +1,620 @@
+{
+ "Alanyaspor v Kocaelispor": {
+  "absent": [
+   {
+    "name": "Tanguy Zoukrou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Bruno Petkovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Massadio Ha\u00efdara",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T16:40Z",
+  "away_missing_share": 0.22471411649178571,
+  "away_unavailable": 4,
+  "fotmob_id": 5904778,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Alaves v Malaga CF": {
+  "absent": [
+   {
+    "name": "Facundo Garc\u00e9s",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mikel Rodr\u00edguez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pablo Mart\u00ednez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Juan Cruz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Diego Murillo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.23312995650364005,
+  "away_unavailable": 6,
+  "fotmob_id": 5868101,
+  "home_missing_share": 0.06678993762660511,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Bochum v Wolfsburg": {
+  "absent": [
+   {
+    "name": "Oliver Olsen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Enis \u00c7okaj",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jean Manuel Mbom",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aster Vranckx",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mattias Svanberg",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fraser Hornby",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T15:40Z",
+  "away_missing_share": 0.24645754290746938,
+  "away_unavailable": 5,
+  "fotmob_id": 5881699,
+  "home_missing_share": 0.31789447955722605,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-23T16:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Bolton Wanderers v Middlesbrough": {
+  "absent": [
+   {
+    "name": "Chris Forino-Joseph",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "David Strelec",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Alfie Jones",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Rokas Puk\u0161tas",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.1808074615475851,
+  "away_unavailable": 3,
+  "fotmob_id": 5836887,
+  "home_missing_share": 0.02228114611578361,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-23T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Brest v Nice": {
+  "absent": [
+   {
+    "name": "Giovani Versini",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Brendan Chardonnet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rapha\u00ebl Le Guen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antoine Mendy",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mo\u00efse Bombito",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Laurent Abergel",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.17317056762970615,
+  "away_unavailable": 4,
+  "fotmob_id": 5802966,
+  "home_missing_share": 0.1677014730362032,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-23T18:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Clermont v Guingamp": {
+  "absent": [],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803291,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Darmstadt v FC St. Pauli": {
+  "absent": [
+   {
+    "name": "Fabian N\u00fcrnberger",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Marseiler",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yosuke Furukawa",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T15:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5881701,
+  "home_missing_share": 0.15506033918640455,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-23T16:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Dunkerque v Metz": {
+  "absent": [],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803293,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Empoli v L.R. Vicenza": {
+  "absent": [
+   {
+    "name": "Gerard Yepes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frank Tsadjout",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Armand Rada",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.09464756709609264,
+  "away_unavailable": 2,
+  "fotmob_id": 5967113,
+  "home_missing_share": 0.09111786033208738,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Go Ahead Eagles v Telstar": {
+  "absent": [
+   {
+    "name": "Eus Waayers",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pim Saathof",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nick Marsman",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T17:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5781781,
+  "home_missing_share": 0.09179287682741255,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Granada v Valladolid": {
+  "absent": [
+   {
+    "name": "Pedro Alema\u00f1",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alejandro Marqu\u00e9s",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juanmi Latasa",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Guille Bueno",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Rubio",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.39100504181076096,
+  "away_unavailable": 6,
+  "fotmob_id": 5868510,
+  "home_missing_share": 0.2508602359903427,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Guimaraes v Maritimo Madeira": {
+  "absent": [
+   {
+    "name": "Juan Diego Castillo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Thiago Balieiro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gui",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yellu Santiago",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T19:00Z",
+  "away_missing_share": 0.12871263790301204,
+  "away_unavailable": 1,
+  "fotmob_id": 5887662,
+  "home_missing_share": 0.05355821453351391,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-23T19:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "IF Elfsborg v Malmo": {
+  "absent": [
+   {
+    "name": "Mayckel Lahdo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kenan Busulad\u017ei\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Oscar Sj\u00f6strand",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T16:20Z",
+  "away_missing_share": 0.30685242984363,
+  "away_unavailable": 7,
+  "fotmob_id": 5107633,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Ipswich Town v Nott'm Forest": {
+  "absent": [
+   {
+    "name": "Sa\u0161a Luki\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jack Taylor",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Igor Jesus",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nicol\u00f2 Savona",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.12119415185452505,
+  "away_unavailable": 2,
+  "fotmob_id": 5795491,
+  "home_missing_share": 0.05132624407356974,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T19:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Kortrijk v Mechelen": {
+  "absent": [
+   {
+    "name": "Jamie Roche",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Shandre Campbell",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Nayel Mehssatou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tommy St. Jago",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Keano Vanrafelghem",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Leo Hjelde",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:40Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 7,
+  "fotmob_id": 5811786,
+  "home_missing_share": 1.0,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-23T18:45:00.000Z",
+  "lineup_type": "unavailable"
+ },
+ "Nancy v Laval": {
+  "absent": [],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803295,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Pau FC v Grenoble": {
+  "absent": [],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803296,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "SCR Altach v FK Austria Wien": {
+  "absent": [
+   {
+    "name": "Marko Ragu\u017e",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mike-Steven B\u00e4hre",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Noah Boti\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Aleksandar Dragovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Manprit Sarkaria",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T17:00Z",
+  "away_missing_share": 0.1335673650852204,
+  "away_unavailable": 4,
+  "fotmob_id": 5846005,
+  "home_missing_share": 0.09444913191243967,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T17:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Sochaux-Montbeliard v Annecy": {
+  "absent": [],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803297,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Torino v Monza": {
+  "absent": [
+   {
+    "name": "Niccol\u00f2 Fortini",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Emirhan \u0130lkhan",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ricardo Rodr\u00edguez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jan Zi\u00f3lkowski",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Cyril Ngonge",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Idrissa Tour\u00e9",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.3944535127656001,
+  "away_unavailable": 5,
+  "fotmob_id": 5749718,
+  "home_missing_share": 0.21145035736015452,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-23T18:45:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Vasteraas SK v Halmstads BK": {
+  "absent": [],
+  "at": "2026-10-23T16:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107635,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Widzew Lodz v Gornik Zabrze": {
+  "absent": [
+   {
+    "name": "Paulinho B\u00f3ia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lukas Lerager",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Carlos Isaac",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luk\u00e1s Sad\u00edlek",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Janis Antiste",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Michal S\u00e1cek",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.1565548244956106,
+  "away_unavailable": 3,
+  "fotmob_id": 5804020,
+  "home_missing_share": 0.1244317838885691,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
+  "lineup_type": "confirmed"
+ }
+}

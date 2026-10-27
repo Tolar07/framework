@@ -4,11 +4,22 @@ Written by `backtest/nba_ladder_study.py` from every saved SportyBet NBA ladder 
 
 OPEN LINES ONLY: 40 older snapshots were dropped — they mixed in closed lines (SportyBet status 2: listed with stale prices, not bettable), which faked a too-wide ladder.
 
-917 looks at 53 games, 2026-10-07 to 2026-10-17. Regular season and preseason are measured apart (preseason rests starters).
+2047 looks at 109 games, 2026-10-07 to 2026-10-27. Regular season and preseason are measured apart (preseason rests starters).
 
-## Regular
+## Regular — 1130 looks at 56 games
 
-No ladder saved yet — NO DATA — PENDING.
+| Market | ladders | implied sd (median) | measured sd | ladder is | value per side in band: median · best |
+|---|---|---|---|---|---|
+| Full-game total | 1130 | 18.36 | 18.0 | about right | -4.0% · +5.0% |
+| Home points | 1108 | 11.69 | 11.3 | about right | -4.7% · +6.2% |
+| Away points | 1108 | 11.57 | 11.3 | about right | -4.8% · +9.4% |
+| Regulation total | 0 | — | 17.2 | PENDING | -3.9% · +3.0% |
+| Full-game handicap | 1130 | 14.43 | 13.7 | WIDER by 0.7 | -3.5% · +9.8% |
+| 1st-half handicap | 1105 | 11.70 | 11.0 | WIDER by 0.7 | -4.0% · +7.4% |
+| 1st-quarter handicap | 1103 | 8.82 | 8.3 | WIDER by 0.5 | -5.3% · +1.2% |
+| 2nd-quarter handicap | 1103 | 8.86 | 8.2 | WIDER by 0.7 | -4.8% · +7.7% |
+| 3rd-quarter handicap | 1103 | 8.81 | 8.5 | about right | -5.0% · +2.3% |
+| 4th-quarter handicap | 1103 | 8.27 | — | PENDING | — |
 
 ## Preseason — 917 looks at 53 games
 

@@ -1,0 +1,50 @@
+{
+ "date": "2026-10-21",
+ "bets": [
+  {
+   "code": "MKUDJ5",
+   "section": "combined",
+   "status": "placed",
+   "legs": 9,
+   "odds": 7.77,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "RPYRT7",
+   "section": "accas",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.68,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "SDU5LW",
+   "section": "alts",
+   "status": "placed",
+   "legs": 2,
+   "odds": 1.57,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "XNHBN3",
+   "section": "board",
+   "status": "placed",
+   "legs": 11,
+   "odds": null,
+   "units": null,
+   "reason": ""
+  },
+  {
+   "code": "Y6VH8H",
+   "section": "accas",
+   "status": "placed",
+   "legs": 5,
+   "odds": 2.9,
+   "units": 1.0,
+   "reason": ""
+  }
+ ]
+}

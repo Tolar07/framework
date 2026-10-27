@@ -97,6 +97,18 @@ jobs:
           key: olp-xdv-data-${{ github.run_id }}
           restore-keys: olp-xdv-data-
 
+      # EXPERIMENT ENGINE (engine/experiments.py, Architect 2026-10-20): every
+      # strategy scored in shadow; a promotion / demotion is applied to
+      # memory/strategies.json BEFORE the board reads it, one Telegram line per
+      # change. A failure here leaves every slot as it was — never blocks the board.
+      - name: Experiment engine (shadow strategies, promotion)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+        run: python monitor/experiment_run.py
+
       - name: Run the daily board
         id: board
         env:
@@ -181,7 +193,7 @@ jobs:
           fi
 
       # NBA BOARD (standing order 41, live test at £1 a pick): SportyBet NBA
-      # prices that beat the sharp line, to the Architect's own chat only;
+      # prices that beat the sharp line, to the Architect, then every subscriber (2026-10-20);
       # grades earlier NBA picks first. Built by the MORNING run for that
       # night's games, 11-17 h before tip-off (Architect 2026-10-07: "at least
       # 12 hours or 6 hours before kickoff"); the evening run only sends it if
@@ -193,6 +205,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          # subscribers get the NBA board as they get the football board (order 41, 2026-10-20)
+          TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}

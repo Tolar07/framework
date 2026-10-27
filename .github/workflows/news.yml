@@ -37,6 +37,14 @@ jobs:
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
           HANDOFF:            ${{ github.event.inputs.handoff }}
+          GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}      # the line-up pass of the verdict panel (to-do #5)
+          OLP_GEMINI_MODEL:   ${{ vars.OLP_GEMINI_MODEL }}
+          COGNITIVE_STAKES:   ${{ vars.COGNITIVE_STAKES || '1' }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}           # verdict panel (to-do #5): free NIM model
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}   # verdict panel: ":free" models ONLY (code guard)
+          PANEL_NVIDIA_MODEL: ${{ vars.PANEL_NVIDIA_MODEL }}
+          PANEL_OPENROUTER_MODEL: ${{ vars.PANEL_OPENROUTER_MODEL }}
+          VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
         run: |
           pip install -q requests
           git config user.name  "olp-xdv-agent"

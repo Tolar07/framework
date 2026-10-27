@@ -1,0 +1,85 @@
+{
+ "date": "2026-10-26",
+ "run_id": "SHARP-736d718f",
+ "fetched_utc": "2026-10-26T06:52:15Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 12,
+ "fixtures_priced_by_exchange": 7,
+ "picks": [
+  {
+   "league": "La Liga 2",
+   "home": "Andorra",
+   "away": "Burgos",
+   "fixture": "Andorra v Burgos (La Liga 2)",
+   "kickoff": "2026-10-26T19:30:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Home",
+   "key": "SB:1||Home",
+   "price": 2.15,
+   "outcome_id": "1",
+   "sharp_p": 0.496,
+   "fair_price": 2.016,
+   "sharp_ev": 0.0664,
+   "code": "XFUPVE",
+   "url": "http://www.sportybet.com/ng/?shareCode=XFUPVE",
+   "result": "lost",
+   "ft": "2-3",
+   "run_id": "SHARP-736d718f"
+  },
+  {
+   "league": "Ligue 2",
+   "home": "Boulogne",
+   "away": "Reims",
+   "fixture": "Boulogne v Reims (Ligue 2)",
+   "kickoff": "2026-10-26T19:45:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Home or Draw",
+   "key": "SB:10||Home or Draw",
+   "price": 1.57,
+   "outcome_id": "9",
+   "sharp_p": 0.6647,
+   "fair_price": 1.504,
+   "sharp_ev": 0.0436,
+   "code": "UUH3W9",
+   "url": "http://www.sportybet.com/ng/?shareCode=UUH3W9",
+   "result": "won",
+   "ft": "1-1",
+   "run_id": "SHARP-736d718f"
+  },
+  {
+   "league": "Ligue 2",
+   "home": "Montpellier",
+   "away": "Red Star",
+   "fixture": "Montpellier v Red Star (Ligue 2)",
+   "kickoff": "2026-10-26T19:45:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Draw or Away",
+   "key": "SB:10||Draw or Away",
+   "price": 1.54,
+   "outcome_id": "11",
+   "sharp_p": 0.7286,
+   "fair_price": 1.372,
+   "sharp_ev": 0.1221,
+   "code": "UP6G8V",
+   "url": "http://www.sportybet.com/ng/?shareCode=UP6G8V",
+   "result": "lost",
+   "ft": "2-1",
+   "run_id": "SHARP-736d718f"
+  }
+ ],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

@@ -131,7 +131,9 @@ def persist(now: datetime) -> str:
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
          "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md", "data/teams",
-         "backtest/PROFILE_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md")
+         "backtest/PROFILE_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md",
+         "data/features", "backtest/FEATURES_STUDY.md",
+         "backtest/BOTH_SIDES_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -180,6 +182,10 @@ def main(argv: list[str] | None = None) -> int:
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
         importlib.import_module("paper_book_study").main()
+        try:  # every side of every market, learned walk-forward (Architect 2026-10-12)
+            importlib.import_module("both_sides_study").main()
+        except Exception as e:  # noqa: BLE001 — the both-sides study never stops the sweep
+            print(f"[{now:%H:%M}Z] both-sides study skipped ({str(e)[:60]})")
         try:
             importlib.import_module("matchbook_price_study").main()
         except Exception as e:  # noqa: BLE001 — the Matchbook study never stops the sweep
@@ -191,6 +197,12 @@ def main(argv: list[str] | None = None) -> int:
         except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
             print(f"[{now:%H:%M}Z] match stats skipped ({str(e)[:60]})")
         importlib.import_module("match_stats_study").main()
+        try:                        # fixture features + the walk-forward features study (item 5)
+            from data import fixture_features
+            print(f"[{now:%H:%M}Z] {fixture_features.build_recent(days=10)}")
+            importlib.import_module("features_study").main()
+        except Exception as e:  # noqa: BLE001 — never stops the sweep
+            print(f"[{now:%H:%M}Z] features skipped ({str(e)[:60]})")
         importlib.import_module("profile_study").main()
         if morning_due:
             print(f"[{now:%H:%M}Z] {send_daily_note(now)}")

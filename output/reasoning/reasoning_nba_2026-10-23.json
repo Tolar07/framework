@@ -1,0 +1,40 @@
+{
+ "date": "2026-10-23",
+ "picks_generated_at": "2026-10-22T05:51:29Z",
+ "run_at": "2026-10-23T15:51:30+00:00",
+ "model": "gemini-3.8-flash",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Philadelphia 76ers v Cleveland Cavaliers",
+   "market": "NBA:68|total=114.5|Over 114.5",
+   "pick": "1st half Over 114.5 points",
+   "price": 1.9,
+   "model_chance": 0.6227,
+   "code": "T7ZPDE",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.6027,
+   "confidence": 0.35,
+   "reasons": "Although the framework record in this family is WINNING (9 of 15 won), this exact fixture is recorded in recent mistakes where backing 1st half Over 114.5 lost. Following the explicit rule not to repeat mistakes listed in the record, this pick is vetoed."
+  },
+  {
+   "fixture": "Oklahoma City Thunder v Denver Nuggets",
+   "market": "NBA:68|total=114.5|Over 114.5",
+   "pick": "1st half Over 114.5 points",
+   "price": 1.9,
+   "model_chance": 0.6227,
+   "code": "K40P38",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.6027,
+   "confidence": 0.35,
+   "reasons": "The framework record is WINNING (9/15 won), but backing this identical matchup and total is documented in recent mistakes as a loss. In accordance with the prompt instruction not to repeat a listed mistake, the pick is vetoed."
+  }
+ ],
+ "sport": "nba"
+}

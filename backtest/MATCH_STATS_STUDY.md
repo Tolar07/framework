@@ -2,43 +2,43 @@
 
 Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post-match stats of every fixture the board rated). A stat FotMob didn't publish is left out, never counted as 0. A study, not a selector.
 
-489 matches, 2026-10-04 to 2026-10-18.
+789 matches, 2026-10-04 to 2026-10-26.
 
 ## League styles (per match, both teams together)
 
 | League | matches | goals | xG | shots | on target | big chances | corners | yellow | goals per shot on target |
 |---|---|---|---|---|---|---|---|---|---|
-| Championship | 33 | 2.76 | 2.97 | 27.9 | 8.5 | 5.1 | 10.2 | 0.0 | 0.33 |
-| FA Cup | 31 | 2.81 | — | — | — | — | — | — | — |
+| League One | 48 | 2.67 | 2.84 | 28.1 | 8.7 | 4.6 | 12.1 | 3.5 | 0.31 |
+| League Two | 48 | 2.77 | 2.78 | 25.7 | 8.0 | 3.7 | 10.0 | 3.8 | 0.35 |
+| Championship | 45 | 2.76 | 3.00 | 28.6 | 8.4 | 4.9 | 10.7 | 1.0 | 0.33 |
+| FA Cup | 42 | 3.14 | — | — | — | — | — | — | — |
+| La Liga 2 | 35 | 2.71 | 2.70 | 26.2 | 8.9 | 4.0 | 10.8 | 5.6 | 0.31 |
+| Europa League | 34 | 3.26 | 3.13 | 27.6 | 9.9 | 5.1 | 9.3 | 4.1 | 0.33 |
+| Conference League | 31 | 2.84 | 3.03 | 29.1 | 9.4 | 4.8 | 9.8 | 3.8 | 0.30 |
+| Serie B | 30 | 2.80 | 2.95 | 29.1 | 8.6 | 4.4 | 9.5 | 3.6 | 0.33 |
+| Serie A | 30 | 3.20 | 3.25 | 29.4 | 10.4 | 5.4 | 9.6 | 3.3 | 0.31 |
+| Premier League | 30 | 2.70 | 2.68 | 26.4 | 8.2 | 4.7 | 9.5 | 4.2 | 0.33 |
+| La Liga | 27 | 2.96 | 2.83 | 28.7 | 9.8 | 4.0 | 10.0 | 5.2 | 0.30 |
+| Champions League | 27 | 4.52 | 3.73 | 29.5 | 11.7 | 6.7 | 9.9 | 3.2 | 0.39 |
 | UEFA Nations League | 26 | 2.15 | 2.65 | 26.2 | 7.8 | 4.3 | 9.0 | 3.9 | 0.28 |
-| La Liga 2 | 25 | 2.64 | 2.72 | 25.5 | 8.3 | 4.3 | 10.7 | 5.4 | 0.32 |
-| League One | 24 | 2.71 | 3.01 | 29.0 | 8.6 | 4.3 | 12.2 | 3.5 | 0.32 |
-| League Two | 24 | 2.29 | 2.55 | 24.2 | 6.7 | 3.0 | 9.2 | 4.1 | 0.34 |
-| Serie B | 20 | 2.95 | 3.02 | 28.7 | 8.6 | 4.5 | 9.3 | 3.9 | 0.35 |
-| Premier League | 19 | 3.05 | 2.93 | 26.6 | 8.8 | 5.4 | 9.5 | 4.4 | 0.35 |
-| Serie A | 18 | 3.06 | 3.28 | 29.0 | 10.3 | 5.8 | 9.4 | 3.4 | 0.30 |
-| La Liga | 17 | 3.41 | 2.91 | 28.4 | 10.4 | 4.1 | 10.0 | 5.2 | 0.33 |
-| Europa League | 17 | 3.18 | 3.31 | 27.3 | 9.6 | 5.8 | 9.1 | 4.2 | 0.33 |
-| Eredivisie | 16 | 4.06 | 3.49 | 30.9 | 10.6 | 6.0 | 9.6 | 3.2 | 0.38 |
-| Ligue 1 | 16 | 3.50 | 3.28 | 25.7 | 9.2 | 4.8 | 8.9 | 3.8 | 0.38 |
-| 2. Bundesliga | 16 | 2.50 | 2.69 | 29.0 | 10.1 | 3.9 | 11.2 | 3.6 | 0.25 |
-| Ligue 2 | 16 | 3.12 | 2.68 | 24.9 | 8.6 | 4.1 | 10.4 | 3.7 | 0.36 |
-| Allsvenskan | 15 | 2.87 | 2.73 | 28.3 | 9.7 | 2.9 | 11.0 | 0.0 | 0.30 |
-| Conference League | 15 | 2.67 | 2.82 | 28.7 | 9.4 | 4.7 | 9.4 | 3.2 | 0.28 |
-| Ekstraklasa | 14 | 3.57 | 3.15 | 30.4 | 9.7 | 5.5 | 10.2 | 3.9 | 0.37 |
-| Bundesliga | 14 | 3.50 | 3.73 | 31.9 | 11.0 | 6.6 | 10.6 | 2.8 | 0.32 |
-| Turkish Super Lig | 13 | 2.54 | 3.04 | 27.7 | 9.5 | 4.5 | 9.9 | 3.3 | 0.27 |
-| Champions League | 13 | 4.46 | 3.59 | 29.5 | 12.1 | 6.3 | 11.4 | 3.4 | 0.37 |
-| National League | 12 | 3.25 | — | — | — | — | — | — | — |
-| Eliteserien | 10 | 3.80 | 3.38 | 31.2 | 10.8 | 4.1 | 10.1 | 3.9 | 0.35 |
-| Scottish Premiership | 10 | 2.90 | 3.04 | 30.4 | 12.1 | 4.4 | 10.5 | 2.9 | 0.24 |
-| Austrian Bundesliga | 10 | 3.60 | 3.65 | 30.3 | 10.6 | 7.0 | 11.0 | 2.9 | 0.34 |
-| HNL | 9 | 2.67 | — | 26.9 | 8.9 | 3.1 | 11.0 | 3.6 | 0.30 |
-| Greek Super League | 9 | 3.56 | 2.78 | 25.2 | 8.6 | 4.3 | 8.3 | 4.1 | 0.42 |
-| Belgian Pro League | 8 | 3.88 | 2.88 | 26.9 | 9.4 | 5.4 | 10.6 | 3.4 | 0.41 |
-| Primeira Liga | 8 | 2.62 | 2.44 | 24.9 | 8.2 | 4.5 | 10.9 | 5.4 | 0.32 |
-| Swiss Super League | 6 | 3.17 | 2.91 | 28.7 | 9.0 | 4.3 | 10.7 | 5.0 | 0.35 |
-| Danish Superliga | 5 | 3.60 | 3.78 | 28.6 | 11.6 | 6.0 | 10.0 | 4.6 | 0.31 |
+| Ligue 2 | 26 | 2.85 | 2.53 | 24.8 | 8.7 | 3.7 | 10.1 | 3.9 | 0.33 |
+| 2. Bundesliga | 25 | 2.44 | 2.79 | 29.7 | 9.8 | 4.0 | 11.4 | 3.8 | 0.25 |
+| Eredivisie | 24 | 3.96 | 3.36 | 30.9 | 10.8 | 6.2 | 9.9 | 3.2 | 0.37 |
+| Ligue 1 | 24 | 3.17 | 3.01 | 24.5 | 8.6 | 4.2 | 8.6 | 4.3 | 0.37 |
+| Allsvenskan | 24 | 2.79 | 2.71 | 28.4 | 9.4 | 2.8 | 11.2 | 1.1 | 0.30 |
+| Ekstraklasa | 22 | 3.23 | 3.05 | 29.5 | 9.5 | 5.0 | 10.4 | 3.7 | 0.34 |
+| National League | 22 | 3.41 | — | — | — | — | — | — | — |
+| Turkish Super Lig | 22 | 2.77 | 3.04 | 27.7 | 10.1 | 4.8 | 9.8 | 3.9 | 0.27 |
+| Bundesliga | 21 | 3.24 | 3.57 | 30.6 | 10.3 | 5.9 | 10.2 | 3.1 | 0.31 |
+| Primeira Liga | 18 | 2.67 | 2.51 | 26.8 | 8.2 | 4.1 | 9.6 | 4.9 | 0.33 |
+| Belgian Pro League | 15 | 4.27 | 3.28 | 27.5 | 10.3 | 5.7 | 10.3 | 3.7 | 0.41 |
+| Eliteserien | 15 | 3.73 | 3.49 | 32.3 | 10.3 | 4.1 | 11.1 | 3.7 | 0.36 |
+| Scottish Premiership | 15 | 3.13 | 3.18 | 30.0 | 10.9 | 4.9 | 10.7 | 3.1 | 0.29 |
+| Austrian Bundesliga | 15 | 3.33 | 3.38 | 30.6 | 10.2 | 5.9 | 10.7 | 2.9 | 0.33 |
+| Greek Super League | 14 | 3.50 | 2.65 | 24.6 | 8.7 | 4.3 | 8.1 | 4.4 | 0.40 |
+| HNL | 13 | 2.46 | — | 26.6 | 8.4 | 3.3 | 10.5 | 3.8 | 0.29 |
+| Swiss Super League | 12 | 2.75 | 3.02 | 30.9 | 9.6 | 4.3 | 10.7 | 4.6 | 0.29 |
+| Danish Superliga | 9 | 3.78 | 3.43 | 28.9 | 11.3 | 5.1 | 8.6 | 4.6 | 0.33 |
 
 ## Does the balance of play decide the match?
 
@@ -46,10 +46,10 @@ Every match where the two sides differed on the measure (draws included).
 
 | The side with more … | matches | won | drew | lost |
 |---|---|---|---|---|
-| expected goals | 433 | 63% | 21% | 16% |
-| shots on target | 396 | 63% | 20% | 17% |
-| big chances | 371 | 62% | 20% | 18% |
-| possession | 428 | 40% | 21% | 39% |
+| expected goals | 706 | 59% | 22% | 19% |
+| shots on target | 646 | 60% | 21% | 18% |
+| big chances | 603 | 61% | 21% | 18% |
+| possession | 695 | 39% | 22% | 39% |
 
 ## Team profiles (3+ matches with xG), strongest xG balance first
 
@@ -57,46 +57,46 @@ Finishing = goals minus xG per match: a big positive number is usually luck that
 
 | Team | league | matches | xG for | xG against | shots on target for–against | possession | finishing |
 |---|---|---|---|---|---|---|---|
-| Panathinaikos | Greek Super League | 3 | 3.33 | 0.60 | 6.3–1.7 | 65% | -1.00 |
-| Bayern Munich | Bundesliga | 3 | 3.88 | 1.31 | 11.7–4.7 | 66% | -0.22 |
-| Bournemouth | Premier League | 3 | 2.82 | 0.51 | 5.7–2.3 | 59% | -0.82 |
-| Barcelona | La Liga | 3 | 2.63 | 0.60 | 9.7–3.0 | 74% | +1.37 |
-| Inter | Serie A | 3 | 3.30 | 1.92 | 8.7–4.7 | 59% | -0.30 |
-| Middlesbrough | Championship | 3 | 2.05 | 0.72 | 9.0–2.0 | 58% | -0.05 |
-| Napoli | Serie A | 3 | 2.39 | 1.08 | 7.0–3.0 | 57% | -1.06 |
-| Arsenal | Premier League | 3 | 1.72 | 0.61 | 5.0–2.3 | 63% | +0.28 |
-| Aston Villa | Premier League | 3 | 2.32 | 1.26 | 7.0–3.0 | 49% | +0.68 |
-| Feyenoord | Eredivisie | 3 | 2.18 | 1.22 | 6.7–5.3 | 46% | +0.82 |
-| HNK Hajduk Split | HNL | 3 | 1.99 | 1.15 | 5.7–3.0 | 53% | -0.32 |
-| Juventus | Serie A | 3 | 1.53 | 0.70 | 6.0–2.3 | 61% | -0.53 |
-| West Brom | Championship | 3 | 2.06 | 1.26 | 3.0–4.3 | 59% | -0.40 |
-| Real Madrid | La Liga | 3 | 1.71 | 0.92 | 6.7–5.3 | 52% | +1.29 |
+| Panathinaikos | Conference League | 4 | 3.13 | 0.66 | 6.2–1.8 | 63% | -0.13 |
+| Bournemouth | Premier League | 5 | 2.75 | 0.56 | 5.6–2.4 | 56% | -0.35 |
+| Bayern Munich | Bundesliga | 5 | 3.40 | 1.33 | 9.8–4.6 | 60% | -0.20 |
+| Middlesbrough | Championship | 4 | 2.58 | 0.77 | 9.8–2.5 | 59% | +0.17 |
+| Inter | Serie A | 4 | 3.27 | 1.50 | 9.2–4.0 | 60% | -0.52 |
+| Stockport County FC | League One | 4 | 2.30 | 0.55 | 5.0–3.5 | 68% | -0.55 |
+| Bodoe/Glimt | Champions League | 3 | 2.58 | 0.84 | 5.7–5.0 | 61% | -0.25 |
+| SC Pisa | Serie B | 3 | 2.21 | 0.53 | 6.0–2.0 | 55% | +0.12 |
+| Benfica | Primeira Liga | 4 | 2.69 | 1.04 | 6.2–4.5 | 60% | +0.31 |
+| Gornik Zabrze | Ekstraklasa | 3 | 2.38 | 0.74 | 6.7–3.7 | 48% | -0.71 |
+| SK Brann | Conference League | 3 | 2.75 | 1.15 | 8.0–3.0 | 73% | -0.75 |
+| Mansfield | League One | 4 | 2.38 | 0.80 | 5.2–3.0 | 50% | +0.12 |
+| Huddersfield | League One | 4 | 2.59 | 1.06 | 6.0–3.2 | 41% | -0.09 |
+| Rangers | Scottish Premiership | 3 | 2.60 | 1.17 | 7.3–4.3 | 60% | +0.40 |
+| Benevento Calcio | Serie B | 3 | 2.05 | 0.68 | 7.0–2.0 | 50% | +0.28 |
+| Barcelona | La Liga | 4 | 2.27 | 0.93 | 8.8–3.5 | 71% | +0.98 |
+| Club Brugge | Belgian Pro League | 4 | 3.61 | 2.32 | 6.2–6.2 | 55% | -0.11 |
+| Milan | Serie A | 3 | 2.45 | 1.16 | 6.3–4.3 | 58% | -0.45 |
+| Amed Sportif Faaliyetler | Turkish Super Lig | 3 | 1.81 | 0.61 | 5.0–2.7 | 52% | -0.15 |
+| Man City | Premier League | 4 | 2.28 | 1.09 | 6.0–3.5 | 66% | +0.72 |
+| Hertha | 2. Bundesliga | 3 | 1.78 | 0.63 | 7.0–3.0 | 57% | -0.78 |
+| IF Elfsborg | Allsvenskan | 3 | 1.77 | 0.61 | 5.0–3.0 | 49% | +0.23 |
+| Palermo | Serie B | 3 | 2.87 | 1.72 | 8.0–3.3 | 48% | -0.21 |
+| GNK Dinamo Zagreb | Europa League | 3 | 2.35 | 1.23 | 5.7–4.7 | 51% | -1.02 |
+| BK Hacken | Allsvenskan | 3 | 2.00 | 0.89 | 8.3–4.7 | 53% | +0.67 |
+| Brest | Ligue 1 | 3 | 2.36 | 1.33 | 6.0–3.3 | 46% | -0.03 |
+| Heidenheim | 2. Bundesliga | 3 | 2.15 | 1.14 | 7.0–5.3 | 50% | -1.48 |
+| West Ham | Championship | 3 | 1.96 | 0.98 | 9.0–2.3 | 57% | +1.04 |
+| Nancy | Ligue 2 | 3 | 1.64 | 0.68 | 4.7–2.7 | 53% | -0.30 |
+| Real Madrid | La Liga | 5 | 2.03 | 1.09 | 7.2–5.6 | 52% | +0.97 |
+| Sparta Rotterdam | Eredivisie | 3 | 2.20 | 1.28 | 7.0–4.7 | 42% | +0.14 |
+| Leicester | League One | 4 | 1.89 | 0.98 | 6.2–4.8 | 64% | +0.11 |
+| Eldense | La Liga 2 | 3 | 2.15 | 1.28 | 3.3–5.0 | 52% | -0.49 |
+| Torino | Serie A | 3 | 1.85 | 0.99 | 4.7–4.0 | 46% | +0.82 |
+| Nott'm Forest | Premier League | 3 | 2.18 | 1.34 | 4.3–3.7 | 45% | -1.51 |
+| Aston Villa | Premier League | 5 | 2.05 | 1.22 | 6.6–3.8 | 47% | +0.75 |
+| Goztepe Izmir | Turkish Super Lig | 3 | 1.99 | 1.17 | 5.7–4.3 | 40% | +0.67 |
+| Sarpsborg 08 | Eliteserien | 3 | 2.09 | 1.29 | 6.3–5.0 | 57% | -0.09 |
+| Ascoli Calcio 1898 | Serie B | 3 | 2.01 | 1.21 | 4.7–5.0 | 59% | +0.32 |
 | Swansea | Championship | 3 | 1.74 | 0.96 | 3.3–4.3 | 59% | -0.74 |
-| Girona | La Liga 2 | 3 | 1.16 | 0.43 | 4.3–2.0 | 49% | -0.16 |
-| Rennes | Ligue 1 | 3 | 2.46 | 1.81 | 8.7–5.0 | 58% | +0.54 |
-| Wieczysta Krakow | Ekstraklasa | 3 | 1.97 | 1.37 | 4.3–5.7 | 55% | -0.30 |
-| Wolves | Championship | 3 | 1.77 | 1.18 | 4.3–5.3 | 54% | -0.77 |
-| Southampton | Championship | 3 | 1.86 | 1.30 | 3.0–3.3 | 55% | -1.19 |
-| Liverpool | Premier League | 3 | 1.94 | 1.40 | 6.7–3.3 | 53% | +0.73 |
-| Cordoba | La Liga 2 | 3 | 1.97 | 1.48 | 5.0–2.7 | 56% | -0.30 |
-| Atalanta | Serie A | 3 | 2.47 | 1.99 | 7.3–5.0 | 48% | +0.20 |
-| Valladolid | La Liga 2 | 3 | 2.05 | 1.67 | 6.3–3.7 | 51% | +0.95 |
-| Ceuta | La Liga 2 | 3 | 1.98 | 1.62 | 5.0–4.7 | 49% | -0.98 |
-| Freiburg | Bundesliga | 3 | 1.41 | 1.05 | 5.0–2.7 | 54% | +0.59 |
-| Wrexham | Championship | 3 | 1.17 | 0.81 | 4.3–2.7 | 53% | +0.83 |
-| Marseille | Ligue 1 | 3 | 1.63 | 1.27 | 5.0–3.3 | 59% | +0.70 |
-| Sturm Graz | Austrian Bundesliga | 3 | 2.12 | 1.78 | 5.7–3.3 | 46% | +0.55 |
-| Portsmouth | Championship | 3 | 1.45 | 1.12 | 3.7–3.0 | 55% | -0.11 |
-| Fenerbahce Istanbul | Turkish Super Lig | 3 | 2.18 | 1.86 | 5.3–7.0 | 55% | -0.18 |
-| Mjallby AIF | Allsvenskan | 3 | 1.14 | 0.83 | 5.0–3.7 | 50% | -0.14 |
-| Bristol City | Championship | 3 | 1.40 | 1.13 | 3.7–2.3 | 52% | -1.07 |
-| Villarreal | La Liga | 3 | 1.40 | 1.14 | 5.0–2.7 | 55% | -0.40 |
-| Bolton Wanderers | Championship | 3 | 2.09 | 1.85 | 4.7–3.0 | 48% | -0.75 |
-| Ajax | Eredivisie | 3 | 2.00 | 1.80 | 6.7–5.0 | 56% | +0.33 |
-| Roma | Serie A | 3 | 1.27 | 1.08 | 4.7–4.3 | 51% | +0.39 |
-| Millwall | Championship | 3 | 1.42 | 1.26 | 4.3–2.0 | 58% | -0.42 |
-| Lyon | Ligue 1 | 3 | 1.53 | 1.48 | 4.3–5.3 | 50% | +0.47 |
-| Andorra | La Liga 2 | 4 | 0.97 | 0.99 | 3.5–4.0 | 52% | -0.72 |
 
-All 586 teams' profiles: `data/match_stats/team_profiles.json`.
+All 599 teams' profiles: `data/match_stats/team_profiles.json`.
 

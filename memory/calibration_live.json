@@ -1,0 +1,105 @@
+{
+ "families": {
+  "away": {
+   "a": 0.2217,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.2405,
+   "brier_after": 0.17958,
+   "brier_before": 0.18068,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
+  },
+  "btts": {
+   "a": 0.1465,
+   "adopted": "2026-10-27T09:14:17Z",
+   "b": 0.5879,
+   "brier_after": 0.24343,
+   "brier_before": 0.24361,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 491,
+   "n_holdout": 198
+  },
+  "dc_12": {
+   "a": 0.3104,
+   "adopted": "2026-10-27T09:14:17Z",
+   "b": 0.8413,
+   "brier_after": 0.17217,
+   "brier_before": 0.17222,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 491,
+   "n_holdout": 198
+  },
+  "dc_1x": {
+   "a": -0.2224,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.2416,
+   "brier_after": 0.17963,
+   "brier_before": 0.18073,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
+  },
+  "dc_x2": {
+   "a": -0.1217,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.3008,
+   "brier_after": 0.2268,
+   "brier_before": 0.22773,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
+  },
+  "draw": {
+   "a": -0.3127,
+   "adopted": "2026-10-27T09:14:17Z",
+   "b": 0.839,
+   "brier_after": 0.17219,
+   "brier_before": 0.17224,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 491,
+   "n_holdout": 198
+  },
+  "home": {
+   "a": 0.122,
+   "adopted": "2026-10-26T09:14:06Z",
+   "b": 1.3021,
+   "brier_after": 0.22681,
+   "brier_before": 0.22773,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 487,
+   "n_holdout": 180
+  },
+  "over_2.5": {
+   "a": 0.2133,
+   "adopted": "2026-10-27T09:14:17Z",
+   "b": 0.8527,
+   "brier_after": 0.24185,
+   "brier_before": 0.24248,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 491,
+   "n_holdout": 198
+  },
+  "over_3.5": {
+   "a": -0.0883,
+   "adopted": "2026-10-27T09:14:17Z",
+   "b": 0.6676,
+   "brier_after": 0.2224,
+   "brier_before": 0.22363,
+   "choice": "refit",
+   "holdout_from": "2026-10-24",
+   "n_fit": 491,
+   "n_holdout": 198
+  }
+ },
+ "source": "engine/retrain.py (nightly, retrain.yml)",
+ "updated": "2026-10-27T09:14:17Z"
+}

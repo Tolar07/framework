@@ -1,0 +1,739 @@
+{
+ "Celta B v Tenerife": {
+  "away": "Tenerife",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.3752,
+    "btts": "PENDING",
+    "draw": 0.3001,
+    "home": 0.3247,
+    "over25": 0.4637
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Celta B v Tenerife",
+  "ft": "1-1",
+  "home": "Celta B",
+  "league": "La Liga 2",
+  "model_p": [
+   0.49,
+   0.233,
+   0.277,
+   0.805,
+   0.584,
+   0.36,
+   0.595
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.79,
+    "xgf": 0.81
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Degerfors IF v Kalmar FF": {
+  "away": "Kalmar FF",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3937,
+    "btts": 0.529,
+    "draw": 0.2938,
+    "home": 0.3125,
+    "over25": 0.46
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3875,
+    "btts": 0.5134,
+    "draw": 0.2851,
+    "home": 0.3274,
+    "over25": 0.4577
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Degerfors IF v Kalmar FF",
+  "ft": "1-2",
+  "home": "Degerfors IF",
+  "league": "Allsvenskan",
+  "model_p": [
+   0.405,
+   0.3,
+   0.295,
+   0.627,
+   0.356,
+   0.165,
+   0.425
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Getafe v Vallecano": {
+  "away": "Vallecano",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.3647,
+    "btts": "PENDING",
+    "draw": 0.3253,
+    "home": 0.31,
+    "over25": 0.3378
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3577,
+    "btts": 0.4378,
+    "draw": 0.3315,
+    "home": 0.3108,
+    "over25": 0.3318
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.359,
+    "btts": 0.4148,
+    "draw": 0.3278,
+    "home": 0.3132,
+    "over25": 0.3427
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Getafe v Vallecano",
+  "ft": "1-1",
+  "home": "Getafe",
+  "league": "La Liga",
+  "model_p": [
+   0.341,
+   0.318,
+   0.341,
+   0.587,
+   0.317,
+   0.141,
+   0.393
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.265,
+    "xgf": 0.795
+   },
+   "total": "PENDING"
+  }
+ },
+ "Monza v Cagliari": {
+  "away": "Cagliari",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.3212,
+    "btts": "PENDING",
+    "draw": 0.3017,
+    "home": 0.3771,
+    "over25": 0.46
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3016,
+    "btts": 0.54,
+    "draw": 0.2971,
+    "home": 0.4013,
+    "over25": 0.465
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3048,
+    "btts": 0.5249,
+    "draw": 0.2947,
+    "home": 0.4005,
+    "over25": 0.4778
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Monza v Cagliari",
+  "ft": "4-0",
+  "home": "Monza",
+  "league": "Serie A",
+  "model_p": [
+   0.476,
+   0.218,
+   0.306,
+   0.824,
+   0.615,
+   0.394,
+   0.604
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Parma v Torino": {
+  "away": "Torino",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.4189,
+    "btts": "PENDING",
+    "draw": 0.3116,
+    "home": 0.2695,
+    "over25": 0.3923
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3898,
+    "btts": 0.4925,
+    "draw": 0.3168,
+    "home": 0.2935,
+    "over25": 0.4029
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3861,
+    "btts": 0.4777,
+    "draw": 0.3103,
+    "home": 0.3036,
+    "over25": 0.411
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Parma v Torino",
+  "ft": "0-3",
+  "home": "Parma",
+  "league": "Serie A",
+  "model_p": [
+   0.301,
+   0.275,
+   0.424,
+   0.678,
+   0.416,
+   0.211,
+   0.468
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Rodez v Montpellier": {
+  "away": "Montpellier",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.4204,
+    "btts": "PENDING",
+    "draw": 0.2646,
+    "home": 0.315,
+    "over25": 0.5672
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.4176,
+    "btts": 0.6154,
+    "draw": 0.2593,
+    "home": 0.3231,
+    "over25": 0.5902
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.4006,
+    "btts": 0.6218,
+    "draw": 0.269,
+    "home": 0.3304,
+    "over25": 0.5913
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Rodez v Montpellier",
+  "ft": "0-3",
+  "home": "Rodez",
+  "league": "Ligue 2",
+  "model_p": [
+   0.3,
+   0.305,
+   0.395,
+   0.672,
+   0.395,
+   0.194,
+   0.467
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Sp Braga v Gil Vicente": {
+  "away": "Gil Vicente",
+  "close": {
+   "betfair": {
+    "at": "close",
+    "away": 0.1775,
+    "btts": "PENDING",
+    "draw": 0.2762,
+    "home": 0.5463,
+    "over25": 0.4236
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.1496,
+    "btts": 0.47,
+    "draw": 0.2408,
+    "home": 0.6095,
+    "over25": 0.4811
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.1614,
+    "btts": 0.4648,
+    "draw": 0.2326,
+    "home": 0.6061,
+    "over25": 0.4857
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Sp Braga v Gil Vicente",
+  "ft": "1-2",
+  "home": "Sp Braga",
+  "league": "Primeira Liga",
+  "model_p": [
+   0.484,
+   0.258,
+   0.258,
+   0.685,
+   0.428,
+   0.22,
+   0.465
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Tottenham v Coventry City": {
+  "away": "Coventry City",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.1647,
+    "btts": 0.5572,
+    "draw": 0.2059,
+    "home": 0.6294,
+    "over25": 0.5956
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.1681,
+    "btts": 0.5469,
+    "draw": 0.2106,
+    "home": 0.6213,
+    "over25": 0.5985
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Tottenham v Coventry City",
+  "ft": "3-1",
+  "home": "Tottenham",
+  "league": "Premier League",
+  "model_p": [
+   0.456,
+   0.279,
+   0.265,
+   0.721,
+   0.456,
+   0.242,
+   0.503
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Trabzonspor v Besiktas Istanbul": {
+  "away": "Besiktas Istanbul",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3629,
+    "btts": 0.6545,
+    "draw": 0.2517,
+    "home": 0.3854,
+    "over25": 0.6387
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.3607,
+    "btts": 0.6459,
+    "draw": 0.2527,
+    "home": 0.3866,
+    "over25": 0.6235
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Trabzonspor v Besiktas Istanbul",
+  "ft": "2-0",
+  "home": "Trabzonspor",
+  "league": "Turkish Super Lig",
+  "model_p": [
+   0.484,
+   0.259,
+   0.257,
+   0.817,
+   0.581,
+   0.357,
+   0.604
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.4,
+    "xgf": 2.77
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Viborg v Midtjylland": {
+  "away": "Midtjylland",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.4063,
+    "btts": 0.6435,
+    "draw": 0.2542,
+    "home": 0.3395,
+    "over25": 0.6241
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.4041,
+    "btts": 0.6388,
+    "draw": 0.2567,
+    "home": 0.3392,
+    "over25": 0.614
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Viborg v Midtjylland",
+  "ft": "1-2",
+  "home": "Viborg",
+  "league": "Danish Superliga",
+  "model_p": [
+   0.301,
+   0.27,
+   0.429,
+   0.8,
+   0.556,
+   0.333,
+   0.595
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Wisla Plock v Radomiak Radom": {
+  "away": "Radomiak Radom",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.236,
+    "btts": 0.6049,
+    "draw": 0.2478,
+    "home": 0.5162,
+    "over25": 0.5985
+   },
+   "soft": {
+    "at": "2026-10-19T13:59Z",
+    "away": 0.2485,
+    "btts": 0.599,
+    "draw": 0.2518,
+    "home": 0.4997,
+    "over25": 0.5897
+   }
+  },
+  "date": "2026-10-19",
+  "fixture": "Wisla Plock v Radomiak Radom",
+  "ft": "1-0",
+  "home": "Wisla Plock",
+  "league": "Ekstraklasa",
+  "model_p": [
+   0.437,
+   0.302,
+   0.261,
+   0.751,
+   0.477,
+   0.26,
+   0.537
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ }
+}

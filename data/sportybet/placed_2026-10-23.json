@@ -1,0 +1,284 @@
+{
+ "date": "2026-10-23",
+ "bets": [
+  {
+   "code": "GUAY4M",
+   "section": "clv_accas",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.62,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "HMV3CQ",
+   "section": "safe3",
+   "status": "placed",
+   "legs": 3,
+   "odds": 1.97,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "JNLJWF",
+   "section": "survivor",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.32,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "K15T5M",
+   "section": "accas",
+   "status": "placed",
+   "legs": 5,
+   "odds": 2.92,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "K40P38",
+   "section": "nba",
+   "status": "skipped",
+   "legs": 1,
+   "odds": 1.8,
+   "units": 1.0,
+   "reason": "odds moved: 1.8 vs board 1.9"
+  },
+  {
+   "code": "K5VED8",
+   "section": "accas",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.81,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "KHGPW2",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.95,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "N15BDD",
+   "section": "combined",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.72,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "NAA6V7",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.45,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "NUP7R5",
+   "section": "nba_accas",
+   "status": "already",
+   "legs": 2,
+   "odds": 3.13,
+   "units": 2.0,
+   "reason": "placed 22:09 outside the bot"
+  },
+  {
+   "code": "P5Q1J5",
+   "section": "safe3",
+   "status": "placed",
+   "legs": 3,
+   "odds": 2.05,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "PHBBL9",
+   "section": "accas",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.85,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "PTXD0V",
+   "section": "survivor",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.28,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "PUJSJN",
+   "section": "survivor_mega",
+   "status": "placed",
+   "legs": 3,
+   "odds": 2.11,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "QHLE9F",
+   "section": "alts",
+   "status": "placed",
+   "legs": 2,
+   "odds": 1.65,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "QRJW5L",
+   "section": "alts",
+   "status": "placed",
+   "legs": 2,
+   "odds": 1.65,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "QS4Z6H",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.58,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "SKZ0QR",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.57,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "T7ZPDE",
+   "section": "nba",
+   "status": "skipped",
+   "legs": 1,
+   "odds": 1.74,
+   "units": 1.0,
+   "reason": "odds moved: 1.74 vs board 1.9"
+  },
+  {
+   "code": "TLUXHT",
+   "section": "safe3",
+   "status": "placed",
+   "legs": 3,
+   "odds": 1.85,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "UGUD32",
+   "section": "combined",
+   "status": "placed",
+   "legs": 13,
+   "odds": 23.42,
+   "units": 0.2,
+   "reason": ""
+  },
+  {
+   "code": "UJ19RX",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.54,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "UV2GNL",
+   "section": "clv_accas",
+   "status": "placed",
+   "legs": 4,
+   "odds": 2.21,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "V3H48H",
+   "section": "survivor",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.27,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "VMFFZU",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.72,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "VZM7RP",
+   "section": "?",
+   "status": "placed",
+   "legs": 3,
+   "odds": 2.13,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "WLC94A",
+   "section": "value",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.71,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "WT9NSW",
+   "section": "?",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.26,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "WW7H00",
+   "section": "combined",
+   "status": "placed",
+   "legs": 9,
+   "odds": 7.43,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
+   "code": "X2BJV8",
+   "section": "board",
+   "status": "placed",
+   "legs": 26,
+   "odds": 679.16,
+   "units": 0.5,
+   "reason": ""
+  },
+  {
+   "code": "YN6ESX",
+   "section": "combined",
+   "status": "placed",
+   "legs": 7,
+   "odds": 31.77,
+   "units": 2.0,
+   "reason": ""
+  }
+ ]
+}

@@ -51,8 +51,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.24,
    "drift_pct": 0.8
   },
@@ -105,8 +105,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.26,
    "drift_pct": -1.6
   },
@@ -159,8 +159,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "4-0",
    "drift_price": 1.25,
    "drift_pct": 0.8
   },
@@ -188,7 +188,11 @@
     "home": 89866535,
     "away": 71644195
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:71945318",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -197,8 +201,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.38,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.008077999598092522,
    "missing": {
@@ -209,8 +213,8 @@
    "sharp_ev": -0.0586,
    "first_price": 1.38,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-3",
    "drift_price": 1.38,
    "drift_pct": 0.0
   },
@@ -238,7 +242,11 @@
     "home": 59565497,
     "away": 14287475
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:75243922",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -247,8 +255,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -3.85,
    "stake_pct": 0.25,
    "ev": -0.04779705851888505,
    "missing": {
@@ -259,8 +267,8 @@
    "sharp_ev": -0.0685,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.26,
    "drift_pct": 0.8
   },
@@ -288,7 +296,11 @@
     "home": 528019161,
     "away": 113595297
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72221330",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -297,8 +309,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.12,
    "ev": -0.05473190058976474,
    "missing": {
@@ -309,8 +321,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -338,7 +350,11 @@
     "home": 41870915,
     "away": 21787880
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478634",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -347,8 +363,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.41,
+   "clv": -1.42,
    "stake_pct": 0.25,
    "ev": -0.028904315622800936,
    "missing": {
@@ -359,8 +375,8 @@
    "sharp_ev": -0.0672,
    "first_price": 1.39,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.42,
    "drift_pct": 2.2
   },
@@ -394,8 +410,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.010462786026876225,
    "missing": null,
@@ -403,8 +419,8 @@
    "sharp_ev": -0.052,
    "first_price": 1.34,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.34,
    "drift_pct": 0.0
   },
@@ -432,7 +448,11 @@
     "home": 9196521,
     "away": 13305347
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Rodez at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72037396",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -441,8 +461,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -2.42,
    "stake_pct": 0.25,
    "ev": -0.03216844881545233,
    "missing": {
@@ -453,8 +473,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-3",
    "drift_price": 1.25,
    "drift_pct": 3.3
   },
@@ -507,8 +527,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.29,
    "drift_pct": 0.0
   },
@@ -561,8 +581,8 @@
    "sharp_ev": null,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.33,
    "drift_pct": 0.0
   }
@@ -578,7 +598,7 @@
     "Celta B v Tenerife",
     "Tottenham v Coventry City"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -591,7 +611,7 @@
     "Rodez v Montpellier",
     "Monza v Cagliari"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [
@@ -605,7 +625,7 @@
     "Trabzonspor v Besiktas Istanbul",
     "Wisla Plock v Radomiak Radom"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "megas": [],
@@ -630,11 +650,11 @@
      "pick": "Trabzonspor (draw no bet)",
      "price": 1.95,
      "chance": 0.5004,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-0"
     }
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Value 2",
@@ -655,11 +675,11 @@
      "pick": "Under 4 goals",
      "price": 1.25,
      "chance": 0.6975,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-3"
     }
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "rated": [
@@ -737,7 +757,7 @@
      0.7203
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Wisla Plock v Radomiak Radom",
@@ -821,7 +841,7 @@
      0.7641
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Monza v Cagliari",
@@ -909,7 +929,7 @@
      0.729
     ]
    ],
-   "ft": null
+   "ft": "4-0"
   },
   {
    "fixture": "Parma v Torino",
@@ -989,7 +1009,7 @@
      0.7597
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Sp Braga v Gil Vicente",
@@ -1073,7 +1093,7 @@
      0.5837
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Tottenham v Coventry City",
@@ -1161,7 +1181,7 @@
      0.6146
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Getafe v Vallecano",
@@ -1245,7 +1265,7 @@
      0.7539
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Celta B v Tenerife",
@@ -1321,7 +1341,7 @@
      0.7321
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Rodez v Montpellier",
@@ -1397,7 +1417,7 @@
      0.7313
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Trabzonspor v Besiktas Istanbul",
@@ -1481,7 +1501,7 @@
      0.7066
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Degerfors IF v Kalmar FF",
@@ -1557,7 +1577,7 @@
      0.7313
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   }
  ],
  "study": [],
@@ -1567,13 +1587,13 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "HSPXWF",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "W6XBWN",
-   "result": null
+   "result": "won"
   }
  ]
 }

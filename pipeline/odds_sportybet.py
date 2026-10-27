@@ -234,6 +234,9 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "RC Strasbourg": "Strasbourg", "FC Nantes": "Nantes",
         "Le Havre AC": "Le Havre", "FC Lorient": "Lorient", "FC Metz": "Metz",
         "Toulouse FC": "Toulouse", "Angers SCO": "Angers",
+        # same club as the fitted data's "Troyes" (TheSportsDB's table has had it since 2026-10-21;
+        # SportyBet's feed, which supplies the fixtures when TheSportsDB has none, still flagged it)
+        "ESTAC Troyes": "Troyes",
     },
     "Ligue 2": {
         "EA Guingamp": "Guingamp", "FC Annecy": "Annecy", "Red Star FC": "Red Star",

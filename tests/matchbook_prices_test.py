@@ -60,6 +60,16 @@ assert mbp.nba_back([NBA], {**pk, "market_id": "223", "specifier": "hcp=-5.5", "
 assert mbp.nba_back([NBA], {**pk, "market_id": "219", "specifier": "", "outcome": "Home"}) == 1.57
 assert mbp.nba_back([NBA], {**pk, "market_id": "225", "specifier": "total=216.5", "outcome": "Under 216.5"}) == 1.95
 assert mbp.nba_back([NBA], {**pk, "market_id": "227", "specifier": "total=111.5", "outcome": "Over 111.5"}) is None
+# 1st-half totals (68): Matchbook's "1st Half Total" at SportyBet's own line (2026-10-21: the board
+# said "not listed" while the bot was backing them)
+H1 = {**NBA, "markets": NBA["markets"] + [mk("1st Half Total", "total", [r("OVER 112.5", 1.88, 112.5), r("UNDER 112.5", 1.9, 112.5),
+                                                                         {"name": "OVER 114.5", "status": "open", "prices": []}], 112.5)]}
+h1 = {**pk, "market_id": "68", "specifier": "total=112.5", "outcome": "Under 112.5"}
+assert mbp.nba_back([H1], h1) == 1.9 and mbp.nba_listed([H1], h1)
+assert mbp.nba_back([H1], {**h1, "specifier": "total=114.5", "outcome": "Over 114.5"}) is None
+assert mbp.nba_listed([H1], {**h1, "specifier": "total=114.5", "outcome": "Over 114.5"}), "listed, no back price yet"
+assert not mbp.nba_listed([H1], {**h1, "specifier": "total=116.5"}), "never a neighbouring line"
+assert not mbp.nba_listed([NBA], h1)
 
 # attach: only games not started; first kept, last replaced
 pending = {"a": {**row, "last": {"p": {"1x2": [3.1, 3.7, 2.2]}}},

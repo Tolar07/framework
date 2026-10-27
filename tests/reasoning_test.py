@@ -314,3 +314,15 @@ def test_anchored_chance_stays_within_the_band_of_the_market():
     assert R.anchored_chance(0.72, 0.70) == 0.72
     assert R.anchored_chance(0.72, None) == 0.72      # no market price: the AI's own
     assert R.anchored_chance(None, 0.70) is None
+
+
+def test_a_changed_prompt_re_reasons_the_board():
+    board = {"generated_at": "2026-10-27T18:00:00"}
+    v = R.prompt_version(R.PROMPT)
+    assert v != R.prompt_version(R.PROMPT_NBA)
+    assert R.reasoned_already({"picks_generated_at": board["generated_at"], "prompt_version": v}, board)
+    assert not R.reasoned_already({"picks_generated_at": board["generated_at"], "prompt_version": "old"}, board)
+    assert R.reasoned_already({"picks_generated_at": board["generated_at"]}, board)       # older files
+    assert not R.reasoned_already({"picks_generated_at": "other"}, board)
+    assert R.reasoned_already({"picks_generated_at": board["generated_at"], "prompt_version":
+                               R.prompt_version(R.PROMPT_NBA)}, board, R.PROMPT_NBA)

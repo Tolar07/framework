@@ -2,24 +2,24 @@
 
 Each game's last look before tip-off, every outcome settled from ESPN's final and quarter scores. *Landed* = how often it won; *fair* = SportyBet's own chance (its prices, margin removed); *return* = £1 flat on every outcome at SportyBet's price. Landed above fair on a side = SportyBet under-prices it. Written by `backtest/nba_market_study.py`. A study, not a selector.
 
-Games with a look: 105 · graded (ESPN final): 96
+Games with a look: 109 · graded (ESPN final): 105
 
 ## Regular
 
 | Market | outcomes | landed | fair | return | short side (<2.00): n · landed · fair · return | long side (≥2.00): n · landed · fair · return |
 |---|---:|---:|---:|---:|---|---|
-| Total points (incl. OT) | 2322 | 50.0% | 50.0% | -2.9% | 1231 · 62.9% · 63.3% · -4.2% | 1091 · 35.5% · 35.0% · -1.4% |
-| Handicap (incl. OT) | 2240 | 50.0% | 50.0% | -7.8% | 1170 · 70.1% · 67.5% · -0.6% | 1070 · 28.0% · 30.8% · -15.6% |
-| Quarter handicap (Q1-Q3) | 1290 | 50.0% | 50.0% | -4.9% | 768 · 54.2% · 54.5% · -5.6% | 522 · 43.9% · 43.3% · -3.8% |
-| 1st half total | 942 | 50.0% | 50.0% | -4.4% | 524 · 56.1% · 57.7% · -7.4% | 418 · 42.3% · 40.3% · -0.5% |
-| 1st half handicap | 942 | 50.0% | 50.0% | -4.3% | 519 · 57.4% · 58.2% · -6.0% | 423 · 40.9% · 39.9% · -2.3% |
-| Home team points (incl. OT) | 430 | 50.0% | 50.0% | -4.7% | 264 · 52.7% · 53.3% · -5.9% | 166 · 45.8% · 44.8% · -2.7% |
-| Away team points (incl. OT) | 430 | 50.0% | 50.0% | -4.7% | 264 · 53.8% · 53.3% · -3.9% | 166 · 44.0% · 44.7% · -6.0% |
-| Half time / full time | 387 | 11.1% | 11.1% | -45.5% | 19 · 57.9% · 52.1% · -7.9% | 368 · 8.7% · 9.0% · -47.5% |
-| 1st quarter total | 324 | 50.0% | 50.0% | -4.8% | 308 · 49.4% · 50.1% · -6.3% | 16 · 62.5% · 47.7% · +25.0% |
-| 1X2 (regulation) | 129 | 33.3% | 33.3% | -26.4% | 43 · 69.8% · 60.4% · +8.6% | 86 · 15.1% · 19.8% · -44.0% |
-| Winner (incl. OT) | 86 | 50.0% | 50.0% | -12.0% | 44 · 70.5% · 63.6% · +6.8% | 42 · 28.6% · 35.8% · -31.8% |
-| Total points (regulation) | 86 | 50.0% | 50.0% | -4.8% | 55 · 56.4% · 52.1% · +3.7% | 31 · 38.7% · 46.3% · -20.0% |
+| Total points (incl. OT) | 2808 | 50.0% | 50.0% | -2.4% | 1489 · 62.5% · 63.3% · -4.6% | 1319 · 35.9% · 35.0% · +0.1% |
+| Handicap (incl. OT) | 2708 | 50.0% | 50.0% | -8.4% | 1414 · 70.5% · 67.6% · -0.1% | 1294 · 27.6% · 30.8% · -17.4% |
+| Quarter handicap (Q1-Q3) | 1560 | 50.0% | 50.0% | -4.9% | 930 · 54.1% · 54.5% · -5.8% | 630 · 44.0% · 43.3% · -3.6% |
+| 1st half total | 1140 | 50.0% | 50.0% | -4.3% | 632 · 56.2% · 57.7% · -7.3% | 508 · 42.3% · 40.4% · -0.5% |
+| 1st half handicap | 1140 | 50.0% | 50.0% | -3.7% | 627 · 56.5% · 58.2% · -7.5% | 513 · 42.1% · 39.9% · +0.8% |
+| Home team points (incl. OT) | 520 | 50.0% | 50.0% | -4.4% | 318 · 52.2% · 53.3% · -6.6% | 202 · 46.5% · 44.8% · -0.9% |
+| Away team points (incl. OT) | 520 | 50.0% | 50.0% | -4.4% | 319 · 53.0% · 53.3% · -5.2% | 201 · 45.3% · 44.7% · -3.1% |
+| Half time / full time | 468 | 11.1% | 11.1% | -41.3% | 24 · 54.2% · 51.7% · -14.9% | 444 · 8.8% · 8.9% · -42.7% |
+| 1st quarter total | 384 | 50.0% | 50.0% | -4.8% | 364 · 49.5% · 50.1% · -6.2% | 20 · 60.0% · 47.7% · +20.0% |
+| 1X2 (regulation) | 156 | 33.3% | 33.3% | -17.3% | 52 · 67.3% · 60.6% · +4.7% | 104 · 16.3% · 19.7% · -28.3% |
+| Winner (incl. OT) | 104 | 50.0% | 50.0% | -9.8% | 54 · 68.5% · 63.6% · +4.2% | 50 · 30.0% · 35.4% · -25.0% |
+| Total points (regulation) | 104 | 50.0% | 50.0% | -4.5% | 67 · 55.2% · 52.0% · +1.9% | 37 · 40.5% · 46.3% · -15.9% |
 
 ## Preseason (starters rested — a weak test)
 
@@ -43,57 +43,57 @@ Games with a look: 105 · graded (ESPN final): 96
 - Acuff, Darius total rebounds (incl. overtime) [923]: 4 outcomes
 - Adams, Steven total points (incl. overtime) [921]: 2 outcomes
 - Adams, Steven total rebounds (incl. overtime) [923]: 2 outcomes
-- Adebayo, Bam total -point field goals (incl. overtime) [924]: 6 outcomes
-- Adebayo, Bam total assists (incl. overtime) [922]: 6 outcomes
-- Adebayo, Bam total points (incl. overtime) [921]: 6 outcomes
-- Adebayo, Bam total rebounds (incl. overtime) [923]: 6 outcomes
-- Alexander-Walker, Nickeil total -point field goals (incl. overtime) [924]: 6 outcomes
-- Alexander-Walker, Nickeil total assists (incl. overtime) [922]: 6 outcomes
-- Alexander-Walker, Nickeil total points (incl. overtime) [921]: 6 outcomes
-- Alexander-Walker, Nickeil total rebounds (incl. overtime) [923]: 6 outcomes
-- Allen, Grayson total -point field goals (incl. overtime) [924]: 6 outcomes
-- Allen, Grayson total assists (incl. overtime) [922]: 6 outcomes
-- Allen, Grayson total points (incl. overtime) [921]: 6 outcomes
-- Allen, Grayson total rebounds (incl. overtime) [923]: 6 outcomes
-- Allen, Jarrett total assists (incl. overtime) [922]: 4 outcomes
-- Allen, Jarrett total points (incl. overtime) [921]: 4 outcomes
-- Allen, Jarrett total rebounds (incl. overtime) [923]: 4 outcomes
-- Antetokounmpo, Giannis total -point field goals (incl. overtime) [924]: 4 outcomes
-- Antetokounmpo, Giannis total assists (incl. overtime) [922]: 6 outcomes
-- Antetokounmpo, Giannis total points (incl. overtime) [921]: 6 outcomes
-- Antetokounmpo, Giannis total rebounds (incl. overtime) [923]: 6 outcomes
+- Adebayo, Bam total -point field goals (incl. overtime) [924]: 8 outcomes
+- Adebayo, Bam total assists (incl. overtime) [922]: 8 outcomes
+- Adebayo, Bam total points (incl. overtime) [921]: 8 outcomes
+- Adebayo, Bam total rebounds (incl. overtime) [923]: 8 outcomes
+- Alexander-Walker, Nickeil total -point field goals (incl. overtime) [924]: 8 outcomes
+- Alexander-Walker, Nickeil total assists (incl. overtime) [922]: 8 outcomes
+- Alexander-Walker, Nickeil total points (incl. overtime) [921]: 8 outcomes
+- Alexander-Walker, Nickeil total rebounds (incl. overtime) [923]: 8 outcomes
+- Allen, Grayson total -point field goals (incl. overtime) [924]: 8 outcomes
+- Allen, Grayson total assists (incl. overtime) [922]: 8 outcomes
+- Allen, Grayson total points (incl. overtime) [921]: 8 outcomes
+- Allen, Grayson total rebounds (incl. overtime) [923]: 8 outcomes
+- Allen, Jarrett total assists (incl. overtime) [922]: 6 outcomes
+- Allen, Jarrett total points (incl. overtime) [921]: 6 outcomes
+- Allen, Jarrett total rebounds (incl. overtime) [923]: 6 outcomes
+- Antetokounmpo, Giannis total -point field goals (incl. overtime) [924]: 6 outcomes
+- Antetokounmpo, Giannis total assists (incl. overtime) [922]: 8 outcomes
+- Antetokounmpo, Giannis total points (incl. overtime) [921]: 8 outcomes
+- Antetokounmpo, Giannis total rebounds (incl. overtime) [923]: 8 outcomes
 - Anunoby, OG total -point field goals (incl. overtime) [924]: 6 outcomes
 - Anunoby, OG total assists (incl. overtime) [922]: 6 outcomes
 - Anunoby, OG total points (incl. overtime) [921]: 6 outcomes
 - Anunoby, OG total rebounds (incl. overtime) [923]: 6 outcomes
-- Any team to lead by [967]: 258 outcomes
-- Any team to win all quarters [1199]: 86 outcomes
-- Any team to win both halves [1197]: 86 outcomes
-- Any team total maximum consecutive points [964]: 86 outcomes
-- Any team winning margin (incl. overtime) [849]: 301 outcomes
+- Any team to lead by [967]: 312 outcomes
+- Any team to win all quarters [1199]: 104 outcomes
+- Any team to win both halves [1197]: 104 outcomes
+- Any team total maximum consecutive points [964]: 104 outcomes
+- Any team winning margin (incl. overtime) [849]: 364 outcomes
 - Atlanta Hawks to lead by [965]: 6 outcomes
-- Atlanta Hawks to lead by [966]: 12 outcomes
+- Atlanta Hawks to lead by [966]: 18 outcomes
 - Atlanta Hawks to win all quarters [1313]: 2 outcomes
-- Atlanta Hawks to win all quarters [1314]: 4 outcomes
+- Atlanta Hawks to win all quarters [1314]: 6 outcomes
 - Atlanta Hawks total maximum consecutive points [962]: 2 outcomes
-- Atlanta Hawks total maximum consecutive points [963]: 4 outcomes
+- Atlanta Hawks total maximum consecutive points [963]: 6 outcomes
 - Avdija, Deni total -point field goals (incl. overtime) [924]: 4 outcomes
 - Avdija, Deni total assists (incl. overtime) [922]: 4 outcomes
 - Avdija, Deni total points (incl. overtime) [921]: 4 outcomes
 - Avdija, Deni total rebounds (incl. overtime) [923]: 4 outcomes
-- Away Team to Win Both Halves [49]: 86 outcomes
+- Away Team to Win Both Halves [49]: 104 outcomes
 - Ayton, Deandre total points (incl. overtime) [921]: 6 outcomes
 - Ayton, Deandre total rebounds (incl. overtime) [923]: 6 outcomes
 - Bagley III, Marvin total points (incl. overtime) [921]: 2 outcomes
 - Bagley III, Marvin total rebounds (incl. overtime) [923]: 2 outcomes
-- Bailey, Ace total -point field goals (incl. overtime) [924]: 6 outcomes
-- Bailey, Ace total assists (incl. overtime) [922]: 4 outcomes
-- Bailey, Ace total points (incl. overtime) [921]: 6 outcomes
-- Bailey, Ace total rebounds (incl. overtime) [923]: 6 outcomes
-- Ball, LaMelo total -point field goals (incl. overtime) [924]: 6 outcomes
-- Ball, LaMelo total assists (incl. overtime) [922]: 6 outcomes
-- Ball, LaMelo total points (incl. overtime) [921]: 6 outcomes
-- Ball, LaMelo total rebounds (incl. overtime) [923]: 6 outcomes
+- Bailey, Ace total -point field goals (incl. overtime) [924]: 8 outcomes
+- Bailey, Ace total assists (incl. overtime) [922]: 6 outcomes
+- Bailey, Ace total points (incl. overtime) [921]: 8 outcomes
+- Bailey, Ace total rebounds (incl. overtime) [923]: 8 outcomes
+- Ball, LaMelo total -point field goals (incl. overtime) [924]: 8 outcomes
+- Ball, LaMelo total assists (incl. overtime) [922]: 8 outcomes
+- Ball, LaMelo total points (incl. overtime) [921]: 8 outcomes
+- Ball, LaMelo total rebounds (incl. overtime) [923]: 8 outcomes
 - Banchero, Paolo total -point field goals (incl. overtime) [924]: 4 outcomes
 - Banchero, Paolo total assists (incl. overtime) [922]: 4 outcomes
 - Banchero, Paolo total points (incl. overtime) [921]: 4 outcomes
@@ -123,41 +123,45 @@ Games with a look: 105 · graded (ESPN final): 96
 - Bogdanovic, Bogdan total points (incl. overtime) [921]: 2 outcomes
 - Bona, Adem total points (incl. overtime) [921]: 4 outcomes
 - Bona, Adem total rebounds (incl. overtime) [923]: 4 outcomes
-- Booker, Devin total -point field goals (incl. overtime) [924]: 4 outcomes
-- Booker, Devin total assists (incl. overtime) [922]: 4 outcomes
-- Booker, Devin total points (incl. overtime) [921]: 4 outcomes
-- Booker, Devin total rebounds (incl. overtime) [923]: 4 outcomes
-- Boozer, Cameron total -point field goals (incl. overtime) [924]: 6 outcomes
-- Boozer, Cameron total assists (incl. overtime) [922]: 6 outcomes
-- Boozer, Cameron total points (incl. overtime) [921]: 6 outcomes
-- Boozer, Cameron total rebounds (incl. overtime) [923]: 6 outcomes
-- Boston Celtics to lead by [965]: 6 outcomes
+- Booker, Devin total -point field goals (incl. overtime) [924]: 6 outcomes
+- Booker, Devin total assists (incl. overtime) [922]: 6 outcomes
+- Booker, Devin total points (incl. overtime) [921]: 6 outcomes
+- Booker, Devin total rebounds (incl. overtime) [923]: 6 outcomes
+- Boozer, Cameron total -point field goals (incl. overtime) [924]: 8 outcomes
+- Boozer, Cameron total assists (incl. overtime) [922]: 8 outcomes
+- Boozer, Cameron total points (incl. overtime) [921]: 8 outcomes
+- Boozer, Cameron total rebounds (incl. overtime) [923]: 8 outcomes
+- Boston Celtics to lead by [965]: 12 outcomes
 - Boston Celtics to lead by [966]: 6 outcomes
-- Boston Celtics to win all quarters [1313]: 2 outcomes
+- Boston Celtics to win all quarters [1313]: 4 outcomes
 - Boston Celtics to win all quarters [1314]: 2 outcomes
-- Boston Celtics total maximum consecutive points [962]: 2 outcomes
+- Boston Celtics total maximum consecutive points [962]: 4 outcomes
 - Boston Celtics total maximum consecutive points [963]: 2 outcomes
-- Braun, Christian total -point field goals (incl. overtime) [924]: 4 outcomes
-- Braun, Christian total assists (incl. overtime) [922]: 4 outcomes
-- Braun, Christian total points (incl. overtime) [921]: 4 outcomes
-- Braun, Christian total rebounds (incl. overtime) [923]: 4 outcomes
+- Braun, Christian total -point field goals (incl. overtime) [924]: 6 outcomes
+- Braun, Christian total assists (incl. overtime) [922]: 6 outcomes
+- Braun, Christian total points (incl. overtime) [921]: 6 outcomes
+- Braun, Christian total rebounds (incl. overtime) [923]: 6 outcomes
+- Brazile, Trevon total -point field goals (incl. overtime) [924]: 2 outcomes
+- Brazile, Trevon total assists (incl. overtime) [922]: 2 outcomes
+- Brazile, Trevon total points (incl. overtime) [921]: 2 outcomes
+- Brazile, Trevon total rebounds (incl. overtime) [923]: 2 outcomes
 - Bridges, Mikal total -point field goals (incl. overtime) [924]: 6 outcomes
 - Bridges, Mikal total assists (incl. overtime) [922]: 4 outcomes
 - Bridges, Mikal total points (incl. overtime) [921]: 6 outcomes
 - Bridges, Mikal total rebounds (incl. overtime) [923]: 6 outcomes
-- Bridges, Miles total -point field goals (incl. overtime) [924]: 4 outcomes
-- Bridges, Miles total assists (incl. overtime) [922]: 4 outcomes
-- Bridges, Miles total points (incl. overtime) [921]: 4 outcomes
-- Bridges, Miles total rebounds (incl. overtime) [923]: 4 outcomes
+- Bridges, Miles total -point field goals (incl. overtime) [924]: 6 outcomes
+- Bridges, Miles total assists (incl. overtime) [922]: 6 outcomes
+- Bridges, Miles total points (incl. overtime) [921]: 6 outcomes
+- Bridges, Miles total rebounds (incl. overtime) [923]: 6 outcomes
 - Brooklyn Nets to lead by [965]: 12 outcomes
 - Brooklyn Nets to lead by [966]: 6 outcomes
 - Brooklyn Nets to win all quarters [1313]: 4 outcomes
 - Brooklyn Nets total maximum consecutive points [962]: 4 outcomes
 - Brooklyn Nets total maximum consecutive points [963]: 2 outcomes
-- Brooks, Dillon total -point field goals (incl. overtime) [924]: 4 outcomes
-- Brooks, Dillon total assists (incl. overtime) [922]: 4 outcomes
-- Brooks, Dillon total points (incl. overtime) [921]: 4 outcomes
-- Brooks, Dillon total rebounds (incl. overtime) [923]: 4 outcomes
+- Brooks, Dillon total -point field goals (incl. overtime) [924]: 6 outcomes
+- Brooks, Dillon total assists (incl. overtime) [922]: 6 outcomes
+- Brooks, Dillon total points (incl. overtime) [921]: 6 outcomes
+- Brooks, Dillon total rebounds (incl. overtime) [923]: 6 outcomes
 - Brown, Jaylen total -point field goals (incl. overtime) [924]: 8 outcomes
 - Brown, Jaylen total assists (incl. overtime) [922]: 8 outcomes
 - Brown, Jaylen total points (incl. overtime) [921]: 8 outcomes
@@ -171,10 +175,10 @@ Games with a look: 105 · graded (ESPN final): 96
 - Burries, Brayden total -point field goals (incl. overtime) [924]: 2 outcomes
 - Burries, Brayden total assists (incl. overtime) [922]: 2 outcomes
 - Burries, Brayden total points (incl. overtime) [921]: 4 outcomes
-- Buzelis, Matas total -point field goals (incl. overtime) [924]: 6 outcomes
-- Buzelis, Matas total assists (incl. overtime) [922]: 6 outcomes
-- Buzelis, Matas total points (incl. overtime) [921]: 6 outcomes
-- Buzelis, Matas total rebounds (incl. overtime) [923]: 6 outcomes
+- Buzelis, Matas total -point field goals (incl. overtime) [924]: 8 outcomes
+- Buzelis, Matas total assists (incl. overtime) [922]: 8 outcomes
+- Buzelis, Matas total points (incl. overtime) [921]: 8 outcomes
+- Buzelis, Matas total rebounds (incl. overtime) [923]: 8 outcomes
 - Caldwell-Pope, Kentavious total -point field goals (incl. overtime) [924]: 4 outcomes
 - Caldwell-Pope, Kentavious total points (incl. overtime) [921]: 6 outcomes
 - Camara, Toumani total -point field goals (incl. overtime) [924]: 4 outcomes
@@ -185,10 +189,10 @@ Games with a look: 105 · graded (ESPN final): 96
 - Carter Jr., Wendell total assists (incl. overtime) [922]: 4 outcomes
 - Carter Jr., Wendell total points (incl. overtime) [921]: 6 outcomes
 - Carter Jr., Wendell total rebounds (incl. overtime) [923]: 6 outcomes
-- Caruso, Alex total -point field goals (incl. overtime) [924]: 6 outcomes
+- Caruso, Alex total -point field goals (incl. overtime) [924]: 8 outcomes
 - Caruso, Alex total assists (incl. overtime) [922]: 4 outcomes
-- Caruso, Alex total points (incl. overtime) [921]: 6 outcomes
-- Caruso, Alex total rebounds (incl. overtime) [923]: 4 outcomes
+- Caruso, Alex total points (incl. overtime) [921]: 8 outcomes
+- Caruso, Alex total rebounds (incl. overtime) [923]: 6 outcomes
 - Castle, Stephon total -point field goals (incl. overtime) [924]: 6 outcomes
 - Castle, Stephon total assists (incl. overtime) [922]: 6 outcomes
 - Castle, Stephon total points (incl. overtime) [921]: 6 outcomes
@@ -197,27 +201,31 @@ Games with a look: 105 · graded (ESPN final): 96
 - Champagnie, Julian total assists (incl. overtime) [922]: 4 outcomes
 - Champagnie, Julian total points (incl. overtime) [921]: 6 outcomes
 - Champagnie, Julian total rebounds (incl. overtime) [923]: 6 outcomes
-- Charlotte Hornets to lead by [965]: 12 outcomes
+- Champagnie, Justin total -point field goals (incl. overtime) [924]: 2 outcomes
+- Champagnie, Justin total assists (incl. overtime) [922]: 2 outcomes
+- Champagnie, Justin total points (incl. overtime) [921]: 2 outcomes
+- Champagnie, Justin total rebounds (incl. overtime) [923]: 2 outcomes
+- Charlotte Hornets to lead by [965]: 18 outcomes
 - Charlotte Hornets to lead by [966]: 6 outcomes
-- Charlotte Hornets to win all quarters [1313]: 4 outcomes
+- Charlotte Hornets to win all quarters [1313]: 6 outcomes
 - Charlotte Hornets to win all quarters [1314]: 2 outcomes
-- Charlotte Hornets total maximum consecutive points [962]: 4 outcomes
+- Charlotte Hornets total maximum consecutive points [962]: 6 outcomes
 - Charlotte Hornets total maximum consecutive points [963]: 2 outcomes
 - Chicago Bulls to lead by [965]: 6 outcomes
-- Chicago Bulls to lead by [966]: 12 outcomes
+- Chicago Bulls to lead by [966]: 18 outcomes
 - Chicago Bulls to win all quarters [1313]: 2 outcomes
 - Chicago Bulls to win all quarters [1314]: 2 outcomes
 - Chicago Bulls total maximum consecutive points [962]: 2 outcomes
-- Chicago Bulls total maximum consecutive points [963]: 4 outcomes
-- Christie, Max total -point field goals (incl. overtime) [924]: 6 outcomes
-- Christie, Max total assists (incl. overtime) [922]: 6 outcomes
-- Christie, Max total points (incl. overtime) [921]: 6 outcomes
-- Christie, Max total rebounds (incl. overtime) [923]: 6 outcomes
-- Cleveland Cavaliers to lead by [965]: 6 outcomes
+- Chicago Bulls total maximum consecutive points [963]: 6 outcomes
+- Christie, Max total -point field goals (incl. overtime) [924]: 8 outcomes
+- Christie, Max total assists (incl. overtime) [922]: 8 outcomes
+- Christie, Max total points (incl. overtime) [921]: 8 outcomes
+- Christie, Max total rebounds (incl. overtime) [923]: 8 outcomes
+- Cleveland Cavaliers to lead by [965]: 12 outcomes
 - Cleveland Cavaliers to lead by [966]: 6 outcomes
-- Cleveland Cavaliers to win all quarters [1313]: 2 outcomes
+- Cleveland Cavaliers to win all quarters [1313]: 4 outcomes
 - Cleveland Cavaliers to win all quarters [1314]: 2 outcomes
-- Cleveland Cavaliers total maximum consecutive points [962]: 2 outcomes
+- Cleveland Cavaliers total maximum consecutive points [962]: 4 outcomes
 - Cleveland Cavaliers total maximum consecutive points [963]: 2 outcomes
 - Clifford, Nique total points (incl. overtime) [921]: 2 outcomes
 - Clifford, Nique total rebounds (incl. overtime) [923]: 2 outcomes
@@ -228,55 +236,55 @@ Games with a look: 105 · graded (ESPN final): 96
 - Clowney, Noah total -point field goals (incl. overtime) [924]: 6 outcomes
 - Clowney, Noah total points (incl. overtime) [921]: 6 outcomes
 - Clowney, Noah total rebounds (incl. overtime) [923]: 6 outcomes
-- Collier, Isaiah total assists (incl. overtime) [922]: 4 outcomes
-- Collier, Isaiah total points (incl. overtime) [921]: 4 outcomes
+- Collier, Isaiah total assists (incl. overtime) [922]: 6 outcomes
+- Collier, Isaiah total points (incl. overtime) [921]: 6 outcomes
 - Collier, Isaiah total rebounds (incl. overtime) [923]: 2 outcomes
 - Collins, John total -point field goals (incl. overtime) [924]: 6 outcomes
 - Collins, John total assists (incl. overtime) [922]: 4 outcomes
 - Collins, John total points (incl. overtime) [921]: 6 outcomes
 - Collins, John total rebounds (incl. overtime) [923]: 6 outcomes
-- Coulibaly, Bilal total -point field goals (incl. overtime) [924]: 6 outcomes
-- Coulibaly, Bilal total assists (incl. overtime) [922]: 2 outcomes
-- Coulibaly, Bilal total points (incl. overtime) [921]: 6 outcomes
-- Coulibaly, Bilal total rebounds (incl. overtime) [923]: 4 outcomes
-- Coward, Cedric total -point field goals (incl. overtime) [924]: 4 outcomes
-- Coward, Cedric total assists (incl. overtime) [922]: 4 outcomes
-- Coward, Cedric total points (incl. overtime) [921]: 4 outcomes
-- Coward, Cedric total rebounds (incl. overtime) [923]: 4 outcomes
+- Coulibaly, Bilal total -point field goals (incl. overtime) [924]: 8 outcomes
+- Coulibaly, Bilal total assists (incl. overtime) [922]: 4 outcomes
+- Coulibaly, Bilal total points (incl. overtime) [921]: 8 outcomes
+- Coulibaly, Bilal total rebounds (incl. overtime) [923]: 6 outcomes
+- Coward, Cedric total -point field goals (incl. overtime) [924]: 6 outcomes
+- Coward, Cedric total assists (incl. overtime) [922]: 6 outcomes
+- Coward, Cedric total points (incl. overtime) [921]: 6 outcomes
+- Coward, Cedric total rebounds (incl. overtime) [923]: 6 outcomes
 - Cunningham, Cade total -point field goals (incl. overtime) [924]: 6 outcomes
 - Cunningham, Cade total assists (incl. overtime) [922]: 6 outcomes
 - Cunningham, Cade total points (incl. overtime) [921]: 6 outcomes
 - Cunningham, Cade total rebounds (incl. overtime) [923]: 6 outcomes
-- Curry, Stephen total -point field goals (incl. overtime) [924]: 4 outcomes
-- Curry, Stephen total assists (incl. overtime) [922]: 4 outcomes
-- Curry, Stephen total points (incl. overtime) [921]: 4 outcomes
-- Curry, Stephen total rebounds (incl. overtime) [923]: 4 outcomes
+- Curry, Stephen total -point field goals (incl. overtime) [924]: 6 outcomes
+- Curry, Stephen total assists (incl. overtime) [922]: 6 outcomes
+- Curry, Stephen total points (incl. overtime) [921]: 6 outcomes
+- Curry, Stephen total rebounds (incl. overtime) [923]: 6 outcomes
 - Dallas Mavericks to lead by [965]: 6 outcomes
-- Dallas Mavericks to lead by [966]: 12 outcomes
-- Dallas Mavericks to win all quarters [1314]: 2 outcomes
+- Dallas Mavericks to lead by [966]: 18 outcomes
+- Dallas Mavericks to win all quarters [1314]: 4 outcomes
 - Dallas Mavericks total maximum consecutive points [962]: 2 outcomes
-- Dallas Mavericks total maximum consecutive points [963]: 4 outcomes
+- Dallas Mavericks total maximum consecutive points [963]: 6 outcomes
 - Daniels, Dyson total -point field goals (incl. overtime) [924]: 4 outcomes
-- Daniels, Dyson total assists (incl. overtime) [922]: 6 outcomes
-- Daniels, Dyson total points (incl. overtime) [921]: 6 outcomes
-- Daniels, Dyson total rebounds (incl. overtime) [923]: 6 outcomes
-- Davis, Anthony total -point field goals (incl. overtime) [924]: 2 outcomes
-- Davis, Anthony total assists (incl. overtime) [922]: 6 outcomes
-- Davis, Anthony total points (incl. overtime) [921]: 6 outcomes
-- Davis, Anthony total rebounds (incl. overtime) [923]: 6 outcomes
+- Daniels, Dyson total assists (incl. overtime) [922]: 8 outcomes
+- Daniels, Dyson total points (incl. overtime) [921]: 8 outcomes
+- Daniels, Dyson total rebounds (incl. overtime) [923]: 8 outcomes
+- Davis, Anthony total -point field goals (incl. overtime) [924]: 4 outcomes
+- Davis, Anthony total assists (incl. overtime) [922]: 8 outcomes
+- Davis, Anthony total points (incl. overtime) [921]: 8 outcomes
+- Davis, Anthony total rebounds (incl. overtime) [923]: 8 outcomes
 - DeRozan, DeMar total -point field goals (incl. overtime) [924]: 2 outcomes
-- DeRozan, DeMar total assists (incl. overtime) [922]: 4 outcomes
-- DeRozan, DeMar total points (incl. overtime) [921]: 4 outcomes
-- DeRozan, DeMar total rebounds (incl. overtime) [923]: 4 outcomes
+- DeRozan, DeMar total assists (incl. overtime) [922]: 6 outcomes
+- DeRozan, DeMar total points (incl. overtime) [921]: 6 outcomes
+- DeRozan, DeMar total rebounds (incl. overtime) [923]: 6 outcomes
 - Demin, Egor total -point field goals (incl. overtime) [924]: 6 outcomes
 - Demin, Egor total assists (incl. overtime) [922]: 6 outcomes
 - Demin, Egor total points (incl. overtime) [921]: 6 outcomes
 - Demin, Egor total rebounds (incl. overtime) [923]: 6 outcomes
-- Denver Nuggets to lead by [965]: 6 outcomes
+- Denver Nuggets to lead by [965]: 12 outcomes
 - Denver Nuggets to lead by [966]: 6 outcomes
-- Denver Nuggets to win all quarters [1313]: 2 outcomes
+- Denver Nuggets to win all quarters [1313]: 4 outcomes
 - Denver Nuggets to win all quarters [1314]: 2 outcomes
-- Denver Nuggets total maximum consecutive points [962]: 2 outcomes
+- Denver Nuggets total maximum consecutive points [962]: 4 outcomes
 - Denver Nuggets total maximum consecutive points [963]: 2 outcomes
 - Detroit Pistons to lead by [965]: 6 outcomes
 - Detroit Pistons to lead by [966]: 12 outcomes
@@ -284,31 +292,31 @@ Games with a look: 105 · graded (ESPN final): 96
 - Detroit Pistons to win all quarters [1314]: 4 outcomes
 - Detroit Pistons total maximum consecutive points [962]: 2 outcomes
 - Detroit Pistons total maximum consecutive points [963]: 4 outcomes
-- Diabate, Moussa total assists (incl. overtime) [922]: 2 outcomes
-- Diabate, Moussa total points (incl. overtime) [921]: 6 outcomes
-- Diabate, Moussa total rebounds (incl. overtime) [923]: 6 outcomes
+- Diabate, Moussa total assists (incl. overtime) [922]: 4 outcomes
+- Diabate, Moussa total points (incl. overtime) [921]: 8 outcomes
+- Diabate, Moussa total rebounds (incl. overtime) [923]: 8 outcomes
 - Doncic, Luka total -point field goals (incl. overtime) [924]: 6 outcomes
 - Doncic, Luka total assists (incl. overtime) [922]: 6 outcomes
 - Doncic, Luka total points (incl. overtime) [921]: 6 outcomes
 - Doncic, Luka total rebounds (incl. overtime) [923]: 6 outcomes
-- Dort, Luguentz total -point field goals (incl. overtime) [924]: 6 outcomes
-- Dort, Luguentz total points (incl. overtime) [921]: 6 outcomes
-- Dort, Luguentz total rebounds (incl. overtime) [923]: 4 outcomes
-- Dosunmu, Ayo total -point field goals (incl. overtime) [924]: 6 outcomes
-- Dosunmu, Ayo total assists (incl. overtime) [922]: 6 outcomes
-- Dosunmu, Ayo total points (incl. overtime) [921]: 6 outcomes
-- Dosunmu, Ayo total rebounds (incl. overtime) [923]: 6 outcomes
-- Draw No Bet [11]: 86 outcomes
+- Dort, Luguentz total -point field goals (incl. overtime) [924]: 8 outcomes
+- Dort, Luguentz total points (incl. overtime) [921]: 8 outcomes
+- Dort, Luguentz total rebounds (incl. overtime) [923]: 6 outcomes
+- Dosunmu, Ayo total -point field goals (incl. overtime) [924]: 8 outcomes
+- Dosunmu, Ayo total assists (incl. overtime) [922]: 8 outcomes
+- Dosunmu, Ayo total points (incl. overtime) [921]: 8 outcomes
+- Dosunmu, Ayo total rebounds (incl. overtime) [923]: 8 outcomes
+- Draw No Bet [11]: 104 outcomes
 - Drummond, Andre total points (incl. overtime) [921]: 6 outcomes
 - Drummond, Andre total rebounds (incl. overtime) [923]: 6 outcomes
 - Dunn, Kris total -point field goals (incl. overtime) [924]: 6 outcomes
 - Dunn, Kris total assists (incl. overtime) [922]: 6 outcomes
 - Dunn, Kris total points (incl. overtime) [921]: 6 outcomes
 - Dunn, Kris total rebounds (incl. overtime) [923]: 6 outcomes
-- Durant, Kevin total -point field goals (incl. overtime) [924]: 6 outcomes
-- Durant, Kevin total assists (incl. overtime) [922]: 6 outcomes
-- Durant, Kevin total points (incl. overtime) [921]: 6 outcomes
-- Durant, Kevin total rebounds (incl. overtime) [923]: 6 outcomes
+- Durant, Kevin total -point field goals (incl. overtime) [924]: 8 outcomes
+- Durant, Kevin total assists (incl. overtime) [922]: 8 outcomes
+- Durant, Kevin total points (incl. overtime) [921]: 8 outcomes
+- Durant, Kevin total rebounds (incl. overtime) [923]: 8 outcomes
 - Duren, Jalen total assists (incl. overtime) [922]: 4 outcomes
 - Duren, Jalen total points (incl. overtime) [921]: 4 outcomes
 - Duren, Jalen total rebounds (incl. overtime) [923]: 4 outcomes
@@ -316,20 +324,20 @@ Games with a look: 105 · graded (ESPN final): 96
 - Dybantsa, AJ total assists (incl. overtime) [922]: 2 outcomes
 - Dybantsa, AJ total points (incl. overtime) [921]: 2 outcomes
 - Dybantsa, AJ total rebounds (incl. overtime) [923]: 2 outcomes
-- Eason, Tari total -point field goals (incl. overtime) [924]: 4 outcomes
-- Eason, Tari total points (incl. overtime) [921]: 6 outcomes
-- Eason, Tari total rebounds (incl. overtime) [923]: 4 outcomes
+- Eason, Tari total -point field goals (incl. overtime) [924]: 6 outcomes
+- Eason, Tari total points (incl. overtime) [921]: 8 outcomes
+- Eason, Tari total rebounds (incl. overtime) [923]: 6 outcomes
 - Edey, Zach total assists (incl. overtime) [922]: 2 outcomes
-- Edey, Zach total points (incl. overtime) [921]: 4 outcomes
-- Edey, Zach total rebounds (incl. overtime) [923]: 4 outcomes
+- Edey, Zach total points (incl. overtime) [921]: 6 outcomes
+- Edey, Zach total rebounds (incl. overtime) [923]: 6 outcomes
 - Edgecombe, VJ total -point field goals (incl. overtime) [924]: 6 outcomes
 - Edgecombe, VJ total assists (incl. overtime) [922]: 6 outcomes
 - Edgecombe, VJ total points (incl. overtime) [921]: 6 outcomes
 - Edgecombe, VJ total rebounds (incl. overtime) [923]: 6 outcomes
-- Edwards, Anthony total -point field goals (incl. overtime) [924]: 6 outcomes
-- Edwards, Anthony total assists (incl. overtime) [922]: 6 outcomes
-- Edwards, Anthony total points (incl. overtime) [921]: 6 outcomes
-- Edwards, Anthony total rebounds (incl. overtime) [923]: 6 outcomes
+- Edwards, Anthony total -point field goals (incl. overtime) [924]: 8 outcomes
+- Edwards, Anthony total assists (incl. overtime) [922]: 8 outcomes
+- Edwards, Anthony total points (incl. overtime) [921]: 8 outcomes
+- Edwards, Anthony total rebounds (incl. overtime) [923]: 8 outcomes
 - Ellis, Keon total -point field goals (incl. overtime) [924]: 6 outcomes
 - Ellis, Keon total assists (incl. overtime) [922]: 4 outcomes
 - Ellis, Keon total points (incl. overtime) [921]: 6 outcomes
@@ -342,79 +350,79 @@ Games with a look: 105 · graded (ESPN final): 96
 - Fears, Jeremiah total assists (incl. overtime) [922]: 6 outcomes
 - Fears, Jeremiah total points (incl. overtime) [921]: 6 outcomes
 - Fears, Jeremiah total rebounds (incl. overtime) [923]: 6 outcomes
-- Flagg, Cooper total -point field goals (incl. overtime) [924]: 4 outcomes
+- Flagg, Cooper total -point field goals (incl. overtime) [924]: 6 outcomes
 - Flagg, Cooper total assists (incl. overtime) [922]: 4 outcomes
-- Flagg, Cooper total points (incl. overtime) [921]: 4 outcomes
-- Flagg, Cooper total rebounds (incl. overtime) [923]: 4 outcomes
+- Flagg, Cooper total points (incl. overtime) [921]: 6 outcomes
+- Flagg, Cooper total rebounds (incl. overtime) [923]: 6 outcomes
 - Flemings, Kingston total -point field goals (incl. overtime) [924]: 2 outcomes
 - Flemings, Kingston total points (incl. overtime) [921]: 2 outcomes
 - Fox, De'Aaron total -point field goals (incl. overtime) [924]: 6 outcomes
 - Fox, De'Aaron total assists (incl. overtime) [922]: 6 outcomes
 - Fox, De'Aaron total points (incl. overtime) [921]: 6 outcomes
 - Fox, De'Aaron total rebounds (incl. overtime) [923]: 6 outcomes
-- Gafford, Daniel total assists (incl. overtime) [922]: 4 outcomes
-- Gafford, Daniel total points (incl. overtime) [921]: 6 outcomes
-- Gafford, Daniel total rebounds (incl. overtime) [923]: 6 outcomes
+- Gafford, Daniel total assists (incl. overtime) [922]: 6 outcomes
+- Gafford, Daniel total points (incl. overtime) [921]: 8 outcomes
+- Gafford, Daniel total rebounds (incl. overtime) [923]: 8 outcomes
 - Garland, Darius total -point field goals (incl. overtime) [924]: 6 outcomes
 - Garland, Darius total assists (incl. overtime) [922]: 6 outcomes
 - Garland, Darius total points (incl. overtime) [921]: 6 outcomes
 - Garland, Darius total rebounds (incl. overtime) [923]: 6 outcomes
-- George, Keyonte total -point field goals (incl. overtime) [924]: 6 outcomes
-- George, Keyonte total assists (incl. overtime) [922]: 6 outcomes
-- George, Keyonte total points (incl. overtime) [921]: 6 outcomes
-- George, Keyonte total rebounds (incl. overtime) [923]: 6 outcomes
-- George, Kyshawn total -point field goals (incl. overtime) [924]: 6 outcomes
-- George, Kyshawn total assists (incl. overtime) [922]: 6 outcomes
-- George, Kyshawn total points (incl. overtime) [921]: 6 outcomes
-- George, Kyshawn total rebounds (incl. overtime) [923]: 6 outcomes
-- George, Paul total -point field goals (incl. overtime) [924]: 4 outcomes
-- George, Paul total assists (incl. overtime) [922]: 4 outcomes
-- George, Paul total points (incl. overtime) [921]: 4 outcomes
-- George, Paul total rebounds (incl. overtime) [923]: 4 outcomes
-- Giddey, Josh total -point field goals (incl. overtime) [924]: 6 outcomes
-- Giddey, Josh total assists (incl. overtime) [922]: 6 outcomes
-- Giddey, Josh total points (incl. overtime) [921]: 6 outcomes
-- Giddey, Josh total rebounds (incl. overtime) [923]: 6 outcomes
-- Gilgeous-Alexander, Shai total -point field goals (incl. overtime) [924]: 6 outcomes
-- Gilgeous-Alexander, Shai total assists (incl. overtime) [922]: 6 outcomes
-- Gilgeous-Alexander, Shai total points (incl. overtime) [921]: 6 outcomes
-- Gilgeous-Alexander, Shai total rebounds (incl. overtime) [923]: 6 outcomes
-- Gillespie, Collin total -point field goals (incl. overtime) [924]: 4 outcomes
-- Gillespie, Collin total assists (incl. overtime) [922]: 4 outcomes
-- Gillespie, Collin total points (incl. overtime) [921]: 4 outcomes
-- Gillespie, Collin total rebounds (incl. overtime) [923]: 4 outcomes
-- Gobert, Rudy total assists (incl. overtime) [922]: 6 outcomes
-- Gobert, Rudy total points (incl. overtime) [921]: 6 outcomes
-- Gobert, Rudy total rebounds (incl. overtime) [923]: 6 outcomes
+- George, Keyonte total -point field goals (incl. overtime) [924]: 8 outcomes
+- George, Keyonte total assists (incl. overtime) [922]: 8 outcomes
+- George, Keyonte total points (incl. overtime) [921]: 8 outcomes
+- George, Keyonte total rebounds (incl. overtime) [923]: 8 outcomes
+- George, Kyshawn total -point field goals (incl. overtime) [924]: 8 outcomes
+- George, Kyshawn total assists (incl. overtime) [922]: 8 outcomes
+- George, Kyshawn total points (incl. overtime) [921]: 8 outcomes
+- George, Kyshawn total rebounds (incl. overtime) [923]: 8 outcomes
+- George, Paul total -point field goals (incl. overtime) [924]: 6 outcomes
+- George, Paul total assists (incl. overtime) [922]: 6 outcomes
+- George, Paul total points (incl. overtime) [921]: 6 outcomes
+- George, Paul total rebounds (incl. overtime) [923]: 6 outcomes
+- Giddey, Josh total -point field goals (incl. overtime) [924]: 8 outcomes
+- Giddey, Josh total assists (incl. overtime) [922]: 8 outcomes
+- Giddey, Josh total points (incl. overtime) [921]: 8 outcomes
+- Giddey, Josh total rebounds (incl. overtime) [923]: 8 outcomes
+- Gilgeous-Alexander, Shai total -point field goals (incl. overtime) [924]: 8 outcomes
+- Gilgeous-Alexander, Shai total assists (incl. overtime) [922]: 8 outcomes
+- Gilgeous-Alexander, Shai total points (incl. overtime) [921]: 8 outcomes
+- Gilgeous-Alexander, Shai total rebounds (incl. overtime) [923]: 8 outcomes
+- Gillespie, Collin total -point field goals (incl. overtime) [924]: 6 outcomes
+- Gillespie, Collin total assists (incl. overtime) [922]: 6 outcomes
+- Gillespie, Collin total points (incl. overtime) [921]: 6 outcomes
+- Gillespie, Collin total rebounds (incl. overtime) [923]: 6 outcomes
+- Gobert, Rudy total assists (incl. overtime) [922]: 8 outcomes
+- Gobert, Rudy total points (incl. overtime) [921]: 8 outcomes
+- Gobert, Rudy total rebounds (incl. overtime) [923]: 8 outcomes
 - Golden State Warriors to lead by [965]: 6 outcomes
-- Golden State Warriors to lead by [966]: 12 outcomes
+- Golden State Warriors to lead by [966]: 18 outcomes
 - Golden State Warriors to win all quarters [1313]: 2 outcomes
-- Golden State Warriors to win all quarters [1314]: 2 outcomes
+- Golden State Warriors to win all quarters [1314]: 4 outcomes
 - Golden State Warriors total maximum consecutive points [962]: 2 outcomes
-- Golden State Warriors total maximum consecutive points [963]: 4 outcomes
-- Goodwin, Jordan total -point field goals (incl. overtime) [924]: 2 outcomes
-- Goodwin, Jordan total points (incl. overtime) [921]: 2 outcomes
-- Goodwin, Jordan total rebounds (incl. overtime) [923]: 2 outcomes
-- Gordon, Aaron total -point field goals (incl. overtime) [924]: 4 outcomes
-- Gordon, Aaron total assists (incl. overtime) [922]: 4 outcomes
-- Gordon, Aaron total points (incl. overtime) [921]: 4 outcomes
-- Gordon, Aaron total rebounds (incl. overtime) [923]: 4 outcomes
-- Grant, Jerami total -point field goals (incl. overtime) [924]: 6 outcomes
+- Golden State Warriors total maximum consecutive points [963]: 6 outcomes
+- Goodwin, Jordan total -point field goals (incl. overtime) [924]: 4 outcomes
+- Goodwin, Jordan total points (incl. overtime) [921]: 4 outcomes
+- Goodwin, Jordan total rebounds (incl. overtime) [923]: 4 outcomes
+- Gordon, Aaron total -point field goals (incl. overtime) [924]: 6 outcomes
+- Gordon, Aaron total assists (incl. overtime) [922]: 6 outcomes
+- Gordon, Aaron total points (incl. overtime) [921]: 6 outcomes
+- Gordon, Aaron total rebounds (incl. overtime) [923]: 6 outcomes
+- Grant, Jerami total -point field goals (incl. overtime) [924]: 8 outcomes
 - Grant, Jerami total assists (incl. overtime) [922]: 2 outcomes
-- Grant, Jerami total points (incl. overtime) [921]: 6 outcomes
+- Grant, Jerami total points (incl. overtime) [921]: 8 outcomes
 - Grant, Jerami total rebounds (incl. overtime) [923]: 4 outcomes
 - Green, AJ total -point field goals (incl. overtime) [924]: 2 outcomes
 - Green, AJ total assists (incl. overtime) [922]: 2 outcomes
 - Green, AJ total points (incl. overtime) [921]: 2 outcomes
 - Green, AJ total rebounds (incl. overtime) [923]: 2 outcomes
-- Green, Draymond total -point field goals (incl. overtime) [924]: 4 outcomes
-- Green, Draymond total assists (incl. overtime) [922]: 4 outcomes
-- Green, Draymond total points (incl. overtime) [921]: 4 outcomes
-- Green, Draymond total rebounds (incl. overtime) [923]: 4 outcomes
-- Green, Jalen total -point field goals (incl. overtime) [924]: 4 outcomes
-- Green, Jalen total assists (incl. overtime) [922]: 4 outcomes
-- Green, Jalen total points (incl. overtime) [921]: 4 outcomes
-- Green, Jalen total rebounds (incl. overtime) [923]: 4 outcomes
+- Green, Draymond total -point field goals (incl. overtime) [924]: 6 outcomes
+- Green, Draymond total assists (incl. overtime) [922]: 6 outcomes
+- Green, Draymond total points (incl. overtime) [921]: 6 outcomes
+- Green, Draymond total rebounds (incl. overtime) [923]: 6 outcomes
+- Green, Jalen total -point field goals (incl. overtime) [924]: 6 outcomes
+- Green, Jalen total assists (incl. overtime) [922]: 6 outcomes
+- Green, Jalen total points (incl. overtime) [921]: 6 outcomes
+- Green, Jalen total rebounds (incl. overtime) [923]: 6 outcomes
 - Grimes, Quentin total -point field goals (incl. overtime) [924]: 6 outcomes
 - Grimes, Quentin total assists (incl. overtime) [922]: 6 outcomes
 - Grimes, Quentin total points (incl. overtime) [921]: 6 outcomes
@@ -423,19 +431,20 @@ Games with a look: 105 · graded (ESPN final): 96
 - Hachimura, Rui total assists (incl. overtime) [922]: 6 outcomes
 - Hachimura, Rui total points (incl. overtime) [921]: 6 outcomes
 - Hachimura, Rui total rebounds (incl. overtime) [923]: 6 outcomes
-- Haliburton, Tyrese total -point field goals (incl. overtime) [924]: 4 outcomes
-- Haliburton, Tyrese total assists (incl. overtime) [922]: 4 outcomes
-- Haliburton, Tyrese total points (incl. overtime) [921]: 4 outcomes
-- Haliburton, Tyrese total rebounds (incl. overtime) [923]: 4 outcomes
-- Handicap (including OT) & Total (including OT) [1174]: 172 outcomes
-- Handicap : [14]: 129 outcomes
-- Hardaway Jr., Tim total -point field goals (incl. overtime) [924]: 4 outcomes
-- Hardaway Jr., Tim total points (incl. overtime) [921]: 4 outcomes
-- Hardaway Jr., Tim total rebounds (incl. overtime) [923]: 4 outcomes
-- Harden, James total -point field goals (incl. overtime) [924]: 4 outcomes
-- Harden, James total assists (incl. overtime) [922]: 4 outcomes
-- Harden, James total points (incl. overtime) [921]: 4 outcomes
-- Harden, James total rebounds (incl. overtime) [923]: 4 outcomes
+- Haliburton, Tyrese total -point field goals (incl. overtime) [924]: 6 outcomes
+- Haliburton, Tyrese total assists (incl. overtime) [922]: 6 outcomes
+- Haliburton, Tyrese total points (incl. overtime) [921]: 6 outcomes
+- Haliburton, Tyrese total rebounds (incl. overtime) [923]: 6 outcomes
+- Handicap (including OT) & Total (including OT) [1174]: 208 outcomes
+- Handicap : [14]: 156 outcomes
+- Hardaway Jr., Tim total -point field goals (incl. overtime) [924]: 6 outcomes
+- Hardaway Jr., Tim total assists (incl. overtime) [922]: 2 outcomes
+- Hardaway Jr., Tim total points (incl. overtime) [921]: 6 outcomes
+- Hardaway Jr., Tim total rebounds (incl. overtime) [923]: 6 outcomes
+- Harden, James total -point field goals (incl. overtime) [924]: 6 outcomes
+- Harden, James total assists (incl. overtime) [922]: 6 outcomes
+- Harden, James total points (incl. overtime) [921]: 6 outcomes
+- Harden, James total rebounds (incl. overtime) [923]: 6 outcomes
 - Harper, Dylan total -point field goals (incl. overtime) [924]: 6 outcomes
 - Harper, Dylan total assists (incl. overtime) [922]: 6 outcomes
 - Harper, Dylan total points (incl. overtime) [921]: 6 outcomes
@@ -444,9 +453,9 @@ Games with a look: 105 · graded (ESPN final): 96
 - Hart, Josh total assists (incl. overtime) [922]: 6 outcomes
 - Hart, Josh total points (incl. overtime) [921]: 6 outcomes
 - Hart, Josh total rebounds (incl. overtime) [923]: 6 outcomes
-- Hartenstein, Isaiah total assists (incl. overtime) [922]: 6 outcomes
-- Hartenstein, Isaiah total points (incl. overtime) [921]: 6 outcomes
-- Hartenstein, Isaiah total rebounds (incl. overtime) [923]: 6 outcomes
+- Hartenstein, Isaiah total assists (incl. overtime) [922]: 8 outcomes
+- Hartenstein, Isaiah total points (incl. overtime) [921]: 8 outcomes
+- Hartenstein, Isaiah total rebounds (incl. overtime) [923]: 8 outcomes
 - Hauser, Sam total -point field goals (incl. overtime) [924]: 2 outcomes
 - Hauser, Sam total assists (incl. overtime) [922]: 2 outcomes
 - Hauser, Sam total points (incl. overtime) [921]: 2 outcomes
@@ -455,13 +464,13 @@ Games with a look: 105 · graded (ESPN final): 96
 - Hayes, Jaxson total rebounds (incl. overtime) [923]: 2 outcomes
 - Henderson, Scoot total -point field goals (incl. overtime) [924]: 2 outcomes
 - Henderson, Scoot total points (incl. overtime) [921]: 4 outcomes
-- Herro, Tyler total -point field goals (incl. overtime) [924]: 6 outcomes
-- Herro, Tyler total assists (incl. overtime) [922]: 6 outcomes
-- Herro, Tyler total points (incl. overtime) [921]: 6 outcomes
-- Herro, Tyler total rebounds (incl. overtime) [923]: 6 outcomes
-- Highest Scoring Half [52]: 75 outcomes
-- Highest scoring quarter - Over/Under [1193]: 86 outcomes
-- Highest scoring quarter [234]: 215 outcomes
+- Herro, Tyler total -point field goals (incl. overtime) [924]: 8 outcomes
+- Herro, Tyler total assists (incl. overtime) [922]: 8 outcomes
+- Herro, Tyler total points (incl. overtime) [921]: 8 outcomes
+- Herro, Tyler total rebounds (incl. overtime) [923]: 8 outcomes
+- Highest Scoring Half [52]: 84 outcomes
+- Highest scoring quarter - Over/Under [1193]: 104 outcomes
+- Highest scoring quarter [234]: 260 outcomes
 - Holiday, Jrue total -point field goals (incl. overtime) [924]: 4 outcomes
 - Holiday, Jrue total assists (incl. overtime) [922]: 4 outcomes
 - Holiday, Jrue total points (incl. overtime) [921]: 4 outcomes
@@ -471,17 +480,19 @@ Games with a look: 105 · graded (ESPN final): 96
 - Holmgren, Chet total assists (incl. overtime) [922]: 6 outcomes
 - Holmgren, Chet total points (incl. overtime) [921]: 6 outcomes
 - Holmgren, Chet total rebounds (incl. overtime) [923]: 6 outcomes
-- Home Team to Win Both Halves [48]: 86 outcomes
+- Home Team to Win Both Halves [48]: 104 outcomes
 - Horford, Al total -point field goals (incl. overtime) [924]: 4 outcomes
 - Horford, Al total assists (incl. overtime) [922]: 4 outcomes
 - Horford, Al total points (incl. overtime) [921]: 4 outcomes
 - Horford, Al total rebounds (incl. overtime) [923]: 4 outcomes
-- Houston Rockets to lead by [965]: 6 outcomes
+- Houston Rockets to lead by [965]: 12 outcomes
 - Houston Rockets to lead by [966]: 12 outcomes
-- Houston Rockets to win all quarters [1313]: 2 outcomes
+- Houston Rockets to win all quarters [1313]: 4 outcomes
 - Houston Rockets to win all quarters [1314]: 4 outcomes
-- Houston Rockets total maximum consecutive points [962]: 2 outcomes
+- Houston Rockets total maximum consecutive points [962]: 4 outcomes
 - Houston Rockets total maximum consecutive points [963]: 4 outcomes
+- Huff, Jay total points (incl. overtime) [921]: 2 outcomes
+- Huff, Jay total rebounds (incl. overtime) [923]: 2 outcomes
 - Hunter, De'Andre total -point field goals (incl. overtime) [924]: 6 outcomes
 - Hunter, De'Andre total assists (incl. overtime) [922]: 6 outcomes
 - Hunter, De'Andre total points (incl. overtime) [921]: 6 outcomes
@@ -490,49 +501,49 @@ Games with a look: 105 · graded (ESPN final): 96
 - Ighodaro, Oso total points (incl. overtime) [921]: 2 outcomes
 - Ighodaro, Oso total rebounds (incl. overtime) [923]: 2 outcomes
 - Indiana Pacers to lead by [965]: 6 outcomes
-- Indiana Pacers to lead by [966]: 12 outcomes
+- Indiana Pacers to lead by [966]: 18 outcomes
 - Indiana Pacers to win all quarters [1313]: 2 outcomes
-- Indiana Pacers to win all quarters [1314]: 4 outcomes
+- Indiana Pacers to win all quarters [1314]: 6 outcomes
 - Indiana Pacers total maximum consecutive points [962]: 2 outcomes
-- Indiana Pacers total maximum consecutive points [963]: 4 outcomes
-- Irving, Kyrie total -point field goals (incl. overtime) [924]: 4 outcomes
-- Irving, Kyrie total assists (incl. overtime) [922]: 4 outcomes
-- Irving, Kyrie total points (incl. overtime) [921]: 4 outcomes
-- Irving, Kyrie total rebounds (incl. overtime) [923]: 4 outcomes
+- Indiana Pacers total maximum consecutive points [963]: 6 outcomes
+- Irving, Kyrie total -point field goals (incl. overtime) [924]: 6 outcomes
+- Irving, Kyrie total assists (incl. overtime) [922]: 6 outcomes
+- Irving, Kyrie total points (incl. overtime) [921]: 6 outcomes
+- Irving, Kyrie total rebounds (incl. overtime) [923]: 6 outcomes
 - Jackson II, GG total -point field goals (incl. overtime) [924]: 2 outcomes
 - Jackson II, GG total points (incl. overtime) [921]: 2 outcomes
 - Jackson II, GG total rebounds (incl. overtime) [923]: 2 outcomes
-- Jackson Jr., Jaren total -point field goals (incl. overtime) [924]: 6 outcomes
-- Jackson Jr., Jaren total assists (incl. overtime) [922]: 6 outcomes
-- Jackson Jr., Jaren total points (incl. overtime) [921]: 6 outcomes
-- Jackson Jr., Jaren total rebounds (incl. overtime) [923]: 6 outcomes
+- Jackson Jr., Jaren total -point field goals (incl. overtime) [924]: 8 outcomes
+- Jackson Jr., Jaren total assists (incl. overtime) [922]: 8 outcomes
+- Jackson Jr., Jaren total points (incl. overtime) [921]: 8 outcomes
+- Jackson Jr., Jaren total rebounds (incl. overtime) [923]: 8 outcomes
 - Jackson, Isaiah total assists (incl. overtime) [922]: 2 outcomes
 - Jackson, Isaiah total points (incl. overtime) [921]: 6 outcomes
 - Jackson, Isaiah total rebounds (incl. overtime) [923]: 6 outcomes
-- Jakucionis, Kasparas total -point field goals (incl. overtime) [924]: 4 outcomes
-- Jakucionis, Kasparas total assists (incl. overtime) [922]: 2 outcomes
-- Jakucionis, Kasparas total points (incl. overtime) [921]: 4 outcomes
-- Jakucionis, Kasparas total rebounds (incl. overtime) [923]: 2 outcomes
+- Jakucionis, Kasparas total -point field goals (incl. overtime) [924]: 6 outcomes
+- Jakucionis, Kasparas total assists (incl. overtime) [922]: 4 outcomes
+- Jakucionis, Kasparas total points (incl. overtime) [921]: 6 outcomes
+- Jakucionis, Kasparas total rebounds (incl. overtime) [923]: 4 outcomes
 - James, LeBron total -point field goals (incl. overtime) [924]: 6 outcomes
 - James, LeBron total assists (incl. overtime) [922]: 6 outcomes
 - James, LeBron total points (incl. overtime) [921]: 6 outcomes
 - James, LeBron total rebounds (incl. overtime) [923]: 6 outcomes
-- James, Sion total -point field goals (incl. overtime) [924]: 4 outcomes
-- James, Sion total assists (incl. overtime) [922]: 2 outcomes
-- James, Sion total points (incl. overtime) [921]: 4 outcomes
-- James, Sion total rebounds (incl. overtime) [923]: 4 outcomes
-- Jaquez Jr., Jaime total -point field goals (incl. overtime) [924]: 6 outcomes
-- Jaquez Jr., Jaime total assists (incl. overtime) [922]: 6 outcomes
-- Jaquez Jr., Jaime total points (incl. overtime) [921]: 6 outcomes
-- Jaquez Jr., Jaime total rebounds (incl. overtime) [923]: 6 outcomes
+- James, Sion total -point field goals (incl. overtime) [924]: 6 outcomes
+- James, Sion total assists (incl. overtime) [922]: 4 outcomes
+- James, Sion total points (incl. overtime) [921]: 6 outcomes
+- James, Sion total rebounds (incl. overtime) [923]: 6 outcomes
+- Jaquez Jr., Jaime total -point field goals (incl. overtime) [924]: 8 outcomes
+- Jaquez Jr., Jaime total assists (incl. overtime) [922]: 8 outcomes
+- Jaquez Jr., Jaime total points (incl. overtime) [921]: 8 outcomes
+- Jaquez Jr., Jaime total rebounds (incl. overtime) [923]: 8 outcomes
 - Jenkins, Daniss total -point field goals (incl. overtime) [924]: 4 outcomes
 - Jenkins, Daniss total assists (incl. overtime) [922]: 6 outcomes
 - Jenkins, Daniss total points (incl. overtime) [921]: 6 outcomes
 - Jenkins, Daniss total rebounds (incl. overtime) [923]: 6 outcomes
-- Jerome, Ty total -point field goals (incl. overtime) [924]: 6 outcomes
-- Jerome, Ty total assists (incl. overtime) [922]: 6 outcomes
-- Jerome, Ty total points (incl. overtime) [921]: 6 outcomes
-- Jerome, Ty total rebounds (incl. overtime) [923]: 6 outcomes
+- Jerome, Ty total -point field goals (incl. overtime) [924]: 8 outcomes
+- Jerome, Ty total assists (incl. overtime) [922]: 8 outcomes
+- Jerome, Ty total points (incl. overtime) [921]: 8 outcomes
+- Jerome, Ty total rebounds (incl. overtime) [923]: 8 outcomes
 - Joe, Isaiah total -point field goals (incl. overtime) [924]: 4 outcomes
 - Joe, Isaiah total points (incl. overtime) [921]: 4 outcomes
 - Joe, Isaiah total rebounds (incl. overtime) [923]: 2 outcomes
@@ -540,22 +551,22 @@ Games with a look: 105 · graded (ESPN final): 96
 - Johnson, Cameron total assists (incl. overtime) [922]: 2 outcomes
 - Johnson, Cameron total points (incl. overtime) [921]: 2 outcomes
 - Johnson, Cameron total rebounds (incl. overtime) [923]: 2 outcomes
-- Johnson, Jalen total -point field goals (incl. overtime) [924]: 6 outcomes
-- Johnson, Jalen total assists (incl. overtime) [922]: 6 outcomes
-- Johnson, Jalen total points (incl. overtime) [921]: 6 outcomes
-- Johnson, Jalen total rebounds (incl. overtime) [923]: 6 outcomes
+- Johnson, Jalen total -point field goals (incl. overtime) [924]: 8 outcomes
+- Johnson, Jalen total assists (incl. overtime) [922]: 8 outcomes
+- Johnson, Jalen total points (incl. overtime) [921]: 8 outcomes
+- Johnson, Jalen total rebounds (incl. overtime) [923]: 8 outcomes
 - Johnson, Keldon total -point field goals (incl. overtime) [924]: 4 outcomes
 - Johnson, Keldon total assists (incl. overtime) [922]: 2 outcomes
 - Johnson, Keldon total points (incl. overtime) [921]: 6 outcomes
 - Johnson, Keldon total rebounds (incl. overtime) [923]: 6 outcomes
-- Johnson, Tre total -point field goals (incl. overtime) [924]: 6 outcomes
-- Johnson, Tre total assists (incl. overtime) [922]: 2 outcomes
-- Johnson, Tre total points (incl. overtime) [921]: 6 outcomes
+- Johnson, Tre total -point field goals (incl. overtime) [924]: 8 outcomes
+- Johnson, Tre total assists (incl. overtime) [922]: 4 outcomes
+- Johnson, Tre total points (incl. overtime) [921]: 8 outcomes
 - Johnson, Tre total rebounds (incl. overtime) [923]: 4 outcomes
-- Jokic, Nikola total -point field goals (incl. overtime) [924]: 4 outcomes
-- Jokic, Nikola total assists (incl. overtime) [922]: 4 outcomes
-- Jokic, Nikola total points (incl. overtime) [921]: 4 outcomes
-- Jokic, Nikola total rebounds (incl. overtime) [923]: 4 outcomes
+- Jokic, Nikola total -point field goals (incl. overtime) [924]: 6 outcomes
+- Jokic, Nikola total assists (incl. overtime) [922]: 6 outcomes
+- Jokic, Nikola total points (incl. overtime) [921]: 6 outcomes
+- Jokic, Nikola total rebounds (incl. overtime) [923]: 6 outcomes
 - Jones Jr., Derrick total -point field goals (incl. overtime) [924]: 6 outcomes
 - Jones Jr., Derrick total assists (incl. overtime) [922]: 6 outcomes
 - Jones Jr., Derrick total points (incl. overtime) [921]: 6 outcomes
@@ -564,22 +575,28 @@ Games with a look: 105 · graded (ESPN final): 96
 - Jones, Herbert total assists (incl. overtime) [922]: 2 outcomes
 - Jones, Herbert total points (incl. overtime) [921]: 2 outcomes
 - Jones, Herbert total rebounds (incl. overtime) [923]: 2 outcomes
-- Jones, Tre total -point field goals (incl. overtime) [924]: 2 outcomes
-- Jones, Tre total assists (incl. overtime) [922]: 6 outcomes
-- Jones, Tre total points (incl. overtime) [921]: 6 outcomes
-- Jones, Tre total rebounds (incl. overtime) [923]: 4 outcomes
+- Jones, Tre total -point field goals (incl. overtime) [924]: 4 outcomes
+- Jones, Tre total assists (incl. overtime) [922]: 8 outcomes
+- Jones, Tre total points (incl. overtime) [921]: 8 outcomes
+- Jones, Tre total rebounds (incl. overtime) [923]: 6 outcomes
+- Kalkbrenner, Ryan total points (incl. overtime) [921]: 2 outcomes
+- Kalkbrenner, Ryan total rebounds (incl. overtime) [923]: 2 outcomes
+- Kennard, Luke total -point field goals (incl. overtime) [924]: 2 outcomes
+- Kennard, Luke total assists (incl. overtime) [922]: 2 outcomes
+- Kennard, Luke total points (incl. overtime) [921]: 2 outcomes
+- Kennard, Luke total rebounds (incl. overtime) [923]: 2 outcomes
 - Kessler, Walker total -point field goals (incl. overtime) [924]: 2 outcomes
 - Kessler, Walker total assists (incl. overtime) [922]: 6 outcomes
 - Kessler, Walker total points (incl. overtime) [921]: 6 outcomes
 - Kessler, Walker total rebounds (incl. overtime) [923]: 6 outcomes
-- Kuminga, Jonathan total -point field goals (incl. overtime) [924]: 6 outcomes
-- Kuminga, Jonathan total assists (incl. overtime) [922]: 6 outcomes
-- Kuminga, Jonathan total points (incl. overtime) [921]: 6 outcomes
-- Kuminga, Jonathan total rebounds (incl. overtime) [923]: 6 outcomes
-- Kuzma, Kyle total -point field goals (incl. overtime) [924]: 6 outcomes
-- Kuzma, Kyle total assists (incl. overtime) [922]: 4 outcomes
-- Kuzma, Kyle total points (incl. overtime) [921]: 6 outcomes
-- Kuzma, Kyle total rebounds (incl. overtime) [923]: 6 outcomes
+- Kuminga, Jonathan total -point field goals (incl. overtime) [924]: 8 outcomes
+- Kuminga, Jonathan total assists (incl. overtime) [922]: 8 outcomes
+- Kuminga, Jonathan total points (incl. overtime) [921]: 8 outcomes
+- Kuminga, Jonathan total rebounds (incl. overtime) [923]: 8 outcomes
+- Kuzma, Kyle total -point field goals (incl. overtime) [924]: 8 outcomes
+- Kuzma, Kyle total assists (incl. overtime) [922]: 6 outcomes
+- Kuzma, Kyle total points (incl. overtime) [921]: 8 outcomes
+- Kuzma, Kyle total rebounds (incl. overtime) [923]: 8 outcomes
 - LA Clippers to lead by [965]: 6 outcomes
 - LA Clippers to lead by [966]: 12 outcomes
 - LA Clippers to win all quarters [1313]: 2 outcomes
@@ -589,18 +606,18 @@ Games with a look: 105 · graded (ESPN final): 96
 - LaVine, Zach total assists (incl. overtime) [922]: 6 outcomes
 - LaVine, Zach total points (incl. overtime) [921]: 6 outcomes
 - LaVine, Zach total rebounds (incl. overtime) [923]: 6 outcomes
-- Landale, Jock total -point field goals (incl. overtime) [924]: 4 outcomes
+- Landale, Jock total -point field goals (incl. overtime) [924]: 6 outcomes
 - Landale, Jock total assists (incl. overtime) [922]: 2 outcomes
-- Landale, Jock total points (incl. overtime) [921]: 4 outcomes
-- Landale, Jock total rebounds (incl. overtime) [923]: 4 outcomes
-- Larsson, Pelle total -point field goals (incl. overtime) [924]: 6 outcomes
-- Larsson, Pelle total assists (incl. overtime) [922]: 6 outcomes
-- Larsson, Pelle total points (incl. overtime) [921]: 6 outcomes
-- Larsson, Pelle total rebounds (incl. overtime) [923]: 6 outcomes
-- Lendeborg, Yaxel total -point field goals (incl. overtime) [924]: 6 outcomes
-- Lendeborg, Yaxel total assists (incl. overtime) [922]: 6 outcomes
-- Lendeborg, Yaxel total points (incl. overtime) [921]: 6 outcomes
-- Lendeborg, Yaxel total rebounds (incl. overtime) [923]: 6 outcomes
+- Landale, Jock total points (incl. overtime) [921]: 6 outcomes
+- Landale, Jock total rebounds (incl. overtime) [923]: 6 outcomes
+- Larsson, Pelle total -point field goals (incl. overtime) [924]: 8 outcomes
+- Larsson, Pelle total assists (incl. overtime) [922]: 8 outcomes
+- Larsson, Pelle total points (incl. overtime) [921]: 8 outcomes
+- Larsson, Pelle total rebounds (incl. overtime) [923]: 8 outcomes
+- Lendeborg, Yaxel total -point field goals (incl. overtime) [924]: 8 outcomes
+- Lendeborg, Yaxel total assists (incl. overtime) [922]: 8 outcomes
+- Lendeborg, Yaxel total points (incl. overtime) [921]: 8 outcomes
+- Lendeborg, Yaxel total rebounds (incl. overtime) [923]: 8 outcomes
 - Leonard, Kawhi total -point field goals (incl. overtime) [924]: 4 outcomes
 - Leonard, Kawhi total assists (incl. overtime) [922]: 4 outcomes
 - Leonard, Kawhi total points (incl. overtime) [921]: 4 outcomes
@@ -618,19 +635,21 @@ Games with a look: 105 · graded (ESPN final): 96
 - Los Angeles Lakers to win all quarters [1314]: 2 outcomes
 - Los Angeles Lakers total maximum consecutive points [962]: 4 outcomes
 - Los Angeles Lakers total maximum consecutive points [963]: 2 outcomes
-- Lowest scoring quarter - Over/Under [1195]: 86 outcomes
+- Lowest scoring quarter - Over/Under [1195]: 104 outcomes
 - Maluach, Khaman total -point field goals (incl. overtime) [924]: 4 outcomes
 - Maluach, Khaman total assists (incl. overtime) [922]: 2 outcomes
-- Maluach, Khaman total points (incl. overtime) [921]: 4 outcomes
-- Maluach, Khaman total rebounds (incl. overtime) [923]: 4 outcomes
+- Maluach, Khaman total points (incl. overtime) [921]: 6 outcomes
+- Maluach, Khaman total rebounds (incl. overtime) [923]: 6 outcomes
 - Mamukelashvili, Sandro total -point field goals (incl. overtime) [924]: 6 outcomes
 - Mamukelashvili, Sandro total assists (incl. overtime) [922]: 4 outcomes
 - Mamukelashvili, Sandro total points (incl. overtime) [921]: 6 outcomes
 - Mamukelashvili, Sandro total rebounds (incl. overtime) [923]: 6 outcomes
-- Markkanen, Lauri total -point field goals (incl. overtime) [924]: 6 outcomes
-- Markkanen, Lauri total assists (incl. overtime) [922]: 6 outcomes
-- Markkanen, Lauri total points (incl. overtime) [921]: 6 outcomes
-- Markkanen, Lauri total rebounds (incl. overtime) [923]: 6 outcomes
+- Mara, Aday total points (incl. overtime) [921]: 2 outcomes
+- Mara, Aday total rebounds (incl. overtime) [923]: 2 outcomes
+- Markkanen, Lauri total -point field goals (incl. overtime) [924]: 8 outcomes
+- Markkanen, Lauri total assists (incl. overtime) [922]: 8 outcomes
+- Markkanen, Lauri total points (incl. overtime) [921]: 8 outcomes
+- Markkanen, Lauri total rebounds (incl. overtime) [923]: 8 outcomes
 - Marshall, Naji total -point field goals (incl. overtime) [924]: 6 outcomes
 - Marshall, Naji total assists (incl. overtime) [922]: 6 outcomes
 - Marshall, Naji total points (incl. overtime) [921]: 6 outcomes
@@ -647,77 +666,77 @@ Games with a look: 105 · graded (ESPN final): 96
 - McBride, Miles total assists (incl. overtime) [922]: 4 outcomes
 - McBride, Miles total points (incl. overtime) [921]: 6 outcomes
 - McBride, Miles total rebounds (incl. overtime) [923]: 4 outcomes
-- McCain, Jared total -point field goals (incl. overtime) [924]: 6 outcomes
-- McCain, Jared total assists (incl. overtime) [922]: 2 outcomes
-- McCain, Jared total points (incl. overtime) [921]: 6 outcomes
-- McCain, Jared total rebounds (incl. overtime) [923]: 2 outcomes
-- McCollum, CJ total -point field goals (incl. overtime) [924]: 6 outcomes
-- McCollum, CJ total assists (incl. overtime) [922]: 6 outcomes
-- McCollum, CJ total points (incl. overtime) [921]: 6 outcomes
-- McCollum, CJ total rebounds (incl. overtime) [923]: 6 outcomes
-- McDaniels, Jaden total -point field goals (incl. overtime) [924]: 6 outcomes
-- McDaniels, Jaden total assists (incl. overtime) [922]: 6 outcomes
-- McDaniels, Jaden total points (incl. overtime) [921]: 6 outcomes
-- McDaniels, Jaden total rebounds (incl. overtime) [923]: 6 outcomes
-- Melton, De'Anthony total -point field goals (incl. overtime) [924]: 6 outcomes
-- Melton, De'Anthony total assists (incl. overtime) [922]: 6 outcomes
-- Melton, De'Anthony total points (incl. overtime) [921]: 6 outcomes
-- Melton, De'Anthony total rebounds (incl. overtime) [923]: 6 outcomes
+- McCain, Jared total -point field goals (incl. overtime) [924]: 8 outcomes
+- McCain, Jared total assists (incl. overtime) [922]: 4 outcomes
+- McCain, Jared total points (incl. overtime) [921]: 8 outcomes
+- McCain, Jared total rebounds (incl. overtime) [923]: 4 outcomes
+- McCollum, CJ total -point field goals (incl. overtime) [924]: 8 outcomes
+- McCollum, CJ total assists (incl. overtime) [922]: 8 outcomes
+- McCollum, CJ total points (incl. overtime) [921]: 8 outcomes
+- McCollum, CJ total rebounds (incl. overtime) [923]: 8 outcomes
+- McDaniels, Jaden total -point field goals (incl. overtime) [924]: 8 outcomes
+- McDaniels, Jaden total assists (incl. overtime) [922]: 8 outcomes
+- McDaniels, Jaden total points (incl. overtime) [921]: 8 outcomes
+- McDaniels, Jaden total rebounds (incl. overtime) [923]: 8 outcomes
+- Melton, De'Anthony total -point field goals (incl. overtime) [924]: 8 outcomes
+- Melton, De'Anthony total assists (incl. overtime) [922]: 8 outcomes
+- Melton, De'Anthony total points (incl. overtime) [921]: 8 outcomes
+- Melton, De'Anthony total rebounds (incl. overtime) [923]: 8 outcomes
 - Memphis Grizzlies to lead by [965]: 6 outcomes
-- Memphis Grizzlies to lead by [966]: 12 outcomes
+- Memphis Grizzlies to lead by [966]: 18 outcomes
 - Memphis Grizzlies to win all quarters [1313]: 2 outcomes
-- Memphis Grizzlies to win all quarters [1314]: 4 outcomes
+- Memphis Grizzlies to win all quarters [1314]: 6 outcomes
 - Memphis Grizzlies total maximum consecutive points [962]: 2 outcomes
-- Memphis Grizzlies total maximum consecutive points [963]: 4 outcomes
-- Merrill, Sam total -point field goals (incl. overtime) [924]: 4 outcomes
-- Merrill, Sam total assists (incl. overtime) [922]: 4 outcomes
-- Merrill, Sam total points (incl. overtime) [921]: 4 outcomes
+- Memphis Grizzlies total maximum consecutive points [963]: 6 outcomes
+- Merrill, Sam total -point field goals (incl. overtime) [924]: 6 outcomes
+- Merrill, Sam total assists (incl. overtime) [922]: 6 outcomes
+- Merrill, Sam total points (incl. overtime) [921]: 6 outcomes
 - Merrill, Sam total rebounds (incl. overtime) [923]: 2 outcomes
-- Miami Heat to lead by [965]: 12 outcomes
+- Miami Heat to lead by [965]: 18 outcomes
 - Miami Heat to lead by [966]: 6 outcomes
-- Miami Heat to win all quarters [1313]: 4 outcomes
+- Miami Heat to win all quarters [1313]: 6 outcomes
 - Miami Heat to win all quarters [1314]: 2 outcomes
-- Miami Heat total maximum consecutive points [962]: 4 outcomes
+- Miami Heat total maximum consecutive points [962]: 6 outcomes
 - Miami Heat total maximum consecutive points [963]: 2 outcomes
-- Miller, Brandon total -point field goals (incl. overtime) [924]: 6 outcomes
-- Miller, Brandon total assists (incl. overtime) [922]: 6 outcomes
-- Miller, Brandon total points (incl. overtime) [921]: 6 outcomes
-- Miller, Brandon total rebounds (incl. overtime) [923]: 6 outcomes
-- Miller, Leonard total -point field goals (incl. overtime) [924]: 2 outcomes
+- Miller, Brandon total -point field goals (incl. overtime) [924]: 8 outcomes
+- Miller, Brandon total assists (incl. overtime) [922]: 8 outcomes
+- Miller, Brandon total points (incl. overtime) [921]: 8 outcomes
+- Miller, Brandon total rebounds (incl. overtime) [923]: 8 outcomes
+- Miller, Leonard total -point field goals (incl. overtime) [924]: 4 outcomes
 - Miller, Leonard total assists (incl. overtime) [922]: 2 outcomes
-- Miller, Leonard total points (incl. overtime) [921]: 6 outcomes
+- Miller, Leonard total points (incl. overtime) [921]: 8 outcomes
 - Miller, Leonard total rebounds (incl. overtime) [923]: 6 outcomes
-- Milwaukee Bucks to lead by [965]: 6 outcomes
+- Milwaukee Bucks to lead by [965]: 12 outcomes
 - Milwaukee Bucks to lead by [966]: 12 outcomes
-- Milwaukee Bucks to win all quarters [1313]: 2 outcomes
+- Milwaukee Bucks to win all quarters [1313]: 4 outcomes
 - Milwaukee Bucks to win all quarters [1314]: 2 outcomes
-- Milwaukee Bucks total maximum consecutive points [962]: 2 outcomes
+- Milwaukee Bucks total maximum consecutive points [962]: 4 outcomes
 - Milwaukee Bucks total maximum consecutive points [963]: 4 outcomes
 - Minnesota Timberwolves to lead by [965]: 6 outcomes
-- Minnesota Timberwolves to lead by [966]: 12 outcomes
+- Minnesota Timberwolves to lead by [966]: 18 outcomes
 - Minnesota Timberwolves to win all quarters [1313]: 2 outcomes
-- Minnesota Timberwolves to win all quarters [1314]: 4 outcomes
+- Minnesota Timberwolves to win all quarters [1314]: 6 outcomes
 - Minnesota Timberwolves total maximum consecutive points [962]: 2 outcomes
-- Minnesota Timberwolves total maximum consecutive points [963]: 4 outcomes
+- Minnesota Timberwolves total maximum consecutive points [963]: 6 outcomes
 - Missi, Yves total assists (incl. overtime) [922]: 2 outcomes
 - Missi, Yves total points (incl. overtime) [921]: 4 outcomes
 - Missi, Yves total rebounds (incl. overtime) [923]: 4 outcomes
-- Mitchell, Ajay total -point field goals (incl. overtime) [924]: 6 outcomes
-- Mitchell, Ajay total assists (incl. overtime) [922]: 6 outcomes
-- Mitchell, Ajay total points (incl. overtime) [921]: 6 outcomes
-- Mitchell, Ajay total rebounds (incl. overtime) [923]: 6 outcomes
-- Mitchell, Davion total -point field goals (incl. overtime) [924]: 6 outcomes
-- Mitchell, Davion total assists (incl. overtime) [922]: 6 outcomes
-- Mitchell, Davion total points (incl. overtime) [921]: 6 outcomes
-- Mitchell, Davion total rebounds (incl. overtime) [923]: 6 outcomes
-- Mitchell, Donovan total -point field goals (incl. overtime) [924]: 4 outcomes
-- Mitchell, Donovan total assists (incl. overtime) [922]: 4 outcomes
-- Mitchell, Donovan total points (incl. overtime) [921]: 4 outcomes
-- Mitchell, Donovan total rebounds (incl. overtime) [923]: 4 outcomes
-- Mobley, Evan total -point field goals (incl. overtime) [924]: 4 outcomes
-- Mobley, Evan total assists (incl. overtime) [922]: 4 outcomes
-- Mobley, Evan total points (incl. overtime) [921]: 4 outcomes
-- Mobley, Evan total rebounds (incl. overtime) [923]: 4 outcomes
+- Mitchell, Ajay total -point field goals (incl. overtime) [924]: 8 outcomes
+- Mitchell, Ajay total assists (incl. overtime) [922]: 8 outcomes
+- Mitchell, Ajay total points (incl. overtime) [921]: 8 outcomes
+- Mitchell, Ajay total rebounds (incl. overtime) [923]: 8 outcomes
+- Mitchell, Davion total -point field goals (incl. overtime) [924]: 8 outcomes
+- Mitchell, Davion total assists (incl. overtime) [922]: 8 outcomes
+- Mitchell, Davion total points (incl. overtime) [921]: 8 outcomes
+- Mitchell, Davion total rebounds (incl. overtime) [923]: 8 outcomes
+- Mitchell, Donovan total -point field goals (incl. overtime) [924]: 6 outcomes
+- Mitchell, Donovan total assists (incl. overtime) [922]: 6 outcomes
+- Mitchell, Donovan total points (incl. overtime) [921]: 6 outcomes
+- Mitchell, Donovan total rebounds (incl. overtime) [923]: 6 outcomes
+- Mobley, Evan total -point field goals (incl. overtime) [924]: 6 outcomes
+- Mobley, Evan total assists (incl. overtime) [922]: 6 outcomes
+- Mobley, Evan total points (incl. overtime) [921]: 6 outcomes
+- Mobley, Evan total rebounds (incl. overtime) [923]: 6 outcomes
 - Morant, Ja total -point field goals (incl. overtime) [924]: 4 outcomes
 - Morant, Ja total assists (incl. overtime) [922]: 4 outcomes
 - Morant, Ja total points (incl. overtime) [921]: 4 outcomes
@@ -730,10 +749,10 @@ Games with a look: 105 · graded (ESPN final): 96
 - Murray, Dejounte total assists (incl. overtime) [922]: 6 outcomes
 - Murray, Dejounte total points (incl. overtime) [921]: 6 outcomes
 - Murray, Dejounte total rebounds (incl. overtime) [923]: 6 outcomes
-- Murray, Jamal total -point field goals (incl. overtime) [924]: 4 outcomes
-- Murray, Jamal total assists (incl. overtime) [922]: 4 outcomes
-- Murray, Jamal total points (incl. overtime) [921]: 4 outcomes
-- Murray, Jamal total rebounds (incl. overtime) [923]: 4 outcomes
+- Murray, Jamal total -point field goals (incl. overtime) [924]: 6 outcomes
+- Murray, Jamal total assists (incl. overtime) [922]: 6 outcomes
+- Murray, Jamal total points (incl. overtime) [921]: 6 outcomes
+- Murray, Jamal total rebounds (incl. overtime) [923]: 6 outcomes
 - Murray, Keegan total -point field goals (incl. overtime) [924]: 4 outcomes
 - Murray, Keegan total assists (incl. overtime) [922]: 4 outcomes
 - Murray, Keegan total points (incl. overtime) [921]: 4 outcomes
@@ -745,10 +764,10 @@ Games with a look: 105 · graded (ESPN final): 96
 - Nembhard, Andrew total assists (incl. overtime) [922]: 4 outcomes
 - Nembhard, Andrew total points (incl. overtime) [921]: 4 outcomes
 - Nembhard, Andrew total rebounds (incl. overtime) [923]: 4 outcomes
-- Nesmith, Aaron total -point field goals (incl. overtime) [924]: 2 outcomes
-- Nesmith, Aaron total assists (incl. overtime) [922]: 2 outcomes
-- Nesmith, Aaron total points (incl. overtime) [921]: 2 outcomes
-- Nesmith, Aaron total rebounds (incl. overtime) [923]: 2 outcomes
+- Nesmith, Aaron total -point field goals (incl. overtime) [924]: 4 outcomes
+- Nesmith, Aaron total assists (incl. overtime) [922]: 4 outcomes
+- Nesmith, Aaron total points (incl. overtime) [921]: 4 outcomes
+- Nesmith, Aaron total rebounds (incl. overtime) [923]: 4 outcomes
 - New Orleans Pelicans to lead by [965]: 6 outcomes
 - New Orleans Pelicans to lead by [966]: 12 outcomes
 - New Orleans Pelicans to win all quarters [1313]: 2 outcomes
@@ -765,32 +784,32 @@ Games with a look: 105 · graded (ESPN final): 96
 - O'Neale, Royce total assists (incl. overtime) [922]: 2 outcomes
 - O'Neale, Royce total points (incl. overtime) [921]: 2 outcomes
 - O'Neale, Royce total rebounds (incl. overtime) [923]: 2 outcomes
-- Odd/even (incl. overtime) [229]: 86 outcomes
-- Oklahoma City Thunder to lead by [965]: 12 outcomes
+- Odd/even (incl. overtime) [229]: 104 outcomes
+- Oklahoma City Thunder to lead by [965]: 18 outcomes
 - Oklahoma City Thunder to lead by [966]: 6 outcomes
-- Oklahoma City Thunder to win all quarters [1313]: 4 outcomes
+- Oklahoma City Thunder to win all quarters [1313]: 6 outcomes
 - Oklahoma City Thunder to win all quarters [1314]: 2 outcomes
-- Oklahoma City Thunder total maximum consecutive points [962]: 4 outcomes
+- Oklahoma City Thunder total maximum consecutive points [962]: 6 outcomes
 - Oklahoma City Thunder total maximum consecutive points [963]: 2 outcomes
-- Okongwu, Onyeka total -point field goals (incl. overtime) [924]: 6 outcomes
-- Okongwu, Onyeka total assists (incl. overtime) [922]: 4 outcomes
-- Okongwu, Onyeka total points (incl. overtime) [921]: 6 outcomes
-- Okongwu, Onyeka total rebounds (incl. overtime) [923]: 6 outcomes
+- Okongwu, Onyeka total -point field goals (incl. overtime) [924]: 8 outcomes
+- Okongwu, Onyeka total assists (incl. overtime) [922]: 6 outcomes
+- Okongwu, Onyeka total points (incl. overtime) [921]: 8 outcomes
+- Okongwu, Onyeka total rebounds (incl. overtime) [923]: 8 outcomes
 - Orlando Magic to lead by [965]: 12 outcomes
 - Orlando Magic to lead by [966]: 6 outcomes
 - Orlando Magic to win all quarters [1313]: 4 outcomes
 - Orlando Magic total maximum consecutive points [962]: 4 outcomes
 - Orlando Magic total maximum consecutive points [963]: 2 outcomes
-- Oubre Jr., Kelly total -point field goals (incl. overtime) [924]: 4 outcomes
+- Oubre Jr., Kelly total -point field goals (incl. overtime) [924]: 6 outcomes
 - Oubre Jr., Kelly total assists (incl. overtime) [922]: 2 outcomes
-- Oubre Jr., Kelly total points (incl. overtime) [921]: 4 outcomes
-- Oubre Jr., Kelly total rebounds (incl. overtime) [923]: 4 outcomes
+- Oubre Jr., Kelly total points (incl. overtime) [921]: 6 outcomes
+- Oubre Jr., Kelly total rebounds (incl. overtime) [923]: 6 outcomes
 - Payton II, Gary total points (incl. overtime) [921]: 2 outcomes
 - Payton II, Gary total rebounds (incl. overtime) [923]: 2 outcomes
-- Peterson, Darryn total -point field goals (incl. overtime) [924]: 6 outcomes
-- Peterson, Darryn total assists (incl. overtime) [922]: 6 outcomes
-- Peterson, Darryn total points (incl. overtime) [921]: 6 outcomes
-- Peterson, Darryn total rebounds (incl. overtime) [923]: 6 outcomes
+- Peterson, Darryn total -point field goals (incl. overtime) [924]: 8 outcomes
+- Peterson, Darryn total assists (incl. overtime) [922]: 8 outcomes
+- Peterson, Darryn total points (incl. overtime) [921]: 8 outcomes
+- Peterson, Darryn total rebounds (incl. overtime) [923]: 8 outcomes
 - Philadelphia ers to lead by [965]: 18 outcomes
 - Philadelphia ers to lead by [966]: 6 outcomes
 - Philadelphia ers to win all quarters [1313]: 6 outcomes
@@ -798,35 +817,35 @@ Games with a look: 105 · graded (ESPN final): 96
 - Philadelphia ers total maximum consecutive points [962]: 6 outcomes
 - Philadelphia ers total maximum consecutive points [963]: 2 outcomes
 - Phoenix Suns to lead by [965]: 6 outcomes
-- Phoenix Suns to lead by [966]: 6 outcomes
+- Phoenix Suns to lead by [966]: 12 outcomes
 - Phoenix Suns to win all quarters [1313]: 2 outcomes
 - Phoenix Suns to win all quarters [1314]: 2 outcomes
 - Phoenix Suns total maximum consecutive points [962]: 2 outcomes
-- Phoenix Suns total maximum consecutive points [963]: 2 outcomes
+- Phoenix Suns total maximum consecutive points [963]: 4 outcomes
 - Pippen Jr., Scotty total -point field goals (incl. overtime) [924]: 2 outcomes
-- Pippen Jr., Scotty total assists (incl. overtime) [922]: 2 outcomes
-- Pippen Jr., Scotty total points (incl. overtime) [921]: 2 outcomes
-- Pippen Jr., Scotty total rebounds (incl. overtime) [923]: 2 outcomes
-- Player -point field goals (incl. overtime) [774]: 2615 outcomes
-- Player assists (incl. overtime) [770]: 3127 outcomes
-- Player points (incl. overtime) [768]: 10136 outcomes
-- Player rebounds (incl. overtime) [772]: 4786 outcomes
-- Podziemski, Brandin total -point field goals (incl. overtime) [924]: 2 outcomes
-- Podziemski, Brandin total assists (incl. overtime) [922]: 2 outcomes
-- Podziemski, Brandin total points (incl. overtime) [921]: 2 outcomes
-- Podziemski, Brandin total rebounds (incl. overtime) [923]: 2 outcomes
+- Pippen Jr., Scotty total assists (incl. overtime) [922]: 4 outcomes
+- Pippen Jr., Scotty total points (incl. overtime) [921]: 4 outcomes
+- Pippen Jr., Scotty total rebounds (incl. overtime) [923]: 4 outcomes
+- Player -point field goals (incl. overtime) [774]: 3175 outcomes
+- Player assists (incl. overtime) [770]: 3775 outcomes
+- Player points (incl. overtime) [768]: 12215 outcomes
+- Player rebounds (incl. overtime) [772]: 5814 outcomes
+- Podziemski, Brandin total -point field goals (incl. overtime) [924]: 4 outcomes
+- Podziemski, Brandin total assists (incl. overtime) [922]: 4 outcomes
+- Podziemski, Brandin total points (incl. overtime) [921]: 4 outcomes
+- Podziemski, Brandin total rebounds (incl. overtime) [923]: 4 outcomes
 - Poeltl, Jakob total assists (incl. overtime) [922]: 4 outcomes
 - Poeltl, Jakob total points (incl. overtime) [921]: 6 outcomes
 - Poeltl, Jakob total rebounds (incl. overtime) [923]: 6 outcomes
-- Point range [298]: 288 outcomes
+- Point range [298]: 336 outcomes
 - Porter Jr., Michael total -point field goals (incl. overtime) [924]: 6 outcomes
 - Porter Jr., Michael total assists (incl. overtime) [922]: 6 outcomes
 - Porter Jr., Michael total points (incl. overtime) [921]: 6 outcomes
 - Porter Jr., Michael total rebounds (incl. overtime) [923]: 6 outcomes
-- Portis, Bobby total -point field goals (incl. overtime) [924]: 6 outcomes
-- Portis, Bobby total assists (incl. overtime) [922]: 2 outcomes
-- Portis, Bobby total points (incl. overtime) [921]: 6 outcomes
-- Portis, Bobby total rebounds (incl. overtime) [923]: 6 outcomes
+- Portis, Bobby total -point field goals (incl. overtime) [924]: 8 outcomes
+- Portis, Bobby total assists (incl. overtime) [922]: 4 outcomes
+- Portis, Bobby total points (incl. overtime) [921]: 8 outcomes
+- Portis, Bobby total rebounds (incl. overtime) [923]: 8 outcomes
 - Portland Trail Blazers to lead by [965]: 6 outcomes
 - Portland Trail Blazers to lead by [966]: 6 outcomes
 - Portland Trail Blazers to win all quarters [1313]: 2 outcomes
@@ -834,26 +853,26 @@ Games with a look: 105 · graded (ESPN final): 96
 - Portland Trail Blazers total maximum consecutive points [962]: 2 outcomes
 - Portland Trail Blazers total maximum consecutive points [963]: 2 outcomes
 - Post, Quinten total points (incl. overtime) [921]: 2 outcomes
-- Powell, Norman total -point field goals (incl. overtime) [924]: 6 outcomes
-- Powell, Norman total assists (incl. overtime) [922]: 6 outcomes
-- Powell, Norman total points (incl. overtime) [921]: 6 outcomes
-- Powell, Norman total rebounds (incl. overtime) [923]: 6 outcomes
-- Pritchard, Payton total -point field goals (incl. overtime) [924]: 4 outcomes
-- Pritchard, Payton total assists (incl. overtime) [922]: 4 outcomes
-- Pritchard, Payton total points (incl. overtime) [921]: 4 outcomes
-- Pritchard, Payton total rebounds (incl. overtime) [923]: 4 outcomes
-- Quarter handicap (Q1-Q3): 430 outcomes
+- Powell, Norman total -point field goals (incl. overtime) [924]: 8 outcomes
+- Powell, Norman total assists (incl. overtime) [922]: 8 outcomes
+- Powell, Norman total points (incl. overtime) [921]: 8 outcomes
+- Powell, Norman total rebounds (incl. overtime) [923]: 8 outcomes
+- Pritchard, Payton total -point field goals (incl. overtime) [924]: 6 outcomes
+- Pritchard, Payton total assists (incl. overtime) [922]: 6 outcomes
+- Pritchard, Payton total points (incl. overtime) [921]: 6 outcomes
+- Pritchard, Payton total rebounds (incl. overtime) [923]: 6 outcomes
+- Quarter handicap (Q1-Q3): 520 outcomes
 - Queen, Derik total -point field goals (incl. overtime) [924]: 4 outcomes
 - Queen, Derik total assists (incl. overtime) [922]: 4 outcomes
 - Queen, Derik total points (incl. overtime) [921]: 6 outcomes
 - Queen, Derik total rebounds (incl. overtime) [923]: 6 outcomes
-- Queta, Neemias total points (incl. overtime) [921]: 4 outcomes
-- Queta, Neemias total rebounds (incl. overtime) [923]: 4 outcomes
+- Queta, Neemias total points (incl. overtime) [921]: 6 outcomes
+- Queta, Neemias total rebounds (incl. overtime) [923]: 6 outcomes
 - Quickley, Immanuel total -point field goals (incl. overtime) [924]: 6 outcomes
 - Quickley, Immanuel total assists (incl. overtime) [922]: 6 outcomes
 - Quickley, Immanuel total points (incl. overtime) [921]: 6 outcomes
 - Quickley, Immanuel total rebounds (incl. overtime) [923]: 6 outcomes
-- Race to  points (incl. overtime) [230]: 344 outcomes
+- Race to  points (incl. overtime) [230]: 416 outcomes
 - Randle, Julius total -point field goals (incl. overtime) [924]: 6 outcomes
 - Randle, Julius total assists (incl. overtime) [922]: 6 outcomes
 - Randle, Julius total points (incl. overtime) [921]: 6 outcomes
@@ -865,28 +884,28 @@ Games with a look: 105 · graded (ESPN final): 96
 - Reed, Paul total assists (incl. overtime) [922]: 4 outcomes
 - Reed, Paul total points (incl. overtime) [921]: 6 outcomes
 - Reed, Paul total rebounds (incl. overtime) [923]: 6 outcomes
-- Reid, Naz total -point field goals (incl. overtime) [924]: 6 outcomes
-- Reid, Naz total assists (incl. overtime) [922]: 6 outcomes
-- Reid, Naz total points (incl. overtime) [921]: 6 outcomes
-- Reid, Naz total rebounds (incl. overtime) [923]: 6 outcomes
+- Reid, Naz total -point field goals (incl. overtime) [924]: 8 outcomes
+- Reid, Naz total assists (incl. overtime) [922]: 8 outcomes
+- Reid, Naz total points (incl. overtime) [921]: 8 outcomes
+- Reid, Naz total rebounds (incl. overtime) [923]: 8 outcomes
 - Richardson, Jase total -point field goals (incl. overtime) [924]: 2 outcomes
 - Richardson, Jase total assists (incl. overtime) [922]: 2 outcomes
 - Richardson, Jase total points (incl. overtime) [921]: 2 outcomes
 - Richardson, Jase total rebounds (incl. overtime) [923]: 2 outcomes
-- Risacher, Zaccharie total -point field goals (incl. overtime) [924]: 6 outcomes
-- Risacher, Zaccharie total assists (incl. overtime) [922]: 6 outcomes
-- Risacher, Zaccharie total points (incl. overtime) [921]: 6 outcomes
-- Risacher, Zaccharie total rebounds (incl. overtime) [923]: 6 outcomes
+- Risacher, Zaccharie total -point field goals (incl. overtime) [924]: 8 outcomes
+- Risacher, Zaccharie total assists (incl. overtime) [922]: 8 outcomes
+- Risacher, Zaccharie total points (incl. overtime) [921]: 8 outcomes
+- Risacher, Zaccharie total rebounds (incl. overtime) [923]: 8 outcomes
 - Robinson, Duncan total -point field goals (incl. overtime) [924]: 6 outcomes
 - Robinson, Duncan total assists (incl. overtime) [922]: 4 outcomes
 - Robinson, Duncan total points (incl. overtime) [921]: 6 outcomes
 - Robinson, Duncan total rebounds (incl. overtime) [923]: 6 outcomes
-- Robinson, Mitchell total points (incl. overtime) [921]: 4 outcomes
-- Robinson, Mitchell total rebounds (incl. overtime) [923]: 4 outcomes
-- Rollins, Ryan total -point field goals (incl. overtime) [924]: 6 outcomes
-- Rollins, Ryan total assists (incl. overtime) [922]: 6 outcomes
-- Rollins, Ryan total points (incl. overtime) [921]: 6 outcomes
-- Rollins, Ryan total rebounds (incl. overtime) [923]: 6 outcomes
+- Robinson, Mitchell total points (incl. overtime) [921]: 6 outcomes
+- Robinson, Mitchell total rebounds (incl. overtime) [923]: 6 outcomes
+- Rollins, Ryan total -point field goals (incl. overtime) [924]: 8 outcomes
+- Rollins, Ryan total assists (incl. overtime) [922]: 8 outcomes
+- Rollins, Ryan total points (incl. overtime) [921]: 8 outcomes
+- Rollins, Ryan total rebounds (incl. overtime) [923]: 8 outcomes
 - Sabonis, Domantas total -point field goals (incl. overtime) [924]: 2 outcomes
 - Sabonis, Domantas total assists (incl. overtime) [922]: 6 outcomes
 - Sabonis, Domantas total points (incl. overtime) [921]: 6 outcomes
@@ -903,26 +922,29 @@ Games with a look: 105 · graded (ESPN final): 96
 - San Antonio Spurs to win all quarters [1314]: 2 outcomes
 - San Antonio Spurs total maximum consecutive points [962]: 4 outcomes
 - San Antonio Spurs total maximum consecutive points [963]: 2 outcomes
-- Santos, Gui total -point field goals (incl. overtime) [924]: 6 outcomes
-- Santos, Gui total assists (incl. overtime) [922]: 4 outcomes
-- Santos, Gui total points (incl. overtime) [921]: 6 outcomes
-- Santos, Gui total rebounds (incl. overtime) [923]: 6 outcomes
-- Sarr, Alexandre total -point field goals (incl. overtime) [924]: 6 outcomes
-- Sarr, Alexandre total assists (incl. overtime) [922]: 6 outcomes
-- Sarr, Alexandre total points (incl. overtime) [921]: 6 outcomes
-- Sarr, Alexandre total rebounds (incl. overtime) [923]: 6 outcomes
+- Santos, Gui total -point field goals (incl. overtime) [924]: 8 outcomes
+- Santos, Gui total assists (incl. overtime) [922]: 6 outcomes
+- Santos, Gui total points (incl. overtime) [921]: 8 outcomes
+- Santos, Gui total rebounds (incl. overtime) [923]: 8 outcomes
+- Sarr, Alexandre total -point field goals (incl. overtime) [924]: 8 outcomes
+- Sarr, Alexandre total assists (incl. overtime) [922]: 8 outcomes
+- Sarr, Alexandre total points (incl. overtime) [921]: 8 outcomes
+- Sarr, Alexandre total rebounds (incl. overtime) [923]: 8 outcomes
 - Sasser, Marcus total -point field goals (incl. overtime) [924]: 2 outcomes
 - Sasser, Marcus total assists (incl. overtime) [922]: 2 outcomes
 - Sasser, Marcus total points (incl. overtime) [921]: 2 outcomes
 - Sasser, Marcus total rebounds (incl. overtime) [923]: 2 outcomes
-- Schroder, Dennis total -point field goals (incl. overtime) [924]: 4 outcomes
-- Schroder, Dennis total assists (incl. overtime) [922]: 4 outcomes
-- Schroder, Dennis total points (incl. overtime) [921]: 4 outcomes
-- Schroder, Dennis total rebounds (incl. overtime) [923]: 4 outcomes
-- Sengun, Alperen total -point field goals (incl. overtime) [924]: 2 outcomes
-- Sengun, Alperen total assists (incl. overtime) [922]: 6 outcomes
-- Sengun, Alperen total points (incl. overtime) [921]: 6 outcomes
-- Sengun, Alperen total rebounds (incl. overtime) [923]: 6 outcomes
+- Schroder, Dennis total -point field goals (incl. overtime) [924]: 6 outcomes
+- Schroder, Dennis total assists (incl. overtime) [922]: 6 outcomes
+- Schroder, Dennis total points (incl. overtime) [921]: 6 outcomes
+- Schroder, Dennis total rebounds (incl. overtime) [923]: 6 outcomes
+- Sengun, Alperen total -point field goals (incl. overtime) [924]: 4 outcomes
+- Sengun, Alperen total assists (incl. overtime) [922]: 8 outcomes
+- Sengun, Alperen total points (incl. overtime) [921]: 8 outcomes
+- Sengun, Alperen total rebounds (incl. overtime) [923]: 8 outcomes
+- Sensabaugh, Brice total -point field goals (incl. overtime) [924]: 2 outcomes
+- Sensabaugh, Brice total points (incl. overtime) [921]: 2 outcomes
+- Sensabaugh, Brice total rebounds (incl. overtime) [923]: 2 outcomes
 - Sexton, Collin total -point field goals (incl. overtime) [924]: 2 outcomes
 - Sexton, Collin total assists (incl. overtime) [922]: 2 outcomes
 - Sexton, Collin total points (incl. overtime) [921]: 2 outcomes
@@ -931,10 +953,10 @@ Games with a look: 105 · graded (ESPN final): 96
 - Shamet, Landry total assists (incl. overtime) [922]: 2 outcomes
 - Shamet, Landry total points (incl. overtime) [921]: 6 outcomes
 - Shamet, Landry total rebounds (incl. overtime) [923]: 4 outcomes
-- Shannon Jr., Terrence total -point field goals (incl. overtime) [924]: 4 outcomes
+- Shannon Jr., Terrence total -point field goals (incl. overtime) [924]: 6 outcomes
 - Shannon Jr., Terrence total assists (incl. overtime) [922]: 2 outcomes
 - Shannon Jr., Terrence total points (incl. overtime) [921]: 4 outcomes
-- Shannon Jr., Terrence total rebounds (incl. overtime) [923]: 4 outcomes
+- Shannon Jr., Terrence total rebounds (incl. overtime) [923]: 6 outcomes
 - Sharpe, Day'Ron total assists (incl. overtime) [922]: 6 outcomes
 - Sharpe, Day'Ron total points (incl. overtime) [921]: 6 outcomes
 - Sharpe, Day'Ron total rebounds (incl. overtime) [923]: 6 outcomes
@@ -942,14 +964,14 @@ Games with a look: 105 · graded (ESPN final): 96
 - Shead, Jamal total assists (incl. overtime) [922]: 6 outcomes
 - Shead, Jamal total points (incl. overtime) [921]: 6 outcomes
 - Shead, Jamal total rebounds (incl. overtime) [923]: 4 outcomes
-- Sheppard, Reed total -point field goals (incl. overtime) [924]: 4 outcomes
-- Sheppard, Reed total assists (incl. overtime) [922]: 4 outcomes
-- Sheppard, Reed total points (incl. overtime) [921]: 4 outcomes
-- Sheppard, Reed total rebounds (incl. overtime) [923]: 2 outcomes
-- Siakam, Pascal total -point field goals (incl. overtime) [924]: 4 outcomes
-- Siakam, Pascal total assists (incl. overtime) [922]: 4 outcomes
-- Siakam, Pascal total points (incl. overtime) [921]: 4 outcomes
-- Siakam, Pascal total rebounds (incl. overtime) [923]: 4 outcomes
+- Sheppard, Reed total -point field goals (incl. overtime) [924]: 6 outcomes
+- Sheppard, Reed total assists (incl. overtime) [922]: 6 outcomes
+- Sheppard, Reed total points (incl. overtime) [921]: 6 outcomes
+- Sheppard, Reed total rebounds (incl. overtime) [923]: 4 outcomes
+- Siakam, Pascal total -point field goals (incl. overtime) [924]: 6 outcomes
+- Siakam, Pascal total assists (incl. overtime) [922]: 6 outcomes
+- Siakam, Pascal total points (incl. overtime) [921]: 6 outcomes
+- Siakam, Pascal total rebounds (incl. overtime) [923]: 6 outcomes
 - Simons, Anfernee total -point field goals (incl. overtime) [924]: 8 outcomes
 - Simons, Anfernee total assists (incl. overtime) [922]: 6 outcomes
 - Simons, Anfernee total points (incl. overtime) [921]: 8 outcomes
@@ -959,78 +981,78 @@ Games with a look: 105 · graded (ESPN final): 96
 - Smart, Marcus total assists (incl. overtime) [922]: 4 outcomes
 - Smart, Marcus total points (incl. overtime) [921]: 4 outcomes
 - Smart, Marcus total rebounds (incl. overtime) [923]: 4 outcomes
-- Smith, Jabari total -point field goals (incl. overtime) [924]: 6 outcomes
+- Smith, Jabari total -point field goals (incl. overtime) [924]: 8 outcomes
 - Smith, Jabari total assists (incl. overtime) [922]: 4 outcomes
-- Smith, Jabari total points (incl. overtime) [921]: 6 outcomes
-- Smith, Jabari total rebounds (incl. overtime) [923]: 6 outcomes
-- Smith, Jalen total -point field goals (incl. overtime) [924]: 6 outcomes
-- Smith, Jalen total assists (incl. overtime) [922]: 6 outcomes
-- Smith, Jalen total points (incl. overtime) [921]: 6 outcomes
-- Smith, Jalen total rebounds (incl. overtime) [923]: 6 outcomes
-- Spencer, Cam total -point field goals (incl. overtime) [924]: 4 outcomes
-- Spencer, Cam total assists (incl. overtime) [922]: 4 outcomes
-- Spencer, Cam total points (incl. overtime) [921]: 4 outcomes
-- Spencer, Cam total rebounds (incl. overtime) [923]: 2 outcomes
-- Stewart, Isaiah total points (incl. overtime) [921]: 2 outcomes
-- Stewart, Isaiah total rebounds (incl. overtime) [923]: 2 outcomes
+- Smith, Jabari total points (incl. overtime) [921]: 8 outcomes
+- Smith, Jabari total rebounds (incl. overtime) [923]: 8 outcomes
+- Smith, Jalen total -point field goals (incl. overtime) [924]: 8 outcomes
+- Smith, Jalen total assists (incl. overtime) [922]: 8 outcomes
+- Smith, Jalen total points (incl. overtime) [921]: 8 outcomes
+- Smith, Jalen total rebounds (incl. overtime) [923]: 8 outcomes
+- Spencer, Cam total -point field goals (incl. overtime) [924]: 6 outcomes
+- Spencer, Cam total assists (incl. overtime) [922]: 6 outcomes
+- Spencer, Cam total points (incl. overtime) [921]: 6 outcomes
+- Spencer, Cam total rebounds (incl. overtime) [923]: 4 outcomes
+- Stewart, Isaiah total points (incl. overtime) [921]: 4 outcomes
+- Stewart, Isaiah total rebounds (incl. overtime) [923]: 4 outcomes
 - Suggs, Jalen total -point field goals (incl. overtime) [924]: 6 outcomes
 - Suggs, Jalen total assists (incl. overtime) [922]: 6 outcomes
 - Suggs, Jalen total points (incl. overtime) [921]: 6 outcomes
 - Suggs, Jalen total rebounds (incl. overtime) [923]: 6 outcomes
-- Tatum, Jayson total -point field goals (incl. overtime) [924]: 4 outcomes
-- Tatum, Jayson total assists (incl. overtime) [922]: 4 outcomes
-- Tatum, Jayson total points (incl. overtime) [921]: 4 outcomes
-- Tatum, Jayson total rebounds (incl. overtime) [923]: 4 outcomes
-- Team to win all quarters [1203]: 129 outcomes
-- Team to win both halves [1201]: 129 outcomes
+- Tatum, Jayson total -point field goals (incl. overtime) [924]: 6 outcomes
+- Tatum, Jayson total assists (incl. overtime) [922]: 6 outcomes
+- Tatum, Jayson total points (incl. overtime) [921]: 6 outcomes
+- Tatum, Jayson total rebounds (incl. overtime) [923]: 6 outcomes
+- Team to win all quarters [1203]: 156 outcomes
+- Team to win both halves [1201]: 156 outcomes
 - Thompson, Amen total -point field goals (incl. overtime) [924]: 2 outcomes
-- Thompson, Amen total assists (incl. overtime) [922]: 6 outcomes
-- Thompson, Amen total points (incl. overtime) [921]: 6 outcomes
-- Thompson, Amen total rebounds (incl. overtime) [923]: 6 outcomes
+- Thompson, Amen total assists (incl. overtime) [922]: 8 outcomes
+- Thompson, Amen total points (incl. overtime) [921]: 8 outcomes
+- Thompson, Amen total rebounds (incl. overtime) [923]: 8 outcomes
 - Thompson, Ausar total assists (incl. overtime) [922]: 4 outcomes
 - Thompson, Ausar total points (incl. overtime) [921]: 4 outcomes
 - Thompson, Ausar total rebounds (incl. overtime) [923]: 4 outcomes
-- Thompson, Klay total -point field goals (incl. overtime) [924]: 6 outcomes
-- Thompson, Klay total assists (incl. overtime) [922]: 4 outcomes
-- Thompson, Klay total points (incl. overtime) [921]: 6 outcomes
-- Thompson, Klay total rebounds (incl. overtime) [923]: 4 outcomes
+- Thompson, Klay total -point field goals (incl. overtime) [924]: 8 outcomes
+- Thompson, Klay total assists (incl. overtime) [922]: 6 outcomes
+- Thompson, Klay total points (incl. overtime) [921]: 8 outcomes
+- Thompson, Klay total rebounds (incl. overtime) [923]: 6 outcomes
 - Thybulle, Matisse total -point field goals (incl. overtime) [924]: 6 outcomes
 - Thybulle, Matisse total assists (incl. overtime) [922]: 6 outcomes
 - Thybulle, Matisse total points (incl. overtime) [921]: 6 outcomes
 - Thybulle, Matisse total rebounds (incl. overtime) [923]: 6 outcomes
-- Toppin, Obi total -point field goals (incl. overtime) [924]: 4 outcomes
+- Toppin, Obi total -point field goals (incl. overtime) [924]: 6 outcomes
 - Toppin, Obi total assists (incl. overtime) [922]: 4 outcomes
-- Toppin, Obi total points (incl. overtime) [921]: 4 outcomes
-- Toppin, Obi total rebounds (incl. overtime) [923]: 4 outcomes
+- Toppin, Obi total points (incl. overtime) [921]: 6 outcomes
+- Toppin, Obi total rebounds (incl. overtime) [923]: 6 outcomes
 - Toronto Raptors to lead by [965]: 6 outcomes
 - Toronto Raptors to lead by [966]: 12 outcomes
 - Toronto Raptors to win all quarters [1313]: 2 outcomes
 - Toronto Raptors to win all quarters [1314]: 4 outcomes
 - Toronto Raptors total maximum consecutive points [962]: 2 outcomes
 - Toronto Raptors total maximum consecutive points [963]: 4 outcomes
-- Total (over-exact-under) [297]: 129 outcomes
+- Total (over-exact-under) [297]: 156 outcomes
 - Towns, Karl-Anthony total -point field goals (incl. overtime) [924]: 6 outcomes
 - Towns, Karl-Anthony total assists (incl. overtime) [922]: 6 outcomes
 - Towns, Karl-Anthony total points (incl. overtime) [921]: 6 outcomes
 - Towns, Karl-Anthony total rebounds (incl. overtime) [923]: 6 outcomes
-- Turner, Myles total -point field goals (incl. overtime) [924]: 6 outcomes
+- Turner, Myles total -point field goals (incl. overtime) [924]: 8 outcomes
 - Turner, Myles total assists (incl. overtime) [922]: 4 outcomes
-- Turner, Myles total points (incl. overtime) [921]: 6 outcomes
-- Turner, Myles total rebounds (incl. overtime) [923]: 6 outcomes
-- Tyson, Jaylon total -point field goals (incl. overtime) [924]: 4 outcomes
+- Turner, Myles total points (incl. overtime) [921]: 8 outcomes
+- Turner, Myles total rebounds (incl. overtime) [923]: 8 outcomes
+- Tyson, Jaylon total -point field goals (incl. overtime) [924]: 6 outcomes
 - Tyson, Jaylon total assists (incl. overtime) [922]: 4 outcomes
-- Tyson, Jaylon total points (incl. overtime) [921]: 4 outcomes
-- Tyson, Jaylon total rebounds (incl. overtime) [923]: 4 outcomes
-- Utah Jazz to lead by [965]: 12 outcomes
+- Tyson, Jaylon total points (incl. overtime) [921]: 6 outcomes
+- Tyson, Jaylon total rebounds (incl. overtime) [923]: 6 outcomes
+- Utah Jazz to lead by [965]: 18 outcomes
 - Utah Jazz to lead by [966]: 6 outcomes
-- Utah Jazz to win all quarters [1313]: 4 outcomes
+- Utah Jazz to win all quarters [1313]: 6 outcomes
 - Utah Jazz to win all quarters [1314]: 2 outcomes
-- Utah Jazz total maximum consecutive points [962]: 4 outcomes
+- Utah Jazz total maximum consecutive points [962]: 6 outcomes
 - Utah Jazz total maximum consecutive points [963]: 2 outcomes
-- VanVleet, Fred total -point field goals (incl. overtime) [924]: 4 outcomes
-- VanVleet, Fred total assists (incl. overtime) [922]: 4 outcomes
-- VanVleet, Fred total points (incl. overtime) [921]: 4 outcomes
-- VanVleet, Fred total rebounds (incl. overtime) [923]: 4 outcomes
+- VanVleet, Fred total -point field goals (incl. overtime) [924]: 6 outcomes
+- VanVleet, Fred total assists (incl. overtime) [922]: 6 outcomes
+- VanVleet, Fred total points (incl. overtime) [921]: 6 outcomes
+- VanVleet, Fred total rebounds (incl. overtime) [923]: 6 outcomes
 - Vassell, Devin total -point field goals (incl. overtime) [924]: 6 outcomes
 - Vassell, Devin total assists (incl. overtime) [922]: 6 outcomes
 - Vassell, Devin total points (incl. overtime) [921]: 6 outcomes
@@ -1054,57 +1076,57 @@ Games with a look: 105 · graded (ESPN final): 96
 - Wagner, Moritz total rebounds (incl. overtime) [923]: 2 outcomes
 - Walker, Jarace total -point field goals (incl. overtime) [924]: 2 outcomes
 - Walker, Jarace total assists (incl. overtime) [922]: 2 outcomes
-- Walker, Jarace total points (incl. overtime) [921]: 2 outcomes
-- Walker, Jarace total rebounds (incl. overtime) [923]: 2 outcomes
+- Walker, Jarace total points (incl. overtime) [921]: 4 outcomes
+- Walker, Jarace total rebounds (incl. overtime) [923]: 4 outcomes
 - Wallace, Cason total -point field goals (incl. overtime) [924]: 6 outcomes
 - Wallace, Cason total assists (incl. overtime) [922]: 6 outcomes
 - Wallace, Cason total points (incl. overtime) [921]: 6 outcomes
 - Wallace, Cason total rebounds (incl. overtime) [923]: 6 outcomes
 - Walsh, Jordan total -point field goals (incl. overtime) [924]: 2 outcomes
-- Walsh, Jordan total points (incl. overtime) [921]: 4 outcomes
-- Walsh, Jordan total rebounds (incl. overtime) [923]: 4 outcomes
+- Walsh, Jordan total points (incl. overtime) [921]: 6 outcomes
+- Walsh, Jordan total rebounds (incl. overtime) [923]: 6 outcomes
 - Walter, Ja'Kobe total -point field goals (incl. overtime) [924]: 6 outcomes
 - Walter, Ja'Kobe total assists (incl. overtime) [922]: 2 outcomes
 - Walter, Ja'Kobe total points (incl. overtime) [921]: 6 outcomes
 - Walter, Ja'Kobe total rebounds (incl. overtime) [923]: 6 outcomes
-- Ware, Kel'el total -point field goals (incl. overtime) [924]: 4 outcomes
-- Ware, Kel'el total points (incl. overtime) [921]: 6 outcomes
-- Ware, Kel'el total rebounds (incl. overtime) [923]: 6 outcomes
-- Washington Jr., P.J. total -point field goals (incl. overtime) [924]: 6 outcomes
-- Washington Jr., P.J. total assists (incl. overtime) [922]: 6 outcomes
-- Washington Jr., P.J. total points (incl. overtime) [921]: 6 outcomes
-- Washington Jr., P.J. total rebounds (incl. overtime) [923]: 6 outcomes
+- Ware, Kel'el total -point field goals (incl. overtime) [924]: 6 outcomes
+- Ware, Kel'el total points (incl. overtime) [921]: 8 outcomes
+- Ware, Kel'el total rebounds (incl. overtime) [923]: 8 outcomes
+- Washington Jr., P.J. total -point field goals (incl. overtime) [924]: 8 outcomes
+- Washington Jr., P.J. total assists (incl. overtime) [922]: 8 outcomes
+- Washington Jr., P.J. total points (incl. overtime) [921]: 8 outcomes
+- Washington Jr., P.J. total rebounds (incl. overtime) [923]: 8 outcomes
 - Washington Wizards to lead by [965]: 12 outcomes
-- Washington Wizards to lead by [966]: 6 outcomes
+- Washington Wizards to lead by [966]: 12 outcomes
 - Washington Wizards to win all quarters [1313]: 4 outcomes
-- Washington Wizards to win all quarters [1314]: 2 outcomes
+- Washington Wizards to win all quarters [1314]: 4 outcomes
 - Washington Wizards total maximum consecutive points [962]: 4 outcomes
-- Washington Wizards total maximum consecutive points [963]: 2 outcomes
-- Watson, Peyton total -point field goals (incl. overtime) [924]: 4 outcomes
-- Watson, Peyton total assists (incl. overtime) [922]: 4 outcomes
-- Watson, Peyton total points (incl. overtime) [921]: 4 outcomes
-- Watson, Peyton total rebounds (incl. overtime) [923]: 4 outcomes
-- Wells, Jaylen total -point field goals (incl. overtime) [924]: 6 outcomes
-- Wells, Jaylen total assists (incl. overtime) [922]: 4 outcomes
-- Wells, Jaylen total points (incl. overtime) [921]: 6 outcomes
-- Wells, Jaylen total rebounds (incl. overtime) [923]: 6 outcomes
+- Washington Wizards total maximum consecutive points [963]: 4 outcomes
+- Watson, Peyton total -point field goals (incl. overtime) [924]: 6 outcomes
+- Watson, Peyton total assists (incl. overtime) [922]: 6 outcomes
+- Watson, Peyton total points (incl. overtime) [921]: 6 outcomes
+- Watson, Peyton total rebounds (incl. overtime) [923]: 6 outcomes
+- Wells, Jaylen total -point field goals (incl. overtime) [924]: 8 outcomes
+- Wells, Jaylen total assists (incl. overtime) [922]: 6 outcomes
+- Wells, Jaylen total points (incl. overtime) [921]: 8 outcomes
+- Wells, Jaylen total rebounds (incl. overtime) [923]: 8 outcomes
 - Wembanyama, Victor total -point field goals (incl. overtime) [924]: 6 outcomes
 - Wembanyama, Victor total assists (incl. overtime) [922]: 6 outcomes
 - Wembanyama, Victor total points (incl. overtime) [921]: 6 outcomes
 - Wembanyama, Victor total rebounds (incl. overtime) [923]: 6 outcomes
-- White, Derrick total -point field goals (incl. overtime) [924]: 4 outcomes
-- White, Derrick total assists (incl. overtime) [922]: 4 outcomes
-- White, Derrick total points (incl. overtime) [921]: 4 outcomes
-- White, Derrick total rebounds (incl. overtime) [923]: 4 outcomes
-- Wiggins, Aaron total -point field goals (incl. overtime) [924]: 6 outcomes
+- White, Derrick total -point field goals (incl. overtime) [924]: 6 outcomes
+- White, Derrick total assists (incl. overtime) [922]: 6 outcomes
+- White, Derrick total points (incl. overtime) [921]: 6 outcomes
+- White, Derrick total rebounds (incl. overtime) [923]: 6 outcomes
+- Wiggins, Aaron total -point field goals (incl. overtime) [924]: 8 outcomes
 - Wiggins, Aaron total assists (incl. overtime) [922]: 2 outcomes
-- Wiggins, Aaron total points (incl. overtime) [921]: 6 outcomes
-- Wiggins, Aaron total rebounds (incl. overtime) [923]: 4 outcomes
-- Wiggins, Andrew total -point field goals (incl. overtime) [924]: 6 outcomes
-- Wiggins, Andrew total assists (incl. overtime) [922]: 6 outcomes
-- Wiggins, Andrew total points (incl. overtime) [921]: 6 outcomes
-- Wiggins, Andrew total rebounds (incl. overtime) [923]: 6 outcomes
-- Will There be Overtime [220]: 86 outcomes
+- Wiggins, Aaron total points (incl. overtime) [921]: 8 outcomes
+- Wiggins, Aaron total rebounds (incl. overtime) [923]: 6 outcomes
+- Wiggins, Andrew total -point field goals (incl. overtime) [924]: 8 outcomes
+- Wiggins, Andrew total assists (incl. overtime) [922]: 8 outcomes
+- Wiggins, Andrew total points (incl. overtime) [921]: 8 outcomes
+- Wiggins, Andrew total rebounds (incl. overtime) [923]: 8 outcomes
+- Will There be Overtime [220]: 102 outcomes
 - Williams III, Robert total points (incl. overtime) [921]: 4 outcomes
 - Williams III, Robert total rebounds (incl. overtime) [923]: 4 outcomes
 - Williams, Brandon total -point field goals (incl. overtime) [924]: 4 outcomes
@@ -1123,17 +1145,17 @@ Games with a look: 105 · graded (ESPN final): 96
 - Williamson, Zion total assists (incl. overtime) [922]: 6 outcomes
 - Williamson, Zion total points (incl. overtime) [921]: 6 outcomes
 - Williamson, Zion total rebounds (incl. overtime) [923]: 6 outcomes
-- Wilson, Caleb total -point field goals (incl. overtime) [924]: 6 outcomes
-- Wilson, Caleb total assists (incl. overtime) [922]: 6 outcomes
-- Wilson, Caleb total points (incl. overtime) [921]: 6 outcomes
-- Wilson, Caleb total rebounds (incl. overtime) [923]: 6 outcomes
-- Winner & Over/Under (incl. overtime) [292]: 172 outcomes
-- Winning margin (incl. overtime) [290]: 903 outcomes
-- X & Over/Under [37]: 258 outcomes
-- Young, Trae total -point field goals (incl. overtime) [924]: 6 outcomes
-- Young, Trae total assists (incl. overtime) [922]: 6 outcomes
-- Young, Trae total points (incl. overtime) [921]: 6 outcomes
-- Young, Trae total rebounds (incl. overtime) [923]: 6 outcomes
+- Wilson, Caleb total -point field goals (incl. overtime) [924]: 8 outcomes
+- Wilson, Caleb total assists (incl. overtime) [922]: 8 outcomes
+- Wilson, Caleb total points (incl. overtime) [921]: 8 outcomes
+- Wilson, Caleb total rebounds (incl. overtime) [923]: 8 outcomes
+- Winner & Over/Under (incl. overtime) [292]: 208 outcomes
+- Winning margin (incl. overtime) [290]: 1092 outcomes
+- X & Over/Under [37]: 312 outcomes
+- Young, Trae total -point field goals (incl. overtime) [924]: 8 outcomes
+- Young, Trae total assists (incl. overtime) [922]: 8 outcomes
+- Young, Trae total points (incl. overtime) [921]: 8 outcomes
+- Young, Trae total rebounds (incl. overtime) [923]: 8 outcomes
 - Zubac, Ivica total assists (incl. overtime) [922]: 4 outcomes
 - Zubac, Ivica total points (incl. overtime) [921]: 4 outcomes
 - Zubac, Ivica total rebounds (incl. overtime) [923]: 4 outcomes
@@ -1141,72 +1163,72 @@ Games with a look: 105 · graded (ESPN final): 96
 - da Silva, Tristan total assists (incl. overtime) [922]: 6 outcomes
 - da Silva, Tristan total points (incl. overtime) [921]: 6 outcomes
 - da Silva, Tristan total rebounds (incl. overtime) [923]: 6 outcomes
-- nd Half - Asian Handicap [88]: 946 outcomes
-- nd Half - Draw No Bet [86]: 86 outcomes
-- nd Half - Odd/Even [94]: 86 outcomes
-- nd Half - Over/Under [90]: 946 outcomes
-- nd Half - X [83]: 129 outcomes
-- nd quarter - draw no bet [302]: 86 outcomes
-- nd quarter - last point [960]: 86 outcomes
-- nd quarter - odd/even [304]: 86 outcomes
-- nd quarter - winning margin [301]: 129 outcomes
-- nd quarter - x [235]: 129 outcomes
-- rd quarter - draw no bet [302]: 86 outcomes
-- rd quarter - odd/even [304]: 86 outcomes
-- rd quarter - winning margin [301]: 129 outcomes
-- rd quarter - x [235]: 129 outcomes
-- st Half - Draw No Bet [64]: 86 outcomes
-- st Half - Odd/Even [74]: 86 outcomes
-- st Half - X [60]: 129 outcomes
-- st free throw scored [961]: 86 outcomes
+- nd Half - Asian Handicap [88]: 1144 outcomes
+- nd Half - Draw No Bet [86]: 104 outcomes
+- nd Half - Odd/Even [94]: 104 outcomes
+- nd Half - Over/Under [90]: 1144 outcomes
+- nd Half - X [83]: 156 outcomes
+- nd quarter - draw no bet [302]: 104 outcomes
+- nd quarter - last point [960]: 104 outcomes
+- nd quarter - odd/even [304]: 104 outcomes
+- nd quarter - winning margin [301]: 156 outcomes
+- nd quarter - x [235]: 156 outcomes
+- rd quarter - draw no bet [302]: 104 outcomes
+- rd quarter - odd/even [304]: 104 outcomes
+- rd quarter - winning margin [301]: 156 outcomes
+- rd quarter - x [235]: 156 outcomes
+- st Half - Draw No Bet [64]: 104 outcomes
+- st Half - Odd/Even [74]: 104 outcomes
+- st Half - X [60]: 156 outcomes
+- st free throw scored [961]: 104 outcomes
 - st half - Atlanta Hawks Over/Under [69]: 10 outcomes
-- st half - Atlanta Hawks Over/Under [70]: 20 outcomes
-- st half - Boston Celtics Over/Under [69]: 10 outcomes
+- st half - Atlanta Hawks Over/Under [70]: 30 outcomes
+- st half - Boston Celtics Over/Under [69]: 20 outcomes
 - st half - Boston Celtics Over/Under [70]: 10 outcomes
 - st half - Brooklyn Nets Over/Under [69]: 20 outcomes
 - st half - Brooklyn Nets Over/Under [70]: 10 outcomes
-- st half - Charlotte Hornets Over/Under [69]: 20 outcomes
+- st half - Charlotte Hornets Over/Under [69]: 30 outcomes
 - st half - Charlotte Hornets Over/Under [70]: 10 outcomes
 - st half - Chicago Bulls Over/Under [69]: 10 outcomes
-- st half - Chicago Bulls Over/Under [70]: 20 outcomes
-- st half - Cleveland Cavaliers Over/Under [69]: 10 outcomes
+- st half - Chicago Bulls Over/Under [70]: 30 outcomes
+- st half - Cleveland Cavaliers Over/Under [69]: 20 outcomes
 - st half - Cleveland Cavaliers Over/Under [70]: 10 outcomes
 - st half - Dallas Mavericks Over/Under [69]: 10 outcomes
-- st half - Dallas Mavericks Over/Under [70]: 20 outcomes
-- st half - Denver Nuggets Over/Under [69]: 10 outcomes
+- st half - Dallas Mavericks Over/Under [70]: 30 outcomes
+- st half - Denver Nuggets Over/Under [69]: 20 outcomes
 - st half - Denver Nuggets Over/Under [70]: 10 outcomes
 - st half - Detroit Pistons Over/Under [69]: 10 outcomes
 - st half - Detroit Pistons Over/Under [70]: 20 outcomes
 - st half - Golden State Warriors Over/Under [69]: 10 outcomes
-- st half - Golden State Warriors Over/Under [70]: 20 outcomes
-- st half - Houston Rockets Over/Under [69]: 10 outcomes
+- st half - Golden State Warriors Over/Under [70]: 30 outcomes
+- st half - Houston Rockets Over/Under [69]: 20 outcomes
 - st half - Houston Rockets Over/Under [70]: 20 outcomes
 - st half - Indiana Pacers Over/Under [69]: 10 outcomes
-- st half - Indiana Pacers Over/Under [70]: 20 outcomes
+- st half - Indiana Pacers Over/Under [70]: 30 outcomes
 - st half - LA Clippers Over/Under [69]: 10 outcomes
 - st half - LA Clippers Over/Under [70]: 20 outcomes
 - st half - Los Angeles Lakers Over/Under [69]: 20 outcomes
 - st half - Los Angeles Lakers Over/Under [70]: 10 outcomes
 - st half - Memphis Grizzlies Over/Under [69]: 10 outcomes
-- st half - Memphis Grizzlies Over/Under [70]: 20 outcomes
-- st half - Miami Heat Over/Under [69]: 20 outcomes
+- st half - Memphis Grizzlies Over/Under [70]: 30 outcomes
+- st half - Miami Heat Over/Under [69]: 30 outcomes
 - st half - Miami Heat Over/Under [70]: 10 outcomes
-- st half - Milwaukee Bucks Over/Under [69]: 10 outcomes
+- st half - Milwaukee Bucks Over/Under [69]: 20 outcomes
 - st half - Milwaukee Bucks Over/Under [70]: 20 outcomes
 - st half - Minnesota Timberwolves Over/Under [69]: 10 outcomes
-- st half - Minnesota Timberwolves Over/Under [70]: 20 outcomes
+- st half - Minnesota Timberwolves Over/Under [70]: 30 outcomes
 - st half - New Orleans Pelicans Over/Under [69]: 10 outcomes
 - st half - New Orleans Pelicans Over/Under [70]: 20 outcomes
 - st half - New York Knicks Over/Under [69]: 20 outcomes
 - st half - New York Knicks Over/Under [70]: 10 outcomes
-- st half - Oklahoma City Thunder Over/Under [69]: 20 outcomes
+- st half - Oklahoma City Thunder Over/Under [69]: 30 outcomes
 - st half - Oklahoma City Thunder Over/Under [70]: 10 outcomes
 - st half - Orlando Magic Over/Under [69]: 20 outcomes
 - st half - Orlando Magic Over/Under [70]: 10 outcomes
 - st half - Philadelphia ers Over/Under [69]: 30 outcomes
 - st half - Philadelphia ers Over/Under [70]: 10 outcomes
 - st half - Phoenix Suns Over/Under [69]: 10 outcomes
-- st half - Phoenix Suns Over/Under [70]: 10 outcomes
+- st half - Phoenix Suns Over/Under [70]: 20 outcomes
 - st half - Portland Trail Blazers Over/Under [69]: 10 outcomes
 - st half - Portland Trail Blazers Over/Under [70]: 10 outcomes
 - st half - Sacramento Kings Over/Under [69]: 20 outcomes
@@ -1215,60 +1237,60 @@ Games with a look: 105 · graded (ESPN final): 96
 - st half - San Antonio Spurs Over/Under [70]: 10 outcomes
 - st half - Toronto Raptors Over/Under [69]: 10 outcomes
 - st half - Toronto Raptors Over/Under [70]: 20 outcomes
-- st half - Utah Jazz Over/Under [69]: 20 outcomes
+- st half - Utah Jazz Over/Under [69]: 30 outcomes
 - st half - Utah Jazz Over/Under [70]: 10 outcomes
 - st half - Washington Wizards Over/Under [69]: 20 outcomes
-- st half - Washington Wizards Over/Under [70]: 10 outcomes
-- st half handicap & st half total [1178]: 172 outcomes
-- st half x & st half total [1177]: 258 outcomes
+- st half - Washington Wizards Over/Under [70]: 20 outcomes
+- st half handicap & st half total [1178]: 208 outcomes
+- st half x & st half total [1177]: 312 outcomes
 - st quarter - Atlanta Hawks Over/Under [756]: 10 outcomes
-- st quarter - Atlanta Hawks Over/Under [757]: 20 outcomes
-- st quarter - Boston Celtics Over/Under [756]: 10 outcomes
+- st quarter - Atlanta Hawks Over/Under [757]: 30 outcomes
+- st quarter - Boston Celtics Over/Under [756]: 20 outcomes
 - st quarter - Boston Celtics Over/Under [757]: 10 outcomes
 - st quarter - Brooklyn Nets Over/Under [756]: 20 outcomes
 - st quarter - Brooklyn Nets Over/Under [757]: 10 outcomes
-- st quarter - Charlotte Hornets Over/Under [756]: 20 outcomes
+- st quarter - Charlotte Hornets Over/Under [756]: 30 outcomes
 - st quarter - Charlotte Hornets Over/Under [757]: 10 outcomes
 - st quarter - Chicago Bulls Over/Under [756]: 10 outcomes
-- st quarter - Chicago Bulls Over/Under [757]: 20 outcomes
-- st quarter - Cleveland Cavaliers Over/Under [756]: 10 outcomes
+- st quarter - Chicago Bulls Over/Under [757]: 30 outcomes
+- st quarter - Cleveland Cavaliers Over/Under [756]: 20 outcomes
 - st quarter - Cleveland Cavaliers Over/Under [757]: 10 outcomes
 - st quarter - Dallas Mavericks Over/Under [756]: 10 outcomes
-- st quarter - Dallas Mavericks Over/Under [757]: 20 outcomes
-- st quarter - Denver Nuggets Over/Under [756]: 10 outcomes
+- st quarter - Dallas Mavericks Over/Under [757]: 30 outcomes
+- st quarter - Denver Nuggets Over/Under [756]: 20 outcomes
 - st quarter - Denver Nuggets Over/Under [757]: 10 outcomes
 - st quarter - Detroit Pistons Over/Under [756]: 10 outcomes
 - st quarter - Detroit Pistons Over/Under [757]: 20 outcomes
 - st quarter - Golden State Warriors Over/Under [756]: 10 outcomes
-- st quarter - Golden State Warriors Over/Under [757]: 20 outcomes
-- st quarter - Houston Rockets Over/Under [756]: 10 outcomes
+- st quarter - Golden State Warriors Over/Under [757]: 30 outcomes
+- st quarter - Houston Rockets Over/Under [756]: 20 outcomes
 - st quarter - Houston Rockets Over/Under [757]: 20 outcomes
 - st quarter - Indiana Pacers Over/Under [756]: 10 outcomes
-- st quarter - Indiana Pacers Over/Under [757]: 20 outcomes
+- st quarter - Indiana Pacers Over/Under [757]: 30 outcomes
 - st quarter - LA Clippers Over/Under [756]: 10 outcomes
 - st quarter - LA Clippers Over/Under [757]: 20 outcomes
 - st quarter - Los Angeles Lakers Over/Under [756]: 20 outcomes
 - st quarter - Los Angeles Lakers Over/Under [757]: 10 outcomes
 - st quarter - Memphis Grizzlies Over/Under [756]: 10 outcomes
-- st quarter - Memphis Grizzlies Over/Under [757]: 20 outcomes
-- st quarter - Miami Heat Over/Under [756]: 20 outcomes
+- st quarter - Memphis Grizzlies Over/Under [757]: 30 outcomes
+- st quarter - Miami Heat Over/Under [756]: 30 outcomes
 - st quarter - Miami Heat Over/Under [757]: 10 outcomes
-- st quarter - Milwaukee Bucks Over/Under [756]: 10 outcomes
+- st quarter - Milwaukee Bucks Over/Under [756]: 20 outcomes
 - st quarter - Milwaukee Bucks Over/Under [757]: 20 outcomes
 - st quarter - Minnesota Timberwolves Over/Under [756]: 10 outcomes
-- st quarter - Minnesota Timberwolves Over/Under [757]: 20 outcomes
+- st quarter - Minnesota Timberwolves Over/Under [757]: 30 outcomes
 - st quarter - New Orleans Pelicans Over/Under [756]: 10 outcomes
 - st quarter - New Orleans Pelicans Over/Under [757]: 20 outcomes
 - st quarter - New York Knicks Over/Under [756]: 20 outcomes
 - st quarter - New York Knicks Over/Under [757]: 10 outcomes
-- st quarter - Oklahoma City Thunder Over/Under [756]: 20 outcomes
+- st quarter - Oklahoma City Thunder Over/Under [756]: 30 outcomes
 - st quarter - Oklahoma City Thunder Over/Under [757]: 10 outcomes
 - st quarter - Orlando Magic Over/Under [756]: 20 outcomes
 - st quarter - Orlando Magic Over/Under [757]: 10 outcomes
 - st quarter - Philadelphia ers Over/Under [756]: 30 outcomes
 - st quarter - Philadelphia ers Over/Under [757]: 10 outcomes
 - st quarter - Phoenix Suns Over/Under [756]: 10 outcomes
-- st quarter - Phoenix Suns Over/Under [757]: 10 outcomes
+- st quarter - Phoenix Suns Over/Under [757]: 20 outcomes
 - st quarter - Portland Trail Blazers Over/Under [756]: 10 outcomes
 - st quarter - Portland Trail Blazers Over/Under [757]: 10 outcomes
 - st quarter - Sacramento Kings Over/Under [756]: 20 outcomes
@@ -1277,18 +1299,18 @@ Games with a look: 105 · graded (ESPN final): 96
 - st quarter - San Antonio Spurs Over/Under [757]: 10 outcomes
 - st quarter - Toronto Raptors Over/Under [756]: 10 outcomes
 - st quarter - Toronto Raptors Over/Under [757]: 20 outcomes
-- st quarter - Utah Jazz Over/Under [756]: 20 outcomes
+- st quarter - Utah Jazz Over/Under [756]: 30 outcomes
 - st quarter - Utah Jazz Over/Under [757]: 10 outcomes
 - st quarter - Washington Wizards Over/Under [756]: 20 outcomes
-- st quarter - Washington Wizards Over/Under [757]: 10 outcomes
-- st quarter - draw no bet [302]: 86 outcomes
-- st quarter - last point [960]: 86 outcomes
-- st quarter - odd/even [304]: 86 outcomes
-- st quarter - winning margin [301]: 129 outcomes
-- st quarter - x [235]: 129 outcomes
-- st quarter handicap & st quarter total [1176]: 172 outcomes
-- st quarter x & st quarter total [1175]: 258 outcomes
-- th quarter - draw no bet [302]: 86 outcomes
-- th quarter - odd/even [304]: 86 outcomes
-- th quarter - winning margin [301]: 129 outcomes
-- th quarter - x [235]: 129 outcomes
+- st quarter - Washington Wizards Over/Under [757]: 20 outcomes
+- st quarter - draw no bet [302]: 104 outcomes
+- st quarter - last point [960]: 104 outcomes
+- st quarter - odd/even [304]: 104 outcomes
+- st quarter - winning margin [301]: 156 outcomes
+- st quarter - x [235]: 156 outcomes
+- st quarter handicap & st quarter total [1176]: 208 outcomes
+- st quarter x & st quarter total [1175]: 312 outcomes
+- th quarter - draw no bet [302]: 104 outcomes
+- th quarter - odd/even [304]: 104 outcomes
+- th quarter - winning margin [301]: 156 outcomes
+- th quarter - x [235]: 156 outcomes

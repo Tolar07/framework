@@ -95,8 +95,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.27,
    "drift_pct": -1.6
   },
@@ -311,8 +311,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "3-4",
    "drift_price": 1.25,
    "drift_pct": 4.2
   },
@@ -491,7 +491,7 @@
     "Atletico Madrid v Man Utd",
     "RB Leipzig v PSV Eindhoven"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "safe3": [],
@@ -544,11 +544,11 @@
      "pick": "Inter to win",
      "price": 1.27,
      "chance": 0.7657,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-4"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "value": [],
@@ -1371,7 +1371,7 @@
      0.7186
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Arsenal v Lille",
@@ -1695,7 +1695,7 @@
      0.7202
     ]
    ],
-   "ft": null
+   "ft": "3-4"
   },
   {
    "fixture": "RB Leipzig v PSV Eindhoven",

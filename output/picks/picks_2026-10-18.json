@@ -2195,8 +2195,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.25,
    "drift_pct": 1.6
   },
@@ -2706,8 +2706,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.16,
    "drift_pct": -4.1
   },
@@ -3455,7 +3455,7 @@
     "Groningen v Ajax",
     "PAOK v POT Iraklis"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca F",
@@ -3546,7 +3546,7 @@
     "Nijmegen v For Sittard",
     "Angers v Marseille"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "50+ #5",
@@ -7687,7 +7687,7 @@
      0.7869
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Dresden v Magdeburg",
@@ -8499,7 +8499,7 @@
      0.6503
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Salzburg v SCR Altach",
@@ -9876,7 +9876,8 @@
      "market": "SB:18|total=4.5|Under 4.5",
      "pick": "Under 4.5 goals",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Karlsruhe v Darmstadt",
@@ -9930,7 +9931,8 @@
      "market": "SB:10||Home or Draw",
      "pick": "Bielefeld or draw",
      "price": 1.23,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Nijmegen v For Sittard",

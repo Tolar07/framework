@@ -563,10 +563,11 @@
    "sharp_ev": null,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-3",
    "drift_price": 1.34,
-   "drift_pct": 0.8
+   "drift_pct": 0.8,
+   "orig_result": "won"
   },
   {
    "fixture": "Malaga CF v Espanol",
@@ -1352,11 +1353,11 @@
      "pick": "Sp Braga (+1.5) Asian handicap",
      "price": 1.21,
      "chance": 0.7881,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "1-3"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "value": [

@@ -842,8 +842,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.2,
    "drift_pct": -0.8
   },
@@ -2660,8 +2660,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.28,
    "drift_pct": 1.6
   },
@@ -4270,10 +4270,11 @@
    "sharp_ev": null,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "drift_price": 1.31,
-   "drift_pct": 0.0
+   "drift_pct": 0.0,
+   "orig_result": "lost"
   },
   {
    "fixture": "Bristol Rvs v Swindon",
@@ -5601,8 +5602,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-3",
    "drift_price": 1.24,
    "drift_pct": -0.8
   },
@@ -6407,7 +6408,7 @@
     "Stevenage FC v Milton Keynes Dons",
     "Rochdale v Accrington"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca H",
@@ -6444,7 +6445,7 @@
     "Cremonese v Juve Stabia",
     "POT Iraklis v AE Kifisia FC"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca K",
@@ -6457,7 +6458,7 @@
     "Eyupspor v Kasimpasa Istanbul",
     "Northampton v Colchester United"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca L",
@@ -6523,7 +6524,7 @@
     "Rotherham v Shrewsbury",
     "HNK Gorica v NK Lokomotiva Zagreb"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "safe3": [
@@ -8683,7 +8684,7 @@
      0.6804
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "NK Varazdin v NK Slaven Belupo",
@@ -10999,7 +11000,7 @@
      0.6599
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Cordoba v Eibar",
@@ -12887,7 +12888,7 @@
      0.7933
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Bristol Rvs v Swindon",
@@ -14531,7 +14532,7 @@
      0.7515
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Asteras Tripolis v APO Levadiakos FC",
@@ -15811,7 +15812,8 @@
      "market": "SB:18|total=4.5|Under 4.5",
      "pick": "Under 4.5 goals",
      "price": 1.26,
-     "result": null
+     "result": "won",
+     "ft": "1-0"
     },
     {
      "fixture": "Cambridge United v Plymouth",

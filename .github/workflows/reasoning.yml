@@ -29,7 +29,7 @@ concurrency:
 jobs:
   reason:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

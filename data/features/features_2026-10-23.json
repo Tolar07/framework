@@ -3,12 +3,12 @@
   "away": "Kocaelispor",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2424,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3058,
+    "home": 0.4518,
+    "over25": 0.4328
    },
    "sharp": {
     "at": "2026-10-23T12:09Z",
@@ -179,12 +179,12 @@
   "away": "Wolfsburg",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4381,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2475,
+    "home": 0.3143,
+    "over25": 0.6848
    },
    "sharp": {
     "at": "2026-10-23T12:09Z",
@@ -365,12 +365,12 @@
   "away": "Nice",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3209,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2843,
+    "home": 0.3948,
+    "over25": 0.5522
    },
    "sharp": {
     "at": "PENDING",
@@ -463,12 +463,12 @@
   "away": "Guingamp",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4362,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.29,
+    "home": 0.2738,
+    "over25": 0.4848
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",
@@ -613,12 +613,12 @@
   "away": "Metz",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4086,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2672,
+    "home": 0.3242,
+    "over25": 0.5778
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",
@@ -830,12 +830,12 @@
   "away": "Telstar",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1776,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2162,
+    "home": 0.6063,
+    "over25": 0.6992
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",
@@ -913,12 +913,12 @@
   "away": "Valladolid",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2808,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2932,
+    "home": 0.426,
+    "over25": 0.4774
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",
@@ -1430,12 +1430,12 @@
   "away": "Laval",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1801,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2303,
+    "home": 0.5896,
+    "over25": 0.5486
    },
    "sharp": {
     "at": "PENDING",
@@ -1497,12 +1497,12 @@
   "away": "Grenoble",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2032,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2887,
+    "home": 0.5081,
+    "over25": 0.4428
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",
@@ -1791,12 +1791,12 @@
   "away": "M'gladbach",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1154,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.155,
+    "home": 0.7296,
+    "over25": 0.7519
    },
    "sharp": {
     "at": "PENDING",
@@ -1858,12 +1858,12 @@
   "away": "Monza",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2622,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2807,
+    "home": 0.4571,
+    "over25": 0.5038
    },
    "sharp": {
     "at": "2026-10-23T17:17Z",

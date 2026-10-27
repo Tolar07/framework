@@ -645,8 +645,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-0",
    "drift_price": 1.2,
    "drift_pct": 0.0
   },
@@ -3373,8 +3373,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -6913,7 +6913,7 @@
     "Man City v Ipswich Town",
     "NK Lokomotiva Zagreb v NK Istra 1961"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca Q",
@@ -8861,7 +8861,7 @@
      0.617
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "NK Osijek v HNK Gorica",
@@ -13037,7 +13037,7 @@
      0.7574
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Peterborough United v Burton",

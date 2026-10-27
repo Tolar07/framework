@@ -625,8 +625,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.17,
    "drift_pct": -2.5
   },
@@ -3655,7 +3655,7 @@
      0.7271
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Bromley FC v Leicester",

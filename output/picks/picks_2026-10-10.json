@@ -51,8 +51,8 @@
    "sharp_ev": -0.0455,
    "first_price": 1.4,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-3"
   },
   {
    "fixture": "Feyenoord v AZ Alkmaar",
@@ -823,8 +823,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -3470,8 +3470,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-1",
    "drift_price": 1.23,
    "drift_pct": 0.8
   },
@@ -4152,8 +4152,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-5",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -6569,7 +6569,7 @@
     "Bristol Rvs v Barnet FC",
     "Inter v Parma"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca H",
@@ -6608,7 +6608,7 @@
     "HNK Hajduk Split v GNK Dinamo Zagreb",
     "Clermont v Red Star"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca K",

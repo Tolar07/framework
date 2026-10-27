@@ -1036,7 +1036,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-27",
+    "fixture": "Roma v Cagliari",
+    "pick": "Roma Under 3.5 goals",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_dd8ad42a16",
@@ -1083,7 +1088,12 @@
    "born_date": "2026-10-17",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-27",
+    "fixture": "Torino v Como",
+    "pick": "Under 4.5 goals",
+    "price": 1.23
+   }
   },
   {
    "lineage_id": "ln_65b957fbdd",
@@ -1114,6 +1124,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-26",
+ "last_bred_date": "2026-10-27",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

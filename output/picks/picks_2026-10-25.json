@@ -518,8 +518,8 @@
    "sharp_ev": -0.055,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.26,
    "drift_pct": 0.0
   },
@@ -681,10 +681,11 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "5-2",
    "drift_price": 1.18,
-   "drift_pct": -1.7
+   "drift_pct": -1.7,
+   "orig_result": "lost"
   },
   {
    "fixture": "Hibernian v Celtic",
@@ -1903,10 +1904,11 @@
    "sharp_ev": null,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.4,
-   "drift_pct": 7.7
+   "drift_pct": 7.7,
+   "orig_result": "lost"
   },
   {
    "fixture": "Crystal Palace v Newcastle",
@@ -2379,8 +2381,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.21,
    "drift_pct": 0.8
   },
@@ -2856,8 +2858,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-0",
    "drift_price": 1.28,
    "drift_pct": 0.0
   },
@@ -3932,7 +3934,7 @@
     "Aris Thessaloniki v Atromitos Athinon",
     "Horsens v Sonderjyske"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca F",
@@ -4055,7 +4057,7 @@
     "Slask Wroclaw v Wieczysta Krakow",
     "Man United v Bournemouth"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "50+ #10",
@@ -4079,7 +4081,7 @@
     "Genk v Standard",
     "For Sittard v Excelsior"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "megas": [
@@ -4391,11 +4393,11 @@
      "pick": "Under 4.5 goals",
      "price": 1.3,
      "chance": 0.7765,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "5-2"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Alt E",
@@ -5361,7 +5363,7 @@
      0.7902
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Club Brugge v St Truiden",
@@ -5573,7 +5575,7 @@
      0.5472
     ]
    ],
-   "ft": null
+   "ft": "5-2"
   },
   {
    "fixture": "Hibernian v Celtic",
@@ -7137,7 +7139,7 @@
      0.6834
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Crystal Palace v Newcastle",
@@ -7757,7 +7759,7 @@
      0.7774
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Sabadell v Tenerife",
@@ -8333,7 +8335,7 @@
      0.7277
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Konyaspor v Genclerbirligi SK",
@@ -9675,7 +9677,7 @@
     "Sp Lisbon v Academico de Viseu FC: Under 4.5 goals \u2192 Under 5 goals (price drifted 1.30 \u2192 1.38)"
    ],
    "odds": 1.2,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Sp Lisbon v Academico de Viseu FC",
@@ -9685,7 +9687,8 @@
      "market": "SB:18|total=5|Under 5",
      "pick": "Under 5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
    "legs": [
@@ -9701,7 +9704,7 @@
     "Sp Lisbon v Academico de Viseu FC: Under 4.5 goals \u2192 Under 5 goals (price drifted 1.30 \u2192 1.38)"
    ],
    "odds": 2.398,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Sp Lisbon v Academico de Viseu FC",
@@ -9711,7 +9714,8 @@
      "market": "SB:18|total=5|Under 5",
      "pick": "Under 5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Sparta Rotterdam v Ajax",
@@ -9883,7 +9887,8 @@
      "market": "SB:18|total=5|Under 5",
      "pick": "Under 5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Sunderland v Leeds",
@@ -9959,7 +9964,8 @@
      "market": "SB:547|total=1.5|Home/Away & Over 1.5",
      "pick": "Barcelona or Real Madrid & Over 1.5",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Inter v Fiorentina",
@@ -9980,7 +9986,8 @@
      "market": "SB:548||1-4",
      "pick": "Multigoals 1-4",
      "price": 1.2,
-     "result": null
+     "result": "lost",
+     "ft": "5-2"
     },
     {
      "fixture": "Molde v Fredrikstad FK",

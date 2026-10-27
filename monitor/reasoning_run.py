@@ -38,7 +38,7 @@ def main(argv: list[str] | None = None) -> int:
         out = R.OUT_DIR / f"reasoning_{d}.json"
         if out.exists() and not a.force:
             old = json.loads(out.read_text(encoding="utf-8"))
-            if old.get("picks_generated_at") == picks.get("generated_at") and not old.get("note"):
+            if R.reasoned_already(old, picks, R.PROMPT):
                 print(f"{d}: already reasoned for this board")
                 continue
         doc = R.reason(picks, now=now)
@@ -61,7 +61,7 @@ def main(argv: list[str] | None = None) -> int:
         out = R.OUT_DIR / f"reasoning_nba_{d}.json"
         if out.exists() and not a.force:
             old = json.loads(out.read_text(encoding="utf-8"))
-            if old.get("picks_generated_at") == board.get("generated_at") and not old.get("note"):
+            if R.reasoned_already(old, board, R.PROMPT_NBA):
                 print(f"NBA {d}: already reasoned for this board")
                 continue
         doc = R.reason_nba(board, now=now)

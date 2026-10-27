@@ -349,6 +349,20 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
     return _reason(picks_doc, singles, context(singles), PROMPT, key, get, post, now)
 
 
+def prompt_version(prompt: str = PROMPT) -> str:
+    """Changes whenever the prompt does, so a better prompt re-reasons the day's board
+    (claude/reasoning-sharper, 2026-10-19)."""
+    import hashlib
+    return hashlib.sha1(prompt.encode("utf-8")).hexdigest()[:10]
+
+
+def reasoned_already(old: dict, board: dict, prompt: str = PROMPT) -> bool:
+    """True when old (a reasoning file) already covers this board with this prompt. A file from
+    before prompt versions were recorded counts as current: only a changed prompt re-reasons."""
+    return (old.get("picks_generated_at") == board.get("generated_at") and not old.get("note")
+            and old.get("prompt_version", prompt_version(prompt)) == prompt_version(prompt))
+
+
 def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str, key: Optional[str],
             get: Optional[Callable], post: Optional[Callable], now: Optional[datetime]) -> dict:
     import requests
@@ -359,6 +373,7 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": False,
            "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)", "note": None, "picks": []}
     sport = "football" if prompt is PROMPT else "nba"
+    doc["prompt_version"] = prompt_version(prompt)
     prompt = teaching(sport) + prompt
     answers: dict = {}
     if not key:

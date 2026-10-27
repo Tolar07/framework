@@ -229,6 +229,29 @@ def rule_for(market_id, specifier: str, outcome: str) -> Optional[Rule]:
     return None
 
 
+def settles_as(rule: Rule) -> tuple:
+    """How a rule settles on every scoreline of the grid. Two outcomes with the
+    same signature are the same bet under different names — "Home or Draw" and
+    Asian handicap Home +0.5, Draw No Bet and Asian handicap 0."""
+    return tuple(rule(h, a) for h in range(MAX_G + 1) for a in range(MAX_G + 1))
+
+
+def best_price_per_result(cands: list, rules: dict) -> tuple[list, int]:
+    """SAME-RESULT PRICE SHOPPING (Architect 2026-10-12): of candidates that
+    settle identically on every scoreline, keep only the best-priced one, so
+    the board never books a bet SportyBet pays more for under another name.
+    `cands` are run_daily ladder tuples (key at [2], quote at [5]); `rules`
+    maps key -> rule. Order is kept; returns (kept, number dropped)."""
+    best: dict = {}
+    for c in cands:
+        sig = settles_as(rules[c[2]]) if c[2] in rules else c[2]
+        if sig not in best or c[5].price > best[sig][5].price:
+            best[sig] = c
+    keep = {id(c) for c in best.values()}
+    kept = [c for c in cands if id(c) in keep]
+    return kept, len(cands) - len(kept)
+
+
 def evaluate(matrix: np.ndarray, rule: Rule) -> tuple[float, float]:
     """(P(win), P(push)) of a rule under a scoreline grid."""
     win = push = 0.0

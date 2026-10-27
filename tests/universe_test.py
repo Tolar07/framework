@@ -30,7 +30,12 @@ fb_event = {"eventId": "sr:match:1", "estimateStartTime": KO, "homeTeamName": "G
                         mk("18", [("Over 4", 3.0), ("Under 4", 1.4)], "total=4"),
                         mk("29", [("Yes", 1.9), ("No", 1.85)]),
                         mk("10", [("Home or Draw", 1.05), ("Home or Away", 1.15), ("Draw or Away", 3.3)])]}
-p = uv.prices("football", fb_event)
+def kept(px: dict) -> dict:
+    """The named markets only — every-side "ladder" / "lines" (2026-10-12) are tested in both_sides_study_test."""
+    return {k: v for k, v in px.items() if k not in ("ladder", "lines")}
+
+
+p = kept(uv.prices("football", fb_event))
 assert p == {"1x2": [1.3, 5.5, 9.0], "ou2.5": [1.6, 2.3], "btts": [1.9, 1.85], "dc": [1.05, 1.15, 3.3]}, p
 
 bb_event = {"eventId": "sr:match:2", "estimateStartTime": KO, "homeTeamName": "Paris Basketball",
@@ -40,7 +45,7 @@ bb_event = {"eventId": "sr:match:2", "estimateStartTime": KO, "homeTeamName": "P
                         mk("225", [("Over 173.5", 1.92), ("Under 173.5", 1.90)], "total=173.5"),
                         mk("223", [("Home (-5.5)", 1.95), ("Away (+5.5)", 1.88)], "hcp=-5.5"),
                         mk("223", [("Home (-9.5)", 2.6), ("Away (+9.5)", 1.45)], "hcp=-9.5")]}
-assert uv.prices("basketball", bb_event) == {"win": [1.5, 2.6], "total": [173.5, 1.92, 1.9],
+assert kept(uv.prices("basketball", bb_event)) == {"win": [1.5, 2.6], "total": [173.5, 1.92, 1.9],
                                              "hcp": [-5.5, 1.95, 1.88]}, "main line = closest to even"
 shut = {**fb_event, "markets": [{**m, "status": 2} if m["id"] == "29" else m for m in fb_event["markets"]]}
 assert "btts" not in uv.prices("football", shut), "a closed market is not a real price"
@@ -108,7 +113,7 @@ ev = {"markets": [{"id": 60100, "status": 0, "outcomes": [{"desc": "Home", "odds
                                                           {"desc": "Away", "odds": "7.29"}]},
                   {"id": 60200, "status": 2, "outcomes": [{"desc": "Home", "odds": "1.23"}, {"desc": "Draw", "odds": "5.07"},
                                                           {"desc": "Away", "odds": "3.26"}]}]}
-assert uv.prices("football", ev) == {"2up": [1.41, 5.07, 7.29]}, "a closed 1UP line is not kept"
+assert kept(uv.prices("football", ev)) == {"2up": [1.41, 5.07, 7.29]}, "a closed 1UP line is not kept"
 assert uv.up_won(2, "home", 3, 1) == 1 and uv.up_won(2, "home", 1, 1) == 0, "won, or never scored 2"
 assert uv.up_won(2, "home", 2, 2) is None, "2-2: only the goal times can tell"
 assert uv.up_won(2, "home", 2, 2, [[10, "h"], [30, "h"], [60, "a"], [80, "a"]]) == 1, "2-0 up, then pegged back"

@@ -74,3 +74,22 @@ assert run_nba.espn_days({"espn_date": "2026-10-08"}) == [_d(2026, 10, 7), _d(20
 print("grading looks on the US-date scoreboard: OK")
 
 print("\n✅ ALL NBA TESTS PASSED")
+
+
+# ACCAS (Architect 2026-10-21: "do an ACC for 11 fixtures, split it into two"):
+# from 4 picks two accas in tip-off order, fewer on one acca; graded leg by leg.
+_mk = lambda i, r=None: {"event_id": f"e{i}", "tip": f"2026-10-22T0{i}:00:00+00:00", "price": 1.9, "result": r}
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(5)])] == [3, 2]
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(10)])] == [5, 5]
+assert [len(g) for g in run_nba.split_accas([_mk(i) for i in range(3)])] == [3]
+assert run_nba.split_accas([_mk(0)]) == []
+_first = run_nba.split_accas([_mk(i) for i in (3, 0, 2, 1)])[0]
+assert [p["event_id"] for p in _first] == ["e0", "e1"], "the first acca holds the earliest tip-offs"
+_doc = {"picks": [_mk(0, "won"), _mk(1, "won"), _mk(2, "lost"), _mk(3, None)],
+        "accas": [{"legs": ["e0", "e1"], "result": None}, {"legs": ["e2", "e3"], "result": None},
+                  {"legs": ["e0", "e3"], "result": None}]}
+assert run_nba.grade_accas(_doc) and [a["result"] for a in _doc["accas"]] == ["won", "lost", None]
+_txt = run_nba.render([], "2026-10-22", "RID", 0, None, [],
+                      accas=[{"name": "NBA acca A", "code": "ABC123", "legs": ["e0", "e1"], "odds": 3.61}])
+assert "NBA acca A (2 picks, odds 3.61): ABC123" in _txt
+print("nba accas: OK")

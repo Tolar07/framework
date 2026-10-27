@@ -164,7 +164,9 @@ def grade_open_legs(log: CLVLog, season: str,
                 continue  # that season simply isn't published yet
         if table:
             results_by_league[lg] = table
-        else:
+        elif not fs_events:
+            # Only a problem without Flashscore too: with it, the fallback below
+            # grades these legs (cups, European ties) by their match date.
             flags.append(f"{lg}: no results available for grading — "
                          f"legs stay PENDING, not guessed")
 
@@ -483,7 +485,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     all_flags += gflags
     try:
         from engine import picks_ledger
-        all_flags += picks_ledger.grade_all(fs_events)
+        from data import fotmob
+        all_flags += picks_ledger.grade_all(fs_events, fotmob_day=fotmob.matches_on)
         scorecard_text = picks_ledger.scorecard(7)
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks scorecard unavailable ({e})")
@@ -550,6 +553,22 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         _prof_db, _prof_st = _tp.load(), _ls.load()
     except Exception:  # noqa: BLE001 — no profiles: order 43 stands down, never guesses
         _prof_db, _prof_st = {}, {}
+    # TACTICAL MATCHUP (engine/tactics.py, Architect 2026-10-26): both teams'
+    # tactical profiles -> each side's expected goals -> a scoreline grid that
+    # prices every ladder outcome. Each chance moves toward it by the weight
+    # fitted on unseen matches (data/tactics/calibration.json; 0 = label only),
+    # capped at +/-5 pts; the board is told when another market fits better.
+    tactics_adjusted = tactics_read = 0
+    try:
+        from engine import tactics as _tx
+        _tac_db = _tx.load()
+        _tac_w = float(_tx.calibration().get("weight") or 0.0)
+        _tac_eff = _tx.proven_effects()
+    except Exception as e:  # noqa: BLE001 — no read: the board runs as before
+        _tac_db, _tac_w, _tac_eff = {}, 0.0, {}
+        all_flags.append(f"tactical matchup unavailable ({str(e)[:60]})")
+
+    same_result_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -660,6 +679,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                               None if (mk is None or market_only) else mk[0],
                               odds_mod.MarketQuote(price=price, bookmaker="sportybet",
                                                    n_books=1)))
+            # SAME-RESULT PRICE SHOPPING (Architect 2026-10-12): one bet sold
+            # under two names (1X = AH +0.5, DNB = AH 0) keeps only its best price.
+            cands, _dup = fm.best_price_per_result(cands, {k: r for k, _p, r in ladder})
+            same_result_dropped += _dup
         # NO UNDERDOG HANDICAPS (order 38): dropped before anything is chosen,
         # so they never become the pick, the alternative, a value bet or a swap.
         if _lg in NO_DOG_HANDICAP_LEAGUES:
@@ -681,6 +704,24 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 _n = len(cands)
                 cands = [c for c in cands if not _shootout_under(c[2])]
                 shootout_unders += _n - len(cands)
+        _tac, _tgrid, _trules = None, None, {}
+        if (_tac_db or {}).get("teams"):
+            try:
+                _tac = _tx.fixture(p.home_team, p.away_team, _tac_db, _prof_st, _tac_eff)
+            except Exception:  # noqa: BLE001 — one fixture's read never stops the board
+                _tac = None
+        if _tac is not None:
+            tactics_read += 1
+            _tgrid = _tx.grid(_tac["xg_home"], _tac["xg_away"])
+            _trules = {k: r for k, _pr, r in ladder} if ladder else {}
+            if _tac_w > 0 and _trules:
+                _adj = []
+                for c in cands:
+                    d = (_tx.adjustment(c[0], fm.evaluate(_tgrid, _trules[c[2]])[0], _tac_w)
+                         if c[2] in _trules else 0.0)
+                    _adj.append(((round(c[0] + d, 4),) + c[1:]) if d else c)
+                    tactics_adjusted += bool(d)
+                cands = [c for c in _adj if c[0] >= DEPLOY_MIN_MODEL_PROB]
         if not cands:
             continue
 
@@ -797,6 +838,24 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
         bf.best_mes_ev, bf.best_model_prob = (ev if ev != -1.0 else None), cons
         bf.tier, bf.pick_model_prob, bf.pick_market_prob = tier, model_p, market_p
+        if _tac is not None:
+            _pp = _tac["probs"]
+            _pick_tac = (fm.evaluate(_tgrid, _trules[market])[0] if market in _trules else None)
+            _note = (_tx.better_market(market, cons, full_pool, _tgrid, _trules, fam)
+                     if _trules else None)
+            bf.matchup_record = {
+                "say": _tac["say"], "xg": [_tac["xg_home"], _tac["xg_away"]],
+                "btts": _pp["btts"], "over25": _pp["over25"], "over15": _pp["over15"],
+                "corners": _tac["corners"], "pick_matchup_chance": (None if _pick_tac is None
+                                                                    else round(_pick_tac, 3)),
+                "weight": _tac_w, "better_market": _note,
+                "formations": _tac["formations"], "tags": _tac["tags_home"] + _tac["tags_away"]}
+            bf.matchup_line = (
+                f"{_tac['say']} · xG {_tac['xg_home']:.2f}-{_tac['xg_away']:.2f} · BTTS {_pp['btts']:.0%}"
+                f" · O2.5 {_pp['over25']:.0%}"
+                + (f" · corners ~{_tac['corners']}" if _tac["corners"] else "")
+                + ("" if _pick_tac is None else f" · pick {_pick_tac:.0%} on the matchup")
+                + (f" · ⚑ {_note}" if _note else ""))
         # CERTAINTY: how sure we are the % is right — two independent sources
         # agreeing tightly is the evidence. One source (market-implied) or a
         # disagreement (BOOK/SPLIT) can't be cross-checked, so it's LOW.
@@ -821,12 +880,18 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                      f"priced above fair odds took the pick from the likeliest outcome")
     if approved_dropped:
         all_flags.append(f"approved blocks (order 39): {approved_dropped} outcome(s) not considered")
+    all_flags.append(f"tactical matchup: {tactics_read} fixture(s) read from the tactical profiles; "
+                     f"weight {_tac_w:g} (fitted on unseen matches; 0 = label only), "
+                     f"{tactics_adjusted} chance(s) moved (cap ±{_tx.CAP if _tac_db else 0:.0%})")
     if shootout_unders:
         all_flags.append(f"No Unders in a shootout (order 43): {shootout_unders} match Under outcome(s) "
                          "dropped where the team profiles read both sides scoring plenty")
     if dog_hcp_dropped:
         all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
                          f"not considered")
+    if same_result_dropped:
+        all_flags.append(f"same-result price shopping: {same_result_dropped} outcome(s) dropped "
+                         f"for the same bet at a better price under another market")
     if ladder_fixtures:
         all_flags.append(
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "
@@ -1149,6 +1214,38 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
+    # --- EXPERIMENT ENGINE (engine/experiments.py, Architect 2026-10-20) ---
+    # A strategy promoted in shadow decides which of the board's own picks /
+    # slips fill its slot. Dropped picks stay in the ledger (singles_dropped,
+    # accas_dropped, safe3_dropped), graded, so the default is still scored.
+    # Stakes are untouched. Off: OLP_EXPERIMENTS=off.
+    try:
+        from engine import experiments as _xp
+        from engine import picks_ledger as _pl_x
+        from output import produce_bet as _pb_x
+        _pb_x.SLIP_RULES.clear()
+        _pb_x.ENGINE_DROPPED.clear()
+        _xrules = _xp.live_rules()
+        _xctx = _xp.board_context() if _xrules else {}
+        _xs = _xrules.get("singles")
+        if _xs and _xs.keep:
+            _xdrop = 0
+            for b in board:
+                if b.on_deploy_shortlist and b.probs is not None and b.best_market_key \
+                        and not _xs.keep(_xp.leg(_pl_x._single(b)), _xctx):
+                    b.on_deploy_shortlist = False
+                    b.engine_dropped = True
+                    _xdrop += 1
+            all_flags.append(f"experiment engine: singles by \"{_xs.name}\" — {_xdrop} pick(s) kept off (graded)")
+        for _slot in ("accas", "safe3"):
+            _xr = _xrules.get(_slot)
+            if _xr and _xr.keep:
+                _pb_x.SLIP_RULES[_slot] = (lambda bfs, _k=_xr.keep: all(
+                    _k(_xp.leg(_pl_x._single(bf)), _xctx) for bf in bfs))
+                all_flags.append(f"experiment engine: {_slot} by \"{_xr.name}\"")
+    except Exception as e:  # noqa: BLE001 — the board's defaults stand
+        all_flags.append(f"experiment engine skipped ({e}) — every slot on its default")
+
     # --- real SportyBet booking codes for the deploy picks ---
     # A booking code is a shareable slip, NOT a placed bet (no stake, no account).
     # Anything that can't be resolved on SportyBet's live feed, or fails the share
@@ -1201,10 +1298,30 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
 
                 accas = _build_accas(deploy)
                 acca_codes = _book(accas)
+                # POSITIVE-CLV ACCAS (Architect 2026-10-21): extra accas from the
+                # deploy picks whose market family has had positive CLV; the
+                # board's accas and megas are unchanged (engine/clv_accas.py)
+                try:
+                    from engine import clv_accas as _ca
+                    from engine import picks_ledger as _plc
+                    _cstats = _ca.family_clv(_plc.LEDGER_DIR, target)
+                    _cslips = _ca.build(deploy, _cstats)
+                    _ccodes = _book(_cslips)
+                    extra_codes["clv_accas"] = [{**_plc._slip(n, l, c, _ccodes.get(n)),
+                                                 "families": sorted(_ca.positive_families(_cstats))}
+                                                for n, l, c in _cslips]
+                    all_flags.append(_ca.note(_cstats, _cslips))
+                except Exception as _e:  # noqa: BLE001 — an extra, never blocks the board
+                    all_flags.append(f"positive-CLV accas not built ({str(_e)[:80]})")
                 acca_code = acca_codes.get("Acca A")
                 safe3 = _build_safe3(deploy)
                 safe3_codes = _book(safe3)
-                if len(safe3) > 1:      # Table 3A mega: every 50%+ acca on one slip
+                from engine.cohorts import same_cohort as _one_window
+                # KICKOFF COHORTS (Architect 2026-10-26): a combined code joins only
+                # slips of one kickoff window; across windows it is not booked
+                if len(safe3) > 1 and not _one_window(safe3):
+                    all_flags.append("50+ MEGA not booked: the 50%+ accas sit in different kickoff windows")
+                if len(safe3) > 1 and _one_window(safe3):      # Table 3A mega: every 50%+ acca on one slip
                     _all3 = [(b3, p3, q3) for _n, ls3, _c in safe3 for b3, p3, q3 in ls3]
                     extra_codes.update({k.replace("ALL", "safe3_mega"): v for k, v in
                                         _book([("ALL", _all3, 0)]).items()})
@@ -1236,7 +1353,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 # COMBINED CODES (Architect 2026-10-09: "all the ACCAs ... combine
                 # everything and book it as one ... all the value bets ... all the
                 # alternate bets"): one slip each, beside the per-slip codes.
-                if len(accas) > 1:
+                if len(accas) > 1 and not _one_window(accas):
+                    all_flags.append("ACCAS MEGA not booked: the accas sit in different kickoff windows")
+                if len(accas) > 1 and _one_window(accas):
                     _alla = [(ba, pa, qa) for _n, lsa, _c in accas for ba, pa, qa in lsa]
                     extra_codes.update({k.replace("ALL", "accas_mega"): v for k, v in
                                         _book([("ALL", _alla, 0)]).items()})
@@ -1246,7 +1365,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             bf.probs.home_team, bf.probs.away_team, key)
                            for _n, _legs, _c in _slips if _n != _skip
                            for bf, _pick, _prob, key, _price in _legs]
-                    if len(_ls) > 1:
+                    if len(_ls) > 1 and not _one_window([s for s in _slips if s[0] != _skip]):
+                        all_flags.append(f"{_kind.upper()} not booked: its slips sit in different kickoff windows")
+                    elif len(_ls) > 1:
                         _code, _ = sbk.code_for_legs(sb_index, _ls)
                         if _code:
                             extra_codes[_kind] = _code
@@ -1271,9 +1392,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
                 megas = _build_megas(deploy)
-                if len(megas) > 1:
+                # KICKOFF COHORTS: megas are per kickoff window, so they are always
+                # booked as megas; the all-day board code is only for a day whose
+                # picks are in one window
+                if len(megas) > 1 or (megas and len(megas[0][1]) < len([b for b in finalists if _leg(b)[3]])):
                     mega_codes = _book(megas)
-                else:
+                elif megas:
                     board_legs = [l for l in (_leg(b) for b in finalists) if l[3]]
                     board_code, _ = sbk.code_for_legs(sb_index, board_legs)
                 all_flags.append(
@@ -1362,6 +1486,11 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                             for h in _spicks])
             survivor_text += (f"\nAI Survivor mega code (all {len(_spicks)} lineage picks): "
                               f"{_scode or 'PENDING'}")
+            if _scode:   # saved for the SportyBet placer (Architect 2026-10-22: the mega is placed too)
+                _mf = sdir / "mega_codes.json"
+                _megas = json.loads(_mf.read_text(encoding="utf-8")) if _mf.exists() else {}
+                _megas[target] = {"code": _scode, "legs": len(_spicks)}
+                _mf.write_text(json.dumps(_megas, indent=1, sort_keys=True), encoding="utf-8")
     except Exception as e:  # noqa: BLE001 — the lineage never blocks the board
         all_flags.append(f"AI Survivor step skipped ({e})")
 

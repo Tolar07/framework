@@ -21,6 +21,7 @@ CLV, mean CLV −1.631% (NOT met)** — the live publish runs on the Architect's
 `ARCHITECT_SIGNOFF` override, side-by-side with paper until CLV turns positive.
 
 ## Core notes
+- **[[Master Integration Report.md]]** — the whole system on one page (repos, agents, workflows, runners), corrected against the code, 2026-10-27.
 - **[[Rules.md]]** — every HR (hard rule) and ID (protocol) as coded: number,
   status, and the file/function that implements it. Also the standing
   (un-numbered) rules and the doc-vs-code disagreements.

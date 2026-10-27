@@ -15,8 +15,15 @@ WHY THIS REPLACES RUNNING IT FROM A SESSION
 WHAT IT DOES
   Exactly what the session script does — `live_tracker.round_once` is shared,
   so the same snapshots are written and the same events are detected — plus:
-    * one Telegram message per round that HAS events, to the Architect's own
-      chat (order 33, never a subscriber). A quiet round says nothing;
+    * Telegram to the Architect's own chat (order 33, never a subscriber),
+      paced by `Outbox` (Architect 2026-10-25: a message every goal on every
+      tracked match was too much):
+        - INSTANT only for an event that changes an open bet: a goal, a red
+          card or full time in a match carrying a board pick;
+        - HALF TIME / FULL TIME of everything else goes out as one round-up,
+          held ROUNDUP_HOLD so matches that kicked off together share it;
+        - the rest (study and no-call goals, feed failures) waits for one
+          digest every DIGEST_EVERY. A quiet half hour says nothing;
     * the live snapshots committed to main every PERSIST_EVERY rounds and once
       at the end, so a dropped job loses minutes, not a matchday;
     * one FULL TIME message listing every tracked match's final score beside
@@ -49,6 +56,8 @@ from monitor import loop_util as lu  # noqa: E402
 EARLIEST = timedelta(hours=3)        # don't sit idle longer than this before the first kickoff
 PERSIST_EVERY = 10                   # rounds between commits (POLL=120s -> ~20 min)
 WORKFLOW = "live.yml"
+DIGEST_EVERY = timedelta(minutes=30)  # the slow lane: everything that changes no open bet
+ROUNDUP_HOLD = timedelta(minutes=6)   # three polls: matches that kicked off together share one HT/FT round-up
 
 
 def persist(day: str, now: datetime) -> str:
@@ -85,6 +94,65 @@ def worth_telling(lines: list[str], said: set[str]) -> list[str]:
             said.add(key)
             out.append(line + "  (said once; see the run log for the rest)")
     return out
+
+
+def lane(line: str) -> str:
+    """'instant', 'roundup' or 'digest' for one line from round_once.
+
+    round_once ends every CHANGE / HALF TIME / FULL TIME line with the match's
+    calls, so a line naming a "board:" call belongs to a match we hold an open
+    bet on. Study legs are not bets, and half time changes no bet."""
+    if "NO FULL TIME" in line:
+        return "digest"
+    if (" CHANGE " in line or " FULL TIME " in line) and "board:" in line:
+        return "instant"
+    if " HALF TIME " in line or " FULL TIME " in line:
+        return "roundup"
+    return "digest"
+
+
+class Outbox:
+    """Holds the lines that need not go at once and says when a batch is due.
+
+    add() returns the lines to send now; due() returns a message body, or None,
+    each round. A round-up carries the waiting digest lines with it, so the
+    Architect never gets a round-up and a digest minutes apart."""
+
+    def __init__(self, now: datetime):
+        self.roundup: list[str] = []
+        self.digest: list[str] = []
+        self.roundup_since: datetime | None = None
+        self.last_digest = now
+
+    def add(self, lines: list[str], now: datetime) -> list[str]:
+        instant = []
+        for line in lines:
+            where = lane(line)
+            if where == "instant":
+                instant.append(line)
+            elif where == "roundup":
+                self.roundup.append(line)
+                self.roundup_since = self.roundup_since or now
+            else:
+                self.digest.append(line)
+        return instant
+
+    def due(self, now: datetime, flush: bool = False) -> str | None:
+        """flush=True empties everything (end of day, hand-off) so nothing held is lost."""
+        if self.roundup and (flush or now - self.roundup_since >= ROUNDUP_HOLD):
+            body = "HT/FT ROUND-UP\n\n" + "\n\n".join(self.roundup)
+            if self.digest:
+                body += "\n\nALSO SINCE THE LAST DIGEST\n\n" + "\n\n".join(self.digest)
+            self.roundup, self.digest, self.roundup_since = [], [], None
+            self.last_digest = now
+            return body
+        if now - self.last_digest >= DIGEST_EVERY or flush:
+            self.last_digest = now
+            if self.digest:
+                body = f"DIGEST (last {DIGEST_EVERY.seconds // 60} min)\n\n" + "\n\n".join(self.digest)
+                self.digest = []
+                return body
+        return None
 
 
 def tell(body: str) -> None:
@@ -153,15 +221,20 @@ def main(argv: list[str] | None = None) -> int:
 
     seen: dict = {}
     said: set[str] = set()
+    box = Outbox(started)
     rounds = 0
     while True:
         lines, still = lt.round_once(matches, seen, out_dir)
         rounds += 1
         for line in lines:
             print(line, flush=True)
-        send = worth_telling(lines, said)
+        now = datetime.now(UTC)
+        send = box.add(worth_telling(lines, said), now)
         if send:
-            tell(f"LIVE — {day}\n\n" + "\n\n".join(send))
+            tell(f"LIVE — {day} · open bet\n\n" + "\n\n".join(send))
+        batch = box.due(now, flush=not still or should_hand_off(started, now))
+        if batch:
+            tell(f"LIVE — {day} · {batch}")
         if not still:
             print("ALL MATCHES FINISHED", flush=True)
             print(f"  {persist(day, datetime.now(UTC))}", flush=True)
@@ -169,7 +242,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if rounds % PERSIST_EVERY == 0:
             print(f"[{datetime.now(UTC):%H:%M}Z] {persist(day, datetime.now(UTC))}", flush=True)
-        if should_hand_off(started, datetime.now(UTC)):
+        if should_hand_off(started, now):
             print(f"[{datetime.now(UTC):%H:%M}Z] {persist(day, datetime.now(UTC))}", flush=True)
             if repo and token:
                 lu.hand_off(WORKFLOW, repo, token, {"day": day})

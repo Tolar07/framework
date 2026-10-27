@@ -154,7 +154,7 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
         from data import matchbook_prices as mbp
         mb = mbp.nba_events()
         for p in picks:
-            p["matchbook"] = {"back": mbp.nba_back(mb, p)}
+            p["matchbook"] = {"back": mbp.nba_back(mb, p), "listed": mbp.nba_listed(mb, p)}
     return picks, lags, snaps
 
 
@@ -209,7 +209,9 @@ def render(now: datetime, run_id: str, picks: list[dict], lags: list[str], gone:
               f"   code {p['code'] or 'PENDING'}"]
         if "matchbook" in p:
             mbx = (p.get("matchbook") or {}).get("back")
-            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else "   Matchbook: not listed")
+            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else
+                     "   Matchbook: listed, no back price yet (the bot offers its own)"
+                     if (p.get("matchbook") or {}).get("listed") else "   Matchbook: not listed")
         L.append("")
     if lags:
         L += ["LAG — check by hand (no pick):"] + [f" • {n}" for n in lags] + [""]

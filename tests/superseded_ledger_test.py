@@ -55,7 +55,8 @@ from types import SimpleNamespace as _NS
 from output import produce_bet as _pb
 def _bfx(i, praw, price, src="model"):
     return _NS(fixture=f"H{i} v A{i} (Serie A)", probs=_NS(p_btts_yes=praw, home_team=f"H{i}", away_team=f"A{i}"),
-               prob_source=src, btts_price=price, kickoff_date="2026-10-11", kickoff_utc=None)
+               prob_source=src, btts_price=price, kickoff_date="2026-10-11",
+               kickoff_utc="2026-10-11T15:00:00Z")   # one kickoff window (engine/cohorts.py)
 _brd = [_bfx(0, 0.80, 1.55), _bfx(1, 0.78, 1.60), _bfx(2, 0.30, 1.50), _bfx(3, 0.80, 2.40),
         _bfx(4, 0.80, 1.55, "market"), _bfx(5, 0.79, None)]
 _bt = _pb._build_btts(_brd)
@@ -70,13 +71,14 @@ print("BTTS table: OK")
 # Value first (Architect 2026-10-10): Acca A takes the best-value legs
 from types import SimpleNamespace as _VNS
 from output import produce_bet as _vpb
-_vb = [_VNS(fixture=f"V{i} v W{i} (Serie A)", best_price=pr, probs=None)
+_vb = [_VNS(fixture=f"V{i} v W{i} (Serie A)", best_price=pr, probs=None,
+           kickoff_utc="2026-10-11T15:00:00Z")   # one kickoff window (engine/cohorts.py)
        for i, pr in enumerate([1.20, 1.45, 1.25, 1.50])]
 _vlegs = [(b, "pick", ch) for b, ch in zip(_vb, [0.86, 0.80, 0.84, 0.76])]
 _orig_legs, _orig_s3 = _vpb._acca_legs, _vpb._build_safe3
 try:
     _vpb._acca_legs = lambda sl: list(_vlegs)
-    _vpb._build_safe3 = lambda sl: []
+    _vpb._build_safe3 = lambda sl, raw=False: []
     _accs = _vpb._build_accas([])
     _first = [l[0].fixture[:2] for l in _accs[0][1]]
     assert _first[0] == "V1", _first      # 0.80 x 1.45 = 1.16, the best value, goes first

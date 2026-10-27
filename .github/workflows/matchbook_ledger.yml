@@ -68,7 +68,7 @@ jobs:
         if: steps.fetch.outcome == 'success'
         env:
           PYTHONIOENCODING: utf-8
-        run: python monitor/matchbook_ledger.py "$RUNNER_TEMP/mb/ledger/ledger.jsonl" data/matchbook/summary.json
+        run: python monitor/matchbook_ledger.py "$RUNNER_TEMP/mb/ledger/ledger.jsonl" data/matchbook/summary.json "$RUNNER_TEMP/mb/ledger/paper.jsonl"
 
       - name: Save
         if: steps.fetch.outcome == 'success'
@@ -84,6 +84,27 @@ jobs:
             exit 0
           fi
           git push -q origin HEAD:main && echo "Matchbook evidence saved to main"
+
+      # The Architect's real SportyBet bets: the placer on the PC writes
+      # data/sportybet/placed_<date>.json; this joins them to the board's grading.
+      # Independent of the Matchbook key.
+      - name: SportyBet evidence (real bets, anonymised)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          git pull -q --rebase origin main || true
+          python monitor/sportybet_ledger.py
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add data/sportybet || true
+          if git diff --staged --quiet; then echo "SportyBet evidence unchanged"; exit 0; fi
+          git commit -q -m "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]"
+          if ! git pull --rebase -q origin main; then
+            git rebase --abort || true
+            echo "::warning::sportybet evidence: main moved and a file conflicted — NOT saved this run"
+            exit 0
+          fi
+          git push -q origin HEAD:main && echo "SportyBet evidence saved to main"
 
       # LAST, so a failed fetch still runs every step above that can run, then
       # turns the run RED. continue-on-error alone left 15 and 16 Oct green while

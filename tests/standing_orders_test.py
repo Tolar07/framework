@@ -118,11 +118,12 @@ assert orchestrator.next_season_code("2526") == "2627"
 assert "BOOK" in slate.TIER_RANK and slate.CERTAINTY_HIGH_PP == 0.03
 from types import SimpleNamespace as _NS
 from output import produce_bet as pb
+_KO = "2026-10-27T15:00:00Z"   # one kickoff window for test accas (engine/cohorts.py, 2026-10-26)
 _legs = []
 for i, (p, c) in enumerate([(0.82, "HIGH"), (0.81, "HIGH"), (0.81, "HIGH"),
                             (0.95, "LOW"), (0.70, "MEDIUM"), (0.70, "MEDIUM"), (0.70, "MEDIUM")]):
     _legs.append(_NS(probs=object(), certainty=c, best_market=f"m{i}", best_model_prob=p,
-                     fixture=f"T{i} v U{i} (X)"))
+                     fixture=f"T{i} v U{i} (X)", kickoff_utc="2026-10-27T15:00:00Z"))
 _s3 = pb._build_safe3(_legs)
 assert len(_s3) == 1 and all(l[0].certainty == "HIGH" for l in _s3[0][1]), \
     "Order 15: 50%+ accas use high-certainty legs only and stop below 50%"
@@ -209,9 +210,9 @@ _fp = lambda h, a: _FP(home_team=h, away_team=a, lambda_home=1.6, lambda_away=1.
                        p_draw=0.2, p_away=0.2, p_over_15=0.78, p_over_25=0.55, p_over_35=0.32,
                        p_btts_yes=0.58)
 _bf28 = [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                         on_deploy_shortlist=True, best_price=1.50),
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.50),
          pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
-                         on_deploy_shortlist=True, best_price=1.40)]
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.40)]
 _bf28[0].kickoff_utc = "2026-10-04T16:30:00.000Z"      # SportyBet's format
 _bf28[1].kickoff_utc = None                            # no source gave a time
 _b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
@@ -236,6 +237,10 @@ for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
         and any(r.startswith("17:30 ") and "Sociedad B v Granada" in r for r in _rows) \
         and any(r.startswith("PENDING ") and "Greece v Germany" in r for r in _rows), \
         f"Order 28: {_name} shows each kickoff"
+# a pick with no kickoff can't join an acca (kickoff cohorts, 2026-10-26): give it one
+# in the same window to check the acca legs
+_bf28[1].kickoff_utc = "2026-10-04T16:45:00Z"
+_b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
 _t3 = _b28.split("TABLE 3 · ACCA ROUTE")[1]
 assert "Sociedad B v Granada (" in _t3 and "Spain · La Liga 2" in _t3 \
     and "Greece v Germany (\U0001F3C6 UEFA Nations League)" in _t3, \
@@ -332,7 +337,7 @@ assert "notify.board_gate(telegram_text)" in _rd_src and "run_id=run_id" in _rd_
 _b30 = pb.render_canonical_board(
     "Mode A", "Phase 3", [], 0, None, [],
     [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                     on_deploy_shortlist=True, best_price=1.33),
+                     on_deploy_shortlist=True, kickoff_utc=_KO, best_price=1.33),
      pb.BoardFixture("Lech v Legia (Ekstraklasa)", None, _v)], run_id=_rid)
 assert f"Run ID: {_rid}" in _b30 and "Fixtures scanned: 2" in _b30, "Order 30: Run ID header"
 _t1_30 = _b30.split("TABLE 2 · ")[0]
@@ -364,7 +369,7 @@ for _i in range(6):
     # a 78% Over 1.5 alternative -> Alt A (order 40: a match in one acca at most).
     _main = 0.82 if _i < 3 else 0.72
     _b = pb.BoardFixture(f"H{_i} v A{_i} (La Liga 2)", _fp(f"H{_i}", f"A{_i}"), _v,
-                         on_deploy_shortlist=True, best_market_key="SB:10||Home or Away",
+                         on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key="SB:10||Home or Away",
                          best_market="Home or Away", best_price=1.30, best_model_prob=_main)
     # order 42: the alt legs are of different kinds, so one alt acca may hold them all
     _alt = ["SB:18|total=1.5|Over 1.5", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=4.5|Under 4.5"][_i % 3]
@@ -384,7 +389,7 @@ assert "_build_alt_accas(deploy)" in _rd_src and "alts=_alt_accas(dep)" in _rd_s
 
 # 32. Shaky picks switch to a steadier market
 _b32 = pb.BoardFixture("Netherlands v Serbia (UEFA Nations League)", _fp("Netherlands", "Serbia"),
-                       _v, on_deploy_shortlist=True, best_market_key="SB:16|hcp=-3.5|Away (+3.5)",
+                       _v, on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key="SB:16|hcp=-3.5|Away (+3.5)",
                        best_price=1.29, best_model_prob=0.76, certainty="LOW", tier="BOOK")
 _b32.cand_pool = [
     (0.76, 0.0, "SB:16|hcp=-3.5|Away (+3.5)", 0.86, 0.76, _MQ(price=1.29)),   # the shaky pick
@@ -419,7 +424,12 @@ assert "if send and frozen is not None:" in _rd_src, \
 
 # 36. BTTS calibrated; BTTS-yes / over-goals value picks
 from engine import calibration as _cal
+# The shipped fit, not memory/calibration_live.json: the nightly refit (Architect
+# 2026-10-20, "auto") may adopt the raw chance when it scores better out of sample,
+# as it did for BTTS on 2026-10-26 (Brier 0.2450 -> 0.2421), which isn't a broken order.
+_cal.use(None)
 assert _cal.btts_yes(0.45) > 0.45 and _cal.btts_yes(0.75) < 0.75, "Order 36(a): BTTS calibrated"
+_cal.use(_cal.LIVE_PATH)
 assert "cal.model_prob(market, mkt.model_prob(market, p))" in _rd_src \
     and "md = (cal.model_prob(k, md[0]), md[1])" in _rd_src, \
     "Order 36(a): the calibrated BTTS feeds both selection routes"
@@ -437,7 +447,7 @@ from types import SimpleNamespace as _NS37
 assert pb.VALUE_BET_MIN_EV == 0.02, "Order 37: EV >= +2% on our chance"
 def _bf37(fix, src="model", pool=None, best="SB:1||Home"):
     return _NS37(fixture=fix, probs=_NS37(home_team="A", away_team="B"), prob_source=src,
-                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=None,
+                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=_KO,
                  kickoff_date="2026-10-06")
 _p37 = [(0.70, -0.03, "SB:1||Home", 0.72, 0.70, _MQ(price=1.38)),     # the main pick
         (0.61, 0.069, "SB:18|total=3.5|Under 3.5", 0.76, 0.55, _MQ(price=1.76)),
@@ -498,7 +508,7 @@ assert _tc39.handle("/approve P1").startswith("REFUSED"), \
 # 40. Accas: 3 legs, 75%+ picks, a match in one acca at most
 assert (pb.ACCA_MIN, pb.ACCA_MAX, pb.ACCA_LEG_MIN) == (3, 3, 0.75), "Order 40: 3-leg accas of 75%+ picks"
 _bfs40 = [pb.BoardFixture(f"P{_i} v Q{_i} (Serie A)", _fp(f"P{_i}", f"Q{_i}"), _v,
-                          on_deploy_shortlist=True, best_market="P to win",
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market="P to win",
                           best_model_prob=_p, certainty=_c)
           for _i, (_p, _c) in enumerate([(0.86, "HIGH"), (0.85, "HIGH"), (0.84, "HIGH"),
                                          (0.80, "LOW"), (0.79, "LOW"), (0.77, "LOW"),
@@ -511,7 +521,7 @@ assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 leg
 # Architect 2026-10-08/09: a TABLE 3 acca's odds are 2.00 to 3.00
 assert (pb.TABLE3_ODDS_MIN, pb.TABLE3_ODDS_MAX) == (2.00, 3.00), "Order 40: TABLE 3 odds 2.00-3.00"
 _bfo40 = [pb.BoardFixture(f"R{_i} v S{_i} (Serie A)", _fp(f"R{_i}", f"S{_i}"), _v,
-                          on_deploy_shortlist=True, best_market="R to win",
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market="R to win",
                           best_model_prob=0.95 - _i / 100, certainty="LOW", best_price=_pr)
           for _i, _pr in enumerate([1.22, 1.21, 1.23, 1.25, 1.21, 1.24, 1.26, 1.20, 1.23,
                                     1.25, 1.22, 1.24, 1.29, 1.25, 1.26, 1.29, 1.24])]
@@ -532,8 +542,8 @@ from engine import nba_value as _nv41
 assert (_nv41.MIN_EV_WINNER, _nv41.MIN_EV_LINE, _nv41.MAX_EV, _nv41.BAND) == (0.03, 0.05, 0.25, (1.20, 2.00)), \
     "Order 41: NBA picks only above the fair price; stale gaps left out"
 _nba41 = (ROOT / "run_nba.py").read_text(encoding="utf-8")
-assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone" not in _nba41, \
-    "Order 41: the NBA board goes to the Architect's own chat only"
+assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "notify.send_subscribers(text)" in _nba41, \
+    "Order 41 (2026-10-20): the NBA board goes to the Architect, then every subscriber, as football's"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
@@ -552,7 +562,7 @@ _k42 = ["SB:18|total=3.5|Under 3.5", "SB:18|total=4.5|Under 4.5", "SB:18|total=3
         "SB:18|total=1.5|Over 1.5", "SB:19|total=0.5|Over 0.5", "SB:10||Home or Away",
         "SB:10||Home or Draw", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=1.5|Over 1.5"]
 _bfs42 = [pb.BoardFixture(f"M{_i} v N{_i} (Serie A)", _fp(f"M{_i}", f"N{_i}"), _v,
-                          on_deploy_shortlist=True, best_market_key=_k, best_market=f"pick {_i}",
+                          on_deploy_shortlist=True, kickoff_utc=_KO, best_market_key=_k, best_market=f"pick {_i}",
                           best_model_prob=0.90 - _i / 100, certainty="LOW", best_price=1.25)
           for _i, _k in enumerate(_k42)]
 for _slips42 in (pb._build_accas(_bfs42), pb._build_accas([_replace(b, best_price=None) for b in _bfs42])):
@@ -627,5 +637,22 @@ assert "1X2" not in _m44, "Order 44: only the framework's own bets count, not th
 assert _l44.shift({"matchbook": _m44}, "SB:18|total=2.5|Under 2.5", "?") == -0.05, "Order 44: applied to the pick's family"
 assert _l44.shift({"family": {"Over/Under": {"shift": -0.08}}, "matchbook": _m44},
                   "SB:18|total=2.5|Under 2.5", "?") == -0.10, "Order 44: inside the overall ±10 pt cap"
+
+# Experiment engine (Architect 2026-10-20; order 45): swaps strategies within
+# slots only — 100 bets, CLV AND return both significant, 7-day cool-down, ON
+# by default; it never touches stakes, the CLV gate or the league list.
+import os as _os_x  # noqa: E402
+from engine import experiments as _xp  # noqa: E402
+assert (_xp.MIN_BETS, _xp.Z_BAR, _xp.COOLDOWN_DAYS) == (100, 1.645, 7), "experiment engine: promotion bar"
+_os_x.environ.pop("OLP_EXPERIMENTS", None)
+assert _xp.enabled(), "experiment engine: ON by default (Architect 2026-10-20)"
+assert _xp.SLOTS == ("singles", "accas", "safe3", "nba"), \
+    "experiment engine: only the boards' own slots, NBA included (Architect 2026-10-20)"
+_src_x = (ROOT / "engine" / "experiments.py").read_text(encoding="utf-8")
+for _forbidden in ("staking", "ARCHITECT_SIGNOFF", "CLV_GATE", "LEAGUES", "assert_paper_only"):
+    assert f"import {_forbidden}" not in _src_x and f"{_forbidden} =" not in _src_x, \
+        f"experiment engine must not touch {_forbidden}"
+assert "Experiment engine may swap strategies within slots" in (ROOT / "STANDING_ORDERS.md").read_text(
+    encoding="utf-8"), "experiment engine order recorded"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

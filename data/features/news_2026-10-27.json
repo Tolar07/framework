@@ -54,18 +54,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T18:20Z",
-  "away_missing_share": 0.5344808370103808,
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.533060586977282,
   "away_unavailable": 7,
   "fotmob_id": 5967119,
-  "home_missing_share": 0.08166809116947629,
+  "home_missing_share": 0.08490203494714461,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-27T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Barnet FC v York City FC": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837956,
@@ -124,18 +124,18 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-27T18:20Z",
-  "away_missing_share": 0.13219993790231524,
+  "at": "2026-10-27T18:40Z",
+  "away_missing_share": 0.1546731692547045,
   "away_unavailable": 2,
   "fotmob_id": 5967122,
-  "home_missing_share": 0.17799685119817674,
+  "home_missing_share": 0.21732005062659404,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-27T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fylde v Hartlepool": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906525,
@@ -168,7 +168,7 @@
  },
  "Hornchurch v Yeovil": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906529,
@@ -200,18 +200,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.14213913973869022,
   "away_unavailable": 3,
   "fotmob_id": 5967125,
   "home_missing_share": 0.06296492053196415,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-27T19:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Leicester v Wigan": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837175,
@@ -222,7 +222,7 @@
  },
  "Luton v Doncaster Rovers": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837189,
@@ -270,7 +270,7 @@
  },
  "Milton Keynes Dons v Bromley FC": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837176,
@@ -281,7 +281,7 @@
  },
  "Oxford United v Stockport County FC": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837190,
@@ -365,7 +365,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.11590439222179484,
   "away_unavailable": 3,
   "fotmob_id": 5749721,
@@ -418,7 +418,7 @@
  },
  "Sheffield Wednesday v Cambridge United": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837193,
@@ -460,14 +460,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.3969444702544113,
   "away_unavailable": 5,
   "fotmob_id": 5749728,
-  "home_missing_share": 0.27506884846713164,
+  "home_missing_share": 1.0,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-27T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "unavailable"
  },
  "Virtus Entella v Avellino": {
   "absent": [
@@ -492,18 +492,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.10897819275684881,
   "away_unavailable": 2,
   "fotmob_id": 5967123,
   "home_missing_share": 0.1083123654911025,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-27T19:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Wealdstone v Solihull": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906531,
@@ -514,7 +514,7 @@
  },
  "Woking v Boreham Wood": {
   "absent": [],
-  "at": "2026-10-27T18:20Z",
+  "at": "2026-10-27T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906532,

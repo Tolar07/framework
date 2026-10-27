@@ -288,7 +288,11 @@
     "home": 5666635,
     "away": 12045907
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Sampdoria missing 53%",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:73093012",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -297,8 +301,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.05503054338534985,
    "missing": {
@@ -351,8 +355,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.037136716494291844,
    "missing": {
@@ -392,7 +396,11 @@
     "home": 14173072,
     "away": 8342930
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:73093018",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -401,8 +409,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.021992099049563563,
    "missing": {
@@ -442,7 +450,11 @@
     "home": 5721324,
     "away": 15717482
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:73093024",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -451,8 +463,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.039863468468733565,
    "missing": {
@@ -505,8 +517,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.03037419088018245,
    "missing": {
@@ -546,7 +558,11 @@
     "home": 5675664,
     "away": 14744014
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Avellino at full strength",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:73093020",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -555,8 +571,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.029539426721780004,
    "missing": {

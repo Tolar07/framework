@@ -21,6 +21,80 @@
   "kickoff_utc": "2026-10-28T10:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Milan v Bologna": {
+  "absent": [
+   {
+    "name": "Mario Gila",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Diego Moreira",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alexis Saelemaekers",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Roberto Piccoli",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Riccardo Orsolini",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Emil Holm",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T11:40Z",
+  "away_missing_share": 0.30103903041261093,
+  "away_unavailable": 3,
+  "fotmob_id": 5749720,
+  "home_missing_share": 0.3609940228015017,
+  "home_unavailable": 8,
+  "kickoff_utc": "2026-10-28T17:30:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Parma v Udinese": {
+  "absent": [
+   {
+    "name": "Nesta Elphege",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Oumar Solet",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Idrissa Gueye",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Zanoli",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T11:40Z",
+  "away_missing_share": 0.3235949784914049,
+  "away_unavailable": 5,
+  "fotmob_id": 5749726,
+  "home_missing_share": 0.010880470185261296,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-28T17:30:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Serik Belediyespor v Hakkari Zap Spor": {
   "absent": [
    {
@@ -37,5 +111,47 @@
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-28T10:30:00.000Z",
   "lineup_type": "confirmed"
+ },
+ "Venezia FC v Inter": {
+  "absent": [
+   {
+    "name": "Andrea Adorante",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Thierry Correia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marin \u0160verko",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lautaro Mart\u00ednez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Curtis Jones",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luis Henrique",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T11:40Z",
+  "away_missing_share": 0.2976676641549732,
+  "away_unavailable": 5,
+  "fotmob_id": 5749729,
+  "home_missing_share": 0.10004160011027692,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-28T17:30:00.000Z",
+  "lineup_type": "predicted"
  }
 }

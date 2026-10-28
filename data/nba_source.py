@@ -50,6 +50,8 @@ class Game:
     tip: str = ""                      # tip-off, ISO UTC ("2026-10-07T00:00Z")
     q_home: Optional[list] = None      # points per quarter (overtime periods after Q4)
     q_away: Optional[list] = None
+    open_spread: Optional[float] = None   # the same book's OPENING home line and total
+    open_total: Optional[float] = None
 
 
 def _get(url: str, tries: int = 3) -> Optional[dict]:
@@ -138,6 +140,14 @@ def attach_odds(g: Game, use_cache: bool = True) -> Game:
         g.total = float(o["overUnder"]) if o.get("overUnder") is not None else None
     except (TypeError, ValueError):
         g.total = None
+    try:
+        g.open_total = float(o["open"]["total"]["american"])
+    except (KeyError, TypeError, ValueError):
+        g.open_total = None
+    try:
+        g.open_spread = float(h["open"]["pointSpread"]["american"])
+    except (KeyError, TypeError, ValueError):
+        g.open_spread = None
     return g
 
 

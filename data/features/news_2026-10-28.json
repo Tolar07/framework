@@ -124,7 +124,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
+  "at": "2026-10-28T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107642,
@@ -252,7 +252,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
+  "at": "2026-10-28T17:00Z",
   "away_missing_share": 0.30685242984363,
   "away_unavailable": 7,
   "fotmob_id": 5107644,
@@ -274,7 +274,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
+  "at": "2026-10-28T17:00Z",
   "away_missing_share": 0.19283221778604384,
   "away_unavailable": 2,
   "fotmob_id": 5107641,
@@ -301,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
+  "at": "2026-10-28T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107639,
@@ -455,14 +455,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
-  "away_missing_share": 0.3235949784914049,
+  "at": "2026-10-28T17:00Z",
+  "away_missing_share": 0.30116960357224415,
   "away_unavailable": 5,
   "fotmob_id": 5749726,
-  "home_missing_share": 0.010880470185261296,
+  "home_missing_share": 0.010738404021965983,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-28T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "SC Pisa v Palermo": {
   "absent": [
@@ -492,14 +492,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:40Z",
-  "away_missing_share": 0.25432240208814183,
+  "at": "2026-10-28T17:00Z",
+  "away_missing_share": 0.27659283635974347,
   "away_unavailable": 3,
   "fotmob_id": 5967128,
-  "home_missing_share": 0.045296228864267304,
+  "home_missing_share": 0.04758701786555703,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Sakaryaspor v Bursa Yildirim Spor": {
   "absent": [],

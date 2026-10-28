@@ -69,6 +69,7 @@ WRITTEN = "2026-10-20"  # the day the board strategies below were written down
 SLOTS = ("singles", "accas", "safe3", "nba")
 DEFAULT = {"singles": "S0 board singles", "accas": "A0 board accas", "safe3": "T0 board 50%+ accas",
            "nba": "N0 NBA board picks"}
+LEAGUE_CAP = 4          # S9: singles a league a day (REASONING_IDEAS_STUDY.md / RECORDS_STUDY.md)
 NBA_WINNER = {"219"}                                  # moneyline (incl. OT)
 NBA_FULL_GAME = {"219", "223", "225", "227", "228"}   # winner, handicap, total, team totals (incl. OT)
 
@@ -96,6 +97,17 @@ def leg(s: dict, verdict: str | None = None) -> dict:
             "close": s.get("closing_price"), "result": s.get("result"),
             "certainty": s.get("certainty") or "?",
             "news": s.get("news_level") or "?", "verdict": verdict}
+
+
+def rank_leagues(legs: list[dict]) -> list[dict]:
+    """Each leg's place among that day's singles in its league, the most likely first."""
+    by: dict[str, list[dict]] = {}
+    for lg in legs:
+        by.setdefault(lg["league"], []).append(lg)
+    for ls in by.values():
+        for i, lg in enumerate(sorted(ls, key=lambda x: -(x["chance"] or 0)), 1):
+            lg["league_rank"] = i
+    return legs
 
 
 # ── strategies ───────────────────────────────────────────────────────────────
@@ -155,6 +167,11 @@ def _board_rules() -> list[Strategy]:
         Strategy("S8 value margin 1.20-2.00", "singles",
                  "singles priced 1.20-2.00 with chance x price - 1 at least +3.5% (to 1.50) or +5% (above)",
                  _value_margin, since="2026-10-21"),
+        # To-do #7 idea 5: past four a league the board's singles lost -12.5% vs -2.8% inside
+        # (backtest/RECORDS_STUDY.md, later half). Put live by the Architect 2026-10-28.
+        Strategy("S9 4 a league", "singles",
+                 f"at most {LEAGUE_CAP} singles a league a day, the most likely first",
+                 lambda x, _c: (x.get("league_rank") or 1) <= LEAGUE_CAP, since="2026-10-28"),
     ]
     slips = []
     for slot, code, label in (("accas", "A", "accas"), ("safe3", "T", "50%+ accas")):
@@ -272,8 +289,8 @@ def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR) 
         except (OSError, ValueError):
             continue
         v = _verdicts(doc["date"], reasoning_dir)
-        legs = [leg(s, v.get((s.get("fixture"), s.get("market"))))
-                for s in doc.get("singles", []) + doc.get("singles_dropped", [])]
+        legs = rank_leagues([leg(s, v.get((s.get("fixture"), s.get("market"))))
+                             for s in doc.get("singles", []) + doc.get("singles_dropped", [])])
         by_fix = {lg["fixture"]: lg for lg in legs}
         slips = {slot: [{"name": s.get("name"), "odds": s.get("odds"), "result": s.get("result"),
                          "legs": [by_fix.get(f) for f in s.get("legs", [])]}

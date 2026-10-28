@@ -4,12 +4,14 @@
  "flagged": [
   "R:research:H001"
  ],
- "last_change": {},
+ "last_change": {
+  "singles": "2026-10-28"
+ },
  "live": {
   "accas": "A0 board accas",
   "nba": "N0 NBA board picks",
   "safe3": "T0 board 50%+ accas",
-  "singles": "S0 board singles"
+  "singles": "S9 4 a league"
  },
  "standings": {
   "A0 board accas": {

@@ -116,6 +116,12 @@ def sweep(now: datetime) -> str:
         notes.append(tpf.attach(pending, now))
     except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
         notes.append(f"profiles skipped ({str(e)[:60]})")
+    try:
+        # RECORDED ONLY (to-do #7 idea 1): each graded game's cross-market consistency
+        from engine import market_consistency as xm
+        notes.append(xm.attach(graded))
+    except Exception as e:  # noqa: BLE001 — never stops the archive
+        notes.append(f"consistency skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")

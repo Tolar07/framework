@@ -22,7 +22,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.27354680673027254,
   "away_unavailable": 5,
   "fotmob_id": 5793958,
@@ -33,7 +33,7 @@
  },
  "Carlisle v Harrogate": {
   "absent": [],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906534,
@@ -58,21 +58,16 @@
     "name": "Guido Pagliuca",
     "side": "home",
     "type": "suspension"
-   },
-   {
-    "name": "Marco Olivieri",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
-  "away_missing_share": 0.05107397379359057,
-  "away_unavailable": 1,
+  "at": "2026-10-28T18:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
   "fotmob_id": 5967121,
-  "home_missing_share": 0.0526795067166672,
+  "home_missing_share": 0.059852574314635656,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-28T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Celtic v Dundee United": {
   "absent": [
@@ -102,7 +97,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.1685918547867244,
   "away_unavailable": 3,
   "fotmob_id": 5793959,
@@ -161,7 +156,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.05784801219736996,
   "away_unavailable": 2,
   "fotmob_id": 5793960,
@@ -225,7 +220,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.4540033753055989,
   "away_unavailable": 8,
   "fotmob_id": 5749724,
@@ -423,7 +418,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.2892478274730413,
   "away_unavailable": 7,
   "fotmob_id": 5749725,
@@ -562,7 +557,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.14244390534501772,
   "away_unavailable": 4,
   "fotmob_id": 5793962,
@@ -604,7 +599,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.21379248349497715,
   "away_unavailable": 5,
   "fotmob_id": 5793963,
@@ -615,7 +610,7 @@
  },
  "Sutton v Aldershot": {
   "absent": [],
-  "at": "2026-10-28T18:20Z",
+  "at": "2026-10-28T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906536,

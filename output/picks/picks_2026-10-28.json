@@ -945,7 +945,11 @@
     "home": 13065053,
     "away": 6287451
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -978,8 +982,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 2.33,
    "stake_pct": 0.25,
    "ev": -0.016197891005691023,
    "missing": {
@@ -1059,8 +1063,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 2.4,
    "stake_pct": 0.25,
    "ev": -0.03590852456300897,
    "missing": {

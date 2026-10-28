@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Optional
 
 from engine import markets as mkt
+from engine import scoreline
 
 LEDGER_DIR = Path(__file__).parent.parent / "output" / "picks"
 # Ledgers whose codes a later board replaced (a --refreeze, Architect 2026-10-09:
@@ -101,6 +102,8 @@ def _rated(bf) -> dict:
             # the strongest in-band outcome per market family, chance before
             # any learned shift — learning's rows from every rated fixture
             "pool": getattr(bf, "pool_raw", None) or [],
+            # the 0-5 score table (engine/scoreline.py), graded by the scorecard
+            "scores": scoreline.ledger_grid(p),
             "ft": None}
 
 
@@ -570,7 +573,10 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
             won = sum(x["result"] == "won" for x in slips)
             L.append(f"{label}: {won}/{len(slips)} landed")
     L.extend(calibration(allsing))
-    L.extend(model_check([r for d in docs for r in d.get("rated", [])]))
+    rated = [r for d in docs for r in d.get("rated", [])]
+    L.extend(model_check(rated))
+    L.extend(scoreline.check([(r["scores"], r["ft"]) for r in rated
+                              if r.get("src") == "model" and r.get("scores")]))
     pos = [s for s in allsing if (s.get("ev") or 0) > 0]
     neg = [s for s in allsing if s.get("ev") is not None and s["ev"] <= 0]
     if pos or neg:

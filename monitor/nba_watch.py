@@ -347,6 +347,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-send", action="store_true")
     ap.add_argument("--handoff", action="store_true", help="started by the previous loop run")
     a = ap.parse_args(argv)
+    nv.use_season_refit()      # price as the board does: adopted season refits only
     if a.once:
         print(run_round(datetime.now(UTC), send=not a.no_send))
         return 0

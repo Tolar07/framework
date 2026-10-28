@@ -10,9 +10,9 @@ Free, keyless ESPN endpoints (the same family data/nba_source.py already uses):
            finished game -> box score: every player's minutes, points, starter, DNP
            coming game   -> each team's injury list (Out / Doubtful / Day-To-Day ...)
 
-  data/nba_players/player_games.jsonl   one row per player per finished REGULAR-SEASON
+  data/nba_lineups/player_games.jsonl   one row per player per finished REGULAR-SEASON
                                         game (tracked in git: the runners start empty)
-  data/nba_players/meta.json            which days have been scanned
+  data/nba_lineups/meta.json            which days have been scanned
   data/cache/nba/summary/<id>.json      raw finished-game summaries (re-fetchable)
 
 Per coming game and team, `team_sheet` gives the injury list, the EXPECTED starters
@@ -34,7 +34,7 @@ from pathlib import Path
 
 from data import nba_source as ns
 
-DIR = Path(__file__).parent / "nba_players"
+DIR = Path(__file__).parent / "nba_lineups"
 LOG = DIR / "player_games.jsonl"
 META = DIR / "meta.json"
 CACHE = ns.CACHE / "summary"

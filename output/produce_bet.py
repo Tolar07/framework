@@ -20,6 +20,7 @@ from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
 from engine import markets as mkt
 from engine import competitions as comp
 from engine import cohorts
+from engine import scoreline
 from verification.id403 import VerificationResult, Tier, stamp
 
 
@@ -277,6 +278,9 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     btts = ("Both teams to score YES" if p.p_btts_yes >= 0.5 else "Both teams to score NO")
     btts_p = p.p_btts_yes if p.p_btts_yes >= 0.5 else 1 - p.p_btts_yes
     L.append(f"   {btts} {round(btts_p*100)}% (model)")
+    sl = scoreline.board_line(p)
+    if sl:
+        L.append(f"   {sl}")
     if p.lambda_home is None:
         L.append("   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — "
                  "the model has no history on this fixture; no model edge is claimed")
@@ -684,6 +688,9 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
             L.append(f"   Elo second opinion: {bf.probs.home_team} "
                      f"{round(eh*100)}% / Draw {round(ed*100)}% / "
                      f"{bf.probs.away_team} {round(ea*100)}%")
+        sl = scoreline.board_line(bf.probs) if bf.probs else None
+        if sl:
+            L.append(f"   {sl}")
         div = _divergence(bf)
         if div:
             L.append(f"   ⚠ {div}")

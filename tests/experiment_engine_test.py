@@ -207,4 +207,17 @@ with tempfile.TemporaryDirectory() as d:
     assert len(X.board_bets(_by["N0 NBA board picks"], nd)) == 2
     assert [b["won"] for b in X.board_bets(_by["N1 winner only"], nd)] == [0]
 
+# S9 (Architect 2026-10-28): at most LEAGUE_CAP singles a league a day, the most likely kept
+_cap = {s.name: s for s in X.strategies()}["S9 4 a league"]
+_ls = X.rank_leagues([X.leg(_single(f"F{i}", 1.25, "won", 1.24, chance=0.70 + i / 100)) for i in range(6)]
+                     + [X.leg({**_single("G", 1.25, "won", 1.24), "league": "Other"})])
+assert [lg["league_rank"] for lg in _ls] == [6, 5, 4, 3, 2, 1, 1], "most likely first, per league"
+assert [_cap.keep(lg, {}) for lg in _ls] == [False, False, True, True, True, True, True]
+assert _cap.keep(X.leg(_single("Z", 1.25, "won", 1.24)), {}), "a leg with no rank is kept"
+with tempfile.TemporaryDirectory() as d:
+    (Path(d) / "picks_2026-10-28.json").write_text(json.dumps({
+        "date": "2026-10-28", "singles": [_single(f"F{i}", 1.25, "won", 1.24, chance=0.70 + i / 100)
+                                          for i in range(5)]}))
+    assert len(X.board_bets(_cap, X.load_days(Path(d), Path(d)))) == 4, "load_days ranks each day"
+
 print("experiment_engine_test: OK")

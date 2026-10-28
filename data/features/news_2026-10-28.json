@@ -22,7 +22,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.27354680673027254,
   "away_unavailable": 5,
   "fotmob_id": 5793958,
@@ -33,7 +33,7 @@
  },
  "Carlisle v Harrogate": {
   "absent": [],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906534,
@@ -65,7 +65,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.05107397379359057,
   "away_unavailable": 1,
   "fotmob_id": 5967121,
@@ -102,7 +102,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.1685918547867244,
   "away_unavailable": 3,
   "fotmob_id": 5793959,
@@ -161,7 +161,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.05784801219736996,
   "away_unavailable": 2,
   "fotmob_id": 5793960,
@@ -225,7 +225,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.4540033753055989,
   "away_unavailable": 8,
   "fotmob_id": 5749724,
@@ -328,14 +328,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T18:00Z",
-  "away_missing_share": 0.38325320517244904,
+  "at": "2026-10-28T18:20Z",
+  "away_missing_share": 0.3753557017150762,
   "away_unavailable": 9,
   "fotmob_id": 5967124,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Menemenspor AS v Karacabey Belediyespor": {
   "absent": [],
@@ -423,7 +423,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.2892478274730413,
   "away_unavailable": 7,
   "fotmob_id": 5749725,
@@ -562,7 +562,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.14244390534501772,
   "away_unavailable": 4,
   "fotmob_id": 5793962,
@@ -604,7 +604,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.21379248349497715,
   "away_unavailable": 5,
   "fotmob_id": 5793963,
@@ -615,7 +615,7 @@
  },
  "Sutton v Aldershot": {
   "absent": [],
-  "at": "2026-10-28T14:00Z",
+  "at": "2026-10-28T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906536,

@@ -1019,7 +1019,11 @@
     "home": 6472080,
     "away": 16754454
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "matchup": {
     "say": "Juve Stabia: high press v build-up side -> BTTS & goals",
     "xg": [

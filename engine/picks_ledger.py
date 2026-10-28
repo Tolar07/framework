@@ -202,6 +202,9 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                                           ("50+ MEGA", "safe3", "safe3_mega"))
                      if (combined or {}).get(key)],
     }
+    # RECORDED ONLY (to-do #7 idea 2): how this kind of side has done, before the board date
+    from engine import bias_checks
+    bias_checks.annotate_doc(doc, target)
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
     path = LEDGER_DIR / f"picks_{target}.json"
     _archive_if_codes_change(path, doc)

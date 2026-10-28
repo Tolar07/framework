@@ -34,6 +34,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from data import nba_players as npl  # noqa: E402
+from engine import nba_gate as gate  # noqa: E402
 from engine import nba_projection as proj  # noqa: E402
 from engine import nba_recal as recal  # noqa: E402
 
@@ -235,6 +236,11 @@ def main() -> int:
     graded = npl.load_log(recal.GAMES)
     hs = hindsight(npl.load_log(npl.LOG), npl.load_log(npl.TEAM_LOG), graded)
     text = render(recs, hs, date.today().isoformat())
+    st = gate.status(recs, clv(recs))
+    gate.save(st)
+    text += (f"\n## Projection gate (engine/nba_gate.py)\n\n**{'OPEN' if st['open'] else 'closed'}** — "
+             + ("the projection drops picks it prices on the other side." if st["open"]
+                else "; ".join(st["why"]) + ". Recorded only until all hold.") + "\n")
     OUT.write_text(text + "\n", encoding="utf-8", newline="\n")
     print(text)
     return 0

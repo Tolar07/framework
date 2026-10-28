@@ -156,6 +156,36 @@ def fair_chance(market_id: str, specifier: str, outcome: str, sharp) -> Optional
 # SportyBet lists every line of a ladder, but only status 0 is open for betting:
 # status 1 = suspended, 2 = closed (shown with stale prices; a booking code for
 # it loads but cannot be placed — 2026-10-07). Only open markets count.
+def use_season_refit(path=None) -> list[str]:
+    """Price with this season's refitted widths / half and quarter shares — only the families
+    engine/nba_recal.py ADOPTED (each beat the fixed numbers on held-out games; Architect OK
+    2026-10-28). Families never adopted keep the fixed 2023-26 numbers above. Returns notes."""
+    import json
+    from pathlib import Path
+    global TOTAL_SD, MARGIN_SD, H1_SHARE, H1_SD, Q1_SHARE, Q1_SD
+    p = Path(path) if path else Path(__file__).parent.parent / "memory" / "nba_calibration_live.json"
+    try:
+        doc = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    notes = []
+    for fam, f in doc.items():
+        if not isinstance(f, dict) or not f.get("adopted"):
+            continue
+        if fam == "total":
+            TOTAL_SD = f["sd"]
+        elif fam == "margin":
+            MARGIN_SD = f["sd"]
+        elif fam == "h1":
+            H1_SHARE, H1_SD = f["share"], f["sd"]
+        elif fam == "q1":
+            Q1_SHARE, Q1_SD = f["share"], f["sd"]
+        else:
+            continue
+        notes.append(f"{fam}: share {f.get('share')} sd {f.get('sd')} (season refit, adopted {f['adopted'][:10]})")
+    return notes
+
+
 def is_open(market: dict) -> bool:
     return market.get("status") in (None, 0, "0")
 

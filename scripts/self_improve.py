@@ -19,10 +19,13 @@ writes the answers down — no LLM needed for these:
      data we already hold), each written as a framework issue labelled
      `self-improvement` (one per title, never duplicated).
 
- (d) BUILD — the workflow's second job hands the top open proposal to a
-     fresh Claude Code run (Sonnet, GitHub Actions) that builds it RECORD-ONLY
-     or as a SHADOW with tests, as a PR. Nothing it builds changes a pick,
-     stake or threshold: promotion stays with the walk-forward machinery.
+ (d) SEARCH, BUILD, MERGE, TELL (order 49) — the workflow's second job is a
+     fresh Claude Code run (Sonnet, GitHub Actions): it searches the web for
+     what strong models use, opens what's lacking as issues, builds the top
+     open proposal RECORD-ONLY or as a SHADOW with tests, merges it on green
+     (Architect 2026-10-28: an unmerged PR can be lost) and the Architect gets
+     a plain summary on Telegram (`--telegram`). Nothing it builds changes a
+     pick, stake or threshold: promotion stays with the walk-forward machinery.
 
 Output: backtest/SELF_IMPROVEMENT.md, memory/self_improvement.json.
 
@@ -199,10 +202,43 @@ def open_issues(props: list[dict], top: int = 5) -> list[str]:
     return made
 
 
+def architect_note(note_path: Path | None = None, review: dict | None = None) -> str:
+    """The weekly message to the Architect: the build step's own summary when it
+    wrote one, else the review's question, stalls and top proposals."""
+    head = "🧠 WEEKLY SELF-IMPROVEMENT — what do I need to do better?"
+    if note_path and note_path.exists() and note_path.read_text(encoding="utf-8").strip():
+        return head + "\n\n" + note_path.read_text(encoding="utf-8").strip()[:3500]
+    if review is None:
+        try:
+            review = json.loads(OUT_JSON.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return head + "\n\nReview: NO DATA — PENDING (the review job did not write its report)."
+    L = [head, ""]
+    stalled = [r["loop"] for r in review.get("loops", []) if not r.get("ok")]
+    L.append("Learning loops: " + ("all produced tested evidence this week" if not stalled
+                                   else "STALLED — " + ", ".join(stalled)))
+    lacking = [r["input"] for r in review.get("inputs", []) if r.get("status") in ("MISSING", "CONTEXT")]
+    if lacking:
+        L.append("Not yet used as a model input: " + ", ".join(lacking))
+    L.append("")
+    L.append("Proposals (best first):")
+    L += [f"{i}. {p['title']}" for i, p in enumerate(review.get("proposals", [])[:5], 1)] or ["none"]
+    L.append("")
+    L.append("The top safe one is built as record-only / shadow and merged on green; nothing changes "
+             "a pick, stake or threshold without your OK.")
+    return "\n".join(L)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--issues", action="store_true")
+    ap.add_argument("--telegram", metavar="NOTE", help="send the weekly note to the Architect and stop")
     a = ap.parse_args(argv)
+    if a.telegram is not None:
+        from output import notify
+        ok, notes = notify.send_architect(architect_note(Path(a.telegram)))
+        print("architect note", "sent" if ok else "NOT sent", *notes)
+        return 0
     when = datetime.now(UTC).strftime("%Y-%m-%d")
     inputs, loops = audit_inputs(), audit_loops()
     props = proposals(inputs, loops)

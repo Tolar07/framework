@@ -441,8 +441,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.25,
    "ev": -0.01470899529241898,
    "missing": null,

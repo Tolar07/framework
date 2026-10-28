@@ -1,4 +1,26 @@
 {
+ "Duzcespor v Isparta 32 Spor": {
+  "absent": [],
+  "at": "2026-10-28T09:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6420063,
+  "home_missing_share": null,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T10:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Menemenspor AS v Karacabey Belediyespor": {
+  "absent": [],
+  "at": "2026-10-28T09:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6420077,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T10:30:00.000Z",
+  "lineup_type": "simple"
+ },
  "Serik Belediyespor v Hakkari Zap Spor": {
   "absent": [
    {
@@ -7,7 +29,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T09:20Z",
+  "at": "2026-10-28T09:40Z",
   "away_missing_share": null,
   "away_unavailable": 0,
   "fotmob_id": 6420071,

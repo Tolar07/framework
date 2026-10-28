@@ -1493,7 +1493,11 @@
    "fotmob_id": 6420063,
    "kickoff_utc": "2026-10-28T10:30:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "09:40Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:75444696",
    "sb_tid": "sr:tournament:96",
@@ -1787,7 +1791,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Sakaryaspor v Bursa Yildirim Spor",

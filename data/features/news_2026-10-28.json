@@ -1,4 +1,36 @@
 {
+ "Carrarese v SS Arezzo": {
+  "absent": [
+   {
+    "name": "Nicholas Bonfanti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Colin Dagba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Guido Pagliuca",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Marco Olivieri",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T13:00Z",
+  "away_missing_share": 0.05107397379359057,
+  "away_unavailable": 1,
+  "fotmob_id": 5967121,
+  "home_missing_share": 0.0526795067166672,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-28T19:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Degerfors IF v Vasteraas SK": {
   "absent": [
    {
@@ -117,6 +149,33 @@
   "home_missing_share": 0.3064958473807735,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Juve Stabia v Hellas Verona": {
+  "absent": [
+   {
+    "name": "Tom\u00e1s Suslov",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Suat Serdar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Domagoj Bradari\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T13:00Z",
+  "away_missing_share": 0.38325320517244904,
+  "away_unavailable": 9,
+  "fotmob_id": 5967124,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T19:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Menemenspor AS v Karacabey Belediyespor": {

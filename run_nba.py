@@ -52,6 +52,7 @@ from engine import nba_ladder as nl  # noqa: E402
 from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_projection as proj  # noqa: E402
+from engine import nba_recal as recal  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
@@ -396,9 +397,11 @@ def projections(players: dict, study: list[dict]) -> list[dict]:
     beside the sharp line and SportyBet's main lines, both sides of each. No pick reads it."""
     try:
         teams, lg = proj.team_table(npl.load_log(npl.TEAM_LOG))
+        cal = recal.load_live()                    # this season's refit (NBA step 3), recorded only
+        players["calibration"] = cal
         by_id = {s.get("espn_id"): s for s in study}
         return [proj.project(g, teams, lg, by_id.get(g["espn_id"], {}).get("sharp"),
-                             by_id.get(g["espn_id"], {}).get("sb_main")) for g in players.get("games") or []]
+                             by_id.get(g["espn_id"], {}).get("sb_main"), cal) for g in players.get("games") or []]
     except Exception as e:  # noqa: BLE001 — never stops the board
         return [{"error": str(e)[:120]}]
 

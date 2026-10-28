@@ -123,9 +123,39 @@ def _stats(vals: list[float]) -> tuple[int, float, float]:
     return n, m, sd / math.sqrt(n) if sd > 0 else float("inf")
 
 
+def _qualifies(vals: list[float]) -> Optional[tuple[int, float, float]]:
+    n, m, se = _stats(vals)
+    if n >= MIN_SIDES and se not in (0, float("inf")) and abs(m) / se >= Z_CANDIDATE:
+        return n, m, se
+    return None
+
+
+def discovery_date(xs: list[tuple[str, float]], today: str, step_days: int = 7) -> Optional[str]:
+    """The first weekly cutoff (from the first studied match up to `today`)
+    on which the sides played BEFORE it already made the tag a candidate.
+
+    Fix for the stalled loop (2026-10-28): a candidate used to be dated the
+    day the nightly run first saw it, so its test window was only the days
+    since — a formation clash seen ~5 times a month never reached 20 test
+    sides and every lesson sat at test_n 0. Dating it from the cutoff where
+    the earlier evidence qualified is just as blind (the test uses only
+    matches after that cutoff) and lets the history already studied test it."""
+    if not xs:
+        return None
+    day = datetime.fromisoformat(min(ko for ko, _ in xs)[:10]) + timedelta(days=step_days)
+    end = datetime.fromisoformat(today[:10])
+    while day <= end:
+        cut = day.strftime("%Y-%m-%d")
+        if _qualifies([r for ko, r in xs if ko < cut]):
+            return cut
+        day += timedelta(days=step_days)
+    return None
+
+
 def update_lessons(preds: list[dict], today: str, lessons: Optional[dict] = None) -> dict:
-    """Write new candidates (as of `today`), test every candidate / proven
-    lesson on the sides played after it was written."""
+    """Write new candidates (dated from the first week the earlier sides made
+    them one), test every candidate / proven lesson on the sides played after
+    it was written."""
     lessons = tx.load_lessons() if lessons is None else lessons
     book = lessons.setdefault("lessons", {})
     res = _side_residuals(preds)
@@ -134,12 +164,15 @@ def update_lessons(preds: list[dict], today: str, lessons: Optional[dict] = None
         by_tag.setdefault(tag, []).append((ko, r))
     for tag, xs in by_tag.items():
         entry = book.get(tag)
-        if entry is None:
-            n, m, se = _stats([r for ko, r in xs if ko < today])
-            if n >= MIN_SIDES and se > 0 and abs(m) / se >= Z_CANDIDATE:
-                book[tag] = {"status": "candidate", "written_at": today, "train_n": n,
-                             "train_effect": round(m, 3), "train_z": round(m / se, 2)}
-            continue
+        if entry is None or (entry["status"] == "candidate" and not entry.get("test_n")):
+            # new, or a candidate that never got a test side: (re)date it
+            cut = discovery_date(xs, today)
+            if cut is None:
+                continue
+            n, m, se = _qualifies([r for ko, r in xs if ko < cut])
+            book[tag] = {"status": "candidate", "written_at": cut, "train_n": n,
+                         "train_effect": round(m, 3), "train_z": round(m / se, 2)}
+            entry = book[tag]
         n, m, se = _stats([r for ko, r in xs if ko >= entry["written_at"]])
         entry.update({"test_n": n, "test_effect": round(m, 3),
                       "test_z": round(m / se, 2) if se not in (0, float("inf")) else None, "checked": today})

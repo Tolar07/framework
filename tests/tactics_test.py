@@ -124,13 +124,31 @@ lessons = book["lessons"]
 assert all(x["status"] == "candidate" for x in lessons.values())
 tag = "counter side v high line"
 if tag in lessons:
-    assert lessons[tag]["written_at"] == "2026-09-21"
+    assert lessons[tag]["written_at"] <= "2026-09-21"
 book = ts.update_lessons(preds, "2026-11-30", book)
 for x in book["lessons"].values():
     if x["status"] == "proven":
         assert x["test_n"] >= ts.MIN_SIDES and abs(x["effect"]) <= ts.EFFECT_CAP
         assert (x["test_effect"] > 0) == (x["train_effect"] > 0)
 print("lessons: candidates written as of a day, proven only on unseen matches: OK")
+
+# unstalled loop (2026-10-28): a candidate is dated from the first week its
+# EARLIER sides qualified, so the history after that date tests it
+rng = random.Random(3)
+start = datetime(2026, 8, 1)
+xs = [((start + timedelta(days=i // 3)).strftime("%Y-%m-%dT15:00"), 0.5 + rng.gauss(0, 0.3)) for i in range(150)]
+cut = ts.discovery_date(xs, "2026-10-28")
+assert cut is not None and cut < "2026-10-28", cut
+assert ts._qualifies([r for ko, r in xs if ko < cut]), "qualified on the sides before the cutoff only"
+earlier = (datetime.fromisoformat(cut) - timedelta(days=7)).strftime("%Y-%m-%d")
+assert earlier < xs[0][0][:10] or not ts._qualifies([r for ko, r in xs if ko < earlier]), "first such week"
+fake = [{"row": {"ko": ko, "home": {"xg": 1.0 + r, "formation": None}, "away": {"xg": None}},
+         "read": {"xg_home": 1.0, "xg_away": 1.0, "tags_home": ["t"], "tags_away": []}} for ko, r in xs]
+stalled = {"lessons": {"t": {"status": "candidate", "written_at": "2026-10-28", "train_n": 150,
+                             "train_effect": 0.5, "train_z": 9.0, "test_n": 0}}}
+got = ts.update_lessons(fake, "2026-10-28", stalled)["lessons"]["t"]
+assert got["written_at"] == cut and got["test_n"] > ts.MIN_SIDES and got["status"] == "proven", got
+print("stalled candidate re-dated to its discovery week and tested on the matches after: OK")
 
 w = ts.fit_weight(preds[:10])
 assert w["weight"] == 0.0 and "label only" in w["why"]

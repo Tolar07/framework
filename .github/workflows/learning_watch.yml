@@ -1,0 +1,32 @@
+name: OLP XDV learning-loop watch
+
+# Architect 2026-10-28: the match-study "why" loop sat stalled (every tactics
+# lesson at test_n 0) and no alarm fired. Every learning loop must produce new
+# TESTED evidence; one that doesn't makes this run red on main, which the
+# matchbook-agent watchdog turns into an `auto-fix` issue for the fixer.
+# 03:11 UTC: after the evening board (why record, shadow) and the 01:23 match
+# study (tactics lessons). Read-only: nothing is committed.
+on:
+  schedule:
+    - cron: "11 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # the GREW checks read each file as it stood N days ago
+          filter: blob:none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Every learning loop produced new tested evidence
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/learning_watch.py

@@ -497,7 +497,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Parma v Udinese",
@@ -572,7 +574,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Venezia FC v Inter",
@@ -650,7 +654,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Genoa v Juventus",
@@ -1842,8 +1848,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.12,
    "ev": -0.039306806012919915,
    "missing": null,

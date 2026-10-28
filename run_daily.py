@@ -1230,9 +1230,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         _xs = _xrules.get("singles")
         if _xs and _xs.keep:
             _xdrop = 0
-            for b in board:
-                if b.on_deploy_shortlist and b.probs is not None and b.best_market_key \
-                        and not _xs.keep(_xp.leg(_pl_x._single(b)), _xctx):
+            _xcand = [b for b in board if b.on_deploy_shortlist and b.probs is not None and b.best_market_key]
+            _xlegs = _xp.rank_leagues([_xp.leg(_pl_x._single(b)) for b in _xcand])   # S9 reads league_rank
+            for b, _xl in zip(_xcand, _xlegs):
+                if not _xs.keep(_xl, _xctx):
                     b.on_deploy_shortlist = False
                     b.engine_dropped = True
                     _xdrop += 1

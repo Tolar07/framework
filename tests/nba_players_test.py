@@ -3,6 +3,7 @@ Offline test of the NBA player data (data/nba_players.py, Architect 2026-10-28 s
 box-score rows, the season log and its scan pointer, injuries, expected starters,
 season / last-10 averages and the stale-data gate. No network: fake ESPN blobs.
 """
+import shutil
 import sys
 import tempfile
 from datetime import UTC, date, datetime, timedelta
@@ -24,7 +25,12 @@ def ath(pid, name, mins, pts, starter=True, dnp=False):
 def box(home_players, away_players):
     return {"boxscore": {"players": [
         {"team": {"abbreviation": "BOS"}, "statistics": [{"keys": KEYS, "athletes": home_players}]},
-        {"team": {"abbreviation": "NYK"}, "statistics": [{"keys": KEYS, "athletes": away_players}]}]}}
+        {"team": {"abbreviation": "NYK"}, "statistics": [{"keys": KEYS, "athletes": away_players}]}],
+        "teams": [{"team": {"abbreviation": t}, "statistics": [
+            {"name": "fieldGoalsMade-fieldGoalsAttempted", "displayValue": "40-90"},
+            {"name": "freeThrowsMade-freeThrowsAttempted", "displayValue": "20-25"},
+            {"name": "offensiveRebounds", "displayValue": "10"},
+            {"name": "totalTurnovers", "displayValue": "14"}]} for t in ("BOS", "NYK")]}}
 
 
 BOS = [ath("1", "Star", 36, 30), ath("2", "Second", 34, 20), ath("3", "Third", 30, 15),
@@ -73,7 +79,21 @@ with tempfile.TemporaryDirectory() as tmp:
     n = len(calls)
     npl.update_log(date(2026, 10, 25), fetch=fetch, scoreboard=scoreboard, log=log, meta=meta)
     assert len(calls) == n and len(npl.load_log(log)) == len(got), "nothing fetched twice"
+    teams = npl.load_log(log.parent / "team_games.jsonl")
+    assert len(teams) == 4 and teams[0]["poss"] == 90 - 10 + 14 + 0.44 * 25 == 105.0
+    assert {(r["t"], r["pts"]) for r in teams if r["g"] == "g1"} == {("BOS", 110), ("NYK", 100)}
     print("season log: OK")
+
+    # team rows backfilled for games logged before the team log existed
+    (log.parent / "team_games.jsonl").unlink()
+    shutil.rmtree(npl.CACHE)
+    summ = {"header": {"competitions": [{"date": "2026-10-21T23:30Z", "competitors": [
+        {"homeAway": "home", "score": "110"}, {"homeAway": "away", "score": "100"}]}]}}
+    old_fetch = fetch
+    back = npl.backfill_teams(log, log.parent / "team_games.jsonl", lambda u: {**old_fetch(u), **summ})
+    assert len(back) == 4 and back[0]["tip"] == "2026-10-21T23:30Z", back[:1]
+    npl._append(log.parent / "team_games.jsonl", back)
+    print("team backfill: OK")
 
     # last night not finished: stop there and come back next run
     days[date(2026, 10, 25)] = [ns.Game("g4", "2026-10-25", 2027, 2, "BOS", "NYK")]

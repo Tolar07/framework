@@ -1,4 +1,26 @@
 {
+ "Degerfors IF v Vasteraas SK": {
+  "absent": [
+   {
+    "name": "Kazper Karlsson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juhani Pikkarainen",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107642,
+  "home_missing_share": 0.3052970823755065,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Duzcespor v Isparta 32 Spor": {
   "absent": [],
   "at": "2026-10-28T09:40Z",
@@ -9,6 +31,93 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T10:30:00.000Z",
   "lineup_type": "confirmed"
+ },
+ "Fethiyespor v Eyupspor": {
+  "absent": [],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6420062,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T12:30:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Halmstads BK v Malmo": {
+  "absent": [
+   {
+    "name": "Mayckel Lahdo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kenan Busulad\u017ei\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Oscar Sj\u00f6strand",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.30685242984363,
+  "away_unavailable": 7,
+  "fotmob_id": 5107644,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "IF Brommapojkarna v BK Hacken": {
+  "absent": [
+   {
+    "name": "Filip \u00d6hman",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ben Engdahl",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.19283221778604384,
+  "away_unavailable": 2,
+  "fotmob_id": 5107641,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "IFK Goteborg v Djurgardens IF": {
+  "absent": [
+   {
+    "name": "August Erlingmark",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Arbnor Mu\u00e7olli",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ramon-Pascal Lundqvist",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107639,
+  "home_missing_share": 0.3064958473807735,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Menemenspor AS v Karacabey Belediyespor": {
   "absent": [],
@@ -94,6 +203,43 @@
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-28T17:30:00.000Z",
   "lineup_type": "predicted"
+ },
+ "SC Pisa v Palermo": {
+  "absent": [
+   {
+    "name": "Mateus Lusuardi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Arturo Calabresi",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Gabriel Strefezza",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jesse Joronen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Federico Barba",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T12:00Z",
+  "away_missing_share": 0.25432240208814183,
+  "away_unavailable": 3,
+  "fotmob_id": 5967128,
+  "home_missing_share": 0.045296228864267304,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-28T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Serik Belediyespor v Hakkari Zap Spor": {
   "absent": [

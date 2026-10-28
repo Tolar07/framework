@@ -1779,7 +1779,11 @@
    "fotmob_id": 6420062,
    "kickoff_utc": "2026-10-28T12:30:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Fethiyespor at full strength",
+    "at": "12:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:75444694",
    "sb_tid": "sr:tournament:96",
@@ -1844,7 +1848,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   }
  ],
  "accas": [

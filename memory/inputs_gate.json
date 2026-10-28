@@ -1,0 +1,354 @@
+{
+ "evaluated_at": "2026-10-28",
+ "passes": [],
+ "coverage": {
+  "matches": 3717,
+  "with_h2h": 3506,
+  "leagues": 14,
+  "rated_graded": 715,
+  "with_xg_form": 392
+ },
+ "part_a": {
+  "home win | h2h_gd": {
+   "rows": 3506,
+   "scored": 3461,
+   "brier_model": 0.2211,
+   "brier_gain": -0.00019,
+   "brier_se": 0.00022,
+   "logloss_model": 0.6325,
+   "logloss_gain": -0.00062,
+   "logloss_se": 0.00054,
+   "last_coef": 0.041,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 929,
+     "clv": -0.78,
+     "clv_se": 0.26
+    },
+    "with_feature": {
+     "bets": 910,
+     "clv": -0.63,
+     "clv_se": 0.25
+    }
+   }
+  },
+  "home win | h2h_goals": {
+   "rows": 3506,
+   "scored": 3461,
+   "brier_model": 0.2211,
+   "brier_gain": -0.00022,
+   "brier_se": 0.0001,
+   "logloss_model": 0.6325,
+   "logloss_gain": -0.00055,
+   "logloss_se": 0.00024,
+   "last_coef": 0.009,
+   "verdict": "HURTS",
+   "verdict_logloss": "HURTS",
+   "clv": {
+    "model": {
+     "bets": 929,
+     "clv": -0.78,
+     "clv_se": 0.26
+    },
+    "with_feature": {
+     "bets": 930,
+     "clv": -0.8,
+     "clv_se": 0.26
+    }
+   }
+  },
+  "home win | form_ppg": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2222,
+   "brier_gain": -0.00038,
+   "brier_se": 0.00019,
+   "logloss_model": 0.6347,
+   "logloss_gain": -0.00073,
+   "logloss_se": 0.00042,
+   "last_coef": -0.047,
+   "verdict": "HURTS",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 1001,
+     "clv": -0.71,
+     "clv_se": 0.25
+    },
+    "with_feature": {
+     "bets": 1027,
+     "clv": -0.64,
+     "clv_se": 0.25
+    }
+   }
+  },
+  "home win | form_gd": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2222,
+   "brier_gain": -0.00043,
+   "brier_se": 0.00014,
+   "logloss_model": 0.6347,
+   "logloss_gain": -0.0009,
+   "logloss_se": 0.00034,
+   "last_coef": -0.013,
+   "verdict": "HURTS",
+   "verdict_logloss": "HURTS",
+   "clv": {
+    "model": {
+     "bets": 1001,
+     "clv": -0.71,
+     "clv_se": 0.25
+    },
+    "with_feature": {
+     "bets": 1009,
+     "clv": -0.67,
+     "clv_se": 0.25
+    }
+   }
+  },
+  "home win | form_venue_ppg": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2222,
+   "brier_gain": -0.00019,
+   "brier_se": 0.0001,
+   "logloss_model": 0.6347,
+   "logloss_gain": -0.00044,
+   "logloss_se": 0.00022,
+   "last_coef": -0.019,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 1001,
+     "clv": -0.71,
+     "clv_se": 0.25
+    },
+    "with_feature": {
+     "bets": 1004,
+     "clv": -0.72,
+     "clv_se": 0.25
+    }
+   }
+  },
+  "home win | form_goals": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2222,
+   "brier_gain": -0.00035,
+   "brier_se": 0.00031,
+   "logloss_model": 0.6347,
+   "logloss_gain": -0.00074,
+   "logloss_se": 0.00068,
+   "last_coef": -0.016,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 1001,
+     "clv": -0.71,
+     "clv_se": 0.25
+    },
+    "with_feature": {
+     "bets": 1030,
+     "clv": -0.74,
+     "clv_se": 0.24
+    }
+   }
+  },
+  "over 2.5 | h2h_gd": {
+   "rows": 3506,
+   "scored": 3461,
+   "brier_model": 0.2503,
+   "brier_gain": -0.0003,
+   "brier_se": 0.00028,
+   "logloss_model": 0.6942,
+   "logloss_gain": -0.00068,
+   "logloss_se": 0.00062,
+   "last_coef": 0.041,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 628,
+     "clv": 0.16,
+     "clv_se": 0.2
+    },
+    "with_feature": {
+     "bets": 633,
+     "clv": 0.14,
+     "clv_se": 0.2
+    }
+   }
+  },
+  "over 2.5 | h2h_goals": {
+   "rows": 3506,
+   "scored": 3461,
+   "brier_model": 0.2503,
+   "brier_gain": 0.00071,
+   "brier_se": 0.00084,
+   "logloss_model": 0.6942,
+   "logloss_gain": 0.00163,
+   "logloss_se": 0.00177,
+   "last_coef": -0.151,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 628,
+     "clv": 0.16,
+     "clv_se": 0.2
+    },
+    "with_feature": {
+     "bets": 698,
+     "clv": 0.27,
+     "clv_se": 0.19
+    }
+   }
+  },
+  "over 2.5 | form_ppg": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2508,
+   "brier_gain": -0.0001,
+   "brier_se": 0.0004,
+   "logloss_model": 0.6956,
+   "logloss_gain": -0.00042,
+   "logloss_se": 0.00087,
+   "last_coef": -0.043,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 675,
+     "clv": 0.15,
+     "clv_se": 0.19
+    },
+    "with_feature": {
+     "bets": 747,
+     "clv": 0.21,
+     "clv_se": 0.18
+    }
+   }
+  },
+  "over 2.5 | form_gd": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2508,
+   "brier_gain": -0.00019,
+   "brier_se": 0.00028,
+   "logloss_model": 0.6956,
+   "logloss_gain": -0.00047,
+   "logloss_se": 0.0006,
+   "last_coef": -0.017,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 675,
+     "clv": 0.15,
+     "clv_se": 0.19
+    },
+    "with_feature": {
+     "bets": 723,
+     "clv": 0.27,
+     "clv_se": 0.18
+    }
+   }
+  },
+  "over 2.5 | form_venue_ppg": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2508,
+   "brier_gain": -0.00029,
+   "brier_se": 0.0002,
+   "logloss_model": 0.6956,
+   "logloss_gain": -0.00072,
+   "logloss_se": 0.00045,
+   "last_coef": 0.01,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 675,
+     "clv": 0.15,
+     "clv_se": 0.19
+    },
+    "with_feature": {
+     "bets": 704,
+     "clv": 0.17,
+     "clv_se": 0.19
+    }
+   }
+  },
+  "over 2.5 | form_goals": {
+   "rows": 3717,
+   "scored": 3672,
+   "brier_model": 0.2508,
+   "brier_gain": 0.00028,
+   "brier_se": 0.00061,
+   "logloss_model": 0.6956,
+   "logloss_gain": 0.00079,
+   "logloss_se": 0.00129,
+   "last_coef": -0.118,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 675,
+     "clv": 0.15,
+     "clv_se": 0.19
+    },
+    "with_feature": {
+     "bets": 690,
+     "clv": -0.03,
+     "clv_se": 0.19
+    }
+   }
+  }
+ },
+ "part_b": {
+  "home win | xG edge": {
+   "rows": 392,
+   "scored": 310,
+   "brier_model": 0.2182,
+   "brier_gain": 0.00205,
+   "brier_se": 0.0026,
+   "logloss_model": 0.6258,
+   "logloss_gain": 0.00427,
+   "logloss_se": 0.00577,
+   "last_coef": 0.208,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT"
+  },
+  "over 2.5 | xG total": {
+   "rows": 392,
+   "scored": 310,
+   "brier_model": 0.2371,
+   "brier_gain": 0.00053,
+   "brier_se": 0.00254,
+   "logloss_model": 0.667,
+   "logloss_gain": 0.0012,
+   "logloss_se": 0.00573,
+   "last_coef": 0.199,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT"
+  },
+  "BTTS yes | xG total": {
+   "rows": 392,
+   "scored": 310,
+   "brier_model": 0.239,
+   "brier_gain": -0.00038,
+   "brier_se": 0.00069,
+   "logloss_model": 0.6708,
+   "logloss_gain": -0.00085,
+   "logloss_se": 0.00145,
+   "last_coef": 0.06,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT"
+  }
+ }
+}

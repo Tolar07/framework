@@ -1,0 +1,109 @@
+name: OLP XDV weekly self-improvement
+
+# Architect 2026-10-28: "the autonomous engine should be asking, what do I need
+# to do better? How can I improve things? And an answer should be provided to it."
+#
+# review (no LLM): re-runs the inputs study (H2H / form / xG walk-forward),
+#   audits the model's inputs against what strong football models use, checks
+#   every learning loop for tested evidence this week, ranks what to do better
+#   and opens each top proposal as a `self-improvement` issue
+#   (scripts/self_improve.py -> backtest/SELF_IMPROVEMENT.md).
+# build (fresh Claude Code run on Sonnet, nothing persistent): builds the top
+#   open proposal RECORD-ONLY or as a SHADOW with tests, as a PR. It never
+#   changes a pick, stake or threshold.
+on:
+  schedule:
+    - cron: "43 4 * * 1"     # Mondays 04:43 UTC, after the weekend's results are graded
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: self-improve
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Re-test the candidate inputs walk-forward
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/inputs_study.py > /dev/null
+      - name: What do I need to do better?
+        env:
+          PYTHONIOENCODING: utf-8
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/self_improve.py --issues | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add backtest/SELF_IMPROVEMENT.md memory/self_improvement.json backtest/INPUTS_STUDY.md memory/inputs_gate.json || true
+          if git diff --staged --quiet; then exit 0; fi
+          git commit -q -m "weekly self-improvement review $(date -u +%Y-%m-%d) [skip ci]"
+          for i in 1 2 3 4; do
+            git pull --rebase -q origin main || { git rebase --abort || true; echo "::warning::not saved"; exit 0; }
+            git push -q origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "::error::self-improvement review: push failed after 4 tries"
+          exit 1
+
+  build:
+    needs: review
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+    steps:
+      - name: No Claude key set — skipping the build
+        if: env.HAS_KEY != 'true'
+        run: echo "Set ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN to let the weekly review build its top proposal."
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          ref: main
+      - uses: anthropics/claude-code-action@v1
+        if: env.HAS_KEY == 'true'
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            You are the build step of the OLP XDV weekly self-improvement review.
+            Read CLAUDE.md, STANDING_ORDERS.md and backtest/SELF_IMPROVEMENT.md first.
+            Take the highest-ranked OPEN issue labelled `self-improvement` that has no
+            open PR linked to it (`gh issue list --label self-improvement`,
+            `gh pr list --search "<issue number>"`). Build it SAFELY:
+            - RECORD-ONLY (capture data / write a study) or a SHADOW (a candidate
+              evaluated walk-forward next to the live model, like
+              backtest/inputs_study.py or engine/why_learning.py);
+            - never change a pick rule, stake, staking, threshold, the CLV gate,
+              ARCHITECT_SIGNOFF or anything the capital bright line covers;
+            - add a test under tests/ and run `python tests/run_all.py` (or the new
+              test plus the tests of every file you touched) before pushing;
+            - missing data reads PENDING (HR35); never invent fixtures or prices (HR59).
+            Push a branch `self-improve/<issue number>` and open a PR that says
+            "Closes #<issue number>", what was built and the numbers it produced.
+            If the top issue is a stalled learning loop, find the cause at source
+            and fix it in the same way. If nothing can be built safely, comment on
+            the issue saying exactly why and stop.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python:*),Bash(git:*),Bash(gh issue:*),Bash(gh pr:*),Bash(pip install:*)"

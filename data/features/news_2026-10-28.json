@@ -124,7 +124,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T12:00Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107642,
@@ -252,7 +252,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T12:00Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.30685242984363,
   "away_unavailable": 7,
   "fotmob_id": 5107644,
@@ -274,7 +274,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T12:00Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.19283221778604384,
   "away_unavailable": 2,
   "fotmob_id": 5107641,
@@ -301,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T12:00Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107639,
@@ -381,14 +381,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:20Z",
-  "away_missing_share": 0.314626869120068,
+  "at": "2026-10-28T16:40Z",
+  "away_missing_share": 0.3499665475949431,
   "away_unavailable": 5,
   "fotmob_id": 5749720,
-  "home_missing_share": 0.3609940228015017,
+  "home_missing_share": 0.3423402613770847,
   "home_unavailable": 8,
   "kickoff_utc": "2026-10-28T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Monza v Napoli": {
   "absent": [
@@ -455,7 +455,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:20Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.3235949784914049,
   "away_unavailable": 5,
   "fotmob_id": 5749726,
@@ -492,7 +492,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T12:00Z",
+  "at": "2026-10-28T16:40Z",
   "away_missing_share": 0.25432240208814183,
   "away_unavailable": 3,
   "fotmob_id": 5967128,
@@ -657,13 +657,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T16:20Z",
-  "away_missing_share": 0.2976676641549732,
+  "at": "2026-10-28T16:40Z",
+  "away_missing_share": 0.30448724401306027,
   "away_unavailable": 5,
   "fotmob_id": 5749729,
-  "home_missing_share": 0.10004160011027692,
+  "home_missing_share": 0.10277242876941571,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-28T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  }
 }

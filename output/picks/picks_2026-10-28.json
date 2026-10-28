@@ -447,7 +447,11 @@
     "home": 236521004,
     "away": 89704272
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Bologna: high press v build-up side; Bologna: blunt attack v tight defence -> no strong goals lean",
     "xg": [
@@ -602,7 +606,11 @@
     "home": 59278855,
     "away": 380050388
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Venezia: counter side v high line; Venezia: counter side v counter-exposed; Inter: set-piece threat v weak set-piece defence; Inter: aerial threat v weak in the air; Inter: elite attack v leaky defence -> BTTS & goals",
     "xg": [

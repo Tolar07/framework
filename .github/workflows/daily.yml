@@ -222,6 +222,8 @@ jobs:
           fi
           # the NBA studies: every SportyBet market against the results, and the ladder spreads
           python backtest/nba_market_study.py || true
+          # the player-built projection against the sharp line and SportyBet (NBA step 4, recorded only)
+          python backtest/nba_projection_study.py > /dev/null || true
           python backtest/nba_ladder_study.py || true
 
       # SHARP VALUE LIST (Architect 2026-10-14) — the parallel selection, run on
@@ -295,6 +297,7 @@ jobs:
           git add data/nba_lineups 2>/dev/null || true
           # Every SportyBet NBA market at every look (engine/nba_markets.py) + the NBA studies.
           git add output/nba_markets backtest/NBA_MARKET_STUDY.md backtest/NBA_LADDER_STUDY.md 2>/dev/null || true
+          git add backtest/NBA_PROJECTION_STUDY.md 2>/dev/null || true
           # The parallel sharp-value list and its grades (monitor/sharp_list.py)
           # and the record by price band the board's footer points at (order 3).
           git add data/sharp backtest/PRICE_BAND_STUDY.md 2>/dev/null || true

@@ -9,9 +9,9 @@
    "flat_return": -0.1004,
    "model_said": 0.796,
    "ai_said": 0.802,
-   "clv_n": 29,
-   "mean_clv": 0.19,
-   "beat_close": 14
+   "clv_n": 30,
+   "mean_clv": 0.29,
+   "beat_close": 15
   },
   "lower": {
    "n": 46,
@@ -31,8 +31,8 @@
    "flat_return": 0.0053,
    "model_said": 0.789,
    "ai_said": 0.767,
-   "clv_n": 88,
-   "mean_clv": 0.19,
+   "clv_n": 90,
+   "mean_clv": 0.16,
    "beat_close": 37
   }
  },

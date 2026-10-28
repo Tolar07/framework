@@ -20,9 +20,9 @@
    "flat_return": -0.0352,
    "model_said": 0.812,
    "ai_said": 0.799,
-   "clv_n": 48,
-   "mean_clv": 0.42,
-   "beat_close": 23
+   "clv_n": 49,
+   "mean_clv": 0.46,
+   "beat_close": 24
   },
   "veto": {
    "n": 88,
@@ -31,9 +31,9 @@
    "flat_return": 0.0053,
    "model_said": 0.789,
    "ai_said": 0.767,
-   "clv_n": 90,
-   "mean_clv": 0.16,
-   "beat_close": 37
+   "clv_n": 100,
+   "mean_clv": 0.18,
+   "beat_close": 42
   }
  },
  "brier": {

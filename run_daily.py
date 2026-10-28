@@ -487,6 +487,11 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         from engine import picks_ledger
         from data import fotmob
         all_flags += picks_ledger.grade_all(fs_events, fotmob_day=fotmob.matches_on)
+        try:   # WHY RECORD (record only): each graded single classed from its studied match
+            from engine import why_record
+            why_record.build()
+        except Exception as e:  # noqa: BLE001
+            all_flags.append(f"why record skipped ({str(e)[:60]})")
         scorecard_text = picks_ledger.scorecard(7)
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks scorecard unavailable ({e})")
@@ -576,9 +581,22 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     try:
         from engine import learning
         from engine.picks_ledger import LEDGER_DIR as _LD
-        learned = learning.learn(_LD)
+        # why-weighted learning: a SHADOW until its walk-forward earns promotion
+        # (engine/why_learning) — only then does the board learn from it
+        try:
+            from engine import why_learning
+            _why_st = why_learning.run()
+        except Exception as e:  # noqa: BLE001
+            why_learning, _why_st = None, {}
+            all_flags.append(f"why-weighted learning shadow skipped ({str(e)[:60]})")
+        if _why_st.get("status") == "promoted":
+            learned = learning.learn(_LD, why=why_learning.why_map())
+        else:
+            learned = learning.learn(_LD)
         learning_line = learning.summary(learned)
         all_flags.append(learning_line)
+        if _why_st:
+            learning_line += "\n" + why_learning.line(_why_st)
     except Exception as e:  # noqa: BLE001 — learning is optional, the run is not
         learning, learned, learning_line = None, {}, None
         all_flags.append(f"learning from results unavailable ({e})")

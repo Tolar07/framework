@@ -341,8 +341,19 @@ def cmd_debrief(_: str) -> str:
         "  Model under-predicts goals (Over 2.5 by ~6pp after the BUG7 fix),",
         "  which inflates Under 2.5 and BTTS-No — the markets you trade.",
         "",
+        *_why_lines(),
         HONEST_CAVEAT,
     ])
+
+
+def _why_lines() -> list[str]:
+    """The why record (record only) + the why-weighted learning shadow."""
+    try:
+        from engine import why_learning, why_record
+        L = why_record.summary_lines()
+        return (L + [why_learning.line(why_learning.load()), ""]) if L else []
+    except Exception:  # noqa: BLE001
+        return []
 
 
 def _olp():

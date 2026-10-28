@@ -111,14 +111,27 @@ def _seg(rows: list) -> dict:
             "days": days, "z": round(z, 2), "shift": round(shift, 4)}
 
 
-def learn(ledger_dir, today: Optional[str] = None) -> dict:
-    """{'family': {name: seg}, 'league': {name: seg}} from graded singles."""
+# WHY-WEIGHTED SHADOW (2026-10-28, engine/why_learning.py): with `why` given,
+# a graded single's outcome is blended with what the match's xG deserved
+# (engine/why_record): y = WHY_ALPHA x won + (1 - WHY_ALPHA) x deserved. An
+# OUTPLAYED miss (deserved low) stays close to a full miss; a RIGHT-UNLUCKY one
+# (deserved high) counts about half. SHADOW ONLY until it earns promotion.
+WHY_ALPHA = 0.5
+
+
+def load_docs(ledger_dir) -> list[dict]:
+    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(ledger_dir.glob("picks_*.json"))]
+
+
+def learn(ledger_dir, today: Optional[str] = None, why: Optional[dict] = None,
+          docs: Optional[list] = None) -> dict:
+    """{'family': {name: seg}, 'league': {name: seg}} from graded singles.
+    `why`: {(date, fixture, market): deserved} -> the why-weighted shadow."""
     today = today or date.today().isoformat()
     since = (date.fromisoformat(today) - timedelta(days=WINDOW_DAYS)).isoformat()
     picks = []
     rated_rows: list = []
-    for path in sorted(ledger_dir.glob("picks_*.json")):
-        doc = json.loads(path.read_text(encoding="utf-8"))
+    for doc in (docs if docs is not None else load_docs(ledger_dir)):
         if not (since <= doc["date"] < today):
             continue
         for s in doc["singles"]:
@@ -127,10 +140,14 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
             # Learn from the chance BEFORE any learned correction (2026-10-05):
             # learning from already-shifted chances re-measured its own shift.
             c = s.get("chance_raw", s["chance"])
+            won: float = s["result"] == "won"
+            price = s.get("price") if s["result"] != "void" else None
+            d = why.get((doc["date"], s.get("fixture"), s.get("market"))) if why else None
+            if d is not None and s["result"] != "void":
+                won, price = WHY_ALPHA * won + (1 - WHY_ALPHA) * d, None   # no ROI on a blend
             picks.append((family(s.get("market")), s.get("league") or "?",
                           # a void has no price here: no profit or loss in the ROI
-                          (s["result"] == "won", float(c),
-                           s.get("price") if s["result"] != "void" else None,
+                          (won, float(c), price,
                            (s.get("kickoff") or doc["date"])[:10])))
         rated_rows += _rated_rows(doc)
     fam: dict = {}

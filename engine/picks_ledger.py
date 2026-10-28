@@ -584,4 +584,10 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
     pend = sum(1 for s in allsing if s["result"] is None)
     if pend:
         L.append(f"{pend} single(s) still awaiting a result.")
+    try:   # the why record (record only): outplayed v unlucky v game changed
+        from engine import why_record
+        if LEDGER_DIR == why_record.LEDGER_DIR:      # a test's own ledger has no why record
+            L.extend(why_record.summary_lines())
+    except Exception:  # noqa: BLE001
+        pass
     return "\n".join(L)

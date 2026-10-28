@@ -82,6 +82,11 @@ def main(fetch: bool = True) -> int:
         for e in new:
             f.write(json.dumps(e, ensure_ascii=False, separators=(",", ":")) + "\n")
     print(f"studied: {len(new)} match(es) explained")
+    try:   # the why record: graded picks set against the matches just studied
+        from engine import why_record
+        print(f"why record: {len(why_record.build())} graded single(s) classed")
+    except Exception as e:  # noqa: BLE001
+        print(f"why record skipped ({e})")
     ts.report(preds, weight, lessons)
     return 0
 

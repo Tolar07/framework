@@ -54,6 +54,7 @@ from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_projection as proj  # noqa: E402
 from engine import nba_recal as recal  # noqa: E402
+from engine import nba_shape as shp  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
@@ -170,7 +171,9 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
                       # recorded for the player-built projection (engine/nba_projection.py)
                       "espn_id": g.id, "sb_main": proj.sportybet_main(e),
                       "sharp": {"total": g.total, "spread": g.spread,
-                                "open_total": g.open_total, "open_spread": g.open_spread}})
+                                "open_total": g.open_total, "open_spread": g.open_spread},
+                      # margin / total bands, graded by the scorecard (engine/nba_shape.py)
+                      "espn_date": g.tip[:10], "shape": shp.shape(g.total, g.spread), "score": None})
         for s in suspect:
             notes.append(f"{label}: {s['outcome']} @{s['price']:.2f} looks {s['ev']:+.0%} — "
                          f"too good to be true (stale line?), not picked")
@@ -283,6 +286,15 @@ def grade(now: datetime) -> list[str]:
             pc = nv.fair_chance(p["market_id"], p["specifier"], p["outcome"], g)
             p["close_value"] = round(pc * p["price"] - 1, 4) if pc else None
             changed = True
+        for s in doc.get("study", []):          # every priced game's shape (engine/nba_shape.py)
+            if (s.get("score") or not s.get("shape") or not s.get("espn_date")
+                    or datetime.fromisoformat(s["tip"]) > now - timedelta(hours=3)):
+                continue
+            g = next((x for day in espn_days(s) for x in ns.scoreboard(day, use_cache=False)
+                      if x.id == s["espn_id"]), None)
+            if g is not None and g.completed:
+                s["score"] = f"{g.hs}-{g.as_}"
+                changed = True
         changed = grade_accas(doc) or changed
         if changed:
             path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
@@ -293,15 +305,18 @@ def grade(now: datetime) -> list[str]:
 def scorecard() -> str:
     """The graded record: regular-season picks only (preseason is a pipeline test).
     The board's picks and the line watch's (monitor/nba_watch.py) are kept apart."""
-    rows = []
+    rows, games = [], []
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
-        rows += [p for p in json.loads(path.read_text(encoding="utf-8")).get("picks", [])
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        rows += [p for p in doc.get("picks", [])
                  if p.get("stage") == "regular" and p.get("result") in ("won", "lost")]
+        games += [(s["shape"], s["score"]) for s in doc.get("study", [])
+                  if s.get("stage") == "regular" and s.get("shape") and s.get("score")]
     board = [p for p in rows if p.get("source") != "watch"]
     watch = [p for p in rows if p.get("source") == "watch"]
     if not board and not watch:
         return "NBA record: no graded regular-season pick yet (the season opens 20 Oct)."
-    out = []
+    out = shp.check(games)
     for name, ps in (("NBA record (regular season)", board), ("Line watch record", watch)):
         if not ps:
             continue
@@ -332,6 +347,10 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "
               f"· value {p['ev']:+.1%}",
               f"   code {p['code'] or 'PENDING'}"]
+        sh = shp.board_line(shp.shape((p.get("sharp") or {}).get("total"),
+                                      (p.get("sharp") or {}).get("spread")), p["home"], p["away"])
+        if sh:
+            L.append(f"   {sh}")
         if "matchbook" in p:
             mbx = (p.get("matchbook") or {}).get("back")
             L.append(f"   Matchbook: back {mbx:.2f}" if mbx else
@@ -356,6 +375,9 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
             L.append(f"{tip:%H:%M}  {g['home']} v {g['away']}{tag}")
             L += [f"   {nv.display(r, g['home'], g['away'])} @{r['price']:.2f} · fair {r['fair_price']:.2f} "
                   f"· {r['ev']:+.1%}" for r in g["lines"]]
+            sh = shp.board_line(g.get("shape"), g["home"], g["away"])
+            if sh:
+                L.append(f"   {sh}")
             L.append("")
     L += [_RULE, scorecard(), "",
           "Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board",

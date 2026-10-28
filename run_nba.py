@@ -51,6 +51,7 @@ from engine import nba_ext_model as xm  # noqa: E402
 from engine import nba_ladder as nl  # noqa: E402
 from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
+from engine import nba_projection as proj  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
@@ -163,7 +164,11 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
             continue
         found, suspect = nv.candidates(e, g)
         study.append({"tip": tip.isoformat(), "stage": stage, "home": e.get("homeTeamName"),
-                      "away": e.get("awayTeamName"), "lines": nv.study_lines(e, g)})
+                      "away": e.get("awayTeamName"), "lines": nv.study_lines(e, g),
+                      # recorded for the player-built projection (engine/nba_projection.py)
+                      "espn_id": g.id, "sb_main": proj.sportybet_main(e),
+                      "sharp": {"total": g.total, "spread": g.spread,
+                                "open_total": g.open_total, "open_spread": g.open_spread}})
         for s in suspect:
             notes.append(f"{label}: {s['outcome']} @{s['price']:.2f} looks {s['ev']:+.0%} — "
                          f"too good to be true (stale line?), not picked")
@@ -386,6 +391,18 @@ def player_sheets(now: datetime, night: date) -> dict:
     return {"games": games, "notes": notes}
 
 
+def projections(players: dict, study: list[dict]) -> list[dict]:
+    """RECORDED ONLY (NBA step 2): the player-built projection of every game of the night,
+    beside the sharp line and SportyBet's main lines, both sides of each. No pick reads it."""
+    try:
+        teams, lg = proj.team_table(npl.load_log(npl.TEAM_LOG))
+        by_id = {s.get("espn_id"): s for s in study}
+        return [proj.project(g, teams, lg, by_id.get(g["espn_id"], {}).get("sharp"),
+                             by_id.get(g["espn_id"], {}).get("sb_main")) for g in players.get("games") or []]
+    except Exception as e:  # noqa: BLE001 — never stops the board
+        return [{"error": str(e)[:120]}]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-send", action="store_true")
@@ -412,6 +429,7 @@ def main() -> int:
         accas = book(picks) if picks else []
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         players = player_sheets(now, night)
+        players["projections"] = projections(players, study)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,

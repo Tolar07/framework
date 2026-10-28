@@ -45,6 +45,7 @@ from typing import Optional
 ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
+from data import nba_players as npl  # noqa: E402
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ext_model as xm  # noqa: E402
 from engine import nba_ladder as nl  # noqa: E402
@@ -371,6 +372,20 @@ def live_rule(picks: list[dict]) -> tuple[list[dict], list[dict]]:
     return keep, [p for p in picks if p not in keep]
 
 
+def player_sheets(now: datetime, night: date) -> dict:
+    """RECORDED ONLY (Architect 2026-10-28, NBA step 1): each game's injury list, expected
+    starters and every available player's season and last-10 minutes and points
+    (data/nba_players.py). Stored in the picks file; no pick, stake or threshold reads it."""
+    start = night_start(night)
+    try:
+        games, notes = npl.night_sheets(start, start + timedelta(hours=24), now)
+    except Exception as e:  # noqa: BLE001 — a data hiccup never stops the board
+        return {"games": [], "notes": [f"player data unavailable ({str(e)[:80]})"]}
+    for n in notes:
+        print(f"  players: {n}")
+    return {"games": games, "notes": notes}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-send", action="store_true")
@@ -396,13 +411,14 @@ def main() -> int:
         run_id = _run_id(now)
         accas = book(picks) if picks else []
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
+        players = player_sheets(now, night)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
                                       "mega_code": None, "accas": accas, "picks": picks,
                                       "picks_dropped": dropped,
-                                      "study": study}, indent=1),
+                                      "study": study, "players": players}, indent=1),
                           encoding="utf-8")
         text_path.write_text(text, encoding="utf-8")
     print(text)

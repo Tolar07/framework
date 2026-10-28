@@ -1828,7 +1828,11 @@
    "fotmob_id": 6420055,
    "kickoff_utc": "2026-10-28T15:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:75444680",
    "sb_tid": "sr:tournament:96",

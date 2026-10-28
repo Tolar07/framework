@@ -501,6 +501,17 @@
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Sakaryaspor v Bursa Yildirim Spor": {
+  "absent": [],
+  "at": "2026-10-28T14:20Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6420055,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-28T15:00:00.000Z",
+  "lineup_type": "confirmed"
+ },
  "Serik Belediyespor v Hakkari Zap Spor": {
   "absent": [
    {

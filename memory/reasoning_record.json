@@ -1,45 +1,45 @@
 {
  "updated": "2026-10-28",
- "graded": 162,
+ "graded": 186,
  "by_verdict": {
   "back": {
-   "n": 28,
-   "won": 20,
-   "hit": 0.714,
-   "flat_return": -0.1004,
+   "n": 30,
+   "won": 22,
+   "hit": 0.733,
+   "flat_return": -0.079,
    "model_said": 0.796,
-   "ai_said": 0.802,
-   "clv_n": 30,
-   "mean_clv": 0.29,
+   "ai_said": 0.804,
+   "clv_n": 31,
+   "mean_clv": 0.28,
    "beat_close": 15
   },
   "lower": {
-   "n": 46,
-   "won": 35,
-   "hit": 0.761,
-   "flat_return": -0.0352,
-   "model_said": 0.812,
-   "ai_said": 0.799,
-   "clv_n": 49,
-   "mean_clv": 0.46,
+   "n": 50,
+   "won": 38,
+   "hit": 0.76,
+   "flat_return": -0.0384,
+   "model_said": 0.809,
+   "ai_said": 0.798,
+   "clv_n": 51,
+   "mean_clv": 0.33,
    "beat_close": 24
   },
   "veto": {
-   "n": 88,
-   "won": 71,
-   "hit": 0.807,
-   "flat_return": 0.0053,
-   "model_said": 0.789,
-   "ai_said": 0.767,
-   "clv_n": 100,
-   "mean_clv": 0.18,
-   "beat_close": 42
+   "n": 106,
+   "won": 84,
+   "hit": 0.792,
+   "flat_return": -0.0117,
+   "model_said": 0.787,
+   "ai_said": 0.763,
+   "clv_n": 108,
+   "mean_clv": 0.16,
+   "beat_close": 45
   }
  },
  "brier": {
-  "n": 162,
-  "model": 0.1765,
-  "ai": 0.178
+  "n": 186,
+  "model": 0.1778,
+  "ai": 0.1784
  },
  "nba": {
   "graded": 37,
@@ -64,6 +64,401 @@
    }
   }
  },
- "cognitive_authority": {},
- "cognitive_history": []
+ "cognitive_authority": {
+  "football | Asian handicap": {
+   "n": 1,
+   "earned": false,
+   "cog_brier": 0.0352,
+   "base_brier": 0.0352,
+   "veto_loss_rate": null
+  },
+  "football | Away win to nil": {
+   "n": 1,
+   "earned": false,
+   "cog_brier": 0.051,
+   "base_brier": 0.051,
+   "veto_loss_rate": null
+  },
+  "football | DC & total": {
+   "n": 2,
+   "earned": false,
+   "cog_brier": 0.304,
+   "base_brier": 0.304,
+   "veto_loss_rate": null
+  },
+  "football | Double chance": {
+   "n": 7,
+   "earned": false,
+   "cog_brier": 0.2157,
+   "base_brier": 0.2157,
+   "veto_loss_rate": null
+  },
+  "football | Home goals": {
+   "n": 2,
+   "earned": false,
+   "cog_brier": 0.3046,
+   "base_brier": 0.3154,
+   "veto_loss_rate": null
+  },
+  "football | Home win to nil": {
+   "n": 2,
+   "earned": false,
+   "cog_brier": 0.3417,
+   "base_brier": 0.3417,
+   "veto_loss_rate": null
+  },
+  "football | Over/Under": {
+   "n": 9,
+   "earned": false,
+   "cog_brier": 0.1099,
+   "base_brier": 0.1079,
+   "veto_loss_rate": null
+  }
+ },
+ "cognitive_history": [
+  {
+   "id": "football|2026-10-28|Aberdeen v Falkirk|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7731,
+   "cognitive_prob": 0.7731,
+   "won": true,
+   "base_brier": 0.0515,
+   "cog_brier": 0.0515,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Celtic v Dundee United|SB:547|total=1.5|Home/Away & Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "DC & total",
+   "verdict": "BACK",
+   "base_prob": 0.7406,
+   "cognitive_prob": 0.7406,
+   "won": false,
+   "base_brier": 0.5485,
+   "cog_brier": 0.5485,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Dundee v Kilmarnock|SB:33||No",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Home win to nil",
+   "verdict": "BACK",
+   "base_prob": 0.7698,
+   "cognitive_prob": 0.7698,
+   "won": true,
+   "base_brier": 0.053,
+   "cog_brier": 0.053,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|St Mirren v Hibernian|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7841,
+   "cognitive_prob": 0.7841,
+   "won": true,
+   "base_brier": 0.0466,
+   "cog_brier": 0.0466,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|St Johnstone v Motherwell|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7641,
+   "cognitive_prob": 0.7641,
+   "won": true,
+   "base_brier": 0.0556,
+   "cog_brier": 0.0556,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Milan v Bologna|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7949,
+   "cognitive_prob": 0.7949,
+   "won": true,
+   "base_brier": 0.0421,
+   "cog_brier": 0.0421,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Parma v Udinese|SB:34||No",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Away win to nil",
+   "verdict": "BACK",
+   "base_prob": 0.7742,
+   "cognitive_prob": 0.7742,
+   "won": true,
+   "base_brier": 0.051,
+   "cog_brier": 0.051,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Venezia FC v Inter|SB:547|total=1.5|Home/Away & Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "DC & total",
+   "verdict": "BACK",
+   "base_prob": 0.7561,
+   "cognitive_prob": 0.7561,
+   "won": true,
+   "base_brier": 0.0595,
+   "cog_brier": 0.0595,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Genoa v Juventus|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.784,
+   "cognitive_prob": 0.784,
+   "won": true,
+   "base_brier": 0.0467,
+   "cog_brier": 0.0467,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Monza v Napoli|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.8032,
+   "cognitive_prob": 0.8032,
+   "won": true,
+   "base_brier": 0.0387,
+   "cog_brier": 0.0387,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|SC Pisa v Palermo|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7817,
+   "cognitive_prob": 0.7817,
+   "won": true,
+   "base_brier": 0.0477,
+   "cog_brier": 0.0477,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Carrarese v SS Arezzo|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7676,
+   "cognitive_prob": 0.7676,
+   "won": true,
+   "base_brier": 0.054,
+   "cog_brier": 0.054,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Juve Stabia v Hellas Verona|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7532,
+   "cognitive_prob": 0.7532,
+   "won": false,
+   "base_brier": 0.5673,
+   "cog_brier": 0.5673,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Carlisle v Harrogate|SB:33||No",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Home win to nil",
+   "verdict": "BACK",
+   "base_prob": 0.794,
+   "cognitive_prob": 0.794,
+   "won": false,
+   "base_brier": 0.6304,
+   "cog_brier": 0.6304,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Forest Green Rovers v Eastleigh|SB:16|hcp=-2.5|Away (+2.5)",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Asian handicap",
+   "verdict": "BACK",
+   "base_prob": 0.8124,
+   "cognitive_prob": 0.8124,
+   "won": true,
+   "base_brier": 0.0352,
+   "cog_brier": 0.0352,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Sutton v Aldershot|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7796,
+   "cognitive_prob": 0.7796,
+   "won": true,
+   "base_brier": 0.0486,
+   "cog_brier": 0.0486,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Degerfors IF v Vasteraas SK|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.7416,
+   "cognitive_prob": 0.7416,
+   "won": true,
+   "base_brier": 0.0668,
+   "cog_brier": 0.0668,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Halmstads BK v Malmo|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7991,
+   "cognitive_prob": 0.7991,
+   "won": true,
+   "base_brier": 0.0404,
+   "cog_brier": 0.0404,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|IF Brommapojkarna v BK Hacken|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.8038,
+   "cognitive_prob": 0.8038,
+   "won": false,
+   "base_brier": 0.6461,
+   "cog_brier": 0.6461,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|IFK Goteborg v Djurgardens IF|SB:10||Home or Away",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7933,
+   "cognitive_prob": 0.7933,
+   "won": false,
+   "base_brier": 0.6293,
+   "cog_brier": 0.6293,
+   "flags": [],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Duzcespor v Isparta 32 Spor|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "LOWER",
+   "base_prob": 0.7609,
+   "cognitive_prob": 0.7409,
+   "won": true,
+   "base_brier": 0.0572,
+   "cog_brier": 0.0671,
+   "flags": [
+    "DOMESTIC_CUP_ROTATION_RISK"
+   ],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Menemenspor AS v Karacabey Belediyespor|SB:19|total=0.5|Over 0.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Home goals",
+   "verdict": "LOWER",
+   "base_prob": 0.7667,
+   "cognitive_prob": 0.7467,
+   "won": false,
+   "base_brier": 0.5878,
+   "cog_brier": 0.5576,
+   "flags": [
+    "DOMESTIC_CUP_ROTATION_RISK"
+   ],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Serik Belediyespor v Hakkari Zap Spor|SB:19|total=3.5|Under 3.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Home goals",
+   "verdict": "LOWER",
+   "base_prob": 0.7927,
+   "cognitive_prob": 0.7727,
+   "won": true,
+   "base_brier": 0.043,
+   "cog_brier": 0.0517,
+   "flags": [
+    "DOMESTIC_CUP_ROTATION_RISK"
+   ],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Sakaryaspor v Bursa Yildirim Spor|SB:18|total=1.5|Over 1.5",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "LOWER",
+   "base_prob": 0.794,
+   "cognitive_prob": 0.774,
+   "won": true,
+   "base_brier": 0.0424,
+   "cog_brier": 0.0511,
+   "flags": [
+    "DOMESTIC_CUP_ROTATION_RISK"
+   ],
+   "graded_at": "2026-10-28T21:54:25+00:00"
+  }
+ ]
 }

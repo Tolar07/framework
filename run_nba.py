@@ -48,6 +48,7 @@ sys.path.insert(0, str(ROOT))
 from data import nba_players as npl  # noqa: E402
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ext_model as xm  # noqa: E402
+from engine import nba_gate as pgate  # noqa: E402
 from engine import nba_ladder as nl  # noqa: E402
 from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
@@ -393,8 +394,9 @@ def player_sheets(now: datetime, night: date) -> dict:
 
 
 def projections(players: dict, study: list[dict]) -> list[dict]:
-    """RECORDED ONLY (NBA step 2): the player-built projection of every game of the night,
-    beside the sharp line and SportyBet's main lines, both sides of each. No pick reads it."""
+    """The player-built projection of every game of the night (NBA step 2), beside the sharp
+    line and SportyBet's main lines, both sides of each. Picks read it only through
+    engine/nba_gate.py, which drops a pick only while the gate is open."""
     try:
         teams, lg = proj.team_table(npl.load_log(npl.TEAM_LOG))
         cal = recal.load_live()                    # this season's refit (NBA step 3), recorded only
@@ -414,11 +416,25 @@ def main() -> int:
     ap.add_argument("--resend", action="store_true", help="send again even if already sent")
     a = ap.parse_args()
     now = datetime.now(timezone.utc)
+    for n in nv.use_season_refit():      # adopted season refits only (engine/nba_recal.py)
+        print(f"  pricing: {n}")
     for n in grade(now):
         print(f"  {n}")
     night = date.fromisoformat(a.night) if a.night else night_of(now)
     picks, notes, scanned, study = build(now, night)
     picks, dropped = live_rule(picks)
+    # The player-built projection (NBA steps 1-2). Architect OK 2026-10-28, applied as
+    # recommended: it drops a pick only once engine/nba_gate.py is OPEN (it has beaten the
+    # sharp line on games it was not fitted to); until then it is recorded beside each pick.
+    players = player_sheets(now, night)
+    players["projections"] = projections(players, study)
+    gate_open = pgate.is_open()
+    picks, gated = pgate.apply(picks, players["projections"], gate_open)
+    dropped += gated
+    players["gate_open"] = gate_open
+    if gated:
+        notes.append(f"{len(gated)} pick(s) dropped: the player projection prices the other side "
+                     f"(projection gate open)")
     for n in notes:
         print(f"  ⚠ {n}")
     board_date = night_key(night_start(night))
@@ -431,8 +447,6 @@ def main() -> int:
         run_id = _run_id(now)
         accas = book(picks) if picks else []
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
-        players = player_sheets(now, night)
-        players["projections"] = projections(players, study)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,

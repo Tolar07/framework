@@ -1,0 +1,19 @@
+{
+ "Serik Belediyespor v Hakkari Zap Spor": {
+  "absent": [
+   {
+    "name": "M\u00fccahit \u0130brahimo\u011flu",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-28T09:00Z",
+  "away_missing_share": null,
+  "away_unavailable": 0,
+  "fotmob_id": 6420071,
+  "home_missing_share": 1.0,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-28T10:30:00.000Z",
+  "lineup_type": "unavailable"
+ }
+}

@@ -1556,7 +1556,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Menemenspor AS v Karacabey Belediyespor",
@@ -1599,7 +1601,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 3.3
   },
   {
    "fixture": "Serik Belediyespor v Hakkari Zap Spor",
@@ -1648,7 +1652,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Silivrispor v Halide Edip Adivarspor",
@@ -1691,7 +1697,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Balikesirspor v Arnavutkoy Belediyesi Genclik Ve Spor",
@@ -1734,7 +1742,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Fethiyespor v Eyupspor",

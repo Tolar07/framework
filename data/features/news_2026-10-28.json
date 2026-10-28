@@ -65,7 +65,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T13:00Z",
+  "at": "2026-10-28T17:40Z",
   "away_missing_share": 0.05107397379359057,
   "away_unavailable": 1,
   "fotmob_id": 5967121,
@@ -124,14 +124,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:20Z",
+  "at": "2026-10-28T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107642,
-  "home_missing_share": 0.3052970823755065,
+  "home_missing_share": 0.313113299800139,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Dundee v Kilmarnock": {
   "absent": [
@@ -301,14 +301,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:20Z",
+  "at": "2026-10-28T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107639,
-  "home_missing_share": 0.3064958473807735,
+  "home_missing_share": 0.30598655533651714,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Juve Stabia v Hellas Verona": {
   "absent": [
@@ -328,7 +328,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T13:00Z",
+  "at": "2026-10-28T17:40Z",
   "away_missing_share": 0.38325320517244904,
   "away_unavailable": 9,
   "fotmob_id": 5967124,

@@ -655,4 +655,10 @@ for _forbidden in ("staking", "ARCHITECT_SIGNOFF", "CLV_GATE", "LEAGUES", "asser
 assert "Experiment engine may swap strategies within slots" in (ROOT / "STANDING_ORDERS.md").read_text(
     encoding="utf-8"), "experiment engine order recorded"
 
+# Order 49: the weekly self-improvement loop asks, searches, proposes, tells the Architect, builds + merges
+_si = (ROOT / ".github" / "workflows" / "self_improve.yml").read_text(encoding="utf-8")
+assert all(x in _si for x in ("scripts/self_improve.py --issues", "WebSearch", "gh pr merge", "--telegram")),     "Order 49: weekly self-improvement must search, open proposals, merge on green and tell the Architect"
+assert (ROOT / ".github" / "workflows" / "learning_watch.yml").exists(), "Order 49: stalled-loop watch"
+assert "Self-improvement loop" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -1,0 +1,20 @@
+{
+ "at": "2026-10-28T11:39:11Z",
+ "clv": {
+  "mean_pts": null,
+  "mean_pts_split": null,
+  "n": 0,
+  "n_split": 0,
+  "positive": null
+ },
+ "games": 0,
+ "lines": {
+  "n": 0
+ },
+ "open": false,
+ "why": [
+  "0 graded games < 150",
+  "no graded lines",
+  "no positive CLV against the sharp close"
+ ]
+}

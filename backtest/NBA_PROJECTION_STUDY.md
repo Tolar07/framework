@@ -17,3 +17,7 @@ No graded games yet.
 - games 24: total mean miss projection 13.9 vs sharp close 13.4
 - projection 4+ points off the sharp close: its side won 10, lost 2
 
+## Projection gate (engine/nba_gate.py)
+
+**closed** — 0 graded games < 150; no graded lines; no positive CLV against the sharp close. Recorded only until all hold.
+

@@ -2,12 +2,12 @@
  "classes": {
   "band=1.30-1.50": {
    "killer": false,
-   "legs": 169,
-   "loss_rate": 0.284,
+   "legs": 170,
+   "loss_rate": 0.2824,
    "lost": 48,
    "slips_killed": 66,
-   "stated_loss": 0.2276,
-   "z": 1.76
+   "stated_loss": 0.2277,
+   "z": 1.71
   },
   "band=1.50-1.75": {
    "killer": false,
@@ -29,30 +29,30 @@
   },
   "band=<1.30": {
    "killer": false,
-   "legs": 882,
-   "loss_rate": 0.2222,
+   "legs": 885,
+   "loss_rate": 0.2215,
    "lost": 196,
-   "slips_killed": 195,
-   "stated_loss": 0.2025,
-   "z": 1.46
+   "slips_killed": 197,
+   "stated_loss": 0.2026,
+   "z": 1.4
   },
   "certainty=?": {
    "killer": false,
-   "legs": 128,
-   "loss_rate": 0.2422,
+   "legs": 131,
+   "loss_rate": 0.2366,
    "lost": 31,
-   "slips_killed": 34,
-   "stated_loss": 0.2121,
-   "z": 0.83
+   "slips_killed": 35,
+   "stated_loss": 0.2124,
+   "z": 0.68
   },
   "certainty=HIGH": {
    "killer": false,
-   "legs": 439,
-   "loss_rate": 0.2437,
+   "legs": 440,
+   "loss_rate": 0.2432,
    "lost": 107,
    "slips_killed": 117,
    "stated_loss": 0.2064,
-   "z": 1.94
+   "z": 1.91
   },
   "certainty=LOW": {
    "killer": false,
@@ -68,7 +68,7 @@
    "legs": 247,
    "loss_rate": 0.2308,
    "lost": 57,
-   "slips_killed": 84,
+   "slips_killed": 85,
    "stated_loss": 0.2089,
    "z": 0.85
   },
@@ -101,12 +101,12 @@
   },
   "family=Away goals": {
    "killer": false,
-   "legs": 33,
-   "loss_rate": 0.2121,
+   "legs": 34,
+   "loss_rate": 0.2059,
    "lost": 7,
    "slips_killed": 16,
-   "stated_loss": 0.2107,
-   "z": 0.02
+   "stated_loss": 0.211,
+   "z": -0.07
   },
   "family=Away no bet": {
    "killer": false,
@@ -137,12 +137,12 @@
   },
   "family=Double chance": {
    "killer": false,
-   "legs": 468,
-   "loss_rate": 0.2222,
+   "legs": 470,
+   "loss_rate": 0.2213,
    "lost": 104,
-   "slips_killed": 127,
-   "stated_loss": 0.1951,
-   "z": 1.48
+   "slips_killed": 128,
+   "stated_loss": 0.1953,
+   "z": 1.43
   },
   "family=European handicap": {
    "killer": false,
@@ -167,7 +167,7 @@
    "legs": 74,
    "loss_rate": 0.1892,
    "lost": 14,
-   "slips_killed": 28,
+   "slips_killed": 29,
    "stated_loss": 0.2071,
    "z": -0.38
   },
@@ -191,12 +191,12 @@
   },
   "family=Over/Under": {
    "killer": false,
-   "legs": 266,
-   "loss_rate": 0.2481,
+   "legs": 267,
+   "loss_rate": 0.2472,
    "lost": 66,
-   "slips_killed": 78,
+   "slips_killed": 79,
    "stated_loss": 0.2187,
-   "z": 1.17
+   "z": 1.13
   },
   "family=Result & total": {
    "killer": false,
@@ -212,7 +212,7 @@
    "legs": 25,
    "loss_rate": 0.24,
    "lost": 6,
-   "slips_killed": 9,
+   "slips_killed": 10,
    "stated_loss": 0.2013,
    "z": 0.48
   },
@@ -221,18 +221,18 @@
    "legs": 42,
    "loss_rate": 0.2619,
    "lost": 11,
-   "slips_killed": 16,
+   "slips_killed": 17,
    "stated_loss": 0.1772,
    "z": 1.44
   },
   "gemini=veto": {
    "killer": false,
-   "legs": 84,
-   "loss_rate": 0.2024,
+   "legs": 85,
+   "loss_rate": 0.2,
    "lost": 17,
    "slips_killed": 19,
-   "stated_loss": 0.2104,
-   "z": -0.18
+   "stated_loss": 0.2107,
+   "z": -0.24
   },
   "league=2. Bundesliga": {
    "killer": false,
@@ -401,7 +401,7 @@
    "legs": 63,
    "loss_rate": 0.2698,
    "lost": 17,
-   "slips_killed": 32,
+   "slips_killed": 33,
    "stated_loss": 0.205,
    "z": 1.28
   },
@@ -434,12 +434,12 @@
   },
   "league=National League": {
    "killer": false,
-   "legs": 47,
-   "loss_rate": 0.2128,
+   "legs": 49,
+   "loss_rate": 0.2041,
    "lost": 10,
    "slips_killed": 20,
-   "stated_loss": 0.2107,
-   "z": 0.03
+   "stated_loss": 0.2115,
+   "z": -0.13
   },
   "league=Premier League": {
    "killer": false,
@@ -473,18 +473,18 @@
    "legs": 36,
    "loss_rate": 0.1667,
    "lost": 6,
-   "slips_killed": 13,
+   "slips_killed": 14,
    "stated_loss": 0.2105,
    "z": -0.65
   },
   "league=Serie B": {
    "killer": false,
-   "legs": 41,
-   "loss_rate": 0.2683,
+   "legs": 43,
+   "loss_rate": 0.2558,
    "lost": 11,
-   "slips_killed": 22,
-   "stated_loss": 0.2232,
-   "z": 0.7
+   "slips_killed": 23,
+   "stated_loss": 0.2234,
+   "z": 0.51
   },
   "league=Swiss Super League": {
    "killer": false,
@@ -515,12 +515,12 @@
   },
   "news=?": {
    "killer": false,
-   "legs": 241,
-   "loss_rate": 0.2365,
+   "legs": 244,
+   "loss_rate": 0.2336,
    "lost": 57,
-   "slips_killed": 78,
-   "stated_loss": 0.211,
-   "z": 0.97
+   "slips_killed": 79,
+   "stated_loss": 0.2112,
+   "z": 0.86
   },
   "news=CAUTION": {
    "killer": false,
@@ -542,12 +542,12 @@
   },
   "news=OK": {
    "killer": false,
-   "legs": 742,
-   "loss_rate": 0.2291,
+   "legs": 743,
+   "loss_rate": 0.2288,
    "lost": 170,
-   "slips_killed": 169,
+   "slips_killed": 170,
    "stated_loss": 0.2069,
-   "z": 1.5
+   "z": 1.48
   },
   "news=RISK": {
    "killer": false,
@@ -560,7 +560,7 @@
   }
  },
  "killers": [],
- "legs": 1055,
+ "legs": 1059,
  "nba": {
   "classes": {
    "band=1.50-1.75": {
@@ -574,12 +574,12 @@
    },
    "band=1.75-2.00": {
     "killer": false,
-    "legs": 30,
-    "loss_rate": 0.4333,
-    "lost": 13,
-    "slips_killed": 7,
-    "stated_loss": 0.391,
-    "z": 0.48
+    "legs": 34,
+    "loss_rate": 0.4706,
+    "lost": 16,
+    "slips_killed": 8,
+    "stated_loss": 0.3938,
+    "z": 0.92
    },
    "band=2.00+": {
     "killer": false,
@@ -592,21 +592,21 @@
    },
    "certainty=?": {
     "killer": false,
-    "legs": 40,
-    "loss_rate": 0.45,
-    "lost": 18,
-    "slips_killed": 7,
-    "stated_loss": 0.3941,
-    "z": 0.73
+    "legs": 44,
+    "loss_rate": 0.4773,
+    "lost": 21,
+    "slips_killed": 8,
+    "stated_loss": 0.396,
+    "z": 1.1
    },
    "family=NBA 1st half total": {
     "killer": false,
-    "legs": 38,
-    "loss_rate": 0.4474,
-    "lost": 17,
-    "slips_killed": 6,
-    "stated_loss": 0.3938,
-    "z": 0.68
+    "legs": 42,
+    "loss_rate": 0.4762,
+    "lost": 20,
+    "slips_killed": 7,
+    "stated_loss": 0.3958,
+    "z": 1.07
    },
    "family=NBA handicap": {
     "killer": false,
@@ -619,21 +619,21 @@
    },
    "gemini=back": {
     "killer": false,
-    "legs": 18,
-    "loss_rate": 0.3333,
-    "lost": 6,
-    "slips_killed": 4,
-    "stated_loss": 0.3848,
-    "z": -0.45
+    "legs": 21,
+    "loss_rate": 0.381,
+    "lost": 8,
+    "slips_killed": 5,
+    "stated_loss": 0.3896,
+    "z": -0.08
    },
    "gemini=lower": {
     "killer": false,
-    "legs": 13,
-    "loss_rate": 0.3077,
-    "lost": 4,
-    "slips_killed": 2,
-    "stated_loss": 0.3994,
-    "z": -0.68
+    "legs": 14,
+    "loss_rate": 0.3571,
+    "lost": 5,
+    "slips_killed": 3,
+    "stated_loss": 0.4,
+    "z": -0.33
    },
    "gemini=veto": {
     "killer": false,
@@ -646,28 +646,28 @@
    },
    "league=NBA": {
     "killer": false,
-    "legs": 40,
-    "loss_rate": 0.45,
-    "lost": 18,
-    "slips_killed": 7,
-    "stated_loss": 0.3941,
-    "z": 0.73
+    "legs": 44,
+    "loss_rate": 0.4773,
+    "lost": 21,
+    "slips_killed": 8,
+    "stated_loss": 0.396,
+    "z": 1.1
    },
    "news=?": {
     "killer": false,
-    "legs": 40,
-    "loss_rate": 0.45,
-    "lost": 18,
-    "slips_killed": 7,
-    "stated_loss": 0.3941,
-    "z": 0.73
+    "legs": 44,
+    "loss_rate": 0.4773,
+    "lost": 21,
+    "slips_killed": 8,
+    "stated_loss": 0.396,
+    "z": 1.1
    }
   },
   "killers": [],
-  "legs": 40,
-  "slips_graded": 7,
-  "slips_lost": 7
+  "legs": 44,
+  "slips_graded": 8,
+  "slips_lost": 8
  },
- "slips_graded": 342,
- "slips_lost": 233
+ "slips_graded": 347,
+ "slips_lost": 236
 }

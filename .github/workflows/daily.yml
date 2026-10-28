@@ -291,6 +291,8 @@ jobs:
           git add data/cups 2>/dev/null || true
           # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
           git add output/nba_ladders 2>/dev/null || true
+          # NBA player box scores + the season log behind the line-up sheets (data/nba_players.py).
+          git add data/nba_players 2>/dev/null || true
           # Every SportyBet NBA market at every look (engine/nba_markets.py) + the NBA studies.
           git add output/nba_markets backtest/NBA_MARKET_STUDY.md backtest/NBA_LADDER_STUDY.md 2>/dev/null || true
           # The parallel sharp-value list and its grades (monitor/sharp_list.py)

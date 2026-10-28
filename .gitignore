@@ -29,6 +29,9 @@ memory/conversations/
 # The NBA live tracker's snapshots (nba_live.yml -> monitor/nba_live.py), same trap again
 # (2026-10-20: the first night's saves were all "nothing new to save").
 !data/study/nba/*/live.jsonl
+# The NBA player-game log (data/nba_players.py): the runners start empty, so the
+# season's box scores live in git like the other NBA studies.
+!data/nba_players/*.jsonl
 !feed_audit.jsonl
 # EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
 #

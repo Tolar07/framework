@@ -77,8 +77,8 @@
    "sharp_ev": -0.0545,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "drift_price": 1.31,
    "drift_pct": 0.8
   },
@@ -160,8 +160,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.18,
    "drift_pct": -2.5
   },
@@ -242,8 +242,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "drift_price": 1.23,
    "drift_pct": 0.8
   },
@@ -324,8 +324,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-1",
    "drift_price": 1.27,
    "drift_pct": 5.0
   },
@@ -405,8 +405,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.27,
    "drift_pct": 0.8
   },
@@ -532,8 +532,8 @@
    "sharp_ev": -0.0395,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-4",
    "drift_price": 1.29,
    "drift_pct": 1.6
   },
@@ -613,8 +613,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.2,
    "drift_pct": -2.4
   },
@@ -697,8 +697,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "drift_price": 1.28,
    "drift_pct": 2.4
   },
@@ -780,8 +780,8 @@
    "sharp_ev": -0.0503,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.33,
    "drift_pct": 3.9
   },
@@ -862,8 +862,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-4",
    "drift_price": 1.22,
    "drift_pct": 0.8
   },
@@ -944,8 +944,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-3",
    "drift_price": 1.19,
    "drift_pct": -2.5
   },
@@ -1022,8 +1022,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.33,
    "drift_pct": 0.8
   },
@@ -1103,8 +1103,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-1",
    "drift_price": 1.27,
    "drift_pct": -0.8
   },
@@ -1158,8 +1158,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "3-0",
    "drift_price": 1.2,
    "drift_pct": 0.0
   },
@@ -1207,8 +1207,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -1262,8 +1262,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "drift_price": 1.23,
    "drift_pct": 0.0
   },
@@ -1343,8 +1343,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-3",
    "drift_price": 1.29,
    "drift_pct": 0.0
   },
@@ -1425,8 +1425,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-3",
    "drift_price": 1.24,
    "drift_pct": 0.0
   },
@@ -1508,8 +1508,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "drift_price": 1.19,
    "drift_pct": -4.0
   },
@@ -1589,8 +1589,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.27,
    "drift_pct": 0.0
   },
@@ -1638,8 +1638,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor",
@@ -1730,8 +1730,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-1",
    "drift_price": 1.27,
    "drift_pct": 3.3
   },
@@ -1785,7 +1785,7 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
+   "result": "won",
    "ft": null,
    "drift_price": 1.19,
    "drift_pct": -3.3
@@ -1924,7 +1924,7 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
+   "result": "no-90min-result",
    "ft": null,
    "drift_price": 1.17,
    "drift_pct": -2.5
@@ -1973,8 +1973,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-3",
    "drift_price": 1.21,
    "drift_pct": 0.0
   }
@@ -1991,7 +1991,7 @@
     "Monza v Napoli",
     "Carlisle v Harrogate"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-10-28T19:00:00Z",
@@ -2084,7 +2084,7 @@
     "Halmstads BK v Malmo",
     "Milan v Bologna"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T17:30:00Z",
@@ -2234,7 +2234,7 @@
     "Menemenspor AS v Karacabey Belediyespor",
     "Duzcespor v Isparta 32 Spor"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1030",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T10:30:00Z",
@@ -2402,7 +2402,7 @@
     "Venezia FC v Inter",
     "Degerfors IF v Vasteraas SK"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T17:30:00Z",
@@ -2564,7 +2564,7 @@
     "Carrarese v SS Arezzo",
     "Juve Stabia v Hellas Verona"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T19:00:00Z",
@@ -2627,7 +2627,7 @@
     "St Johnstone v Motherwell",
     "Celtic v Dundee United"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -2856,7 +2856,7 @@
      "pick": "Eyupspor Under 2.5 goals",
      "price": 1.22,
      "chance": 0.7965,
-     "result": null,
+     "result": "no-90min-result",
      "ft": null
     },
     {
@@ -2939,8 +2939,8 @@
      "pick": "Dundee or Kilmarnock",
      "price": 1.28,
      "chance": 0.7959,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-1"
     },
     {
      "fixture": "Sutton v Aldershot",
@@ -2952,8 +2952,8 @@
      "pick": "Sutton or Aldershot",
      "price": 1.26,
      "chance": 0.7887,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-0"
     },
     {
      "fixture": "St Mirren v Hibernian",
@@ -2965,11 +2965,11 @@
      "pick": "St Mirren or Hibernian",
      "price": 1.29,
      "chance": 0.7804,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "1-1"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -3066,7 +3066,7 @@
      "pick": "Under 4.5 goals",
      "price": 1.25,
      "chance": 0.7788,
-     "result": null,
+     "result": "won",
      "ft": null
     },
     {
@@ -3167,8 +3167,8 @@
      "pick": "SC Pisa or Palermo",
      "price": 1.31,
      "chance": 0.7752,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-3"
     },
     {
      "fixture": "Degerfors IF v Vasteraas SK",
@@ -3180,8 +3180,8 @@
      "pick": "Degerfors IF or Vasteraas SK",
      "price": 1.32,
      "chance": 0.7658,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-3"
     },
     {
      "fixture": "Parma v Udinese",
@@ -3193,11 +3193,11 @@
      "pick": "Parma or Udinese",
      "price": 1.37,
      "chance": 0.7531,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-0"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T17:30:00Z",
@@ -3280,8 +3280,8 @@
      "pick": "St Johnstone or Motherwell",
      "price": 1.31,
      "chance": 0.7733,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "2-2"
     },
     {
      "fixture": "Juve Stabia v Hellas Verona",
@@ -3293,11 +3293,11 @@
      "pick": "Juve Stabia or Hellas Verona",
      "price": 1.32,
      "chance": 0.7653,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-1"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-10-28T19:00:00Z",
@@ -3362,8 +3362,8 @@
      "pick": "Menemenspor AS or Karacabey Belediyespor",
      "price": 1.31,
      "chance": 0.7685,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-1"
     },
     {
      "fixture": "Duzcespor v Isparta 32 Spor",
@@ -3375,11 +3375,11 @@
      "pick": "Duzcespor or Isparta 32 Spor",
      "price": 1.31,
      "chance": 0.7674,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-2"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261028_1030",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T10:30:00Z",
@@ -3445,11 +3445,11 @@
      "pick": "Under 4.5 goals",
      "price": 1.41,
      "chance": 0.7247,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-2"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261028_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -3495,11 +3495,11 @@
      "pick": "Under 4 goals",
      "price": 1.26,
      "chance": 0.6863,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261028_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -3586,7 +3586,7 @@
      0.7589
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Celtic v Dundee United",
@@ -3654,7 +3654,7 @@
      0.6956
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Dundee v Kilmarnock",
@@ -3714,7 +3714,7 @@
      0.7694
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "St Mirren v Hibernian",
@@ -3774,7 +3774,7 @@
      0.7519
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "St Johnstone v Motherwell",
@@ -3830,7 +3830,7 @@
      0.7138
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Hearts v Rangers",
@@ -3954,7 +3954,7 @@
      0.5978
     ]
    ],
-   "ft": null
+   "ft": "2-4"
   },
   {
    "fixture": "Parma v Udinese",
@@ -4022,7 +4022,7 @@
      0.7458
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Venezia FC v Inter",
@@ -4106,7 +4106,7 @@
      0.5548
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Genoa v Juventus",
@@ -4178,7 +4178,7 @@
      0.6004
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Monza v Napoli",
@@ -4250,7 +4250,7 @@
      0.7916
     ]
    ],
-   "ft": null
+   "ft": "1-4"
   },
   {
    "fixture": "SC Pisa v Palermo",
@@ -4310,7 +4310,7 @@
      0.7183
     ]
    ],
-   "ft": null
+   "ft": "3-3"
   },
   {
    "fixture": "Carrarese v SS Arezzo",
@@ -4374,7 +4374,7 @@
      0.7753
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Juve Stabia v Hellas Verona",
@@ -4430,7 +4430,7 @@
      0.7128
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Carlisle v Harrogate",
@@ -4494,7 +4494,7 @@
      0.7385
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Forest Green Rovers v Eastleigh",
@@ -4570,7 +4570,7 @@
      0.6378
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Sutton v Aldershot",
@@ -4630,7 +4630,7 @@
      0.7685
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Degerfors IF v Vasteraas SK",
@@ -4686,7 +4686,7 @@
      0.7164
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Halmstads BK v Malmo",
@@ -4754,7 +4754,7 @@
      0.6079
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "IF Brommapojkarna v BK Hacken",
@@ -4826,7 +4826,7 @@
      0.7724
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "IFK Goteborg v Djurgardens IF",
@@ -4886,7 +4886,7 @@
      0.7654
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Duzcespor v Isparta 32 Spor",
@@ -4934,7 +4934,7 @@
      0.6385
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor",
@@ -5034,7 +5034,7 @@
      0.6366
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Serik Belediyespor v Hakkari Zap Spor",
@@ -5090,7 +5090,7 @@
      0.6089
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "Silivrispor v Halide Edip Adivarspor",
@@ -5250,7 +5250,7 @@
      0.6202
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "Sakaryaspor v Bursa Yildirim Spor",
@@ -5314,7 +5314,7 @@
      0.6168
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   }
  ],
  "study": [],
@@ -5334,7 +5334,7 @@
     "Milan v Bologna",
     "IFK Goteborg v Djurgardens IF"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-28T17:30:00Z",
@@ -5536,7 +5536,7 @@
     "Duzcespor v Isparta 32 Spor: Over 1.5 goals dropped (no longer on the board)"
    ],
    "odds": 2.197,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor",
@@ -5566,7 +5566,7 @@
      "market": "SB:19|total=3.5|Under 3.5",
      "pick": "Serik Belediyespor Under 3.5 goals",
      "price": 1.23,
-     "result": null
+     "result": "won"
     },
     {
      "fixture": "Menemenspor AS v Karacabey Belediyespor",
@@ -5576,7 +5576,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Menemenspor AS Over 0.5 goals",
      "price": 1.23,
-     "result": null
+     "result": "lost",
+     "ft": "0-1"
     }
    ],
    "legs": [

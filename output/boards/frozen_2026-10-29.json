@@ -1,0 +1,1458 @@
+{
+ "date": "2026-10-29",
+ "frozen_at": "2026-10-28T21:53:18Z",
+ "run_id": "OLPXDV-20261028-2148-18d706",
+ "board_code": null,
+ "ledger": {
+  "date": "2026-10-29",
+  "generated_at": "2026-10-28T21:53:08Z",
+  "singles": [
+   {
+    "fixture": "Frosinone v Lecce",
+    "league": "Serie A",
+    "home": "Frosinone",
+    "away": "Lecce",
+    "kickoff": "2026-10-29",
+    "market": "SB:10||Home or Away",
+    "pick": "Frosinone or Lecce",
+    "price": 1.24,
+    "chance": 0.8246,
+    "chance_raw": 0.7939,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "P1D38Y",
+    "news_level": "OK",
+    "news_note": "swapped from Lecce (0:3) handicap (Lecce missing 57% of value (Tiago Gabriel, Ivan Ili\u0107, Medon Berisha))",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5749723,
+    "kickoff_utc": "2026-10-29T17:30:00.000Z",
+    "predicted_xi": {
+     "home": 45376114,
+     "away": 26401627
+    },
+    "lineup_check": null,
+    "matchup": {
+     "say": "Frosinone: set-piece threat v weak set-piece defence; Lecce: set-piece threat v weak set-piece defence; Lecce: counter side v counter-exposed -> BTTS & goals",
+     "xg": [
+      1.797,
+      2.115
+     ],
+     "btts": 0.734,
+     "over25": 0.749,
+     "over15": 0.902,
+     "corners": 10.5,
+     "pick_matchup_chance": 0.928,
+     "weight": 0.0,
+     "better_market": "Away Over 0.5 goals fits the matchup better: matchup 88% @ 1.34 (value +18%)",
+     "formations": [
+      [
+       "4-2-3-1 x6",
+       "4-3-3 x2"
+      ],
+      [
+       "4-3-3 x6",
+       "3-5-2 x1"
+      ]
+     ],
+     "tags": [
+      "set-piece threat v weak set-piece defence",
+      "set-piece threat v weak set-piece defence",
+      "counter side v counter-exposed"
+     ]
+    },
+    "sb_event_id": "sr:match:71945348",
+    "sb_tid": "sr:tournament:23",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.005651829102425676,
+    "missing": {
+     "home": 0.029124605347503878,
+     "away": 0.5657969572958843
+    },
+    "sharp_p": 0.769,
+    "sharp_ev": -0.0465,
+    "first_price": 1.24,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null,
+    "bias": {
+     "yes": {
+      "cell": "SB:10|1.20-1.30",
+      "n": 5236,
+      "landed": 0.7628,
+      "fair": 0.7391,
+      "bias": 0.0237,
+      "se": 0.0061,
+      "ret": -0.0478,
+      "shrunk": 0.0228
+     },
+     "no": {
+      "cell": "SB:10|4.00+",
+      "n": 83,
+      "landed": 0.1205,
+      "fair": 0.2033,
+      "bias": -0.0828,
+      "se": 0.0442,
+      "ret": -0.4319,
+      "shrunk": -0.0243
+     },
+     "short_leg": true
+    },
+    "context": {
+     "facts": [
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "home",
+       "direction": -1,
+       "size": 0.029
+      },
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "away",
+       "direction": 1,
+       "size": 0.566
+      }
+     ],
+     "backs": "home",
+     "unknown": [
+      "rest",
+      "travel",
+      "motivation",
+      "weather",
+      "referee",
+      "new_manager",
+      "derby"
+     ]
+    },
+    "drift": {
+     "family": "Double chance",
+     "n": 425,
+     "down": 12.6412,
+     "up": 2.024,
+     "alarm": "down"
+    },
+    "blend": {
+     "w": 0.75,
+     "n_fit": 165,
+     "yes": 0.8107,
+     "no": 0.1893
+    },
+    "exposure": {
+     "league": "Serie A",
+     "league_n": 2,
+     "league_rank": 1,
+     "over_cap": false,
+     "same_match": 0
+    },
+    "shop": {
+     "sb_price": 1.24,
+     "mb_price": 1.294,
+     "best": "matchbook",
+     "sb_edge": -0.0464,
+     "no_mb_price": 4.262
+    },
+    "kelly": {
+     "full": 0.0938,
+     "market": 0.0,
+     "disagree": 0.0556,
+     "shrunk": 0.0104,
+     "no_edge": -0.2407
+    },
+    "timing": {
+     "hours_to_ko": 19.61,
+     "after_lineups": false,
+     "sb_move": 0.0,
+     "sharp_gap": -0.0375,
+     "yes": -0.0375,
+     "no": 0.0375,
+     "signal": null
+    }
+   },
+   {
+    "fixture": "Fiorentina v Atalanta",
+    "league": "Serie A",
+    "home": "Fiorentina",
+    "away": "Atalanta",
+    "kickoff": "2026-10-29",
+    "market": "SB:10||Home or Away",
+    "pick": "Fiorentina or Atalanta",
+    "price": 1.3,
+    "chance": 0.7909,
+    "chance_raw": 0.7602,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "UWXTG9",
+    "news_level": "OK",
+    "news_note": "swapped from Fiorentina Over 0.5 goals (Fiorentina missing 23% of value (Arthur Atta, Marin Pongra\u010di\u0107, Fabiano Parisi); support: Atalanta missing 42%)",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5749722,
+    "kickoff_utc": "2026-10-29T19:45:00.000Z",
+    "predicted_xi": {
+     "home": 160666421,
+     "away": 231781619
+    },
+    "lineup_check": null,
+    "matchup": {
+     "say": "no tactical clash flagged -> BTTS & goals",
+     "xg": [
+      2.003,
+      1.335
+     ],
+     "btts": 0.637,
+     "over25": 0.648,
+     "over15": 0.846,
+     "corners": 9.9,
+     "pick_matchup_chance": 0.865,
+     "weight": 0.0,
+     "better_market": null,
+     "formations": [
+      [
+       "4-3-3 x6",
+       "4-3-2-1 x1"
+      ],
+      [
+       "4-3-3 x4",
+       "4-2-3-1 x4"
+      ]
+     ],
+     "tags": []
+    },
+    "sb_event_id": "sr:match:71945346",
+    "sb_tid": "sr:tournament:23",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0012858866937800473,
+    "missing": {
+     "home": 0.22524954336467776,
+     "away": 0.4206641717691088
+    },
+    "sharp_p": 0.7354,
+    "sharp_ev": -0.044,
+    "first_price": 1.3,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null,
+    "bias": {
+     "yes": {
+      "cell": "SB:10|1.30-1.50",
+      "n": 4671,
+      "landed": 0.6761,
+      "fair": 0.6739,
+      "bias": 0.0022,
+      "se": 0.0069,
+      "ret": -0.0742,
+      "shrunk": 0.0021
+     },
+     "no": {
+      "cell": "SB:10|4.00+",
+      "n": 83,
+      "landed": 0.1205,
+      "fair": 0.2033,
+      "bias": -0.0828,
+      "se": 0.0442,
+      "ret": -0.4319,
+      "shrunk": -0.0243
+     },
+     "short_leg": false
+    },
+    "context": {
+     "facts": [
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "home",
+       "direction": -1,
+       "size": 0.225
+      },
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "away",
+       "direction": 1,
+       "size": 0.421
+      }
+     ],
+     "backs": "home",
+     "unknown": [
+      "rest",
+      "travel",
+      "motivation",
+      "weather",
+      "referee",
+      "new_manager",
+      "derby"
+     ]
+    },
+    "drift": {
+     "family": "Double chance",
+     "n": 425,
+     "down": 12.6412,
+     "up": 2.024,
+     "alarm": "down"
+    },
+    "blend": {
+     "w": 0.75,
+     "n_fit": 165,
+     "yes": 0.777,
+     "no": 0.223
+    },
+    "exposure": {
+     "league": "Serie A",
+     "league_n": 2,
+     "league_rank": 2,
+     "over_cap": false,
+     "same_match": 0
+    },
+    "shop": {
+     "sb_price": 1.3,
+     "mb_price": 1.353,
+     "best": "matchbook",
+     "sb_edge": -0.044,
+     "no_mb_price": 3.724
+    },
+    "kelly": {
+     "full": 0.0939,
+     "market": 0.0,
+     "disagree": 0.0555,
+     "shrunk": 0.0104,
+     "no_edge": -0.2098
+    },
+    "timing": {
+     "hours_to_ko": 21.86,
+     "after_lineups": false,
+     "sb_move": 0.0,
+     "sharp_gap": -0.0338,
+     "yes": -0.0338,
+     "no": 0.0338,
+     "signal": null
+    }
+   },
+   {
+    "fixture": "Hammarby IF v IK Sirius",
+    "league": "Allsvenskan",
+    "home": "Hammarby IF",
+    "away": "IK Sirius",
+    "kickoff": "2026-10-29",
+    "market": "SB:10||Home or Away",
+    "pick": "Hammarby IF or IK Sirius",
+    "price": 1.2,
+    "chance": 0.8253,
+    "chance_raw": 0.7946,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "SS5JX7",
+    "news_level": "OK",
+    "news_note": "swapped from IK Sirius (+2.5) Asian handicap (Sirius missing 16% of value (Jesper Uneken, Otso Liimatta); support: Hammarby missing 14%)",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5107638,
+    "kickoff_utc": "2026-10-29T17:30:00.000Z",
+    "predicted_xi": {
+     "home": 27340857,
+     "away": 11506173
+    },
+    "lineup_check": null,
+    "matchup": {
+     "say": "no tactical clash flagged -> no strong goals lean",
+     "xg": [
+      1.766,
+      0.954
+     ],
+     "btts": 0.51,
+     "over25": 0.511,
+     "over15": 0.755,
+     "corners": 11.1,
+     "pick_matchup_chance": 0.855,
+     "weight": 0.0,
+     "better_market": null,
+     "formations": [
+      [
+       "4-3-3 x5",
+       "4-1-4-1 x2"
+      ],
+      [
+       "4-2-3-1 x5",
+       "4-3-3 x2"
+      ]
+     ],
+     "tags": []
+    },
+    "sb_event_id": "sr:match:67126840",
+    "sb_tid": "sr:tournament:40",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03685318408562477,
+    "missing": {
+     "home": 0.13754580737377115,
+     "away": 0.15568474068038488
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null,
+    "bias": {
+     "yes": {
+      "cell": "SB:10|1.20-1.30",
+      "n": 5236,
+      "landed": 0.7628,
+      "fair": 0.7391,
+      "bias": 0.0237,
+      "se": 0.0061,
+      "ret": -0.0478,
+      "shrunk": 0.0228
+     },
+     "no": {
+      "cell": "SB:10|4.00+",
+      "n": 83,
+      "landed": 0.1205,
+      "fair": 0.2033,
+      "bias": -0.0828,
+      "se": 0.0442,
+      "ret": -0.4319,
+      "shrunk": -0.0243
+     },
+     "short_leg": true
+    },
+    "context": {
+     "facts": [
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "home",
+       "direction": -1,
+       "size": 0.138
+      },
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "away",
+       "direction": 1,
+       "size": 0.156
+      }
+     ],
+     "backs": "home",
+     "unknown": [
+      "rest",
+      "travel",
+      "motivation",
+      "weather",
+      "referee",
+      "new_manager",
+      "derby"
+     ]
+    },
+    "drift": {
+     "family": "Double chance",
+     "n": 425,
+     "down": 12.6412,
+     "up": 2.024,
+     "alarm": "down"
+    },
+    "blend": {
+     "w": 0.75,
+     "n_fit": 165,
+     "yes": null,
+     "no": null
+    },
+    "exposure": {
+     "league": "Allsvenskan",
+     "league_n": 3,
+     "league_rank": 1,
+     "over_cap": false,
+     "same_match": 0
+    },
+    "shop": null,
+    "kelly": {
+     "full": 0.0,
+     "market": null,
+     "disagree": null,
+     "shrunk": 0.0,
+     "no_edge": null
+    },
+    "timing": {
+     "hours_to_ko": 19.61,
+     "after_lineups": false,
+     "sb_move": 0.0,
+     "sharp_gap": null,
+     "yes": null,
+     "no": null,
+     "signal": null
+    }
+   },
+   {
+    "fixture": "Kalmar FF v GAIS",
+    "league": "Allsvenskan",
+    "home": "Kalmar FF",
+    "away": "GAIS",
+    "kickoff": "2026-10-29",
+    "market": "SB:18|total=3.5|Under 3.5",
+    "pick": "Under 3.5 goals",
+    "price": 1.33,
+    "chance": 0.738,
+    "chance_raw": 0.738,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "W8VSN3",
+    "news_level": "OK",
+    "news_note": "swapped from Kalmar FF Win to Nil \u2014 no (GAIS missing 44% of value (William Milovanovic, Kevin Holm\u00e9n, R\u00f3bert Thorkelsson); support: Kalmar FF missing 17%)",
+    "switched_from": "Kalmar FF or GAIS (model and SportyBet disagree)",
+    "orig_market": "SB:10||Home or Away",
+    "fotmob_id": 5107643,
+    "kickoff_utc": "2026-10-29T18:00:00.000Z",
+    "predicted_xi": {
+     "home": 4512701,
+     "away": 4246005
+    },
+    "lineup_check": null,
+    "matchup": {
+     "say": "GAIS: possession side v low block -> no strong goals lean",
+     "xg": [
+      1.591,
+      1.193
+     ],
+     "btts": 0.555,
+     "over25": 0.527,
+     "over15": 0.766,
+     "corners": 10.5,
+     "pick_matchup_chance": 0.758,
+     "weight": 0.0,
+     "better_market": null,
+     "formations": [
+      [
+       "4-4-2 x5",
+       "4-2-3-1 x3"
+      ],
+      [
+       "4-3-3 x8"
+      ]
+     ],
+     "tags": [
+      "possession side v low block"
+     ]
+    },
+    "sb_event_id": "sr:match:67126850",
+    "sb_tid": "sr:tournament:40",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=3.5",
+     "outcome": "Under 3.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.018478123954457915,
+    "missing": {
+     "home": 0.16794378150264228,
+     "away": 0.4439757078170428
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.33,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null,
+    "bias": {
+     "yes": {
+      "cell": "SB:18|1.30-1.50",
+      "n": 4118,
+      "landed": 0.6736,
+      "fair": 0.668,
+      "bias": 0.0056,
+      "se": 0.0073,
+      "ret": -0.0653,
+      "shrunk": 0.0054
+     },
+     "no": {
+      "cell": "SB:18|4.00+",
+      "n": 2578,
+      "landed": 0.1672,
+      "fair": 0.186,
+      "bias": -0.0188,
+      "se": 0.0077,
+      "ret": -0.1795,
+      "shrunk": -0.0174
+     },
+     "short_leg": false
+    },
+    "context": {
+     "facts": [
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "home",
+       "direction": 0,
+       "size": 0.168
+      },
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "away",
+       "direction": 0,
+       "size": 0.444
+      }
+     ],
+     "backs": null,
+     "unknown": [
+      "rest",
+      "travel",
+      "motivation",
+      "weather",
+      "referee",
+      "new_manager",
+      "derby"
+     ]
+    },
+    "drift": {
+     "family": "Over/Under",
+     "n": 265,
+     "down": 2.3485,
+     "up": 1.0577,
+     "alarm": "down"
+    },
+    "blend": {
+     "w": 0.75,
+     "n_fit": 165,
+     "yes": null,
+     "no": null
+    },
+    "exposure": {
+     "league": "Allsvenskan",
+     "league_n": 3,
+     "league_rank": 3,
+     "over_cap": false,
+     "same_match": 0
+    },
+    "shop": null,
+    "kelly": {
+     "full": 0.0,
+     "market": null,
+     "disagree": null,
+     "shrunk": 0.0,
+     "no_edge": null
+    },
+    "timing": {
+     "hours_to_ko": 20.11,
+     "after_lineups": false,
+     "sb_move": 0.0,
+     "sharp_gap": null,
+     "yes": null,
+     "no": null,
+     "signal": null
+    }
+   },
+   {
+    "fixture": "Orgryte IS v Mjallby AIF",
+    "league": "Allsvenskan",
+    "home": "Orgryte IS",
+    "away": "Mjallby AIF",
+    "kickoff": "2026-10-29",
+    "market": "SB:20|total=0.5|Over 0.5",
+    "pick": "Mjallby AIF Over 0.5 goals",
+    "price": 1.22,
+    "chance": 0.7904,
+    "chance_raw": 0.7904,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "R853V9",
+    "news_level": "OK",
+    "news_note": "support: \u00d6rgryte missing 26%",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5107640,
+    "kickoff_utc": "2026-10-29T18:00:00.000Z",
+    "predicted_xi": {
+     "home": 3637519,
+     "away": 8432187
+    },
+    "lineup_check": null,
+    "matchup": {
+     "say": "\u00d6rgryte: counter side v high line; \u00d6rgryte: counter side v counter-exposed; Mj\u00e4llby: set-piece threat v weak set-piece defence -> BTTS & goals",
+     "xg": [
+      1.833,
+      1.429
+     ],
+     "btts": 0.639,
+     "over25": 0.633,
+     "over15": 0.837,
+     "corners": 9.9,
+     "pick_matchup_chance": 0.76,
+     "weight": 0.0,
+     "better_market": "Home Over 0.5 goals fits the matchup better: matchup 84% @ 1.30 (value +9%)",
+     "formations": [
+      [
+       "3-4-3 x3",
+       "5-4-1 x3"
+      ],
+      [
+       "5-3-2 x3",
+       "3-4-3 x3"
+      ]
+     ],
+     "tags": [
+      "counter side v high line",
+      "counter side v counter-exposed",
+      "set-piece threat v weak set-piece defence"
+     ]
+    },
+    "sb_event_id": "sr:match:67126844",
+    "sb_tid": "sr:tournament:40",
+    "sb_market": {
+     "id": 20,
+     "desc": null,
+     "spec": "total=0.5",
+     "outcome": "Over 0.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.03574500653168733,
+    "missing": {
+     "home": 0.2634794204570028,
+     "away": 0.03422437292406368
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null,
+    "bias": {
+     "yes": {
+      "cell": "SB:20|1.20-1.30",
+      "n": 57,
+      "landed": 0.6667,
+      "fair": 0.7429,
+      "bias": -0.0762,
+      "se": 0.0579,
+      "ret": -0.1693,
+      "shrunk": -0.0169
+     },
+     "no": {
+      "cell": "SB:20|4.00+",
+      "n": 124,
+      "landed": 0.1613,
+      "fair": 0.1646,
+      "bias": -0.0033,
+      "se": 0.0333,
+      "ret": -0.1488,
+      "shrunk": -0.0013
+     },
+     "short_leg": true
+    },
+    "context": {
+     "facts": [
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "home",
+       "direction": 1,
+       "size": 0.263
+      },
+      {
+       "fact": "squad_value_missing",
+       "source": "fotmob",
+       "side": "away",
+       "direction": -1,
+       "size": 0.034
+      }
+     ],
+     "backs": "away",
+     "unknown": [
+      "rest",
+      "travel",
+      "motivation",
+      "weather",
+      "referee",
+      "new_manager",
+      "derby"
+     ]
+    },
+    "drift": {
+     "family": "Away goals",
+     "n": 33,
+     "down": 1.3968,
+     "up": 1.0455,
+     "alarm": null
+    },
+    "blend": {
+     "w": 0.75,
+     "n_fit": 165,
+     "yes": null,
+     "no": null
+    },
+    "exposure": {
+     "league": "Allsvenskan",
+     "league_n": 3,
+     "league_rank": 2,
+     "over_cap": false,
+     "same_match": 0
+    },
+    "shop": null,
+    "kelly": {
+     "full": 0.0,
+     "market": null,
+     "disagree": null,
+     "shrunk": 0.0,
+     "no_edge": null
+    },
+    "timing": {
+     "hours_to_ko": 20.11,
+     "after_lineups": false,
+     "sb_move": 0.0,
+     "sharp_gap": null,
+     "yes": null,
+     "no": null,
+     "signal": null
+    }
+   }
+  ],
+  "accas": [],
+  "safe3": [
+   {
+    "name": "50+ #1",
+    "code": "V4XUYV",
+    "odds": 1.815,
+    "chance": 0.537900697152,
+    "legs": [
+     "Hammarby IF v IK Sirius",
+     "Frosinone v Lecce",
+     "Orgryte IS v Mjallby AIF"
+    ],
+    "result": null,
+    "cohort_id": "COHORT_20261029_1730",
+    "cohort_merged": false,
+    "earliest_kickoff_utc": "2026-10-29T17:30:00Z",
+    "latest_kickoff_utc": "2026-10-29T18:00:00Z",
+    "spread_minutes": 30,
+    "leg_detail": [
+     {
+      "fixture": "Hammarby IF v IK Sirius",
+      "home": "Hammarby IF",
+      "away": "IK Sirius",
+      "kickoff_utc": "2026-10-29T17:30:00.000Z",
+      "sb_event_id": "sr:match:67126840",
+      "sb_tid": "sr:tournament:40",
+      "market": "SB:10||Home or Away",
+      "sb_market": {
+       "id": 10,
+       "desc": null,
+       "spec": "",
+       "outcome": "Home or Away"
+      },
+      "pick": "Hammarby IF or IK Sirius",
+      "price": 1.2,
+      "chance": 0.8253
+     },
+     {
+      "fixture": "Frosinone v Lecce",
+      "home": "Frosinone",
+      "away": "Lecce",
+      "kickoff_utc": "2026-10-29T17:30:00.000Z",
+      "sb_event_id": "sr:match:71945348",
+      "sb_tid": "sr:tournament:23",
+      "market": "SB:10||Home or Away",
+      "sb_market": {
+       "id": 10,
+       "desc": null,
+       "spec": "",
+       "outcome": "Home or Away"
+      },
+      "pick": "Frosinone or Lecce",
+      "price": 1.24,
+      "chance": 0.8246
+     },
+     {
+      "fixture": "Orgryte IS v Mjallby AIF",
+      "home": "Orgryte IS",
+      "away": "Mjallby AIF",
+      "kickoff_utc": "2026-10-29T18:00:00.000Z",
+      "sb_event_id": "sr:match:67126844",
+      "sb_tid": "sr:tournament:40",
+      "market": "SB:20|total=0.5|Over 0.5",
+      "sb_market": {
+       "id": 20,
+       "desc": null,
+       "spec": "total=0.5",
+       "outcome": "Over 0.5"
+      },
+      "pick": "Mjallby AIF Over 0.5 goals",
+      "price": 1.22,
+      "chance": 0.7904
+     }
+    ]
+   }
+  ],
+  "megas": [],
+  "alts": [],
+  "value": [],
+  "rated": [
+   {
+    "fixture": "Frosinone v Lecce",
+    "league": "Serie A",
+    "home": "Frosinone",
+    "away": "Lecce",
+    "kickoff": "2026-10-29",
+    "src": "model",
+    "p": [
+     0.541,
+     0.198,
+     0.261,
+     0.87,
+     0.699,
+     0.494,
+     0.667
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.5719
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6845
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7939
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.8194
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.7708
+     ],
+     [
+      "SB:19|total=1.5|Over 1.5",
+      0.6413
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7308
+     ],
+     [
+      "SB:29||Yes",
+      0.6481
+     ],
+     [
+      "SB:13||Home",
+      0.5613
+     ],
+     [
+      "SB:33||No",
+      0.7608
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.4943
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.563
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.6837
+     ],
+     [
+      "SB:546||Home/Draw & Yes",
+      0.5016
+     ],
+     [
+      "SB:548||2-5",
+      0.7165
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.8011
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Fiorentina v Atalanta",
+    "league": "Serie A",
+    "home": "Fiorentina",
+    "away": "Atalanta",
+    "kickoff": "2026-10-29",
+    "src": "model",
+    "p": [
+     0.314,
+     0.233,
+     0.452,
+     0.799,
+     0.582,
+     0.362,
+     0.598
+    ],
+    "pool": [
+     [
+      "SB:18|total=4|Under 4",
+      0.6328
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7602
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.8005
+     ],
+     [
+      "SB:16|hcp=0.5|Home (+0.5)",
+      0.6367
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7898
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.773
+     ],
+     [
+      "SB:29||Yes",
+      0.6095
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5016
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.6099
+     ],
+     [
+      "SB:548||2-5",
+      0.7168
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7113
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Hammarby IF v IK Sirius",
+    "league": "Allsvenskan",
+    "home": "Hammarby IF",
+    "away": "IK Sirius",
+    "kickoff": "2026-10-29",
+    "src": "model",
+    "p": [
+     0.559,
+     0.215,
+     0.227,
+     0.844,
+     0.642,
+     0.421,
+     0.624
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6122
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.6445
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7946
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.8019
+     ],
+     [
+      "SB:19|total=1.5|Over 1.5",
+      0.6348
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6896
+     ],
+     [
+      "SB:29||Yes",
+      0.597
+     ],
+     [
+      "SB:13||Home",
+      0.6004
+     ],
+     [
+      "SB:33||No",
+      0.7127
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5199
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5057
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.6917
+     ],
+     [
+      "SB:548||2-4",
+      0.6053
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6488
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Kalmar FF v GAIS",
+    "league": "Allsvenskan",
+    "home": "Kalmar FF",
+    "away": "GAIS",
+    "kickoff": "2026-10-29",
+    "src": "model",
+    "p": [
+     0.218,
+     0.281,
+     0.501,
+     0.643,
+     0.372,
+     0.177,
+     0.416
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.738
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7328
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.6417
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7004
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7172
+     ],
+     [
+      "SB:29||Yes",
+      0.5013
+     ],
+     [
+      "SB:33||No",
+      0.8009
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6237
+     ],
+     [
+      "SB:548||1-3",
+      0.6721
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7201
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Orgryte IS v Mjallby AIF",
+    "league": "Allsvenskan",
+    "home": "Orgryte IS",
+    "away": "Mjallby AIF",
+    "kickoff": "2026-10-29",
+    "src": "model",
+    "p": [
+     0.302,
+     0.237,
+     0.461,
+     0.819,
+     0.602,
+     0.378,
+     0.617
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7828
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7501
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7826
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7323
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.7914
+     ],
+     [
+      "SB:29||Yes",
+      0.5794
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.5939
+     ],
+     [
+      "SB:548||2-4",
+      0.6162
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7353
+     ]
+    ],
+    "ft": null
+   }
+  ],
+  "study": [],
+  "btts": [],
+  "singles_dropped": [],
+  "accas_dropped": [],
+  "safe3_dropped": [],
+  "clv_accas": [
+   {
+    "name": "CLV acca A",
+    "code": "JZTW1E",
+    "odds": 1.979,
+    "chance": 0.50224027644,
+    "legs": [
+     "Hammarby IF v IK Sirius",
+     "Frosinone v Lecce",
+     "Kalmar FF v GAIS"
+    ],
+    "result": null,
+    "cohort_id": "COHORT_20261029_1730",
+    "cohort_merged": false,
+    "earliest_kickoff_utc": "2026-10-29T17:30:00Z",
+    "latest_kickoff_utc": "2026-10-29T18:00:00Z",
+    "spread_minutes": 30,
+    "leg_detail": [
+     {
+      "fixture": "Hammarby IF v IK Sirius",
+      "home": "Hammarby IF",
+      "away": "IK Sirius",
+      "kickoff_utc": "2026-10-29T17:30:00.000Z",
+      "sb_event_id": null,
+      "sb_tid": null,
+      "market": "SB:10||Home or Away",
+      "sb_market": {
+       "id": 10,
+       "desc": null,
+       "spec": "",
+       "outcome": "Home or Away"
+      },
+      "pick": "Hammarby IF or IK Sirius",
+      "price": 1.2,
+      "chance": 0.8253
+     },
+     {
+      "fixture": "Frosinone v Lecce",
+      "home": "Frosinone",
+      "away": "Lecce",
+      "kickoff_utc": "2026-10-29T17:30:00.000Z",
+      "sb_event_id": null,
+      "sb_tid": null,
+      "market": "SB:10||Home or Away",
+      "sb_market": {
+       "id": 10,
+       "desc": null,
+       "spec": "",
+       "outcome": "Home or Away"
+      },
+      "pick": "Frosinone or Lecce",
+      "price": 1.24,
+      "chance": 0.8246
+     },
+     {
+      "fixture": "Kalmar FF v GAIS",
+      "home": "Kalmar FF",
+      "away": "GAIS",
+      "kickoff_utc": "2026-10-29T18:00:00.000Z",
+      "sb_event_id": null,
+      "sb_tid": null,
+      "market": "SB:18|total=3.5|Under 3.5",
+      "sb_market": {
+       "id": 18,
+       "desc": null,
+       "spec": "total=3.5",
+       "outcome": "Under 3.5"
+      },
+      "pick": "Under 3.5 goals",
+      "price": 1.33,
+      "chance": 0.738
+     }
+    ],
+    "families": [
+     "Double chance",
+     "Home goals",
+     "Over/Under"
+    ]
+   }
+  ],
+  "combined": [],
+  "drift": {
+   "Double chance": {
+    "n": 425,
+    "down": 12.6412,
+    "up": 2.024,
+    "alarm": "down"
+   },
+   "Over/Under": {
+    "n": 265,
+    "down": 2.3485,
+    "up": 1.0577,
+    "alarm": "down"
+   },
+   "Away goals": {
+    "n": 33,
+    "down": 1.3968,
+    "up": 1.0455,
+    "alarm": null
+   },
+   "Away win to nil": {
+    "n": 15,
+    "down": 1.1026,
+    "up": 0.4802,
+    "alarm": null
+   },
+   "Asian handicap": {
+    "n": 99,
+    "down": 0.0373,
+    "up": 2.4102,
+    "alarm": "up"
+   },
+   "Multigoals": {
+    "n": 13,
+    "down": 1.1034,
+    "up": 1.6122,
+    "alarm": null
+   },
+   "Home goals": {
+    "n": 62,
+    "down": 3.1721,
+    "up": 1.5464,
+    "alarm": "down"
+   },
+   "European handicap": {
+    "n": 12,
+    "down": 0.3172,
+    "up": 1.1198,
+    "alarm": null
+   },
+   "Home win to nil": {
+    "n": 25,
+    "down": 4.0633,
+    "up": 0.0,
+    "alarm": "down"
+   },
+   "DC & total": {
+    "n": 24,
+    "down": 2.6097,
+    "up": 0.2239,
+    "alarm": "down"
+   },
+   "Away no bet": {
+    "n": 3,
+    "down": 2.2229,
+    "up": 0.0,
+    "alarm": "down"
+   },
+   "1X2": {
+    "n": 4,
+    "down": 0.0,
+    "up": 0.9523,
+    "alarm": null
+   },
+   "Result & total": {
+    "n": 2,
+    "down": 1.5108,
+    "up": 0.0,
+    "alarm": null
+   }
+  },
+  "exposure": {
+   "singles": 5,
+   "league_cap": 4,
+   "over_cap": 0,
+   "stake_pct": 1.25,
+   "leagues": {
+    "Allsvenskan": 3,
+    "Serie A": 2
+   },
+   "accas": [
+    {
+     "slot": "safe3",
+     "name": "50+ #1",
+     "legs": 3,
+     "same_league_pairs": 1,
+     "same_match_pairs": 0,
+     "unknown_league_legs": 0,
+     "chance_indep": 0.537900697152,
+     "chance_corr": 0.5452
+    },
+    {
+     "slot": "clv_accas",
+     "name": "CLV acca A",
+     "legs": 3,
+     "same_league_pairs": 1,
+     "same_match_pairs": 0,
+     "unknown_league_legs": 0,
+     "chance_indep": 0.50224027644,
+     "chance_corr": 0.5095
+    }
+   ]
+  }
+ },
+ "replacements": []
+}

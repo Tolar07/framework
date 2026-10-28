@@ -1136,20 +1136,20 @@
   {
    "lineage_id": "ln_65b957fbdd",
    "parent_id": "ln_9b9fdbc187",
-   "generation": 11,
-   "bankroll": 1.55,
+   "generation": 12,
+   "bankroll": 1.76,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-28",
-    "fixture": "Forest Green Rovers v Eastleigh",
-    "pick": "Eastleigh (+2.5) Asian handicap",
-    "price": 1.21
+    "date": "2026-10-29",
+    "fixture": "Frosinone v Lecce",
+    "pick": "Frosinone or Lecce",
+    "price": 1.24
    }
   },
   {

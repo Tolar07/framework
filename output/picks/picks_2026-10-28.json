@@ -1637,7 +1637,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Serik Spor missing 20%",
+    "at": "10:20Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:75444712",
    "sb_tid": "sr:tournament:96",

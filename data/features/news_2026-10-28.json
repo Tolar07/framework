@@ -29,13 +29,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T10:00Z",
+  "at": "2026-10-28T10:20Z",
   "away_missing_share": null,
   "away_unavailable": 0,
   "fotmob_id": 6420071,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.1994820692852159,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-28T10:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  }
 }

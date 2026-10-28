@@ -1,7 +1,11 @@
 {
  "date": "2026-10-29",
- "gone": [],
- "reopen": [],
+ "gone": [
+  "sr:match:73719432|236|total=52.5|quarternr=1|Over 52.5"
+ ],
+ "reopen": [
+  "sr:match:73719432"
+ ],
  "first": {
   "sr:match:73719428": {
    "at": "20:56Z",

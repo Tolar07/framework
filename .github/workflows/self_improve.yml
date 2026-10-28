@@ -8,9 +8,11 @@ name: OLP XDV weekly self-improvement
 #   every learning loop for tested evidence this week, ranks what to do better
 #   and opens each top proposal as a `self-improvement` issue
 #   (scripts/self_improve.py -> backtest/SELF_IMPROVEMENT.md).
-# build (fresh Claude Code run on Sonnet, nothing persistent): builds the top
-#   open proposal RECORD-ONLY or as a SHADOW with tests, as a PR. It never
-#   changes a pick, stake or threshold.
+# build (fresh Claude Code run on Sonnet, nothing persistent): asks what it
+#   must do better, searches what strong models use, opens what's lacking as
+#   issues, builds the top one RECORD-ONLY or as a SHADOW with tests, merges
+#   it on green, and sends the Architect a plain summary. It never changes a
+#   pick, stake or threshold (order 49).
 on:
   schedule:
     - cron: "43 4 * * 1"     # Mondays 04:43 UTC, after the weekend's results are graded
@@ -86,24 +88,45 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
             REPO: ${{ github.repository }}
-            You are the build step of the OLP XDV weekly self-improvement review.
-            Read CLAUDE.md, STANDING_ORDERS.md and backtest/SELF_IMPROVEMENT.md first.
-            Take the highest-ranked OPEN issue labelled `self-improvement` that has no
-            open PR linked to it (`gh issue list --label self-improvement`,
-            `gh pr list --search "<issue number>"`). Build it SAFELY:
-            - RECORD-ONLY (capture data / write a study) or a SHADOW (a candidate
-              evaluated walk-forward next to the live model, like
-              backtest/inputs_study.py or engine/why_learning.py);
-            - never change a pick rule, stake, staking, threshold, the CLV gate,
-              ARCHITECT_SIGNOFF or anything the capital bright line covers;
-            - add a test under tests/ and run `python tests/run_all.py` (or the new
-              test plus the tests of every file you touched) before pushing;
-            - missing data reads PENDING (HR35); never invent fixtures or prices (HR59).
-            Push a branch `self-improve/<issue number>` and open a PR that says
-            "Closes #<issue number>", what was built and the numbers it produced.
-            If the top issue is a stalled learning loop, find the cause at source
-            and fix it in the same way. If nothing can be built safely, comment on
-            the issue saying exactly why and stop.
+            You are the OLP XDV engine's weekly self-improvement step (STANDING_ORDERS
+            order 49). Read CLAUDE.md, STANDING_ORDERS.md and backtest/SELF_IMPROVEMENT.md
+            first. Work through the four steps below; keep tool output small.
+
+            1. ASK: "What do I need to do to improve performance and the framework?"
+            2. SEARCH: use WebSearch / WebFetch for what strong football (and NBA) prediction
+               models use now: inputs, methods, calibration, data sources. Compare that with
+               section (a) of backtest/SELF_IMPROVEMENT.md and the code. For anything that is
+               lacking and not already an open `self-improvement` issue, open one
+               (`gh issue create --label self-improvement`) with the source URL, why it should
+               help and how to test it walk-forward. At most 3 new issues a week.
+            3. BUILD: take the highest-ranked OPEN `self-improvement` issue with no open PR
+               (`gh pr list --search "<issue number>"`) and build it SAFELY:
+               - RECORD-ONLY (capture data / write a study) or a SHADOW (a candidate
+                 evaluated walk-forward next to the live model, like
+                 backtest/inputs_study.py or engine/why_learning.py);
+               - never change a pick rule, stake, staking, threshold, the CLV gate,
+                 ARCHITECT_SIGNOFF or anything the capital bright line covers;
+               - add a test under tests/ and run it plus the tests of every file you touched;
+               - missing data reads PENDING (HR35); never invent fixtures or prices (HR59).
+               Push a branch `self-improve/<issue number>` and open a PR that says
+               "Closes #<issue number>", what was built and the numbers it produced.
+               If the top issue is a stalled learning loop, find the cause at source and fix it.
+            4. MERGE (Architect 2026-10-28: an unmerged PR can be lost): wait for its checks
+               with `gh pr checks <pr> --watch`. Green -> `gh pr merge <pr> --squash --delete-branch`.
+               Red -> read the failing log, fix, push, and try again (up to 3 rounds). If it still
+               fails, comment on the PR with exactly what fails and leave it open.
+            Finally write a SHORT plain-English summary for the Architect to
+            /tmp/architect_note.txt: the question, what you found lacking, the proposals
+            (issue numbers), what you built and merged (PR number) and its numbers. No jargon.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python:*),Bash(git:*),Bash(gh issue:*),Bash(gh pr:*),Bash(pip install:*)"
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python:*),Bash(git:*),Bash(gh issue:*),Bash(gh pr:*),Bash(gh run:*),Bash(pip install:*)"
+      - name: Run it by the Architect (Telegram, his chat only)
+        if: always() && env.HAS_KEY == 'true'
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          pip install -q requests
+          python scripts/self_improve.py --telegram /tmp/architect_note.txt

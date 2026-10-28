@@ -863,7 +863,11 @@
     "home": 25319777,
     "away": 18635246
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Pisa: counter side v high line; Pisa: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -1316,7 +1320,11 @@
     "home": 5607778,
     "away": 15628688
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Malm\u00f6 FF: aerial threat v weak in the air; Malm\u00f6 FF: possession side v low block -> no strong goals lean",
     "xg": [
@@ -1394,7 +1402,11 @@
     "home": 5383426,
     "away": 7502857
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Brommapojkarna: counter side v high line; Brommapojkarna: blunt attack v tight defence; H\u00e4cken: possession side v low block -> no strong goals lean",
     "xg": [

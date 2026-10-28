@@ -124,7 +124,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:00Z",
+  "at": "2026-10-28T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107642,
@@ -237,11 +237,6 @@
  "Halmstads BK v Malmo": {
   "absent": [
    {
-    "name": "Mayckel Lahdo",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Kenan Busulad\u017ei\u0107",
     "side": "away",
     "type": "injury"
@@ -250,16 +245,21 @@
     "name": "Oscar Sj\u00f6strand",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Warren Kamanzi",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:00Z",
-  "away_missing_share": 0.30685242984363,
-  "away_unavailable": 7,
+  "at": "2026-10-28T17:20Z",
+  "away_missing_share": 0.2505620656953078,
+  "away_unavailable": 6,
   "fotmob_id": 5107644,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "IF Brommapojkarna v BK Hacken": {
   "absent": [
@@ -274,14 +274,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:00Z",
+  "at": "2026-10-28T17:20Z",
   "away_missing_share": 0.19283221778604384,
   "away_unavailable": 2,
   "fotmob_id": 5107641,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "IFK Goteborg v Djurgardens IF": {
   "absent": [
@@ -301,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:00Z",
+  "at": "2026-10-28T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107639,
@@ -492,14 +492,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T17:00Z",
+  "at": "2026-10-28T17:20Z",
   "away_missing_share": 0.27659283635974347,
   "away_unavailable": 3,
   "fotmob_id": 5967128,
   "home_missing_share": 0.04758701786555703,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-28T18:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Sakaryaspor v Bursa Yildirim Spor": {
   "absent": [],

@@ -1,10 +1,10 @@
 # TACTICS STUDY — matchup read, walk-forward (engine/tactics_study.py)
 
-_Regenerated 2026-10-27 20:56 UTC by the nightly match study._
+_Regenerated 2026-10-28 06:54 UTC by the nightly match study._
 
-- Matches read walk-forward (profiles from earlier matches only): **1448**
-- BTTS Brier: matchup 0.2465 v the season base rate 0.2452 (lower is better)
-- Against SportyBet's price (629 matches priced): Brier price 0.2119 · matchup 0.2155 · blend 0.2119; fitted weight 0.11 ± 0.23 → **weight in force 0.0** (matchup not proven better than the price yet — label only)
+- Matches read walk-forward (profiles from earlier matches only): **1458**
+- BTTS Brier: matchup 0.2464 v the season base rate 0.2451 (lower is better)
+- Against SportyBet's price (646 matches priced): Brier price 0.2113 · matchup 0.2149 · blend 0.2112; fitted weight 0.105 ± 0.222 → **weight in force 0.0** (matchup not proven better than the price yet — label only)
 
 ## Lessons
 

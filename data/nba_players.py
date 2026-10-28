@@ -36,6 +36,7 @@ from data import nba_source as ns
 
 DIR = Path(__file__).parent / "nba_lineups"
 LOG = DIR / "player_games.jsonl"
+TEAM_LOG = DIR / "team_games.jsonl"     # one row per team per game: points, possessions, tip
 META = DIR / "meta.json"
 CACHE = ns.CACHE / "summary"
 _SUM = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event={e}"
@@ -98,6 +99,30 @@ def box_rows(g: ns.Game, blob: dict) -> list[dict]:
     return rows
 
 
+def _made_att(x) -> tuple[int, int]:
+    a, b = str(x).split("-")
+    return int(a), int(b)
+
+
+def team_rows(g: ns.Game, blob: dict) -> list[dict]:
+    """Both teams' points and possessions (FGA - OREB + TO + 0.44 FTA); [] if a number is missing."""
+    pts = {g.home: g.hs, g.away: g.as_}
+    out = []
+    for t in (blob.get("boxscore") or {}).get("teams") or []:
+        team = str((t.get("team") or {}).get("abbreviation"))
+        st = {x.get("name"): x.get("displayValue") for x in t.get("statistics") or []}
+        try:
+            fga, fta = _made_att(st["fieldGoalsMade-fieldGoalsAttempted"])[1], _made_att(st["freeThrowsMade-freeThrowsAttempted"])[1]
+            poss = round(fga - int(st["offensiveRebounds"]) + int(st.get("totalTurnovers") or st["turnovers"]) + 0.44 * fta, 1)
+        except (KeyError, TypeError, ValueError):
+            return []
+        if pts.get(team) is None:
+            return []
+        out.append({"g": g.id, "d": g.date, "tip": g.tip, "t": team, "o": g.away if team == g.home else g.home,
+                    "h": int(team == g.home), "pts": pts[team], "poss": poss})
+    return out if len(out) == 2 else []
+
+
 def load_log(path: Path = LOG) -> list[dict]:
     if not path.exists():
         return []
@@ -110,11 +135,15 @@ def update_log(today: date, fetch=ns._get, scoreboard=ns.scoreboard,
     m = json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}
     start = season_start(today)
     done = date.fromisoformat(m["through"]) if m.get("through") and m.get("season") == start.isoformat() else None
-    if done is None and log.exists():
-        log.unlink()                                   # a new season starts a new log
+    tlog = log.parent / TEAM_LOG.name
+    if done is None:
+        for f in (log, tlog):
+            if f.exists():
+                f.unlink()                             # a new season starts a new log
     have = {r["g"] for r in load_log(log)}
     new: list[dict] = []
     notes: list[str] = []
+    tnew = backfill_teams(log, tlog, fetch)
     d, through = (done + timedelta(1)) if done else start, done
     while d < today:
         games = scoreboard(d)
@@ -123,22 +152,52 @@ def update_log(today: date, fetch=ns._get, scoreboard=ns.scoreboard,
         for g in games:
             if g.stype != 2 or g.id in have or not g.completed:   # older unfinished = postponed
                 continue
-            blob = summary(g.id, True, fetch)
-            rows = box_rows(g, blob or {})
-            if not rows:
+            blob = summary(g.id, True, fetch) or {}
+            rows, trows = box_rows(g, blob), team_rows(g, blob)
+            if not rows or not trows:
                 notes.append(f"{g.away} @ {g.home} {g.date}: no box score — retried next run")
-                return _save(log, meta, new, start, through, notes)
+                return _save(log, meta, new, start, through, notes, tnew)
             new += rows
+            tnew += trows
         through = d
         d += timedelta(1)
-    return _save(log, meta, new, start, through, notes)
+    return _save(log, meta, new, start, through, notes, tnew)
 
 
-def _save(log: Path, meta: Path, new: list[dict], start: date, through, notes: list[str]) -> list[str]:
+def backfill_teams(log: Path, tlog: Path, fetch=ns._get) -> list[dict]:
+    """Team rows for logged games that have none (the team log came after the player log)."""
+    have = {r["g"] for r in load_log(tlog)}
+    games: dict[str, dict] = {}
+    for r in load_log(log):
+        games.setdefault(r["g"], {"d": r["d"]})["home" if r["h"] else "away"] = r["t"]
+    out = []
+    for gid, x in games.items():
+        if gid in have or "home" not in x or "away" not in x:
+            continue
+        blob = summary(gid, True, fetch) or {}
+        comp = ((blob.get("header") or {}).get("competitions") or [{}])[0]
+        score = {c.get("homeAway"): c.get("score") for c in comp.get("competitors") or []}
+        try:
+            hs, as_ = int(score["home"]), int(score["away"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        g = ns.Game(gid, x["d"], 0, 2, x["home"], x["away"], hs, as_, True, tip=comp.get("date", ""))
+        out += team_rows(g, blob)
+    return out
+
+
+def _append(path: Path, rows: list[dict]) -> None:
+    if rows:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8", newline="\n") as f:
+            f.writelines(json.dumps(r, separators=(",", ":")) + "\n" for r in rows)
+
+
+def _save(log: Path, meta: Path, new: list[dict], start: date, through, notes: list[str],
+          tnew: list[dict]) -> list[str]:
     log.parent.mkdir(parents=True, exist_ok=True)
-    if new:
-        with log.open("a", encoding="utf-8", newline="\n") as f:
-            f.writelines(json.dumps(r, separators=(",", ":")) + "\n" for r in new)
+    _append(log, new)
+    _append(log.parent / TEAM_LOG.name, tnew)
     if through:
         meta.write_text(json.dumps({"season": start.isoformat(), "through": through.isoformat()}) + "\n",
                         encoding="utf-8", newline="\n")

@@ -31,7 +31,7 @@ memory/conversations/
 !data/study/nba/*/live.jsonl
 # The NBA player-game log (data/nba_players.py): the runners start empty, so the
 # season's box scores live in git like the other NBA studies.
-!data/nba_players/*.jsonl
+!data/nba_lineups/*.jsonl
 !feed_audit.jsonl
 # EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
 #

@@ -26,7 +26,11 @@
     "home": 7858259,
     "away": 4137658
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Aberdeen: aerial threat v weak in the air -> no strong goals lean",
     "xg": [
@@ -102,7 +106,11 @@
     "home": 49304604,
     "away": 8316436
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Dundee United: counter side v high line; Dundee United: set-piece threat v weak set-piece defence; Dundee United: aerial threat v weak in the air; Dundee United: high press v build-up side -> BTTS & goals",
     "xg": [
@@ -181,7 +189,11 @@
     "home": 4499161,
     "away": 4053054
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Dundee FC missing 28%",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Dundee FC: set-piece threat v weak set-piece defence; Dundee FC: aerial threat v weak in the air -> BTTS & goals",
     "xg": [
@@ -259,7 +271,11 @@
     "home": 5085881,
     "away": 14063592
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "St. Mirren: counter side v high line; St. Mirren: high press v build-up side -> BTTS & goals",
     "xg": [
@@ -337,7 +353,11 @@
     "home": 4908237,
     "away": 10063600
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Motherwell: possession side v low block -> BTTS & goals",
     "xg": [
@@ -706,7 +726,11 @@
     "home": 99070778,
     "away": 304822294
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Genoa: high press v build-up side; Genoa: blunt attack v tight defence; Juventus: possession side v low block -> unders / one side blank",
     "xg": [
@@ -785,7 +809,11 @@
     "home": 47011165,
     "away": 195289963
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Monza: aerial threat v weak in the air; Monza: counter side v counter-exposed -> BTTS & goals",
     "xg": [

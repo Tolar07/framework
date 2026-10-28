@@ -12,14 +12,14 @@
  },
  "Menemenspor AS v Karacabey Belediyespor": {
   "absent": [],
-  "at": "2026-10-28T09:40Z",
+  "at": "2026-10-28T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6420077,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T10:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Serik Belediyespor v Hakkari Zap Spor": {
   "absent": [
@@ -29,7 +29,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-28T09:40Z",
+  "at": "2026-10-28T10:00Z",
   "away_missing_share": null,
   "away_unavailable": 0,
   "fotmob_id": 6420071,

@@ -959,7 +959,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Juve Stabia v Hellas Verona",
@@ -1034,7 +1036,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Carlisle v Harrogate",

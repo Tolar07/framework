@@ -28,14 +28,14 @@
  },
  "Carlisle v Harrogate": {
   "absent": [],
-  "at": "2026-10-28T19:00Z",
+  "at": "2026-10-28T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906534,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Carrarese v SS Arezzo": {
   "absent": [
@@ -184,14 +184,14 @@
  },
  "Forest Green Rovers v Eastleigh": {
   "absent": [],
-  "at": "2026-10-28T19:00Z",
+  "at": "2026-10-28T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906535,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Genoa v Juventus": {
   "absent": [
@@ -611,14 +611,14 @@
  },
  "Sutton v Aldershot": {
   "absent": [],
-  "at": "2026-10-28T19:00Z",
+  "at": "2026-10-28T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906536,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-28T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Venezia FC v Inter": {
   "absent": [

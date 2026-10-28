@@ -12,7 +12,7 @@
     "sr:match:73719422"
    ],
    "odds": 3.42,
-   "result": null
+   "result": "lost"
   },
   {
    "name": "NBA acca B",
@@ -22,7 +22,7 @@
     "sr:match:73719426"
    ],
    "odds": 3.82,
-   "result": null
+   "result": "lost"
   }
  ],
  "picks": [
@@ -52,9 +52,9 @@
     "total": 222.5
    },
    "code": "M4LW0J",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "125-124",
+   "close_value": 0.0381,
    "matchbook": {
     "back": null,
     "listed": true
@@ -86,9 +86,9 @@
     "total": 218.5
    },
    "code": "LXW14S",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "111-97",
+   "close_value": 0.0648,
    "matchbook": {
     "back": null,
     "listed": true
@@ -120,9 +120,9 @@
     "total": 230.5
    },
    "code": "M57PC6",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "130-103",
+   "close_value": 0.0315,
    "matchbook": {
     "back": null,
     "listed": true
@@ -154,9 +154,9 @@
     "total": 236.5
    },
    "code": "Q1BC9G",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "129-136",
+   "close_value": 0.2181,
    "matchbook": {
     "back": 1.71,
     "listed": true

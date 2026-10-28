@@ -5376,5 +5376,79 @@
    }
   ]
  },
- "replacements": []
+ "replacements": [
+  {
+   "kind": "single",
+   "name": "Duzcespor v Isparta 32 Spor",
+   "old_code": "HRL0D0",
+   "new_code": null,
+   "notes": [
+    "Duzcespor v Isparta 32 Spor: Over 1.5 goals dropped (no longer on the board)"
+   ],
+   "alt_legs": []
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 1",
+   "old_code": "N7Y973",
+   "new_code": "N2F33S",
+   "notes": [
+    "Duzcespor v Isparta 32 Spor: Over 1.5 goals dropped (no longer on the board)"
+   ],
+   "odds": 2.197,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Eskisehir Anadolu Spor Faaliyetleri AS v 68 Aksaray Belediyespor",
+     "home": "Eskisehir Anadolu Spor Faaliyetleri AS",
+     "away": "68 Aksaray Belediyespor",
+     "kickoff": "2026-10-28",
+     "market": "SB:20|total=0.5|Over 0.5",
+     "pick": "68 Aksaray Belediyespor Over 0.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Silivrispor v Halide Edip Adivarspor",
+     "home": "Silivrispor",
+     "away": "Halide Edip Adivarspor",
+     "kickoff": "2026-10-28",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Serik Belediyespor v Hakkari Zap Spor",
+     "home": "Serik Belediyespor",
+     "away": "Hakkari Zap Spor",
+     "kickoff": "2026-10-28",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Serik Belediyespor Under 3.5 goals",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Menemenspor AS v Karacabey Belediyespor",
+     "home": "Menemenspor AS",
+     "away": "Karacabey Belediyespor",
+     "kickoff": "2026-10-28",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Menemenspor AS Over 0.5 goals",
+     "price": 1.23,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "alts",
+   "name": "Alt F",
+   "old_code": "ZF5Y0X",
+   "new_code": null,
+   "notes": [
+    "Duzcespor v Isparta 32 Spor: Duzcespor or Isparta 32 Spor dropped (no longer on the board)"
+   ],
+   "alt_legs": []
+  }
+ ]
 }

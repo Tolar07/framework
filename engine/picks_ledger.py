@@ -205,6 +205,10 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
     # RECORDED ONLY (to-do #7 idea 2): how this kind of side has done, before the board date
     from engine import bias_checks
     bias_checks.annotate_doc(doc, target)
+    # RECORDED ONLY (to-do #7 ideas 3-10): timing, context facts, exposure, shadow Kelly,
+    # ensemble, drift alarm, price shop — engine/records; never raises
+    from engine import records
+    records.annotate_doc(doc, target)
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
     path = LEDGER_DIR / f"picks_{target}.json"
     _archive_if_codes_change(path, doc)

@@ -1,0 +1,337 @@
+{
+ "Fiorentina v Atalanta": {
+  "away": "Atalanta",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-29",
+  "fixture": "Fiorentina v Atalanta",
+  "ft": "PENDING",
+  "home": "Fiorentina",
+  "league": "Serie A",
+  "model_p": [
+   0.314,
+   0.233,
+   0.452,
+   0.799,
+   0.582,
+   0.362,
+   0.598
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.083,
+    "xga": 1.94,
+    "xgf": 2.45
+   },
+   "edge": -1.52,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.067,
+    "xgf": 1.057
+   },
+   "total": 3.757
+  }
+ },
+ "Frosinone v Lecce": {
+  "away": "Lecce",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-29",
+  "fixture": "Frosinone v Lecce",
+  "ft": "PENDING",
+  "home": "Frosinone",
+  "league": "Serie A",
+  "model_p": [
+   0.541,
+   0.198,
+   0.261,
+   0.87,
+   0.699,
+   0.494,
+   0.667
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.2,
+    "xgf": 1.94
+   },
+   "edge": -1.91,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 3.007,
+    "xgf": 1.837
+   },
+   "total": 3.992
+  }
+ },
+ "Hammarby IF v IK Sirius": {
+  "away": "IK Sirius",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-29",
+  "fixture": "Hammarby IF v IK Sirius",
+  "ft": "PENDING",
+  "home": "Hammarby IF",
+  "league": "Allsvenskan",
+  "model_p": [
+   0.559,
+   0.215,
+   0.227,
+   0.844,
+   0.642,
+   0.421,
+   0.624
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.353,
+    "xgf": 1.807
+   },
+   "edge": 0.146,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.637,
+    "xgf": 1.237
+   },
+   "total": 2.517
+  }
+ },
+ "Kalmar FF v GAIS": {
+  "away": "GAIS",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-29",
+  "fixture": "Kalmar FF v GAIS",
+  "ft": "PENDING",
+  "home": "Kalmar FF",
+  "league": "Allsvenskan",
+  "model_p": [
+   0.218,
+   0.281,
+   0.501,
+   0.643,
+   0.372,
+   0.177,
+   0.416
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.047,
+    "xgf": 1.403
+   },
+   "edge": 1.364,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.093,
+    "xgf": 1.813
+   },
+   "total": 3.178
+  }
+ },
+ "Orgryte IS v Mjallby AIF": {
+  "away": "Mjallby AIF",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-29",
+  "fixture": "Orgryte IS v Mjallby AIF",
+  "ft": "PENDING",
+  "home": "Orgryte IS",
+  "league": "Allsvenskan",
+  "model_p": [
+   0.302,
+   0.237,
+   0.461,
+   0.819,
+   0.602,
+   0.378,
+   0.617
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -0.16,
+    "xga": 0.948,
+    "xgf": 1.194
+   },
+   "edge": -0.809,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.75,
+    "xgf": 1.187
+   },
+   "total": 2.539
+  }
+ }
+}

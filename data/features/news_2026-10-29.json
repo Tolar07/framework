@@ -62,5 +62,84 @@
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-29T17:30:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Kalmar FF v GAIS": {
+  "absent": [
+   {
+    "name": "Emeka Nnamani",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aboubacar Keita",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Melker Hallberg",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "William Milovanovic",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Kevin Holm\u00e9n",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "R\u00f3bert Thorkelsson",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-29T12:00Z",
+  "away_missing_share": 0.4439757078170428,
+  "away_unavailable": 6,
+  "fotmob_id": 5107643,
+  "home_missing_share": 0.16794378150264228,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-29T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Orgryte IS v Mjallby AIF": {
+  "absent": [
+   {
+    "name": "Rasmus Alm",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "William Svensson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jerome Tibbling Ugwo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Timo Stavitski",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Villum Dalsgaard",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-29T12:00Z",
+  "away_missing_share": 0.03422437292406368,
+  "away_unavailable": 2,
+  "fotmob_id": 5107640,
+  "home_missing_share": 0.2634794204570028,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-29T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
  }
 }

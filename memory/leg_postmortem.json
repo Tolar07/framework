@@ -29,12 +29,12 @@
   },
   "band=<1.30": {
    "killer": false,
-   "legs": 909,
-   "loss_rate": 0.2233,
-   "lost": 203,
-   "slips_killed": 204,
+   "legs": 910,
+   "loss_rate": 0.2242,
+   "lost": 204,
+   "slips_killed": 205,
    "stated_loss": 0.2031,
-   "z": 1.52
+   "z": 1.59
   },
   "certainty=?": {
    "killer": false,
@@ -47,12 +47,12 @@
   },
   "certainty=HIGH": {
    "killer": false,
-   "legs": 453,
-   "loss_rate": 0.2406,
-   "lost": 109,
-   "slips_killed": 119,
-   "stated_loss": 0.2067,
-   "z": 1.78
+   "legs": 454,
+   "loss_rate": 0.2423,
+   "lost": 110,
+   "slips_killed": 121,
+   "stated_loss": 0.2068,
+   "z": 1.87
   },
   "certainty=LOW": {
    "killer": false,
@@ -137,12 +137,12 @@
   },
   "family=Double chance": {
    "killer": false,
-   "legs": 487,
-   "loss_rate": 0.2259,
-   "lost": 110,
-   "slips_killed": 133,
-   "stated_loss": 0.1961,
-   "z": 1.66
+   "legs": 488,
+   "loss_rate": 0.2275,
+   "lost": 111,
+   "slips_killed": 135,
+   "stated_loss": 0.1962,
+   "z": 1.74
   },
   "family=European handicap": {
    "killer": false,
@@ -227,12 +227,12 @@
   },
   "gemini=veto": {
    "killer": false,
-   "legs": 102,
-   "loss_rate": 0.2157,
-   "lost": 22,
-   "slips_killed": 24,
-   "stated_loss": 0.2128,
-   "z": 0.07
+   "legs": 103,
+   "loss_rate": 0.2233,
+   "lost": 23,
+   "slips_killed": 25,
+   "stated_loss": 0.2129,
+   "z": 0.26
   },
   "league=2. Bundesliga": {
    "killer": false,
@@ -461,12 +461,12 @@
   },
   "league=Scottish Premiership": {
    "killer": false,
-   "legs": 27,
-   "loss_rate": 0.1852,
-   "lost": 5,
-   "slips_killed": 8,
-   "stated_loss": 0.2093,
-   "z": -0.31
+   "legs": 28,
+   "loss_rate": 0.2143,
+   "lost": 6,
+   "slips_killed": 9,
+   "stated_loss": 0.2095,
+   "z": 0.06
   },
   "league=Serie A": {
    "killer": false,
@@ -524,12 +524,12 @@
   },
   "news=?": {
    "killer": false,
-   "legs": 254,
-   "loss_rate": 0.2402,
-   "lost": 61,
-   "slips_killed": 82,
+   "legs": 255,
+   "loss_rate": 0.2431,
+   "lost": 62,
+   "slips_killed": 84,
    "stated_loss": 0.2118,
-   "z": 1.11
+   "z": 1.23
   },
   "news=CAUTION": {
    "killer": false,
@@ -569,7 +569,7 @@
   }
  },
  "killers": [],
- "legs": 1092,
+ "legs": 1093,
  "nba": {
   "classes": {
    "band=1.50-1.75": {
@@ -677,6 +677,6 @@
   "slips_graded": 8,
   "slips_lost": 8
  },
- "slips_graded": 357,
- "slips_lost": 245
+ "slips_graded": 359,
+ "slips_lost": 246
 }

@@ -64,14 +64,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T16:20Z",
-  "away_missing_share": 0.4009866140783475,
+  "at": "2026-10-29T16:40Z",
+  "away_missing_share": 0.27570628914587797,
   "away_unavailable": 5,
   "fotmob_id": 5749723,
-  "home_missing_share": 0.029124605347503878,
+  "home_missing_share": 0.02877380886373571,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-29T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Hammarby IF v IK Sirius": {
   "absent": [
@@ -96,7 +96,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T16:20Z",
+  "at": "2026-10-29T16:40Z",
   "away_missing_share": 0.15568474068038488,
   "away_unavailable": 2,
   "fotmob_id": 5107638,
@@ -138,7 +138,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T12:00Z",
+  "at": "2026-10-29T16:40Z",
   "away_missing_share": 0.4439757078170428,
   "away_unavailable": 6,
   "fotmob_id": 5107643,
@@ -175,7 +175,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T12:00Z",
+  "at": "2026-10-29T16:40Z",
   "away_missing_share": 0.03422437292406368,
   "away_unavailable": 2,
   "fotmob_id": 5107640,

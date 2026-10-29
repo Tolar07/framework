@@ -64,7 +64,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.769
+   "panel_prob": 0.769,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.769,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.769,
+    "edge": -0.0464,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 1,
+     "earned": false,
+     "panel_brier": 0.0594,
+     "live_brier": 0.065,
+     "panel_brier_on_live": 0.0594,
+     "clv_n": 1,
+     "panel_clv_hit": 1.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Fiorentina v Atalanta",
@@ -672,5 +696,28 @@
   },
   "authority": 0,
   "missing": []
- }
+ },
+ "lineup_passes": [
+  {
+   "at": "2026-10-29T16:40+00:00",
+   "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-2.5-flash",
+     "status": "partly failed: HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "meta/llama-3.3-70b-instruct",
+     "status": "partly failed: HTTPError: 410 Client Error: Gone for url: https://integrate.api.nvidia.com/v1/chat/completions",
+     "answered": 0
+    },
+    "openrouter": {
+     "model": "google/gemma-4-31b-it:free",
+     "status": "partly failed: HTTPError: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions",
+     "answered": 0
+    }
+   }
+  }
+ ]
 }

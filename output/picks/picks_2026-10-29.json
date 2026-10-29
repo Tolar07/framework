@@ -203,7 +203,11 @@
     "home": 160666421,
     "away": 231781619
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> BTTS & goals",
     "xg": [

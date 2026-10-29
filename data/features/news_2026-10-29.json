@@ -32,14 +32,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T18:40Z",
-  "away_missing_share": 0.32164703943437994,
+  "at": "2026-10-29T19:00Z",
+  "away_missing_share": 0.3275403505048629,
   "away_unavailable": 8,
   "fotmob_id": 5749722,
-  "home_missing_share": 0.22524954336467776,
+  "home_missing_share": 0.2187726791675222,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-29T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Frosinone v Lecce": {
   "absent": [

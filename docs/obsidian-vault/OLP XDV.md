@@ -38,6 +38,7 @@ CLV, mean CLV −1.631% (NOT met)** — the live publish runs on the Architect's
 - **[[Architecture.md]]** — the pipeline end to end: SCAN → trigger production →
   publish, the CLV loop, the admin dashboard, Telegram/client output.
 - **[[Open Questions.md]]** — unresolved items needing an explicit Architect
+- **[[Trading-Agent-Knowledge-Bridge.md]]** — methods proven in the trading bot (deflated Sharpe, paired challenger tests, CLV split, shadow forward tests, regimes) proposed for football + NBA
   answer before anything is assumed (calibration-log scope, per-market price
   coverage, quota timing, and more).
 

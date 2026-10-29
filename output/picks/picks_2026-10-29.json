@@ -171,7 +171,9 @@
     "yes": -0.0375,
     "no": 0.0375,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Fiorentina v Atalanta",
@@ -499,7 +501,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.18,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Kalmar FF v GAIS",

@@ -1,13 +1,13 @@
 {
  "weight": 0.0,
- "fitted": 0.105,
- "se": 0.222,
- "n_matches": 646,
- "n_outcomes": 1938,
- "brier_price": 0.2113,
+ "fitted": 0.138,
+ "se": 0.217,
+ "n_matches": 663,
+ "n_outcomes": 1989,
+ "brier_price": 0.2116,
  "brier_matchup": 0.2149,
- "brier_blend": 0.2112,
+ "brier_blend": 0.2115,
  "why": "matchup not proven better than the price yet \u2014 label only",
- "fitted_at": "2026-10-28",
- "priced_pairs": 647
+ "fitted_at": "2026-10-29",
+ "priced_pairs": 664
 }

@@ -9,7 +9,7 @@
    "test_n": 0,
    "test_effect": 0.0,
    "test_z": null,
-   "checked": "2026-10-28"
+   "checked": "2026-10-29"
   },
   "possession side v low block": {
    "status": "candidate",
@@ -17,11 +17,11 @@
    "train_n": 242,
    "train_effect": 0.122,
    "train_z": 2.05,
-   "test_n": 52,
-   "test_effect": 0.004,
-   "test_z": 0.03,
-   "checked": "2026-10-28"
+   "test_n": 54,
+   "test_effect": -0.001,
+   "test_z": -0.01,
+   "checked": "2026-10-29"
   }
  },
- "updated": "2026-10-28"
+ "updated": "2026-10-29"
 }

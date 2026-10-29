@@ -1,10 +1,12 @@
 {
  "date": "2026-10-29",
  "gone": [
-  "sr:match:73719432|236|total=52.5|quarternr=1|Over 52.5"
+  "sr:match:73719432|236|total=52.5|quarternr=1|Over 52.5",
+  "sr:match:73719448|68|total=111.5|Over 111.5"
  ],
  "reopen": [
-  "sr:match:73719432"
+  "sr:match:73719432",
+  "sr:match:73719448"
  ],
  "first": {
   "sr:match:73719428": {

@@ -31,9 +31,9 @@
    "flat_return": -0.0209,
    "model_said": 0.787,
    "ai_said": 0.763,
-   "clv_n": 108,
-   "mean_clv": 0.16,
-   "beat_close": 45
+   "clv_n": 112,
+   "mean_clv": 0.14,
+   "beat_close": 46
   }
  },
  "brier": {

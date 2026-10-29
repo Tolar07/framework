@@ -450,8 +450,8 @@
    "sharp_ev": -0.0274,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.27,
    "drift_pct": -1.6
   },
@@ -2157,7 +2157,7 @@
     "Hearts v Rangers",
     "Genoa v Juventus"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -3886,7 +3886,7 @@
      0.7201
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Milan v Bologna",
@@ -5431,7 +5431,7 @@
     "St Mirren v Hibernian",
     "Genoa v Juventus"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261028_1900",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-10-28T19:45:00Z",
@@ -5523,7 +5523,7 @@
    "name": "VALUE MEGA",
    "of": "value",
    "code": "TGM1L9",
-   "result": null
+   "result": "won"
   }
  ],
  "replaced": [

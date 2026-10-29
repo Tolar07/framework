@@ -1145,12 +1145,7 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-29",
-    "fixture": "Frosinone v Lecce",
-    "pick": "Frosinone or Lecce",
-    "price": 1.24
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_d01e8d1687",
@@ -1167,6 +1162,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-28",
+ "last_bred_date": "2026-10-29",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

@@ -1,7 +1,7 @@
 {
  "date": "2026-10-29",
- "run_id": "SHARP-f87ce496",
- "fetched_utc": "2026-10-28T21:54:04Z",
+ "run_id": "SHARP-94977fec",
+ "fetched_utc": "2026-10-29T06:52:31Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -11,7 +11,7 @@
   "max_ev": 0.25
  },
  "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
- "fixtures_on_day": 7,
+ "fixtures_on_day": 9,
  "fixtures_priced_by_exchange": 2,
  "picks": [
   {
@@ -24,16 +24,16 @@
    "specifier": "",
    "outcome": "Home",
    "key": "SB:1||Home",
-   "price": 2.35,
+   "price": 2.4,
    "outcome_id": "1",
    "sharp_p": 0.4391,
    "fair_price": 2.277,
-   "sharp_ev": 0.0319,
+   "sharp_ev": 0.0539,
    "code": "SNKM4X",
    "url": "http://www.sportybet.com/ng/?shareCode=SNKM4X",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-f87ce496"
+   "run_id": "SHARP-94977fec"
   }
  ],
  "suspect": [],

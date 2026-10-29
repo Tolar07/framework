@@ -431,6 +431,22 @@
    "clv": -0.82,
    "won": true,
    "graded_at": "2026-10-28T21:54:25+00:00"
+  },
+  {
+   "id": "football|2026-10-28|Hearts v Rangers|SB:10||Home or Away|board",
+   "date": "2026-10-28",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "anchor": 0.7539,
+   "members": {},
+   "panel_prob": 0.7539,
+   "edge": -0.0275,
+   "live_prob": 0.755,
+   "live_back": false,
+   "clv": 1.57,
+   "won": false,
+   "graded_at": "2026-10-29T06:52:50+00:00"
   }
  ],
  "updated": "2026-10-29",
@@ -476,14 +492,14 @@
    "live_clv_hit": 1.0
   },
   "football | Double chance | board": {
-   "n": 7,
+   "n": 8,
    "earned": false,
-   "panel_brier": 0.2243,
-   "live_brier": 0.2132,
-   "panel_brier_on_live": 0.2243,
-   "clv_n": 7,
-   "panel_clv_hit": 0.857,
-   "live_clv_hit": 0.571
+   "panel_brier": 0.2673,
+   "live_brier": 0.2578,
+   "panel_brier_on_live": 0.2673,
+   "clv_n": 8,
+   "panel_clv_hit": 0.75,
+   "live_clv_hit": 0.5
   },
   "football | Double chance | lineup": {
    "n": 1,

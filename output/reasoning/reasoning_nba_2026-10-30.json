@@ -1,0 +1,132 @@
+{
+ "date": "2026-10-30",
+ "picks_generated_at": "2026-10-29T06:51:53Z",
+ "run_at": "2026-10-29T06:52:50+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Atlanta Hawks v Cleveland Cavaliers",
+   "market": "NBA:223|hcp=1.5|Home (+1.5)",
+   "pick": "Atlanta Hawks (+1.5) handicap",
+   "price": 1.81,
+   "model_chance": 0.5867,
+   "code": "K900CD",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.57,
+   "confidence": 0.35,
+   "reasons": "The framework record states TOO FEW picks in this family, and the price of 1.81 is below our 1.90 minimum threshold for preferred value, leading us to reduce confidence and rate it lower.",
+   "market_chance": null,
+   "anchored_chance": 0.57,
+   "anchored_edge": 0.0175,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA handicap",
+    "base_prob": 0.5867,
+    "market_prob": 0.5867,
+    "cognitive_prob": 0.5867,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5867,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5867,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA handicap",
+    "panel_prob": 0.5867,
+    "edge": 0.0619,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5867
+  }
+ ],
+ "prompt_version": "975031f938",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-2.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 1,
+   "LOWER": 0,
+   "VETO": 0
+  },
+  "fallback": 1,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "gemini": {
+    "model": "gemini-2.5-flash",
+    "status": "partly failed: HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+    "answered": 0
+   },
+   "nvidia": {
+    "model": "meta/llama-3.3-70b-instruct",
+    "status": "partly failed: HTTPError: 410 Client Error: Gone for url: https://integrate.api.nvidia.com/v1/chat/completions",
+    "answered": 0
+   },
+   "openrouter": {
+    "model": "google/gemma-4-31b-it:free",
+    "status": "partly failed: HTTPError: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions",
+    "answered": 0
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   },
+   "openrouter": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   }
+  },
+  "authority": 0,
+  "missing": []
+ },
+ "sport": "nba"
+}

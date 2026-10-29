@@ -578,8 +578,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -1.48,
    "stake_pct": 0.25,
    "ev": -0.018478123954457915,
    "missing": {
@@ -707,7 +707,11 @@
     "home": 3637519,
     "away": 8432187
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: \u00d6rgryte missing 27%",
+    "at": "17:40Z"
+   },
    "matchup": {
     "say": "\u00d6rgryte: counter side v high line; \u00d6rgryte: counter side v counter-exposed; Mj\u00e4llby: set-piece threat v weak set-piece defence -> BTTS & goals",
     "xg": [
@@ -745,8 +749,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.03574500653168733,
    "missing": {

@@ -665,7 +665,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Orgryte IS v Mjallby AIF",
@@ -830,7 +832,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   }
  ],
  "accas": [],

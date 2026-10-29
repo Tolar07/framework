@@ -1,0 +1,66 @@
+{
+ "Frosinone v Lecce": {
+  "absent": [
+   {
+    "name": "Florian Grillitsch",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ivan Ili\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Medon Berisha",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Santiago Pierotti",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-29T11:40Z",
+  "away_missing_share": 0.4009866140783475,
+  "away_unavailable": 5,
+  "fotmob_id": 5749723,
+  "home_missing_share": 0.029124605347503878,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-29T17:30:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Hammarby IF v IK Sirius": {
+  "absent": [
+   {
+    "name": "Amin Boudri",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Oliver Hagen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jesper Uneken",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Otso Liimatta",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-29T11:40Z",
+  "away_missing_share": 0.15568474068038488,
+  "away_unavailable": 2,
+  "fotmob_id": 5107638,
+  "home_missing_share": 0.13754580737377115,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-29T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

@@ -46,7 +46,7 @@ jobs:
           PANEL_OPENROUTER_MODEL: ${{ vars.PANEL_OPENROUTER_MODEL }}
           VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
         run: |
-          pip install -q requests
+          pip install -q -r requirements.txt
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           if [ "$HANDOFF" = "true" ]; then python3 monitor/news_loop.py --handoff

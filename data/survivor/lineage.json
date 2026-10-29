@@ -972,7 +972,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-30",
+    "fixture": "Casa Pia v Sp Lisbon",
+    "pick": "Over 1.5 goals",
+    "price": 1.2
+   }
   },
   {
    "lineage_id": "ln_34e9e02c7e",
@@ -986,7 +991,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-30",
+    "fixture": "Bodoe/Glimt v Viking FK",
+    "pick": "Viking FK (+2.5) Asian handicap",
+    "price": 1.23
+   }
   },
   {
    "lineage_id": "ln_3e4b2a7449",
@@ -1145,7 +1155,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-30",
+    "fixture": "Konyaspor v Galatasaray Istanbul",
+    "pick": "Under 4.5 goals",
+    "price": 1.2
+   }
   },
   {
    "lineage_id": "ln_d01e8d1687",
@@ -1159,7 +1174,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-30",
+    "fixture": "Bielefeld v Braunschweig",
+    "pick": "Under 4.5 goals",
+    "price": 1.2
+   }
   }
  ],
  "last_bred_date": "2026-10-29",

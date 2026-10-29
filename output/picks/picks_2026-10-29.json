@@ -80,8 +80,8 @@
    "sharp_ev": -0.0465,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "5-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -426,8 +426,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -594,8 +594,8 @@
    "sharp_ev": null,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "bias": {
     "yes": {
      "cell": "SB:18|1.30-1.50",
@@ -685,7 +685,8 @@
     "signal": null
    },
    "drift_price": 1.33,
-   "drift_pct": 0.0
+   "drift_pct": 0.0,
+   "orig_result": "won"
   },
   {
    "fixture": "Orgryte IS v Mjallby AIF",
@@ -765,8 +766,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "bias": {
     "yes": {
      "cell": "SB:20|1.20-1.30",
@@ -871,7 +872,7 @@
     "Frosinone v Lecce",
     "Orgryte IS v Mjallby AIF"
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261029_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-29T17:30:00Z",
@@ -1021,7 +1022,7 @@
      0.8011
     ]
    ],
-   "ft": null
+   "ft": "5-1"
   },
   {
    "fixture": "Fiorentina v Atalanta",
@@ -1161,7 +1162,7 @@
      0.6488
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Kalmar FF v GAIS",
@@ -1221,7 +1222,7 @@
      0.7201
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Orgryte IS v Mjallby AIF",
@@ -1277,7 +1278,7 @@
      0.7353
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   }
  ],
  "study": [],
@@ -1296,7 +1297,7 @@
     "Frosinone v Lecce",
     "Kalmar FF v GAIS"
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261029_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-10-29T17:30:00Z",

@@ -804,5 +804,57 @@
   "fh_home": 2,
   "fh_away": 0,
   "went_to_et": true
+ },
+ {
+  "date": "2026-10-29",
+  "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Bitlis 1916",
+  "away": "Kayserispor",
+  "home_tier": 4,
+  "away_tier": 2,
+  "fthg": 4,
+  "ftag": 1,
+  "fh_home": 2,
+  "fh_away": 0,
+  "went_to_et": false
+ },
+ {
+  "date": "2026-10-29",
+  "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Eskisehirspor",
+  "away": "Igdir FK",
+  "home_tier": 4,
+  "away_tier": 2,
+  "fthg": 1,
+  "ftag": 0,
+  "fh_home": 0,
+  "fh_away": 0,
+  "went_to_et": false
+ },
+ {
+  "date": "2026-10-29",
+  "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Genclerbirligi",
+  "away": "Karakopru",
+  "home_tier": 1,
+  "away_tier": 4,
+  "fthg": 5,
+  "ftag": 0,
+  "fh_home": 3,
+  "fh_away": 0,
+  "went_to_et": false
+ },
+ {
+  "date": "2026-10-29",
+  "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Kasimpasa",
+  "away": "Corluspor",
+  "home_tier": 1,
+  "away_tier": 3,
+  "fthg": 3,
+  "ftag": 1,
+  "fh_home": 1,
+  "fh_away": 0,
+  "went_to_et": false
  }
 ]

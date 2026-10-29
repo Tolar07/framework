@@ -539,7 +539,11 @@
     "home": 4512701,
     "away": 4246005
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "GAIS: possession side v low block -> no strong goals lean",
     "xg": [

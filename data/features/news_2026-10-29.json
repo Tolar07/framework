@@ -108,11 +108,6 @@
  "Kalmar FF v GAIS": {
   "absent": [
    {
-    "name": "Emeka Nnamani",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Aboubacar Keita",
     "side": "home",
     "type": "injury"
@@ -138,14 +133,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T17:00Z",
-  "away_missing_share": 0.4439757078170428,
-  "away_unavailable": 6,
+  "at": "2026-10-29T17:20Z",
+  "away_missing_share": 0.45028940819185576,
+  "away_unavailable": 7,
   "fotmob_id": 5107643,
-  "home_missing_share": 0.16794378150264228,
-  "home_unavailable": 3,
+  "home_missing_share": 0.11810221761741965,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-29T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Orgryte IS v Mjallby AIF": {
   "absent": [
@@ -175,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T17:00Z",
+  "at": "2026-10-29T17:20Z",
   "away_missing_share": 0.03422437292406368,
   "away_unavailable": 2,
   "fotmob_id": 5107640,

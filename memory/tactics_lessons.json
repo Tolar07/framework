@@ -17,9 +17,9 @@
    "train_n": 242,
    "train_effect": 0.122,
    "train_z": 2.05,
-   "test_n": 54,
-   "test_effect": -0.001,
-   "test_z": -0.01,
+   "test_n": 55,
+   "test_effect": -0.013,
+   "test_z": -0.1,
    "checked": "2026-10-29"
   }
  },

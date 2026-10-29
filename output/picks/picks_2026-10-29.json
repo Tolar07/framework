@@ -68,8 +68,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.25,
    "ev": -0.005651829102425676,
    "missing": {
@@ -344,7 +344,9 @@
     "yes": -0.0338,
     "no": 0.0338,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Hammarby IF v IK Sirius",
@@ -370,7 +372,11 @@
     "home": 27340857,
     "away": 11506173
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -404,8 +410,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.03685318408562477,
    "missing": {

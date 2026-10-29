@@ -96,14 +96,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T16:40Z",
-  "away_missing_share": 0.15568474068038488,
+  "at": "2026-10-29T17:00Z",
+  "away_missing_share": 0.1657882008015747,
   "away_unavailable": 2,
   "fotmob_id": 5107638,
   "home_missing_share": 0.13754580737377115,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-29T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Kalmar FF v GAIS": {
   "absent": [
@@ -138,7 +138,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T16:40Z",
+  "at": "2026-10-29T17:00Z",
   "away_missing_share": 0.4439757078170428,
   "away_unavailable": 6,
   "fotmob_id": 5107643,
@@ -175,7 +175,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-29T16:40Z",
+  "at": "2026-10-29T17:00Z",
   "away_missing_share": 0.03422437292406368,
   "away_unavailable": 2,
   "fotmob_id": 5107640,

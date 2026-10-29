@@ -1,4 +1,4 @@
-# NBA projection study — 2026-10-28
+# NBA projection study — 2026-10-29
 
 RECORDED ONLY (Architect 2026-10-28). The player-built projection (engine/nba_projection.py) against the sharp line and SportyBet, on games it was not fitted to. Nothing here feeds a pick.
 

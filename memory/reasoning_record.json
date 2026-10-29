@@ -1,6 +1,6 @@
 {
  "updated": "2026-10-29",
- "graded": 187,
+ "graded": 191,
  "by_verdict": {
   "back": {
    "n": 30,
@@ -25,21 +25,21 @@
    "beat_close": 24
   },
   "veto": {
-   "n": 107,
-   "won": 84,
-   "hit": 0.785,
-   "flat_return": -0.0209,
+   "n": 111,
+   "won": 88,
+   "hit": 0.793,
+   "flat_return": -0.0113,
    "model_said": 0.787,
    "ai_said": 0.763,
-   "clv_n": 112,
+   "clv_n": 113,
    "mean_clv": 0.14,
-   "beat_close": 46
+   "beat_close": 47
   }
  },
  "brier": {
-  "n": 187,
-  "model": 0.1802,
-  "ai": 0.1805
+  "n": 191,
+  "model": 0.1773,
+  "ai": 0.1779
  },
  "nba": {
   "graded": 37,
@@ -72,6 +72,13 @@
    "base_brier": 0.0352,
    "veto_loss_rate": null
   },
+  "football | Away goals": {
+   "n": 1,
+   "earned": false,
+   "cog_brier": 0.0439,
+   "base_brier": 0.0439,
+   "veto_loss_rate": null
+  },
   "football | Away win to nil": {
    "n": 1,
    "earned": false,
@@ -87,10 +94,10 @@
    "veto_loss_rate": null
   },
   "football | Double chance": {
-   "n": 8,
+   "n": 10,
    "earned": false,
-   "cog_brier": 0.266,
-   "base_brier": 0.266,
+   "cog_brier": 0.2189,
+   "base_brier": 0.2189,
    "veto_loss_rate": null
   },
   "football | Home goals": {
@@ -108,10 +115,10 @@
    "veto_loss_rate": null
   },
   "football | Over/Under": {
-   "n": 9,
+   "n": 10,
    "earned": false,
-   "cog_brier": 0.1099,
-   "base_brier": 0.1079,
+   "cog_brier": 0.1058,
+   "base_brier": 0.104,
    "veto_loss_rate": null
   }
  },
@@ -473,6 +480,62 @@
    "cog_brier": 0.618,
    "flags": [],
    "graded_at": "2026-10-29T06:52:50+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Frosinone v Lecce|SB:10||Home or Away",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.8246,
+   "cognitive_prob": 0.8246,
+   "won": true,
+   "base_brier": 0.0308,
+   "cog_brier": 0.0308,
+   "flags": [],
+   "graded_at": "2026-10-29T21:53:40+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Hammarby IF v IK Sirius|SB:10||Home or Away",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.8253,
+   "cognitive_prob": 0.8253,
+   "won": true,
+   "base_brier": 0.0305,
+   "cog_brier": 0.0305,
+   "flags": [],
+   "graded_at": "2026-10-29T21:53:40+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Kalmar FF v GAIS|SB:18|total=3.5|Under 3.5",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "BACK",
+   "base_prob": 0.738,
+   "cognitive_prob": 0.738,
+   "won": true,
+   "base_brier": 0.0686,
+   "cog_brier": 0.0686,
+   "flags": [],
+   "graded_at": "2026-10-29T21:53:40+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Orgryte IS v Mjallby AIF|SB:20|total=0.5|Over 0.5",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Away goals",
+   "verdict": "BACK",
+   "base_prob": 0.7904,
+   "cognitive_prob": 0.7904,
+   "won": true,
+   "base_brier": 0.0439,
+   "cog_brier": 0.0439,
+   "flags": [],
+   "graded_at": "2026-10-29T21:53:40+00:00"
   }
  ]
 }

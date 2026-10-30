@@ -9,8 +9,7 @@ name: OLP XDV weekly review
 # output/scorecard/latest.txt, which the PC's WhatsApp mirror posts on Mondays.
 # Read-only: nothing is changed automatically.
 on:
-  schedule:
-    - cron: "51 7 * * 1"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

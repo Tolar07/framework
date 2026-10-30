@@ -10,8 +10,7 @@ name: OLP XDV universe sweep
 # a game reaches git once, graded, in data/universe/graded_<month>.jsonl.
 # A dropped GitHub cron only delays grading: the next sweep catches up.
 on:
-  schedule:
-    - cron: "20 */3 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch: {}
 
 permissions:

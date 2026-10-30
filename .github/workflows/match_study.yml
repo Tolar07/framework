@@ -12,9 +12,7 @@ name: OLP XDV nightly match study
 # not seen (memory/tactics_lessons.json). Twice a night, off the hour (GitHub
 # drops :00 ticks); the second run picks up late finishes and a dropped first.
 on:
-  schedule:
-    - cron: "23 1 * * *"
-    - cron: "37 16 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

@@ -12,8 +12,7 @@ name: OLP XDV NBA live tracker
 # finds an older loop going exits at once, one too early (first tip > 3 h away) exits,
 # and a job nearing the 6-hour limit hands off to a fresh run.
 on:
-  schedule:
-    - cron: "9 16,19,22,1,4 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       board:

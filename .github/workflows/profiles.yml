@@ -13,8 +13,7 @@ name: OLP XDV team profiles + league strength
 # cache for the fixtures it sees. Mondays, early, so a fresh week's boards run
 # on fresh profiles. Off the hour because GitHub drops :00 ticks.
 on:
-  schedule:
-    - cron: "41 4 * * 1"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

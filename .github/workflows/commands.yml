@@ -14,12 +14,7 @@ name: OLP XDV telegram commands
 # 01:47, 22:36, 17:31, 09:17. So /board or /status could sit unanswered for
 # six hours while this workflow's history showed nothing but green.
 on:
-  schedule:
-    # A BACKUP STARTER, not the poller. One job now loops every 5 minutes
-    # (monitor/commands_loop.py) because this hourly tick produced SIX runs in
-    # the 35 hours to 2026-10-14 17:00 UTC - /board could wait six hours. A
-    # tick that finds a loop already running exits at once.
-    - cron: "5 * * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       handoff:

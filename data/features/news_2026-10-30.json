@@ -240,12 +240,12 @@
     "type": "injury"
    },
    {
-    "name": "Anderson",
+    "name": "Isma\u00ebl Guerti",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Isma\u00ebl Guerti",
+    "name": "Jacob Italiano",
     "side": "home",
     "type": "injury"
    },
@@ -260,18 +260,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T17:20Z",
-  "away_missing_share": 0.17147928666286064,
+  "at": "2026-10-30T17:40Z",
+  "away_missing_share": 0.1490094080196491,
   "away_unavailable": 2,
   "fotmob_id": 5846013,
-  "home_missing_share": 0.4078241485839022,
-  "home_unavailable": 5,
+  "home_missing_share": 0.26873899467635753,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Grenoble v Dijon": {
   "absent": [],
-  "at": "2026-10-30T13:00Z",
+  "at": "2026-10-30T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803300,
@@ -304,7 +304,7 @@
  },
  "Laval v Boulogne": {
   "absent": [],
-  "at": "2026-10-30T13:00Z",
+  "at": "2026-10-30T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803302,
@@ -389,7 +389,7 @@
  },
  "Metz v Pau FC": {
   "absent": [],
-  "at": "2026-10-30T13:00Z",
+  "at": "2026-10-30T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803303,
@@ -442,7 +442,7 @@
  },
  "Nantes v Clermont": {
   "absent": [],
-  "at": "2026-10-30T13:00Z",
+  "at": "2026-10-30T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803304,
@@ -501,7 +501,7 @@
  },
  "Rodez v Dunkerque": {
   "absent": [],
-  "at": "2026-10-30T13:00Z",
+  "at": "2026-10-30T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803307,

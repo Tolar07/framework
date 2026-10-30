@@ -137,6 +137,43 @@
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Grazer AK 1902 v TSV Hartberg": {
+  "absent": [
+   {
+    "name": "Beres Owusu",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Anderson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Isma\u00ebl Guerti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fabian Wilfinger",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lukas Fridrikas",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T12:40Z",
+  "away_missing_share": 0.17147928666286064,
+  "away_unavailable": 2,
+  "fotmob_id": 5846013,
+  "home_missing_share": 0.4078241485839022,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-30T18:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Konyaspor v Galatasaray Istanbul": {
   "absent": [
    {

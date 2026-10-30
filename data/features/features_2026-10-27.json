@@ -91,12 +91,12 @@
   "away": "Kidderminster",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2304,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2642,
+    "home": 0.5054,
+    "over25": 0.5076
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -391,12 +391,12 @@
   "away": "Gateshead",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1787,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2184,
+    "home": 0.6029,
+    "over25": 0.5902
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -458,12 +458,12 @@
   "away": "Empoli",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2414,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2828,
+    "home": 0.4758,
+    "over25": 0.5013
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -551,12 +551,12 @@
   "away": "Hartlepool",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2313,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2426,
+    "home": 0.5262,
+    "over25": 0.6338
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -688,12 +688,12 @@
   "away": "Barrow",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2939,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2626,
+    "home": 0.4435,
+    "over25": 0.5586
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -755,12 +755,12 @@
   "away": "Yeovil",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3907,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2718,
+    "home": 0.3375,
+    "over25": 0.5367
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -910,12 +910,12 @@
   "away": "Wigan",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1234,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1863,
+    "home": 0.6903,
+    "over25": 0.642
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1044,12 +1044,12 @@
   "away": "Cremonese",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2796,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2963,
+    "home": 0.4241,
+    "over25": 0.4861
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1271,12 +1271,12 @@
   "away": "Sudtirol",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2475,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3143,
+    "home": 0.4381,
+    "over25": 0.4181
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1369,12 +1369,12 @@
   "away": "Cagliari",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1084,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1994,
+    "home": 0.6923,
+    "over25": 0.5176
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1467,12 +1467,12 @@
   "away": "Lazio",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.491,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.261,
+    "home": 0.248,
+    "over25": 0.5976
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1699,12 +1699,12 @@
   "away": "Como",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5643,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2436,
+    "home": 0.1921,
+    "over25": 0.5594
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1797,12 +1797,12 @@
   "away": "Avellino",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2369,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3109,
+    "home": 0.4522,
+    "over25": 0.4272
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1885,12 +1885,12 @@
   "away": "Solihull",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3038,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2669,
+    "home": 0.4293,
+    "over25": 0.5827
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -1952,12 +1952,12 @@
   "away": "Boreham Wood",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.6294,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2059,
+    "home": 0.1647,
+    "over25": 0.6291
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",
@@ -2019,12 +2019,12 @@
   "away": "Southend",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4448,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2446,
+    "home": 0.3106,
+    "over25": 0.6711
    },
    "sharp": {
     "at": "2026-10-27T15:26Z",

@@ -2,7 +2,7 @@
 
 Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post-match stats of every fixture the board rated). A stat FotMob didn't publish is left out, never counted as 0. A study, not a selector.
 
-840 matches, 2026-10-04 to 2026-10-28.
+845 matches, 2026-10-04 to 2026-10-29.
 
 ## League styles (per match, both teams together)
 
@@ -13,13 +13,13 @@ Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post
 | Championship | 45 | 2.76 | 3.00 | 28.6 | 8.4 | 4.9 | 10.7 | 1.0 | 0.33 |
 | FA Cup | 42 | 3.14 | — | — | — | — | — | — | — |
 | Serie B | 40 | 2.75 | 2.82 | 28.2 | 8.5 | 4.2 | 9.4 | 3.9 | 0.32 |
-| Serie A | 38 | 3.39 | 3.32 | 29.1 | 10.1 | 5.6 | 9.4 | 3.0 | 0.34 |
+| Serie A | 40 | 3.48 | 3.34 | 29.6 | 10.2 | 5.6 | 9.6 | 3.0 | 0.34 |
 | La Liga 2 | 35 | 2.71 | 2.70 | 26.2 | 8.9 | 4.0 | 10.8 | 5.6 | 0.31 |
 | National League | 34 | 3.41 | — | — | — | — | — | — | — |
 | Europa League | 34 | 3.26 | 3.13 | 27.6 | 9.9 | 5.1 | 9.3 | 4.1 | 0.33 |
+| Allsvenskan | 32 | 2.66 | 2.60 | 28.1 | 9.2 | 2.9 | 11.4 | 1.6 | 0.29 |
 | Conference League | 31 | 2.84 | 3.03 | 29.1 | 9.4 | 4.8 | 9.8 | 3.8 | 0.30 |
 | Premier League | 30 | 2.70 | 2.68 | 26.4 | 8.2 | 4.7 | 9.5 | 4.2 | 0.33 |
-| Allsvenskan | 29 | 2.72 | 2.62 | 28.4 | 9.3 | 2.8 | 11.4 | 1.4 | 0.29 |
 | La Liga | 27 | 2.96 | 2.83 | 28.7 | 9.8 | 4.0 | 10.0 | 5.2 | 0.30 |
 | Champions League | 27 | 4.52 | 3.73 | 29.5 | 11.7 | 6.7 | 9.9 | 3.2 | 0.39 |
 | UEFA Nations League | 26 | 2.15 | 2.65 | 26.2 | 7.8 | 4.3 | 9.0 | 3.9 | 0.28 |
@@ -47,10 +47,10 @@ Every match where the two sides differed on the measure (draws included).
 
 | The side with more … | matches | won | drew | lost |
 |---|---|---|---|---|
-| expected goals | 740 | 59% | 23% | 19% |
-| shots on target | 678 | 60% | 22% | 18% |
-| big chances | 633 | 61% | 21% | 17% |
-| possession | 727 | 39% | 23% | 39% |
+| expected goals | 745 | 58% | 23% | 19% |
+| shots on target | 682 | 60% | 22% | 18% |
+| big chances | 638 | 61% | 21% | 17% |
+| possession | 731 | 39% | 22% | 38% |
 
 ## Team profiles (3+ matches with xG), strongest xG balance first
 

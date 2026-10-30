@@ -74,7 +74,7 @@ def test_debate_uses_header_key_schema_and_lessons():
 
     out = CC.evaluate([dict(FULL)], key="K", post=post, record_path=tmp() / "r.json", lessons_path=les)[0]
     assert seen["headers"] == {"x-goog-api-key": "K"} and seen["params"] is None and "K" not in seen["url"]
-    assert seen["url"].endswith("/models/gemini-2.5-flash:generateContent")
+    assert seen["url"].endswith("/models/gemini-3.5-flash:generateContent")
     gc = seen["body"]["generationConfig"]
     assert gc["temperature"] == 0.15 and gc["responseMimeType"] == "application/json" and gc["responseSchema"]
     assert "check rotation before cup ties" in seen["body"]["contents"][0]["parts"][0]["text"]

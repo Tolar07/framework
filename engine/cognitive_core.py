@@ -62,8 +62,13 @@ REQUIRED = ("price", "base_prob", "market_prob", "news_level", "profile_lean")
 _CUP = re.compile(r"\b(cup|trophy|pokal|copa|coupe|coppa|beker|taca|ta[cç]a)\b", re.I)
 
 
+# 2026-10-30: gemini-2.5-flash answers 404 on chat/completions (still listed, no longer served), so every
+# core verdict since at least 28-10 was the BACK fallback and the panel's Gemini member never answered.
+DEFAULT_MODEL = "gemini-3.5-flash"
+
+
 def model() -> str:
-    return os.getenv("OLP_GEMINI_MODEL", "").strip() or "gemini-2.5-flash"
+    return os.getenv("OLP_GEMINI_MODEL", "").strip() or DEFAULT_MODEL
 
 
 def stakes_on() -> bool:

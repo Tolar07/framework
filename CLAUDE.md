@@ -24,21 +24,22 @@ never imported, never run (see `legacy/laptop/README.md`).
 Do not answer questions about framework state from this file or from
 inference — read those three files, the code, or the run history.
 
-## Two-session handoff (Architect standing instruction, 2026-10-30)
+## Multi-session handoff — ALL Claude Code sessions, ALL repos (Architect standing instruction, 2026-10-30)
 
-Two Claude Code sessions run this operation from **two different Claude accounts**. They do not share
-memory, so the shared notebook is the pinned GitHub issue
+More than one Claude Code session works on these repos, from **different Claude accounts**. They do not share
+memory. The one shared log for every Tolar07 repo is the pinned issue
 **[Tolar07/omniroute-test#54](https://github.com/Tolar07/omniroute-test/issues/54)**. Never skip this:
 
-1. **Start of every session/job:** read the latest comments —
+1. **Start of every session/job, before touching anything:** read the latest notes —
    `gh issue view 54 -R Tolar07/omniroute-test --comments | tail -60`.
-2. **After every action** (PR opened or merged, workflow/config/secret changed, bot restarted, fault fixed,
-   Architect decision, anything left half-done): post one comment —
+2. **After every action, in any Tolar07 repo** (PR opened or merged, workflow/config/secret changed, bot restarted,
+   fault fixed, Architect decision, anything left half-done): post one comment —
    `gh issue comment 54 -R Tolar07/omniroute-test --body "..."` in the form
-   `**[Session: <account/where>] <YYYY-MM-DD HH:MM UTC>**` / `- Did:` (repo + PR/commit links) / `- Why:` /
-   `- Open / next:` (unfinished work, things the other session must not touch).
-3. About to change something the other session touched recently? Comment first, citing its note.
-4. The repo is **public**: no tokens, keys, passwords, account numbers or private slip data in comments.
+   `**[Session: <account/where>] <YYYY-MM-DD HH:MM UTC> — <repo>**` / `- Did:` (PR/commit links) / `- Why:` /
+   `- Open / next:` (unfinished work, things other sessions must not touch).
+3. Also put a short handoff note in the PR description itself, so the PR explains what was done and why.
+4. About to change something another session touched recently? Comment on #54 first, citing its note.
+5. No tokens, keys, passwords, account numbers or private slip data in notes.
 
 ---
 

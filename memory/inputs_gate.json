@@ -1,310 +1,310 @@
 {
- "evaluated_at": "2026-10-28",
+ "evaluated_at": "2026-10-30",
  "passes": [],
  "coverage": {
-  "matches": 3717,
-  "with_h2h": 3506,
+  "matches": 3735,
+  "with_h2h": 3516,
   "leagues": 14,
-  "rated_graded": 715,
-  "with_xg_form": 392
+  "rated_graded": 741,
+  "with_xg_form": 408
  },
  "part_a": {
   "home win | h2h_gd": {
-   "rows": 3506,
-   "scored": 3461,
+   "rows": 3516,
+   "scored": 3471,
    "brier_model": 0.2211,
-   "brier_gain": -0.00019,
+   "brier_gain": -0.0002,
    "brier_se": 0.00022,
    "logloss_model": 0.6325,
-   "logloss_gain": -0.00062,
+   "logloss_gain": -0.00065,
    "logloss_se": 0.00054,
-   "last_coef": 0.041,
+   "last_coef": 0.036,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 929,
-     "clv": -0.78,
+     "bets": 933,
+     "clv": -0.8,
      "clv_se": 0.26
     },
     "with_feature": {
-     "bets": 910,
-     "clv": -0.63,
+     "bets": 913,
+     "clv": -0.65,
      "clv_se": 0.25
     }
    }
   },
   "home win | h2h_goals": {
-   "rows": 3506,
-   "scored": 3461,
+   "rows": 3516,
+   "scored": 3471,
    "brier_model": 0.2211,
    "brier_gain": -0.00022,
    "brier_se": 0.0001,
    "logloss_model": 0.6325,
    "logloss_gain": -0.00055,
    "logloss_se": 0.00024,
-   "last_coef": 0.009,
+   "last_coef": 0.006,
    "verdict": "HURTS",
    "verdict_logloss": "HURTS",
    "clv": {
     "model": {
-     "bets": 929,
-     "clv": -0.78,
+     "bets": 933,
+     "clv": -0.8,
      "clv_se": 0.26
     },
     "with_feature": {
-     "bets": 930,
-     "clv": -0.8,
+     "bets": 934,
+     "clv": -0.82,
      "clv_se": 0.26
     }
    }
   },
   "home win | form_ppg": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2222,
-   "brier_gain": -0.00038,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2221,
+   "brier_gain": -0.00039,
    "brier_se": 0.00019,
-   "logloss_model": 0.6347,
-   "logloss_gain": -0.00073,
+   "logloss_model": 0.6346,
+   "logloss_gain": -0.00074,
    "logloss_se": 0.00042,
-   "last_coef": -0.047,
+   "last_coef": -0.044,
    "verdict": "HURTS",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 1001,
-     "clv": -0.71,
+     "bets": 1008,
+     "clv": -0.74,
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1027,
-     "clv": -0.64,
-     "clv_se": 0.25
-    }
-   }
-  },
-  "home win | form_gd": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2222,
-   "brier_gain": -0.00043,
-   "brier_se": 0.00014,
-   "logloss_model": 0.6347,
-   "logloss_gain": -0.0009,
-   "logloss_se": 0.00034,
-   "last_coef": -0.013,
-   "verdict": "HURTS",
-   "verdict_logloss": "HURTS",
-   "clv": {
-    "model": {
-     "bets": 1001,
-     "clv": -0.71,
-     "clv_se": 0.25
-    },
-    "with_feature": {
-     "bets": 1009,
+     "bets": 1032,
      "clv": -0.67,
      "clv_se": 0.25
     }
    }
   },
-  "home win | form_venue_ppg": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2222,
-   "brier_gain": -0.00019,
-   "brier_se": 0.0001,
-   "logloss_model": 0.6347,
-   "logloss_gain": -0.00044,
-   "logloss_se": 0.00022,
-   "last_coef": -0.019,
-   "verdict": "NO CLEAR EFFECT",
-   "verdict_logloss": "NO CLEAR EFFECT",
+  "home win | form_gd": {
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2221,
+   "brier_gain": -0.00042,
+   "brier_se": 0.00014,
+   "logloss_model": 0.6346,
+   "logloss_gain": -0.0009,
+   "logloss_se": 0.00034,
+   "last_coef": -0.011,
+   "verdict": "HURTS",
+   "verdict_logloss": "HURTS",
    "clv": {
     "model": {
-     "bets": 1001,
-     "clv": -0.71,
+     "bets": 1008,
+     "clv": -0.74,
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1004,
-     "clv": -0.72,
+     "bets": 1015,
+     "clv": -0.7,
+     "clv_se": 0.25
+    }
+   }
+  },
+  "home win | form_venue_ppg": {
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2221,
+   "brier_gain": -0.00019,
+   "brier_se": 9e-05,
+   "logloss_model": 0.6346,
+   "logloss_gain": -0.00045,
+   "logloss_se": 0.00022,
+   "last_coef": -0.016,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "HURTS",
+   "clv": {
+    "model": {
+     "bets": 1008,
+     "clv": -0.74,
+     "clv_se": 0.25
+    },
+    "with_feature": {
+     "bets": 1010,
+     "clv": -0.75,
      "clv_se": 0.25
     }
    }
   },
   "home win | form_goals": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2222,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2221,
    "brier_gain": -0.00035,
-   "brier_se": 0.00031,
-   "logloss_model": 0.6347,
-   "logloss_gain": -0.00074,
-   "logloss_se": 0.00068,
-   "last_coef": -0.016,
+   "brier_se": 0.0003,
+   "logloss_model": 0.6346,
+   "logloss_gain": -0.00073,
+   "logloss_se": 0.00067,
+   "last_coef": -0.018,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 1001,
-     "clv": -0.71,
+     "bets": 1008,
+     "clv": -0.74,
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1030,
-     "clv": -0.74,
+     "bets": 1038,
+     "clv": -0.77,
      "clv_se": 0.24
     }
    }
   },
   "over 2.5 | h2h_gd": {
-   "rows": 3506,
-   "scored": 3461,
-   "brier_model": 0.2503,
-   "brier_gain": -0.0003,
+   "rows": 3516,
+   "scored": 3471,
+   "brier_model": 0.2502,
+   "brier_gain": -0.00032,
    "brier_se": 0.00028,
-   "logloss_model": 0.6942,
-   "logloss_gain": -0.00068,
+   "logloss_model": 0.6939,
+   "logloss_gain": -0.00071,
    "logloss_se": 0.00062,
-   "last_coef": 0.041,
+   "last_coef": 0.038,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 628,
+     "bets": 629,
      "clv": 0.16,
      "clv_se": 0.2
     },
     "with_feature": {
-     "bets": 633,
-     "clv": 0.14,
+     "bets": 636,
+     "clv": 0.15,
      "clv_se": 0.2
     }
    }
   },
   "over 2.5 | h2h_goals": {
-   "rows": 3506,
-   "scored": 3461,
-   "brier_model": 0.2503,
-   "brier_gain": 0.00071,
-   "brier_se": 0.00084,
-   "logloss_model": 0.6942,
-   "logloss_gain": 0.00163,
+   "rows": 3516,
+   "scored": 3471,
+   "brier_model": 0.2502,
+   "brier_gain": 0.00073,
+   "brier_se": 0.00083,
+   "logloss_model": 0.6939,
+   "logloss_gain": 0.00168,
    "logloss_se": 0.00177,
-   "last_coef": -0.151,
+   "last_coef": -0.153,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 628,
+     "bets": 629,
      "clv": 0.16,
      "clv_se": 0.2
     },
     "with_feature": {
-     "bets": 698,
-     "clv": 0.27,
+     "bets": 697,
+     "clv": 0.29,
      "clv_se": 0.19
     }
    }
   },
   "over 2.5 | form_ppg": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2508,
-   "brier_gain": -0.0001,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2506,
+   "brier_gain": -0.00011,
    "brier_se": 0.0004,
-   "logloss_model": 0.6956,
+   "logloss_model": 0.6951,
    "logloss_gain": -0.00042,
-   "logloss_se": 0.00087,
+   "logloss_se": 0.00086,
    "last_coef": -0.043,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 675,
+     "bets": 678,
      "clv": 0.15,
      "clv_se": 0.19
     },
     "with_feature": {
-     "bets": 747,
+     "bets": 750,
      "clv": 0.21,
-     "clv_se": 0.18
+     "clv_se": 0.17
     }
    }
   },
   "over 2.5 | form_gd": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2508,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2506,
    "brier_gain": -0.00019,
    "brier_se": 0.00028,
-   "logloss_model": 0.6956,
-   "logloss_gain": -0.00047,
+   "logloss_model": 0.6951,
+   "logloss_gain": -0.00046,
    "logloss_se": 0.0006,
    "last_coef": -0.017,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 675,
+     "bets": 678,
      "clv": 0.15,
      "clv_se": 0.19
     },
     "with_feature": {
-     "bets": 723,
-     "clv": 0.27,
+     "bets": 726,
+     "clv": 0.26,
      "clv_se": 0.18
     }
    }
   },
   "over 2.5 | form_venue_ppg": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2508,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2506,
    "brier_gain": -0.00029,
    "brier_se": 0.0002,
-   "logloss_model": 0.6956,
-   "logloss_gain": -0.00072,
+   "logloss_model": 0.6951,
+   "logloss_gain": -0.00071,
    "logloss_se": 0.00045,
-   "last_coef": 0.01,
+   "last_coef": 0.011,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 675,
+     "bets": 678,
      "clv": 0.15,
      "clv_se": 0.19
     },
     "with_feature": {
-     "bets": 704,
+     "bets": 707,
      "clv": 0.17,
      "clv_se": 0.19
     }
    }
   },
   "over 2.5 | form_goals": {
-   "rows": 3717,
-   "scored": 3672,
-   "brier_model": 0.2508,
-   "brier_gain": 0.00028,
-   "brier_se": 0.00061,
-   "logloss_model": 0.6956,
-   "logloss_gain": 0.00079,
+   "rows": 3735,
+   "scored": 3690,
+   "brier_model": 0.2506,
+   "brier_gain": 0.00023,
+   "brier_se": 0.0006,
+   "logloss_model": 0.6951,
+   "logloss_gain": 0.00067,
    "logloss_se": 0.00129,
-   "last_coef": -0.118,
+   "last_coef": -0.113,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT",
    "clv": {
     "model": {
-     "bets": 675,
+     "bets": 678,
      "clv": 0.15,
      "clv_se": 0.19
     },
     "with_feature": {
-     "bets": 690,
-     "clv": -0.03,
+     "bets": 693,
+     "clv": -0.04,
      "clv_se": 0.19
     }
    }
@@ -312,41 +312,41 @@
  },
  "part_b": {
   "home win | xG edge": {
-   "rows": 392,
-   "scored": 310,
-   "brier_model": 0.2182,
-   "brier_gain": 0.00205,
-   "brier_se": 0.0026,
-   "logloss_model": 0.6258,
-   "logloss_gain": 0.00427,
-   "logloss_se": 0.00577,
-   "last_coef": 0.208,
+   "rows": 408,
+   "scored": 326,
+   "brier_model": 0.2169,
+   "brier_gain": 0.00165,
+   "brier_se": 0.0025,
+   "logloss_model": 0.6232,
+   "logloss_gain": 0.00334,
+   "logloss_se": 0.00557,
+   "last_coef": 0.213,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "over 2.5 | xG total": {
-   "rows": 392,
-   "scored": 310,
-   "brier_model": 0.2371,
-   "brier_gain": 0.00053,
-   "brier_se": 0.00254,
-   "logloss_model": 0.667,
-   "logloss_gain": 0.0012,
-   "logloss_se": 0.00573,
-   "last_coef": 0.199,
+   "rows": 408,
+   "scored": 326,
+   "brier_model": 0.2358,
+   "brier_gain": 0.00103,
+   "brier_se": 0.00246,
+   "logloss_model": 0.6647,
+   "logloss_gain": 0.00189,
+   "logloss_se": 0.00561,
+   "last_coef": 0.191,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "BTTS yes | xG total": {
-   "rows": 392,
-   "scored": 310,
-   "brier_model": 0.239,
-   "brier_gain": -0.00038,
-   "brier_se": 0.00069,
-   "logloss_model": 0.6708,
-   "logloss_gain": -0.00085,
-   "logloss_se": 0.00145,
-   "last_coef": 0.06,
+   "rows": 408,
+   "scored": 326,
+   "brier_model": 0.2377,
+   "brier_gain": -0.00019,
+   "brier_se": 0.00067,
+   "logloss_model": 0.6683,
+   "logloss_gain": -0.00043,
+   "logloss_se": 0.00142,
+   "last_coef": 0.059,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   }

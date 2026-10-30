@@ -1,0 +1,283 @@
+{
+ "reviewed": "2026-10-30",
+ "inputs": [
+  {
+   "input": "team strength",
+   "why": "ratings from results / goals (Dixon-Coles, Elo)",
+   "value": 5,
+   "status": "LIVE",
+   "where": [
+    "engine/dixon_coles.py",
+    "engine/elo.py",
+    "engine/calibration.py"
+   ],
+   "evidence": []
+  },
+  {
+   "input": "xG for / against",
+   "why": "chance quality beats goals as a strength signal",
+   "value": 5,
+   "status": "TESTED",
+   "where": [
+    "engine/reasoning.py",
+    "engine/records/ensemble.py",
+    "engine/form.py"
+   ],
+   "evidence": [
+    "home win | xG edge: NO CLEAR EFFECT (Brier +0.00165)",
+    "over 2.5 | xG total: NO CLEAR EFFECT (Brier +0.00103)",
+    "BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00019)"
+   ]
+  },
+  {
+   "input": "recent form",
+   "why": "last 5-6, home/away split",
+   "value": 3,
+   "status": "TESTED",
+   "where": [],
+   "evidence": [
+    "home win | form_ppg: HURTS (Brier -0.00039)",
+    "home win | form_gd: HURTS (Brier -0.00042)",
+    "home win | form_venue_ppg: NO CLEAR EFFECT (Brier -0.00019)"
+   ]
+  },
+  {
+   "input": "head-to-head",
+   "why": "last meetings, venue-aware",
+   "value": 1,
+   "status": "TESTED",
+   "where": [],
+   "evidence": [
+    "home win | h2h_gd: NO CLEAR EFFECT (Brier -0.00020)",
+    "home win | h2h_goals: HURTS (Brier -0.00022)",
+    "over 2.5 | h2h_gd: NO CLEAR EFFECT (Brier -0.00032)"
+   ]
+  },
+  {
+   "input": "rest days / congestion",
+   "why": "days since last match, games in 14 days",
+   "value": 2,
+   "status": "TESTED",
+   "where": [
+    "engine/reasoning.py"
+   ],
+   "evidence": [
+    "backtest/REST_STUDY.md"
+   ]
+  },
+  {
+   "input": "travel distance",
+   "why": "away-side travel, time zones",
+   "value": 1,
+   "status": "CONTEXT",
+   "where": [
+    "engine/reasoning.py",
+    "engine/records/context_facts.py"
+   ],
+   "evidence": []
+  },
+  {
+   "input": "lineups / injuries",
+   "why": "expected XI strength v full strength",
+   "value": 5,
+   "status": "CONTEXT",
+   "where": [
+    "engine/reasoning.py",
+    "engine/records/timing.py",
+    "engine/form.py"
+   ],
+   "evidence": [
+    "backtest/LINEUP_STUDY.md"
+   ]
+  },
+  {
+   "input": "motivation / table",
+   "why": "title, Europe, relegation stakes late in season",
+   "value": 2,
+   "status": "CONTEXT",
+   "where": [
+    "engine/reasoning.py",
+    "engine/records/context_facts.py",
+    "engine/form.py"
+   ],
+   "evidence": []
+  },
+  {
+   "input": "referee",
+   "why": "card and penalty tendencies",
+   "value": 1,
+   "status": "CONTEXT",
+   "where": [
+    "engine/records/context_facts.py"
+   ],
+   "evidence": []
+  },
+  {
+   "input": "weather",
+   "why": "wind / rain lowers goals",
+   "value": 1,
+   "status": "CONTEXT",
+   "where": [
+    "engine/reasoning.py",
+    "engine/records/context_facts.py"
+   ],
+   "evidence": []
+  },
+  {
+   "input": "market moves",
+   "why": "opening -> closing drift, sharp money",
+   "value": 4,
+   "status": "TESTED",
+   "where": [],
+   "evidence": [
+    "backtest/MATCHBOOK_PRICE_STUDY.md"
+   ]
+  }
+ ],
+ "loops": [
+  {
+   "loop": "results learning",
+   "what": "engine/learning.py chance shift per family / league",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-29",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-10-29 (1 d old)"
+  },
+  {
+   "loop": "match study",
+   "what": "monitor/match_study_run.py per-match expected v happened v why",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-29",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-10-29 (1 d old)"
+  },
+  {
+   "loop": "why record",
+   "what": "engine/why_record.py right / unlucky / outplayed / game-changed",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-29",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-10-29 (1 d old)"
+  },
+  {
+   "loop": "tactics lessons",
+   "what": "engine/tactics_study.py lessons tested on unseen matches",
+   "kind": "grew",
+   "allowance_days": 7,
+   "now": 55,
+   "then": null,
+   "ok": true,
+   "note": "55 tested (no history 7 d back)"
+  },
+  {
+   "loop": "slip post-mortem",
+   "what": "engine/leg_postmortem.py slip-killer leg classes",
+   "kind": "grew",
+   "allowance_days": 7,
+   "now": 360,
+   "then": 221,
+   "ok": true,
+   "note": "221 -> 360 tested over 7 d"
+  },
+  {
+   "loop": "why-weighted shadow",
+   "what": "engine/why_learning.py walk-forward v the live learner",
+   "kind": "grew",
+   "allowance_days": 7,
+   "now": 988,
+   "then": null,
+   "ok": true,
+   "note": "988 tested (no history 7 d back)"
+  },
+  {
+   "loop": "reasoning lessons",
+   "what": "engine/reasoning.py daily market rules",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-30",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-10-30 (0 d old)"
+  },
+  {
+   "loop": "experiment engine",
+   "what": "engine/experiments.py strategies in shadow",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-30",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-10-30 (0 d old)"
+  },
+  {
+   "loop": "nightly refit",
+   "what": "engine/retrain.py out-of-sample refit",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-10-30",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-10-30 (0 d old)"
+  }
+ ],
+ "proposals": [
+  {
+   "title": "Model input: lineups / injuries (context)",
+   "ev": 3.5,
+   "kind": "input",
+   "body": "'lineups / injuries' is read (engine/reasoning.py, engine/records/timing.py, engine/form.py) but never tested as a probability input. Build it as a feature (engine/inputs.py style, before-the-day only), add it to backtest/inputs_study.py and report Brier / log loss / CLV walk-forward."
+  },
+  {
+   "title": "Model input: motivation / table (context)",
+   "ev": 1.4,
+   "kind": "input",
+   "body": "'motivation / table' is read (engine/reasoning.py, engine/records/context_facts.py, engine/form.py) but never tested as a probability input. Build it as a feature (engine/inputs.py style, before-the-day only), add it to backtest/inputs_study.py and report Brier / log loss / CLV walk-forward."
+  },
+  {
+   "title": "Model input: xG for / against (tested)",
+   "ev": 0.75,
+   "kind": "input",
+   "body": "'xG for / against' was tested and is not a live probability input (home win | xG edge: NO CLEAR EFFECT (Brier +0.00165); over 2.5 | xG total: NO CLEAR EFFECT (Brier +0.00103)). Re-test when the data has grown; nothing to build now."
+  },
+  {
+   "title": "Model input: travel distance (context)",
+   "ev": 0.7,
+   "kind": "input",
+   "body": "'travel distance' is read (engine/reasoning.py, engine/records/context_facts.py) but never tested as a probability input. Build it as a feature (engine/inputs.py style, before-the-day only), add it to backtest/inputs_study.py and report Brier / log loss / CLV walk-forward."
+  },
+  {
+   "title": "Model input: referee (context)",
+   "ev": 0.7,
+   "kind": "input",
+   "body": "'referee' is read (engine/records/context_facts.py) but never tested as a probability input. Build it as a feature (engine/inputs.py style, before-the-day only), add it to backtest/inputs_study.py and report Brier / log loss / CLV walk-forward."
+  },
+  {
+   "title": "Model input: weather (context)",
+   "ev": 0.7,
+   "kind": "input",
+   "body": "'weather' is read (engine/reasoning.py, engine/records/context_facts.py) but never tested as a probability input. Build it as a feature (engine/inputs.py style, before-the-day only), add it to backtest/inputs_study.py and report Brier / log loss / CLV walk-forward."
+  },
+  {
+   "title": "Model input: market moves (tested)",
+   "ev": 0.6,
+   "kind": "input",
+   "body": "'market moves' was tested and is not a live probability input (backtest/MATCHBOOK_PRICE_STUDY.md). Re-test when the data has grown; nothing to build now."
+  },
+  {
+   "title": "Model input: recent form (tested)",
+   "ev": 0.45,
+   "kind": "input",
+   "body": "'recent form' was tested and is not a live probability input (home win | form_ppg: HURTS (Brier -0.00039); home win | form_gd: HURTS (Brier -0.00042)). Re-test when the data has grown; nothing to build now."
+  }
+ ],
+ "issues_opened": [
+  "https://github.com/Tolar07/framework/issues/217",
+  "https://github.com/Tolar07/framework/issues/218"
+ ]
+}

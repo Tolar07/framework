@@ -1,0 +1,87 @@
+name: Oracle VM watchdog
+run-name: ${{ inputs.beat == 'yes' && 'vm heartbeat' || 'vm check' }}
+
+# Tells the Architect on Telegram when the Oracle VM (every bot and the clock that starts them) goes
+# down, and when it is back (Architect 2026-10-30: "if the VM goes down, how do I get to know?").
+# The ONE workflow left on GitHub's clock: a VM cannot watch itself, and this repo is public, so
+# GitHub's runners cost nothing here.
+#
+# Two kinds of run:
+#   - heartbeat: the Oracle clock dispatches this every 15 min (matchbook-agent
+#     oracle_clock/schedule.json, beat=yes). It does nothing; its existence is the proof of life.
+#   - check: GitHub's cron. Fails, and alerts, when no heartbeat came in HEARTBEAT_MAX_MIN or the
+#     VM does not answer on its SSH port. GitHub drops many cron ticks, so it ticks every 10 min.
+# Alerts: when the state turns bad, again every 3 h while it stays bad, and once when it is back.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      beat:
+        description: "yes = heartbeat from the Oracle clock; no = run the check now"
+        default: "no"
+
+permissions:
+  actions: read
+
+concurrency:
+  group: vm-watchdog-${{ inputs.beat == 'yes' && 'beat' || 'check' }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: inputs.beat != 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HEARTBEAT_MAX_MIN: "45"
+    steps:
+      - name: Heartbeat and VM reachability
+        id: s
+        env:
+          VM_HOST: ${{ secrets.ORACLE_VM_HOST }}
+        run: |
+          now=$(date -u +%s)
+          last=$(gh run list -R "$GITHUB_REPOSITORY" -w vm_watchdog.yml -e workflow_dispatch --limit 30 \
+                   --json createdAt,displayTitle --jq '[.[] | select(.displayTitle == "vm heartbeat")][0].createdAt // ""')
+          age=-1; [ -n "$last" ] && age=$(( (now - $(date -d "$last" +%s)) / 60 ))
+          reach=yes; timeout 8 bash -c "</dev/tcp/$VM_HOST/22" 2>/dev/null || reach=no
+          problems=""
+          [ "$age" -lt 0 ] && problems="no clock heartbeat on record"
+          [ "$age" -gt "$HEARTBEAT_MAX_MIN" ] && problems="no clock heartbeat for $age min (the Oracle clock is not starting the bots)"
+          [ "$reach" = no ] && problems="${problems:+$problems; }the VM does not answer on its SSH port (VM down or network)"
+          echo "heartbeat age: $age min, VM reachable: $reach"
+          echo "problems=$problems" >> "$GITHUB_OUTPUT"
+          # the previous check's verdict, from its conclusion
+          prev=$(gh run list -R "$GITHUB_REPOSITORY" -w vm_watchdog.yml -e schedule --status completed --limit 1 \
+                   --json conclusion,createdAt --jq '.[0] | (.conclusion // "") + " " + (.createdAt // "")')
+          echo "prev=$prev" >> "$GITHUB_OUTPUT"
+      - name: Telegram
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PROBLEMS: ${{ steps.s.outputs.problems }}
+          PREV: ${{ steps.s.outputs.prev }}
+        run: |
+          send() { curl -s -m 15 -o /dev/null -w "telegram %{http_code}\n" "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
+                     --data-urlencode "chat_id=$TG_CHAT" --data-urlencode "text=$1"; }
+          prev_state=${PREV%% *}
+          if [ -n "$PROBLEMS" ]; then
+            # alert on the turn, then every 3 h while still down (the 3 h test uses the minute of the day)
+            if [ "$prev_state" != "failure" ] || [ $(( $(date -u +%s) / 60 % 180 )) -lt 10 ]; then
+              send "[ORACLE VM DOWN] $PROBLEMS. The bots are not running. Check: Oracle console > Compute > Instances (start it), then the clock: journalctl -u olp-clock"
+            fi
+            exit 1
+          fi
+          if [ "$prev_state" = "failure" ]; then
+            send "[ORACLE VM BACK] heartbeat and SSH port OK again; the bots are running."
+          fi
+          echo "VM ok"
+
+  beat:
+    if: inputs.beat == 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo "heartbeat from the Oracle clock"

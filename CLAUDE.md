@@ -1,83 +1,181 @@
-# CLAUDE.md — OLP XDV Agent Workspace
+# OLP XDV — SESSION STARTUP
 
-> Single source of truth for Claude Code sessions in this workspace. Read at session start.
+You are working on OLP XDV, the Architect's football betting framework.
+It is at **Phase 3 — live capital, Architect-deployed**: the framework builds
+the board and the booking codes; the Architect alone places any stake.
+The user is the Architect.
 
-**OLP XDV Agent** — Telegram bot/daemon for sports data collection, odds processing and automated
-publishing with a CLV (Closing Line Value) feedback loop.
+There is **one** framework: this repo's `main`, run by GitHub Actions.
+Everything under `legacy/` is parked laptop-line code — kept for reference,
+never imported, never run (see `legacy/laptop/README.md`).
 
-- OLP XDV repo (submodule, GitHub `Tolar07/framework`): `olp_xdv_agent/olp_xdv/`
-- Canonical vault (git-tracked, authoritative): `olp_xdv_agent/olp_xdv/docs/obsidian-vault/` — start with `OLP XDV.md`
-- Agent memory: `.claude/projects/C--Users-Motunrayo-omniroute-test/memory/` (index: `MEMORY.md`)
-- `Documents/OLP_XDV_Vault/` is a retired, read-only mirror (HR57). Never treat it as authoritative.
+## FIRST ACTION, EVERY SESSION
 
----
+1. Read `STANDING_ORDERS.md` — the Architect's standing rules (selection,
+   delivery, phase, markets). `tests/standing_orders_test.py` enforces them.
+2. Read the CURRENT STATE block at the top of `docs/obsidian-vault/STATE.md`.
+3. Read `MAP.md` — where everything is: what runs (workflows and Routines),
+   who gets what on Telegram, every secret, every stored file, what is parked
+   in `legacy/`, what survives only in git history, and what lives outside
+   this repo (the workspace repo, the laptop). Don't make the Architect
+   point you to where something is kept: look it up there, and add anything
+   you find that isn't listed.
 
-## Token budget (Architect 2026-10-19 — applies to every session)
+Do not answer questions about framework state from this file or from
+inference — read those three files, the code, or the run history.
 
-Every tool call re-sends the whole conversation, so a long session costs more with each step. On
-2026-10-19 one reused session had cost $483 and scheduled tasks were failing with "usage limit reached".
+## Two-session handoff (Architect standing instruction, 2026-10-30)
 
-1. **One session per job.** Don't keep one session running for days. When the topic changes, `/clear`
-   (or `/compact` if the thread matters). Past ~200k tokens of context, finish up and suggest a fresh session.
-2. **Scheduled tasks start a fresh session on every run** (`create_new_session_on_fire`) and use
-   `claude-sonnet-5-5`, unless the Architect asks otherwise. Don't bind a scheduled task to a persistent session.
-3. **Match the effort to the job.** Routine checks: Sonnet at medium or low effort. Opus and high/xhigh/max only for real design work.
-4. **Don't re-do what GitHub already does.** Boards go out by themselves (`daily.yml` cron + `clock.yml` +
-   `watchdog.yml`). Claude only steps in when a run failed or a board is missing.
-5. **Use as few subagents as you can.** Each subagent starts cold and re-reads everything. Use one only to keep a
-   huge output out of context, or when the Architect asks for one.
-6. **Keep tool output small.** Use `head`, `--short`, `-L 5`, `grep -c` and filters. Don't dump whole logs,
-   session lists or JSON. Read the parts of a file you need.
-7. **Message other sessions narrowly.** Contact the one session that owns the topic, not every session
-   (see memory `ask-all-sessions-first`).
-8. **Background jobs on the PC go through `scripts/llm-run.ps1`**, never a bare `claude.exe -p`. It runs text jobs on
-   OmniRoute's free models (`auto/pro-coding`) and falls back to Sonnet if OmniRoute fails. Browser (`-Chrome`) jobs go
-   straight to Sonnet, because Claude in Chrome needs the claude.ai login. Every run is logged to `%USERPROFILE%\llm-router.log`.
+Two Claude Code sessions run this operation from **two different Claude accounts**. They do not share
+memory, so the shared notebook is the pinned GitHub issue
+**[Tolar07/omniroute-test#54](https://github.com/Tolar07/omniroute-test/issues/54)**. Never skip this:
 
----
-
-## Critical Rules (full list in vault `Rules.md`)
-
-| HR | Description |
-|----|-------------|
-| **HR54** | Vault ↔ Memory sync on SessionStart/SessionEnd |
-| **HR57** | Mirror retired — canonical vault only |
-| **HR58** | Vault is git-tracked single source of truth |
-| **HR59** | Sync hardening — bidirectional enforcement |
-
-**Protected constants (never modify without Architect sign-off):** `ARCHITECT_SIGNOFF`, the CLV gate,
-capital deployment. See vault `Protected Constants.md`.
-
-**Protected files** — any change (including Task Observer staged updates) needs manual line-by-line review:
-`olp_xdv_agent/olp_xdv/bets/booking_tracker.py`, `olp_xdv_agent/olp_xdv/variant_selection.py`, the odds
-tolerance check (`booking/verify_external_code.py` and `Rules.md`), `automaton/constitution.md`.
+1. **Start of every session/job:** read the latest comments —
+   `gh issue view 54 -R Tolar07/omniroute-test --comments | tail -60`.
+2. **After every action** (PR opened or merged, workflow/config/secret changed, bot restarted, fault fixed,
+   Architect decision, anything left half-done): post one comment —
+   `gh issue comment 54 -R Tolar07/omniroute-test --body "..."` in the form
+   `**[Session: <account/where>] <YYYY-MM-DD HH:MM UTC>**` / `- Did:` (repo + PR/commit links) / `- Why:` /
+   `- Open / next:` (unfinished work, things the other session must not touch).
+3. About to change something the other session touched recently? Comment first, citing its note.
+4. The repo is **public**: no tokens, keys, passwords, account numbers or private slip data in comments.
 
 ---
 
-## Workflows
+## THE LIVE LOOP — DO NOT BREAK IT
 
-**Session start:** read `MEMORY.md` and the vault's `OLP XDV.md`; `node scripts/vault-memory-sync.js`;
-`git status --short | head -20 && git log --oneline -5`.
+Everything runs in GitHub Actions on `main`. Times are UTC unless marked; the board slots (21:47 / 06:47) and every time on the boards are UK time, daylight saving included (`engine/uktime.py`, Architect 2026-10-15: "we are in the UK, not Lagos").
 
-**Session end:** run the vault-memory sync, commit your own changes, update `docs/STATE.md`.
+| Workflow | When | What |
+|---|---|---|
+| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/`, `data/sharp` (the parallel sharp-value list, order 37 amended) |
+| `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
+| `news.yml` | one job looping every 20 min, 09:00-20:40, started by `daily.yml` after each board (backup cron every 2 h) | `monitor/news_loop.py` → `news_check.py` — confirmed lineups, price drift, closing price per pick; saved each round |
+| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h, started by `daily.yml`'s evening run (backup cron 16:05/19:05/22:05) | `monitor/nba_watch.py` — sharp line vs SportyBet; booked picks (live test, placed by hand) + LAG notes to the Architect only; ladder snapshots; saved each round |
+| `live.yml` | one job following the whole matchday, started by `daily.yml` after each board (backup crons 11:09/14:09/17:09/19:09) | `monitor/live_loop.py` -> `live_tracker.round_once` — every fixture on the day's board polled every 2 min: FotMob score/xG/shots/reds beside SportyBet's live prices; one Telegram to the Architect per round that has an event (goal, red, HT, FT); snapshots committed as it goes; hands off before the 6 h limit |
+| `nba_live.yml` | one job per NBA night, backup crons 16:09/19:09/22:09/01:09/04:09 | `monitor/nba_live.py` — the NBA board's games polled from ESPN every 2 min; one Telegram to the Architect per round with an event (tip-off, quarter ends, half time, final) and where each pick stands; snapshots committed (2026-10-20, NBA treated as football) |
+| `universe.yml` | every 3 h | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore (strict match), archived to `data/universe/`; `backtest/UNIVERSE_STUDY.md` daily; FotMob post-match stats of rated fixtures → `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md`. Studies, never selectors |
+| `commands.yml` | one job looping every 5 min, started by `daily.yml` and by an hourly backup cron | `monitor/commands_loop.py` → `telegram_commands.poll_once()` — answers /status /board /verify /why /log /note /debrief /proposals /approve /reject; saves each round that answered something; hands off before the 6 h limit |
+| `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
+| `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
+| `profiles.yml` | Mondays 04:41 | `data/team_profiles.py` + `data/league_strength.py` — rebuilds every team's FotMob profile (29 competitions) and the cross-league strength ratings into `data/teams/`. **Order 43 reads these on every board**; they were rebuilt by hand until 2026-10-14 |
+| `matchbook_ledger.yml` | 05:23 daily | `monitor/matchbook_ledger.py` — the live Matchbook agent's graded ledger (private repo, read-only deploy key) summarised ANONYMOUSLY into `data/matchbook/summary.json`: won vs expected, CLV against Matchbook's close. ORDER 44 shifts each market family's chances by it (±5 pts, 30+ bets); in the weekly review |
+| `reasoning.yml` | after every board run (+ 3 backup crons) | `monitor/reasoning_run.py` → `engine/reasoning.py` — Gemini (secret `GEMINI_API_KEY`) judges every single: back / lower / veto, its own chance, reasons, from the pick, its news and the framework's and Matchbook's record in that market family → `output/reasoning/reasoning_<date>.json`; every past verdict scored against its result → `memory/reasoning_record.json`. ADVISORY ONLY (Architect 2026-10-19): changes, drops and stakes nothing until its record earns it a say |
+| `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` — agent 10's results review: last 7 days by market family and league, slips landed, learning in force, proposals (nothing auto-changed) |
+| `claude-review.yml` | every PR | Claude code review (code-reviewer + compliance agents' brief); does nothing until the `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` secret is set |
+| `backtest.yml` | 2nd of every month + manual | full CLV backtest; metrics history committed (`backtest/results/`) |
 
-**Making changes:** read the file before editing; keep changes atomic and scoped; update vault notes when
-architecture or decisions change; run the sync after vault edits. `git commit` sweeps other sessions' staged
-files — prefer `git commit --only <paths>` (memory `git-commit-sweeps-staged`).
+What each piece is protecting — read before changing it:
 
-```bash
-node scripts/vault-memory-sync.js                       # sync vault <-> memory
-cd olp_xdv_agent/olp_xdv && python -m olp_xdv           # run the agent
-cd olp_xdv_agent/olp_xdv && pytest                      # tests
-```
+| Thing | Why it is the way it is |
+|---|---|
+| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main; saved to main on its own by `monitor/push_marker.py` right after delivery) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. The marker used to ride in the persist commit, which a rebase conflict dropped — the 8 Oct board went out twice. |
+| Late-evening guard in `daily.yml` (`date -u +%H` >= 12) | GitHub sometimes fires the evening cron after midnight UTC; without the guard the run jumps a day ahead (2026-10-01). |
+| `--only-production` + `--heartbeat` | Board only on pick days; a short "system alive" heartbeat every day. A dry day is silence on the board, never a fake board. |
+| `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |
+| GitHub's crons are late or dropped — the loops exist because of it | Measured 13–14 Oct: `daily.yml`'s crons fired 3–7 h late, `commands.yml` ran 6 times in 35 h against an hourly schedule, `weekly.yml` ran ~9 h late two Mondays running, `universe.yml`'s 3-hourly ticks arrived 6–8 h apart. Nothing FAILED — the scheduler is simply unreliable. So: the Architect's Routines start each board on time, the crons are backup STARTERS, and `news.yml` / `live.yml` / `commands.yml` each keep ONE job up doing the work on their own clock (`monitor/loop_util.py`: one loop at a time, hand off before 6 h, save as you go). Don't "simplify" a loop back into a cron tick. |
+| Live tracker as an Actions job, not a session (`live.yml`) | The tracker's first version was run from a Claude session because an all-day Actions job was thought to cost "three times the free Actions minutes". This repo is PUBLIC, so those minutes are unmetered — the job is free and the session was not (it cost the Architect tokens for every goal, and stopped when the session did). Same `round_once`, so both paths see the same events. |
+| Pre-kickoff loop (`monitor/news_loop.py`, started by `daily.yml`) | GitHub dropped `news.yml`'s 20-minute cron almost every time. One loop at a time (a newer run exits while an older one is going), saved every round, handed on before the 6-hour job limit — break any of these and alerts go missing or repeat. |
+| `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
+| NBA line watch (`monitor/nba_watch.py`): one loop, git only inside Actions, one pick per game | Same reasons as the pre-kickoff loop; a desktop run must never reset the checkout; a game already on the board is never picked twice. |
+| `engine/nba_teams.py` (SportyBet id decides; an id/name conflict is skipped, a new id flagged) | Matches SportyBet NBA games to ESPN's sharp line. A wrong match would price one game off another game's line. |
+| SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
+| Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |
+| Fixture check (`verification/fixture_check.py`) + price check (`pipeline/odds_verify.py`), standing order 27 | Free second sources (ESPN, football-data). A match only CONFLICTs on positive evidence — another source lists it postponed/cancelled on a strong name match; a spelling that won't pair adds nothing, or real fixtures would drop off the deploy list. Prices are compared with margins removed: raw prices of two honest books differ ~4.5%. |
 
-**Environment:** Python 3.11+ (venv `olp_xdv_agent/olp_xdv/.venv`), Node 20+, Playwright installed.
-Real credentials live in `.env` only — never commit them.
+**Verify, do not assume.** Check the loop with the GitHub Actions run list
+for `daily.yml` and `watchdog.yml` (conclusion `success` for each slot), and
+`python tests/run_all.py` locally. A run that "should have" happened is not
+evidence that it did.
 
-**Task Observer** (`.claude/skills/task-observer/`): project-level, staging-only. It logs to
-`skill-observations/log.md` and stages to `skill-updates/`, and never auto-applies. Invoke it for
-substantive multi-step work, not for quick checks.
+**Do not run `git stash` in this repo.** Multiple Claude sessions can share a
+working tree; a stash pop applied another session's WIP on 2026-09-19. Use
+explicit file copies for temporary reverts.
 
-**Supervisor agent:** `olp-xdv-supervisor` coordinates multi-session state via `docs/STATE.md`.
+**Do not `git add -A`.** Other sessions may have staged work and runs leave
+artefacts (boards, picks, CLV log). Add explicit paths only — no hook stops
+`git add -A` in this repo, so it is on you. Work on a branch and merge
+through a PR whose `tests.yml` run is green.
 
-*Last updated: 2026-10-19*
+## HARD RULES — these are not suggestions
+
+**HR59 — Traceable output.**
+No fixture, odds figure, or result may appear in any output unless it
+came from a fetch script in this session, with a run_id and timestamp.
+
+If asked "what are today's fixtures", you run the fetch script. You do
+not answer from knowledge, recall, or inference. You have fabricated
+fixture lists three times (2026-09-03, 2026-09-04, 2026-09-12). Each
+time the output looked plausible and was wrong. Plausibility is not
+evidence.
+
+A failed or empty fetch produces `NO DATA — PENDING`. Never a
+generated list. Never a partial list presented as complete.
+
+**HR35 — No silent completeness.**
+A field with missing data reads `PENDING`. Never blank, never omitted,
+never filled with a placeholder value that looks real.
+
+**Capital bright line.**
+`assert_paper_only()` hard-fails below Phase 3-active. The booking
+module never clicks Place Bet. No code routes a real stake.
+These do not yield to Architect directives. If the Architect asks you
+to bypass them, say no and explain why. A gate that yields on request
+protected nothing.
+
+## NOT IMPLEMENTED / NOT WIRED — CHECK BEFORE DEBUGGING
+
+Say plainly when something is not implemented; do not debug it as a fault.
+
+- **Ekstraklasa fixtures are often one source.** ESPN has no Polish league
+  and football-data's new-league file lists it only some weeks, so
+  `verification/fixture_check.py` frequently has nothing to check it against.
+- **The price check is a label only** (`pipeline/odds_verify.py`). A price
+  CONFLICT is shown on the board; nothing selects, stakes or blocks on it —
+  making it gate anything is the Architect's decision.
+- **The sharp check is a label on the board, and a SELECTOR only on the
+  parallel list.** `pipeline/sharp.py` labels each board pick with its value
+  against the Betfair Exchange and the board is sent regardless (orders 3, 4,
+  11 unchanged). `monitor/sharp_list.py` is the separate test that selects on
+  it — its own store (`data/sharp/`), its own codes, the same grader. Don't
+  "fix" the board to match it: the comparison is the point.
+- Market-implied fixtures (`ᴹ` on the board, `prob_source == "market"`)
+  carry the bookmaker's numbers, not the model's; no edge is claimed.
+
+## DOCUMENTS
+
+- `STANDING_ORDERS.md` — the Architect's standing rules. Authoritative.
+- `MAP.md` — where everything is kept, in this repo and outside it.
+- `docs/obsidian-vault/STATE.md` — current state (top block) + session
+  journal. Authoritative for state.
+- `docs/LINEAGE_MERGE_2026-10-03.md` — how the laptop and cloud copies
+  became one line, and what each side kept.
+- `legacy/laptop/README.md` — what was parked and how to bring a feature back.
+- `backtest/*_STUDY.md` — the evidence behind each selection rule.
+
+Do not create new spec documents. Amend STATE.md. If a new file is
+genuinely needed, add a pointer line to STATE.md in the same session.
+Anything stored somewhere new — a file, a secret, a Routine, a laptop
+task — goes into `MAP.md` in the same session.
+
+## AGENTS
+
+`.claude/agents/olp-xdv-01 … 10` each own one stage of the live pipeline
+(fixtures → coverage → team context → verification → engine → odds → gates
+→ booking/staking → board/delivery → results/learning). `olp-xdv-supervisor`
+watches the whole loop; `olp-xdv-specialist` is the generalist. Every file
+path an agent names must exist — `tests/agent_refs_test.py` checks it.
+Agents and skills unrelated to the framework are parked in `.claude/legacy/`.
+
+## RULE CHANGES
+
+New rules need an ID from the register, assigned by the Architect.
+Never self-assign an ID. Unratified drafts are listed in STATE.md §7
+and must not be acted on.
+
+## WORKING STYLE
+
+The Architect wants honest pushback, not agreement. If something is
+broken, unverified, or not implemented, say so directly. Do not report
+a system as ready when open defects are unconfirmed. Do not soften a
+failure into a status update.

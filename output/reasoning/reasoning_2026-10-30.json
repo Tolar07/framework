@@ -75,7 +75,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7423
+   "panel_prob": 0.7423,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7423,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7423,
+    "edge": -0.0499,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.0564,
+     "live_brier": 0.059,
+     "panel_brier_on_live": 0.0564,
+     "clv_n": 2,
+     "panel_clv_hit": 1.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Waregem v Club Brugge",
@@ -1618,7 +1642,25 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8144
+   "panel_prob": 0.8144,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8144,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Asian handicap",
+    "panel_prob": 0.8144,
+    "edge": 0.0017,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Waregem v Club Brugge",
@@ -2485,6 +2527,27 @@
   {
    "at": "2026-10-30T16:00+00:00",
    "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-2.5-flash",
+     "status": "partly failed: HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "meta/llama-3.3-70b-instruct",
+     "status": "partly failed: HTTPError: 410 Client Error: Gone for url: https://integrate.api.nvidia.com/v1/chat/completions",
+     "answered": 0
+    },
+    "openrouter": {
+     "model": "google/gemma-4-31b-it:free",
+     "status": "partly failed: HTTPError: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-10-30T17:00+00:00",
+   "picks": 2,
    "members": {
     "gemini": {
      "model": "gemini-2.5-flash",

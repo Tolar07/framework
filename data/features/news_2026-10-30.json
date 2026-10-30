@@ -22,14 +22,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:40Z",
+  "at": "2026-10-30T17:00Z",
   "away_missing_share": 0.115743243751619,
   "away_unavailable": 2,
   "fotmob_id": 5881708,
-  "home_missing_share": 0.1898267471787401,
+  "home_missing_share": 0.1855797967803166,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Bodoe/Glimt v Viking FK": {
   "absent": [
@@ -39,12 +39,12 @@
     "type": "injury"
    },
    {
-    "name": "Magnus Bech Riisn\u00e6s",
+    "name": "August Mikkelsen",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "August Mikkelsen",
+    "name": "Julian Faye Lund",
     "side": "home",
     "type": "injury"
    },
@@ -64,14 +64,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:40Z",
-  "away_missing_share": 0.09734040326689555,
+  "at": "2026-10-30T17:00Z",
+  "away_missing_share": 0.09826162384969112,
   "away_unavailable": 5,
   "fotmob_id": 5105035,
-  "home_missing_share": 0.14660249883107124,
-  "home_unavailable": 4,
+  "home_missing_share": 0.1130666262424784,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Casa Pia v Sp Lisbon": {
   "absent": [
@@ -170,14 +170,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:40Z",
-  "away_missing_share": 0.2275903213330314,
+  "at": "2026-10-30T17:00Z",
+  "away_missing_share": 0.31789447955722605,
   "away_unavailable": 5,
   "fotmob_id": 5881709,
-  "home_missing_share": 0.1536396309587838,
-  "home_unavailable": 4,
+  "home_missing_share": 0.15815040931434485,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fylde v Hornchurch": {
   "absent": [],
@@ -260,7 +260,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T12:40Z",
+  "at": "2026-10-30T17:00Z",
   "away_missing_share": 0.17147928666286064,
   "away_unavailable": 2,
   "fotmob_id": 5846013,
@@ -378,14 +378,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:40Z",
-  "away_missing_share": 0.3625937269728035,
+  "at": "2026-10-30T17:00Z",
+  "away_missing_share": 0.395677486102939,
   "away_unavailable": 6,
   "fotmob_id": 5739538,
-  "home_missing_share": 0.024338324640738932,
+  "home_missing_share": 0.02173595407771904,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-30T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Metz v Pau FC": {
   "absent": [],
@@ -490,7 +490,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:40Z",
+  "at": "2026-10-30T17:00Z",
   "away_missing_share": 0.22695994190662935,
   "away_unavailable": 2,
   "fotmob_id": 5802978,

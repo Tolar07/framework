@@ -882,8 +882,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.25,
    "ev": -0.02271395193774317,
    "missing": {
@@ -1535,8 +1535,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -6.02,
    "stake_pct": 0.25,
    "ev": -0.030427321908818028,
    "missing": {
@@ -1664,7 +1664,11 @@
     "home": 7743239,
     "away": 202782246
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:40Z"
+   },
    "matchup": {
     "say": "Casa Pia AC: counter side v high line; Casa Pia AC: high press v build-up side; Casa Pia AC: blunt attack v tight defence; Casa Pia AC: counter side v counter-exposed; Sporting CP: possession side v low block; Sporting CP: elite attack v leaky defence -> no strong goals lean",
     "xg": [
@@ -1705,8 +1709,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": -0.01754710283994798,
    "missing": {
@@ -1876,8 +1880,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -3.15,
    "stake_pct": 0.25,
    "ev": -0.01964759194806842,
    "missing": {

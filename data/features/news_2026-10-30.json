@@ -96,14 +96,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T19:20Z",
-  "away_missing_share": 0.2511252661812485,
+  "at": "2026-10-30T19:40Z",
+  "away_missing_share": 0.24900772765117046,
   "away_unavailable": 3,
   "fotmob_id": 5887666,
-  "home_missing_share": 0.3607560232211024,
+  "home_missing_share": 0.34553694463801804,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-30T20:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Cracovia v Motor Lublin": {
   "absent": [

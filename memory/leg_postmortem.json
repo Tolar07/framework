@@ -29,12 +29,12 @@
   },
   "band=<1.30": {
    "killer": false,
-   "legs": 910,
-   "loss_rate": 0.2242,
+   "legs": 913,
+   "loss_rate": 0.2234,
    "lost": 204,
    "slips_killed": 205,
-   "stated_loss": 0.2031,
-   "z": 1.59
+   "stated_loss": 0.203,
+   "z": 1.54
   },
   "certainty=?": {
    "killer": false,
@@ -47,12 +47,12 @@
   },
   "certainty=HIGH": {
    "killer": false,
-   "legs": 454,
-   "loss_rate": 0.2423,
+   "legs": 456,
+   "loss_rate": 0.2412,
    "lost": 110,
    "slips_killed": 121,
-   "stated_loss": 0.2068,
-   "z": 1.87
+   "stated_loss": 0.2066,
+   "z": 1.83
   },
   "certainty=LOW": {
    "killer": false,
@@ -65,12 +65,12 @@
   },
   "certainty=MEDIUM": {
    "killer": false,
-   "legs": 253,
-   "loss_rate": 0.2372,
+   "legs": 254,
+   "loss_rate": 0.2362,
    "lost": 60,
    "slips_killed": 88,
-   "stated_loss": 0.2093,
-   "z": 1.09
+   "stated_loss": 0.2094,
+   "z": 1.06
   },
   "family=1X2": {
    "killer": false,
@@ -101,12 +101,12 @@
   },
   "family=Away goals": {
    "killer": false,
-   "legs": 34,
-   "loss_rate": 0.2059,
+   "legs": 35,
+   "loss_rate": 0.2,
    "lost": 7,
    "slips_killed": 16,
-   "stated_loss": 0.211,
-   "z": -0.07
+   "stated_loss": 0.2109,
+   "z": -0.16
   },
   "family=Away no bet": {
    "killer": false,
@@ -137,12 +137,12 @@
   },
   "family=Double chance": {
    "killer": false,
-   "legs": 488,
-   "loss_rate": 0.2275,
+   "legs": 490,
+   "loss_rate": 0.2265,
    "lost": 111,
    "slips_killed": 135,
-   "stated_loss": 0.1962,
-   "z": 1.74
+   "stated_loss": 0.1961,
+   "z": 1.7
   },
   "family=European handicap": {
    "killer": false,
@@ -227,12 +227,12 @@
   },
   "gemini=veto": {
    "killer": false,
-   "legs": 103,
-   "loss_rate": 0.2233,
+   "legs": 106,
+   "loss_rate": 0.217,
    "lost": 23,
    "slips_killed": 25,
-   "stated_loss": 0.2129,
-   "z": 0.26
+   "stated_loss": 0.2121,
+   "z": 0.12
   },
   "league=2. Bundesliga": {
    "killer": false,
@@ -245,12 +245,12 @@
   },
   "league=Allsvenskan": {
    "killer": false,
-   "legs": 31,
-   "loss_rate": 0.2903,
+   "legs": 33,
+   "loss_rate": 0.2727,
    "lost": 9,
    "slips_killed": 17,
-   "stated_loss": 0.2073,
-   "z": 1.14
+   "stated_loss": 0.2064,
+   "z": 0.94
   },
   "league=Austrian Bundesliga": {
    "killer": false,
@@ -470,12 +470,12 @@
   },
   "league=Serie A": {
    "killer": false,
-   "legs": 42,
-   "loss_rate": 0.1667,
+   "legs": 43,
+   "loss_rate": 0.1628,
    "lost": 7,
    "slips_killed": 15,
-   "stated_loss": 0.2122,
-   "z": -0.73
+   "stated_loss": 0.2113,
+   "z": -0.79
   },
   "league=Serie B": {
    "killer": false,
@@ -551,12 +551,12 @@
   },
   "news=OK": {
    "killer": false,
-   "legs": 763,
-   "loss_rate": 0.2294,
+   "legs": 766,
+   "loss_rate": 0.2285,
    "lost": 175,
    "slips_killed": 175,
-   "stated_loss": 0.2073,
-   "z": 1.51
+   "stated_loss": 0.2072,
+   "z": 1.45
   },
   "news=RISK": {
    "killer": false,
@@ -569,7 +569,7 @@
   }
  },
  "killers": [],
- "legs": 1093,
+ "legs": 1096,
  "nba": {
   "classes": {
    "band=1.50-1.75": {
@@ -677,6 +677,6 @@
   "slips_graded": 8,
   "slips_lost": 8
  },
- "slips_graded": 359,
+ "slips_graded": 360,
  "slips_lost": 246
 }

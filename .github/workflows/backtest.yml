@@ -17,8 +17,7 @@ name: OLP XDV backtest metrics
 # used"), well clear of the daily board slots, so the metrics history shows
 # whether the month's code changes moved the backtest.
 on:
-  schedule:
-    - cron: "13 12 2 * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       full:

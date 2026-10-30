@@ -11,12 +11,7 @@ name: OLP XDV board clock
 # finds a clock already going exits at once. daily.yml's duplicate guard
 # keeps every other starter (Routine, GitHub cron, watchdog) harmless.
 on:
-  schedule:
-    - cron: "13 */2 * * *"     # restart if the clock died
-    - cron: "31 20 * * *"      # and just before each slot (BST)
-    - cron: "31 5 * * *"
-    - cron: "31 21 * * *"      # (GMT)
-    - cron: "31 6 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       handoff:

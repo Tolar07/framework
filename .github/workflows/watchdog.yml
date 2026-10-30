@@ -6,19 +6,7 @@ name: OLP XDV missed-run watchdog
 # succeeded in the slot's window; if none did (and none failed or is still
 # going) it starts the slot's board itself and says so on Telegram.
 on:
-  schedule:
-    # A first check ~35 min after each slot (2026-10-09: the board Routine's
-    # session hit its usage limit and GitHub's 20:47 cron never fired, so
-    # Saturday's board waited for the 23:17 check), then the late check.
-    # Slots are UK time (21:47 / 06:47, daylight saving included): 20:47 /
-    # 05:47 UTC in BST, 21:47 / 06:47 UTC in GMT. A check that lands before
-    # its slot's UK time (winter) does nothing — the next one covers it.
-    - cron: "23 21 * * *"   # evening slot, first check (BST)
-    - cron: "23 22 * * *"   # evening slot, first check (GMT)
-    - cron: "17 23 * * *"   # evening slot, late check
-    - cron: "23 6 * * *"    # morning slot, first check (BST)
-    - cron: "23 7 * * *"    # morning slot, first check (GMT)
-    - cron: "17 8 * * *"    # morning slot, late check
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       slot:

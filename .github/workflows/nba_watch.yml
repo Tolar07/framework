@@ -11,8 +11,7 @@ name: OLP XDV NBA line watch
 # ~17:00 UTC) — a run that finds an older loop going exits at once, and one
 # with no game in the next 6 hours ends. It hands off before 6 hours.
 on:
-  schedule:
-    - cron: "5 16,19,22 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       handoff:

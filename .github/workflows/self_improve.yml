@@ -14,8 +14,7 @@ name: OLP XDV weekly self-improvement
 #   it on green, and sends the Architect a plain summary. It never changes a
 #   pick, stake or threshold (order 49).
 on:
-  schedule:
-    - cron: "43 4 * * 1"     # Mondays 04:43 UTC, after the weekend's results are graded
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

@@ -263,13 +263,15 @@ check("chunking: every fence balanced under load",
 stress("STAGE 6 · the board is still scheduled")
 # --------------------------------------------------------------------------
 # The laptop launcher (run_daily.bat + logs/launcher.log) was retired on
-# 2026-10-03; the board's only scheduler is GitHub Actions daily.yml. Check
-# that it is still scheduled and still runs the daily pipeline.
+# 2026-10-03; daily.yml runs the board. Since 2026-10-30 the Oracle VM clock
+# (matchbook-agent oracle_clock/schedule.json) dispatches it with slot=evening /
+# morning on UK time; it keeps no GitHub cron. Check it can be dispatched with a
+# slot and still runs the daily pipeline.
 daily_yml = PROJ / ".github" / "workflows" / "daily.yml"
 if daily_yml.exists():
     wf = daily_yml.read_text(encoding="utf-8", errors="replace")
-    check("scheduler: daily.yml has a cron schedule",
-          "schedule:" in wf and "cron:" in wf)
+    check("scheduler: daily.yml is dispatched (slot input), no GitHub cron",
+          "workflow_dispatch:" in wf and "slot:" in wf and "cron:" not in wf)
     check("scheduler: daily.yml runs run_daily.py", "python run_daily.py" in wf)
 else:
     check("scheduler: daily.yml exists", False,

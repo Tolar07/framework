@@ -13,8 +13,7 @@ name: OLP XDV Matchbook evidence
 #
 # Daily, early, before the morning board. Off the hour because GitHub drops :00 ticks.
 on:
-  schedule:
-    - cron: "23 5 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

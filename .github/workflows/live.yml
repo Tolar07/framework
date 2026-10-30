@@ -20,8 +20,7 @@ name: OLP XDV live matchday tracker
 # and a run that finds an older loop going exits at once. A job may run 6 hours
 # at most, so the loop hands off to a fresh run before the limit.
 on:
-  schedule:
-    - cron: "9 11,14,17,19 * * *"   # backup starters, off the hour (GitHub drops :00)
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       day:

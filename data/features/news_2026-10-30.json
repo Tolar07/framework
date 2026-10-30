@@ -63,6 +63,38 @@
   "kickoff_utc": "2026-10-30T18:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Casa Pia v Sp Lisbon": {
+  "absent": [
+   {
+    "name": "Andr\u00e9 Gomes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Zeno Debast",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Rodrigo Zalazar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nuno Santos",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T14:20Z",
+  "away_missing_share": 0.2511252661812485,
+  "away_unavailable": 3,
+  "fotmob_id": 5887666,
+  "home_missing_share": 0.3607560232211024,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-30T20:15:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Cracovia v Motor Lublin": {
   "absent": [
    {
@@ -270,6 +302,48 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Lille v Lens": {
+  "absent": [
+   {
+    "name": "Hamza Igamane",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ayase Ueda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tiago Santos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Odsonne \u00c9douard",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Isma\u00eblo Ganiou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Abdallah Sima",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T14:20Z",
+  "away_missing_share": 0.228767789658393,
+  "away_unavailable": 5,
+  "fotmob_id": 5802974,
+  "home_missing_share": 0.3552639240397328,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-30T20:05:00.000Z",
+  "lineup_type": "predicted"
  },
  "Lyngby v Randers FC": {
   "absent": [

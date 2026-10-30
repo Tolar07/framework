@@ -21,6 +21,48 @@
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Bodoe/Glimt v Viking FK": {
+  "absent": [
+   {
+    "name": "H\u00e5kon Evjen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Magnus Bech Riisn\u00e6s",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "August Mikkelsen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Martin Roseth",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Anders B\u00e6rtelsen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nicholas D'Agostino",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T12:00Z",
+  "away_missing_share": 0.09734040326689555,
+  "away_unavailable": 5,
+  "fotmob_id": 5105035,
+  "home_missing_share": 0.14660249883107124,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-30T18:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Cracovia v Motor Lublin": {
   "absent": [
    {
@@ -117,6 +159,38 @@
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Lyngby v Randers FC": {
+  "absent": [
+   {
+    "name": "Oskar Snorre",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Laurits Raun Pedersen",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "John Bj\u00f6rkengren",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Wessel Dammers",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T12:00Z",
+  "away_missing_share": 0.3625937269728035,
+  "away_unavailable": 6,
+  "fotmob_id": 5739538,
+  "home_missing_share": 0.025678670221812052,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-30T18:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "NK Slaven Belupo v NK Istra 1961": {
   "absent": [
    {
@@ -158,5 +232,37 @@
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Nice v Rennes": {
+  "absent": [
+   {
+    "name": "Antoine Mendy",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mo\u00efse Bombito",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Laurent Abergel",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Est\u00e9ban Lepaul",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T12:00Z",
+  "away_missing_share": 0.1858640251752602,
+  "away_unavailable": 1,
+  "fotmob_id": 5802978,
+  "home_missing_share": 0.18826484847043062,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-30T18:00:00.000Z",
+  "lineup_type": "predicted"
  }
 }

@@ -568,8 +568,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": -0.03889033255316754,
    "missing": {
@@ -1045,8 +1045,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.0020274059564313607,
    "missing": {
@@ -1822,7 +1822,11 @@
     "home": 150702117,
     "away": 66872471
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Espanyol missing 38% of value (Urko Gonz\u00e1lez, Clemens Riedel, \u00c1lex Calatrava); Espanyol rotated: confirmed XI worth 72% of predicted; support: Villarreal missing 24%",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Villarreal: possession side v low block; Espanyol: counter side v high line; Espanyol: aerial threat v weak in the air -> no strong goals lean",
     "xg": [
@@ -2944,7 +2948,11 @@
     "home": 1492737,
     "away": 3214969
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Chesterfield at full strength",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Chesterfield: possession side v low block -> no strong goals lean",
     "xg": [

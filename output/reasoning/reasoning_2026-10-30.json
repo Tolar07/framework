@@ -941,7 +941,28 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.797
+   "panel_prob": 0.797,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.797,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.82,
+     "nvidia": 0.836
+    },
+    "domain": "football",
+    "family": "Home goals",
+    "panel_prob": 0.828,
+    "edge": 0.0184,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Bielefeld v Braunschweig",
@@ -2631,6 +2652,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 2
+    },
+    "openrouter": {
+     "model": "google/gemma-4-31b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-10-30T19:00+00:00",
+   "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "ok",
+     "answered": 1
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
     },
     "openrouter": {
      "model": "google/gemma-4-31b-it:free",

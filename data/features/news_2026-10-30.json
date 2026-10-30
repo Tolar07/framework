@@ -96,7 +96,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T14:20Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.2511252661812485,
   "away_unavailable": 3,
   "fotmob_id": 5887666,
@@ -181,7 +181,7 @@
  },
  "Fylde v Hornchurch": {
   "absent": [],
-  "at": "2026-10-30T18:40Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906537,
@@ -336,7 +336,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:40Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.228767789658393,
   "away_unavailable": 5,
   "fotmob_id": 5802974,
@@ -443,14 +443,14 @@
  },
  "Newport County v Chesterfield": {
   "absent": [],
-  "at": "2026-10-30T18:40Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838020,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Nice v Rennes": {
   "absent": [
@@ -575,7 +575,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:40Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.319876690285097,
   "away_unavailable": 6,
   "fotmob_id": 5836904,
@@ -617,14 +617,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:40Z",
-  "away_missing_share": 0.2767340127378255,
+  "at": "2026-10-30T19:00Z",
+  "away_missing_share": 0.3784276775674763,
   "away_unavailable": 7,
   "fotmob_id": 5868120,
-  "home_missing_share": 0.2773728136117534,
+  "home_missing_share": 0.23641287707833042,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Waregem v Club Brugge": {
   "absent": [
@@ -644,13 +644,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:40Z",
+  "at": "2026-10-30T19:00Z",
   "away_missing_share": 0.25870273147431355,
   "away_unavailable": 1,
   "fotmob_id": 5811799,
-  "home_missing_share": 0.11519894244279019,
+  "home_missing_share": 0.1552789223160936,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-30T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  }
 }

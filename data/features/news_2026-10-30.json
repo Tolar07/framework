@@ -1,0 +1,98 @@
+{
+ "Cracovia v Motor Lublin": {
+  "absent": [
+   {
+    "name": "Filip Marchwi\u0144ski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sayfallah Ltaief",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mateusz Tabisz",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ivo Rodrigues",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T11:00Z",
+  "away_missing_share": 0.024864821632180237,
+  "away_unavailable": 1,
+  "fotmob_id": 5804022,
+  "home_missing_share": 0.28368889856670804,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-30T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Konyaspor v Galatasaray Istanbul": {
+  "absent": [
+   {
+    "name": "Adil Demirba\u011f",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Abd\u00fclkerim Bardakci",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-30T11:00Z",
+  "away_missing_share": 0.015354320242665512,
+  "away_unavailable": 1,
+  "fotmob_id": 5904790,
+  "home_missing_share": 0.11925335172101167,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-30T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "NK Slaven Belupo v NK Istra 1961": {
+  "absent": [
+   {
+    "name": "Filip Ma\u017ear",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ilija Nestorovski",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Marko Dabro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Samuli Miettinen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Antonio Mauri\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Daouda Doumbia",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T11:00Z",
+  "away_missing_share": 0.2175382984543838,
+  "away_unavailable": 3,
+  "fotmob_id": 5765953,
+  "home_missing_share": 0.29541930826929,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-10-30T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

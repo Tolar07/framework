@@ -198,3 +198,19 @@ def test_lineup_pass_and_grading_round_trip():
     rec = json.loads((root / "rec.json").read_text())
     assert {r["stage"] for r in rec["history"]} == {"board", "lineup"}
     assert rec["history"][0]["live_prob"] == 0.64 and rec["history"][0]["clv"] == 2.0
+
+
+def test_throttled_openrouter_model_falls_to_the_next_free_one():
+    free2 = {"data": FREE["data"] + [{"id": "nvidia/nemotron-3.5-super-vl:free",
+                                      "pricing": {"prompt": "0", "completion": "0"}}]}
+    get2 = lambda url, **kw: Resp(free2) if "openrouter" in url else get(url, **kw)  # noqa: E731
+    base = answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.60})
+
+    def post(url, json=None, **kw):
+        if "openrouter" in url and json["model"] == "google/gemma-4-31b-it:free":
+            return Resp({}, 429)
+        return base(url, json=json, **kw)
+    res = VP.evaluate([dict(CTX)], keys=KEYS, get=get2, post=post, record_path=tmp())
+    assert res["members"]["openrouter"]["model"] == "nvidia/nemotron-3.5-super-vl:free"
+    assert res["members"]["openrouter"]["answered"] == 1
+    assert "openrouter" in res["picks"][0]["members"]

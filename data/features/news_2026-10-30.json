@@ -1,4 +1,26 @@
 {
+ "Bielefeld v Braunschweig": {
+  "absent": [
+   {
+    "name": "Daniel Richter",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frederik J\u00e4kel",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T11:40Z",
+  "away_missing_share": 0.03185059950224512,
+  "away_unavailable": 1,
+  "fotmob_id": 5881708,
+  "home_missing_share": 0.09517397533428545,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-30T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Cracovia v Motor Lublin": {
   "absent": [
    {
@@ -29,6 +51,48 @@
   "home_missing_share": 0.28368889856670804,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Energie Cottbus v Bochum": {
+  "absent": [
+   {
+    "name": "Erik Engelhardt",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Axel Borgmann",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Julian Guttau",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Oliver Olsen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Enis \u00c7okaj",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jean Manuel Mbom",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T11:40Z",
+  "away_missing_share": 0.2275903213330314,
+  "away_unavailable": 5,
+  "fotmob_id": 5881709,
+  "home_missing_share": 0.14337894572048035,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Konyaspor v Galatasaray Istanbul": {

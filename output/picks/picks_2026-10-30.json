@@ -1310,7 +1310,11 @@
     "home": 73497944,
     "away": 108010845
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Nice: high press v build-up side; Rennes: high press v build-up side -> BTTS & goals",
     "xg": [
@@ -1612,7 +1616,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.33,
+   "drift_pct": 6.4
   },
   {
    "fixture": "Casa Pia v Sp Lisbon",
@@ -1780,7 +1786,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.17,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Villarreal v Espanol",

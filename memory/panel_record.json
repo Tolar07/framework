@@ -527,6 +527,38 @@
    "clv": -0.81,
    "won": true,
    "graded_at": "2026-10-29T21:53:40+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Fiorentina v Atalanta|SB:10||Home or Away|board",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "anchor": 0.7354,
+   "members": {},
+   "panel_prob": 0.7354,
+   "edge": -0.044,
+   "live_prob": 0.75,
+   "live_back": false,
+   "clv": 0.78,
+   "won": false,
+   "graded_at": "2026-10-30T06:53:42+00:00"
+  },
+  {
+   "id": "nba|2026-10-30|Atlanta Hawks v Cleveland Cavaliers|NBA:223|hcp=1.5|Home (+1.5)|board",
+   "date": "2026-10-30",
+   "domain": "nba",
+   "family": "NBA handicap",
+   "stage": "board",
+   "anchor": 0.5867,
+   "members": {},
+   "panel_prob": 0.5867,
+   "edge": 0.0619,
+   "live_prob": 0.57,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-10-30T06:53:42+00:00"
   }
  ],
  "updated": "2026-10-30",
@@ -582,14 +614,14 @@
    "live_clv_hit": 1.0
   },
   "football | Double chance | board": {
-   "n": 10,
+   "n": 11,
    "earned": false,
-   "panel_brier": 0.2222,
-   "live_brier": 0.2151,
-   "panel_brier_on_live": 0.2222,
-   "clv_n": 10,
-   "panel_clv_hit": 0.7,
-   "live_clv_hit": 0.5
+   "panel_brier": 0.2512,
+   "live_brier": 0.2467,
+   "panel_brier_on_live": 0.2512,
+   "clv_n": 11,
+   "panel_clv_hit": 0.636,
+   "live_clv_hit": 0.455
   },
   "football | Double chance | lineup": {
    "n": 2,
@@ -637,6 +669,14 @@
    "panel_brier": 0.0572,
    "live_brier": 0.0676,
    "panel_brier_on_live": 0.0572,
+   "clv_n": 0
+  },
+  "nba | NBA handicap | board": {
+   "n": 1,
+   "earned": false,
+   "panel_brier": 0.1708,
+   "live_brier": 0.1849,
+   "panel_brier_on_live": 0.1708,
    "clv_n": 0
   }
  },

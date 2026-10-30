@@ -1,6 +1,6 @@
 {
  "updated": "2026-10-30",
- "graded": 191,
+ "graded": 192,
  "by_verdict": {
   "back": {
    "n": 30,
@@ -25,10 +25,10 @@
    "beat_close": 24
   },
   "veto": {
-   "n": 111,
+   "n": 112,
    "won": 88,
-   "hit": 0.793,
-   "flat_return": -0.0113,
+   "hit": 0.786,
+   "flat_return": -0.0201,
    "model_said": 0.787,
    "ai_said": 0.763,
    "clv_n": 113,
@@ -37,12 +37,12 @@
   }
  },
  "brier": {
-  "n": 191,
-  "model": 0.1773,
-  "ai": 0.1779
+  "n": 192,
+  "model": 0.1797,
+  "ai": 0.1799
  },
  "nba": {
-  "graded": 37,
+  "graded": 38,
   "by_verdict": {
    "back": {
     "n": 21,
@@ -51,10 +51,10 @@
     "close_value": 0.1769
    },
    "lower": {
-    "n": 14,
-    "won": 9,
-    "flat_return": 0.2236,
-    "close_value": 0.1309
+    "n": 15,
+    "won": 10,
+    "flat_return": 0.2627,
+    "close_value": 0.1263
    },
    "veto": {
     "n": 2,
@@ -94,10 +94,10 @@
    "veto_loss_rate": null
   },
   "football | Double chance": {
-   "n": 10,
+   "n": 11,
    "earned": false,
-   "cog_brier": 0.2189,
-   "base_brier": 0.2189,
+   "cog_brier": 0.2559,
+   "base_brier": 0.2559,
    "veto_loss_rate": null
   },
   "football | Home goals": {
@@ -119,6 +119,13 @@
    "earned": false,
    "cog_brier": 0.1058,
    "base_brier": 0.104,
+   "veto_loss_rate": null
+  },
+  "nba | NBA handicap": {
+   "n": 1,
+   "earned": false,
+   "cog_brier": 0.1708,
+   "base_brier": 0.1708,
    "veto_loss_rate": null
   }
  },
@@ -536,6 +543,34 @@
    "cog_brier": 0.0439,
    "flags": [],
    "graded_at": "2026-10-29T21:53:40+00:00"
+  },
+  {
+   "id": "football|2026-10-29|Fiorentina v Atalanta|SB:10||Home or Away",
+   "date": "2026-10-29",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7909,
+   "cognitive_prob": 0.7909,
+   "won": false,
+   "base_brier": 0.6255,
+   "cog_brier": 0.6255,
+   "flags": [],
+   "graded_at": "2026-10-30T06:53:42+00:00"
+  },
+  {
+   "id": "nba|2026-10-30|Atlanta Hawks v Cleveland Cavaliers|NBA:223|hcp=1.5|Home (+1.5)",
+   "date": "2026-10-30",
+   "domain": "nba",
+   "family": "NBA handicap",
+   "verdict": "BACK",
+   "base_prob": 0.5867,
+   "cognitive_prob": 0.5867,
+   "won": true,
+   "base_brier": 0.1708,
+   "cog_brier": 0.1708,
+   "flags": [],
+   "graded_at": "2026-10-30T06:53:42+00:00"
   }
  ]
 }

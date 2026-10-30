@@ -50,15 +50,17 @@
   ]
  },
  "nba": {
-  "date": "2026-10-29",
-  "graded": 37,
-  "model": "gemini-3.5-flash-lite",
+  "date": "2026-10-30",
+  "graded": 38,
+  "model": "gemini-3.8-flash",
   "lessons": [
-   "When backing 1st half NBA totals with model probabilities above 0.60, require odds of 1.90 or higher to maintain positive expected value.",
-   "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability before assessing value.",
-   "When backing 1st half NBA totals with odds below 1.90, do not back regardless of model probability."
+   "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record (saved 2 of 2 losses).",
+   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher (won 10 of 11); avoid or reduce stake on Unders at 120.5 or higher (lost 4 of 6).",
+   "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher (won 4 of 4).",
+   "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65 (won at 1.81 with 0.685 model probability; lost at 1.80 with 0.593).",
+   "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85 (won 2 of 3)."
   ],
-  "summary": "Added a lesson to strictly avoid backing 1st half totals with odds below 1.90 following a failed bet at 1.80.",
+  "summary": "Refined the sub-1.90 total odds rule to permit high-model exceptions, validated the LOSING framework probability adjustment, and added rules for fixture-specific vetoes, sub-120.0 Under totals, and short underdog handicaps.",
   "history": [
    {
     "date": "2026-10-23",
@@ -84,6 +86,11 @@
     "date": "2026-10-29",
     "graded": 37,
     "n": 3
+   },
+   {
+    "date": "2026-10-30",
+    "graded": 38,
+    "n": 5
    }
   ]
  }

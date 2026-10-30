@@ -1,0 +1,680 @@
+{
+ "date": "2026-10-31",
+ "picks_generated_at": "2026-10-30T06:52:42Z",
+ "run_at": "2026-10-30T06:53:42+00:00",
+ "model": "gemini-3.8-flash",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Washington Wizards v Charlotte Hornets",
+   "market": "NBA:68|total=112.5|Under 112.5",
+   "pick": "1st half Under 112.5 points",
+   "price": 2.0,
+   "model_chance": 0.5604,
+   "code": "K8DHNJ",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.56,
+   "confidence": 0.38,
+   "reasons": "The framework record is WINNING in this family, and the price of 2.0 provides 12.1 value points well above break-even while satisfying our 1.90 minimum odds threshold.",
+   "market_chance": null,
+   "anchored_chance": 0.56,
+   "anchored_edge": 0.06,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5604,
+    "market_prob": 0.5604,
+    "cognitive_prob": 0.5604,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5604,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5604,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5604,
+    "edge": 0.1208,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5604
+  },
+  {
+   "fixture": "Boston Celtics v Chicago Bulls",
+   "market": "NBA:68|total=119.5|Under 119.5",
+   "pick": "1st half Under 119.5 points",
+   "price": 1.95,
+   "model_chance": 0.5428,
+   "code": "UEG0M0",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.54,
+   "confidence": 0.35,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the 1.95 price clears our 1.90 minimum odds threshold with positive edge over break-even.",
+   "market_chance": null,
+   "anchored_chance": 0.54,
+   "anchored_edge": 0.0272,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5428,
+    "market_prob": 0.5428,
+    "cognitive_prob": 0.5428,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5428,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5428,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5428,
+    "edge": 0.0585,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5428
+  },
+  {
+   "fixture": "Brooklyn Nets v Detroit Pistons",
+   "market": "NBA:68|total=113.5|Under 113.5",
+   "pick": "1st half Under 113.5 points",
+   "price": 1.85,
+   "model_chance": 0.5769,
+   "code": "VFYPSL",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.57,
+   "confidence": 0.35,
+   "reasons": "While the framework record is WINNING in this family, our explicit lesson dictates not backing 1st half NBA totals with odds below 1.90 (offered at 1.85).",
+   "market_chance": null,
+   "anchored_chance": 0.57,
+   "anchored_edge": 0.0295,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5769,
+    "market_prob": 0.5769,
+    "cognitive_prob": 0.5769,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5769,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5769,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5769,
+    "edge": 0.0673,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5769
+  },
+  {
+   "fixture": "Philadelphia 76ers v New York Knicks",
+   "market": "NBA:68|total=118.5|Under 118.5",
+   "pick": "1st half Under 118.5 points",
+   "price": 1.85,
+   "model_chance": 0.625,
+   "code": "QAYDXH",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.62,
+   "confidence": 0.36,
+   "reasons": "Despite strong 15.6 value points and a WINNING framework record, the price of 1.85 fails our rule requiring odds of 1.90 or higher to back 1st half totals.",
+   "market_chance": null,
+   "anchored_chance": 0.62,
+   "anchored_edge": 0.0795,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.625,
+    "market_prob": 0.625,
+    "cognitive_prob": 0.625,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.625,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.625,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.625,
+    "edge": 0.1562,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.625
+  },
+  {
+   "fixture": "Toronto Raptors v Orlando Magic",
+   "market": "NBA:68|total=110.5|Over 110.5",
+   "pick": "1st half Over 110.5 points",
+   "price": 2.0,
+   "model_chance": 0.5898,
+   "code": "KF4CEV",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.59,
+   "confidence": 0.38,
+   "reasons": "The framework record is WINNING in this family, and the 2.0 price comfortably exceeds our 1.90 threshold while offering 18.0 value points.",
+   "market_chance": null,
+   "anchored_chance": 0.59,
+   "anchored_edge": 0.09,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5898,
+    "market_prob": 0.5898,
+    "cognitive_prob": 0.5898,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5898,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5898,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5898,
+    "edge": 0.1796,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5898
+  },
+  {
+   "fixture": "Dallas Mavericks v Houston Rockets",
+   "market": "NBA:68|total=109.5|Over 109.5",
+   "pick": "1st half Over 109.5 points",
+   "price": 1.91,
+   "model_chance": 0.638,
+   "code": "X8JFJ2",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.635,
+   "confidence": 0.4,
+   "reasons": "The framework record is WINNING in this market family, and the 1.91 price meets our requirement of at least 1.90 for high-probability 1st half totals with 21.9 value points.",
+   "market_chance": null,
+   "anchored_chance": 0.635,
+   "anchored_edge": 0.1114,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.638,
+    "market_prob": 0.638,
+    "cognitive_prob": 0.638,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.638,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.638,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.638,
+    "edge": 0.2186,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.638
+  },
+  {
+   "fixture": "Miami Heat v Indiana Pacers",
+   "market": "NBA:68|total=115.5|Over 115.5",
+   "pick": "1st half Over 115.5 points",
+   "price": 1.95,
+   "model_chance": 0.6067,
+   "code": "KGBZ3A",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.605,
+   "confidence": 0.39,
+   "reasons": "The framework record is WINNING in this family, and with model probability above 0.60, the 1.95 price clears our 1.90 minimum rule and provides 18.3 value points.",
+   "market_chance": null,
+   "anchored_chance": 0.605,
+   "anchored_edge": 0.0922,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6067,
+    "market_prob": 0.6067,
+    "cognitive_prob": 0.6067,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6067,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6067,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6067,
+    "edge": 0.1831,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6067
+  },
+  {
+   "fixture": "Minnesota Timberwolves v LA Clippers",
+   "market": "NBA:68|total=107.5|Over 107.5",
+   "pick": "1st half Over 107.5 points",
+   "price": 1.9,
+   "model_chance": 0.6378,
+   "code": "NRQDM3",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.635,
+   "confidence": 0.4,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the 1.90 price satisfies our minimum odds lesson for high model probability plays.",
+   "market_chance": null,
+   "anchored_chance": 0.635,
+   "anchored_edge": 0.1087,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6378,
+    "market_prob": 0.6378,
+    "cognitive_prob": 0.6378,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6378,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6378,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6378,
+    "edge": 0.2118,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6378
+  },
+  {
+   "fixture": "Golden State Warriors v Los Angeles Lakers",
+   "market": "NBA:68|total=119.5|Under 119.5",
+   "pick": "1st half Under 119.5 points",
+   "price": 1.96,
+   "model_chance": 0.5595,
+   "code": "RALQ5X",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.555,
+   "confidence": 0.37,
+   "reasons": "The framework record is WINNING in this family, and the 1.96 price easily clears our 1.90 odds requirement with 9.7 value points against the sharp line.",
+   "market_chance": null,
+   "anchored_chance": 0.555,
+   "anchored_edge": 0.0448,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5595,
+    "market_prob": 0.5595,
+    "cognitive_prob": 0.5595,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5595,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5595,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5595,
+    "edge": 0.0966,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5595
+  },
+  {
+   "fixture": "Phoenix Suns v Denver Nuggets",
+   "market": "NBA:68|total=112.5|Over 112.5",
+   "pick": "1st half Over 112.5 points",
+   "price": 1.95,
+   "model_chance": 0.6225,
+   "code": "XNLZBT",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.62,
+   "confidence": 0.4,
+   "reasons": "The framework record is WINNING in this family, and the 1.95 price fulfills our lesson requiring odds of 1.90 or higher when backing 1st half totals with over 0.60 model probability.",
+   "market_chance": null,
+   "anchored_chance": 0.62,
+   "anchored_edge": 0.1072,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6225,
+    "market_prob": 0.6225,
+    "cognitive_prob": 0.6225,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6225,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6225,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6225,
+    "edge": 0.2139,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6225
+  }
+ ],
+ "prompt_version": "975031f938",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-2.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 10,
+   "LOWER": 0,
+   "VETO": 0
+  },
+  "fallback": 10,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "gemini": {
+    "model": "gemini-2.5-flash",
+    "status": "partly failed: HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+    "answered": 0
+   },
+   "nvidia": {
+    "model": "meta/llama-3.3-70b-instruct",
+    "status": "partly failed: HTTPError: 410 Client Error: Gone for url: https://integrate.api.nvidia.com/v1/chat/completions",
+    "answered": 0
+   },
+   "openrouter": {
+    "model": "google/gemma-4-31b-it:free",
+    "status": "partly failed: HTTPError: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions",
+    "answered": 0
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   },
+   "openrouter": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   }
+  },
+  "authority": 0,
+  "missing": []
+ },
+ "sport": "nba"
+}

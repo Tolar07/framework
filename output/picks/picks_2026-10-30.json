@@ -685,7 +685,11 @@
     "home": 3239705,
     "away": 4576462
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:71913116",
    "sb_tid": "sr:tournament:170",
@@ -3155,7 +3159,11 @@
     "home": 12139457,
     "away": 224496713
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "Galatasaray: set-piece threat v weak set-piece defence; Galatasaray: aerial threat v weak in the air -> no strong goals lean",
     "xg": [

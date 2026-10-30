@@ -22,7 +22,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:00Z",
+  "at": "2026-10-30T16:20Z",
   "away_missing_share": 0.115743243751619,
   "away_unavailable": 2,
   "fotmob_id": 5881708,
@@ -170,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:00Z",
+  "at": "2026-10-30T16:20Z",
   "away_missing_share": 0.2275903213330314,
   "away_unavailable": 5,
   "fotmob_id": 5881709,
@@ -293,14 +293,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-30T16:00Z",
-  "away_missing_share": 0.015354320242665512,
+  "at": "2026-10-30T16:20Z",
+  "away_missing_share": 0.012340098037753851,
   "away_unavailable": 1,
   "fotmob_id": 5904790,
-  "home_missing_share": 0.11925335172101167,
+  "home_missing_share": 0.12118024980286017,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Laval v Boulogne": {
   "absent": [],
@@ -431,14 +431,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:00Z",
-  "away_missing_share": 0.2175382984543838,
+  "at": "2026-10-30T16:20Z",
+  "away_missing_share": 0.20878104587926144,
   "away_unavailable": 3,
   "fotmob_id": 5765953,
-  "home_missing_share": 0.29541930826929,
+  "home_missing_share": 0.3276048066661441,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Nantes v Clermont": {
   "absent": [],

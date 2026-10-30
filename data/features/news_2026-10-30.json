@@ -96,7 +96,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T19:00Z",
+  "at": "2026-10-30T19:20Z",
   "away_missing_share": 0.2511252661812485,
   "away_unavailable": 3,
   "fotmob_id": 5887666,
@@ -181,14 +181,14 @@
  },
  "Fylde v Hornchurch": {
   "absent": [],
-  "at": "2026-10-30T19:00Z",
+  "at": "2026-10-30T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906537,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Gornik Zabrze v Legia": {
   "absent": [
@@ -336,14 +336,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T19:00Z",
-  "away_missing_share": 0.228767789658393,
+  "at": "2026-10-30T19:20Z",
+  "away_missing_share": 0.21993020475906613,
   "away_unavailable": 5,
   "fotmob_id": 5802974,
-  "home_missing_share": 0.3552639240397328,
-  "home_unavailable": 5,
+  "home_missing_share": 0.31311513733792984,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-30T20:05:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lyngby v Randers FC": {
   "absent": [
@@ -545,6 +545,11 @@
  "Sheffield United v Wrexham": {
   "absent": [
    {
+    "name": "Ryan On\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Patrick Bamford",
     "side": "home",
     "type": "injury"
@@ -555,34 +560,29 @@
     "type": "injury"
    },
    {
-    "name": "Jamie Shackleton",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Max Cleworth",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Nathan Broadhead",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "George Thomason",
+    "name": "Liberato Cacace",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Josh Windass",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T19:00Z",
-  "away_missing_share": 0.319876690285097,
-  "away_unavailable": 6,
+  "at": "2026-10-30T19:20Z",
+  "away_missing_share": 0.15465856045801657,
+  "away_unavailable": 4,
   "fotmob_id": 5836904,
-  "home_missing_share": 0.03503247584164331,
-  "home_unavailable": 3,
+  "home_missing_share": 0.04927618603392946,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-30T20:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Villarreal v Espanol": {
   "absent": [
@@ -644,13 +644,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T19:00Z",
+  "at": "2026-10-30T19:20Z",
   "away_missing_share": 0.25870273147431355,
   "away_unavailable": 1,
   "fotmob_id": 5811799,
   "home_missing_share": 0.1552789223160936,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-30T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  }
 }

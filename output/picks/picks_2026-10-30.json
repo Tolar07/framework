@@ -393,8 +393,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.0425394163646291,
    "missing": {
@@ -659,7 +659,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.34,
+   "drift_pct": 2.3
   },
   {
    "fixture": "NK Slaven Belupo v NK Istra 1961",
@@ -699,8 +701,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.12,
    "ev": -0.01935175277180079,
    "missing": {
@@ -1128,7 +1130,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Le Havre v Paris SG",
@@ -3198,8 +3202,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -4.76,
    "stake_pct": 0.25,
    "ev": -0.003596870968120225,
    "missing": {

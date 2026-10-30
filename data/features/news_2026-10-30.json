@@ -22,7 +22,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:20Z",
+  "at": "2026-10-30T16:40Z",
   "away_missing_share": 0.115743243751619,
   "away_unavailable": 2,
   "fotmob_id": 5881708,
@@ -64,7 +64,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T12:00Z",
+  "at": "2026-10-30T16:40Z",
   "away_missing_share": 0.09734040326689555,
   "away_unavailable": 5,
   "fotmob_id": 5105035,
@@ -170,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T16:20Z",
+  "at": "2026-10-30T16:40Z",
   "away_missing_share": 0.2275903213330314,
   "away_unavailable": 5,
   "fotmob_id": 5881709,
@@ -378,11 +378,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T12:00Z",
+  "at": "2026-10-30T16:40Z",
   "away_missing_share": 0.3625937269728035,
   "away_unavailable": 6,
   "fotmob_id": 5739538,
-  "home_missing_share": 0.025678670221812052,
+  "home_missing_share": 0.024338324640738932,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-30T18:00:00.000Z",
   "lineup_type": "predicted"
@@ -483,11 +483,16 @@
     "name": "Est\u00e9ban Lepaul",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Brice Samba",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-30T12:00Z",
-  "away_missing_share": 0.1858640251752602,
-  "away_unavailable": 1,
+  "at": "2026-10-30T16:40Z",
+  "away_missing_share": 0.22695994190662935,
+  "away_unavailable": 2,
   "fotmob_id": 5802978,
   "home_missing_share": 0.18826484847043062,
   "home_unavailable": 4,

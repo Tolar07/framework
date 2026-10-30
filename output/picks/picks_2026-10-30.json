@@ -528,7 +528,11 @@
     "home": 13944227,
     "away": 7389207
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "G\u00f3rnik Zabrze: counter side v counter-exposed -> no strong goals lean",
     "xg": [
@@ -999,7 +1003,11 @@
     "home": 32323095,
     "away": 78534651
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "Mainz 05: counter side v high line; Mainz 05: set-piece threat v weak set-piece defence; Mainz 05: aerial threat v weak in the air; Mainz 05: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -2318,7 +2326,11 @@
     "home": 6427978,
     "away": 2648160
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Dijon at full strength",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "Dijon: possession side v low block -> BTTS",
     "xg": [
@@ -2354,8 +2366,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.03844121000466716,
    "missing": {
@@ -2468,7 +2480,11 @@
     "home": 11173411,
     "away": 4911961
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "Pau: set-piece threat v weak set-piece defence; Pau: aerial threat v weak in the air -> BTTS",
     "xg": [
@@ -2505,8 +2521,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -6.77,
    "stake_pct": 0.25,
    "ev": -0.02640242532841952,
    "missing": {
@@ -2619,7 +2635,11 @@
     "home": 6848351,
     "away": 5031464
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "Rodez: counter side v high line; Rodez: set-piece threat v weak set-piece defence; Rodez: aerial threat v weak in the air -> BTTS & goals",
     "xg": [
@@ -2656,8 +2676,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.024423588966747123,
    "missing": {
@@ -2810,8 +2830,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.05004205562546504,
    "missing": {
@@ -7582,8 +7602,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.76,
+   "clv": -1.7,
    "stake_pct": 0.12,
    "ev": 0.027242767931368705,
    "missing": {

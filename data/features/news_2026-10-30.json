@@ -181,7 +181,7 @@
  },
  "Fylde v Hornchurch": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906537,
@@ -198,11 +198,6 @@
     "type": "injury"
    },
    {
-    "name": "Janis Antiste",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Michal S\u00e1cek",
     "side": "home",
     "type": "injury"
@@ -213,24 +208,19 @@
     "type": "injury"
    },
    {
-    "name": "Vahan Bichakhchyan",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Rafa\u0142 Adamski",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:20Z",
-  "away_missing_share": 0.1724066443950349,
-  "away_unavailable": 3,
+  "at": "2026-10-30T18:40Z",
+  "away_missing_share": 0.11973768663629121,
+  "away_unavailable": 2,
   "fotmob_id": 5804024,
-  "home_missing_share": 0.1565548244956106,
-  "home_unavailable": 3,
+  "home_missing_share": 0.1366981631403044,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-30T19:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Grazer AK 1902 v TSV Hartberg": {
   "absent": [
@@ -271,14 +261,14 @@
  },
  "Grenoble v Dijon": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803300,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Konyaspor v Galatasaray Istanbul": {
   "absent": [
@@ -346,7 +336,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T14:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.228767789658393,
   "away_unavailable": 5,
   "fotmob_id": 5802974,
@@ -389,14 +379,14 @@
  },
  "Metz v Pau FC": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803303,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "NK Slaven Belupo v NK Istra 1961": {
   "absent": [
@@ -442,18 +432,18 @@
  },
  "Nantes v Clermont": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803304,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Newport County v Chesterfield": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838020,
@@ -501,14 +491,14 @@
  },
  "Rodez v Dunkerque": {
   "absent": [],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803307,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "SV 07 Elversberg v Mainz": {
   "absent": [
@@ -543,14 +533,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:20Z",
-  "away_missing_share": 0.056779643673341915,
+  "at": "2026-10-30T18:40Z",
+  "away_missing_share": 0.04838791047206749,
   "away_unavailable": 3,
   "fotmob_id": 5881211,
   "home_missing_share": 0.17413649828159167,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T19:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sheffield United v Wrexham": {
   "absent": [
@@ -585,7 +575,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T14:00Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.319876690285097,
   "away_unavailable": 6,
   "fotmob_id": 5836904,
@@ -622,14 +612,14 @@
     "type": "injury"
    },
    {
-    "name": "Jofre Carreras",
+    "name": "\u00c1lex Calatrava",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T14:00Z",
-  "away_missing_share": 0.2755843990932476,
-  "away_unavailable": 6,
+  "at": "2026-10-30T18:40Z",
+  "away_missing_share": 0.2767340127378255,
+  "away_unavailable": 7,
   "fotmob_id": 5868120,
   "home_missing_share": 0.2773728136117534,
   "home_unavailable": 3,
@@ -654,7 +644,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:20Z",
+  "at": "2026-10-30T18:40Z",
   "away_missing_share": 0.25870273147431355,
   "away_unavailable": 1,
   "fotmob_id": 5811799,

@@ -181,7 +181,7 @@
  },
  "Fylde v Hornchurch": {
   "absent": [],
-  "at": "2026-10-30T14:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906537,
@@ -223,7 +223,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.1724066443950349,
   "away_unavailable": 3,
   "fotmob_id": 5804024,
@@ -271,14 +271,14 @@
  },
  "Grenoble v Dijon": {
   "absent": [],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803300,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Konyaspor v Galatasaray Istanbul": {
   "absent": [
@@ -304,14 +304,14 @@
  },
  "Laval v Boulogne": {
   "absent": [],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803302,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lille v Lens": {
   "absent": [
@@ -389,7 +389,7 @@
  },
  "Metz v Pau FC": {
   "absent": [],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803303,
@@ -442,18 +442,18 @@
  },
  "Nantes v Clermont": {
   "absent": [],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803304,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Newport County v Chesterfield": {
   "absent": [],
-  "at": "2026-10-30T14:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838020,
@@ -501,7 +501,7 @@
  },
  "Rodez v Dunkerque": {
   "absent": [],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803307,
@@ -543,7 +543,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T18:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.056779643673341915,
   "away_unavailable": 3,
   "fotmob_id": 5881211,
@@ -654,7 +654,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T14:00Z",
+  "at": "2026-10-30T18:20Z",
   "away_missing_share": 0.25870273147431355,
   "away_unavailable": 1,
   "fotmob_id": 5811799,

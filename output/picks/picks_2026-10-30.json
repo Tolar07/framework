@@ -2770,7 +2770,11 @@
     "home": 5012722,
     "away": 3245075
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Boulogne at full strength",
+    "at": "18:20Z"
+   },
    "matchup": {
     "say": "Laval: possession side v low block; Boulogne: counter side v high line -> no strong goals lean",
     "xg": [

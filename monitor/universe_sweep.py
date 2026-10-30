@@ -34,6 +34,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from engine import universe as uv  # noqa: E402
+from monitor import fdata  # noqa: E402
 
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
          "?sportId={sport}&marketId={markets}&pageSize=100&pageNum={page}")
@@ -133,6 +134,12 @@ def _git(*args: str) -> subprocess.CompletedProcess:
 
 
 def persist(now: datetime) -> str:
+    """Save to framework and to the private framework-data (monitor/fdata.py)."""
+    fd = fdata.save(["data/universe", "data/match_stats", "data/teams", "data/features"], f"universe {now:%Y-%m-%d %H:%M} [skip ci]")   # first: framework's pull below may drop files
+    return f"{_persist_framework(now)} · {fd}"
+
+
+def _persist_framework(now: datetime) -> str:
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",

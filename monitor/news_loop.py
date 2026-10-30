@@ -30,6 +30,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+from monitor import fdata  # noqa: E402
 
 WINDOW = ((9, 0), (20, 40))          # UTC, first and last round
 EVERY_MIN = 20
@@ -98,9 +99,16 @@ def sync() -> None:
     """Start each round from the latest main (the board may have changed)."""
     _git("fetch", "-q", "origin", "main")
     _git("reset", "-q", "--hard", "origin/main")
+    fdata.refresh()
 
 
 def persist(now: datetime) -> str:
+    """Save to framework and to the private framework-data (monitor/fdata.py)."""
+    fd = fdata.save(["output/picks", "data/features", "output/reasoning"], f"lineup check {now:%H:%M} [skip ci]")   # first: framework's pull below may drop files
+    return f"{_persist_framework(now)} · {fd}"
+
+
+def _persist_framework(now: datetime) -> str:
     """Save the round's lineup checks, drift and closing prices at once."""
     _git("add", "output/picks", "data/features", "output/reasoning")
     if _git("diff", "--staged", "--quiet").returncode == 0:

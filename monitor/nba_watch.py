@@ -61,6 +61,7 @@ from engine import nba_ladder as nl  # noqa: E402
 from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
+from monitor import fdata  # noqa: E402
 
 AHEAD = timedelta(hours=6)          # watch games tipping within this
 EVERY_MIN = 15
@@ -323,9 +324,16 @@ def sync() -> None:
     if in_actions():                 # never reset a desktop checkout
         _git("fetch", "-q", "origin", "main")
         _git("reset", "-q", "--hard", "origin/main")
+        fdata.refresh()
 
 
 def persist(now: datetime) -> str:
+    """Save to framework and to the private framework-data (monitor/fdata.py)."""
+    fd = fdata.save(["output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets"], f"nba watch {now:%H:%M} [skip ci]")   # first: framework's pull below may drop files
+    return f"{_persist_framework(now)} · {fd}"
+
+
+def _persist_framework(now: datetime) -> str:
     if not in_actions():
         return "not saved (outside GitHub Actions)"
     _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets")

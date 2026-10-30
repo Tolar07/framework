@@ -79,6 +79,11 @@ def main(argv: list[str] | None = None) -> int:
         print(__doc__)
         return 2
     ok = push_file(args[0], args[1])
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from monitor import fdata
+    fd = fdata.save([args[0]], args[1])
+    print(fd)
+    ok = ok or fd.startswith("framework-data: saved")
     print(f"{args[0]}: saved to main" if ok else
           f"::warning::{args[0]} could NOT be saved to main — a late duplicate run may resend this board")
     return 0 if ok else 1

@@ -352,7 +352,11 @@
     "home": 7822643,
     "away": 8997819
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Cracovia missing 18%",
+    "at": "16:00Z"
+   },
    "matchup": {
     "say": "Cracovia: counter side v high line; Cracovia: aerial threat v weak in the air -> BTTS & goals",
     "xg": [
@@ -2402,7 +2406,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Metz v Pau FC",
@@ -2551,7 +2557,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Rodez v Dunkerque",
@@ -2700,7 +2708,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Laval v Boulogne",
@@ -2848,7 +2858,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Newport County v Chesterfield",

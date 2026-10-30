@@ -2,8 +2,18 @@
  "Bielefeld v Braunschweig": {
   "absent": [
    {
+    "name": "David Min",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Daniel Richter",
     "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Samuele Di Benedetto",
+    "side": "away",
     "type": "injury"
    },
    {
@@ -12,12 +22,12 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T11:40Z",
-  "away_missing_share": 0.03185059950224512,
-  "away_unavailable": 1,
+  "at": "2026-10-30T16:00Z",
+  "away_missing_share": 0.115743243751619,
+  "away_unavailable": 2,
   "fotmob_id": 5881708,
-  "home_missing_share": 0.09517397533428545,
-  "home_unavailable": 1,
+  "home_missing_share": 0.1898267471787401,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -103,14 +113,14 @@
     "type": "injury"
    },
    {
-    "name": "Sayfallah Ltaief",
+    "name": "Mateusz Tabisz",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Mateusz Tabisz",
+    "name": "Mateusz Klich",
     "side": "home",
-    "type": "injury"
+    "type": "suspension"
    },
    {
     "name": "Ivo Rodrigues",
@@ -118,14 +128,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T15:40Z",
-  "away_missing_share": 0.024864821632180237,
+  "at": "2026-10-30T16:00Z",
+  "away_missing_share": 0.024049864522052523,
   "away_unavailable": 1,
   "fotmob_id": 5804022,
-  "home_missing_share": 0.28368889856670804,
-  "home_unavailable": 4,
+  "home_missing_share": 0.18464635888714698,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Energie Cottbus v Bochum": {
   "absent": [
@@ -160,12 +170,12 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T11:40Z",
+  "at": "2026-10-30T16:00Z",
   "away_missing_share": 0.2275903213330314,
   "away_unavailable": 5,
   "fotmob_id": 5881709,
-  "home_missing_share": 0.14337894572048035,
-  "home_unavailable": 3,
+  "home_missing_share": 0.1536396309587838,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -283,7 +293,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-30T15:40Z",
+  "at": "2026-10-30T16:00Z",
   "away_missing_share": 0.015354320242665512,
   "away_unavailable": 1,
   "fotmob_id": 5904790,
@@ -421,7 +431,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T15:40Z",
+  "at": "2026-10-30T16:00Z",
   "away_missing_share": 0.2175382984543838,
   "away_unavailable": 3,
   "fotmob_id": 5765953,

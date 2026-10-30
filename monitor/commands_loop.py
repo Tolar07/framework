@@ -48,6 +48,8 @@ def sync() -> None:
     from the board that is live now, not the one this job checked out."""
     lu.git("fetch", "-q", "origin", "main")
     lu.git("reset", "-q", "--hard", "origin/main")
+    from monitor import fdata
+    fdata.refresh()
 
 
 def round_once(now: datetime) -> list[str]:

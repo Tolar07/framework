@@ -92,6 +92,9 @@ class Clock:
         return json.loads(raw) if raw else None
 
     def sent(self, slot: str, target: date) -> bool:
+        from monitor import fdata  # the marker on framework-data counts too
+        if fdata.on_main(marker(slot, target)):
+            return True
         try:
             self._req(f"/contents/{marker(slot, target)}?ref=main")
             return True

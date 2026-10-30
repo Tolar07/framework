@@ -58,13 +58,23 @@ def _read(rel: str) -> str | None:
 
 
 def _git_old(rel: str, before: str) -> str | None:
-    """The file as it stood on main at `before` (None: no history / no git)."""
+    """The file as it stood on main at `before` (None: no history / no git).
+    framework-data (.fdata, from 30-10-2026) first, then framework's older history."""
+    fd = ROOT / ".fdata"
+    if (fd / ".git").exists():
+        got = _git_old_in(fd, rel, before)
+        if got is not None:
+            return got
+    return _git_old_in(ROOT, rel, before)
+
+
+def _git_old_in(repo: Path, rel: str, before: str) -> str | None:
     try:
-        sha = subprocess.run(["git", "rev-list", "-1", f"--before={before}", "HEAD", "--", rel],
-                             cwd=ROOT, capture_output=True, text=True, timeout=60).stdout.strip()
+        sha = subprocess.run(["git", "rev-list", "-1", f"--before={before}", "HEAD", "--", rel],  # noqa: S603,S607
+                             cwd=repo, capture_output=True, text=True, timeout=60).stdout.strip()
         if not sha:
             return None
-        r = subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True,
+        r = subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=repo, capture_output=True,  # noqa: S603,S607
                            text=True, encoding="utf-8", timeout=120)
         return r.stdout if r.returncode == 0 else None
     except (OSError, subprocess.SubprocessError):

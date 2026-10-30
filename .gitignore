@@ -133,3 +133,6 @@ c:/
 
 # local settings backups
 .claude/settings.json.bak-*
+
+# The private data checkout (Tolar07/framework-data, monitor/fdata.py)
+.fdata/

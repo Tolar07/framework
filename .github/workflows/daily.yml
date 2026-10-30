@@ -73,6 +73,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        # not fatal while framework still holds the data: no key = today's behaviour
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
 
       - uses: actions/setup-python@v5
         with:
@@ -170,7 +183,7 @@ jobs:
           MARKER="output/boards/sent_${T}_${SLOT}"
           if [ "$SLOT" != "manual" ]; then
             git fetch -q origin main
-            if git cat-file -e "origin/main:$MARKER" 2>/dev/null; then
+            if git cat-file -e "origin/main:$MARKER" 2>/dev/null || python3 monitor/fdata.py has "$MARKER"; then
               echo "SKIP: the $SLOT board for $T was already delivered ($MARKER) — no duplicate send."
               echo "skipped=yes" >> "$GITHUB_OUTPUT"
               exit 0
@@ -278,6 +291,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "daily board $(date -u +%Y-%m-%d) [skip ci]" output/boards output/picks output/nba_ladders output/nba_markets memory data/survivor data/european data/cups data/nba_lineups data/sharp
           git add clv/clv_log.json output/boards memory/ || true
           # Picks ledger (what the board recommended + its graded results).
           git add output/picks 2>/dev/null || true

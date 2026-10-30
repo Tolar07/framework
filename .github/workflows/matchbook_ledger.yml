@@ -29,6 +29,19 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        # not fatal while framework still holds the data: no key = today's behaviour
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
 
       - name: Fetch the agent's ledger (read-only deploy key)
         id: fetch
@@ -74,6 +87,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "Matchbook evidence $(date -u +%Y-%m-%d) [skip ci]" data/matchbook
           git add data/matchbook || true
           if git diff --staged --quiet; then echo "Matchbook evidence unchanged"; exit 0; fi
           git commit -q -m "Matchbook evidence $(date -u +%Y-%m-%d) [skip ci]"
@@ -95,6 +109,7 @@ jobs:
           python monitor/sportybet_ledger.py
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]" data/sportybet
           git add data/sportybet || true
           if git diff --staged --quiet; then echo "SportyBet evidence unchanged"; exit 0; fi
           git commit -q -m "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]"

@@ -29,6 +29,19 @@ jobs:
     timeout-minutes: 30   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks)
     steps:
       - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        # not fatal while framework still holds the data: no key = today's behaviour
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -53,6 +66,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json
           git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
           if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
           git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"

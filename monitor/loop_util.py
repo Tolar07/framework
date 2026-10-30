@@ -62,6 +62,16 @@ def git(*args: str) -> subprocess.CompletedProcess:
 
 
 def save(paths: list[str], message: str) -> str:
+    """Save to framework (while it still holds the data) and to the private
+    framework-data (monitor/fdata.py). Both outcomes are reported."""
+    from monitor import fdata
+    # framework-data first: framework's pull below may drop files
+    fd = fdata.save(paths, message) if fdata.enabled() else ""
+    fw = _save_framework(paths, message)
+    return f"{fw} · {fd}" if fd else fw
+
+
+def _save_framework(paths: list[str], message: str) -> str:
     """Commit and push the named paths. Says exactly what happened — a push
     that could not land is never reported as saved (HR35)."""
     for p in paths:

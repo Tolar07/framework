@@ -3361,7 +3361,11 @@
     "home": 2816990,
     "away": 5384117
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "matchup": {
     "say": "Hartberg: counter side v counter-exposed -> no strong goals lean",
     "xg": [
@@ -3397,8 +3401,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 2.38,
    "stake_pct": 0.25,
    "ev": -0.025765314070195555,
    "missing": {

@@ -223,7 +223,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T13:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.1724066443950349,
   "away_unavailable": 3,
   "fotmob_id": 5804024,
@@ -260,18 +260,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.1490094080196491,
   "away_unavailable": 2,
   "fotmob_id": 5846013,
   "home_missing_share": 0.26873899467635753,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T18:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Grenoble v Dijon": {
   "absent": [],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803300,
@@ -304,7 +304,7 @@
  },
  "Laval v Boulogne": {
   "absent": [],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803302,
@@ -389,7 +389,7 @@
  },
  "Metz v Pau FC": {
   "absent": [],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803303,
@@ -442,7 +442,7 @@
  },
  "Nantes v Clermont": {
   "absent": [],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803304,
@@ -501,7 +501,7 @@
  },
  "Rodez v Dunkerque": {
   "absent": [],
-  "at": "2026-10-30T17:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803307,
@@ -543,7 +543,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-30T13:40Z",
+  "at": "2026-10-30T18:00Z",
   "away_missing_share": 0.056779643673341915,
   "away_unavailable": 3,
   "fotmob_id": 5881211,

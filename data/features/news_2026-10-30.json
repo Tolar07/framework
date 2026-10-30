@@ -137,6 +137,17 @@
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Fylde v Hornchurch": {
+  "absent": [],
+  "at": "2026-10-30T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906537,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-30T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Gornik Zabrze v Legia": {
   "absent": [
    {
@@ -356,6 +367,17 @@
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Newport County v Chesterfield": {
+  "absent": [],
+  "at": "2026-10-30T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5838020,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-30T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Nice v Rennes": {
   "absent": [
    {
@@ -440,5 +462,116 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-30T19:30:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Sheffield United v Wrexham": {
+  "absent": [
+   {
+    "name": "Patrick Bamford",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Matt Doherty",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jamie Shackleton",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Max Cleworth",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nathan Broadhead",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "George Thomason",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T14:00Z",
+  "away_missing_share": 0.319876690285097,
+  "away_unavailable": 6,
+  "fotmob_id": 5836904,
+  "home_missing_share": 0.03503247584164331,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-30T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Villarreal v Espanol": {
+  "absent": [
+   {
+    "name": "Pape Gueye",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Ilias Akhomach",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nathan Saliba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Urko Gonz\u00e1lez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Clemens Riedel",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jofre Carreras",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T14:00Z",
+  "away_missing_share": 0.2755843990932476,
+  "away_unavailable": 6,
+  "fotmob_id": 5868120,
+  "home_missing_share": 0.2773728136117534,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-30T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Waregem v Club Brugge": {
+  "absent": [
+   {
+    "name": "Dirk Asare",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Wilguens Paugain",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Joel Ord\u00f3\u00f1ez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T14:00Z",
+  "away_missing_share": 0.25870273147431355,
+  "away_unavailable": 1,
+  "fotmob_id": 5811799,
+  "home_missing_share": 0.11519894244279019,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-30T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
  }
 }

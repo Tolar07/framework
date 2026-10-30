@@ -30,9 +30,9 @@
     "total": 235.5
    },
    "code": "XQFAUU",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "132-120",
+   "close_value": 0.1374,
    "matchbook": {
     "back": 1.86,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 232.5
    },
    "code": "MSNV93",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "103-124",
+   "close_value": 0.1869,
    "matchbook": {
     "back": 1.91,
     "listed": true

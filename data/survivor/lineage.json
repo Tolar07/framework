@@ -1092,14 +1092,9 @@
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-24",
-   "last_result": null,
+   "last_result": "NO_RESULT",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-25",
-    "fixture": "VfL 1899 Osnabruck v Greuther Furth",
-    "pick": "VfL 1899 Osnabruck or Greuther Furth",
-    "price": 1.28
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_0b1c4b5e41",
@@ -1182,6 +1177,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-29",
+ "last_bred_date": "2026-10-30",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

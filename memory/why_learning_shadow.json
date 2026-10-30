@@ -1,12 +1,12 @@
 {
- "evaluated_at": "2026-10-29",
- "days": 25,
- "picks": 983,
- "brier_live": 0.17906,
- "brier_shadow": 0.17927,
- "gain_per_pick": -0.000215,
- "z": -1.0,
+ "evaluated_at": "2026-10-30",
+ "days": 26,
+ "picks": 988,
+ "brier_live": 0.17893,
+ "brier_shadow": 0.17918,
+ "gain_per_pick": -0.000241,
+ "z": -1.09,
  "status": "shadow",
- "why": "shadow: 25/30 days, 983/300 picks before it can be judged",
+ "why": "shadow: 26/30 days, 988/300 picks before it can be judged",
  "alpha": 0.5
 }

@@ -31,9 +31,9 @@
     "total": 239.5
    },
    "code": "K900CD",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "114-111",
+   "close_value": 0.0619,
    "matchbook": {
     "back": 1.79,
     "listed": true
@@ -135,7 +135,7 @@
      "300-309": 0.0004
     }
    },
-   "score": null
+   "score": "114-111"
   },
   {
    "tip": "2026-10-30T00:00:00+00:00",
@@ -229,7 +229,7 @@
      "300-309": 0.0003
     }
    },
-   "score": null
+   "score": "132-120"
   },
   {
    "tip": "2026-10-30T02:00:00+00:00",
@@ -322,7 +322,7 @@
      "290-299": 0.001
     }
    },
-   "score": null
+   "score": "103-124"
   }
  ],
  "players": {

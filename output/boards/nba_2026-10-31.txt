@@ -1,0 +1,238 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Sat 31 Oct 2026   ·   tip-off = UK time
+Run ID: OLPXDV-20261030-0652-903a41
+Games checked against the sharp line: 10
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+23:00  Washington Wizards v Charlotte Hornets
+   1st half Under 112.5 points @2.00 · chance 56% · fair 1.78 · value +12.1%
+   code K8DHNJ
+   Game shape (sharp line, label only): typical 111-110 | Washington Wizards by 11+ 26% · Charlotte Hornets by 11+ 20% · Washington Wizards by 1-5 15% | total 220-229 21% · 210-219 21% · 230-239 16%
+   Matchbook: back 1.71
+
+23:30  Boston Celtics v Chicago Bulls
+   1st half Under 119.5 points @1.95 · chance 54% · fair 1.84 · value +5.9%
+   code UEG0M0
+   Game shape (sharp line, label only): typical 126-110 | Boston Celtics by 11+ 65% · Boston Celtics by 6-10 13% · Boston Celtics by 1-5 10% | total 230-239 22% · 240-249 19% · 220-229 18%
+   Matchbook: back 1.74
+
+23:30  Brooklyn Nets v Detroit Pistons
+   1st half Under 113.5 points @1.85 · chance 58% · fair 1.73 · value +6.7%
+   code VFYPSL
+   Game shape (sharp line, label only): typical 107-114 | Detroit Pistons by 11+ 42% · Detroit Pistons by 6-10 15% · Detroit Pistons by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 17%
+   Matchbook: back 1.34
+
+23:30  Philadelphia 76ers v New York Knicks
+   1st half Under 118.5 points @1.85 · chance 62% · fair 1.60 · value +15.6%
+   code QAYDXH
+   Game shape (sharp line, label only): typical 114-115 | New York Knicks by 11+ 26% · Philadelphia 76ers by 11+ 20% · New York Knicks by 1-5 15% | total 220-229 21% · 230-239 21% · 210-219 16%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+23:30  Toronto Raptors v Orlando Magic
+   1st half Over 110.5 points @2.00 · chance 59% · fair 1.70 · value +18.0%
+   code KF4CEV
+   Game shape (sharp line, label only): typical 116-110 | Toronto Raptors by 11+ 37% · Toronto Raptors by 1-5 15% · Toronto Raptors by 6-10 15% | total 220-229 22% · 230-239 19% · 210-219 18%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+00:00  Dallas Mavericks v Houston Rockets
+   1st half Over 109.5 points @1.91 · chance 64% · fair 1.57 · value +21.9%
+   code X8JFJ2
+   Game shape (sharp line, label only): typical 110-116 | Houston Rockets by 11+ 37% · Houston Rockets by 1-5 15% · Houston Rockets by 6-10 15% | total 220-229 22% · 230-239 20% · 210-219 18%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+00:00  Miami Heat v Indiana Pacers
+   1st half Over 115.5 points @1.95 · chance 61% · fair 1.65 · value +18.3%
+   code KGBZ3A
+   Game shape (sharp line, label only): typical 122-114 | Miami Heat by 11+ 42% · Miami Heat by 6-10 15% · Miami Heat by 1-5 14% | total 230-239 22% · 240-249 20% · 220-229 18%
+   Matchbook: back 1.79
+
+00:00  Minnesota Timberwolves v LA Clippers
+   1st half Over 107.5 points @1.90 · chance 64% · fair 1.57 · value +21.2%
+   code NRQDM3
+   Game shape (sharp line, label only): typical 115-108 | Minnesota Timberwolves by 11+ 42% · Minnesota Timberwolves by 6-10 15% · Minnesota Timberwolves by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 18%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+02:00  Golden State Warriors v Los Angeles Lakers
+   1st half Under 119.5 points @1.96 · chance 56% · fair 1.79 · value +9.7%
+   code RALQ5X
+   Game shape (sharp line, label only): typical 116-118 | Los Angeles Lakers by 11+ 26% · Golden State Warriors by 11+ 20% · Los Angeles Lakers by 1-5 15% | total 230-239 22% · 220-229 19% · 240-249 19%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+02:00  Phoenix Suns v Denver Nuggets
+   1st half Over 112.5 points @1.95 · chance 62% · fair 1.61 · value +21.4%
+   code XNLZBT
+   Game shape (sharp line, label only): typical 114-118 | Denver Nuggets by 11+ 34% · Denver Nuggets by 1-5 15% · Denver Nuggets by 6-10 14% | total 230-239 22% · 220-229 20% · 240-249 17%
+   Matchbook: back 1.73
+
+NBA acca A (5 picks, odds 26.70): HQD6TW
+NBA acca B (5 picks, odds 27.05): Q7WDSH
+
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+23:00  Washington Wizards v Charlotte Hornets
+   Charlotte Hornets to win (incl. OT) @1.98 · fair 2.04 · -3.1%
+   Washington Wizards (+1.5) handicap @1.78 · fair 1.71 · +4.4%
+   Under 232.5 points (incl. OT) @1.30 · fair 1.34 · -2.8%
+   1st half Under 108.5 points @2.70 · fair 2.34 · +15.3%
+   1st quarter Under 56.5 points @1.92 · fair 1.87 · +2.7%
+   Washington Wizards Over 111.5 points (incl. OT) @2.05 · fair 2.05 · +0.2%
+   Charlotte Hornets Under 108.5 points (incl. OT) @2.15 · fair 2.15 · -0.2%
+   Under 220.5 points (regulation time, no OT) @1.85 · fair 1.91 · -3.2%
+   Washington Wizards (+1.5) 1st half handicap @1.70 · fair 1.70 · +0.0%
+   Washington Wizards (-2.5) 3rd quarter handicap @2.40 · fair 2.46 · -2.5%
+   Washington Wizards (+1.5) 1st quarter handicap @1.64 · fair 1.68 · -2.4%
+   Washington Wizards (+1.5) 2nd quarter handicap @1.65 · fair 1.68 · -1.9%
+   Game shape (sharp line, label only): typical 111-110 | Washington Wizards by 11+ 26% · Charlotte Hornets by 11+ 20% · Washington Wizards by 1-5 15% | total 220-229 21% · 210-219 21% · 230-239 16%
+
+23:30  Boston Celtics v Chicago Bulls
+   Boston Celtics (-15.5) handicap @1.97 · fair 2.00 · -1.5%
+   Over 236.5 points (incl. OT) @2.04 · fair 2.09 · -2.5%
+   1st half Under 114.5 points @2.90 · fair 2.65 · +9.4%
+   1st quarter Under 60.5 points @1.87 · fair 1.83 · +1.9%
+   Boston Celtics Over 126.5 points (incl. OT) @2.10 · fair 2.12 · -1.1%
+   Chicago Bulls Over 109.5 points (incl. OT) @1.87 · fair 1.93 · -3.1%
+   Under 235.5 points (regulation time, no OT) @1.84 · fair 1.91 · -3.7%
+   Boston Celtics (-10.5) 1st half handicap @2.20 · fair 2.09 · +5.2%
+   Boston Celtics (-3.5) 1st quarter handicap @1.67 · fair 1.73 · -3.5%
+   Boston Celtics (-4.5) 2nd quarter handicap @2.05 · fair 1.95 · +5.2%
+   Boston Celtics (-5.5) 3rd quarter handicap @2.05 · fair 2.11 · -2.7%
+   Game shape (sharp line, label only): typical 126-110 | Boston Celtics by 11+ 65% · Boston Celtics by 6-10 13% · Boston Celtics by 1-5 10% | total 230-239 22% · 240-249 19% · 220-229 18%
+
+23:30  Brooklyn Nets v Detroit Pistons
+   Detroit Pistons to win (incl. OT) @1.35 · fair 1.41 · -4.2%
+   Detroit Pistons (-12.5) handicap @2.99 · fair 2.80 · +6.9%
+   Under 234.5 points (incl. OT) @1.27 · fair 1.31 · -2.9%
+   1st half Under 113.5 points @1.85 · fair 1.73 · +6.7%
+   Brooklyn Nets Under 106.5 points (incl. OT) @2.05 · fair 2.10 · -2.4%
+   Detroit Pistons Over 115.5 points (incl. OT) @2.10 · fair 2.15 · -2.3%
+   Under 220.5 points (regulation time, no OT) @1.94 · fair 2.00 · -3.0%
+   Detroit Pistons (-6.5) 1st half handicap @2.35 · fair 2.28 · +3.0%
+   Detroit Pistons (-3.5) 1st quarter handicap @2.15 · fair 2.22 · -3.0%
+   Detroit Pistons (-3.5) 2nd quarter handicap @2.30 · fair 2.26 · +1.7%
+   Detroit Pistons (-3.5) 3rd quarter handicap @2.20 · fair 2.23 · -1.3%
+   Game shape (sharp line, label only): typical 107-114 | Detroit Pistons by 11+ 42% · Detroit Pistons by 6-10 15% · Detroit Pistons by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 17%
+
+23:30  Philadelphia 76ers v New York Knicks
+   New York Knicks to win (incl. OT) @1.85 · fair 1.90 · -2.7%
+   New York Knicks (+1.5) handicap @1.76 · fair 1.71 · +3.2%
+   Under 238.5 points (incl. OT) @1.38 · fair 1.41 · -1.9%
+   1st half Under 118.5 points @1.85 · fair 1.60 · +15.6%
+   Philadelphia 76ers Under 113.5 points (incl. OT) @2.00 · fair 2.03 · -1.3%
+   New York Knicks Over 115.5 points (incl. OT) @2.00 · fair 2.07 · -3.5%
+   Under 225.5 points (regulation time, no OT) @2.15 · fair 2.20 · -2.5%
+   New York Knicks (+2.5) 1st half handicap @1.60 · fair 1.60 · -0.3%
+   New York Knicks (+1.5) 2nd quarter handicap @1.64 · fair 1.68 · -2.5%
+   New York Knicks (-1.5) 1st quarter handicap @2.15 · fair 2.21 · -2.9%
+   New York Knicks (-1.5) 3rd quarter handicap @2.15 · fair 2.21 · -2.8%
+   Game shape (sharp line, label only): typical 114-115 | New York Knicks by 11+ 26% · Philadelphia 76ers by 11+ 20% · New York Knicks by 1-5 15% | total 220-229 21% · 230-239 21% · 210-219 16%
+
+23:30  Toronto Raptors v Orlando Magic
+   Orlando Magic to win (incl. OT) @2.76 · fair 2.81 · -1.9%
+   Toronto Raptors (+1.5) handicap @1.43 · fair 1.44 · -0.6%
+   Under 219.5 points (incl. OT) @2.71 · fair 2.71 · +0.1%
+   1st half Over 114.5 points @2.70 · fair 2.19 · +23.3%
+   1st quarter Over 55.5 points @1.95 · fair 1.74 · +12.3%
+   Toronto Raptors Under 117.5 points (incl. OT) @1.71 · fair 1.77 · -3.6%
+   Orlando Magic Under 108.5 points (incl. OT) @2.25 · fair 2.24 · +0.5%
+   Under 225.5 points (regulation time, no OT) @1.93 · fair 1.91 · +1.0%
+   Toronto Raptors (-4.5) 1st half handicap @2.15 · fair 2.15 · -0.2%
+   Toronto Raptors (-2.5) 1st quarter handicap @2.05 · fair 2.14 · -4.2%
+   Toronto Raptors (-3.5) 2nd quarter handicap @2.40 · fair 2.42 · -0.9%
+   Toronto Raptors (-3.5) 3rd quarter handicap @2.30 · fair 2.39 · -3.6%
+   Game shape (sharp line, label only): typical 116-110 | Toronto Raptors by 11+ 37% · Toronto Raptors by 1-5 15% · Toronto Raptors by 6-10 15% | total 220-229 22% · 230-239 19% · 210-219 18%
+
+00:00  Dallas Mavericks v Houston Rockets
+   Dallas Mavericks to win (incl. OT) @2.81 · fair 2.92 · -3.8%
+   Dallas Mavericks (+1.5) handicap @2.62 · fair 2.60 · +0.9%
+   Over 225.5 points (incl. OT) @1.87 · fair 1.92 · -2.4%
+   1st half Over 110.5 points @2.05 · fair 1.65 · +24.2%
+   1st quarter Over 54.5 points @1.81 · fair 1.57 · +15.0%
+   Dallas Mavericks Over 111.5 points (incl. OT) @2.10 · fair 2.12 · -1.1%
+   Houston Rockets Over 113.5 points (incl. OT) @1.65 · fair 1.70 · -3.0%
+   Over 225.5 points (regulation time, no OT) @1.95 · fair 2.00 · -2.5%
+   Houston Rockets (-0.5) 1st half handicap @1.62 · fair 1.65 · -1.5%
+   Houston Rockets (+0.5) 1st quarter handicap @1.56 · fair 1.64 · -4.8%
+   Houston Rockets (+0.5) 3rd quarter handicap @1.58 · fair 1.65 · -4.4%
+   Houston Rockets (-0.5) 2nd quarter handicap @1.76 · fair 1.79 · -1.8%
+   Game shape (sharp line, label only): typical 110-116 | Houston Rockets by 11+ 37% · Houston Rockets by 1-5 15% · Houston Rockets by 6-10 15% | total 220-229 22% · 230-239 20% · 210-219 18%
+
+00:00  Miami Heat v Indiana Pacers
+   Miami Heat to win (incl. OT) @1.34 · fair 1.42 · -5.5%
+   Indiana Pacers (+2.5) handicap @2.87 · fair 2.80 · +2.6%
+   Under 229.5 points (incl. OT) @2.82 · fair 2.87 · -1.7%
+   1st half Over 119.5 points @2.60 · fair 2.11 · +23.2%
+   1st quarter Over 58.5 points @1.97 · fair 1.77 · +11.4%
+   Miami Heat Under 123.5 points (incl. OT) @1.76 · fair 1.83 · -3.8%
+   Indiana Pacers Under 112.5 points (incl. OT) @2.30 · fair 2.33 · -1.2%
+   Under 235.5 points (regulation time, no OT) @1.97 · fair 2.00 · -1.5%
+   Miami Heat (-6.5) 1st half handicap @2.30 · fair 2.28 · +0.8%
+   Miami Heat (-2.5) 1st quarter handicap @1.91 · fair 2.00 · -4.7%
+   Miami Heat (-2.5) 2nd quarter handicap @2.05 · fair 2.04 · +0.6%
+   Miami Heat (-4.5) 3rd quarter handicap @2.40 · fair 2.48 · -3.4%
+   Game shape (sharp line, label only): typical 122-114 | Miami Heat by 11+ 42% · Miami Heat by 6-10 15% · Miami Heat by 1-5 14% | total 230-239 22% · 240-249 20% · 220-229 18%
+
+00:00  Minnesota Timberwolves v LA Clippers
+   Minnesota Timberwolves to win (incl. OT) @1.39 · fair 1.44 · -3.3%
+   Minnesota Timberwolves (-12.5) handicap @2.96 · fair 2.80 · +5.8%
+   Under 235.5 points (incl. OT) @1.28 · fair 1.31 · -2.1%
+   1st half Over 108.5 points @2.05 · fair 1.65 · +24.2%
+   1st quarter Over 53.5 points @1.82 · fair 1.57 · +15.5%
+   Minnesota Timberwolves Over 114.5 points (incl. OT) @1.87 · fair 1.91 · -2.0%
+   LA Clippers Under 107.5 points (incl. OT) @2.00 · fair 2.00 · -0.1%
+   Under 220.5 points (regulation time, no OT) @2.05 · fair 2.10 · -2.2%
+   Minnesota Timberwolves (-5.5) 1st half handicap @2.20 · fair 2.11 · +4.4%
+   Minnesota Timberwolves (-1.5) 1st quarter handicap @1.78 · fair 1.83 · -2.6%
+   Minnesota Timberwolves (-3.5) 2nd quarter handicap @2.30 · fair 2.26 · +1.7%
+   Minnesota Timberwolves (-3.5) 3rd quarter handicap @2.20 · fair 2.23 · -1.3%
+   Game shape (sharp line, label only): typical 115-108 | Minnesota Timberwolves by 11+ 42% · Minnesota Timberwolves by 6-10 15% · Minnesota Timberwolves by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 18%
+
+02:00  Golden State Warriors v Los Angeles Lakers
+   Golden State Warriors to win (incl. OT) @2.14 · fair 2.19 · -2.1%
+   Golden State Warriors (+1.5) handicap @2.02 · fair 2.00 · +1.0%
+   Under 246.5 points (incl. OT) @1.29 · fair 1.34 · -3.6%
+   1st half Under 114.5 points @2.90 · fair 2.54 · +14.1%
+   1st quarter Under 60.5 points @1.87 · fair 1.79 · +4.2%
+   Golden State Warriors Over 118.5 points (incl. OT) @2.25 · fair 2.29 · -1.9%
+   Los Angeles Lakers Under 117.5 points (incl. OT) @2.00 · fair 2.08 · -3.6%
+   Over 235.5 points (regulation time, no OT) @2.15 · fair 2.20 · -2.5%
+   Golden State Warriors (+4.5) 1st half handicap @1.54 · fair 1.60 · -3.6%
+   Golden State Warriors (-0.5) 3rd quarter handicap @2.10 · fair 2.20 · -4.6%
+   Los Angeles Lakers (+1.5) 2nd quarter handicap @1.61 · fair 1.68 · -4.3%
+   Golden State Warriors (+2.5) 1st quarter handicap @1.61 · fair 1.68 · -4.2%
+   Game shape (sharp line, label only): typical 116-118 | Los Angeles Lakers by 11+ 26% · Golden State Warriors by 11+ 20% · Los Angeles Lakers by 1-5 15% | total 230-239 22% · 220-229 19% · 240-249 19%
+
+02:00  Phoenix Suns v Denver Nuggets
+   Phoenix Suns to win (incl. OT) @2.49 · fair 2.52 · -1.3%
+   Denver Nuggets (+1.5) handicap @1.51 · fair 1.49 · +1.1%
+   Over 230.5 points (incl. OT) @1.87 · fair 1.92 · -2.4%
+   1st half Over 113.5 points @2.10 · fair 1.69 · +23.9%
+   1st quarter Over 56.5 points @1.90 · fair 1.66 · +14.2%
+   Phoenix Suns Over 114.5 points (incl. OT) @2.05 · fair 2.12 · -3.4%
+   Denver Nuggets Over 116.5 points (incl. OT) @1.80 · fair 1.81 · -0.4%
+   Over 230.5 points (regulation time, no OT) @1.96 · fair 2.00 · -2.0%
+   Denver Nuggets (-3.5) 1st half handicap @2.10 · fair 2.10 · +0.2%
+   Denver Nuggets (-1.5) 2nd quarter handicap @2.00 · fair 2.02 · -1.1%
+   Denver Nuggets (-2.5) 1st quarter handicap @2.15 · fair 2.21 · -2.9%
+   Denver Nuggets (-3.5) 3rd quarter handicap @2.40 · fair 2.47 · -3.0%
+   Game shape (sharp line, label only): typical 114-118 | Denver Nuggets by 11+ 34% · Denver Nuggets by 1-5 15% · Denver Nuggets by 6-10 14% | total 230-239 22% · 220-229 20% · 240-249 17%
+
+──────────────────────────────────
+NBA record (regular season): 45 picks · won 24 (53%) · £1 each returned +0.96 (+2.1%) · beat the closing line on average by +16.0%
+Line watch record: 30 picks · won 15 (50%) · £1 each returned -1.27 (-4.2%) · beat the closing line on average by +14.8%
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

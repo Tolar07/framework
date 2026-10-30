@@ -137,6 +137,48 @@
   "kickoff_utc": "2026-10-30T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Gornik Zabrze v Legia": {
+  "absent": [
+   {
+    "name": "Luk\u00e1s Sad\u00edlek",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Janis Antiste",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Michal S\u00e1cek",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jakub \u017bew\u0142akow",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Vahan Bichakhchyan",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Rafa\u0142 Adamski",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T13:40Z",
+  "away_missing_share": 0.1724066443950349,
+  "away_unavailable": 3,
+  "fotmob_id": 5804024,
+  "home_missing_share": 0.1565548244956106,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-30T19:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Grazer AK 1902 v TSV Hartberg": {
   "absent": [
    {
@@ -356,5 +398,47 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-30T19:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "SV 07 Elversberg v Mainz": {
+  "absent": [
+   {
+    "name": "Noah Darvich",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tom Zimmerschied",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jan Gyamerah",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dominik Kohr",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Otto Ruoppi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Silas Katompa Mvumpa",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-30T13:40Z",
+  "away_missing_share": 0.056779643673341915,
+  "away_unavailable": 3,
+  "fotmob_id": 5881211,
+  "home_missing_share": 0.17413649828159167,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-30T19:30:00.000Z",
+  "lineup_type": "predicted"
  }
 }

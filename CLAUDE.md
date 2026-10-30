@@ -24,6 +24,24 @@ never imported, never run (see `legacy/laptop/README.md`).
 Do not answer questions about framework state from this file or from
 inference — read those three files, the code, or the run history.
 
+## Two-session handoff (Architect standing instruction, 2026-10-30)
+
+Two Claude Code sessions run this operation from **two different Claude accounts**. They do not share
+memory, so the shared notebook is the pinned GitHub issue
+**[Tolar07/omniroute-test#54](https://github.com/Tolar07/omniroute-test/issues/54)**. Never skip this:
+
+1. **Start of every session/job:** read the latest comments —
+   `gh issue view 54 -R Tolar07/omniroute-test --comments | tail -60`.
+2. **After every action** (PR opened or merged, workflow/config/secret changed, bot restarted, fault fixed,
+   Architect decision, anything left half-done): post one comment —
+   `gh issue comment 54 -R Tolar07/omniroute-test --body "..."` in the form
+   `**[Session: <account/where>] <YYYY-MM-DD HH:MM UTC>**` / `- Did:` (repo + PR/commit links) / `- Why:` /
+   `- Open / next:` (unfinished work, things the other session must not touch).
+3. About to change something the other session touched recently? Comment first, citing its note.
+4. The repo is **public**: no tokens, keys, passwords, account numbers or private slip data in comments.
+
+---
+
 ## THE LIVE LOOP — DO NOT BREAK IT
 
 Everything runs in GitHub Actions on `main`. Times are UTC unless marked; the board slots (21:47 / 06:47) and every time on the boards are UK time, daylight saving included (`engine/uktime.py`, Architect 2026-10-15: "we are in the UK, not Lagos").

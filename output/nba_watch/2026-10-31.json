@@ -1,0 +1,69 @@
+{
+ "date": "2026-10-31",
+ "gone": [
+  "sr:match:73696954|68|total=119.5|Under 119.5",
+  "sr:match:73696948|68|total=110.5|Over 110.5"
+ ],
+ "reopen": [
+  "sr:match:73696954",
+  "sr:match:73696948"
+ ],
+ "first": {
+  "sr:match:73696946": {
+   "at": "19:05Z",
+   "spread": 1.5,
+   "total": 218.5,
+   "ml_home": 1.9524,
+   "ml_away": 1.8696
+  },
+  "sr:match:73696954": {
+   "at": "19:05Z",
+   "spread": -15.5,
+   "total": 235.5,
+   "ml_home": 1.1053,
+   "ml_away": 7.25
+  },
+  "sr:match:73696952": {
+   "at": "19:05Z",
+   "spread": 8.5,
+   "total": 222.5,
+   "ml_home": 3.5,
+   "ml_away": 1.3226
+  },
+  "sr:match:73696950": {
+   "at": "19:05Z",
+   "spread": 1.5,
+   "total": 226.5,
+   "ml_home": 2.05,
+   "ml_away": 1.8
+  },
+  "sr:match:73696948": {
+   "at": "19:05Z",
+   "spread": -5.5,
+   "total": 227.5,
+   "ml_home": 1.4587,
+   "ml_away": 2.8
+  },
+  "sr:match:73696958": {
+   "at": "19:05Z",
+   "spread": 6.5,
+   "total": 223.5,
+   "ml_home": 2.95,
+   "ml_away": 1.4202
+  },
+  "sr:match:73696960": {
+   "at": "19:05Z",
+   "spread": -8.5,
+   "total": 237.5,
+   "ml_home": 1.3077,
+   "ml_away": 3.6
+  },
+  "sr:match:73696956": {
+   "at": "19:05Z",
+   "spread": -6.5,
+   "total": 223.5,
+   "ml_home": 1.3774,
+   "ml_away": 3.15
+  }
+ }
+}

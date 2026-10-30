@@ -75,3 +75,10 @@ Created in mirror root with full deprecation notice and migration log.
 ## Two-Way Sync Status
 **Active:** `vault-memory-sync.js` (bidirectional sync between canonical vault ↔ agent memory)
 **Configured:** SessionStart/SessionEnd hooks enforce HR54 compliance on both stores
+
+- [Live, not paper](live-not-paper.md) — 2026-10-26: features go live directly; live bot no odds cap, steam-sized pot; 30-min acca cohorts
+- [To-do list 27 Oct](todo-list-2026-10-27.md) — prioritised list after the 4 live builds; fixer tokens, Kapso, Gemini cognitive core, verdict, 2nd account
+- [Work queue 27 Oct](work-queue-2026-10-27.md) — items 3,4,5,7,9 in order, one fresh session each, each starts the next; briefs + cognitive-core spec
+- [Cognitive core](cognitive-core.md) — 27-10: framework #183 + matchbook #78; multipliers SO 48 (only with earned authority); placer gap closed by #5
+- [Oracle VM clock](oracle-vm-clock.md) — 30-10: all bots started by the VM clock (matchbook-agent oracle_clock/), never a GitHub cron
+- [Verdict panel](verdict-panel.md) — 27-10 to-do #5: free Gemini+NVIDIA+OpenRouter :free panel anchored on sharp_p, line-up pass, edge stakes only with earned authority (CLV first)

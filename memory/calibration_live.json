@@ -100,17 +100,17 @@
    "n_holdout": 198
   },
   "over_3.5": {
-   "a": -0.102,
-   "adopted": "2026-10-29T11:05:14Z",
-   "b": 0.6525,
-   "brier_after": 0.22311,
-   "brier_before": 0.22315,
+   "a": -0.1026,
+   "adopted": "2026-10-30T10:19:02Z",
+   "b": 0.6519,
+   "brier_after": 0.22287,
+   "brier_before": 0.22288,
    "choice": "refit",
    "holdout_from": "2026-10-24",
    "n_fit": 491,
-   "n_holdout": 245
+   "n_holdout": 250
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-10-29T11:05:14Z"
+ "updated": "2026-10-30T10:19:02Z"
 }

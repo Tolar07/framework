@@ -88,8 +88,9 @@ check("commands.yml: can see the actions API for the single-loop guard",
       "actions: write" in _wf)
 check("commands.yml: no concurrency group to queue runs behind a 6 h job",
       "concurrency:" not in _wf)
-check("commands.yml: the hourly cron survives as a backup starter",
-      'cron: "5 * * * *"' in _wf and "handoff" in _wf)
+# Architect 2026-10-30: no GitHub cron; the Oracle VM clock (matchbook-agent oracle_clock/) starts runs
+check("commands.yml: no GitHub cron, started by hand or the Oracle VM clock",
+      "cron:" not in _wf and "workflow_dispatch:" in _wf and "handoff" in _wf)
 check("commands.yml: no trailing persist step — the loop saves each round",
       "git add clv/clv_log.json memory/" not in _wf)
 

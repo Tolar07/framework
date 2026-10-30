@@ -182,6 +182,17 @@ def pick_model(name: str, get: Callable, key: str) -> Optional[str]:
     return next((m for m in spec["prefer"] if m in listed), spec["prefer"][0])
 
 
+def _next_free(model: str, get: Callable) -> Optional[str]:
+    """The next preferred OpenRouter model after `model` that is listed as free, or None."""
+    prefer = MEMBERS["openrouter"]["prefer"]
+    try:
+        free = set(free_openrouter_models(get))
+    except Exception:  # noqa: BLE001
+        return None
+    rest = prefer[prefer.index(model) + 1:] if model in prefer else []
+    return next((m for m in rest if m in free and m.endswith(":free")), None)
+
+
 def _parse(text: str) -> dict:
     text = re.sub(r"```(?:json)?", "", text or "").strip()
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
@@ -328,7 +339,20 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
             rows = [_row(i, ctxs[i], anchors[i][0], anchors[i][1]) for i in part]
             try:
                 got = ask(name, model, key, rows, post)
-            except (RateLimited, PaidModelError, ChargedError) as e:
+            except RateLimited as e:
+                # A ":free" OpenRouter model is often throttled upstream; the next free one may answer.
+                nxt = _next_free(model, get) if name == "openrouter" else None
+                if nxt:
+                    info[name]["model"] = model = nxt
+                    try:
+                        got = ask(name, model, key, rows, post)
+                    except Exception as e2:  # noqa: BLE001
+                        info[name]["status"] = f"off for this run: {e2}"
+                        break
+                else:
+                    info[name]["status"] = f"off for this run: {e}"
+                    break
+            except (PaidModelError, ChargedError) as e:
                 info[name]["status"] = f"off for this run: {e}"
                 break
             except Exception as e:  # noqa: BLE001 — one failed batch leaves only its picks without this member

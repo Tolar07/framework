@@ -2082,7 +2082,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Energie Cottbus v Bochum",
@@ -2244,7 +2246,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Grenoble v Dijon",

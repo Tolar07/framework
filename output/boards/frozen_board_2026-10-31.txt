@@ -1,0 +1,627 @@
+##########OLP XDV#########
+==================================
+
+📅  Sat 31 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261030-2150-33a48e | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 111 · Verified: 109
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                Country · League                          AI PICK · win%                                    Odds   Alt market                                       O1.5/O2.5  DC/BTTS     Src
+15:30  Feyenoord v For Sittard                Netherlands · Eredivisie                  ✓ Under 5.5 goals · 81%                           @1.23  Feyenoord Under 4.5 goals @1.23                  O88/O69    1X87 / Y60  ✓
+17:45  PSV Eindhoven v Willem II              Netherlands · Eredivisie                  ✓ Under 6.5 goals · 80%                           @1.25  PSV Eindhoven Under 5.5 goals @1.24              O95/O85    1X97 / Y54  ✓
+17:45  Heerenveen v Nijmegen                  Netherlands · Eredivisie                  ✓ Nijmegen Over 0.5 goals · 80%                   @1.20  Nijmegen (+1.5) Asian handicap @1.30             O85/O65    1276 / Y66  ✓
+20:00  Cambuur v Go Ahead Eagles              Netherlands · Eredivisie                  ✓ Under 4.5 goals · 77%                           @1.30  Cambuur Under 2.5 goals @1.24                    O90/O73    1278 / Y73  ✓
+20:00  Ajax v AZ Alkmaar                      Netherlands · Eredivisie                  ⇄✓ Under 5 goals · 74%                            @1.20  Ajax or AZ Alkmaar @1.22                         O83/O61    1276 / Y63  ✓
+
+15:00  Mechelen v Genk                        Belgium · Pro League                      ✓ Over 1.5 goals · 79%                            @1.22  Mechelen or Genk @1.28                           O78/O55    1277 / Y55  ✓
+19:45  Beveren v St. Gilloise                 Belgium · Pro League                      ✓ Beveren or St. Gilloise · 77%                   @1.20  Beveren or St. Gilloise & Over 1.5 @1.38         O79/O57    X288 / N52  ✓
+19:45  Anderlecht v Westerlo                  Belgium · Pro League                      ⇄✓ Anderlecht or Westerlo · 76%                   @1.21  Under 4.5 goals @1.32                            O83/O61    1277 / Y63  ✓
+17:15  Standard v Kortrijk                    Belgium · Pro League                      ⇄✓ Standard or Kortrijk · 74%                     @1.26  Over 1.5 goals @1.23                             O69/U57    1X85 / N59  ✓
+
+15:00  Kilmarnock v St Johnstone              Scotland · Premiership                    ✓ Over 1.5 goals · 79%                            @1.22  Kilmarnock Over 0.5 goals @1.21                  O80/O57    1276 / Y59  ✓
+15:00  Motherwell v St Mirren                 Scotland · Premiership                    ✓ Motherwell or St Mirren · 76%                   @1.26  Under 4 goals @1.29                              O74/U51    1X80 / N51  ✓
+
+13:45  Wieczysta Krakow v Jagiellonia         Poland · Ekstraklasa                      ⇄✓ Under 4.5 goals · 80%                          @1.26  Jagiellonia Under 2.5 goals @1.20                O83/O59    1273 / Y63  ✓
+16:30  Lech Poznan v Wisla                    Poland · Ekstraklasa                      ✓ Lech Poznan (+0.5) Asian handicap · 77%         @1.24  Under 4.5 goals @1.28                            O85/O64    1X82 / Y61  ✓
+11:15  Wisla Plock v Piast Gliwice            Poland · Ekstraklasa                      ⇄✓ Over 1.5 goals · 77%                           @1.22  Wisla Plock Under 2.5 goals @1.23                O70/U58    1268 / N50  ✓
+19:15  GKS Katowice v Widzew Lodz             Poland · Ekstraklasa                      ✓ GKS Katowice or Widzew Lodz · 74%               @1.28  Under 4 goals @1.30                              O75/U52    1X79 / Y52  ✓
+
+14:00  HNK Hajduk Split v HNK Gorica          Croatia · HNL                             Over 1.5 goals · 78%                              @1.23  HNK Hajduk Split or HNK Gorica & Over 1.5 @1.36  O77/O55    1X88 / N54  ✓ᴹ
+
+15:00  West Ham v West Brom                   England · Championship                    ✓ Over 1.5 goals · 81%                            @1.21  West Ham (+0.5) Asian handicap @1.20             O81/O59    1X83 / Y55  ✓
+15:00  Bolton Wanderers v Bristol City        England · Championship                    ✓ Bolton Wanderers (+1.5) Asian handicap · 81%    @1.21  Bristol City Under 2.5 goals @1.20               O79/O55    1274 / Y59  ✓
+15:00  Burnley v Portsmouth                   England · Championship                    ✓ Portsmouth (+1.5) Asian handicap · 81%          @1.22  Over 1.5 goals @1.34                             O79/O56    1275 / Y59  ✓
+12:30  Norwich v Watford                      England · Championship                    ✓ Norwich or Watford · 78%                        @1.21  Norwich or Watford & Over 1.5 @1.39              O79/O56    1X78 / Y56  ✓
+15:00  Wolves v Cardiff City                  England · Championship                    ✓ Wolves or Cardiff City · 77%                    @1.24  Multigoals 1-4 @1.20                             O83/O62    1276 / Y63  ✓
+12:30  Lincoln City v Birmingham              England · Championship                    ✓ Birmingham Over 0.5 goals · 77%                 @1.25  Over 1.5 goals @1.31                             O73/U53    X275 / Y50  ✓
+15:00  Millwall v Derby                       England · Championship                    ✓ Over 1.5 goals · 76%                            @1.27  Millwall or Derby @1.27                          O75/O50    1X77 / Y52  ✓
+15:00  Southampton v QPR                      England · Championship                    ⇄✓ Southampton or QPR · 76%                       @1.28  Southampton Win to Nil — no @1.24                O82/O60    1277 / Y60  ✓
+12:30  Stoke v Preston                        England · Championship                    ✓ Over 1.5 goals · 75%                            @1.29  Stoke or Preston @1.28                           O72/U54    1X77 / N51  ✓
+15:00  Swansea v Blackburn                    England · Championship                    ✓ Over 1.5 goals · 74%                            @1.29  Swansea or Blackburn @1.29                       O67/U60    1X72 / N54  ✓
+15:00  Middlesbrough v Charlton               England · Championship                    ⇄✓ Multigoals 2-5 · 72%                           @1.20  Under 4.5 goals @1.35                            O79/O55    1X87 / N51  ✓
+
+17:00  Udinese v Roma                         Italy · Serie A                           ✓ Udinese or Roma · 79%                           @1.22  Multigoals 2-5 @1.20                             O80/O59    X283 / Y54  ✓
+19:45  Milan v Inter                          Italy · Serie A                           ✓ Milan or Inter · 76%                            @1.30  Multigoals 2-5 @1.20                             O84/O64    1278 / Y63  ✓
+14:00  Bologna v Monza                        Italy · Serie A                           $ Over 2.5 goals · 57%                            @1.78  Bologna or Monza @1.27                           O85/O66    1279 / Y65  ✓
+
+14:30  Leverkusen v Stuttgart                 Germany · Bundesliga                      ✓ Under 5.5 goals · 81%                           @1.22  Leverkusen or Stuttgart @1.23                    O90/O75    1281 / Y71  ✓
+17:30  Bayern Munich v Dortmund               Germany · Bundesliga                      ✓ Under 5.5 goals · 80%                           @1.27  Multigoals 2-5 @1.25                             O88/O70    1X83 / Y64  ✓
+14:30  M'gladbach v Paderborn                 Germany · Bundesliga                      ✓ M'gladbach Win to Nil — no · 78%                @1.21  M'gladbach or Paderborn @1.27                    O75/O50    1275 / Y53  ✓
+14:30  Werder Bremen v Hoffenheim             Germany · Bundesliga                      ✓ Werder Bremen or Hoffenheim · 77%               @1.27  Under 4.5 goals @1.37                            O84/O63    1277 / Y64  ✓
+14:30  Augsburg v Freiburg                    Germany · Bundesliga                      ✓ Augsburg or Freiburg · 76%                      @1.28  Multigoals 2-5 @1.20                             O85/O65    1277 / Y66  ✓
+14:30  Schalke v RB Leipzig                   Germany · Bundesliga                      ⇄✓ Schalke or RB Leipzig · 76%                    @1.26  Under 4.5 goals @1.32                            O67/U60    1272 / N54  ✓
+
+19:45  Troyes v Le Mans FC                    France · Ligue 1                          ✓ Over 1.5 goals · 77%                            @1.26  Troyes or Le Mans FC @1.32                       O82/O60    1275 / Y62  ✓
+
+20:30  Porto v Estoril                        Portugal · Primeira Liga / Liga Portugal  ⇄✓ Under 4.5 goals · 81%                          @1.22  Estoril (+3.5) Asian handicap @1.20              O80/O58    1X91 / N58  ✓
+15:30  Moreirense v Estrela                   Portugal · Primeira Liga / Liga Portugal  ✓ Over 1.5 goals · 74%                            @1.32  Moreirense or Estrela @1.34                      O76/O53    1277 / Y56  ✓
+
+15:00  Coventry City v Sunderland             England · Premier League                  ✓ Coventry City (+1.5) Asian handicap · 82%       @1.21  Over 1.5 goals @1.30                             O69/U58    1270 / N52  ✓
+15:00  Brentford v Nott'm Forest              England · Premier League                  ✓ Over 1.5 goals · 79%                            @1.22  Brentford or Nott'm Forest @1.30                 O79/O56    1275 / Y58  ✓
+20:00  Aston Villa v Fulham                   England · Premier League                  ✓ Over 1.5 goals · 79%                            @1.21  Aston Villa or Fulham @1.30                      O76/O50    1273 / Y54  ✓
+15:00  Man City v Brighton                    England · Premier League                  ✓ Man City or Brighton · 78%                      @1.23  Multigoals 2-5 @1.20                             O84/O62    1X77 / Y62  ✓
+15:00  Hull City v Ipswich Town               England · Premier League                  ✓ Over 1.5 goals · 77%                            @1.26  Hull City or Ipswich Town @1.33                  O81/O58    1275 / Y60  ✓
+15:00  Bournemouth v Leeds                    England · Premier League                  ✓ Over 1.5 goals · 77%                            @1.26  Bournemouth or Leeds @1.32                       O79/O55    1275 / Y58  ✓
+17:30  Tottenham v Crystal Palace             England · Premier League                  ✓ Tottenham or Crystal Palace · 77%               @1.23  Multigoals 2-5 @1.20                             O77/O52    1274 / Y56  ✓
+12:30  Chelsea v Man United                   England · Premier League                  ⇄✓ Chelsea or Man United · 76%                    @1.29  Under 4.5 goals @1.23                            O86/O67    1276 / Y68  ✓
+
+20:00  Barcelona v Alaves                     Spain · La Liga                           ✓ Alaves (+4.5) Asian handicap · 83%              @1.21  Over 2.5 goals @1.21                             O91/O76    1X92 / Y57  ✓
+13:00  Levante v Ath Madrid                   Spain · La Liga                           ✓ Levante or Ath Madrid · 78%                     @1.20  Levante Under 1.5 goals @1.35                    O84/O63    1276 / Y64  ✓
+17:30  Betis v Malaga CF                      Spain · La Liga                           ✓ Multigoals 1-4 · 72%                            @1.20  Betis or Malaga CF & Over 1.5 @1.29              O83/O61    1X90 / N51  ✓
+15:15  Vallecano v Celta                      Spain · La Liga                           ✓ Vallecano or Celta · 72%                        @1.35  Over 1.5 goals @1.37                             O71/U55    1272 / N50  ✓
+
+13:00  Sociedad B v Girona                    Spain · La Liga 2 / Hypermotion           ✓ Over 1.5 goals · 79%                            @1.22  Girona Win to Nil — no @1.22                     O80/O57    1277 / Y57  ✓
+17:30  Celta B v Cordoba                      Spain · La Liga 2 / Hypermotion           ⇄✓ Under 4.5 goals · 79%                          @1.25  Cordoba Win to Nil — no @1.20                    O87/O68    1278 / Y68  ✓
+15:15  Eibar v Almeria                        Spain · La Liga 2 / Hypermotion           ✓ Over 1.5 goals · 78%                            @1.24  Eibar or Almeria @1.30                           O79/O55    1276 / Y58  ✓
+20:00  Albacete v Sabadell                    Spain · La Liga 2 / Hypermotion           ✓ Albacete or Sabadell · 71%                      @1.35  Multigoals 1-3 @1.22                             O60/U67    1269 / N60  ✓
+
+14:00  Modena v Mantova                       Italy · Serie B                           ✓ Over 1.5 goals · 78%                            @1.21  Modena or Mantova @1.27                          O75/U51    1X79 / Y51  ✓
+16:15  Catanzaro v Padova                     Italy · Serie B                           ✓ Over 1.5 goals · 77%                            @1.24  Padova (+1.5) Asian handicap @1.20               O77/O52    1273 / Y56  ✓
+14:00  Cremonese v Benevento Calcio           Italy · Serie B                           ✓ Under 3.5 goals · 76%                           @1.30  Cremonese or Benevento Calcio @1.34              O63/U65    X273 / N57  ✓
+18:30  Sampdoria v Virtus Entella             Italy · Serie B                           ✓ Sampdoria Win to Nil — no · 76%                 @1.25  Under 3.5 goals @1.24                            O63/U65    1267 / N57  ✓
+14:00  Sudtirol v Cesena                      Italy · Serie B                           ✓ Under 3.5 goals · 75%                           @1.28  Sudtirol or Cesena @1.32                         O70/U57    1X74 / N51  ✓
+
+12:00  Darmstadt v Magdeburg                  Germany · 2. Bundesliga                   ✓ Under 4.5 goals · 80%                           @1.23  Darmstadt or Magdeburg @1.27                     O84/O64    1276 / Y66  ✓
+12:00  Wolfsburg v VfL 1899 Osnabruck         Germany · 2. Bundesliga                   ᴮ VfL 1899 Osnabruck (+2.5) Asian handicap · 79%  @1.24  Wolfsburg Under 3.5 goals @1.22                  O92/O79    1X85 / Y69  ✓
+19:30  Karlsruhe v Heidenheim                 Germany · 2. Bundesliga                   ✓ Karlsruhe (+1.5) Asian handicap · 76%           @1.28  Under 4.5 goals @1.27                            O88/O70    1278 / Y70  ✓
+12:00  Kaiserslautern v Hertha                Germany · 2. Bundesliga                   ⇄✓ Kaiserslautern Over 0.5 goals · 75%            @1.25  Under 4.5 goals @1.21                            O68/U59    1272 / N53  ✓
+
+13:00  Annecy v Montpellier                   France · Ligue 2                          ✓ Annecy (+1.5) Asian handicap · 81%              @1.20  Montpellier Win to Nil — no @1.21                O63/U65    X269 / N57  ✓
+19:00  Guingamp v St Etienne                  France · Ligue 2                          ✓ Over 1.5 goals · 78%                            @1.22  St Etienne (+0.5) Asian handicap @1.27           O79/O55    X281 / Y54  ✓
+
+15:00  Barnsley v Oxford United               England · League One                      ✓ Under 4.5 goals · 81%                           @1.24  Barnsley Under 2.5 goals @1.21                   O79/O56    X277 / Y56  ✓
+15:00  Wycombe Wanderers v Burton             England · League One                      ✓ Over 1.5 goals · 80%                            @1.21  Burton (+2.5) Asian handicap @1.21               O79/O56    1276 / Y58  ✓
+12:30  Plymouth v Reading                     England · League One                      ✓ Reading (+1.5) Asian handicap · 79%             @1.22  Under 4.5 goals @1.23                            O83/O62    1276 / Y63  ✓
+15:00  Milton Keynes Dons v Doncaster Rovers  England · League One                      ✓ Over 1.5 goals · 78%                            @1.21  Milton Keynes Dons Under 2.5 goals @1.26         O74/U51    1274 / Y53  ✓
+15:00  Leicester v Stevenage FC               England · League One                      ✓ Over 1.5 goals · 78%                            @1.21  Leicester or Stevenage FC @1.23                  O70/U56    1272 / N51  ✓
+15:00  Wigan v Bromley FC                     England · League One                      ✓ Wigan (+0.5) Asian handicap · 77%               @1.26  Wigan Under 2.5 goals @1.25                      O74/U51    1X81 / N51  ✓
+15:00  Peterborough United v Luton            England · League One                      ⇄✓ Peterborough United or Luton · 77%             @1.25  Under 4.5 goals @1.32                            O83/O61    1276 / Y63  ✓
+15:00  Mansfield v Notts County               England · League One                      ✓ Over 1.5 goals · 76%                            @1.25  Mansfield Under 2.5 goals @1.28                  O70/U57    1X77 / N53  ✓
+12:30  Leyton Orient v Cambridge United       England · League One                      ✓ Over 1.5 goals · 76%                            @1.27  Leyton Orient Over 0.5 goals @1.29               O77/O53    1274 / Y57  ✓
+12:30  Bradford v Huddersfield                England · League One                      ✓ Over 1.5 goals · 74%                            @1.28  Bradford or Huddersfield @1.31                   O65/U62    1270 / N55  ✓
+15:00  Stockport County FC v AFC Wimbledon    England · League One                      ★ Stockport County FC to win · 74%                @1.27  Under 4.5 goals @1.28                            O77/O53    1X87 / N53  ✓
+
+15:00  Accrington v Northampton               England · League Two                      ✓ Northampton (+1.5) Asian handicap · 80%         @1.22  Under 3.5 goals @1.26                            O53/U74    1X74 / N66  ✓
+15:00  Oldham v Crawley Town                  England · League Two                      ✓ Oldham (+0.5) Asian handicap · 79%              @1.22  Oldham or Crawley Town @1.23                     O73/U53    1X82 / N53  ✓
+15:00  Swindon v Rotherham                    England · League Two                      ✓ Over 1.5 goals · 79%                            @1.23  Swindon Over 0.5 goals @1.22                     O81/O59    1X79 / Y58  ✓
+15:00  Tranmere v Cheltenham                  England · League Two                      ✓ Over 1.5 goals · 78%                            @1.23  Tranmere Under 2.5 goals @1.28                   O81/O59    1275 / Y62  ✓
+12:30  Port Vale v Rochdale                   England · League Two                      ✓ Rochdale Under 1.5 goals · 78%                  @1.22  Port Vale Under 2.5 goals @1.29                  O62/U65    1X73 / N59  ✓
+15:00  Crewe v Barnet FC                      England · League Two                      ✓ Crewe (+1.5) Asian handicap · 78%               @1.24  Barnet FC Under 2.5 goals @1.26                  O80/O58    1275 / Y61  ✓
+12:30  Grimsby v York City FC                 England · League Two                      ✓ York City FC (+1.5) Asian handicap · 78%        @1.22  Grimsby Under 2.5 goals @1.25                    O79/O56    1275 / Y59  ✓
+15:00  Shrewsbury v Gillingham                England · League Two                      ✓ Gillingham (+1.5) Asian handicap · 77%          @1.27  Shrewsbury Over 0.5 goals @1.23                  O75/U50    1273 / Y54  ✓
+15:00  Colchester United v Walsall            England · League Two                      ✓ Over 1.5 goals · 75%                            @1.25  Colchester United Over 0.5 goals @1.27           O66/U61    1271 / N54  ✓
+15:00  Fleetwood Town v Bristol Rvs           England · League Two                      ✓ Fleetwood Town Over 0.5 goals · 73%             @1.30  Over 1.5 goals @1.26                             O71/U55    1273 / Y50  ○
+15:00  Salford v Exeter                       England · League Two                      ✓ Salford Win to Nil — no · 68%                   @1.38  Exeter Under 1.5 goals @1.28                     U51/U77    1X75 / N69  ✓
+
+15:00  Altrincham v Carlisle                  England · National League                 ✓ Under 4.5 goals · 82%                           @1.21  Carlisle Under 2.5 goals @1.24                   O75/O51    1276 / Y54  ✓
+15:00  Aldershot v Gateshead                  England · National League                 ✓ Gateshead (+2.5) Asian handicap · 82%           @1.20  Under 4.5 goals @1.21                            O79/O57    1X80 / Y54  ✓
+12:30  Forest Green Rovers v Harrogate        England · National League                 ⇄✓ Under 4.5 goals · 82%                          @1.20  Forest Green Rovers Over 0.5 goals @1.22         O84/O65    1278 / Y66  ✓
+15:00  Barrow v Eastleigh                     England · National League                 ⇄✓ Under 4.5 goals · 81%                          @1.22  Eastleigh (+2.5) Asian handicap @1.25            O82/O62    1X83 / Y56  ✓
+15:00  Worthing v Sutton                      England · National League                 ✓ Under 4.5 goals · 81%                           @1.22  Worthing or Sutton @1.26                         O85/O66    1X84 / Y59  ✓
+12:30  Halifax v Yeovil                       England · National League                 ✓ Over 1.5 goals · 80%                            @1.20  Halifax Win to Nil — no @1.20                    O78/O55    1276 / Y58  ✓
+15:00  Tamworth v Woking                      England · National League                 ✓ Woking (+1.5) Asian handicap · 79%              @1.23  Under 4.5 goals @1.25                            O82/O61    1277 / Y63  ✓
+17:30  Boston Utd v Scunthorpe United         England · National League                 ✓ Under 4.5 goals · 79%                           @1.27  Scunthorpe United Under 2.5 goals @1.24          O81/O60    1277 / Y61  ✓
+15:00  Solihull v Kidderminster               England · National League                 ✓ Over 1.5 goals · 77%                            @1.22  Kidderminster Over 0.5 goals @1.24               O68/U58    1274 / N53  ✓
+15:00  Wealdstone v Southend                  England · National League                 ✓ Southend Win to Nil — no · 77%                  @1.23  Wealdstone or Southend @1.23                     O86/O67    1280 / Y65  ✓
+15:00  Boreham Wood v Hartlepool              England · National League                 ⇄✓ Boreham Wood or Hartlepool & Over 1.5 · 72%    @1.22  Hartlepool Under 1.5 goals @1.23                 O83/O62    1X88 / Y51  ✓
+
+10:30  Erzurumspor FK v Corum FK              Turkey · Super Lig                        ✓ Corum FK Win to Nil — no · 81%                  @1.20  Over 1.5 goals @1.33                             O77/O52    1272 / Y57  ✓
+13:00  Kocaelispor v Caykur Rizespor          Turkey · Super Lig                        ⇄✓ Over 1.5 goals · 74%                           @1.31  Kocaelispor Win to Nil — no @1.20                O66/U62    1X74 / N55  ✓
+16:00  Fenerbahce Istanbul v Goztepe Izmir    Turkey · Super Lig                        ⇄✓ Multigoals 2-5 · 73%                           @1.20  Fenerbahce Istanbul Under 3.5 goals @1.26        O87/O68    1X86 / Y61  ✓
+
+17:00  AE Kifisia FC v Olympiacos             Greece · Super League                     ⇄✓ Over 1.5 goals · 74%                           @1.28  Draw or Olympiacos & Under 4.5 @1.26             O60/U70    X286 / N64  ✓
+
+16:00  SCR Altach v SV Ried                   Austria · Bundesliga                      ✓ Over 1.5 goals · 79%                            @1.21  SCR Altach Over 0.5 goals @1.20                  O73/U54    1270 / Y52  ✓
+18:30  LASK Linz v WSG Tirol                  Austria · Bundesliga                      ✓ LASK Linz Under 3.5 goals · 75%                 @1.31  Under 4.5 goals @1.38                            O88/O69    1X88 / Y59  ✓
+
+19:30  FC Luzern v FC Sion                    Switzerland · Super League                ✓ FC Sion (0:2) handicap · 82%                    @1.20  FC Luzern or FC Sion @1.25                       O85/O66    1277 / Y66  ✓
+17:00  FC St. Gallen 1879 v Servette Geneva   Switzerland · Super League                ✓ Under 4.5 goals · 80%                           @1.25  FC St. Gallen 1879 or Servette Geneva @1.25      O81/O58    1275 / Y61  ✓
+17:00  Grasshopper Club Zurich v FC Vaduz     Switzerland · Super League                ᴮ Grasshopper Club Zurich or FC Vaduz · 77%       @1.26  Multigoals 1-4 @1.22                             O89/O72    1279 / Y70  ✓
+
+15:00  Fredrikstad FK v Rosenborg BK          Norway · Eliteserien                      ✓ Over 1.5 goals · 80%                            @1.21  Fredrikstad FK or Rosenborg BK @1.27             O77/O52    1274 / Y56  ✓
+17:00  Aalesunds FK v Sandefjord Fotball      Norway · Eliteserien                      ✓ Aalesunds FK or Sandefjord Fotball · 76%        @1.27  Multigoals 1-4 @1.21                             O81/O58    1275 / Y61  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+⚠ 1 fixture(s) unresolved — NO DATA — PENDING (no market data): NK Rudes Zagreb v GNK Dinamo Zagreb (🇭🇷 Croatia · HNL)   (full detail: run log OLPXDV-20261030-2150-33a48e)
+
+TABLE 1 Mega 1 (2 legs · odds 1 · chance 1 in 2): Y3ALR4   load ↦ www.sportybet.com/ng/?shareCode=Y3ALR4
+TABLE 1 Mega 2 (6 legs · odds 3 · chance 1 in 4): YHD4KE   load ↦ www.sportybet.com/ng/?shareCode=YHD4KE
+TABLE 1 Mega 3 (4 legs · odds 2 · chance 1 in 3): W721FX   load ↦ www.sportybet.com/ng/?shareCode=W721FX
+TABLE 1 Mega 4 (5 legs · odds 4 · chance 1 in 5): WJPBR5   load ↦ www.sportybet.com/ng/?shareCode=WJPBR5
+TABLE 1 Mega 5 (23 legs · odds 100 · chance 1 in 192): Y0VD6E   load ↦ www.sportybet.com/ng/?shareCode=Y0VD6E
+TABLE 1 Mega 6 (4 legs · odds 3 · chance 1 in 3): WKH479   load ↦ www.sportybet.com/ng/?shareCode=WKH479
+TABLE 1 Mega 7 (4 legs · odds 2 · chance 1 in 3): TQLX6Q   load ↦ www.sportybet.com/ng/?shareCode=TQLX6Q
+TABLE 1 Mega 8 (9 legs · odds 7 · chance 1 in 11): W1JT07   load ↦ www.sportybet.com/ng/?shareCode=W1JT07
+TABLE 1 Mega 9 (2 legs · odds 2 · chance 1 in 2): WP5YJT   load ↦ www.sportybet.com/ng/?shareCode=WP5YJT
+TABLE 1 Mega 10 (3 legs · odds 2 · chance 1 in 2): UTB7TH   load ↦ www.sportybet.com/ng/?shareCode=UTB7TH
+TABLE 1 Mega 11 (7 legs · odds 5 · chance 1 in 6): WPKSSQ   load ↦ www.sportybet.com/ng/?shareCode=WPKSSQ
+TABLE 1 Mega 12 (5 legs · odds 3 · chance 1 in 3): Y6ZF0K   load ↦ www.sportybet.com/ng/?shareCode=Y6ZF0K
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                Country · League                          Pick                                        Chance  Odds   Certainty  Stake  Code
+15:30  Feyenoord v For Sittard                Netherlands · Eredivisie                  ✓ Under 5.5 goals                           81%     @1.23  MEDIUM     0.25%  QXMMCU
+17:45  PSV Eindhoven v Willem II              Netherlands · Eredivisie                  ✓ Under 6.5 goals                           80%     @1.25  HIGH       0.25%  M9E77N
+17:45  Heerenveen v Nijmegen                  Netherlands · Eredivisie                  ✓ Nijmegen Over 0.5 goals                   80%     @1.20  HIGH       0.25%  WY3XCQ
+20:00  Cambuur v Go Ahead Eagles              Netherlands · Eredivisie                  ✓ Under 4.5 goals                           77%     @1.30  HIGH       0.25%  YDQA96
+15:00  Mechelen v Genk                        Belgium · Pro League                      ✓ Over 1.5 goals                            79%     @1.22  HIGH       0.25%  VP98Y8
+17:15  Standard v Kortrijk                    Belgium · Pro League                      ⇄✓ Standard or Kortrijk                     74%     @1.26  HIGH       0.25%  TLY2XH
+19:45  Beveren v St. Gilloise                 Belgium · Pro League                      ✓ Beveren or St. Gilloise                   77%     @1.20  HIGH       0.25%  GHC967
+19:45  Anderlecht v Westerlo                  Belgium · Pro League                      ⇄✓ Anderlecht or Westerlo                   76%     @1.21  MEDIUM     0.25%  NP81NF
+15:00  Kilmarnock v St Johnstone              Scotland · Premiership                    ✓ Over 1.5 goals                            79%     @1.22  HIGH       0.25%  MXR4F7
+15:00  Motherwell v St Mirren                 Scotland · Premiership                    ✓ Motherwell or St Mirren                   76%     @1.26  HIGH       0.25%  HVV9WM
+11:15  Wisla Plock v Piast Gliwice            Poland · Ekstraklasa                      ⇄✓ Over 1.5 goals                           77%     @1.22  HIGH       0.25%  XQFPNK
+13:45  Wieczysta Krakow v Jagiellonia         Poland · Ekstraklasa                      ⇄✓ Under 4.5 goals                          80%     @1.26  MEDIUM     0.25%  HMWURP
+16:30  Lech Poznan v Wisla                    Poland · Ekstraklasa                      ✓ Lech Poznan (+0.5) Asian handicap         77%     @1.24  MEDIUM     0.25%  WXJ842
+19:15  GKS Katowice v Widzew Lodz             Poland · Ekstraklasa                      ✓ GKS Katowice or Widzew Lodz               74%     @1.28  MEDIUM     0.25%  V022Y4
+14:00  HNK Hajduk Split v HNK Gorica          Croatia · HNL                             Over 1.5 goals                              78%     @1.23  LOW        0.12%  LR54Q5
+12:30  Norwich v Watford                      England · Championship                    ✓ Norwich or Watford                        78%     @1.21  MEDIUM     0.25%  J584NM
+15:00  Bolton Wanderers v Bristol City        England · Championship                    ✓ Bolton Wanderers (+1.5) Asian handicap    81%     @1.21  HIGH       0.25%  HSDJ5N
+15:00  Burnley v Portsmouth                   England · Championship                    ✓ Portsmouth (+1.5) Asian handicap          81%     @1.22  LOW        0.12%  YRX98L
+15:00  West Ham v West Brom                   England · Championship                    ✓ Over 1.5 goals                            81%     @1.21  HIGH       0.25%  JMKQ3Z
+14:00  Bologna v Monza                        Italy · Serie A                           $ Over 2.5 goals                            57%     @1.78  LOW        0.12%  RKRSBJ
+17:00  Udinese v Roma                         Italy · Serie A                           ✓ Udinese or Roma                           79%     @1.22  HIGH       0.25%  RYU8CX
+19:45  Milan v Inter                          Italy · Serie A                           ✓ Milan or Inter                            76%     @1.30  HIGH       0.25%  MXR3MQ
+14:30  Leverkusen v Stuttgart                 Germany · Bundesliga                      ✓ Under 5.5 goals                           81%     @1.22  HIGH       0.25%  Y8SVPF
+14:30  M'gladbach v Paderborn                 Germany · Bundesliga                      ✓ M'gladbach Win to Nil — no                78%     @1.21  MEDIUM     0.25%  SF4ALH
+14:30  Werder Bremen v Hoffenheim             Germany · Bundesliga                      ✓ Werder Bremen or Hoffenheim               77%     @1.27  HIGH       0.25%  W7J6CD
+17:30  Bayern Munich v Dortmund               Germany · Bundesliga                      ✓ Under 5.5 goals                           80%     @1.27  MEDIUM     0.25%  YKPQ7Q
+19:45  Troyes v Le Mans FC                    France · Ligue 1                          ✓ Over 1.5 goals                            77%     @1.26  MEDIUM     0.25%  WQ5XTS
+15:30  Moreirense v Estrela                   Portugal · Primeira Liga / Liga Portugal  ✓ Over 1.5 goals                            74%     @1.32  MEDIUM     0.25%  RTQGRN
+20:30  Porto v Estoril                        Portugal · Primeira Liga / Liga Portugal  ⇄✓ Under 4.5 goals                          81%     @1.22  MEDIUM     0.25%  VYFBQZ
+15:00  Brentford v Nott'm Forest              England · Premier League                  ✓ Over 1.5 goals                            79%     @1.22  HIGH       0.25%  H6HFCF
+15:00  Coventry City v Sunderland             England · Premier League                  ✓ Coventry City (+1.5) Asian handicap       82%     @1.21  LOW        0.12%  YZ8BXX
+15:00  Man City v Brighton                    England · Premier League                  ✓ Man City or Brighton                      78%     @1.23  HIGH       0.25%  YNR1PP
+20:00  Aston Villa v Fulham                   England · Premier League                  ✓ Over 1.5 goals                            79%     @1.21  HIGH       0.25%  RE556M
+13:00  Levante v Ath Madrid                   Spain · La Liga                           ✓ Levante or Ath Madrid                     78%     @1.20  MEDIUM     0.25%  XKMT94
+15:15  Vallecano v Celta                      Spain · La Liga                           ✓ Vallecano or Celta                        72%     @1.35  HIGH       0.25%  P06WZH
+17:30  Betis v Malaga CF                      Spain · La Liga                           ✓ Multigoals 1-4                            72%     @1.20  HIGH       0.25%  V19PPW
+20:00  Barcelona v Alaves                     Spain · La Liga                           ✓ Alaves (+4.5) Asian handicap              83%     @1.21  MEDIUM     0.25%  MP07B4
+13:00  Sociedad B v Girona                    Spain · La Liga 2 / Hypermotion           ✓ Over 1.5 goals                            79%     @1.22  HIGH       0.25%  JNSNAM
+15:15  Eibar v Almeria                        Spain · La Liga 2 / Hypermotion           ✓ Over 1.5 goals                            78%     @1.24  MEDIUM     0.25%  KFQ13J
+17:30  Celta B v Cordoba                      Spain · La Liga 2 / Hypermotion           ⇄✓ Under 4.5 goals                          79%     @1.25  HIGH       0.25%  UEF27A
+20:00  Albacete v Sabadell                    Spain · La Liga 2 / Hypermotion           ✓ Albacete or Sabadell                      71%     @1.35  HIGH       0.25%  U737UK
+14:00  Modena v Mantova                       Italy · Serie B                           ✓ Over 1.5 goals                            78%     @1.21  HIGH       0.25%  KUJXBB
+14:00  Cremonese v Benevento Calcio           Italy · Serie B                           ✓ Under 3.5 goals                           76%     @1.30  HIGH       0.25%  V6SLMA
+16:15  Catanzaro v Padova                     Italy · Serie B                           ✓ Over 1.5 goals                            77%     @1.24  HIGH       0.25%  S443KT
+18:30  Sampdoria v Virtus Entella             Italy · Serie B                           ✓ Sampdoria Win to Nil — no                 76%     @1.25  MEDIUM     0.25%  U49KJU
+12:00  Kaiserslautern v Hertha                Germany · 2. Bundesliga                   ⇄✓ Kaiserslautern Over 0.5 goals            75%     @1.25  HIGH       0.25%  XAZZ8S
+12:00  Darmstadt v Magdeburg                  Germany · 2. Bundesliga                   ✓ Under 4.5 goals                           80%     @1.23  HIGH       0.25%  VFYP6X
+12:00  Wolfsburg v VfL 1899 Osnabruck         Germany · 2. Bundesliga                   ᴮ VfL 1899 Osnabruck (+2.5) Asian handicap  79%     @1.24  LOW        0.12%  RALF4L
+19:30  Karlsruhe v Heidenheim                 Germany · 2. Bundesliga                   ✓ Karlsruhe (+1.5) Asian handicap           76%     @1.28  MEDIUM     0.25%  TLY2XM
+13:00  Annecy v Montpellier                   France · Ligue 2                          ✓ Annecy (+1.5) Asian handicap              81%     @1.20  MEDIUM     0.25%  G7KEAM
+19:00  Guingamp v St Etienne                  France · Ligue 2                          ✓ Over 1.5 goals                            78%     @1.22  HIGH       0.25%  YUBYK1
+12:30  Plymouth v Reading                     England · League One                      ✓ Reading (+1.5) Asian handicap             79%     @1.22  HIGH       0.25%  Z34GV0
+15:00  Barnsley v Oxford United               England · League One                      ✓ Under 4.5 goals                           81%     @1.24  MEDIUM     0.25%  XE1EZD
+15:00  Milton Keynes Dons v Doncaster Rovers  England · League One                      ✓ Over 1.5 goals                            78%     @1.21  HIGH       0.25%  GVLAC8
+15:00  Wycombe Wanderers v Burton             England · League One                      ✓ Over 1.5 goals                            80%     @1.21  HIGH       0.25%  WWW15Q
+15:00  Accrington v Northampton               England · League Two                      ✓ Northampton (+1.5) Asian handicap         80%     @1.22  MEDIUM     0.25%  MG8649
+15:00  Oldham v Crawley Town                  England · League Two                      ✓ Oldham (+0.5) Asian handicap              79%     @1.22  MEDIUM     0.25%  K8Z6DY
+15:00  Swindon v Rotherham                    England · League Two                      ✓ Over 1.5 goals                            79%     @1.23  MEDIUM     0.25%  GHDJAE
+15:00  Tranmere v Cheltenham                  England · League Two                      ✓ Over 1.5 goals                            78%     @1.23  MEDIUM     0.25%  HL2EUW
+12:30  Forest Green Rovers v Harrogate        England · National League                 ⇄✓ Under 4.5 goals                          82%     @1.20  HIGH       0.25%  QNKPDH
+15:00  Aldershot v Gateshead                  England · National League                 ✓ Gateshead (+2.5) Asian handicap           82%     @1.20  HIGH       0.25%  W56HRV
+15:00  Altrincham v Carlisle                  England · National League                 ✓ Under 4.5 goals                           82%     @1.21  MEDIUM     0.25%  MA4VAH
+15:00  Barrow v Eastleigh                     England · National League                 ⇄✓ Under 4.5 goals                          81%     @1.22  MEDIUM     0.25%  TCC88B
+10:30  Erzurumspor FK v Corum FK              Turkey · Super Lig                        ✓ Corum FK Win to Nil — no                  81%     @1.20  HIGH       0.25%  X6QBKG
+13:00  Kocaelispor v Caykur Rizespor          Turkey · Super Lig                        ⇄✓ Over 1.5 goals                           74%     @1.31  HIGH       0.25%  UF349C
+16:00  Fenerbahce Istanbul v Goztepe Izmir    Turkey · Super Lig                        ⇄✓ Multigoals 2-5                           73%     @1.20  HIGH       0.25%  G5CDWJ
+17:00  AE Kifisia FC v Olympiacos             Greece · Super League                     ⇄✓ Over 1.5 goals                           74%     @1.28  MEDIUM     0.25%  RBSWQX
+16:00  SCR Altach v SV Ried                   Austria · Bundesliga                      ✓ Over 1.5 goals                            79%     @1.21  HIGH       0.25%  M3A5P9
+18:30  LASK Linz v WSG Tirol                  Austria · Bundesliga                      ✓ LASK Linz Under 3.5 goals                 75%     @1.31  HIGH       0.25%  XSA3TN
+17:00  FC St. Gallen 1879 v Servette Geneva   Switzerland · Super League                ✓ Under 4.5 goals                           80%     @1.25  MEDIUM     0.25%  T1BZFD
+17:00  Grasshopper Club Zurich v FC Vaduz     Switzerland · Super League                ᴮ Grasshopper Club Zurich or FC Vaduz       77%     @1.26  LOW        0.12%  H7U0ZT
+19:30  FC Luzern v FC Sion                    Switzerland · Super League                ✓ FC Sion (0:2) handicap                    82%     @1.20  MEDIUM     0.25%  G092U9
+15:00  Fredrikstad FK v Rosenborg BK          Norway · Eliteserien                      ✓ Over 1.5 goals                            80%     @1.21  HIGH       0.25%  R7JJCL
+17:00  Aalesunds FK v Sandefjord Fotball      Norway · Eliteserien                      ✓ Aalesunds FK or Sandefjord Fotball        76%     @1.27  HIGH       0.25%  URFHQH
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 69 of 74 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 5 quoted by no second book.
+Sharp check: 0 of 13 picks priced above the Betfair Exchange's fair odds (margin removed; average -4.7% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+⇄ SWITCHED — 12 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Standard v Kortrijk (🇧🇪 Belgium · Pro League) — was Over 1.5 goals (model and SportyBet disagree) → now Standard or Kortrijk (74%, HIGH)
+   • Anderlecht v Westerlo (🇧🇪 Belgium · Pro League) — was Under 4.5 goals (model and SportyBet disagree) → now Anderlecht or Westerlo (76%, MEDIUM)
+   • Wisla Plock v Piast Gliwice (🇵🇱 Poland · Ekstraklasa) — was Piast Gliwice (+1.5) Asian handicap (model and SportyBet disagree) → now Over 1.5 goals (77%, HIGH)
+   • Wieczysta Krakow v Jagiellonia (🇵🇱 Poland · Ekstraklasa) — was Jagiellonia Under 2.5 goals (the two prediction models disagree on the result) → now Under 4.5 goals (80%, MEDIUM)
+   • Porto v Estoril (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — was Porto to win (the two prediction models disagree on the result) → now Under 4.5 goals (81%, MEDIUM)
+   • Celta B v Cordoba (🇪🇸 Spain · La Liga 2 / Hypermotion) — was Cordoba Win to Nil — no (model and SportyBet disagree) → now Under 4.5 goals (79%, HIGH)
+   • Kaiserslautern v Hertha (🇩🇪 Germany · 2. Bundesliga) — was Kaiserslautern (+1.5) Asian handicap (model and SportyBet disagree) → now Kaiserslautern Over 0.5 goals (75%, HIGH)
+   • Forest Green Rovers v Harrogate (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — was Forest Green Rovers Over 0.5 goals (the two prediction models disagree on the result) → now Under 4.5 goals (82%, HIGH)
+   • Barrow v Eastleigh (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — was Eastleigh (+2.5) Asian handicap (the two prediction models disagree on the result) → now Under 4.5 goals (81%, MEDIUM)
+   • Kocaelispor v Caykur Rizespor (🇹🇷 Turkey · Super Lig) — was Kocaelispor Win to Nil — no (LOW certainty) → now Over 1.5 goals (74%, HIGH)
+   • Fenerbahce Istanbul v Goztepe Izmir (🇹🇷 Turkey · Super Lig) — was Fenerbahce Istanbul Under 3.5 goals (the two prediction models disagree on the result) → now Multigoals 2-5 (73%, HIGH)
+   • AE Kifisia FC v Olympiacos (🇬🇷 Greece · Super League) — was Draw or Olympiacos & Under 4.5 (the two prediction models disagree on the result) → now Over 1.5 goals (74%, MEDIUM)
+
+⚠ TEAM NEWS — 2 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • RISK: Burnley v Portsmouth (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Portsmouth missing 29% of value (Josh Murphy, Colby Bishop, Benjamin Arthur); support: Burnley missing 58%
+   • RISK: Coventry City v Sunderland (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Coventry City missing 31% of value (Haji Wright, Aurèle Amenda, Josh Eccles); support: Sunderland missing 18%
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Feyenoord v For Sittard: tempo 3.4 goals/game · draw tendency 30% · open, high-scoring pairing | Feyenoord 2.4-1.1 a game, draws 40%, BTTS 65%, clean sheets 30%, SoT 6.9-3.5 | For Sittard 1.5-1.9 a game, draws 20%, BTTS 75%, clean sheets 10%, SoT 4.5-5.6
+   • PSV Eindhoven v Willem II: tempo 4.3 goals/game · draw tendency 18% · open, high-scoring pairing | PSV Eindhoven 3.0-1.4 a game, draws 15%, BTTS 90%, clean sheets 10%, SoT 7.5-5.0 | Willem II 1.0-3.2 a game, draws 20%, BTTS 80%, clean sheets 0%, SoT 2.7-7.6
+   • Heerenveen v Nijmegen: tempo 3.1 goals/game · draw tendency 35% · both draw-prone · open, high-scoring pairing | Heerenveen 1.8-1.2 a game, draws 25%, BTTS 45%, clean sheets 35%, SoT 5.7-5.0 | Nijmegen 1.8-1.6 a game, draws 45%, BTTS 85%, clean sheets 10%, SoT 5.8-4.7
+   • Cambuur v Go Ahead Eagles: tempo 4.0 goals/game · draw tendency 35% · both draw-prone · open, high-scoring pairing | Cambuur 1.9-2.2 a game, draws 30%, BTTS 70%, clean sheets 20%, SoT 5.0-5.4 | Go Ahead Eagles 2.0-1.9 a game, draws 40%, BTTS 70%, clean sheets 25%, SoT 5.5-5.5
+   • Mechelen v Genk: tempo 3.1 goals/game · draw tendency 38% · both draw-prone · a side often fails to score | Mechelen 1.0-2.2 a game, draws 30%, BTTS 50%, clean sheets 15%, SoT 2.9-5.8 | Genk 1.7-1.2 a game, draws 45%, BTTS 50%, clean sheets 40%, SoT 5.7-3.6
+   • Standard v Kortrijk: tempo 2.7 goals/game · draw tendency 12% · a side often fails to score | Standard 1.6-1.3 a game, draws 25%, BTTS 65%, clean sheets 25%, SoT 4.3-4.7 | Kortrijk 0.2-2.2 a game, draws 0%, BTTS 12%, clean sheets 12%, SoT 2.6-5.4
+   • Beveren v St. Gilloise: tempo 3.2 goals/game · draw tendency 16% · open, high-scoring pairing | Beveren 1.3-2.0 a game, draws 11%, BTTS 33%, clean sheets 33%, SoT 3.7-5.3 | St. Gilloise 2.3-0.8 a game, draws 20%, BTTS 45%, clean sheets 50%, SoT 6.7-2.5
+   • Anderlecht v Westerlo: tempo 3.5 goals/game · draw tendency 18% · open, high-scoring pairing | Anderlecht 1.4-1.8 a game, draws 15%, BTTS 60%, clean sheets 20%, SoT 5.3-5.0 | Westerlo 1.9-1.9 a game, draws 20%, BTTS 55%, clean sheets 30%, SoT 5.2-5.1
+   • Kilmarnock v St Johnstone: tempo 2.9 goals/game · draw tendency 26% | Kilmarnock 1.4-1.7 a game, draws 15%, BTTS 45%, clean sheets 30%, SoT 4.1-4.8 | St Johnstone 1.2-1.5 a game, draws 36%, BTTS 64%, clean sheets 9%, SoT 3.4-5.8
+   • Motherwell v St Mirren: tempo 2.7 goals/game · draw tendency 20% · a side often fails to score | Motherwell 1.2-1.8 a game, draws 25%, BTTS 55%, clean sheets 20%, SoT 4.6-5.0 | St Mirren 0.9-1.4 a game, draws 15%, BTTS 35%, clean sheets 25%, SoT 3.9-4.1
+   • Norwich v Watford: tempo 2.9 goals/game · draw tendency 15% · a side often fails to score | Norwich 1.6-1.6 a game, draws 10%, BTTS 70%, clean sheets 5%, SoT 5.0-4.2 | Watford 0.7-1.9 a game, draws 20%, BTTS 45%, clean sheets 10%, SoT 4.0-5.5
+   • Bolton Wanderers v Bristol City: tempo 2.8 goals/game · draw tendency 21% · a side often fails to score | Bolton 1.3-1.9 a game, draws 17%, BTTS 58%, clean sheets 25%, SoT 4.7-5.6 | Bristol City 1.1-1.2 a game, draws 25%, BTTS 50%, clean sheets 25%, SoT 4.1-3.5
+   • Burnley v Portsmouth: tempo 3.1 goals/game · draw tendency 36% · both draw-prone | Burnley 1.4-2.1 a game, draws 42%, BTTS 92%, clean sheets 8%, SoT 4.2-5.3 | Portsmouth 1.4-1.2 a game, draws 30%, BTTS 60%, clean sheets 30%, SoT 3.3-3.8
+   • West Ham v West Brom: tempo 3.0 goals/game · draw tendency 34% · both draw-prone | West Ham 2.7-1.2 a game, draws 33%, BTTS 67%, clean sheets 33%, SoT 6.6-3.6 | West Brom 1.2-0.8 a game, draws 35%, BTTS 50%, clean sheets 40%, SoT 3.9-3.4
+   • Bologna v Monza: tempo 3.4 goals/game · draw tendency 16% · open, high-scoring pairing · a side often fails to score | Bologna 1.2-1.3 a game, draws 20%, BTTS 45%, clean sheets 25%, SoT 3.6-3.5 | Monza 1.8-2.4 a game, draws 11%, BTTS 89%, clean sheets 11%, SoT 5.6-5.6
+   • Udinese v Roma: tempo 2.9 goals/game · draw tendency 22% · a side often fails to score | Udinese 1.1-1.4 a game, draws 25%, BTTS 35%, clean sheets 30%, SoT 4.2-4.9 | Roma 2.2-1.0 a game, draws 20%, BTTS 45%, clean sheets 55%, SoT 5.2-4.0
+   • Milan v Inter: tempo 3.2 goals/game · draw tendency 25% · open, high-scoring pairing | Milan 1.4-1.3 a game, draws 20%, BTTS 50%, clean sheets 30%, SoT 4.0-4.2 | Inter 2.5-1.2 a game, draws 30%, BTTS 65%, clean sheets 30%, SoT 5.9-3.5
+   • Leverkusen v Stuttgart: tempo 3.8 goals/game · draw tendency 28% · open, high-scoring pairing | Leverkusen 2.0-1.6 a game, draws 30%, BTTS 70%, clean sheets 20%, SoT 5.8-4.9 | Stuttgart 2.1-1.7 a game, draws 25%, BTTS 65%, clean sheets 20%, SoT 6.2-5.5
+   • M'gladbach v Paderborn: tempo 2.8 goals/game · draw tendency 24% · a side often fails to score | M'gladbach 1.4-2.0 a game, draws 20%, BTTS 55%, clean sheets 25%, SoT 4.3-6.7 | Paderborn 0.9-1.3 a game, draws 29%, BTTS 29%, clean sheets 29%, SoT 3.4-5.6
+   • Werder Bremen v Hoffenheim: tempo 3.5 goals/game · draw tendency 20% · open, high-scoring pairing | Werder Bremen 1.5-1.8 a game, draws 20%, BTTS 70%, clean sheets 10%, SoT 5.1-4.9 | Hoffenheim 1.8-1.9 a game, draws 20%, BTTS 70%, clean sheets 15%, SoT 5.6-4.2
+   • Bayern Munich v Dortmund: tempo 3.7 goals/game · draw tendency 18% · open, high-scoring pairing | Bayern Munich 3.4-1.1 a game, draws 20%, BTTS 70%, clean sheets 30%, SoT 8.7-3.8 | Dortmund 1.9-0.9 a game, draws 15%, BTTS 40%, clean sheets 50%, SoT 5.0-3.6
+   • Troyes v Le Mans FC: tempo 3.0 goals/game · draw tendency 38% · both draw-prone · a side often fails to score | Troyes 0.6-2.0 a game, draws 25%, BTTS 38%, clean sheets 25%, SoT 2.8-4.5 | Le Mans 1.4-2.0 a game, draws 50%, BTTS 88%, clean sheets 0%, SoT 3.8-5.4
+   • Moreirense v Estrela: tempo 2.7 goals/game · draw tendency 35% · both draw-prone · a side often fails to score | Moreirense 0.9-1.6 a game, draws 30%, BTTS 50%, clean sheets 15%, SoT 3.0-4.8 | Estrela 1.3-1.6 a game, draws 40%, BTTS 55%, clean sheets 15%, SoT 4.0-4.2
+   • Porto v Estoril: tempo 2.6 goals/game · draw tendency 18% · a side often fails to score | Porto 2.1-0.8 a game, draws 10%, BTTS 55%, clean sheets 45%, SoT 5.8-2.9 | Estoril 0.7-1.6 a game, draws 25%, BTTS 55%, clean sheets 15%, SoT 4.0-4.5
+   • Brentford v Nott'm Forest: tempo 2.7 goals/game · draw tendency 50% · both draw-prone | Brentford 1.4-1.3 a game, draws 60%, BTTS 60%, clean sheets 30%, SoT 3.9-4.8 | Nott'm Forest 1.4-1.1 a game, draws 40%, BTTS 60%, clean sheets 20%, SoT 4.1-4.1
+   • Coventry City v Sunderland: tempo 2.6 goals/game · draw tendency 12% · a side often fails to score | Coventry 0.8-1.9 a game, draws 0%, BTTS 25%, clean sheets 12%, SoT 3.1-4.5 | Sunderland 1.1-1.6 a game, draws 25%, BTTS 50%, clean sheets 25%, SoT 3.7-4.2
+   • Man City v Brighton: tempo 3.1 goals/game · draw tendency 15% | Man City 2.1-1.0 a game, draws 20%, BTTS 60%, clean sheets 40%, SoT 5.8-3.5 | Brighton 2.0-0.9 a game, draws 10%, BTTS 30%, clean sheets 50%, SoT 5.5-3.5
+   • Aston Villa v Fulham: tempo 2.6 goals/game · draw tendency 25% · a side often fails to score | Aston Villa 1.4-1.7 a game, draws 25%, BTTS 65%, clean sheets 15%, SoT 4.0-4.8 | Fulham 1.0-1.1 a game, draws 25%, BTTS 40%, clean sheets 35%, SoT 4.0-3.6
+   • Levante v Ath Madrid: tempo 3.2 goals/game · draw tendency 25% · open, high-scoring pairing | Levante 1.6-1.9 a game, draws 40%, BTTS 70%, clean sheets 20%, SoT 4.3-5.2 | Ath Madrid 2.0-0.8 a game, draws 10%, BTTS 40%, clean sheets 50%, SoT 6.2-3.3
+   • Vallecano v Celta: tempo 2.6 goals/game · draw tendency 47% · both draw-prone · a side often fails to score | Vallecano 1.3-2.2 a game, draws 33%, BTTS 89%, clean sheets 0%, SoT 4.7-5.8 | Celta 1.0-0.7 a game, draws 60%, BTTS 40%, clean sheets 50%, SoT 3.3-4.1
+   • Betis v Malaga CF: tempo 3.1 goals/game · draw tendency 30% | Betis 1.6-1.4 a game, draws 20%, BTTS 50%, clean sheets 50%, SoT 5.9-6.0 | Malaga 1.5-1.7 a game, draws 40%, BTTS 70%, clean sheets 15%, SoT 4.5-5.5
+   • Barcelona v Alaves: tempo 3.8 goals/game · draw tendency 15% · open, high-scoring pairing | Barcelona 4.0-1.1 a game, draws 0%, BTTS 60%, clean sheets 40%, SoT 8.2-3.3 | Alaves 1.4-1.1 a game, draws 30%, BTTS 60%, clean sheets 30%, SoT 4.7-4.2
+   • Sociedad B v Girona: tempo 2.8 goals/game · draw tendency 29% · a side often fails to score | Sociedad B 1.1-1.7 a game, draws 30%, BTTS 65%, clean sheets 10%, SoT 4.0-4.8 | Girona 2.0-0.9 a game, draws 27%, BTTS 64%, clean sheets 36%, SoT 5.2-4.0
+   • Eibar v Almeria: tempo 3.0 goals/game · draw tendency 10% | Eibar 1.8-1.1 a game, draws 10%, BTTS 50%, clean sheets 45%, SoT 4.2-5.1 | Almeria 1.9-1.3 a game, draws 10%, BTTS 55%, clean sheets 35%, SoT 5.2-4.8
+   • Celta B v Cordoba: tempo 3.2 goals/game · draw tendency 16% · open, high-scoring pairing | Celta B 1.5-1.9 a game, draws 27%, BTTS 64%, clean sheets 18%, SoT 4.9-5.2 | Cordoba 1.6-1.5 a game, draws 5%, BTTS 70%, clean sheets 20%, SoT 5.4-4.3
+   • Albacete v Sabadell: tempo 2.4 goals/game · draw tendency 25% · a side often fails to score | Albacete 1.1-1.8 a game, draws 5%, BTTS 60%, clean sheets 10%, SoT 4.1-4.9 | Sabadell 1.0-0.8 a game, draws 45%, BTTS 45%, clean sheets 36%, SoT 3.7-3.2
+   • Modena v Mantova: tempo 2.8 goals/game · draw tendency 18% | Modena 1.5-1.1 a game, draws 20%, BTTS 65%, clean sheets 20%, SoT 4.8-4.0 | Mantova 1.6-1.2 a game, draws 15%, BTTS 45%, clean sheets 35%, SoT 4.9-4.0
+   • Cremonese v Benevento Calcio: tempo 2.3 goals/game · draw tendency 33% · both draw-prone · a side often fails to score | Cremonese 0.9-1.2 a game, draws 33%, BTTS 33%, clean sheets 33%, SoT 4.1-4.3 | Benevento 1.6-0.9 a game, draws 33%, BTTS 56%, clean sheets 33%, SoT 4.7-2.8
+   • Catanzaro v Padova: tempo 3.0 goals/game · draw tendency 22% | Catanzaro 1.6-2.1 a game, draws 35%, BTTS 90%, clean sheets 5%, SoT 4.5-5.0 | Padova 1.0-1.3 a game, draws 10%, BTTS 40%, clean sheets 35%, SoT 3.1-5.8
+   • Sampdoria v Virtus Entella: tempo 2.2 goals/game · draw tendency 28% · a side often fails to score | Sampdoria 0.8-1.5 a game, draws 25%, BTTS 50%, clean sheets 20%, SoT 4.0-3.6 | Virtus Entella 1.1-1.1 a game, draws 30%, BTTS 55%, clean sheets 20%, SoT 4.2-3.1
+   • Kaiserslautern v Hertha: tempo 2.5 goals/game · draw tendency 15% · a side often fails to score | Kaiserslautern 1.1-0.9 a game, draws 15%, BTTS 15%, clean sheets 60%, SoT 4.4-4.9 | Hertha 1.8-1.2 a game, draws 15%, BTTS 65%, clean sheets 20%, SoT 5.3-4.0
+   • Darmstadt v Magdeburg: tempo 3.1 goals/game · draw tendency 20% · a side often fails to score | Darmstadt 1.1-1.9 a game, draws 30%, BTTS 60%, clean sheets 10%, SoT 3.6-5.6 | Magdeburg 1.9-1.3 a game, draws 10%, BTTS 50%, clean sheets 30%, SoT 5.3-4.8
+   • Wolfsburg v VfL 1899 Osnabruck: tempo 3.7 goals/game · draw tendency 33% · both draw-prone · open, high-scoring pairing | Wolfsburg 2.6-1.6 a game, draws 44%, BTTS 67%, clean sheets 22%, SoT 6.9-5.3 | Osnabruck 1.6-1.7 a game, draws 22%, BTTS 67%, clean sheets 22%, SoT 5.0-4.7
+   • Karlsruhe v Heidenheim: tempo 3.6 goals/game · draw tendency 27% · open, high-scoring pairing · a side often fails to score | Karlsruhe 1.5-2.0 a game, draws 20%, BTTS 60%, clean sheets 10%, SoT 5.0-5.8 | Heidenheim 1.8-1.8 a game, draws 33%, BTTS 67%, clean sheets 33%, SoT 6.2-5.4
+   • Annecy v Montpellier: tempo 2.4 goals/game · draw tendency 25% | Annecy 1.6-1.3 a game, draws 10%, BTTS 60%, clean sheets 30%, SoT 4.0-3.4 | Montpellier 1.3-0.6 a game, draws 40%, BTTS 40%, clean sheets 60%, SoT 4.7-3.9
+   • Guingamp v St Etienne: tempo 2.6 goals/game · draw tendency 20% · a side often fails to score | Guingamp 1.0-1.4 a game, draws 25%, BTTS 50%, clean sheets 20%, SoT 4.5-4.5 | St Etienne 2.0-0.8 a game, draws 15%, BTTS 40%, clean sheets 50%, SoT 5.5-2.8
+   • Plymouth v Reading: tempo 3.0 goals/game · draw tendency 20% | Plymouth 1.8-1.4 a game, draws 15%, BTTS 60%, clean sheets 20%, SoT 5.5-3.8 | Reading 1.6-1.1 a game, draws 25%, BTTS 55%, clean sheets 25%, SoT 4.0-4.2
+   • Barnsley v Oxford United: tempo 2.7 goals/game · draw tendency 31% | Barnsley 1.0-1.7 a game, draws 25%, BTTS 65%, clean sheets 15%, SoT 4.3-4.5 | Oxford 1.7-0.9 a game, draws 36%, BTTS 64%, clean sheets 36%, SoT 4.4-4.1
+   • Milton Keynes Dons v Doncaster Rovers: tempo 2.7 goals/game · draw tendency 35% · both draw-prone | Milton Keynes Dons 1.3-1.6 a game, draws 50%, BTTS 67%, clean sheets 25%, SoT 3.5-4.8 | Doncaster 1.1-1.3 a game, draws 20%, BTTS 45%, clean sheets 30%, SoT 4.1-4.4
+   • Wycombe Wanderers v Burton: tempo 3.0 goals/game · draw tendency 42% · both draw-prone | Wycombe 1.6-2.0 a game, draws 35%, BTTS 70%, clean sheets 15%, SoT 5.1-4.7 | Burton 1.2-1.2 a game, draws 50%, BTTS 65%, clean sheets 20%, SoT 3.8-3.6
+   • Accrington v Northampton: tempo 2.3 goals/game · draw tendency 38% · both draw-prone · a side often fails to score | Accrington 1.6-1.5 a game, draws 40%, BTTS 60%, clean sheets 25%, SoT 4.4-4.2 | Northampton 0.7-0.7 a game, draws 36%, BTTS 27%, clean sheets 36%, SoT 3.8-2.8
+   • Oldham v Crawley Town: tempo 2.8 goals/game · draw tendency 28% · a side often fails to score | Oldham 1.4-1.6 a game, draws 20%, BTTS 60%, clean sheets 20%, SoT 4.0-4.0 | Crawley Town 1.1-1.6 a game, draws 35%, BTTS 55%, clean sheets 20%, SoT 4.0-4.0
+   • Swindon v Rotherham: tempo 2.8 goals/game · draw tendency 41% · both draw-prone · a side often fails to score | Swindon 1.0-1.5 a game, draws 35%, BTTS 55%, clean sheets 10%, SoT 3.2-6.0 | Rotherham 1.3-1.8 a game, draws 46%, BTTS 69%, clean sheets 8%, SoT 3.8-4.2
+   • Tranmere v Cheltenham: tempo 2.9 goals/game · draw tendency 32% · both draw-prone | Tranmere 1.1-1.3 a game, draws 45%, BTTS 60%, clean sheets 20%, SoT 3.8-4.3 | Cheltenham 1.6-1.8 a game, draws 20%, BTTS 70%, clean sheets 15%, SoT 3.1-4.5
+   • Forest Green Rovers v Harrogate: tempo 3.5 goals/game · draw tendency 13% · open, high-scoring pairing | Forest Green 1.9-1.4 a game, draws 20%, BTTS 60%, clean sheets 25%, SoT 5.1-4.5 | Harrogate 2.1-1.4 a game, draws 7%, BTTS 67%, clean sheets 27%, SoT 6.7-3.2
+   • Aldershot v Gateshead: tempo 2.6 goals/game · draw tendency 12% · a side often fails to score | Aldershot 0.9-1.4 a game, draws 15%, BTTS 50%, clean sheets 10%, SoT 4.1-4.7 | Gateshead 0.8-2.0 a game, draws 10%, BTTS 45%, clean sheets 20%, SoT 2.9-6.5
+   • Altrincham v Carlisle: tempo 2.8 goals/game · draw tendency 20% | Altrincham 1.4-1.2 a game, draws 5%, BTTS 65%, clean sheets 20%, SoT 4.4-5.0 | Carlisle 1.9-1.1 a game, draws 35%, BTTS 60%, clean sheets 35%, SoT 6.1-4.3
+   • Barrow v Eastleigh: tempo 2.9 goals/game · draw tendency 23% | Barrow 1.8-1.3 a game, draws 21%, BTTS 64%, clean sheets 21%, SoT 5.2-4.5 | Eastleigh 1.2-1.5 a game, draws 25%, BTTS 65%, clean sheets 15%, SoT 2.9-4.6
+   • Erzurumspor FK v Corum FK: tempo 2.9 goals/game · draw tendency 17% · a side often fails to score | Erzurumspor 0.9-1.3 a game, draws 22%, BTTS 22%, clean sheets 44%, SoT 2.9-4.3 | Corum 2.0-1.7 a game, draws 11%, BTTS 56%, clean sheets 22%, SoT 5.1-5.2
+   • Kocaelispor v Caykur Rizespor: tempo 2.5 goals/game · draw tendency 18% · a side often fails to score | Kocaelispor 0.8-1.1 a game, draws 20%, BTTS 40%, clean sheets 25%, SoT 2.8-3.8 | Rizespor 1.4-1.6 a game, draws 15%, BTTS 50%, clean sheets 20%, SoT 4.8-4.9
+   • Fenerbahce Istanbul v Goztepe Izmir: tempo 3.5 goals/game · draw tendency 30% · open, high-scoring pairing | Fenerbahce 2.4-1.2 a game, draws 20%, BTTS 50%, clean sheets 40%, SoT 6.4-4.2 | Goztep 1.7-1.6 a game, draws 40%, BTTS 65%, clean sheets 25%, SoT 5.4-4.1
+   • AE Kifisia FC v Olympiacos: tempo 1.9 goals/game · draw tendency 32% · both draw-prone · low-scoring pairing · a side often fails to score | Kifisia 1.0-1.1 a game, draws 35%, BTTS 45%, clean sheets 40%, SoT 4.6-3.1 | Olympiakos 1.2-0.5 a game, draws 30%, BTTS 25%, clean sheets 65%, SoT 5.6-2.2
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • PSV Eindhoven v Willem II: PSV Eindhoven: possession side v low block; PSV Eindhoven: elite attack v leaky defence; Willem II: high press v build-up side; Willem II: blunt attack v tight defence -> BTTS & goals · xG 3.06-1.10 · BTTS 64% · O2.5 78% · corners ~10.5 · pick 87% on the matchup
+   • Heerenveen v Nijmegen: no tactical clash flagged -> BTTS & goals · xG 2.37-1.24 · BTTS 64% · O2.5 70% · corners ~9.2 · pick 71% on the matchup
+   • Cambuur v Go Ahead Eagles: Cambuur: counter side v high line; Cambuur: high press v build-up side; Cambuur: counter side v counter-exposed; Go Ahead Eagles: possession side v low block -> BTTS & goals · xG 1.77-1.97 · BTTS 71% · O2.5 72% · corners ~10.5 · pick 83% on the matchup
+   • Mechelen v Genk: KV Mechelen: high press v build-up side; KV Mechelen: blunt attack v tight defence; Genk: possession side v low block -> no strong goals lean · xG 1.41-1.41 · BTTS 57% · O2.5 53% · corners ~10.0 · pick 77% on the matchup
+   • Standard v Kortrijk: both high lines + an elite attack; Standard Liège: counter side v high line; Standard Liège: set-piece threat v weak set-piece defence; Standard Liège: aerial threat v weak in the air; Standard Liège: elite attack v leaky defence; Standard Liège: counter side v counter-exposed; Kortrijk: counter side v high line -> no strong goals lean · xG 2.85-0.85 · BTTS 54% · O2.5 72% · corners ~10.3 · pick 92% on the matchup · ⚑ Home Over 1.5 goals fits the matchup better: matchup 78% @ 1.69 (value +31%)
+   • Beveren v St. Gilloise: SK Beveren: blunt attack v tight defence; Union St.Gilloise: elite attack v leaky defence -> no strong goals lean · xG 1.14-1.81 · BTTS 57% · O2.5 56% · corners ~9.5 · pick 86% on the matchup
+   • Anderlecht v Westerlo: no tactical clash flagged -> no strong goals lean · xG 2.31-0.96 · BTTS 56% · O2.5 64% · corners ~9.2 · pick 75% on the matchup
+   • Kilmarnock v St Johnstone: no tactical clash flagged -> BTTS & goals · xG 1.82-1.55 · BTTS 66% · O2.5 66% · corners ~11.5 · pick 85% on the matchup
+   • Motherwell v St Mirren: St. Mirren: counter side v high line; St. Mirren: high press v build-up side; St. Mirren: counter side v counter-exposed -> BTTS & goals · xG 2.01-1.12 · BTTS 58% · O2.5 61% · corners ~10.3 · pick 79% on the matchup
+   • Wisla Plock v Piast Gliwice: Wisła Płock: high press v build-up side -> no strong goals lean · xG 1.83-1.15 · BTTS 57% · O2.5 57% · corners ~10.9 · pick 70% on the matchup
+   • Wieczysta Krakow v Jagiellonia: Wieczysta Kraków: counter side v high line; Jagiellonia Białystok: high press v build-up side -> BTTS & goals · xG 1.79-1.45 · BTTS 64% · O2.5 63% · corners ~9.8 · pick 75% on the matchup
+   • GKS Katowice v Widzew Lodz: both high lines + an elite attack; GKS Katowice: elite attack v leaky defence; Widzew Łódź: set-piece threat v weak set-piece defence; Widzew Łódź: aerial threat v weak in the air -> BTTS & goals · xG 1.85-1.64 · BTTS 68% · O2.5 68% · corners ~11.2 · pick 77% on the matchup
+   • Norwich v Watford: Norwich City: possession side v low block; Watford: counter side v high line; Watford: counter side v counter-exposed -> no strong goals lean · xG 1.98-0.98 · BTTS 54% · O2.5 57% · corners ~8.9 · pick 82% on the matchup
+   • Bolton Wanderers v Bristol City: Bristol City: set-piece threat v weak set-piece defence; Bristol City: aerial threat v weak in the air -> BTTS & goals · xG 1.53-1.70 · BTTS 64% · O2.5 63% · corners ~10.9 · pick 78% on the matchup · ⚑ Over 1.5 goals fits the matchup better: matchup 83% @ 1.26 (value +5%)
+   • Burnley v Portsmouth: no tactical clash flagged -> unders / one side blank · xG 0.96-1.21 · BTTS 43% · O2.5 37% · corners ~9.8 · pick 89% on the matchup
+   • West Ham v West Brom: West Ham United: set-piece threat v weak set-piece defence; West Ham United: aerial threat v weak in the air; West Bromwich Albion: aerial threat v weak in the air -> no strong goals lean · xG 2.42-0.94 · BTTS 56% · O2.5 65% · corners ~11.8 · pick 85% on the matchup
+   • Bologna v Monza: no tactical clash flagged -> no strong goals lean · xG 1.33-1.55 · BTTS 58% · O2.5 55% · corners ~8.6 · pick 55% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 79% @ 1.53 (value +21%)
+   • Udinese v Roma: Udinese: blunt attack v tight defence; Roma: high press v build-up side; Roma: elite attack v leaky defence -> BTTS & goals · xG 1.19-2.39 · BTTS 63% · O2.5 70% · corners ~9.4 · pick 77% on the matchup
+   • Milan v Inter: Milan: high press v build-up side -> BTTS & goals · xG 1.77-2.00 · BTTS 72% · O2.5 72% · corners ~7.9 · pick 85% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 83% @ 1.32 (value +9%)
+   • Leverkusen v Stuttgart: Bayer Leverkusen: elite attack v leaky defence -> BTTS & goals · xG 2.61-1.28 · BTTS 67% · O2.5 75% · corners ~11.0 · pick 74% on the matchup
+   • Werder Bremen v Hoffenheim: Werder Bremen: high press v build-up side -> BTTS & goals · xG 1.75-1.41 · BTTS 62% · O2.5 61% · corners ~10.9 · pick 86% on the matchup
+   • Bayern Munich v Dortmund: no tactical clash flagged -> BTTS & goals · xG 2.35-1.07 · BTTS 59% · O2.5 66% · corners ~12.1 · pick 66% on the matchup
+   • Troyes v Le Mans FC: Troyes: set-piece threat v weak set-piece defence; Le Mans: counter side v counter-exposed -> BTTS & goals · xG 1.95-1.49 · BTTS 66% · O2.5 67% · corners ~8.4 · pick 81% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 86% @ 1.26 (value +8%)
+   • Moreirense v Estrela: Estrela da Amadora: counter side v high line; Estrela da Amadora: aerial threat v weak in the air; Estrela da Amadora: possession side v low block -> BTTS · xG 1.21-1.78 · BTTS 58% · O2.5 57% · corners ~8.5 · pick 75% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 83% @ 1.31 (value +9%)
+   • Porto v Estoril: FC Porto: set-piece threat v weak set-piece defence; FC Porto: aerial threat v weak in the air -> no strong goals lean · xG 1.98-1.07 · BTTS 57% · O2.5 59% · corners ~9.0 · pick 58% on the matchup
+   • Brentford v Nott'm Forest: Brentford: set-piece threat v weak set-piece defence; Brentford: aerial threat v weak in the air; Nottingham Forest: elite attack v leaky defence -> BTTS & goals · xG 1.60-1.81 · BTTS 67% · O2.5 66% · corners ~9.3 · pick 80% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 84% @ 1.34 (value +12%)
+   • Coventry City v Sunderland: no tactical clash flagged -> BTTS & goals · xG 1.62-1.56 · BTTS 63% · O2.5 62% · corners ~9.1 · pick 82% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 80% @ 1.37 (value +10%)
+   • Man City v Brighton: both high lines + an elite attack; Manchester City: set-piece threat v weak set-piece defence; Manchester City: aerial threat v weak in the air; Brighton & Hove Albion: high press v build-up side -> BTTS & goals · xG 2.16-1.73 · BTTS 73% · O2.5 75% · corners ~10.2 · pick 69% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 82% @ 1.31 (value +8%)
+   • Aston Villa v Fulham: Aston Villa: counter side v high line; Aston Villa: counter side v counter-exposed; Fulham: possession side v low block -> no strong goals lean · xG 1.53-1.16 · BTTS 54% · O2.5 50% · corners ~10.1 · pick 75% on the matchup
+   • Levante v Ath Madrid: Atlético Madrid: possession side v low block; Atlético Madrid: elite attack v leaky defence -> BTTS & goals · xG 1.45-1.78 · BTTS 64% · O2.5 63% · corners ~9.0 · pick 77% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 77% @ 1.48 (value +13%)
+   • Betis v Malaga CF: Real Betis: elite attack v leaky defence; Real Betis: counter side v counter-exposed -> no strong goals lean · xG 1.95-0.87 · BTTS 50% · O2.5 54% · corners ~10.0 · pick 66% on the matchup
+   • Barcelona v Alaves: Barcelona: possession side v low block -> BTTS & goals · xG 2.50-1.01 · BTTS 58% · O2.5 68% · corners ~8.7 · pick 94% on the matchup
+   • Sociedad B v Girona: Real Sociedad B: counter side v high line; Real Sociedad B: counter side v counter-exposed; Girona: possession side v low block; Girona: elite attack v leaky defence -> no strong goals lean · xG 1.45-1.29 · BTTS 56% · O2.5 52% · corners ~9.3 · pick 76% on the matchup
+   • Eibar v Almeria: Almería: aerial threat v weak in the air; Almería: possession side v low block -> BTTS & goals · xG 1.88-1.16 · BTTS 58% · O2.5 59% · corners ~10.3 · pick 85% on the matchup
+   • Celta B v Cordoba: no tactical clash flagged -> no strong goals lean · xG 2.10-1.01 · BTTS 56% · O2.5 60% · corners ~9.0 · pick 92% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 88% @ 1.28 (value +12%)
+   • Albacete v Sabadell: Albacete: blunt attack v tight defence; Sabadell: set-piece threat v weak set-piece defence; Sabadell: aerial threat v weak in the air; Sabadell: counter side v counter-exposed -> no strong goals lean · xG 1.36-1.02 · BTTS 48% · O2.5 42% · corners ~9.3 · pick 73% on the matchup
+   • Modena v Mantova: Modena: counter side v high line; Modena: aerial threat v weak in the air; Modena: counter side v counter-exposed; Mantova: counter side v high line; Mantova: high press v build-up side -> no strong goals lean · xG 1.76-0.97 · BTTS 51% · O2.5 51% · corners ~8.9 · pick 76% on the matchup
+   • Cremonese v Benevento Calcio: Cremonese: blunt attack v tight defence -> no strong goals lean · xG 1.19-1.26 · BTTS 50% · O2.5 44% · corners ~9.3 · pick 77% on the matchup
+   • Catanzaro v Padova: Padova: aerial threat v weak in the air -> BTTS & goals · xG 2.07-1.66 · BTTS 71% · O2.5 72% · corners ~10.6 · pick 89% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 87% @ 1.23 (value +8%)
+   • Sampdoria v Virtus Entella: no tactical clash flagged -> no strong goals lean · xG 1.45-1.13 · BTTS 52% · O2.5 47% · corners ~8.4 · pick 75% on the matchup
+   • Kaiserslautern v Hertha: Kaiserslautern: counter side v high line; Kaiserslautern: high press v build-up side; Kaiserslautern: counter side v counter-exposed; Hertha BSC: possession side v low block -> BTTS & goals · xG 1.56-1.68 · BTTS 64% · O2.5 63% · corners ~11.1 · pick 79% on the matchup
+   • Darmstadt v Magdeburg: Darmstadt: blunt attack v tight defence; Magdeburg: possession side v low block -> no strong goals lean · xG 1.26-1.25 · BTTS 51% · O2.5 46% · corners ~10.2 · pick 84% on the matchup
+   • Wolfsburg v VfL 1899 Osnabruck: Wolfsburg: possession side v low block; VfL Osnabrück: counter side v high line; VfL Osnabrück: set-piece threat v weak set-piece defence; VfL Osnabrück: aerial threat v weak in the air; VfL Osnabrück: elite attack v leaky defence -> BTTS & goals · xG 2.12-1.69 · BTTS 72% · O2.5 73% · corners ~12.0 · pick 86% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 82% @ 1.36 (value +11%)
+   • Karlsruhe v Heidenheim: Karlsruher SC: blunt attack v tight defence; FC Heidenheim: elite attack v leaky defence -> no strong goals lean · xG 1.12-1.87 · BTTS 57% · O2.5 57% · corners ~12.2 · pick 69% on the matchup
+   • Annecy v Montpellier: Annecy FC: counter side v high line; Annecy FC: counter side v counter-exposed; Montpellier: counter side v high line; Montpellier: possession side v low block -> no strong goals lean · xG 1.42-1.41 · BTTS 57% · O2.5 54% · corners ~10.8 · pick 83% on the matchup
+   • Guingamp v St Etienne: no tactical clash flagged -> no strong goals lean · xG 1.15-1.56 · BTTS 54% · O2.5 51% · corners ~8.1 · pick 75% on the matchup
+   • Plymouth v Reading: Reading: counter side v counter-exposed -> BTTS & goals · xG 1.29-1.75 · BTTS 60% · O2.5 58% · corners ~10.6 · pick 88% on the matchup
+   • Barnsley v Oxford United: Barnsley: high press v build-up side -> BTTS & goals · xG 2.06-1.56 · BTTS 69% · O2.5 70% · corners ~12.8 · pick 70% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 87% @ 1.21 (value +6%)
+   • Milton Keynes Dons v Doncaster Rovers: no tactical clash flagged -> BTTS & goals · xG 1.66-1.39 · BTTS 61% · O2.5 59% · corners ~11.3 · pick 81% on the matchup
+   • Wycombe Wanderers v Burton: Wycombe Wanderers: set-piece threat v weak set-piece defence; Wycombe Wanderers: aerial threat v weak in the air; Burton Albion: counter side v high line; Burton Albion: counter side v counter-exposed -> no strong goals lean · xG 1.85-1.03 · BTTS 54% · O2.5 55% · corners ~11.7 · pick 78% on the matchup
+   • Accrington v Northampton: Northampton Town: blunt attack v tight defence -> Northampton Town may not score · xG 2.09-0.76 · BTTS 47% · O2.5 54% · corners ~10.0 · pick 56% on the matchup · ⚑ Home Over 0.5 goals fits the matchup better: matchup 88% @ 1.27 (value +11%)
+   • Oldham v Crawley Town: both high lines + an elite attack; Oldham Athletic: counter side v high line; Oldham Athletic: set-piece threat v weak set-piece defence; Oldham Athletic: aerial threat v weak in the air; Oldham Athletic: elite attack v leaky defence -> no strong goals lean · xG 2.14-1.04 · BTTS 57% · O2.5 62% · corners ~10.8 · pick 83% on the matchup
+   • Swindon v Rotherham: Swindon Town: counter side v high line -> BTTS · xG 1.69-1.29 · BTTS 59% · O2.5 57% · corners ~10.3 · pick 80% on the matchup
+   • Tranmere v Cheltenham: no tactical clash flagged -> BTTS & goals · xG 1.93-1.21 · BTTS 60% · O2.5 61% · corners ~10.4 · pick 82% on the matchup
+   • Erzurumspor FK v Corum FK: Erzurumspor FK: counter side v high line; Çorum FK: possession side v low block -> no strong goals lean · xG 1.44-1.00 · BTTS 48% · O2.5 44% · corners ~8.4 · pick 72% on the matchup
+   • Kocaelispor v Caykur Rizespor: no tactical clash flagged -> no strong goals lean · xG 1.58-0.97 · BTTS 49% · O2.5 47% · corners ~9.4 · pick 87% on the matchup
+   • Fenerbahce Istanbul v Goztepe Izmir: Fenerbahçe: counter side v counter-exposed -> BTTS & goals · xG 2.77-1.32 · BTTS 69% · O2.5 78% · corners ~9.4 · pick 78% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 73% @ 1.58 (value +16%)
+   • AE Kifisia FC v Olympiacos: no tactical clash flagged -> unders / one side blank · xG 0.98-1.05 · BTTS 41% · O2.5 33% · corners ~9.6 · pick 96% on the matchup
+   • SCR Altach v SV Ried: no tactical clash flagged -> no strong goals lean · xG 1.70-1.03 · BTTS 53% · O2.5 51% · corners ~9.6 · pick 71% on the matchup
+   • LASK Linz v WSG Tirol: both high lines + an elite attack -> BTTS & goals · xG 2.01-1.47 · BTTS 67% · O2.5 68% · corners ~11.5 · pick 60% on the matchup · ⚑ Away Over 0.5 goals fits the matchup better: matchup 77% @ 1.47 (value +13%)
+   • FC St. Gallen 1879 v Servette Geneva: St. Gallen: set-piece threat v weak set-piece defence; Servette: counter side v counter-exposed -> BTTS & goals · xG 2.20-1.07 · BTTS 58% · O2.5 64% · corners ~12.0 · pick 70% on the matchup
+   • FC Luzern v FC Sion: Luzern: counter side v high line; Sion: possession side v low block; Sion: elite attack v leaky defence -> BTTS & goals · xG 2.19-1.72 · BTTS 73% · O2.5 75% · corners ~11.1 · pick 71% on the matchup
+   • Fredrikstad FK v Rosenborg BK: both high lines + an elite attack; Fredrikstad: blunt attack v tight defence -> no strong goals lean · xG 1.29-1.48 · BTTS 56% · O2.5 52% · corners ~11.1 · pick 76% on the matchup
+   • Aalesunds FK v Sandefjord Fotball: Aalesund: counter side v high line; Aalesund: high press v build-up side; Sandefjord: possession side v low block -> BTTS & goals · xG 2.96-1.60 · BTTS 76% · O2.5 83% · corners ~12.3 · pick 81% on the matchup · ⚑ Home Over 1.5 goals fits the matchup better: matchup 80% @ 1.67 (value +33%)
+
+TABLE 2 Mega 1 (2 legs · odds 1 · chance 1 in 2): Y3ALR4   load ↦ www.sportybet.com/ng/?shareCode=Y3ALR4
+TABLE 2 Mega 2 (6 legs · odds 3 · chance 1 in 4): YHD4KE   load ↦ www.sportybet.com/ng/?shareCode=YHD4KE
+TABLE 2 Mega 3 (4 legs · odds 2 · chance 1 in 3): W721FX   load ↦ www.sportybet.com/ng/?shareCode=W721FX
+TABLE 2 Mega 4 (5 legs · odds 4 · chance 1 in 5): WJPBR5   load ↦ www.sportybet.com/ng/?shareCode=WJPBR5
+TABLE 2 Mega 5 (23 legs · odds 100 · chance 1 in 192): Y0VD6E   load ↦ www.sportybet.com/ng/?shareCode=Y0VD6E
+TABLE 2 Mega 6 (4 legs · odds 3 · chance 1 in 3): WKH479   load ↦ www.sportybet.com/ng/?shareCode=WKH479
+TABLE 2 Mega 7 (4 legs · odds 2 · chance 1 in 3): TQLX6Q   load ↦ www.sportybet.com/ng/?shareCode=TQLX6Q
+TABLE 2 Mega 8 (9 legs · odds 7 · chance 1 in 11): W1JT07   load ↦ www.sportybet.com/ng/?shareCode=W1JT07
+TABLE 2 Mega 9 (2 legs · odds 2 · chance 1 in 2): WP5YJT   load ↦ www.sportybet.com/ng/?shareCode=WP5YJT
+TABLE 2 Mega 10 (3 legs · odds 2 · chance 1 in 2): UTB7TH   load ↦ www.sportybet.com/ng/?shareCode=UTB7TH
+TABLE 2 Mega 11 (7 legs · odds 5 · chance 1 in 6): WPKSSQ   load ↦ www.sportybet.com/ng/?shareCode=WPKSSQ
+TABLE 2 Mega 12 (5 legs · odds 3 · chance 1 in 3): Y6ZF0K   load ↦ www.sportybet.com/ng/?shareCode=Y6ZF0K
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code TFEUHJ · odds 1.77 · chance 53%
+   • 15:00 Aldershot v Gateshead (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Gateshead (+2.5) Asian handicap @1.20 (82%, HIGH)
+   • 14:30 Leverkusen v Stuttgart (🇩🇪 Germany · Bundesliga) — Under 5.5 goals @1.22 (81%, HIGH)
+   • 15:00 West Ham v West Brom (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Over 1.5 goals @1.21 (81%, HIGH)
+50+ #2 · code T3TJ9M · odds 1.76 · chance 50%
+   • 13:00 Annecy v Montpellier (🇫🇷 France · Ligue 2) — Annecy (+1.5) Asian handicap @1.20 (81%, MEDIUM)
+   • 13:00 Sociedad B v Girona (🇪🇸 Spain · La Liga 2 / Hypermotion) — Over 1.5 goals @1.22 (79%, HIGH)
+   • 13:00 Levante v Ath Madrid (🇪🇸 Spain · La Liga) — Levante or Ath Madrid @1.20 (78%, MEDIUM)
+50+ #3 · code TUGPFE · odds 1.80 · chance 50%
+   • 15:00 Bolton Wanderers v Bristol City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Bolton Wanderers (+1.5) Asian handicap @1.21 (81%, HIGH)
+   • 15:00 Fredrikstad FK v Rosenborg BK (🇳🇴 Norway · Eliteserien) — Over 1.5 goals @1.21 (80%, HIGH)
+   • 15:00 Man City v Brighton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Man City or Brighton @1.23 (78%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+7 accas · 31 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+11 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code YQQT4S · 4 legs · odds 2.48 · chance 37%
+   • 17:30 Bayern Munich v Dortmund (🇩🇪 Germany · Bundesliga) — Under 5.5 goals @1.27 (80%)
+   • 17:00 Grasshopper Club Zurich v FC Vaduz (🇨🇭 Switzerland · Super League) — Grasshopper Club Zurich or FC Vaduz @1.26 (77%)
+   • 17:00 Aalesunds FK v Sandefjord Fotball (🇳🇴 Norway · Eliteserien) — Aalesunds FK or Sandefjord Fotball @1.27 (76%)
+   • 17:00 Udinese v Roma (🇮🇹 Italy · Serie A) — Udinese or Roma @1.22 (79%)
+Acca B · code QCT54X · 4 legs · odds 2.47 · chance 38%
+   • 20:00 Barcelona v Alaves (🇪🇸 Spain · La Liga) — Alaves (+4.5) Asian handicap @1.21 (83%)
+   • 20:00 Cambuur v Go Ahead Eagles (🇳🇱 Netherlands · Eredivisie) — Under 4.5 goals @1.30 (77%)
+   • 19:45 Milan v Inter (🇮🇹 Italy · Serie A) — Milan or Inter @1.30 (76%)
+   • 20:00 Aston Villa v Fulham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Over 1.5 goals @1.21 (79%)
+Acca C · code WCS8WA · 5 legs · odds 2.72 · chance 34%
+   • 15:00 Barnsley v Oxford United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Under 4.5 goals @1.24 (81%)
+   • 15:00 Coventry City v Sunderland (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Coventry City (+1.5) Asian handicap @1.21 (82%)
+   • 15:00 Burnley v Portsmouth (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Portsmouth (+1.5) Asian handicap @1.22 (81%)
+   • 15:00 Accrington v Northampton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Northampton (+1.5) Asian handicap @1.22 (80%)
+   • 15:00 Brentford v Nott'm Forest (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Over 1.5 goals @1.22 (79%)
+Acca D · code U10LJQ · 4 legs · odds 2.29 · chance 40%
+   • 15:00 Altrincham v Carlisle (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Under 4.5 goals @1.21 (82%)
+   • 14:30 Werder Bremen v Hoffenheim (🇩🇪 Germany · Bundesliga) — Werder Bremen or Hoffenheim @1.27 (77%)
+   • 15:00 Kilmarnock v St Johnstone (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Over 1.5 goals @1.22 (79%)
+   • 15:00 Oldham v Crawley Town (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Oldham (+0.5) Asian handicap @1.22 (79%)
+Acca E · code UZF9KA · 5 legs · odds 2.81 · chance 29%
+   • 12:00 Darmstadt v Magdeburg (🇩🇪 Germany · 2. Bundesliga) — Under 4.5 goals @1.23 (80%)
+   • 12:00 Wolfsburg v VfL 1899 Osnabruck (🇩🇪 Germany · 2. Bundesliga) — VfL 1899 Osnabruck (+2.5) Asian handicap @1.24 (79%)
+   • 12:30 Plymouth v Reading (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Reading (+1.5) Asian handicap @1.22 (79%)
+   • 12:30 Norwich v Watford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Norwich or Watford @1.21 (78%)
+   • 12:00 Kaiserslautern v Hertha (🇩🇪 Germany · 2. Bundesliga) — Kaiserslautern Over 0.5 goals @1.25 (75%)
+Acca F · code VSCQ8G · 4 legs · odds 2.29 · chance 38%
+   • 15:00 Barrow v Eastleigh (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Under 4.5 goals @1.22 (81%)
+   • 15:00 Swindon v Rotherham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Over 1.5 goals @1.23 (79%)
+   • 15:00 Motherwell v St Mirren (🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland · Premiership) — Motherwell or St Mirren @1.26 (76%)
+   • 14:30 M'gladbach v Paderborn (🇩🇪 Germany · Bundesliga) — M'gladbach Win to Nil — no @1.21 (78%)
+Acca G · code WD639C · 5 legs · odds 2.81 · chance 28%
+   • 19:30 FC Luzern v FC Sion (🇨🇭 Switzerland · Super League) — FC Sion (0:2) handicap @1.20 (82%)
+   • 19:30 Karlsruhe v Heidenheim (🇩🇪 Germany · 2. Bundesliga) — Karlsruhe (+1.5) Asian handicap @1.28 (76%)
+   • 19:45 Troyes v Le Mans FC (🇫🇷 France · Ligue 1) — Over 1.5 goals @1.26 (77%)
+   • 19:45 Beveren v St. Gilloise (🇧🇪 Belgium · Pro League) — Beveren or St. Gilloise @1.20 (77%)
+   • 19:45 Anderlecht v Westerlo (🇧🇪 Belgium · Pro League) — Anderlecht or Westerlo @1.21 (76%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (2 legs · odds 1 · chance 1 in 2): Y3ALR4   load ↦ www.sportybet.com/ng/?shareCode=Y3ALR4
+TABLE 3 Mega 2 (6 legs · odds 3 · chance 1 in 4): YHD4KE   load ↦ www.sportybet.com/ng/?shareCode=YHD4KE
+TABLE 3 Mega 3 (4 legs · odds 2 · chance 1 in 3): W721FX   load ↦ www.sportybet.com/ng/?shareCode=W721FX
+TABLE 3 Mega 4 (5 legs · odds 4 · chance 1 in 5): WJPBR5   load ↦ www.sportybet.com/ng/?shareCode=WJPBR5
+TABLE 3 Mega 5 (23 legs · odds 100 · chance 1 in 192): Y0VD6E   load ↦ www.sportybet.com/ng/?shareCode=Y0VD6E
+TABLE 3 Mega 6 (4 legs · odds 3 · chance 1 in 3): WKH479   load ↦ www.sportybet.com/ng/?shareCode=WKH479
+TABLE 3 Mega 7 (4 legs · odds 2 · chance 1 in 3): TQLX6Q   load ↦ www.sportybet.com/ng/?shareCode=TQLX6Q
+TABLE 3 Mega 8 (9 legs · odds 7 · chance 1 in 11): W1JT07   load ↦ www.sportybet.com/ng/?shareCode=W1JT07
+TABLE 3 Mega 9 (2 legs · odds 2 · chance 1 in 2): WP5YJT   load ↦ www.sportybet.com/ng/?shareCode=WP5YJT
+TABLE 3 Mega 10 (3 legs · odds 2 · chance 1 in 2): UTB7TH   load ↦ www.sportybet.com/ng/?shareCode=UTB7TH
+TABLE 3 Mega 11 (7 legs · odds 5 · chance 1 in 6): WPKSSQ   load ↦ www.sportybet.com/ng/?shareCode=WPKSSQ
+TABLE 3 Mega 12 (5 legs · odds 3 · chance 1 in 3): Y6ZF0K   load ↦ www.sportybet.com/ng/?shareCode=Y6ZF0K
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code XCUDE2 · 2 legs · odds 1.49 · chance 68%
+   • 15:00 Wycombe Wanderers v Burton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Burton (+2.5) Asian handicap @1.21 (83%)
+   • 15:30 Feyenoord v For Sittard (🇳🇱 Netherlands · Eredivisie) — Feyenoord Under 4.5 goals @1.23 (82%)
+Alt B · code X9SCHA · 2 legs · odds 1.52 · chance 62%
+   • 13:45 Wieczysta Krakow v Jagiellonia (🇵🇱 Poland · Ekstraklasa) — Jagiellonia Under 2.5 goals @1.20 (81%)
+   • 14:00 Bologna v Monza (🇮🇹 Italy · Serie A) — Bologna or Monza @1.27 (77%)
+Alt C · code YT60PB · 2 legs · odds 1.48 · chance 62%
+   • 17:30 Celta B v Cordoba (🇪🇸 Spain · La Liga 2 / Hypermotion) — Cordoba Win to Nil — no @1.20 (81%)
+   • 17:15 Standard v Kortrijk (🇧🇪 Belgium · Pro League) — Over 1.5 goals @1.23 (77%)
+Alt D · code UMTZED · 2 legs · odds 1.61 · chance 60%
+   • 17:45 PSV Eindhoven v Willem II (🇳🇱 Netherlands · Eredivisie) — PSV Eindhoven Under 5.5 goals @1.24 (80%)
+   • 17:45 Heerenveen v Nijmegen (🇳🇱 Netherlands · Eredivisie) — Nijmegen (+1.5) Asian handicap @1.30 (76%)
+Alt E · code TGNF8V · 2 legs · odds 1.54 · chance 62%
+   • 16:15 Catanzaro v Padova (🇮🇹 Italy · Serie B) — Padova (+1.5) Asian handicap @1.20 (79%)
+   • 16:30 Lech Poznan v Wisla (🇵🇱 Poland · Ekstraklasa) — Under 4.5 goals @1.28 (78%)
+Alt F · code VCWZVR · 2 legs · odds 1.46 · chance 62%
+   • 12:30 Forest Green Rovers v Harrogate (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Forest Green Rovers Over 0.5 goals @1.22 (79%)
+   • 13:00 Kocaelispor v Caykur Rizespor (🇹🇷 Turkey · Super Lig) — Kocaelispor Win to Nil — no @1.20 (78%)
+Alt G · code SLNZM3 · 2 legs · odds 1.57 · chance 59%
+   • 18:30 Sampdoria v Virtus Entella (🇮🇹 Italy · Serie B) — Under 3.5 goals @1.24 (78%)
+   • 19:00 Guingamp v St Etienne (🇫🇷 France · Ligue 2) — St Etienne (+0.5) Asian handicap @1.27 (76%)
+Alt H · code VCA6GZ · 2 legs · odds 1.51 · chance 60%
+   • 16:00 SCR Altach v SV Ried (🇦🇹 Austria · Bundesliga) — SCR Altach Over 0.5 goals @1.20 (78%)
+   • 16:00 Fenerbahce Istanbul v Goztepe Izmir (🇹🇷 Turkey · Super Lig) — Fenerbahce Istanbul Under 3.5 goals @1.26 (77%)
+Alt I · code UPNDJ0 · 2 legs · odds 1.57 · chance 58%
+   • 17:00 FC St. Gallen 1879 v Servette Geneva (🇨🇭 Switzerland · Super League) — FC St. Gallen 1879 or Servette Geneva @1.25 (76%)
+   • 17:00 AE Kifisia FC v Olympiacos (🇬🇷 Greece · Super League) — Draw or Olympiacos & Under 4.5 @1.26 (76%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code VS8E0L · 20:00 Barcelona v Alaves (🇪🇸 Spain · La Liga) — Under 4.5 goals @1.71 (63%, value +7.3% · model 77% vs SportyBet 58%)
+Value 2 · code YTNJF3 · 17:30 Bayern Munich v Dortmund (🇩🇪 Germany · Bundesliga) — Under 4.5 goals @1.59 (67%, value +5.9% · model 79% vs SportyBet 62%)
+Value 3 · code VNA19Q · 12:00 Kaiserslautern v Hertha (🇩🇪 Germany · 2. Bundesliga) — Hertha Under 1.5 goals @1.83 (58%, value +5.4% · model 73% vs SportyBet 53%)
+Value 4 · code KFRAS9 · 15:30 Feyenoord v For Sittard (🇳🇱 Netherlands · Eredivisie) — Under 4.5 goals @1.52 (69%, value +4.6% · model 80% vs SportyBet 65%)
+Value 5 · code N0HC8C · 14:30 M'gladbach v Paderborn (🇩🇪 Germany · Bundesliga) — Under 4 goals @1.39 (62%, value +3.6% · model 72% vs SportyBet 59%)
+Value 6 · code XJYF7A · 17:45 Heerenveen v Nijmegen (🇳🇱 Netherlands · Eredivisie) — Under 4.5 goals @1.39 (74%, value +3.5% · model 82% vs SportyBet 72%)
+Value 7 · code H0HD0A · 17:00 AE Kifisia FC v Olympiacos (🇬🇷 Greece · Super League) — Under 3 goals @1.51 (55%, value +3.4% · model 70% vs SportyBet 50%)
+Value 8 · code J340AK · 14:30 Werder Bremen v Hoffenheim (🇩🇪 Germany · Bundesliga) — Under 3.5 goals @1.87 (55%, value +3.3% · model 58% vs SportyBet 54%)
+Value 9 · code HP4UJX · 13:00 Annecy v Montpellier (🇫🇷 France · Ligue 2) — Under 3 goals @1.53 (54%, value +3.2% · model 65% vs SportyBet 50%)
+Value 10 · code VYG451 · 19:00 Guingamp v St Etienne (🇫🇷 France · Ligue 2) — St Etienne to win @1.92 (53%, value +3.2% · model 65% vs SportyBet 50%)
+Value 11 · code Z7V6NT · 15:00 Barnsley v Oxford United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Barnsley Under 1.5 goals @1.76 (58%, value +2.9% · model 70% vs SportyBet 55%)
+Value 12 · code JKRXE0 · 15:00 Accrington v Northampton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League Two) — Under 3 goals @1.36 (61%, value +2.6% · model 74% vs SportyBet 57%)
+Value 13 · code H4TMTQ · 11:15 Wisla Plock v Piast Gliwice (🇵🇱 Poland · Ekstraklasa) — Wisla Plock Under 1.5 goals @1.79 (57%, value +2.5% · model 69% vs SportyBet 54%)
+Value 14 · code NAEEGA · 13:00 Kocaelispor v Caykur Rizespor (🇹🇷 Turkey · Super Lig) — Under 3 goals @1.51 (54%, value +2.4% · model 62% vs SportyBet 51%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Barcelona v Alaves (🇪🇸 Spain · La Liga) — Alaves (+4.5) Asian handicap (83%) @1.21 · code MP07B4
+Acca A: 4 legs, model 37% · code YQQT4S
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 1016 legs logged, mean CLV +0.39%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+──────────────────────────────────
+TABLE 3D · BOTH TEAMS TO SCORE
+(the 4 strongest BTTS-yes games, 65%+ model chance, one slip)
+──────────────────────────────────
+   • 12:00 Wolfsburg v VfL 1899 Osnabruck (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.49 (model 69%, fair 1.44)
+   • 12:30 Chelsea v Man United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — BTTS yes @1.56 (model 68%, fair 1.47)
+   • 12:30 Forest Green Rovers v Harrogate (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — BTTS yes @1.51 (model 66%, fair 1.52)
+   • 12:00 Darmstadt v Magdeburg (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.48 (model 66%, fair 1.53)
+BTTS slip: TMJWAN (4 legs · odds 5.19 · 20%)
+
+ALL CODES
+CLV acca A: W400JF (4 legs · odds 2.18 · 43% · positive-CLV markets)
+CLV acca B: ZMXVUB (4 legs · odds 2.18 · 39% · positive-CLV markets)
+50+ #1: TFEUHJ (3 legs · odds 1.77 · 53% · stake 0.5%)
+50+ #2: T3TJ9M (3 legs · odds 1.76 · 50% · stake 0.5%)
+50+ #3: TUGPFE (3 legs · odds 1.80 · 50% · stake 0.5%)
+BTTS: TMJWAN (4 legs · both teams to score · stake 0.1%)
+Mega 1: Y3ALR4 (2 legs · odds 1 · stake 0.1%)
+Mega 2: YHD4KE (6 legs · odds 3 · stake 0.1%)
+Mega 3: W721FX (4 legs · odds 2 · stake 0.1%)
+Mega 4: WJPBR5 (5 legs · odds 4 · stake 0.1%)
+Mega 5: Y0VD6E (23 legs · odds 100 · stake 0.1%)
+Mega 6: WKH479 (4 legs · odds 3 · stake 0.1%)
+Mega 7: TQLX6Q (4 legs · odds 2 · stake 0.1%)
+Mega 8: W1JT07 (9 legs · odds 7 · stake 0.1%)
+Mega 9: WP5YJT (2 legs · odds 2 · stake 0.1%)
+Mega 10: UTB7TH (3 legs · odds 2 · stake 0.1%)
+Mega 11: WPKSSQ (7 legs · odds 5 · stake 0.1%)
+Mega 12: Y6ZF0K (5 legs · odds 3 · stake 0.1%)
+Acca A: YQQT4S (4 legs · odds 2.48 · 37% · stake 0.25%)
+Acca B: QCT54X (4 legs · odds 2.47 · 38% · stake 0.25%)
+Acca C: WCS8WA (5 legs · odds 2.72 · 34% · stake 0.25%)
+Acca D: U10LJQ (4 legs · odds 2.29 · 40% · stake 0.25%)
+Acca E: UZF9KA (5 legs · odds 2.81 · 29% · stake 0.25%)
+Acca F: VSCQ8G (4 legs · odds 2.29 · 38% · stake 0.25%)
+Acca G: WD639C (5 legs · odds 2.81 · 28% · stake 0.25%)
+Alt A: XCUDE2 (2 legs · alt markets · odds 1.49 · 68% · stake 0.25%)
+Alt B: X9SCHA (2 legs · alt markets · odds 1.52 · 62% · stake 0.25%)
+Alt C: YT60PB (2 legs · alt markets · odds 1.48 · 62% · stake 0.25%)
+Alt D: UMTZED (2 legs · alt markets · odds 1.61 · 60% · stake 0.25%)
+Alt E: TGNF8V (2 legs · alt markets · odds 1.54 · 62% · stake 0.25%)
+Alt F: VCWZVR (2 legs · alt markets · odds 1.46 · 62% · stake 0.25%)
+Alt G: SLNZM3 (2 legs · alt markets · odds 1.57 · 59% · stake 0.25%)
+Alt H: VCA6GZ (2 legs · alt markets · odds 1.51 · 60% · stake 0.25%)
+Alt I: UPNDJ0 (2 legs · alt markets · odds 1.57 · 58% · stake 0.25%)
+Value 1: VS8E0L (1 leg · positive value · odds 1.71 · 63% · stake 0.25%)
+Value 2: YTNJF3 (1 leg · positive value · odds 1.59 · 67% · stake 0.25%)
+Value 3: VNA19Q (1 leg · positive value · odds 1.83 · 58% · stake 0.25%)
+Value 4: KFRAS9 (1 leg · positive value · odds 1.52 · 69% · stake 0.25%)
+Value 5: N0HC8C (1 leg · positive value · odds 1.39 · 62% · stake 0.25%)
+Value 6: XJYF7A (1 leg · positive value · odds 1.39 · 74% · stake 0.25%)
+Value 7: H0HD0A (1 leg · positive value · odds 1.51 · 55% · stake 0.25%)
+Value 8: J340AK (1 leg · positive value · odds 1.87 · 55% · stake 0.25%)
+Value 9: HP4UJX (1 leg · positive value · odds 1.53 · 54% · stake 0.25%)
+Value 10: VYG451 (1 leg · positive value · odds 1.92 · 53% · stake 0.25%)
+Value 11: Z7V6NT (1 leg · positive value · odds 1.76 · 58% · stake 0.25%)
+Value 12: JKRXE0 (1 leg · positive value · odds 1.36 · 61% · stake 0.25%)
+Value 13: H4TMTQ (1 leg · positive value · odds 1.79 · 57% · stake 0.25%)
+Value 14: NAEEGA (1 leg · positive value · odds 1.51 · 54% · stake 0.25%)

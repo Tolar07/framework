@@ -8,10 +8,7 @@ name: OLP XDV reasoning step
 # never dropping a pick; it searches Google for team news and learns from its own record (memory/reasoning_lessons.json).
 # The daily board starts it after each run; the crons below are backups. No GEMINI_API_KEY -> every verdict reads PENDING.
 on:
-  schedule:
-    - cron: "17 22 * * *"
-    - cron: "17 7 * * *"
-    - cron: "17 13 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       force:

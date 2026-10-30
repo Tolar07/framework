@@ -11,10 +11,7 @@ name: OLP XDV nightly retrain
 # on 21 Oct. A scheduled run skips when the retrain already ran that UTC day, so the
 # backups only run when the 03:31 one never started; all still land before the 05:47 board.
 on:
-  schedule:
-    - cron: "31 3 * * *"
-    - cron: "43 4 * * *"
-    - cron: "13 5 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

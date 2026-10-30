@@ -11,8 +11,7 @@ name: OLP XDV pre-kickoff team news
 # backup starter — a run that finds the loop already going exits at once. A
 # job may run 6 hours at most, so the loop hands off to a fresh run.
 on:
-  schedule:
-    - cron: "5 9,11,13,15,17,19 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
     inputs:
       handoff:

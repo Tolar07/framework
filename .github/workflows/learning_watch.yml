@@ -7,8 +7,7 @@ name: OLP XDV learning-loop watch
 # 03:11 UTC: after the evening board (why record, shadow) and the 01:23 match
 # study (tactics lessons). Read-only: nothing is committed.
 on:
-  schedule:
-    - cron: "11 3 * * *"
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:

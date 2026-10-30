@@ -14,11 +14,7 @@ name: OLP XDV daily board
 # late and the 06:00 run never fired). Firing at :47 also lands the board just
 # before 10 PM / 7 AM.
 on:
-  schedule:
-    - cron: "47 20 * * *"   # 21:47 UK in BST — evening prep run
-    - cron: "47 21 * * *"   # 21:47 UK in GMT
-    - cron: "47 5 * * *"    # 06:47 UK in BST — morning refresh run
-    - cron: "47 6 * * *"    # 06:47 UK in GMT
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:        # manual trigger (e.g. to send a given day's board now)
     inputs:
       target_date:

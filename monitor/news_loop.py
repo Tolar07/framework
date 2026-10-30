@@ -104,8 +104,11 @@ def sync() -> None:
 
 def persist(now: datetime) -> str:
     """Save to framework and to the private framework-data (monitor/fdata.py)."""
-    fd = fdata.save(["output/picks", "data/features", "output/reasoning"], f"lineup check {now:%H:%M} [skip ci]")   # first: framework's pull below may drop files
-    return f"{_persist_framework(now)} · {fd}"
+    # framework-data first: framework's pull below may drop files
+    fd = fdata.save(["output/picks", "data/features", "output/reasoning"],
+                    f"lineup check {now:%H:%M} [skip ci]") if fdata.enabled() else ""
+    fw = _persist_framework(now)
+    return f"{fw} · {fd}" if fd else fw
 
 
 def _persist_framework(now: datetime) -> str:

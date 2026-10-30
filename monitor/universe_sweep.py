@@ -135,8 +135,11 @@ def _git(*args: str) -> subprocess.CompletedProcess:
 
 def persist(now: datetime) -> str:
     """Save to framework and to the private framework-data (monitor/fdata.py)."""
-    fd = fdata.save(["data/universe", "data/match_stats", "data/teams", "data/features"], f"universe {now:%Y-%m-%d %H:%M} [skip ci]")   # first: framework's pull below may drop files
-    return f"{_persist_framework(now)} · {fd}"
+    # framework-data first: framework's pull below may drop files
+    fd = fdata.save(["data/universe", "data/match_stats", "data/teams", "data/features"],
+                    f"universe {now:%Y-%m-%d %H:%M} [skip ci]") if fdata.enabled() else ""
+    fw = _persist_framework(now)
+    return f"{fw} · {fd}" if fd else fw
 
 
 def _persist_framework(now: datetime) -> str:

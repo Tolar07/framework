@@ -62,13 +62,14 @@ MAX_HISTORY = 5000
 
 MEMBERS = {
     "gemini": {"key": "GEMINI_API_KEY", "base": "https://generativelanguage.googleapis.com/v1beta/openai",
-               "env": "PANEL_GEMINI_MODEL", "prefer": ["gemini-2.5-flash", "gemini-2.5-flash-lite"]},
+               "env": "PANEL_GEMINI_MODEL", "prefer": ["gemini-3.5-flash", "gemini-3.5-flash-lite"]},
     "nvidia": {"key": "NVIDIA_API_KEY", "base": "https://integrate.api.nvidia.com/v1",
-               "env": "PANEL_NVIDIA_MODEL", "prefer": ["meta/llama-3.3-70b-instruct", "deepseek-ai/deepseek-v3.1",
-                                                       "qwen/qwen3-235b-a22b", "meta/llama-3.1-70b-instruct"]},
+               "env": "PANEL_NVIDIA_MODEL", "prefer": ["nvidia/nemotron-3.5-lightning-30b-a3b",
+                                                       "mistralai/mistral-large-4-1t-a52b"]},
     "openrouter": {"key": "OPENROUTER_API_KEY", "base": "https://openrouter.ai/api/v1",
                    "env": "PANEL_OPENROUTER_MODEL", "prefer": ["google/gemma-4-31b-it:free",
-                                                               "google/gemma-4-26b-a4b-it:free"]},
+                                                               "google/gemma-4-26b-a4b-it:free",
+                                                               "nvidia/nemotron-3.5-super-vl:free"]},
 }
 
 PROMPT = """You are one member of a panel that prices sports picks. For each pick give YOUR probability
@@ -162,7 +163,7 @@ def pick_model(name: str, get: Callable, key: str) -> Optional[str]:
     want = os.getenv(spec["env"], "").strip()
     if name == "gemini" and not want:
         from engine import cognitive_core as CC
-        want = CC.model()            # OLP_GEMINI_MODEL, default gemini-2.5-flash (as the core)
+        want = CC.model()            # OLP_GEMINI_MODEL, default gemini-3.5-flash (as the core)
     if name == "openrouter":
         try:
             free = free_openrouter_models(get)

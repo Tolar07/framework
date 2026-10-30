@@ -3444,7 +3444,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Bodoe/Glimt v Viking FK",

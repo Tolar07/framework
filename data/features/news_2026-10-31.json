@@ -150,7 +150,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.14243514628952203,
   "away_unavailable": 2,
   "fotmob_id": 5881206,
@@ -298,7 +298,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.33936696011785616,
   "away_unavailable": 4,
   "fotmob_id": 5749732,
@@ -639,12 +639,12 @@
     "type": "suspension"
    },
    {
-    "name": "Michele Collocolo",
+    "name": "Simone Pontisso",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Simone Pontisso",
+    "name": "Fabio Gerli",
     "side": "home",
     "type": "injury"
    },
@@ -664,14 +664,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
-  "away_missing_share": 0.16011679797989034,
+  "at": "2026-10-31T13:20Z",
+  "away_missing_share": 0.17517291137786875,
   "away_unavailable": 3,
   "fotmob_id": 5967132,
-  "home_missing_share": 0.2586614727765899,
-  "home_unavailable": 6,
+  "home_missing_share": 0.23912015919791646,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Crewe v Barnet FC": {
   "absent": [],
@@ -918,6 +918,48 @@
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "GKS Katowice v Widzew Lodz": {
+  "absent": [
+   {
+    "name": "Eman Markovi\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rafa\u0142 Str\u0105czek",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aleksander Paluszek",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dani Silva",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Paulinho B\u00f3ia",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mariusz Fornalczyk",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T13:20Z",
+  "away_missing_share": 0.21185182490215748,
+  "away_unavailable": 7,
+  "fotmob_id": 5804023,
+  "home_missing_share": 0.20370632030276078,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-31T19:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Grasshopper Club Zurich v FC Vaduz": {
   "absent": [
    {
@@ -1010,14 +1052,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.2595521481536087,
   "away_unavailable": 2,
   "fotmob_id": 5765949,
   "home_missing_share": 0.25751288294767555,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Halifax v Yeovil": {
   "absent": [],
@@ -1303,7 +1345,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.301889594962114,
   "away_unavailable": 6,
   "fotmob_id": 5881207,
@@ -1558,14 +1600,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
-  "away_missing_share": 0.10030853579049799,
+  "at": "2026-10-31T13:20Z",
+  "away_missing_share": 0.12048027289778206,
   "away_unavailable": 2,
   "fotmob_id": 5967134,
-  "home_missing_share": 0.14213913973869022,
+  "home_missing_share": 0.14694956476964183,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Moreirense v Estrela": {
   "absent": [
@@ -1888,7 +1930,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.21697309338600634,
   "away_unavailable": 3,
   "fotmob_id": 5881212,
@@ -2069,14 +2111,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
-  "away_missing_share": 0.1452139722024677,
+  "at": "2026-10-31T13:20Z",
+  "away_missing_share": 0.11962366190780219,
   "away_unavailable": 2,
   "fotmob_id": 5967137,
-  "home_missing_share": 0.21013479789638953,
+  "home_missing_share": 0.17269401872338339,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Swansea v Blackburn": {
   "absent": [
@@ -2323,7 +2365,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:00Z",
+  "at": "2026-10-31T13:20Z",
   "away_missing_share": 0.37814364743551954,
   "away_unavailable": 6,
   "fotmob_id": 5881214,

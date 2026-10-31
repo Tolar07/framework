@@ -1859,8 +1859,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": 0.004394403643712241,
    "missing": {
@@ -2269,7 +2269,11 @@
     "home": 11816342,
     "away": 2545534
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:71913118",
    "sb_tid": "sr:tournament:170",
@@ -6828,7 +6832,11 @@
     "home": 24173990,
     "away": 7073262
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "matchup": {
     "say": "Cremonese: blunt attack v tight defence -> no strong goals lean",
     "xg": [
@@ -7123,7 +7131,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sampdoria v Virtus Entella",

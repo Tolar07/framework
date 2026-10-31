@@ -10447,7 +10447,11 @@
     "home": 138036691,
     "away": 29480165
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "matchup": {
     "say": "Fenerbah\u00e7e: counter side v counter-exposed -> BTTS & goals",
     "xg": [

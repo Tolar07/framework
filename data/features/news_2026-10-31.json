@@ -776,7 +776,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T15:00Z",
+  "at": "2026-10-31T15:20Z",
   "away_missing_share": 0.10490461379030458,
   "away_unavailable": 4,
   "fotmob_id": 5967131,
@@ -1121,11 +1121,6 @@
     "type": "injury"
    },
    {
-    "name": "Rhaldney",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Furkan Bay\u0131r",
     "side": "away",
     "type": "injury"
@@ -1134,16 +1129,21 @@
     "name": "Ibrahim Sabra",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Og\u00fcn Bayrak",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-31T15:00Z",
-  "away_missing_share": 0.10685361194497231,
-  "away_unavailable": 5,
+  "at": "2026-10-31T15:20Z",
+  "away_missing_share": 0.07179110882873477,
+  "away_unavailable": 3,
   "fotmob_id": 5904791,
-  "home_missing_share": 0.2879411721314004,
+  "home_missing_share": 0.3633035466645322,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fleetwood Town v Bristol Rvs": {
   "absent": [],
@@ -2207,7 +2207,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T15:00Z",
+  "at": "2026-10-31T15:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 1,
   "fotmob_id": 5846011,

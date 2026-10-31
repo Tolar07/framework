@@ -5470,7 +5470,9 @@
     "yes": -0.0361,
     "no": 0.0361,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Vallecano v Celta",
@@ -6099,7 +6101,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Eibar v Almeria",
@@ -8019,7 +8023,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Guingamp v St Etienne",
@@ -9909,8 +9915,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.0335337656695639,
    "missing": {
@@ -10173,7 +10179,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Fenerbahce Istanbul v Goztepe Izmir",

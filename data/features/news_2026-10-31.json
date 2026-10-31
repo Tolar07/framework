@@ -569,6 +569,48 @@
   "kickoff_utc": "2026-10-31T10:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Fenerbahce Istanbul v Goztepe Izmir": {
+  "absent": [
+   {
+    "name": "Jayden Oosterwolde",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Archie Brown",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Marco Asensio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rhaldney",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Furkan Bay\u0131r",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ibrahim Sabra",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T10:00Z",
+  "away_missing_share": 0.10685361194497231,
+  "away_unavailable": 5,
+  "fotmob_id": 5904791,
+  "home_missing_share": 0.2879411721314004,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-31T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Fleetwood Town v Bristol Rvs": {
   "absent": [],
   "at": "2026-10-31T09:00Z",
@@ -1341,6 +1383,33 @@
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "SCR Altach v SV Ried": {
+  "absent": [
+   {
+    "name": "Marko Ragu\u017e",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Vesel Demaku",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Goiginger",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T10:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 1,
+  "fotmob_id": 5846011,
+  "home_missing_share": 0.09671261280004621,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-31T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Salford v Exeter": {
   "absent": [],
   "at": "2026-10-31T09:00Z",
@@ -1801,7 +1870,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T10:00Z",
   "away_missing_share": 0.061771506799681006,
   "away_unavailable": 2,
   "fotmob_id": 5804029,

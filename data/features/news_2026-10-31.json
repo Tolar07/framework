@@ -122,7 +122,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.5223642823266516,
   "away_unavailable": 6,
   "fotmob_id": 5781786,
@@ -159,7 +159,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.22477676601712193,
   "away_unavailable": 2,
   "fotmob_id": 5868514,
@@ -218,14 +218,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-31T18:40Z",
-  "away_missing_share": 0.14093987080181772,
+  "at": "2026-10-31T19:00Z",
+  "away_missing_share": 0.14106331990224166,
   "away_unavailable": 2,
   "fotmob_id": 5811791,
-  "home_missing_share": 0.1906163146124568,
+  "home_missing_share": 0.18303817008629167,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Annecy v Montpellier": {
   "absent": [],
@@ -261,14 +261,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.07189255871811866,
   "away_unavailable": 1,
   "fotmob_id": 5795496,
-  "home_missing_share": 0.21425129173031465,
+  "home_missing_share": 0.23791679251629236,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Augsburg v Freiburg": {
   "absent": [
@@ -335,11 +335,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.054530159107624335,
   "away_unavailable": 2,
   "fotmob_id": 5868115,
-  "home_missing_share": 0.11873338578343735,
+  "home_missing_share": 0.12843712995188214,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T20:00:00.000Z",
   "lineup_type": "predicted"
@@ -478,7 +478,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.3518424967669465,
   "away_unavailable": 5,
   "fotmob_id": 5811792,
@@ -749,7 +749,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.09179287682741255,
   "away_unavailable": 3,
   "fotmob_id": 5781788,
@@ -1457,14 +1457,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.042650791178211134,
   "away_unavailable": 1,
   "fotmob_id": 5881714,
   "home_missing_share": 0.049067839850426204,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-31T19:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Kilmarnock v St Johnstone": {
   "absent": [
@@ -1830,14 +1830,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
-  "away_missing_share": 0.3210992612987388,
+  "at": "2026-10-31T19:00Z",
+  "away_missing_share": 0.29882689191511014,
   "away_unavailable": 5,
   "fotmob_id": 5749730,
-  "home_missing_share": 0.20460754642746973,
+  "home_missing_share": 0.2193373477327609,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-31T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Millwall v Derby": {
   "absent": [
@@ -2160,7 +2160,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:40Z",
+  "at": "2026-10-31T19:00Z",
   "away_missing_share": 0.06652481126572828,
   "away_unavailable": 2,
   "fotmob_id": 5887670,
@@ -2582,16 +2582,6 @@
  "Troyes v Le Mans FC": {
   "absent": [
    {
-    "name": "Isma\u00ebl Boura",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Yvann Titi",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Anis Ouzenadji",
     "side": "home",
     "type": "injury"
@@ -2612,14 +2602,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:40Z",
-  "away_missing_share": 0.1795647456411205,
+  "at": "2026-10-31T19:00Z",
+  "away_missing_share": 0.1814552121906912,
   "away_unavailable": 5,
   "fotmob_id": 5802981,
-  "home_missing_share": 0.18760850814417238,
-  "home_unavailable": 3,
+  "home_missing_share": 0.04079720938043854,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-31T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Udinese v Roma": {
   "absent": [

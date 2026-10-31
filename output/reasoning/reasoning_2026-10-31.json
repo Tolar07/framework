@@ -2428,7 +2428,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7912
+   "panel_prob": 0.7912,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7912,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.7912
+    },
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.7912,
+    "edge": -0.0426,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.2977,
+     "live_brier": 0.293,
+     "panel_brier_on_live": 0.2977,
+     "clv_n": 1,
+     "panel_clv_hit": 1.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Levante v Ath Madrid",
@@ -9371,6 +9397,27 @@
      "model": "gemini-3.5-flash",
      "status": "ok",
      "answered": 1
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-10-31T19:00+00:00",
+   "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "off for this run: gemini: 429",
+     "answered": 0
     },
     "nvidia": {
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",

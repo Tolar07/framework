@@ -524,8 +524,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.0027321837877903876,
    "missing": {
@@ -5375,8 +5375,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04270736381450191,
    "missing": {
@@ -6039,8 +6039,8 @@
     "spec": "hcp=-4.5",
     "outcome": "Away (+4.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": 0.0036601264413911316,
    "missing": {
@@ -6684,8 +6684,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -0.74,
    "stake_pct": 0.25,
    "ev": -0.03629206979774058,
    "missing": {
@@ -28875,8 +28875,8 @@
     "spec": "total=5",
     "outcome": "Under 5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.15,
+   "clv": 4.35,
    "stake_pct": 0.25,
    "ev": 0.010891688541653455,
    "missing": {

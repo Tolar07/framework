@@ -33,8 +33,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": 0.0012853335706475288,
    "missing": null,
@@ -283,7 +283,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": -4.0
   },
   {
    "fixture": "Heerenveen v Nijmegen",
@@ -444,7 +446,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Cambuur v Go Ahead Eagles",
@@ -4461,8 +4465,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -2.22,
    "stake_pct": 0.25,
    "ev": -0.02130992210901772,
    "missing": {

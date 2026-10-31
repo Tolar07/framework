@@ -218,7 +218,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.14093987080181772,
   "away_unavailable": 2,
   "fotmob_id": 5811791,
@@ -478,7 +478,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.3518424967669465,
   "away_unavailable": 5,
   "fotmob_id": 5811792,
@@ -1042,24 +1042,19 @@
     "type": "injury"
    },
    {
-    "name": "Baltazar",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Lorenzo Villa",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:00Z",
-  "away_missing_share": 0.13520768414124998,
-  "away_unavailable": 2,
+  "at": "2026-10-31T18:20Z",
+  "away_missing_share": 0.039204419248676375,
+  "away_unavailable": 1,
   "fotmob_id": 5804289,
-  "home_missing_share": 0.020868982418522964,
+  "home_missing_share": 0.02647843972532421,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T19:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FC St. Gallen 1879 v Servette Geneva": {
   "absent": [
@@ -1232,7 +1227,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.21185182490215748,
   "away_unavailable": 7,
   "fotmob_id": 5804023,
@@ -1296,14 +1291,14 @@
  },
  "Guingamp v St Etienne": {
   "absent": [],
-  "at": "2026-10-31T18:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803301,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "HNK Hajduk Split v HNK Gorica": {
   "absent": [
@@ -1467,7 +1462,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.04058249299675656,
   "away_unavailable": 1,
   "fotmob_id": 5881714,
@@ -1840,7 +1835,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.3210992612987388,
   "away_unavailable": 5,
   "fotmob_id": 5749730,
@@ -2225,12 +2220,12 @@
     "type": "injury"
    },
    {
-    "name": "Salvatore Esposito",
+    "name": "Bjorn Meijer",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Bjorn Meijer",
+    "name": "Danel Sinani",
     "side": "home",
     "type": "injury"
    },
@@ -2240,14 +2235,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.05023151686337126,
   "away_unavailable": 1,
   "fotmob_id": 5967136,
-  "home_missing_share": 0.5776203822798394,
-  "home_unavailable": 9,
+  "home_missing_share": 0.48530898253554994,
+  "home_unavailable": 6,
   "kickoff_utc": "2026-10-31T18:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Schalke v RB Leipzig": {
   "absent": [
@@ -2622,7 +2617,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:20Z",
   "away_missing_share": 0.1795647456411205,
   "away_unavailable": 5,
   "fotmob_id": 5802981,

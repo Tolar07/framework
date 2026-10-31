@@ -482,7 +482,11 @@
     "home": 8076357,
     "away": 12834289
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "Cambuur: counter side v high line; Cambuur: high press v build-up side; Cambuur: counter side v counter-exposed; Go Ahead Eagles: possession side v low block -> BTTS & goals",
     "xg": [
@@ -1000,7 +1004,11 @@
     "home": 6135908,
     "away": 37571162
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "SK Beveren: blunt attack v tight defence; Union St.Gilloise: elite attack v leaky defence -> no strong goals lean",
     "xg": [
@@ -1037,8 +1045,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.03481821943924601,
    "missing": {
@@ -1172,7 +1180,11 @@
     "home": 33613027,
     "away": 18825783
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -1206,8 +1218,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04281107665130712,
    "missing": {
@@ -3537,8 +3549,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": -0.00015721342259522597,
    "missing": {
@@ -4339,8 +4351,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.25,
    "ev": -0.026739843100089478,
    "missing": {
@@ -5987,7 +5999,11 @@
     "home": 959676437,
     "away": 41786160
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Deportivo Alav\u00e9s rotated: confirmed XI worth 49% of predicted; support: Barcelona missing 13%",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "Barcelona: possession side v low block -> BTTS & goals",
     "xg": [
@@ -6625,7 +6641,11 @@
     "home": 5825078,
     "away": 3417391
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "Albacete: blunt attack v tight defence; Sabadell: set-piece threat v weak set-piece defence; Sabadell: aerial threat v weak in the air; Sabadell: counter side v counter-exposed -> no strong goals lean",
     "xg": [

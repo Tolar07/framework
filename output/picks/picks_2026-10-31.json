@@ -1778,7 +1778,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wieczysta Krakow v Jagiellonia",
@@ -7377,7 +7379,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Darmstadt v Magdeburg",
@@ -7534,7 +7538,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wolfsburg v VfL 1899 Osnabruck",
@@ -7694,7 +7700,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Karlsruhe v Heidenheim",
@@ -9992,7 +10000,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Kocaelispor v Caykur Rizespor",

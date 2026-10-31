@@ -772,7 +772,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Standard v Kortrijk",
@@ -1444,7 +1446,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Motherwell v St Mirren",
@@ -1615,7 +1619,9 @@
     "yes": -0.0384,
     "no": 0.0384,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wisla Plock v Piast Gliwice",
@@ -2396,7 +2402,11 @@
     "home": 45690166,
     "away": 37442572
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "matchup": {
     "say": "Norwich City: possession side v low block; Watford: counter side v high line; Watford: counter side v counter-exposed -> no strong goals lean",
     "xg": [
@@ -2433,8 +2443,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.044708814620653126,
    "missing": {
@@ -2706,7 +2716,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Burnley v Portsmouth",
@@ -2874,7 +2886,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "West Ham v West Brom",
@@ -3039,7 +3053,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Bologna v Monza",
@@ -4814,7 +4830,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Coventry City v Sunderland",
@@ -4982,7 +5000,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Man City v Brighton",
@@ -5152,7 +5172,9 @@
     "yes": -0.0241,
     "no": 0.0241,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Aston Villa v Fulham",
@@ -8269,8 +8291,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 4.27,
    "stake_pct": 0.25,
    "ev": -0.04185268637099038,
    "missing": {
@@ -8504,7 +8526,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Milton Keynes Dons v Doncaster Rovers",
@@ -8650,7 +8674,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wycombe Wanderers v Burton",
@@ -8801,7 +8827,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Accrington v Northampton",
@@ -8949,7 +8977,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Oldham v Crawley Town",
@@ -9100,7 +9130,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Swindon v Rotherham",
@@ -9248,7 +9280,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Tranmere v Cheltenham",
@@ -9394,7 +9428,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Forest Green Rovers v Harrogate",
@@ -9420,7 +9456,11 @@
     "home": 1436318,
     "away": 1126484
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:72740770",
    "sb_tid": "sr:tournament:173",
@@ -9430,8 +9470,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.021094344187560843,
    "missing": {
@@ -9640,7 +9680,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.16,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Altrincham v Carlisle",
@@ -9762,7 +9804,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Barrow v Eastleigh",
@@ -9884,7 +9928,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Erzurumspor FK v Corum FK",
@@ -11488,7 +11534,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Aalesunds FK v Sandefjord Fotball",
@@ -28671,8 +28719,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -1.57,
    "stake_pct": 0.25,
    "ev": -0.03295847451708123,
    "missing": {
@@ -28825,8 +28873,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -0.77,
    "stake_pct": 0.25,
    "ev": -0.027181714241069965,
    "missing": {
@@ -30045,8 +30093,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -0.77,
    "stake_pct": 0.25,
    "ev": -0.01187131062468616,
    "missing": {
@@ -30836,8 +30884,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -3.76,
    "stake_pct": 0.25,
    "ev": -0.05272059305185017,
    "missing": {
@@ -30987,8 +31035,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -1.55,
    "stake_pct": 0.25,
    "ev": -0.037767682868014685,
    "missing": {
@@ -31842,8 +31890,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04948277735093265,
    "missing": {
@@ -31985,8 +32033,8 @@
     "spec": "total=1.5",
     "outcome": "Under 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.04448470051682496,
    "missing": {
@@ -32810,8 +32858,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04197297099532582,
    "missing": {

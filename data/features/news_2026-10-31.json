@@ -113,7 +113,7 @@
  },
  "Annecy v Montpellier": {
   "absent": [],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803299,
@@ -867,14 +867,14 @@
  },
  "Forest Green Rovers v Harrogate": {
   "absent": [],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906544,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Fredrikstad FK v Rosenborg BK": {
   "absent": [
@@ -1000,14 +1000,51 @@
  },
  "Halifax v Yeovil": {
   "absent": [],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906543,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
+ },
+ "Heerenveen v Nijmegen": {
+  "absent": [
+   {
+    "name": "Dirk Proper",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Levi Smans",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Philippe Sandler",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Du\u0161an Tadi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Emre Mor",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T12:00Z",
+  "away_missing_share": 0.09943479444079156,
+  "away_unavailable": 5,
+  "fotmob_id": 5781791,
+  "home_missing_share": 0.06337289162839999,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-31T17:45:00.000Z",
+  "lineup_type": "predicted"
  },
  "Hull City v Ipswich Town": {
   "absent": [
@@ -1138,7 +1175,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.10986027433304558,
   "away_unavailable": 2,
   "fotmob_id": 5904792,
@@ -1176,8 +1213,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:40Z",
-  "away_missing_share": 0.05054209518491066,
+  "at": "2026-10-31T12:00Z",
+  "away_missing_share": 0.05240496223307381,
   "away_unavailable": 2,
   "fotmob_id": 5868117,
   "home_missing_share": 0.15542423986086876,
@@ -1589,14 +1626,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:40Z",
-  "away_missing_share": 0.19514127438732834,
+  "at": "2026-10-31T12:00Z",
+  "away_missing_share": 0.21988906508179124,
   "away_unavailable": 3,
   "fotmob_id": 5836903,
-  "home_missing_share": 0.29490533532808505,
-  "home_unavailable": 7,
+  "home_missing_share": 0.22971829207679204,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Oldham v Crawley Town": {
   "absent": [],
@@ -1608,6 +1645,48 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "PSV Eindhoven v Willem II": {
+  "absent": [
+   {
+    "name": "Ricardo Pepi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Paul Wanner",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jerdy Schouten",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jaden Slory",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Amine Lachkar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Justin Hoogma",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T12:00Z",
+  "away_missing_share": 0.20851454847670037,
+  "away_unavailable": 4,
+  "fotmob_id": 5781793,
+  "home_missing_share": 0.3937128315511043,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-10-31T17:45:00.000Z",
+  "lineup_type": "predicted"
  },
  "Peterborough United v Luton": {
   "absent": [
@@ -1649,14 +1728,14 @@
  },
  "Port Vale v Rochdale": {
   "absent": [],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838022,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "SCR Altach v SV Ried": {
   "absent": [
@@ -1767,7 +1846,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:40Z",
+  "at": "2026-10-31T12:00Z",
   "away_missing_share": 0.4806602238635943,
   "away_unavailable": 3,
   "fotmob_id": 5868522,
@@ -1853,7 +1932,7 @@
     "type": "injury"
    },
    {
-    "name": "Svante Ingelsson",
+    "name": "Sam Gallagher",
     "side": "home",
     "type": "injury"
    },
@@ -1873,14 +1952,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:40Z",
-  "away_missing_share": 0.1578770689737423,
+  "at": "2026-10-31T12:00Z",
+  "away_missing_share": 0.23601410712965437,
   "away_unavailable": 3,
   "fotmob_id": 5836906,
-  "home_missing_share": 0.1284776424623656,
-  "home_unavailable": 6,
+  "home_missing_share": 0.11818368196837477,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Sudtirol v Cesena": {
   "absent": [

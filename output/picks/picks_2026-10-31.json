@@ -116,7 +116,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "PSV Eindhoven v Willem II",
@@ -4504,7 +4506,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.36,
+   "drift_pct": 3.0
   },
   {
    "fixture": "Porto v Estoril",
@@ -5405,8 +5409,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.047907768417151386,
    "missing": {
@@ -6055,8 +6059,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03569548403007561,
    "missing": {
@@ -8007,8 +8011,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.02788504535044667,
    "missing": {
@@ -10142,7 +10146,11 @@
     "home": 7272971,
     "away": 21732238
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -10176,8 +10184,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0345445722272848,
    "missing": {

@@ -1052,7 +1052,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:40Z",
+  "at": "2026-10-31T18:00Z",
   "away_missing_share": 0.13520768414124998,
   "away_unavailable": 2,
   "fotmob_id": 5804289,
@@ -1232,7 +1232,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
+  "at": "2026-10-31T18:00Z",
   "away_missing_share": 0.21185182490215748,
   "away_unavailable": 7,
   "fotmob_id": 5804023,
@@ -1296,7 +1296,7 @@
  },
  "Guingamp v St Etienne": {
   "absent": [],
-  "at": "2026-10-31T17:40Z",
+  "at": "2026-10-31T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803301,
@@ -1467,7 +1467,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:40Z",
+  "at": "2026-10-31T18:00Z",
   "away_missing_share": 0.04058249299675656,
   "away_unavailable": 1,
   "fotmob_id": 5881714,
@@ -1563,14 +1563,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T17:40Z",
-  "away_missing_share": 0.10602472236898776,
+  "at": "2026-10-31T18:00Z",
+  "away_missing_share": 0.09996095922448814,
   "away_unavailable": 2,
   "fotmob_id": 5846014,
-  "home_missing_share": 0.13160933704790306,
+  "home_missing_share": 0.152578507668236,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-31T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Leicester v Stevenage FC": {
   "absent": [],
@@ -2240,14 +2240,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T17:40Z",
-  "away_missing_share": 0.05479631621693083,
+  "at": "2026-10-31T18:00Z",
+  "away_missing_share": 0.05023151686337126,
   "away_unavailable": 1,
   "fotmob_id": 5967136,
-  "home_missing_share": 0.5639034747154296,
+  "home_missing_share": 0.5776203822798394,
   "home_unavailable": 9,
   "kickoff_utc": "2026-10-31T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Schalke v RB Leipzig": {
   "absent": [

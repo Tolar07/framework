@@ -30,9 +30,9 @@
     "total": 235.5
    },
    "code": "Q6P15G",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "125-111",
+   "close_value": 0.1528,
    "matchbook": {
     "back": 1.89,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 226.5
    },
    "code": "W721J9",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "114-121",
+   "close_value": 0.0696,
    "matchbook": {
     "back": 2.02,
     "listed": true

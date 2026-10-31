@@ -973,20 +973,20 @@
   {
    "lineage_id": "ln_6922f1fb3e",
    "parent_id": "ln_512082ad04",
-   "generation": 14,
-   "bankroll": 1.37,
+   "generation": 15,
+   "bankroll": 1.57,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-30",
-    "fixture": "Casa Pia v Sp Lisbon",
-    "pick": "Over 1.5 goals",
-    "price": 1.2
+    "date": "2026-10-31",
+    "fixture": "Bayern Munich v Dortmund",
+    "pick": "Under 5.5 goals",
+    "price": 1.23
    }
   },
   {
@@ -1162,7 +1162,12 @@
    "born_date": "2026-10-27",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-31",
+    "fixture": "Grasshopper Club Zurich v FC Vaduz",
+    "pick": "Grasshopper Club Zurich or FC Vaduz",
+    "price": 1.26
+   }
   },
   {
    "lineage_id": "ln_7723ee9dd3",
@@ -1176,7 +1181,12 @@
    "born_date": "2026-10-27",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-31",
+    "fixture": "Chelsea v Man United",
+    "pick": "Under 4.5 goals",
+    "price": 1.24
+   }
   },
   {
    "lineage_id": "ln_65b957fbdd",
@@ -1217,6 +1227,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-30",
+ "last_bred_date": "2026-10-31",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

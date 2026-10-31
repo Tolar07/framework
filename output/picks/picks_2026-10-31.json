@@ -34070,5 +34070,388 @@
     "chance_corr": 0.394
    }
   ]
- }
+ },
+ "replaced": [
+  {
+   "kind": "single",
+   "name": "Coventry City v Sunderland",
+   "old_code": "YZ8BXX",
+   "new_code": "MXR3JW",
+   "notes": [
+    "Coventry City v Sunderland: Coventry City (+1.5) Asian handicap \u2192 Coventry City (2:0) handicap (team news: Coventry City missing 31% of value (Haji Wright, Aur\u00e8le Amenda, Josh Eccles); support: Sunderland missing 18%)"
+   ],
+   "odds": 1.2,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Coventry City v Sunderland",
+     "home": "Coventry City",
+     "away": "Sunderland",
+     "kickoff": "2026-10-31",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Coventry City (2:0) handicap",
+     "price": 1.2,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Coventry City v Sunderland"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca C",
+   "old_code": "WCS8WA",
+   "new_code": "TN5T11",
+   "notes": [
+    "Coventry City v Sunderland: Coventry City (+1.5) Asian handicap \u2192 Coventry City (2:0) handicap (team news: Coventry City missing 31% of value (Haji Wright, Aur\u00e8le Amenda, Josh Eccles); support: Sunderland missing 18%)",
+    "Burnley v Portsmouth: Portsmouth (+1.5) Asian handicap dropped (team news: Portsmouth missing 29% of value (Josh Murphy, Colby Bishop, Benjamin Arthur); support: Burnley missing 58%)"
+   ],
+   "odds": 2.215,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Barnsley v Oxford United",
+     "home": "Barnsley",
+     "away": "Oxford United",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Coventry City v Sunderland",
+     "home": "Coventry City",
+     "away": "Sunderland",
+     "kickoff": "2026-10-31",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Coventry City (2:0) handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Accrington v Northampton",
+     "home": "Accrington",
+     "away": "Northampton",
+     "kickoff": "2026-10-31",
+     "market": "SB:16|hcp=-1.5|Away (+1.5)",
+     "pick": "Northampton (+1.5) Asian handicap",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Brentford v Nott'm Forest",
+     "home": "Brentford",
+     "away": "Nott'm Forest",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.22,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Barnsley v Oxford United",
+    "Coventry City v Sunderland",
+    "Accrington v Northampton",
+    "Brentford v Nott'm Forest"
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 5",
+   "old_code": "Y0VD6E",
+   "new_code": "J7J3SB",
+   "notes": [
+    "Coventry City v Sunderland: Coventry City (+1.5) Asian handicap \u2192 Coventry City (2:0) handicap (team news: Coventry City missing 31% of value (Haji Wright, Aur\u00e8le Amenda, Josh Eccles); support: Sunderland missing 18%)",
+    "Burnley v Portsmouth: Portsmouth (+1.5) Asian handicap dropped (team news: Portsmouth missing 29% of value (Josh Murphy, Colby Bishop, Benjamin Arthur); support: Burnley missing 58%)"
+   ],
+   "odds": 81.225,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Altrincham v Carlisle",
+     "home": "Altrincham",
+     "away": "Carlisle",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Aldershot v Gateshead",
+     "home": "Aldershot",
+     "away": "Gateshead",
+     "kickoff": "2026-10-31",
+     "market": "SB:16|hcp=-2.5|Away (+2.5)",
+     "pick": "Gateshead (+2.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Coventry City v Sunderland",
+     "home": "Coventry City",
+     "away": "Sunderland",
+     "kickoff": "2026-10-31",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Coventry City (2:0) handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Leverkusen v Stuttgart",
+     "home": "Leverkusen",
+     "away": "Stuttgart",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=5.5|Under 5.5",
+     "pick": "Under 5.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "West Ham v West Brom",
+     "home": "West Ham",
+     "away": "West Brom",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Barrow v Eastleigh",
+     "home": "Barrow",
+     "away": "Eastleigh",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Bolton Wanderers v Bristol City",
+     "home": "Bolton Wanderers",
+     "away": "Bristol City",
+     "kickoff": "2026-10-31",
+     "market": "SB:16|hcp=1.5|Home (+1.5)",
+     "pick": "Bolton Wanderers (+1.5) Asian handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Barnsley v Oxford United",
+     "home": "Barnsley",
+     "away": "Oxford United",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Accrington v Northampton",
+     "home": "Accrington",
+     "away": "Northampton",
+     "kickoff": "2026-10-31",
+     "market": "SB:16|hcp=-1.5|Away (+1.5)",
+     "pick": "Northampton (+1.5) Asian handicap",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Fredrikstad FK v Rosenborg BK",
+     "home": "Fredrikstad FK",
+     "away": "Rosenborg BK",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Wycombe Wanderers v Burton",
+     "home": "Wycombe Wanderers",
+     "away": "Burton",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Kilmarnock v St Johnstone",
+     "home": "Kilmarnock",
+     "away": "St Johnstone",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Brentford v Nott'm Forest",
+     "home": "Brentford",
+     "away": "Nott'm Forest",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Mechelen v Genk",
+     "home": "Mechelen",
+     "away": "Genk",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Oldham v Crawley Town",
+     "home": "Oldham",
+     "away": "Crawley Town",
+     "kickoff": "2026-10-31",
+     "market": "SB:16|hcp=0.5|Home (+0.5)",
+     "pick": "Oldham (+0.5) Asian handicap",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Swindon v Rotherham",
+     "home": "Swindon",
+     "away": "Rotherham",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Tranmere v Cheltenham",
+     "home": "Tranmere",
+     "away": "Cheltenham",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Milton Keynes Dons v Doncaster Rovers",
+     "home": "Milton Keynes Dons",
+     "away": "Doncaster Rovers",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "M'gladbach v Paderborn",
+     "home": "M'gladbach",
+     "away": "Paderborn",
+     "kickoff": "2026-10-31",
+     "market": "SB:33||No",
+     "pick": "M'gladbach Win to Nil \u2014 no",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Man City v Brighton",
+     "home": "Man City",
+     "away": "Brighton",
+     "kickoff": "2026-10-31",
+     "market": "SB:10||Home or Away",
+     "pick": "Man City or Brighton",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Werder Bremen v Hoffenheim",
+     "home": "Werder Bremen",
+     "away": "Hoffenheim",
+     "kickoff": "2026-10-31",
+     "market": "SB:10||Home or Away",
+     "pick": "Werder Bremen or Hoffenheim",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Motherwell v St Mirren",
+     "home": "Motherwell",
+     "away": "St Mirren",
+     "kickoff": "2026-10-31",
+     "market": "SB:10||Home or Away",
+     "pick": "Motherwell or St Mirren",
+     "price": 1.26,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Altrincham v Carlisle",
+    "Aldershot v Gateshead",
+    "Coventry City v Sunderland",
+    "Leverkusen v Stuttgart",
+    "West Ham v West Brom",
+    "Barrow v Eastleigh",
+    "Bolton Wanderers v Bristol City",
+    "Barnsley v Oxford United",
+    "Accrington v Northampton",
+    "Fredrikstad FK v Rosenborg BK",
+    "Wycombe Wanderers v Burton",
+    "Kilmarnock v St Johnstone",
+    "Brentford v Nott'm Forest",
+    "Mechelen v Genk",
+    "Oldham v Crawley Town",
+    "Swindon v Rotherham",
+    "Tranmere v Cheltenham",
+    "Milton Keynes Dons v Doncaster Rovers",
+    "M'gladbach v Paderborn",
+    "Man City v Brighton",
+    "Werder Bremen v Hoffenheim",
+    "Motherwell v St Mirren"
+   ]
+  },
+  {
+   "kind": "alts",
+   "name": "Alt B",
+   "old_code": "X9SCHA",
+   "new_code": "XH44DY",
+   "notes": [
+    "Wieczysta Krakow v Jagiellonia: Jagiellonia Under 2.5 goals \u2192 Under 4.5 goals (price drifted 1.20 \u2192 1.26)"
+   ],
+   "odds": 1.6,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Wieczysta Krakow v Jagiellonia",
+     "home": "Wieczysta Krakow",
+     "away": "Jagiellonia",
+     "kickoff": "2026-10-31",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Bologna v Monza",
+     "home": "Bologna",
+     "away": "Monza",
+     "kickoff": "2026-10-31",
+     "market": "SB:10||Home or Away",
+     "pick": "Bologna or Monza",
+     "price": 1.27,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Wieczysta Krakow v Jagiellonia",
+    "Bologna v Monza"
+   ]
+  }
+ ]
 }

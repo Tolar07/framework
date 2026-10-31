@@ -1,21 +1,21 @@
 {
  "football": {
-  "date": "2026-10-30",
-  "graded": 191,
-  "model": "gemini-3.8-flash",
+  "date": "2026-10-31",
+  "graded": 214,
+  "model": "gemini-3.5-flash-lite",
   "lessons": [
-   "Back positive Asian Handicap (+1.5, +2.5) selections even with small model-to-breakeven deficits (<3%): positive handicap cushions went 7 of 7.",
-   "Do not veto Over 1.5 goals at 1.20–1.29 solely due to a LOSING framework record; Over 1.5 hit 18 of 22 times (81.8%) when vetoed. Use 'lower' instead.",
-   "Do not veto Double Chance '12' when missing player value exceeds 20%: heavy squad disruption produced decisive winners in 12 of 12 matches without a single draw.",
-   "Never apply Double Chance '12' lay-the-draw veto rules to 'Team or Draw' (1X/X2): 1X/X2 finished 3 of 3 and provides true draw protection.",
-   "Cease blanket vetoes on Double Chance '12' for LOSING framework records: 31 of 38 vetoed selections won; restrict vetoes to tightly priced domestic derbies without squad disparity.",
-   "Do not veto team Over 0.5 goals simply because model chance is slightly below break-even: 5 of 5 vetoed team Over 0.5 picks scored.",
-   "Exercise caution backing team Over 0.5 against dominant favorites or away sides: backed selections lost 3 of 7 times (Elfsborg, Mantova, Menemenspor).",
-   "Do not blanket veto 'Win to Nil — no' at <=1.24 on framework records: 4 of 5 selections won; only veto when the favorite's defense is intact and conceding negligible xG.",
-   "Do not treat Under 4.5 as an automatic safe cushion: Under 4.5 lost 2 of 5 matches despite short odds (1.22 and 1.25).",
-   "Back Under 3.5 in cup ties only when verified extreme squad rotation (e.g. missing value share >50%) suppresses offensive output."
+   "Back positive Asian Handicap (+0.5, +1.5, +2.5) selections even with small model-to-breakeven deficits (<3%): positive handicap cushions went 11 of 11.",
+   "Do not veto Over 1.5 goals at 1.20–1.29 solely due to a LOSING framework record; Over 1.5 hit reliably when vetoed.",
+   "Do not veto Double Chance '12' when missing player value exceeds 20%: heavy squad disruption produced decisive winners without a single draw.",
+   "Never apply Double Chance '12' lay-the-draw veto rules to 'Team or Draw' (1X/X2): 1X/X2 provides true draw protection.",
+   "Do not blanket veto Double Chance '12' for LOSING framework records: restrict vetoes strictly to tightly priced domestic derbies without squad disparity.",
+   "Do not veto team Over 0.5 goals simply because model chance is slightly below break-even: backed and vetoed team Over 0.5 picks frequently score.",
+   "Exercise caution backing team Over 0.5 against dominant favorites or away sides: backed selections lost against elite defenses.",
+   "Do not blanket veto 'Win to Nil — no' at <=1.24 on framework records: most selections win unless the favorite's defense is entirely intact.",
+   "Do not treat Under 4.5 or Under totals as automatic safe cushions: short odds unders can still fail.",
+   "Back Under 3.5 in cup ties only when verified extreme squad rotation (missing value share >50%) suppresses offensive output."
   ],
-  "summary": "Replaced blanket vetoes on Over 1.5, DC '12', team Over 0.5, and 'Win to Nil — no' after they discarded dozens of winning bets, and reversed the missing-player rule on DC '12' because severe squad absences consistently produced decisive results rather than draws.",
+  "summary": "Refined lessons to reinforce high-performing positive Asian Handicap selections and clarify boundary conditions for goals and double-chance markets based on recent verdict outcomes.",
   "history": [
    {
     "date": "2026-10-23",
@@ -46,21 +46,26 @@
     "date": "2026-10-30",
     "graded": 191,
     "n": 10
+   },
+   {
+    "date": "2026-10-31",
+    "graded": 214,
+    "n": 10
    }
   ]
  },
  "nba": {
-  "date": "2026-10-30",
-  "graded": 38,
-  "model": "gemini-3.8-flash",
+  "date": "2026-10-31",
+  "graded": 48,
+  "model": "gemini-3.5-flash-lite",
   "lessons": [
    "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record (saved 2 of 2 losses).",
    "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher (won 10 of 11); avoid or reduce stake on Unders at 120.5 or higher (lost 4 of 6).",
    "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher (won 4 of 4).",
-   "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65 (won at 1.81 with 0.685 model probability; lost at 1.80 with 0.593).",
+   "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65.",
    "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85 (won 2 of 3)."
   ],
-  "summary": "Refined the sub-1.90 total odds rule to permit high-model exceptions, validated the LOSING framework probability adjustment, and added rules for fixture-specific vetoes, sub-120.0 Under totals, and short underdog handicaps.",
+  "summary": "Retained all five current lessons as they continue to be validated by the graded verdicts and accurately govern odds thresholds, family record adjustments, and total line filters.",
   "history": [
    {
     "date": "2026-10-23",
@@ -90,6 +95,11 @@
    {
     "date": "2026-10-30",
     "graded": 38,
+    "n": 5
+   },
+   {
+    "date": "2026-10-31",
+    "graded": 48,
     "n": 5
    }
   ]

@@ -399,14 +399,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:40Z",
-  "away_missing_share": 0.08013911257005593,
+  "at": "2026-10-31T17:00Z",
+  "away_missing_share": 0.0755276959153405,
   "away_unavailable": 4,
   "fotmob_id": 5881208,
-  "home_missing_share": 0.24857593553355944,
+  "home_missing_share": 0.2602461732295553,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Betis v Malaga CF": {
   "absent": [
@@ -441,14 +441,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:40Z",
+  "at": "2026-10-31T17:00Z",
   "away_missing_share": 0.2445730133048873,
   "away_unavailable": 7,
   "fotmob_id": 5868112,
   "home_missing_share": 0.1907001354766199,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Beveren v St. Gilloise": {
   "absent": [
@@ -564,14 +564,14 @@
  },
  "Boston Utd v Scunthorpe United": {
   "absent": [],
-  "at": "2026-10-31T16:40Z",
+  "at": "2026-10-31T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906542,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Bournemouth v Leeds": {
   "absent": [
@@ -1356,16 +1356,6 @@
  "Heerenveen v Nijmegen": {
   "absent": [
    {
-    "name": "Dirk Proper",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Levi Smans",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Philippe Sandler",
     "side": "away",
     "type": "injury"
@@ -1381,14 +1371,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:40Z",
-  "away_missing_share": 0.09943479444079156,
-  "away_unavailable": 5,
+  "at": "2026-10-31T17:00Z",
+  "away_missing_share": 0.09664733539393221,
+  "away_unavailable": 4,
   "fotmob_id": 5781791,
-  "home_missing_share": 0.06337289162839999,
-  "home_unavailable": 2,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T17:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Hull City v Ipswich Town": {
   "absent": [
@@ -1573,7 +1563,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:40Z",
+  "at": "2026-10-31T17:00Z",
   "away_missing_share": 0.10602472236898776,
   "away_unavailable": 2,
   "fotmob_id": 5846014,
@@ -2099,11 +2089,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:40Z",
+  "at": "2026-10-31T17:00Z",
   "away_missing_share": 0.20851454847670037,
   "away_unavailable": 4,
   "fotmob_id": 5781793,
-  "home_missing_share": 0.3937128315511043,
+  "home_missing_share": 0.3512375790443414,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-31T17:45:00.000Z",
   "lineup_type": "predicted"
@@ -2250,7 +2240,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:40Z",
+  "at": "2026-10-31T17:00Z",
   "away_missing_share": 0.05479631621693083,
   "away_unavailable": 1,
   "fotmob_id": 5967136,

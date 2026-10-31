@@ -80,7 +80,7 @@
  },
  "Accrington v Northampton": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838015,
@@ -91,7 +91,7 @@
  },
  "Aldershot v Gateshead": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906538,
@@ -102,7 +102,7 @@
  },
  "Altrincham v Carlisle": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906539,
@@ -150,18 +150,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
-  "away_missing_share": 0.14243514628952203,
+  "at": "2026-10-31T13:40Z",
+  "away_missing_share": 0.16279795603949523,
   "away_unavailable": 2,
   "fotmob_id": 5881206,
   "home_missing_share": 0.32789608693208017,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-31T14:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Barnsley v Oxford United": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837243,
@@ -172,7 +172,7 @@
  },
  "Barrow v Eastleigh": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906540,
@@ -298,14 +298,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
-  "away_missing_share": 0.33936696011785616,
+  "at": "2026-10-31T13:40Z",
+  "away_missing_share": 0.40133517560651333,
   "away_unavailable": 4,
   "fotmob_id": 5749732,
-  "home_missing_share": 0.24218234905745278,
+  "home_missing_share": 0.2038163671513741,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Bolton Wanderers v Bristol City": {
   "absent": [
@@ -330,7 +330,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.22591760749995854,
   "away_unavailable": 2,
   "fotmob_id": 5836898,
@@ -341,7 +341,7 @@
  },
  "Boreham Wood v Hartlepool": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906541,
@@ -394,7 +394,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.2211830345481256,
   "away_unavailable": 4,
   "fotmob_id": 5795495,
@@ -458,7 +458,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.22519861431289098,
   "away_unavailable": 4,
   "fotmob_id": 5795497,
@@ -500,7 +500,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.2893820873699541,
   "away_unavailable": 9,
   "fotmob_id": 5836899,
@@ -580,7 +580,7 @@
  },
  "Colchester United v Walsall": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838016,
@@ -622,7 +622,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.1829788308453565,
   "away_unavailable": 3,
   "fotmob_id": 5795499,
@@ -675,7 +675,7 @@
  },
  "Crewe v Barnet FC": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838017,
@@ -780,6 +780,43 @@
   "kickoff_utc": "2026-10-31T10:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "FC Luzern v FC Sion": {
+  "absent": [
+   {
+    "name": "Leonardo Bertone",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bongeli Beenga",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jerome Bieler",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Baltazar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenzo Villa",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T13:40Z",
+  "away_missing_share": 0.13520768414124998,
+  "away_unavailable": 2,
+  "fotmob_id": 5804289,
+  "home_missing_share": 0.020868982418522964,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-31T19:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "FC St. Gallen 1879 v Servette Geneva": {
   "absent": [
    {
@@ -866,7 +903,7 @@
  },
  "Fleetwood Town v Bristol Rvs": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838018,
@@ -909,7 +946,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.17644703994647457,
   "away_unavailable": 2,
   "fotmob_id": 5105034,
@@ -1137,7 +1174,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.051376866739621024,
   "away_unavailable": 2,
   "fotmob_id": 5795500,
@@ -1178,6 +1215,33 @@
   "kickoff_utc": "2026-10-31T12:00:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Karlsruhe v Heidenheim": {
+  "absent": [
+   {
+    "name": "H\u00e9liton",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Moritz Broschinski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sirlord Conteh",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T13:40Z",
+  "away_missing_share": 0.04058249299675656,
+  "away_unavailable": 1,
+  "fotmob_id": 5881714,
+  "home_missing_share": 0.09812216361406598,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-31T19:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Kilmarnock v St Johnstone": {
   "absent": [
    {
@@ -1201,7 +1265,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.11358078706743821,
   "away_unavailable": 2,
   "fotmob_id": 5793967,
@@ -1276,7 +1340,7 @@
  },
  "Leicester v Stevenage FC": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837245,
@@ -1345,7 +1409,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.301889594962114,
   "away_unavailable": 6,
   "fotmob_id": 5881207,
@@ -1415,7 +1479,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.2723572328064224,
   "away_unavailable": 6,
   "fotmob_id": 5795502,
@@ -1426,7 +1490,7 @@
  },
  "Mansfield v Notts County": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837248,
@@ -1468,7 +1532,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 5,
   "fotmob_id": 5811795,
@@ -1510,7 +1574,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.08067006724834483,
   "away_unavailable": 3,
   "fotmob_id": 5836901,
@@ -1552,7 +1616,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.5162815091136702,
   "away_unavailable": 10,
   "fotmob_id": 5836902,
@@ -1563,7 +1627,7 @@
  },
  "Milton Keynes Dons v Doncaster Rovers": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837247,
@@ -1600,14 +1664,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.12048027289778206,
   "away_unavailable": 2,
   "fotmob_id": 5967134,
   "home_missing_share": 0.14694956476964183,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Moreirense v Estrela": {
   "absent": [
@@ -1674,7 +1738,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.2601673317183865,
   "away_unavailable": 5,
   "fotmob_id": 5793968,
@@ -1727,7 +1791,7 @@
  },
  "Oldham v Crawley Town": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838021,
@@ -1796,7 +1860,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837249,
@@ -1856,7 +1920,7 @@
  },
  "Salford v Exeter": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838023,
@@ -1930,18 +1994,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
-  "away_missing_share": 0.21697309338600634,
+  "at": "2026-10-31T13:40Z",
+  "away_missing_share": 0.21883757943911325,
   "away_unavailable": 3,
   "fotmob_id": 5881212,
-  "home_missing_share": 0.3765167098915762,
-  "home_unavailable": 7,
+  "home_missing_share": 0.39008193209846004,
+  "home_unavailable": 8,
   "kickoff_utc": "2026-10-31T14:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Shrewsbury v Gillingham": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838024,
@@ -1979,7 +2043,7 @@
  },
  "Solihull v Kidderminster": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906545,
@@ -2032,7 +2096,7 @@
  },
  "Stockport County FC v AFC Wimbledon": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837252,
@@ -2111,14 +2175,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.11962366190780219,
   "away_unavailable": 2,
   "fotmob_id": 5967137,
   "home_missing_share": 0.17269401872338339,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Swansea v Blackburn": {
   "absent": [
@@ -2153,7 +2217,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.2868345366720823,
   "away_unavailable": 6,
   "fotmob_id": 5836907,
@@ -2164,7 +2228,7 @@
  },
  "Swindon v Rotherham": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838025,
@@ -2175,7 +2239,7 @@
  },
  "Tamworth v Woking": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906546,
@@ -2228,7 +2292,7 @@
  },
  "Tranmere v Cheltenham": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838026,
@@ -2323,7 +2387,7 @@
  },
  "Wealdstone v Southend": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906547,
@@ -2365,7 +2429,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T13:20Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.37814364743551954,
   "away_unavailable": 6,
   "fotmob_id": 5881214,
@@ -2397,7 +2461,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.27756180553011894,
   "away_unavailable": 3,
   "fotmob_id": 5836908,
@@ -2435,7 +2499,7 @@
  },
  "Wigan v Bromley FC": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837253,
@@ -2536,7 +2600,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.20072479967204343,
   "away_unavailable": 3,
   "fotmob_id": 5836909,
@@ -2547,7 +2611,7 @@
  },
  "Worthing v Sutton": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906548,
@@ -2558,7 +2622,7 @@
  },
  "Wycombe Wanderers v Burton": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T13:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837254,

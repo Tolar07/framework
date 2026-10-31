@@ -2013,8 +2013,8 @@
     "spec": "hcp=0.5",
     "outcome": "Home (+0.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -3.12,
    "stake_pct": 0.25,
    "ev": -0.03909855638594684,
    "missing": null,
@@ -8345,7 +8345,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Plymouth v Reading",
@@ -11113,7 +11115,11 @@
     "home": 12733983,
     "away": 9416105
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "matchup": {
     "say": "St. Gallen: set-piece threat v weak set-piece defence; Servette: counter side v counter-exposed -> BTTS & goals",
     "xg": [
@@ -11278,7 +11284,11 @@
     "home": 4485288,
     "away": 3228447
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74376138",
    "sb_tid": "sr:tournament:215",

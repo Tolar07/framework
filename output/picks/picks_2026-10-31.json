@@ -7081,7 +7081,11 @@
     "home": 7790609,
     "away": 15540408
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "matchup": {
     "say": "Padova: aerial threat v weak in the air -> BTTS & goals",
     "xg": [
@@ -7117,8 +7121,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.25,
    "ev": -0.04001408673148188,
    "missing": {
@@ -7373,7 +7377,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Kaiserslautern v Hertha",
@@ -10486,8 +10492,8 @@
     "spec": "",
     "outcome": "2-5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.12973911974316543,
    "missing": {
@@ -10777,7 +10783,11 @@
     "home": 4597815,
     "away": 4305036
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -10811,8 +10821,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -4.72,
    "stake_pct": 0.25,
    "ev": -0.04972315134746452,
    "missing": {
@@ -11075,7 +11085,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.32,
+   "drift_pct": 0.8
   },
   {
    "fixture": "FC St. Gallen 1879 v Servette Geneva",

@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:00Z",
+  "at": "2026-10-31T15:40Z",
   "away_missing_share": 0.08574978244668864,
   "away_unavailable": 2,
   "fotmob_id": 5943283,
@@ -69,7 +69,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:00Z",
+  "at": "2026-10-31T15:40Z",
   "away_missing_share": 0.3862477935298143,
   "away_unavailable": 6,
   "fotmob_id": 5105039,
@@ -776,14 +776,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T15:20Z",
-  "away_missing_share": 0.10490461379030458,
+  "at": "2026-10-31T15:40Z",
+  "away_missing_share": 0.14450003645572881,
   "away_unavailable": 4,
   "fotmob_id": 5967131,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T16:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Chelsea v Man United": {
   "absent": [
@@ -1094,14 +1094,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:00Z",
+  "at": "2026-10-31T15:40Z",
   "away_missing_share": 0.440602258382793,
   "away_unavailable": 6,
   "fotmob_id": 5804290,
-  "home_missing_share": 0.33551778543760286,
+  "home_missing_share": 0.34541550872944676,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-31T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fenerbahce Istanbul v Goztepe Izmir": {
   "absent": [
@@ -1269,19 +1269,19 @@
     "type": "injury"
    },
    {
-    "name": "Lado Akhalaia",
+    "name": "Stephan Seiler",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:00Z",
-  "away_missing_share": 0.2786442803272106,
-  "away_unavailable": 5,
+  "at": "2026-10-31T15:40Z",
+  "away_missing_share": 0.2666289236898227,
+  "away_unavailable": 4,
   "fotmob_id": 5804286,
-  "home_missing_share": 0.42188543213899227,
+  "home_missing_share": 0.3821576152586199,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Grimsby v York City FC": {
   "absent": [],
@@ -2207,14 +2207,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T15:20Z",
+  "at": "2026-10-31T15:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 1,
   "fotmob_id": 5846011,
-  "home_missing_share": 0.09671261280004621,
+  "home_missing_share": 0.09705016592779692,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-31T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Salford v Exeter": {
   "absent": [],
@@ -2674,7 +2674,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:00Z",
+  "at": "2026-10-31T15:40Z",
   "away_missing_share": 0.31488718825752726,
   "away_unavailable": 4,
   "fotmob_id": 5749739,

@@ -7261,7 +7261,11 @@
     "home": 14867445,
     "away": 12315421
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Hertha BSC missing 30%",
+    "at": "11:20Z"
+   },
    "matchup": {
     "say": "Kaiserslautern: counter side v high line; Kaiserslautern: high press v build-up side; Kaiserslautern: counter side v counter-exposed; Hertha BSC: possession side v low block -> BTTS & goals",
     "xg": [
@@ -7427,7 +7431,11 @@
     "home": 7770856,
     "away": 10359193
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:20Z"
+   },
    "matchup": {
     "say": "Darmstadt: blunt attack v tight defence; Magdeburg: possession side v low block -> no strong goals lean",
     "xg": [
@@ -7586,7 +7594,11 @@
     "home": 58374699,
     "away": 4979823
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Wolfsburg missing 24%",
+    "at": "11:20Z"
+   },
    "matchup": {
     "say": "Wolfsburg: possession side v low block; VfL Osnabr\u00fcck: counter side v high line; VfL Osnabr\u00fcck: set-piece threat v weak set-piece defence; VfL Osnabr\u00fcck: aerial threat v weak in the air; VfL Osnabr\u00fcck: elite attack v leaky defence -> BTTS & goals",
     "xg": [

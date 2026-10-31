@@ -1,0 +1,7364 @@
+{
+ "AE Kifisia FC v Olympiacos": {
+  "away": "Olympiacos",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "AE Kifisia FC v Olympiacos",
+  "ft": "PENDING",
+  "home": "AE Kifisia FC",
+  "league": "Greek Super League",
+  "model_p": [
+   0.141,
+   0.349,
+   0.51,
+   0.597,
+   0.298,
+   0.126,
+   0.358
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.677,
+    "xgf": 1.127
+   },
+   "edge": -0.23,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.095,
+    "xgf": 1.315
+   },
+   "total": 2.107
+  }
+ },
+ "Aalesunds FK v Sandefjord Fotball": {
+  "away": "Sandefjord Fotball",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Aalesunds FK v Sandefjord Fotball",
+  "ft": "PENDING",
+  "home": "Aalesunds FK",
+  "league": "Eliteserien",
+  "model_p": [
+   0.412,
+   0.247,
+   0.342,
+   0.809,
+   0.585,
+   0.361,
+   0.611
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.925,
+    "xgf": 0.925
+   },
+   "edge": 0.067,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.22,
+    "xgf": 1.287
+   },
+   "total": 3.178
+  }
+ },
+ "Accrington v Northampton": {
+  "away": "Northampton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Accrington v Northampton",
+  "ft": "PENDING",
+  "home": "Accrington",
+  "league": "League Two",
+  "model_p": [
+   0.401,
+   0.336,
+   0.263,
+   0.532,
+   0.261,
+   0.104,
+   0.342
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.375,
+    "xga": 1.72,
+    "xgf": 1.192
+   },
+   "edge": 1.04,
+   "home": {
+    "n": 4,
+    "trend": -0.305,
+    "xga": 0.7,
+    "xgf": 1.212
+   },
+   "total": 2.412
+  }
+ },
+ "Ajax v AZ Alkmaar": {
+  "away": "AZ Alkmaar",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Ajax v AZ Alkmaar",
+  "ft": "PENDING",
+  "home": "Ajax",
+  "league": "Eredivisie",
+  "model_p": [
+   0.455,
+   0.244,
+   0.301,
+   0.831,
+   0.612,
+   0.389,
+   0.628
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.88,
+    "xgf": 1.24
+   },
+   "edge": 1.028,
+   "home": {
+    "n": 5,
+    "trend": 0.462,
+    "xga": 1.444,
+    "xgf": 1.832
+   },
+   "total": 3.198
+  }
+ },
+ "Albacete v Sabadell": {
+  "away": "Sabadell",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Albacete v Sabadell",
+  "ft": "PENDING",
+  "home": "Albacete",
+  "league": "La Liga 2",
+  "model_p": [
+   0.314,
+   0.305,
+   0.381,
+   0.599,
+   0.328,
+   0.146,
+   0.402
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -1.45,
+    "xga": 1.028,
+    "xgf": 1.002
+   },
+   "edge": -0.798,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.507,
+    "xgf": 0.683
+   },
+   "total": 2.11
+  }
+ },
+ "Aldershot v Gateshead": {
+  "away": "Gateshead",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Aldershot v Gateshead",
+  "ft": "PENDING",
+  "home": "Aldershot",
+  "league": "National League",
+  "model_p": [
+   0.588,
+   0.21,
+   0.202,
+   0.79,
+   0.567,
+   0.343,
+   0.545
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Altrincham v Carlisle": {
+  "away": "Carlisle",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Altrincham v Carlisle",
+  "ft": "PENDING",
+  "home": "Altrincham",
+  "league": "National League",
+  "model_p": [
+   0.305,
+   0.242,
+   0.453,
+   0.751,
+   0.513,
+   0.292,
+   0.542
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Anderlecht v Westerlo": {
+  "away": "Westerlo",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Anderlecht v Westerlo",
+  "ft": "PENDING",
+  "home": "Anderlecht",
+  "league": "Belgian Pro League",
+  "model_p": [
+   0.443,
+   0.235,
+   0.322,
+   0.826,
+   0.614,
+   0.391,
+   0.629
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.495,
+    "xgf": 2.42
+   },
+   "edge": -1.01,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.275,
+    "xgf": 1.19
+   },
+   "total": 3.19
+  }
+ },
+ "Annecy v Montpellier": {
+  "away": "Montpellier",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Annecy v Montpellier",
+  "ft": "PENDING",
+  "home": "Annecy",
+  "league": "Ligue 2",
+  "model_p": [
+   0.307,
+   0.318,
+   0.376,
+   0.628,
+   0.348,
+   0.16,
+   0.428
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.357,
+    "xgf": 1.203
+   },
+   "edge": 0.3,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.207,
+    "xgf": 1.353
+   },
+   "total": 2.56
+  }
+ },
+ "Aston Villa v Fulham": {
+  "away": "Fulham",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Aston Villa v Fulham",
+  "ft": "PENDING",
+  "home": "Aston Villa",
+  "league": "Premier League",
+  "model_p": [
+   0.449,
+   0.269,
+   0.282,
+   0.756,
+   0.504,
+   0.286,
+   0.545
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.607,
+    "xgf": 1.247
+   },
+   "edge": 0.198,
+   "home": {
+    "n": 5,
+    "trend": -0.555,
+    "xga": 1.216,
+    "xgf": 2.054
+   },
+   "total": 2.562
+  }
+ },
+ "Augsburg v Freiburg": {
+  "away": "Freiburg",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Augsburg v Freiburg",
+  "ft": "PENDING",
+  "home": "Augsburg",
+  "league": "Bundesliga",
+  "model_p": [
+   0.43,
+   0.227,
+   0.343,
+   0.849,
+   0.652,
+   0.433,
+   0.66
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -1.258,
+    "xga": 1.44,
+    "xgf": 1.3
+   },
+   "edge": -0.453,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 3.33,
+    "xgf": 2.737
+   },
+   "total": 4.403
+  }
+ },
+ "Barcelona v Alaves": {
+  "away": "Alaves",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Barcelona v Alaves",
+  "ft": "PENDING",
+  "home": "Barcelona",
+  "league": "La Liga",
+  "model_p": [
+   0.796,
+   0.125,
+   0.079,
+   0.909,
+   0.76,
+   0.564,
+   0.571
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.163,
+    "xgf": 1.29
+   },
+   "edge": 1.208,
+   "home": {
+    "n": 4,
+    "trend": -1.56,
+    "xga": 0.935,
+    "xgf": 2.27
+   },
+   "total": 2.829
+  }
+ },
+ "Barnsley v Oxford United": {
+  "away": "Oxford United",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Barnsley v Oxford United",
+  "ft": "PENDING",
+  "home": "Barnsley",
+  "league": "League One",
+  "model_p": [
+   0.23,
+   0.235,
+   0.535,
+   0.789,
+   0.556,
+   0.332,
+   0.561
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.092,
+    "xga": 1.664,
+    "xgf": 1.514
+   },
+   "edge": -0.305,
+   "home": {
+    "n": 4,
+    "trend": -0.49,
+    "xga": 1.81,
+    "xgf": 1.355
+   },
+   "total": 3.171
+  }
+ },
+ "Barrow v Eastleigh": {
+  "away": "Eastleigh",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Barrow v Eastleigh",
+  "ft": "PENDING",
+  "home": "Barrow",
+  "league": "National League",
+  "model_p": [
+   0.644,
+   0.188,
+   0.168,
+   0.822,
+   0.615,
+   0.392,
+   0.557
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Bayern Munich v Dortmund": {
+  "away": "Dortmund",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Bayern Munich v Dortmund",
+  "ft": "PENDING",
+  "home": "Bayern Munich",
+  "league": "Bundesliga",
+  "model_p": [
+   0.647,
+   0.182,
+   0.171,
+   0.877,
+   0.702,
+   0.491,
+   0.636
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.055,
+    "xgf": 1.7
+   },
+   "edge": 1.433,
+   "home": {
+    "n": 5,
+    "trend": -1.238,
+    "xga": 1.326,
+    "xgf": 3.404
+   },
+   "total": 3.742
+  }
+ },
+ "Betis v Malaga CF": {
+  "away": "Malaga CF",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Betis v Malaga CF",
+  "ft": "PENDING",
+  "home": "Betis",
+  "league": "La Liga",
+  "model_p": [
+   0.732,
+   0.171,
+   0.097,
+   0.827,
+   0.612,
+   0.389,
+   0.489
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.677,
+    "xgf": 0.8
+   },
+   "edge": 0.704,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.933,
+    "xgf": 1.76
+   },
+   "total": 3.085
+  }
+ },
+ "Beveren v St. Gilloise": {
+  "away": "St. Gilloise",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Beveren v St. Gilloise",
+  "ft": "PENDING",
+  "home": "Beveren",
+  "league": "Belgian Pro League",
+  "model_p": [
+   0.121,
+   0.188,
+   0.691,
+   0.794,
+   0.568,
+   0.346,
+   0.484
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.955,
+    "xgf": 1.405
+   },
+   "total": "PENDING"
+  }
+ },
+ "Bologna v Monza": {
+  "away": "Monza",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Bologna v Monza",
+  "ft": "PENDING",
+  "home": "Bologna",
+  "league": "Serie A",
+  "model_p": [
+   0.515,
+   0.214,
+   0.271,
+   0.851,
+   0.661,
+   0.444,
+   0.651
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.52,
+    "xga": 1.838,
+    "xgf": 1.423
+   },
+   "edge": 0.36,
+   "home": {
+    "n": 4,
+    "trend": 1.54,
+    "xga": 1.743,
+    "xgf": 1.688
+   },
+   "total": 3.346
+  }
+ },
+ "Bolton Wanderers v Bristol City": {
+  "away": "Bristol City",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Bolton Wanderers v Bristol City",
+  "ft": "PENDING",
+  "home": "Bolton Wanderers",
+  "league": "Championship",
+  "model_p": [
+   0.377,
+   0.255,
+   0.368,
+   0.786,
+   0.551,
+   0.329,
+   0.586
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -1.285,
+    "xga": 1.11,
+    "xgf": 1.248
+   },
+   "edge": -0.776,
+   "home": {
+    "n": 4,
+    "trend": -2.645,
+    "xga": 2.43,
+    "xgf": 1.792
+   },
+   "total": 3.29
+  }
+ },
+ "Boreham Wood v Hartlepool": {
+  "away": "Hartlepool",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Boreham Wood v Hartlepool",
+  "ft": "PENDING",
+  "home": "Boreham Wood",
+  "league": "National League",
+  "model_p": [
+   0.718,
+   0.164,
+   0.118,
+   0.826,
+   0.622,
+   0.399,
+   0.511
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Boston Utd v Scunthorpe United": {
+  "away": "Scunthorpe United",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Boston Utd v Scunthorpe United",
+  "ft": "PENDING",
+  "home": "Boston Utd",
+  "league": "National League",
+  "model_p": [
+   0.407,
+   0.229,
+   0.364,
+   0.809,
+   0.596,
+   0.372,
+   0.613
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Bournemouth v Leeds": {
+  "away": "Leeds",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Bournemouth v Leeds",
+  "ft": "PENDING",
+  "home": "Bournemouth",
+  "league": "Premier League",
+  "model_p": [
+   0.48,
+   0.255,
+   0.265,
+   0.791,
+   0.555,
+   0.334,
+   0.579
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.36,
+    "xgf": 0.93
+   },
+   "edge": 2.618,
+   "home": {
+    "n": 5,
+    "trend": -0.305,
+    "xga": 0.56,
+    "xgf": 2.748
+   },
+   "total": 2.799
+  }
+ },
+ "Bradford v Huddersfield": {
+  "away": "Huddersfield",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Bradford v Huddersfield",
+  "ft": "PENDING",
+  "home": "Bradford",
+  "league": "League One",
+  "model_p": [
+   0.391,
+   0.296,
+   0.313,
+   0.647,
+   0.377,
+   0.18,
+   0.445
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.84,
+    "xga": 1.06,
+    "xgf": 2.59
+   },
+   "edge": -1.139,
+   "home": {
+    "n": 4,
+    "trend": -0.94,
+    "xga": 1.057,
+    "xgf": 1.448
+   },
+   "total": 3.077
+  }
+ },
+ "Brentford v Nott'm Forest": {
+  "away": "Nott'm Forest",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Brentford v Nott'm Forest",
+  "ft": "PENDING",
+  "home": "Brentford",
+  "league": "Premier League",
+  "model_p": [
+   0.48,
+   0.254,
+   0.266,
+   0.795,
+   0.561,
+   0.343,
+   0.584
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.337,
+    "xgf": 2.177
+   },
+   "edge": -1.443,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.83,
+    "xgf": 1.227
+   },
+   "total": 3.285
+  }
+ },
+ "Burnley v Portsmouth": {
+  "away": "Portsmouth",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Burnley v Portsmouth",
+  "ft": "PENDING",
+  "home": "Burnley",
+  "league": "Championship",
+  "model_p": [
+   0.36,
+   0.253,
+   0.387,
+   0.79,
+   0.557,
+   0.334,
+   0.591
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -0.445,
+    "xga": 1.012,
+    "xgf": 1.164
+   },
+   "edge": -0.25,
+   "home": {
+    "n": 4,
+    "trend": -0.445,
+    "xga": 1.725,
+    "xgf": 1.627
+   },
+   "total": 2.764
+  }
+ },
+ "Cambuur v Go Ahead Eagles": {
+  "away": "Go Ahead Eagles",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Cambuur v Go Ahead Eagles",
+  "ft": "PENDING",
+  "home": "Cambuur",
+  "league": "Eredivisie",
+  "model_p": [
+   0.409,
+   0.221,
+   0.37,
+   0.896,
+   0.732,
+   0.531,
+   0.728
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.727,
+    "xgf": 1.71
+   },
+   "edge": 0.237,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.173,
+    "xgf": 1.393
+   },
+   "total": 3.002
+  }
+ },
+ "Catanzaro v Padova": {
+  "away": "Padova",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Catanzaro v Padova",
+  "ft": "PENDING",
+  "home": "Catanzaro",
+  "league": "Serie B",
+  "model_p": [
+   0.444,
+   0.273,
+   0.283,
+   0.773,
+   0.521,
+   0.299,
+   0.563
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.13,
+    "xga": 1.75,
+    "xgf": 0.965
+   },
+   "edge": -0.87,
+   "home": {
+    "n": 4,
+    "trend": -0.83,
+    "xga": 2.748,
+    "xgf": 1.093
+   },
+   "total": 3.278
+  }
+ },
+ "Celta B v Cordoba": {
+  "away": "Cordoba",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Celta B v Cordoba",
+  "ft": "PENDING",
+  "home": "Celta B",
+  "league": "La Liga 2",
+  "model_p": [
+   0.455,
+   0.219,
+   0.326,
+   0.867,
+   0.684,
+   0.469,
+   0.682
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.04,
+    "xga": 1.52,
+    "xgf": 2.105
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Chelsea v Man United": {
+  "away": "Man United",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Chelsea v Man United",
+  "ft": "PENDING",
+  "home": "Chelsea",
+  "league": "Premier League",
+  "model_p": [
+   0.405,
+   0.236,
+   0.358,
+   0.863,
+   0.668,
+   0.45,
+   0.679
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.727,
+    "xgf": 0.963
+   },
+   "edge": 0.927,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.85,
+    "xgf": 1.013
+   },
+   "total": 2.276
+  }
+ },
+ "Colchester United v Walsall": {
+  "away": "Walsall",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Colchester United v Walsall",
+  "ft": "PENDING",
+  "home": "Colchester United",
+  "league": "League Two",
+  "model_p": [
+   0.395,
+   0.293,
+   0.312,
+   0.665,
+   0.395,
+   0.194,
+   0.461
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.495,
+    "xga": 1.79,
+    "xgf": 1.607
+   },
+   "edge": -0.139,
+   "home": {
+    "n": 4,
+    "trend": -0.545,
+    "xga": 1.195,
+    "xgf": 0.873
+   },
+   "total": 2.733
+  }
+ },
+ "Coventry City v Sunderland": {
+  "away": "Sunderland",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Coventry City v Sunderland",
+  "ft": "PENDING",
+  "home": "Coventry City",
+  "league": "Premier League",
+  "model_p": [
+   0.363,
+   0.297,
+   0.34,
+   0.687,
+   0.415,
+   0.209,
+   0.484
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.133,
+    "xgf": 0.54
+   },
+   "edge": 1.427,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.083,
+    "xgf": 0.917
+   },
+   "total": 2.337
+  }
+ },
+ "Cremonese v Benevento Calcio": {
+  "away": "Benevento Calcio",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Cremonese v Benevento Calcio",
+  "ft": "PENDING",
+  "home": "Cremonese",
+  "league": "Serie B",
+  "model_p": [
+   0.27,
+   0.321,
+   0.409,
+   0.635,
+   0.352,
+   0.163,
+   0.43
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.295,
+    "xga": 0.612,
+    "xgf": 2.155
+   },
+   "edge": -2.19,
+   "home": {
+    "n": 4,
+    "trend": 1.545,
+    "xga": 1.49,
+    "xgf": 0.843
+   },
+   "total": 2.55
+  }
+ },
+ "Crewe v Barnet FC": {
+  "away": "Barnet FC",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Crewe v Barnet FC",
+  "ft": "PENDING",
+  "home": "Crewe",
+  "league": "League Two",
+  "model_p": [
+   0.344,
+   0.249,
+   0.408,
+   0.804,
+   0.577,
+   0.353,
+   0.606
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -1.17,
+    "xga": 1.534,
+    "xgf": 2.106
+   },
+   "edge": -0.927,
+   "home": {
+    "n": 4,
+    "trend": -1.83,
+    "xga": 1.315,
+    "xgf": 0.96
+   },
+   "total": 2.957
+  }
+ },
+ "Darmstadt v Magdeburg": {
+  "away": "Magdeburg",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Darmstadt v Magdeburg",
+  "ft": "PENDING",
+  "home": "Darmstadt",
+  "league": "2. Bundesliga",
+  "model_p": [
+   0.398,
+   0.235,
+   0.366,
+   0.844,
+   0.641,
+   0.42,
+   0.656
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.223,
+    "xgf": 1.647
+   },
+   "edge": -1.068,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.527,
+    "xgf": 0.883
+   },
+   "total": 2.64
+  }
+ },
+ "Eibar v Almeria": {
+  "away": "Almeria",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Eibar v Almeria",
+  "ft": "PENDING",
+  "home": "Eibar",
+  "league": "La Liga 2",
+  "model_p": [
+   0.444,
+   0.244,
+   0.311,
+   0.785,
+   0.554,
+   0.33,
+   0.58
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.097,
+    "xgf": 1.24
+   },
+   "edge": -0.293,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.013,
+    "xgf": 1.863
+   },
+   "total": 3.107
+  }
+ },
+ "Erzurumspor FK v Corum FK": {
+  "away": "Corum FK",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Erzurumspor FK v Corum FK",
+  "ft": "PENDING",
+  "home": "Erzurumspor FK",
+  "league": "Turkish Super Lig",
+  "model_p": [
+   0.35,
+   0.278,
+   0.372,
+   0.772,
+   0.519,
+   0.298,
+   0.57
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.277,
+    "xgf": 1.313
+   },
+   "edge": 0.354,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.003,
+    "xgf": 1.393
+   },
+   "total": 2.493
+  }
+ },
+ "FC Luzern v FC Sion": {
+  "away": "FC Sion",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "FC Luzern v FC Sion",
+  "ft": "PENDING",
+  "home": "FC Luzern",
+  "league": "Swiss Super League",
+  "model_p": [
+   0.293,
+   0.229,
+   0.478,
+   0.853,
+   0.655,
+   0.436,
+   0.658
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.305,
+    "xgf": 1.55
+   },
+   "edge": -0.535,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 2.15,
+    "xgf": 1.86
+   },
+   "total": 3.433
+  }
+ },
+ "FC St. Gallen 1879 v Servette Geneva": {
+  "away": "Servette Geneva",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "FC St. Gallen 1879 v Servette Geneva",
+  "ft": "PENDING",
+  "home": "FC St. Gallen 1879",
+  "league": "Swiss Super League",
+  "model_p": [
+   0.42,
+   0.248,
+   0.332,
+   0.808,
+   0.582,
+   0.358,
+   0.609
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 0.665,
+    "xgf": 1.77
+   },
+   "edge": -1.09,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.33,
+    "xgf": 1.345
+   },
+   "total": 2.555
+  }
+ },
+ "Fenerbahce Istanbul v Goztepe Izmir": {
+  "away": "Goztepe Izmir",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Fenerbahce Istanbul v Goztepe Izmir",
+  "ft": "PENDING",
+  "home": "Fenerbahce Istanbul",
+  "league": "Turkish Super Lig",
+  "model_p": [
+   0.666,
+   0.191,
+   0.143,
+   0.875,
+   0.685,
+   0.47,
+   0.612
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.167,
+    "xgf": 1.993
+   },
+   "edge": -1.112,
+   "home": {
+    "n": 5,
+    "trend": -1.498,
+    "xga": 1.868,
+    "xgf": 1.582
+   },
+   "total": 3.305
+  }
+ },
+ "Feyenoord v For Sittard": {
+  "away": "For Sittard",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Feyenoord v For Sittard",
+  "ft": "PENDING",
+  "home": "Feyenoord",
+  "league": "Eredivisie",
+  "model_p": [
+   0.693,
+   0.177,
+   0.13,
+   0.877,
+   0.694,
+   0.481,
+   0.601
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 4,
+    "trend": 0.605,
+    "xga": 1.393,
+    "xgf": 1.935
+   },
+   "total": "PENDING"
+  }
+ },
+ "Fleetwood Town v Bristol Rvs": {
+  "away": "Bristol Rvs",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Fleetwood Town v Bristol Rvs",
+  "ft": "PENDING",
+  "home": "Fleetwood Town",
+  "league": "League Two",
+  "model_p": [
+   0.437,
+   0.274,
+   0.289,
+   0.713,
+   0.452,
+   0.239,
+   0.503
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.985,
+    "xga": 1.48,
+    "xgf": 1.558
+   },
+   "edge": 0.297,
+   "home": {
+    "n": 4,
+    "trend": -0.58,
+    "xga": 1.225,
+    "xgf": 1.6
+   },
+   "total": 2.931
+  }
+ },
+ "Forest Green Rovers v Harrogate": {
+  "away": "Harrogate",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Forest Green Rovers v Harrogate",
+  "ft": "PENDING",
+  "home": "Forest Green Rovers",
+  "league": "National League",
+  "model_p": [
+   0.411,
+   0.219,
+   0.369,
+   0.844,
+   0.652,
+   0.433,
+   0.657
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Fredrikstad FK v Rosenborg BK": {
+  "away": "Rosenborg BK",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Fredrikstad FK v Rosenborg BK",
+  "ft": "PENDING",
+  "home": "Fredrikstad FK",
+  "league": "Eliteserien",
+  "model_p": [
+   0.302,
+   0.257,
+   0.44,
+   0.768,
+   0.525,
+   0.303,
+   0.56
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 0.645,
+    "xgf": 2.275
+   },
+   "edge": -2.426,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.113,
+    "xgf": 1.317
+   },
+   "total": 3.175
+  }
+ },
+ "GKS Katowice v Widzew Lodz": {
+  "away": "Widzew Lodz",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "GKS Katowice v Widzew Lodz",
+  "ft": "PENDING",
+  "home": "GKS Katowice",
+  "league": "Ekstraklasa",
+  "model_p": [
+   0.501,
+   0.286,
+   0.213,
+   0.746,
+   0.476,
+   0.259,
+   0.515
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.785,
+    "xgf": 1.27
+   },
+   "edge": 0.368,
+   "home": {
+    "n": 4,
+    "trend": -0.015,
+    "xga": 1.692,
+    "xgf": 1.545
+   },
+   "total": 3.146
+  }
+ },
+ "Grasshopper Club Zurich v FC Vaduz": {
+  "away": "FC Vaduz",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Grasshopper Club Zurich v FC Vaduz",
+  "ft": "PENDING",
+  "home": "Grasshopper Club Zurich",
+  "league": "Swiss Super League",
+  "model_p": [
+   0.267,
+   0.21,
+   0.523,
+   0.89,
+   0.722,
+   0.515,
+   0.702
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.49,
+    "xgf": 1.67
+   },
+   "edge": -1.25,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.765,
+    "xgf": 0.695
+   },
+   "total": 2.81
+  }
+ },
+ "Grimsby v York City FC": {
+  "away": "York City FC",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Grimsby v York City FC",
+  "ft": "PENDING",
+  "home": "Grimsby",
+  "league": "League Two",
+  "model_p": [
+   0.461,
+   0.248,
+   0.292,
+   0.794,
+   0.562,
+   0.339,
+   0.587
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -0.888,
+    "xga": 1.034,
+    "xgf": 1.392
+   },
+   "edge": -0.128,
+   "home": {
+    "n": 4,
+    "trend": 2.24,
+    "xga": 1.922,
+    "xgf": 2.152
+   },
+   "total": 3.25
+  }
+ },
+ "Guingamp v St Etienne": {
+  "away": "St Etienne",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Guingamp v St Etienne",
+  "ft": "PENDING",
+  "home": "Guingamp",
+  "league": "Ligue 2",
+  "model_p": [
+   0.19,
+   0.238,
+   0.573,
+   0.787,
+   0.546,
+   0.323,
+   0.54
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.42,
+    "xgf": 1.087
+   },
+   "edge": -0.537,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.167,
+    "xgf": 1.297
+   },
+   "total": 1.986
+  }
+ },
+ "HNK Hajduk Split v HNK Gorica": {
+  "away": "HNK Gorica",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "HNK Hajduk Split v HNK Gorica",
+  "ft": "PENDING",
+  "home": "HNK Hajduk Split",
+  "league": "HNL",
+  "model_p": "PENDING",
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.22,
+    "xgf": 1.645
+   },
+   "total": "PENDING"
+  }
+ },
+ "Halifax v Yeovil": {
+  "away": "Yeovil",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Halifax v Yeovil",
+  "ft": "PENDING",
+  "home": "Halifax",
+  "league": "National League",
+  "model_p": [
+   0.441,
+   0.236,
+   0.324,
+   0.78,
+   0.553,
+   0.33,
+   0.576
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Heerenveen v Nijmegen": {
+  "away": "Nijmegen",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Heerenveen v Nijmegen",
+  "ft": "PENDING",
+  "home": "Heerenveen",
+  "league": "Eredivisie",
+  "model_p": [
+   0.394,
+   0.242,
+   0.364,
+   0.852,
+   0.647,
+   0.427,
+   0.664
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.615,
+    "xgf": 1.425
+   },
+   "edge": 0.573,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.697,
+    "xgf": 2.08
+   },
+   "total": 3.409
+  }
+ },
+ "Hull City v Ipswich Town": {
+  "away": "Ipswich Town",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Hull City v Ipswich Town",
+  "ft": "PENDING",
+  "home": "Hull City",
+  "league": "Premier League",
+  "model_p": [
+   0.5,
+   0.246,
+   0.254,
+   0.812,
+   0.585,
+   0.363,
+   0.599
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.543,
+    "xgf": 1.09
+   },
+   "edge": 0.873,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.6,
+    "xgf": 1.02
+   },
+   "total": 3.127
+  }
+ },
+ "Kaiserslautern v Hertha": {
+  "away": "Hertha",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Kaiserslautern v Hertha",
+  "ft": "PENDING",
+  "home": "Kaiserslautern",
+  "league": "2. Bundesliga",
+  "model_p": [
+   0.428,
+   0.285,
+   0.287,
+   0.68,
+   0.412,
+   0.207,
+   0.471
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.627,
+    "xgf": 1.783
+   },
+   "edge": -0.82,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.157,
+    "xgf": 1.493
+   },
+   "total": 2.53
+  }
+ },
+ "Karlsruhe v Heidenheim": {
+  "away": "Heidenheim",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Karlsruhe v Heidenheim",
+  "ft": "PENDING",
+  "home": "Karlsruhe",
+  "league": "2. Bundesliga",
+  "model_p": [
+   0.39,
+   0.224,
+   0.386,
+   0.877,
+   0.698,
+   0.485,
+   0.699
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.14,
+    "xgf": 2.147
+   },
+   "edge": -1.317,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.333,
+    "xgf": 1.023
+   },
+   "total": 2.821
+  }
+ },
+ "Kilmarnock v St Johnstone": {
+  "away": "St Johnstone",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Kilmarnock v St Johnstone",
+  "ft": "PENDING",
+  "home": "Kilmarnock",
+  "league": "Scottish Premiership",
+  "model_p": [
+   0.454,
+   0.239,
+   0.307,
+   0.797,
+   0.571,
+   0.347,
+   0.588
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -2.05,
+    "xga": 2.105,
+    "xgf": 1.1
+   },
+   "edge": 0.562,
+   "home": {
+    "n": 4,
+    "trend": 0.535,
+    "xga": 2.115,
+    "xgf": 1.672
+   },
+   "total": 3.496
+  }
+ },
+ "Kocaelispor v Caykur Rizespor": {
+  "away": "Caykur Rizespor",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Kocaelispor v Caykur Rizespor",
+  "ft": "PENDING",
+  "home": "Kocaelispor",
+  "league": "Turkish Super Lig",
+  "model_p": [
+   0.429,
+   0.311,
+   0.26,
+   0.657,
+   0.376,
+   0.18,
+   0.447
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.453,
+    "xgf": 1.42
+   },
+   "edge": 0.406,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.277,
+    "xgf": 1.65
+   },
+   "total": 2.9
+  }
+ },
+ "LASK Linz v WSG Tirol": {
+  "away": "WSG Tirol",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "LASK Linz v WSG Tirol",
+  "ft": "PENDING",
+  "home": "LASK Linz",
+  "league": "Austrian Bundesliga",
+  "model_p": [
+   0.705,
+   0.178,
+   0.117,
+   0.875,
+   0.686,
+   0.472,
+   0.586
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.637,
+    "xgf": 1.347
+   },
+   "edge": -0.073,
+   "home": {
+    "n": 4,
+    "trend": -2.575,
+    "xga": 2.305,
+    "xgf": 1.942
+   },
+   "total": 3.615
+  }
+ },
+ "Lech Poznan v Wisla": {
+  "away": "Wisla",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Lech Poznan v Wisla",
+  "ft": "PENDING",
+  "home": "Lech Poznan",
+  "league": "Ekstraklasa",
+  "model_p": [
+   0.596,
+   0.228,
+   0.175,
+   0.853,
+   0.637,
+   0.416,
+   0.611
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.14,
+    "xgf": 1.837
+   },
+   "total": "PENDING"
+  }
+ },
+ "Leicester v Stevenage FC": {
+  "away": "Stevenage FC",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Leicester v Stevenage FC",
+  "ft": "PENDING",
+  "home": "Leicester",
+  "league": "League One",
+  "model_p": [
+   0.423,
+   0.278,
+   0.3,
+   0.698,
+   0.435,
+   0.225,
+   0.49
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -1.1,
+    "xga": 1.2,
+    "xgf": 1.19
+   },
+   "edge": 1.1,
+   "home": {
+    "n": 5,
+    "trend": -0.767,
+    "xga": 0.994,
+    "xgf": 2.084
+   },
+   "total": 2.734
+  }
+ },
+ "Levante v Ath Madrid": {
+  "away": "Ath Madrid",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Levante v Ath Madrid",
+  "ft": "PENDING",
+  "home": "Levante",
+  "league": "La Liga",
+  "model_p": [
+   0.307,
+   0.239,
+   0.454,
+   0.837,
+   0.629,
+   0.41,
+   0.643
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.16,
+    "xgf": 1.643
+   },
+   "edge": -1.283,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.843,
+    "xgf": 1.043
+   },
+   "total": 2.845
+  }
+ },
+ "Leverkusen v Stuttgart": {
+  "away": "Stuttgart",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Leverkusen v Stuttgart",
+  "ft": "PENDING",
+  "home": "Leverkusen",
+  "league": "Bundesliga",
+  "model_p": [
+   0.57,
+   0.192,
+   0.237,
+   0.901,
+   0.749,
+   0.552,
+   0.71
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.73,
+    "xgf": 2.375
+   },
+   "edge": -1.858,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.513,
+    "xgf": 1.3
+   },
+   "total": 3.959
+  }
+ },
+ "Leyton Orient v Cambridge United": {
+  "away": "Cambridge United",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Leyton Orient v Cambridge United",
+  "ft": "PENDING",
+  "home": "Leyton Orient",
+  "league": "League One",
+  "model_p": [
+   0.381,
+   0.258,
+   0.36,
+   0.768,
+   0.527,
+   0.304,
+   0.567
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -0.233,
+    "xga": 1.484,
+    "xgf": 1.584
+   },
+   "edge": 0.278,
+   "home": {
+    "n": 4,
+    "trend": 0.275,
+    "xga": 1.127,
+    "xgf": 1.505
+   },
+   "total": 2.85
+  }
+ },
+ "Lincoln City v Birmingham": {
+  "away": "Birmingham",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Lincoln City v Birmingham",
+  "ft": "PENDING",
+  "home": "Lincoln City",
+  "league": "Championship",
+  "model_p": [
+   0.249,
+   0.263,
+   0.488,
+   0.725,
+   0.468,
+   0.252,
+   0.501
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.503,
+    "xgf": 1.943
+   },
+   "edge": -1.261,
+   "home": {
+    "n": 4,
+    "trend": 0.51,
+    "xga": 2.118,
+    "xgf": 1.297
+   },
+   "total": 3.431
+  }
+ },
+ "M'gladbach v Paderborn": {
+  "away": "Paderborn",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "M'gladbach v Paderborn",
+  "ft": "PENDING",
+  "home": "M'gladbach",
+  "league": "Bundesliga",
+  "model_p": [
+   0.479,
+   0.251,
+   0.27,
+   0.746,
+   0.5,
+   0.281,
+   0.528
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.047,
+    "xgf": 1.493
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Man City v Brighton": {
+  "away": "Brighton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Man City v Brighton",
+  "ft": "PENDING",
+  "home": "Man City",
+  "league": "Premier League",
+  "model_p": [
+   0.541,
+   0.231,
+   0.229,
+   0.836,
+   0.623,
+   0.402,
+   0.617
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.555,
+    "xga": 0.855,
+    "xgf": 1.538
+   },
+   "edge": 0.499,
+   "home": {
+    "n": 4,
+    "trend": 0.155,
+    "xga": 1.095,
+    "xgf": 2.277
+   },
+   "total": 2.882
+  }
+ },
+ "Mansfield v Notts County": {
+  "away": "Notts County",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Mansfield v Notts County",
+  "ft": "PENDING",
+  "home": "Mansfield",
+  "league": "League One",
+  "model_p": [
+   0.498,
+   0.268,
+   0.234,
+   0.696,
+   0.433,
+   0.223,
+   0.47
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.575,
+    "xga": 1.272,
+    "xgf": 0.935
+   },
+   "edge": 1.922,
+   "home": {
+    "n": 4,
+    "trend": -0.85,
+    "xga": 0.8,
+    "xgf": 2.385
+   },
+   "total": 2.696
+  }
+ },
+ "Mechelen v Genk": {
+  "away": "Genk",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Mechelen v Genk",
+  "ft": "PENDING",
+  "home": "Mechelen",
+  "league": "Belgian Pro League",
+  "model_p": [
+   0.25,
+   0.235,
+   0.515,
+   0.783,
+   0.549,
+   0.326,
+   0.555
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.065,
+    "xgf": 2.55
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Middlesbrough v Charlton": {
+  "away": "Charlton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Middlesbrough v Charlton",
+  "ft": "PENDING",
+  "home": "Middlesbrough",
+  "league": "Championship",
+  "model_p": [
+   0.669,
+   0.201,
+   0.13,
+   0.788,
+   0.554,
+   0.331,
+   0.487
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -1.99,
+    "xga": 1.775,
+    "xgf": 1.46
+   },
+   "edge": 2.13,
+   "home": {
+    "n": 4,
+    "trend": 1.54,
+    "xga": 0.765,
+    "xgf": 2.58
+   },
+   "total": 3.29
+  }
+ },
+ "Milan v Inter": {
+  "away": "Inter",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Milan v Inter",
+  "ft": "PENDING",
+  "home": "Milan",
+  "league": "Serie A",
+  "model_p": [
+   0.265,
+   0.217,
+   0.518,
+   0.838,
+   0.638,
+   0.417,
+   0.631
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.438,
+    "xga": 1.516,
+    "xgf": 3.078
+   },
+   "edge": -0.667,
+   "home": {
+    "n": 4,
+    "trend": 0.96,
+    "xga": 1.393,
+    "xgf": 2.288
+   },
+   "total": 4.138
+  }
+ },
+ "Millwall v Derby": {
+  "away": "Derby",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Millwall v Derby",
+  "ft": "PENDING",
+  "home": "Millwall",
+  "league": "Championship",
+  "model_p": [
+   0.525,
+   0.25,
+   0.225,
+   0.75,
+   0.501,
+   0.281,
+   0.519
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.68,
+    "xgf": 0.917
+   },
+   "edge": 0.903,
+   "home": {
+    "n": 4,
+    "trend": 0.61,
+    "xga": 1.135,
+    "xgf": 1.275
+   },
+   "total": 2.503
+  }
+ },
+ "Milton Keynes Dons v Doncaster Rovers": {
+  "away": "Doncaster Rovers",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Milton Keynes Dons v Doncaster Rovers",
+  "ft": "PENDING",
+  "home": "Milton Keynes Dons",
+  "league": "League One",
+  "model_p": [
+   0.444,
+   0.263,
+   0.293,
+   0.74,
+   0.487,
+   0.269,
+   0.529
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 1.04,
+    "xga": 1.852,
+    "xgf": 0.728
+   },
+   "edge": 1.166,
+   "home": {
+    "n": 5,
+    "trend": 2.38,
+    "xga": 1.428,
+    "xgf": 1.47
+   },
+   "total": 2.739
+  }
+ },
+ "Modena v Mantova": {
+  "away": "Mantova",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Modena v Mantova",
+  "ft": "PENDING",
+  "home": "Modena",
+  "league": "Serie B",
+  "model_p": [
+   0.522,
+   0.268,
+   0.21,
+   0.747,
+   0.485,
+   0.267,
+   0.512
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.69,
+    "xga": 1.363,
+    "xgf": 1.853
+   },
+   "edge": -0.048,
+   "home": {
+    "n": 4,
+    "trend": 1.335,
+    "xga": 1.06,
+    "xgf": 1.502
+   },
+   "total": 2.889
+  }
+ },
+ "Moreirense v Estrela": {
+  "away": "Estrela",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Moreirense v Estrela",
+  "ft": "PENDING",
+  "home": "Moreirense",
+  "league": "Primeira Liga",
+  "model_p": [
+   0.425,
+   0.233,
+   0.342,
+   0.763,
+   0.534,
+   0.312,
+   0.56
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 0.765,
+    "xgf": 1.57
+   },
+   "edge": -1.345,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.75,
+    "xgf": 1.21
+   },
+   "total": 2.647
+  }
+ },
+ "Motherwell v St Mirren": {
+  "away": "St Mirren",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Motherwell v St Mirren",
+  "ft": "PENDING",
+  "home": "Motherwell",
+  "league": "Scottish Premiership",
+  "model_p": [
+   0.558,
+   0.239,
+   0.203,
+   0.735,
+   0.485,
+   0.267,
+   0.487
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.697,
+    "xgf": 1.377
+   },
+   "edge": 0.126,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.977,
+    "xgf": 1.783
+   },
+   "total": 3.417
+  }
+ },
+ "Norwich v Watford": {
+  "away": "Watford",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Norwich v Watford",
+  "ft": "PENDING",
+  "home": "Norwich",
+  "league": "Championship",
+  "model_p": [
+   0.542,
+   0.235,
+   0.222,
+   0.79,
+   0.556,
+   0.333,
+   0.558
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.625,
+    "xga": 2.203,
+    "xgf": 1.26
+   },
+   "edge": 0.34,
+   "home": {
+    "n": 4,
+    "trend": 1.395,
+    "xga": 1.583,
+    "xgf": 0.98
+   },
+   "total": 3.013
+  }
+ },
+ "Oldham v Crawley Town": {
+  "away": "Crawley Town",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Oldham v Crawley Town",
+  "ft": "PENDING",
+  "home": "Oldham",
+  "league": "League Two",
+  "model_p": [
+   0.579,
+   0.243,
+   0.178,
+   0.727,
+   0.47,
+   0.254,
+   0.469
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.03,
+    "xga": 1.52,
+    "xgf": 1.21
+   },
+   "edge": 0.61,
+   "home": {
+    "n": 4,
+    "trend": -0.24,
+    "xga": 1.262,
+    "xgf": 1.562
+   },
+   "total": 2.777
+  }
+ },
+ "PSV Eindhoven v Willem II": {
+  "away": "Willem II",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "PSV Eindhoven v Willem II",
+  "ft": "PENDING",
+  "home": "PSV Eindhoven",
+  "league": "Eredivisie",
+  "model_p": [
+   0.896,
+   0.071,
+   0.034,
+   0.947,
+   0.845,
+   0.693,
+   0.543
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.197,
+    "xgf": 0.94
+   },
+   "edge": 1.379,
+   "home": {
+    "n": 5,
+    "trend": 0.813,
+    "xga": 1.464,
+    "xgf": 1.586
+   },
+   "total": 3.094
+  }
+ },
+ "Peterborough United v Luton": {
+  "away": "Luton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Peterborough United v Luton",
+  "ft": "PENDING",
+  "home": "Peterborough United",
+  "league": "League One",
+  "model_p": [
+   0.32,
+   0.237,
+   0.443,
+   0.827,
+   0.614,
+   0.391,
+   0.63
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.22,
+    "xga": 1.348,
+    "xgf": 2.106
+   },
+   "edge": -0.788,
+   "home": {
+    "n": 4,
+    "trend": -0.78,
+    "xga": 1.645,
+    "xgf": 1.615
+   },
+   "total": 3.357
+  }
+ },
+ "Plymouth v Reading": {
+  "away": "Reading",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Plymouth v Reading",
+  "ft": "PENDING",
+  "home": "Plymouth",
+  "league": "League One",
+  "model_p": [
+   0.434,
+   0.237,
+   0.328,
+   0.828,
+   0.616,
+   0.393,
+   0.633
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -2.46,
+    "xga": 1.37,
+    "xgf": 1.99
+   },
+   "edge": -1.045,
+   "home": {
+    "n": 4,
+    "trend": 0.61,
+    "xga": 1.663,
+    "xgf": 1.238
+   },
+   "total": 3.131
+  }
+ },
+ "Port Vale v Rochdale": {
+  "away": "Rochdale",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Port Vale v Rochdale",
+  "ft": "PENDING",
+  "home": "Port Vale",
+  "league": "League Two",
+  "model_p": [
+   0.428,
+   0.303,
+   0.268,
+   0.621,
+   0.347,
+   0.159,
+   0.415
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.145,
+    "xga": 1.92,
+    "xgf": 0.932
+   },
+   "edge": 1.478,
+   "home": {
+    "n": 4,
+    "trend": -2.27,
+    "xga": 0.915,
+    "xgf": 1.405
+   },
+   "total": 2.586
+  }
+ },
+ "Porto v Estoril": {
+  "away": "Estoril",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Porto v Estoril",
+  "ft": "PENDING",
+  "home": "Porto",
+  "league": "Primeira Liga",
+  "model_p": [
+   0.77,
+   0.145,
+   0.086,
+   0.797,
+   0.579,
+   0.355,
+   0.419
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.03,
+    "xgf": 1.685
+   },
+   "edge": 0.071,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.817,
+    "xgf": 1.543
+   },
+   "total": 2.538
+  }
+ },
+ "SCR Altach v SV Ried": {
+  "away": "SV Ried",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "SCR Altach v SV Ried",
+  "ft": "PENDING",
+  "home": "SCR Altach",
+  "league": "Austrian Bundesliga",
+  "model_p": [
+   0.37,
+   0.295,
+   0.335,
+   0.726,
+   0.457,
+   0.243,
+   0.522
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.703,
+    "xgf": 1.903
+   },
+   "edge": -0.43,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.363,
+    "xgf": 1.133
+   },
+   "total": 3.051
+  }
+ },
+ "Salford v Exeter": {
+  "away": "Exeter",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Salford v Exeter",
+  "ft": "PENDING",
+  "home": "Salford",
+  "league": "League Two",
+  "model_p": [
+   0.406,
+   0.349,
+   0.245,
+   0.494,
+   0.229,
+   0.086,
+   0.31
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.38,
+    "xga": 1.055,
+    "xgf": 1.12
+   },
+   "edge": 0.245,
+   "home": {
+    "n": 4,
+    "trend": -0.98,
+    "xga": 1.015,
+    "xgf": 1.325
+   },
+   "total": 2.257
+  }
+ },
+ "Sampdoria v Virtus Entella": {
+  "away": "Virtus Entella",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Sampdoria v Virtus Entella",
+  "ft": "PENDING",
+  "home": "Sampdoria",
+  "league": "Serie B",
+  "model_p": [
+   0.34,
+   0.327,
+   0.333,
+   0.63,
+   0.347,
+   0.159,
+   0.432
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.585,
+    "xga": 0.882,
+    "xgf": 1.195
+   },
+   "edge": -0.608,
+   "home": {
+    "n": 4,
+    "trend": -0.54,
+    "xga": 1.41,
+    "xgf": 1.115
+   },
+   "total": 2.301
+  }
+ },
+ "Schalke v RB Leipzig": {
+  "away": "RB Leipzig",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Schalke v RB Leipzig",
+  "ft": "PENDING",
+  "home": "Schalke",
+  "league": "Bundesliga",
+  "model_p": [
+   0.292,
+   0.282,
+   0.426,
+   0.667,
+   0.401,
+   0.198,
+   0.459
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 1.36,
+    "xga": 2.185,
+    "xgf": 1.74
+   },
+   "edge": -0.545,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.443,
+    "xgf": 0.453
+   },
+   "total": 2.91
+  }
+ },
+ "Shrewsbury v Gillingham": {
+  "away": "Gillingham",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Shrewsbury v Gillingham",
+  "ft": "PENDING",
+  "home": "Shrewsbury",
+  "league": "League Two",
+  "model_p": [
+   0.417,
+   0.266,
+   0.317,
+   0.748,
+   0.497,
+   0.277,
+   0.542
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.7,
+    "xga": 1.573,
+    "xgf": 1.127
+   },
+   "edge": 1.099,
+   "home": {
+    "n": 4,
+    "trend": -0.145,
+    "xga": 1.135,
+    "xgf": 1.788
+   },
+   "total": 2.811
+  }
+ },
+ "Sociedad B v Girona": {
+  "away": "Girona",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Sociedad B v Girona",
+  "ft": "PENDING",
+  "home": "Sociedad B",
+  "league": "La Liga 2",
+  "model_p": [
+   0.227,
+   0.226,
+   0.548,
+   0.797,
+   0.572,
+   0.348,
+   0.568
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.433,
+    "xgf": 1.157
+   },
+   "edge": -0.949,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.47,
+    "xgf": 1.245
+   },
+   "total": 2.152
+  }
+ },
+ "Solihull v Kidderminster": {
+  "away": "Kidderminster",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Solihull v Kidderminster",
+  "ft": "PENDING",
+  "home": "Solihull",
+  "league": "National League",
+  "model_p": [
+   0.306,
+   0.265,
+   0.429,
+   0.679,
+   0.422,
+   0.215,
+   0.471
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Southampton v QPR": {
+  "away": "QPR",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Southampton v QPR",
+  "ft": "PENDING",
+  "home": "Southampton",
+  "league": "Championship",
+  "model_p": [
+   0.539,
+   0.226,
+   0.235,
+   0.821,
+   0.604,
+   0.381,
+   0.597
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 4,
+    "trend": -0.16,
+    "xga": 1.35,
+    "xgf": 1.78
+   },
+   "total": "PENDING"
+  }
+ },
+ "Standard v Kortrijk": {
+  "away": "Kortrijk",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Standard v Kortrijk",
+  "ft": "PENDING",
+  "home": "Standard",
+  "league": "Belgian Pro League",
+  "model_p": [
+   0.613,
+   0.236,
+   0.151,
+   0.691,
+   0.429,
+   0.221,
+   0.406
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 2.465,
+    "xgf": 1.495
+   },
+   "total": "PENDING"
+  }
+ },
+ "Stockport County FC v AFC Wimbledon": {
+  "away": "AFC Wimbledon",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Stockport County FC v AFC Wimbledon",
+  "ft": "PENDING",
+  "home": "Stockport County FC",
+  "league": "League One",
+  "model_p": [
+   0.665,
+   0.204,
+   0.13,
+   0.772,
+   0.531,
+   0.309,
+   0.47
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.735,
+    "xga": 1.955,
+    "xgf": 0.838
+   },
+   "edge": 2.609,
+   "home": {
+    "n": 5,
+    "trend": -0.295,
+    "xga": 0.84,
+    "xgf": 2.332
+   },
+   "total": 2.982
+  }
+ },
+ "Stoke v Preston": {
+  "away": "Preston",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Stoke v Preston",
+  "ft": "PENDING",
+  "home": "Stoke",
+  "league": "Championship",
+  "model_p": [
+   0.504,
+   0.263,
+   0.233,
+   0.716,
+   0.457,
+   0.244,
+   0.489
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.545,
+    "xga": 1.77,
+    "xgf": 0.948
+   },
+   "edge": -0.276,
+   "home": {
+    "n": 4,
+    "trend": 2.065,
+    "xga": 1.848,
+    "xgf": 0.75
+   },
+   "total": 2.658
+  }
+ },
+ "Sudtirol v Cesena": {
+  "away": "Cesena",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Sudtirol v Cesena",
+  "ft": "PENDING",
+  "home": "Sudtirol",
+  "league": "Serie B",
+  "model_p": [
+   0.442,
+   0.296,
+   0.261,
+   0.7,
+   0.425,
+   0.217,
+   0.486
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.31,
+    "xga": 1.195,
+    "xgf": 0.995
+   },
+   "edge": 0.098,
+   "home": {
+    "n": 4,
+    "trend": 1.805,
+    "xga": 1.337,
+    "xgf": 1.235
+   },
+   "total": 2.381
+  }
+ },
+ "Swansea v Blackburn": {
+  "away": "Blackburn",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Swansea v Blackburn",
+  "ft": "PENDING",
+  "home": "Swansea",
+  "league": "Championship",
+  "model_p": [
+   0.43,
+   0.289,
+   0.281,
+   0.668,
+   0.398,
+   0.196,
+   0.458
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -1.54,
+    "xga": 2.228,
+    "xgf": 1.208
+   },
+   "edge": 1.803,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.96,
+    "xgf": 1.743
+   },
+   "total": 3.07
+  }
+ },
+ "Swindon v Rotherham": {
+  "away": "Rotherham",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Swindon v Rotherham",
+  "ft": "PENDING",
+  "home": "Swindon",
+  "league": "League Two",
+  "model_p": [
+   0.562,
+   0.226,
+   0.212,
+   0.811,
+   0.587,
+   0.363,
+   0.577
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.015,
+    "xga": 1.88,
+    "xgf": 1.228
+   },
+   "edge": 0.032,
+   "home": {
+    "n": 4,
+    "trend": -0.87,
+    "xga": 2.062,
+    "xgf": 1.442
+   },
+   "total": 3.306
+  }
+ },
+ "Tamworth v Woking": {
+  "away": "Woking",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Tamworth v Woking",
+  "ft": "PENDING",
+  "home": "Tamworth",
+  "league": "National League",
+  "model_p": [
+   0.372,
+   0.226,
+   0.402,
+   0.82,
+   0.613,
+   0.39,
+   0.627
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Tottenham v Crystal Palace": {
+  "away": "Crystal Palace",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Tottenham v Crystal Palace",
+  "ft": "PENDING",
+  "home": "Tottenham",
+  "league": "Premier League",
+  "model_p": [
+   0.447,
+   0.264,
+   0.289,
+   0.772,
+   0.525,
+   0.304,
+   0.561
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 1.082,
+    "xga": 1.806,
+    "xgf": 1.352
+   },
+   "edge": 0.847,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.68,
+    "xgf": 1.073
+   },
+   "total": 2.455
+  }
+ },
+ "Tranmere v Cheltenham": {
+  "away": "Cheltenham",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Tranmere v Cheltenham",
+  "ft": "PENDING",
+  "home": "Tranmere",
+  "league": "League Two",
+  "model_p": [
+   0.41,
+   0.245,
+   0.344,
+   0.815,
+   0.593,
+   0.369,
+   0.618
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.625,
+    "xga": 1.645,
+    "xgf": 1.078
+   },
+   "edge": 0.49,
+   "home": {
+    "n": 4,
+    "trend": -0.195,
+    "xga": 1.305,
+    "xgf": 1.228
+   },
+   "total": 2.628
+  }
+ },
+ "Troyes v Le Mans FC": {
+  "away": "Le Mans FC",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Troyes v Le Mans FC",
+  "ft": "PENDING",
+  "home": "Troyes",
+  "league": "Ligue 1",
+  "model_p": [
+   0.382,
+   0.246,
+   0.373,
+   0.817,
+   0.596,
+   0.375,
+   0.619
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.545,
+    "xgf": 1.13
+   },
+   "edge": 0.122,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.19,
+    "xgf": 0.897
+   },
+   "total": 2.381
+  }
+ },
+ "Udinese v Roma": {
+  "away": "Roma",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Udinese v Roma",
+  "ft": "PENDING",
+  "home": "Udinese",
+  "league": "Serie A",
+  "model_p": [
+   0.169,
+   0.2,
+   0.63,
+   0.805,
+   0.588,
+   0.366,
+   0.542
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": -1.46,
+    "xga": 1.394,
+    "xgf": 2.13
+   },
+   "edge": -2.631,
+   "home": {
+    "n": 4,
+    "trend": 1.0,
+    "xga": 2.7,
+    "xgf": 0.805
+   },
+   "total": 3.514
+  }
+ },
+ "Vallecano v Celta": {
+  "away": "Celta",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Vallecano v Celta",
+  "ft": "PENDING",
+  "home": "Vallecano",
+  "league": "La Liga",
+  "model_p": [
+   0.432,
+   0.279,
+   0.289,
+   0.71,
+   0.448,
+   0.238,
+   0.498
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.645,
+    "xga": 1.072,
+    "xgf": 0.9
+   },
+   "edge": 0.512,
+   "home": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.545,
+    "xgf": 1.885
+   },
+   "total": 2.701
+  }
+ },
+ "Wealdstone v Southend": {
+  "away": "Southend",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wealdstone v Southend",
+  "ft": "PENDING",
+  "home": "Wealdstone",
+  "league": "National League",
+  "model_p": [
+   0.26,
+   0.204,
+   0.536,
+   0.855,
+   0.67,
+   0.453,
+   0.651
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Werder Bremen v Hoffenheim": {
+  "away": "Hoffenheim",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Werder Bremen v Hoffenheim",
+  "ft": "PENDING",
+  "home": "Werder Bremen",
+  "league": "Bundesliga",
+  "model_p": [
+   0.349,
+   0.231,
+   0.42,
+   0.836,
+   0.633,
+   0.412,
+   0.644
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 3.32,
+    "xga": 1.512,
+    "xgf": 1.907
+   },
+   "edge": 0.288,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.72,
+    "xgf": 2.403
+   },
+   "total": 3.771
+  }
+ },
+ "West Ham v West Brom": {
+  "away": "West Brom",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "West Ham v West Brom",
+  "ft": "PENDING",
+  "home": "West Ham",
+  "league": "Championship",
+  "model_p": [
+   0.626,
+   0.208,
+   0.166,
+   0.814,
+   0.593,
+   0.37,
+   0.551
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 2.29,
+    "xga": 1.387,
+    "xgf": 2.067
+   },
+   "edge": 0.294,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 0.983,
+    "xgf": 1.957
+   },
+   "total": 3.197
+  }
+ },
+ "Wieczysta Krakow v Jagiellonia": {
+  "away": "Jagiellonia",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wieczysta Krakow v Jagiellonia",
+  "ft": "PENDING",
+  "home": "Wieczysta Krakow",
+  "league": "Ekstraklasa",
+  "model_p": [
+   0.351,
+   0.272,
+   0.377,
+   0.828,
+   0.593,
+   0.369,
+   0.632
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 2,
+    "trend": "PENDING",
+    "xga": 1.535,
+    "xgf": 1.15
+   },
+   "edge": 0.553,
+   "home": {
+    "n": 4,
+    "trend": -2.605,
+    "xga": 1.715,
+    "xgf": 1.883
+   },
+   "total": 3.141
+  }
+ },
+ "Wigan v Bromley FC": {
+  "away": "Bromley FC",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wigan v Bromley FC",
+  "ft": "PENDING",
+  "home": "Wigan",
+  "league": "League One",
+  "model_p": [
+   0.567,
+   0.241,
+   0.193,
+   0.742,
+   0.491,
+   0.273,
+   0.493
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 5,
+    "trend": 0.573,
+    "xga": 1.948,
+    "xgf": 0.584
+   },
+   "edge": -0.336,
+   "home": {
+    "n": 5,
+    "trend": -0.783,
+    "xga": 2.376,
+    "xgf": 0.676
+   },
+   "total": 2.792
+  }
+ },
+ "Wisla Plock v Piast Gliwice": {
+  "away": "Piast Gliwice",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wisla Plock v Piast Gliwice",
+  "ft": "PENDING",
+  "home": "Wisla Plock",
+  "league": "Ekstraklasa",
+  "model_p": [
+   0.323,
+   0.319,
+   0.358,
+   0.7,
+   0.417,
+   0.211,
+   0.497
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 2.107,
+    "xgf": 1.4
+   },
+   "edge": -0.193,
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.56,
+    "xgf": 0.66
+   },
+   "total": 2.864
+  }
+ },
+ "Wolfsburg v VfL 1899 Osnabruck": {
+  "away": "VfL 1899 Osnabruck",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wolfsburg v VfL 1899 Osnabruck",
+  "ft": "PENDING",
+  "home": "Wolfsburg",
+  "league": "2. Bundesliga",
+  "model_p": [
+   0.696,
+   0.158,
+   0.146,
+   0.923,
+   0.79,
+   0.604,
+   0.692
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 1,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 3,
+    "trend": "PENDING",
+    "xga": 1.97,
+    "xgf": 2.023
+   },
+   "total": "PENDING"
+  }
+ },
+ "Wolves v Cardiff City": {
+  "away": "Cardiff City",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wolves v Cardiff City",
+  "ft": "PENDING",
+  "home": "Wolves",
+  "league": "Championship",
+  "model_p": [
+   0.476,
+   0.235,
+   0.289,
+   0.83,
+   0.618,
+   0.396,
+   0.628
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": -0.41,
+    "xga": 1.92,
+    "xgf": 2.135
+   },
+   "edge": 0.525,
+   "home": {
+    "n": 5,
+    "trend": 0.375,
+    "xga": 0.884,
+    "xgf": 1.624
+   },
+   "total": 3.282
+  }
+ },
+ "Worthing v Sutton": {
+  "away": "Sutton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Worthing v Sutton",
+  "ft": "PENDING",
+  "home": "Worthing",
+  "league": "National League",
+  "model_p": [
+   0.662,
+   0.176,
+   0.161,
+   0.852,
+   0.665,
+   0.446,
+   0.591
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "edge": "PENDING",
+   "home": {
+    "n": 0,
+    "trend": "PENDING",
+    "xga": "PENDING",
+    "xgf": "PENDING"
+   },
+   "total": "PENDING"
+  }
+ },
+ "Wycombe Wanderers v Burton": {
+  "away": "Burton",
+  "close": {
+   "betfair": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "sharp": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   },
+   "soft": {
+    "at": "PENDING",
+    "away": "PENDING",
+    "btts": "PENDING",
+    "draw": "PENDING",
+    "home": "PENDING",
+    "over25": "PENDING"
+   }
+  },
+  "date": "2026-10-31",
+  "fixture": "Wycombe Wanderers v Burton",
+  "ft": "PENDING",
+  "home": "Wycombe Wanderers",
+  "league": "League One",
+  "model_p": [
+   0.482,
+   0.243,
+   0.275,
+   0.793,
+   0.562,
+   0.338,
+   0.581
+  ],
+  "news": {
+   "absent": "PENDING",
+   "at": "PENDING",
+   "away_missing": "PENDING",
+   "edge": "PENDING",
+   "home_missing": "PENDING",
+   "lineup": "PENDING"
+  },
+  "xg": {
+   "away": {
+    "n": 4,
+    "trend": 0.79,
+    "xga": 1.305,
+    "xgf": 1.045
+   },
+   "edge": 0.375,
+   "home": {
+    "n": 4,
+    "trend": 0.24,
+    "xga": 1.407,
+    "xgf": 1.522
+   },
+   "total": 2.639
+  }
+ }
+}

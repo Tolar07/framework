@@ -550,29 +550,24 @@
     "type": "injury"
    },
    {
-    "name": "Caglar S\u00f6y\u00fcnc\u00fc",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Serdar Saat\u00e7i",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Feyttullah G\u00fcrl\u00fck",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fredy",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:20Z",
-  "away_missing_share": 0.12269871344896276,
-  "away_unavailable": 4,
+  "at": "2026-10-31T09:40Z",
+  "away_missing_share": 0.05040248707772758,
+  "away_unavailable": 2,
   "fotmob_id": 5904793,
-  "home_missing_share": 0.0274959333922199,
+  "home_missing_share": 0.024559621294231906,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-31T10:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fleetwood Town v Bristol Rvs": {
   "absent": [],
@@ -1169,6 +1164,38 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T14:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Moreirense v Estrela": {
+  "absent": [
+   {
+    "name": "Miguel Silva",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alexandre Duville-Parsemain",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jeremy Ar\u00e9valo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Robinho",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T09:40Z",
+  "away_missing_share": 0.3136975222957791,
+  "away_unavailable": 2,
+  "fotmob_id": 5887669,
+  "home_missing_share": 0.15883639662958304,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-31T15:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Motherwell v St Mirren": {
   "absent": [

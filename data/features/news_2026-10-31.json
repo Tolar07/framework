@@ -27,14 +27,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
-  "away_missing_share": 0.08574978244668864,
+  "at": "2026-10-31T16:20Z",
+  "away_missing_share": 0.05962297710481448,
   "away_unavailable": 2,
   "fotmob_id": 5943283,
-  "home_missing_share": 0.31327512892880693,
+  "home_missing_share": 0.2103235769231665,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Aalesunds FK v Sandefjord Fotball": {
   "absent": [
@@ -69,14 +69,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
-  "away_missing_share": 0.3862477935298143,
-  "away_unavailable": 6,
+  "at": "2026-10-31T16:20Z",
+  "away_missing_share": 0.3127790086406748,
+  "away_unavailable": 5,
   "fotmob_id": 5105039,
-  "home_missing_share": 0.2911545807045208,
-  "home_unavailable": 4,
+  "home_missing_share": 0.25872323073687037,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T17:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Accrington v Northampton": {
   "absent": [],
@@ -399,7 +399,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.08013911257005593,
   "away_unavailable": 4,
   "fotmob_id": 5881208,
@@ -441,7 +441,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.2445730133048873,
   "away_unavailable": 7,
   "fotmob_id": 5868112,
@@ -564,7 +564,7 @@
  },
  "Boston Utd v Scunthorpe United": {
   "absent": [],
-  "at": "2026-10-31T16:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906542,
@@ -1381,7 +1381,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.09943479444079156,
   "away_unavailable": 5,
   "fotmob_id": 5781791,
@@ -2099,7 +2099,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.20851454847670037,
   "away_unavailable": 4,
   "fotmob_id": 5781793,
@@ -2383,7 +2383,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 6,
   "fotmob_id": 5811797,
@@ -2579,7 +2579,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
+  "at": "2026-10-31T16:20Z",
   "away_missing_share": 0.18421365522055583,
   "away_unavailable": 3,
   "fotmob_id": 5795504,
@@ -2674,14 +2674,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:00Z",
-  "away_missing_share": 0.31488718825752726,
+  "at": "2026-10-31T16:20Z",
+  "away_missing_share": 0.3107369501784522,
   "away_unavailable": 4,
   "fotmob_id": 5749739,
-  "home_missing_share": 0.3235949784914049,
+  "home_missing_share": 0.2946686175917287,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-31T17:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Vallecano v Celta": {
   "absent": [

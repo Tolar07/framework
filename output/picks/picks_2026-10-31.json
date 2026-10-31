@@ -2263,7 +2263,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "HNK Hajduk Split v HNK Gorica",
@@ -3296,7 +3298,11 @@
     "home": 73179476,
     "away": 225890582
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "Udinese: blunt attack v tight defence; Roma: high press v build-up side; Roma: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -10623,7 +10629,11 @@
     "home": 1781810,
     "away": 42237465
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> unders / one side blank",
     "xg": [
@@ -11760,7 +11770,11 @@
     "home": 6459227,
     "away": 6810405
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "Aalesund: counter side v high line; Aalesund: high press v build-up side; Sandefjord: possession side v low block -> BTTS & goals",
     "xg": [

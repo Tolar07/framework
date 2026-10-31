@@ -635,7 +635,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "KV Mechelen: high press v build-up side; KV Mechelen: blunt attack v tight defence; Genk: possession side v low block -> no strong goals lean",
     "xg": [
@@ -673,8 +677,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 3.39,
    "stake_pct": 0.25,
    "ev": -0.03403601293006364,
    "missing": {
@@ -1315,7 +1319,11 @@
     "home": 4130118,
     "away": 4684082
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> BTTS & goals",
     "xg": [
@@ -1349,8 +1357,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03200018487730705,
    "missing": {
@@ -1520,8 +1528,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.030825813208322894,
    "missing": {
@@ -2637,8 +2645,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.025477699137958276,
    "missing": {
@@ -2766,7 +2774,11 @@
     "home": 48077272,
     "away": 17854258
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Portsmouth missing 24% of value (Colby Bishop, Benjamin Arthur, Luke Brooke-Smith); support: Burnley missing 54%",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> unders / one side blank",
     "xg": [
@@ -2799,8 +2811,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -2.4,
    "stake_pct": 0.12,
    "ev": -0.01761717013314279,
    "missing": {
@@ -2978,8 +2990,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -1.63,
    "stake_pct": 0.25,
    "ev": -0.024208925417127825,
    "missing": {
@@ -4216,7 +4228,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Troyes v Le Mans FC",
@@ -4406,7 +4420,11 @@
     "home": 7053320,
     "away": 13267384
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "Estrela da Amadora: counter side v high line; Estrela da Amadora: aerial threat v weak in the air; Estrela da Amadora: possession side v low block -> BTTS",
     "xg": [
@@ -4775,8 +4793,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03341812206657102,
    "missing": {
@@ -4941,8 +4959,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.12,
    "ev": -0.013488729825289147,
    "missing": {
@@ -5119,8 +5137,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.03166401045984202,
    "missing": {
@@ -5594,7 +5612,11 @@
     "home": 31548810,
     "away": 74119937
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:72478682",
    "sb_tid": "sr:tournament:8",
@@ -5604,8 +5626,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -0.74,
    "stake_pct": 0.25,
    "ev": -0.02077971976932802,
    "missing": {
@@ -5877,7 +5899,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Barcelona v Alaves",
@@ -6231,7 +6255,11 @@
     "home": 7154502,
     "away": 20551284
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "Almer\u00eda: aerial threat v weak in the air; Almer\u00eda: possession side v low block -> BTTS & goals",
     "xg": [
@@ -6266,8 +6294,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 3.33,
    "stake_pct": 0.25,
    "ev": -0.037364486146652776,
    "missing": {
@@ -6507,7 +6535,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Albacete v Sabadell",
@@ -8524,8 +8554,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0014351761808336638,
    "missing": {
@@ -8676,8 +8706,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.05194603992139002,
    "missing": {
@@ -8833,8 +8863,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.25,
    "ev": -0.03497171908569108,
    "missing": {
@@ -8987,8 +9017,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 2.52,
    "stake_pct": 0.25,
    "ev": -0.01939959276697978,
    "missing": {
@@ -9144,8 +9174,8 @@
     "spec": "hcp=0.5",
     "outcome": "Home (+0.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 2.52,
    "stake_pct": 0.25,
    "ev": -0.03714641593795087,
    "missing": {
@@ -9298,8 +9328,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03215331060379634,
    "missing": {
@@ -9450,8 +9480,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -4.65,
    "stake_pct": 0.25,
    "ev": -0.03581721749794631,
    "missing": {
@@ -9706,8 +9736,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": -0.019469415385021005,
    "missing": {
@@ -9820,7 +9850,11 @@
     "home": 597789,
     "away": 898444
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:72740774",
    "sb_tid": "sr:tournament:173",
@@ -9830,8 +9864,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0031787543501027304,
    "missing": {
@@ -9944,7 +9978,11 @@
     "home": 419542,
     "away": 608679
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:72740776",
    "sb_tid": "sr:tournament:173",
@@ -9954,8 +9992,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.01621241583213584,
    "missing": {
@@ -11563,8 +11601,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.25,
    "ev": -0.0344892524697098,
    "missing": {
@@ -29165,8 +29203,8 @@
     "spec": "",
     "outcome": "2-5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.1366551034350908,
    "missing": {
@@ -29322,8 +29360,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.029677092301899965,
    "missing": {
@@ -29449,8 +29487,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.014459542392395108,
    "missing": null,
@@ -29593,8 +29631,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.040653575731926295,
    "missing": {
@@ -29750,8 +29788,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 2.48,
    "stake_pct": 0.25,
    "ev": -0.029106820973935355,
    "missing": {
@@ -30385,8 +30423,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.25,
    "ev": -0.032035725098657486,
    "missing": {
@@ -30541,8 +30579,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -2.33,
    "stake_pct": 0.25,
    "ev": -0.024005430692822016,
    "missing": {
@@ -31309,8 +31347,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.052101989811146665,
    "missing": {
@@ -31449,8 +31487,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.04883607523254807,
    "missing": {
@@ -31590,8 +31628,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.03149597504970525,
    "missing": {
@@ -31741,8 +31779,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -0.78,
    "stake_pct": 1.3,
    "ev": -0.052327092868901026,
    "missing": {
@@ -31880,8 +31918,8 @@
     "spec": "hcp=0.5",
     "outcome": "Home (+0.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -3.08,
    "stake_pct": 0.25,
    "ev": -0.03474061156098662,
    "missing": {
@@ -32309,8 +32347,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.05667861989094902,
    "missing": {
@@ -32452,8 +32490,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 1.64,
    "stake_pct": 0.25,
    "ev": -0.032998334194179746,
    "missing": {
@@ -32592,8 +32630,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 2.36,
    "stake_pct": 0.25,
    "ev": -0.044971407216822246,
    "missing": {
@@ -32735,8 +32773,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.51,
+   "clv": -8.61,
    "stake_pct": 0.25,
    "ev": -0.05711733386693474,
    "missing": {
@@ -32875,8 +32913,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.025348980210610828,
    "missing": {
@@ -33105,8 +33143,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.11266363738859442,
    "missing": {
@@ -33220,8 +33258,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -3.94,
    "stake_pct": 0.25,
    "ev": -0.06003074311523948,
    "missing": {
@@ -33335,8 +33373,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02600245325187367,
    "missing": {
@@ -33450,8 +33488,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.05553645716843336,
    "missing": {
@@ -33565,8 +33603,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.017656152206236175,
    "missing": {

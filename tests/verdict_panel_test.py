@@ -214,3 +214,28 @@ def test_throttled_openrouter_model_falls_to_the_next_free_one():
     assert res["members"]["openrouter"]["model"] == "nvidia/nemotron-3.5-super-vl:free"
     assert res["members"]["openrouter"]["answered"] == 1
     assert "openrouter" in res["picks"][0]["members"]
+
+
+def test_time_budget_stops_the_panel_and_keeps_what_answered():
+    # 2026-10-31: the reasoning job hit its 30-minute limit once the members answered again
+    ticks = iter([0, 0, 0, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6])
+    ctxs = [dict(CTX) for _ in range(25)]
+    res = VP.evaluate(ctxs, keys=KEYS, get=get, post=answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.6}),
+                      record_path=tmp(), clock=lambda: next(ticks, 10 ** 6))
+    assert res["members"]["gemini"]["answered"] == 2      # the fake answers one pick per batch: 2 batches in budget
+    assert "time budget" in res["members"]["nvidia"]["status"]
+    assert len(res["picks"]) == 25
+
+
+def test_member_sits_out_after_two_failed_batches():
+    calls = []
+
+    def post(url, json=None, **kw):
+        if "nvidia" in url:
+            calls.append(1)
+            raise TimeoutError("read timed out")
+        return answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.6})(url, json=json, **kw)
+    res = VP.evaluate([dict(CTX) for _ in range(50)], keys=KEYS, get=get, post=post, record_path=tmp())
+    assert len(calls) == 2
+    assert res["members"]["nvidia"]["status"].startswith("off for this run after 2 failed batches")
+    assert res["members"]["gemini"]["answered"] == 5      # one per batch, all 5 batches

@@ -209,3 +209,17 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def test_debate_time_budget_falls_back_for_the_rest():
+    asked = []
+
+    def post(url, **kw):
+        asked.append(1)
+        return gemini({"picks": [{"id": j, "blue_team_thesis": "b", "red_team_attack": "r", "cio_verdict": "VETO",
+                                  "prob_adjustment": 0.0} for j in range(10)]})
+    ticks = iter([0, 0, 10 ** 6, 10 ** 6, 10 ** 6])
+    out = CC.debate([dict(FULL) for _ in range(30)], key="K", post=post, lessons_path=tmp() / "l.json",
+                    clock=lambda: next(ticks, 10 ** 6))
+    assert len(asked) == 1 and len(out) == 30
+    assert [o["source"] for o in out].count("gemini") == 10

@@ -26,7 +26,8 @@ concurrency:
 jobs:
   reason:
     runs-on: ubuntu-latest
-    timeout-minutes: 30   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks)
+    timeout-minutes: 60   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks); 2026-10-31: 30 cut off
+                         # four runs once the panel + core answered again; they now have 10-min budgets each
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
@@ -49,6 +50,7 @@ jobs:
 
       - name: Reason over today's and tomorrow's picks
         env:
+          PYTHONUNBUFFERED: "1"        # progress shows in the log even when the step is cut off
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
           OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-3.5-flash)

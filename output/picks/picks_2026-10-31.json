@@ -1641,7 +1641,11 @@
     "home": 10087048,
     "away": 4754213
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:20Z"
+   },
    "matchup": {
     "say": "Wis\u0142a P\u0142ock: high press v build-up side -> no strong goals lean",
     "xg": [

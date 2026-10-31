@@ -335,6 +335,33 @@
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Catanzaro v Padova": {
+  "absent": [
+   {
+    "name": "Luca Zanimacchia",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Lasagna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gianluca Caprari",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T10:20Z",
+  "away_missing_share": 0.10490461379030458,
+  "away_unavailable": 4,
+  "fotmob_id": 5967131,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-31T16:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Chelsea v Man United": {
   "absent": [
    {
@@ -1850,11 +1877,6 @@
     "type": "injury"
    },
    {
-    "name": "Adam Radwa\u0144ski",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Dani Pacheco",
     "side": "home",
     "type": "injury"
@@ -1870,14 +1892,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T10:00Z",
-  "away_missing_share": 0.061771506799681006,
+  "at": "2026-10-31T10:20Z",
+  "away_missing_share": 0.056005814398724325,
   "away_unavailable": 2,
   "fotmob_id": 5804029,
-  "home_missing_share": 0.1380145973674833,
-  "home_unavailable": 3,
+  "home_missing_share": 0.1386437165111595,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-31T11:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Wolfsburg v VfL 1899 Osnabruck": {
   "absent": [

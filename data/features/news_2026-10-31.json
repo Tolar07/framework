@@ -399,7 +399,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
+  "at": "2026-10-31T16:40Z",
   "away_missing_share": 0.08013911257005593,
   "away_unavailable": 4,
   "fotmob_id": 5881208,
@@ -441,11 +441,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
+  "at": "2026-10-31T16:40Z",
   "away_missing_share": 0.2445730133048873,
   "away_unavailable": 7,
   "fotmob_id": 5868112,
-  "home_missing_share": 0.15659644108342236,
+  "home_missing_share": 0.1907001354766199,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T17:30:00.000Z",
   "lineup_type": "predicted"
@@ -564,7 +564,7 @@
  },
  "Boston Utd v Scunthorpe United": {
   "absent": [],
-  "at": "2026-10-31T16:20Z",
+  "at": "2026-10-31T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906542,
@@ -1381,7 +1381,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
+  "at": "2026-10-31T16:40Z",
   "away_missing_share": 0.09943479444079156,
   "away_unavailable": 5,
   "fotmob_id": 5781791,
@@ -2099,7 +2099,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
+  "at": "2026-10-31T16:40Z",
   "away_missing_share": 0.20851454847670037,
   "away_unavailable": 4,
   "fotmob_id": 5781793,
@@ -2358,12 +2358,12 @@
     "type": "injury"
    },
    {
-    "name": "Bernard Nguene",
+    "name": "Josu\u00e9 Homawoo",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Josu\u00e9 Homawoo",
+    "name": "Casper Nielsen",
     "side": "home",
     "type": "injury"
    },
@@ -2378,19 +2378,19 @@
     "type": "injury"
    },
    {
-    "name": "Matthew Anderson",
+    "name": "Basile Vroninks",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 6,
+  "at": "2026-10-31T16:40Z",
+  "away_missing_share": 0.3058655831813662,
+  "away_unavailable": 3,
   "fotmob_id": 5811797,
-  "home_missing_share": 1.0,
-  "home_unavailable": 5,
+  "home_missing_share": 0.3917430967384639,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T17:15:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Stockport County FC v AFC Wimbledon": {
   "absent": [],
@@ -2579,14 +2579,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T16:20Z",
-  "away_missing_share": 0.18421365522055583,
+  "at": "2026-10-31T16:40Z",
+  "away_missing_share": 0.18162382220054216,
   "away_unavailable": 3,
   "fotmob_id": 5795504,
-  "home_missing_share": 0.3314952093550859,
+  "home_missing_share": 0.32130780428145356,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-31T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Tranmere v Cheltenham": {
   "absent": [],

@@ -4650,7 +4650,11 @@
     "home": 280669145,
     "away": 15037251
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "20:00Z"
+   },
    "matchup": {
     "say": "FC Porto: set-piece threat v weak set-piece defence; FC Porto: aerial threat v weak in the air -> no strong goals lean",
     "xg": [
@@ -4686,8 +4690,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -8.27,
    "stake_pct": 0.25,
    "ev": -0.006449147435988234,
    "missing": {

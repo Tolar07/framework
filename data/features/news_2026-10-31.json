@@ -2160,14 +2160,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T19:40Z",
-  "away_missing_share": 0.06652481126572828,
+  "at": "2026-10-31T20:00Z",
+  "away_missing_share": 0.10539923201952585,
   "away_unavailable": 2,
   "fotmob_id": 5887670,
   "home_missing_share": 0.16059653724006998,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T20:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "SCR Altach v SV Ried": {
   "absent": [

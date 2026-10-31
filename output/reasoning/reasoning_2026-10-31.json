@@ -1190,7 +1190,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8054
+   "panel_prob": 0.8054,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8054,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Asian handicap",
+    "panel_prob": 0.8054,
+    "edge": -0.0255,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.0404,
+     "live_brier": 0.0366,
+     "panel_brier_on_live": 0.0404,
+     "clv_n": 2,
+     "panel_clv_hit": 0.0,
+     "live_clv_hit": 0.5
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Burnley v Portsmouth",
@@ -2096,7 +2120,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7923
+   "panel_prob": 0.7923,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7923,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.7923,
+    "edge": -0.0334,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.2977,
+     "live_brier": 0.293,
+     "panel_brier_on_live": 0.2977,
+     "clv_n": 1,
+     "panel_clv_hit": 1.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Coventry City v Sunderland",
@@ -2168,7 +2216,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8153
+   "panel_prob": 0.8153,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8153,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Asian handicap",
+    "panel_prob": 0.8153,
+    "edge": -0.0135,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.0404,
+     "live_brier": 0.0366,
+     "panel_brier_on_live": 0.0404,
+     "clv_n": 2,
+     "panel_clv_hit": 0.0,
+     "live_clv_hit": 0.5
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Man City v Brighton",
@@ -2236,7 +2308,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7889
+   "panel_prob": 0.7889,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7889,
+    "anchor_source": "market",
+    "members": {},
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7889,
+    "edge": -0.0297,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 4,
+     "earned": false,
+     "panel_brier": 0.0574,
+     "live_brier": 0.0647,
+     "panel_brier_on_live": 0.0574,
+     "clv_n": 4,
+     "panel_clv_hit": 0.75,
+     "live_clv_hit": 0.75
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Aston Villa v Fulham",
@@ -5107,7 +5203,31 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7979
+   "panel_prob": 0.7979,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7979,
+    "anchor_source": "model",
+    "members": {},
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.7979,
+    "edge": -0.0345,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 2,
+     "earned": false,
+     "panel_brier": 0.2977,
+     "live_brier": 0.293,
+     "panel_brier_on_live": 0.2977,
+     "clv_n": 1,
+     "panel_clv_hit": 1.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Aalesunds FK v Sandefjord Fotball",
@@ -9077,6 +9197,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-10-31T14:00+00:00",
+   "picks": 5,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "partly failed: HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "partly failed: ReadTimeout: HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=120)",
+     "answered": 0
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

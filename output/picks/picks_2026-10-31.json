@@ -2142,7 +2142,11 @@
     "home": 5849782,
     "away": 16203986
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "both high lines + an elite attack; GKS Katowice: elite attack v leaky defence; Widzew \u0141\u00f3d\u017a: set-piece threat v weak set-piece defence; Widzew \u0141\u00f3d\u017a: aerial threat v weak in the air -> BTTS & goals",
     "xg": [
@@ -2180,8 +2184,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.038501250577587576,
    "missing": {
@@ -8275,7 +8279,11 @@
     "home": 5631060,
     "away": 34259640
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -8309,8 +8317,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -2.4,
    "stake_pct": 0.25,
    "ev": -0.04338193354189179,
    "missing": {
@@ -11485,7 +11493,11 @@
     "home": 18477624,
     "away": 15739381
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Sion at full strength",
+    "at": "18:40Z"
+   },
    "matchup": {
     "say": "Luzern: counter side v high line; Sion: possession side v low block; Sion: elite attack v leaky defence -> BTTS & goals",
     "xg": [

@@ -5207,7 +5207,28 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.816
+   "panel_prob": 0.816,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.816,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.785,
+     "nvidia": 0.816
+    },
+    "domain": "football",
+    "family": "European handicap",
+    "panel_prob": 0.8005,
+    "edge": -0.0394,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Fredrikstad FK v Rosenborg BK",
@@ -9334,6 +9355,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "partly failed: ReadTimeout: HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=120)",
      "answered": 0
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-10-31T18:40+00:00",
+   "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "ok",
+     "answered": 1
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

@@ -122,7 +122,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.5223642823266516,
   "away_unavailable": 6,
   "fotmob_id": 5781786,
@@ -159,7 +159,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.22477676601712193,
   "away_unavailable": 2,
   "fotmob_id": 5868514,
@@ -218,7 +218,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-31T18:20Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.14093987080181772,
   "away_unavailable": 2,
   "fotmob_id": 5811791,
@@ -261,7 +261,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.07189255871811866,
   "away_unavailable": 1,
   "fotmob_id": 5795496,
@@ -335,7 +335,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.054530159107624335,
   "away_unavailable": 2,
   "fotmob_id": 5868115,
@@ -478,7 +478,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:20Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.3518424967669465,
   "away_unavailable": 5,
   "fotmob_id": 5811792,
@@ -749,7 +749,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T14:00Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.09179287682741255,
   "away_unavailable": 3,
   "fotmob_id": 5781788,
@@ -1197,17 +1197,17 @@
  "GKS Katowice v Widzew Lodz": {
   "absent": [
    {
-    "name": "Eman Markovi\u0107",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Rafa\u0142 Str\u0105czek",
     "side": "home",
     "type": "injury"
    },
    {
     "name": "Aleksander Paluszek",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Adrian B\u0142\u0105d",
     "side": "home",
     "type": "injury"
    },
@@ -1227,14 +1227,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:20Z",
-  "away_missing_share": 0.21185182490215748,
+  "at": "2026-10-31T18:40Z",
+  "away_missing_share": 0.20646508191562996,
   "away_unavailable": 7,
   "fotmob_id": 5804023,
-  "home_missing_share": 0.20370632030276078,
-  "home_unavailable": 4,
+  "home_missing_share": 0.12548253486165814,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-31T19:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Grasshopper Club Zurich v FC Vaduz": {
   "absent": [
@@ -1291,14 +1291,14 @@
  },
  "Guingamp v St Etienne": {
   "absent": [],
-  "at": "2026-10-31T18:20Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803301,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T19:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "HNK Hajduk Split v HNK Gorica": {
   "absent": [
@@ -1447,11 +1447,6 @@
  "Karlsruhe v Heidenheim": {
   "absent": [
    {
-    "name": "H\u00e9liton",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Moritz Broschinski",
     "side": "home",
     "type": "injury"
@@ -1462,14 +1457,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:20Z",
-  "away_missing_share": 0.04058249299675656,
+  "at": "2026-10-31T18:40Z",
+  "away_missing_share": 0.042650791178211134,
   "away_unavailable": 1,
   "fotmob_id": 5881714,
-  "home_missing_share": 0.09812216361406598,
-  "home_unavailable": 2,
+  "home_missing_share": 0.049067839850426204,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-31T19:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Kilmarnock v St Johnstone": {
   "absent": [
@@ -1835,7 +1830,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:20Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.3210992612987388,
   "away_unavailable": 5,
   "fotmob_id": 5749730,
@@ -2617,7 +2612,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T18:20Z",
+  "at": "2026-10-31T18:40Z",
   "away_missing_share": 0.1795647456411205,
   "away_unavailable": 5,
   "fotmob_id": 5802981,

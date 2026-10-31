@@ -500,6 +500,48 @@
   "kickoff_utc": "2026-10-31T12:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Eibar v Almeria": {
+  "absent": [
+   {
+    "name": "Sergio \u00c1lvarez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Unai Elgezabal",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juan Bernat",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nico Melamed",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Daijiro Chirino",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mikel Vesga",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T09:20Z",
+  "away_missing_share": 0.19444502042708836,
+  "away_unavailable": 4,
+  "fotmob_id": 5868518,
+  "home_missing_share": 0.15009378723424474,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-31T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Erzurumspor FK v Corum FK": {
   "absent": [
    {
@@ -523,7 +565,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T09:20Z",
   "away_missing_share": 0.12269871344896276,
   "away_unavailable": 4,
   "fotmob_id": 5904793,
@@ -1538,6 +1580,48 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Vallecano v Celta": {
+  "absent": [
+   {
+    "name": "Andrei Ra\u021biu",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Augusto Batalla",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luiz Felipe",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jones El-Abdellaoui",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Rom\u00e1n",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "\u00c1lvaro N\u00fa\u00f1ez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T09:20Z",
+  "away_missing_share": 0.23626119324727787,
+  "away_unavailable": 5,
+  "fotmob_id": 5868119,
+  "home_missing_share": 0.4619591541160424,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-31T15:15:00.000Z",
+  "lineup_type": "predicted"
  },
  "Wealdstone v Southend": {
   "absent": [],

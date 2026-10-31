@@ -113,7 +113,7 @@
  },
  "Annecy v Montpellier": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803299,
@@ -180,6 +180,90 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Bayern Munich v Dortmund": {
+  "absent": [
+   {
+    "name": "Jamal Musiala",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luis D\u00edaz",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bara Ndiaye",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Konstantelias",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kau\u00e3 Prates",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Emre Can",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:40Z",
+  "away_missing_share": 0.08013911257005593,
+  "away_unavailable": 4,
+  "fotmob_id": 5881208,
+  "home_missing_share": 0.24857593553355944,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-31T17:30:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Betis v Malaga CF": {
+  "absent": [
+   {
+    "name": "Juan Hern\u00e1ndez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Facundo Bernal",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "J\u00fanior Firpo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pablo Mart\u00ednez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Juan Cruz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Diego Murillo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:40Z",
+  "away_missing_share": 0.2445730133048873,
+  "away_unavailable": 7,
+  "fotmob_id": 5868112,
+  "home_missing_share": 0.15659644108342236,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-31T17:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Bologna v Monza": {
   "absent": [
@@ -266,6 +350,17 @@
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Boston Utd v Scunthorpe United": {
+  "absent": [],
+  "at": "2026-10-31T11:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906542,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-31T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Bournemouth v Leeds": {
   "absent": [
    {
@@ -321,14 +416,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837244,
-  "home_missing_share": 0.21294934416104389,
+  "home_missing_share": 0.20602987252654506,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Brentford v Nott'm Forest": {
   "absent": [
@@ -772,14 +867,14 @@
  },
  "Forest Green Rovers v Harrogate": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906544,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Fredrikstad FK v Rosenborg BK": {
   "absent": [
@@ -857,14 +952,14 @@
  },
  "Grimsby v York City FC": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838019,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "HNK Hajduk Split v HNK Gorica": {
   "absent": [
@@ -905,14 +1000,14 @@
  },
  "Halifax v Yeovil": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906543,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Hull City v Ipswich Town": {
   "absent": [
@@ -1043,7 +1138,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.10986027433304558,
   "away_unavailable": 2,
   "fotmob_id": 5904792,
@@ -1081,7 +1176,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.05054209518491066,
   "away_unavailable": 2,
   "fotmob_id": 5868117,
@@ -1134,14 +1229,14 @@
  },
  "Leyton Orient v Cambridge United": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837246,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lincoln City v Birmingham": {
   "absent": [
@@ -1156,29 +1251,19 @@
     "type": "injury"
    },
    {
-    "name": "Sonny Bradley",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "August Priske",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Paik Seung-Ho",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:20Z",
-  "away_missing_share": 0.10914107500520336,
-  "away_unavailable": 2,
+  "at": "2026-10-31T11:40Z",
+  "away_missing_share": 0.024257822314248792,
+  "away_unavailable": 1,
   "fotmob_id": 5836900,
-  "home_missing_share": 0.1693563180689778,
-  "home_unavailable": 3,
+  "home_missing_share": 0.14167944768296803,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Man City v Brighton": {
   "absent": [
@@ -1504,7 +1589,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.19514127438732834,
   "away_unavailable": 3,
   "fotmob_id": 5836903,
@@ -1553,18 +1638,18 @@
  },
  "Plymouth v Reading": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837250,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Port Vale v Rochdale": {
   "absent": [],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838022,
@@ -1682,7 +1767,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.4806602238635943,
   "away_unavailable": 3,
   "fotmob_id": 5868522,
@@ -1788,7 +1873,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T11:20Z",
+  "at": "2026-10-31T11:40Z",
   "away_missing_share": 0.1578770689737423,
   "away_unavailable": 3,
   "fotmob_id": 5836906,
@@ -1897,6 +1982,48 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Tottenham v Crystal Palace": {
+  "absent": [
+   {
+    "name": "Xavi Simons",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lucas Bergvall",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "S\u00e1vio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Isma\u00efla Sarr",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Chadi Riad",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Takehiro Tomiyasu",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:40Z",
+  "away_missing_share": 0.18421365522055583,
+  "away_unavailable": 3,
+  "fotmob_id": 5795504,
+  "home_missing_share": 0.3314952093550859,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-31T17:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Tranmere v Cheltenham": {
   "absent": [],

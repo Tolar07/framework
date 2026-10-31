@@ -81,7 +81,9 @@ for kind, slips in kinds.items():
 lone = "H" + str([b.fixture for b in board].index(next(b.fixture for b in board
                   if b.kickoff_utc.endswith("18:40:00Z")))) + " v "
 for kind, slips in kinds.items():
-    assert not any(leg[0].fixture.startswith(lone) for _n, legs, _c in slips for leg in legs), \
+    # a BTTS single is one leg, so it is never "pushed into" a slip (2026-10-31)
+    assert not any(leg[0].fixture.startswith(lone) for _n, legs, _c in slips if len(legs) > 1
+                   for leg in legs), \
         f"the lone 18:40 game is pushed into a later {kind} slip"
 
 # the existing rules still hold inside each cohort
@@ -136,4 +138,4 @@ b = cohorts.buckets(list(reversed(legs_at("15:00", "15:05", "15:10"))), two)
 assert [l[0].kickoff_utc[11:16] for l in b[0][2]] == ["15:10", "15:05", "15:00"], "caller's ranking kept"
 
 print(f"cohort accas: OK ({len(accas)} accas, {len(safe3)} 50+, {len(alts)} alt, "
-      f"{len(megas)} megas, BTTS {len(btts[0][1])} legs)")
+      f"{len(megas)} megas, BTTS {len(btts)} singles)")

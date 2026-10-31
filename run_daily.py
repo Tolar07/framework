@@ -1392,7 +1392,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             extra_codes[_kind] = _code
                             extra_codes[_kind + "_legs"] = len(_ls)
                 # TABLE 3D · BTTS (Architect 2026-10-10): price each fixture's
-                # BTTS-yes from SportyBet, then book the table as one slip.
+                # BTTS-yes from SportyBet, then book each game as its own single.
                 try:
                     from output.produce_bet import _build_btts
                     for _b in board:
@@ -1400,14 +1400,14 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             if _b.probs else None
                         _q = getattr(_fx, "btts_yes", None) if _fx else None
                         _b.btts_price = getattr(_q, "price", None)
+                    # one code per BTTS single (Architect 2026-10-31)
                     for _n, _legs, _c in _build_btts(shown):
                         _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
                                 bf.probs.home_team, bf.probs.away_team, key)
                                for bf, _pick, _prob, key, _price in _legs]
                         _code, _ = sbk.code_for_legs(sb_index, _ls)
                         if _code:
-                            extra_codes["btts"] = _code
-                            extra_codes["btts_legs"] = len(_ls)
+                            extra_codes.setdefault("btts_codes", {})[_n] = _code
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
                 megas = _build_megas(deploy)

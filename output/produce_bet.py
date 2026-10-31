@@ -1568,19 +1568,16 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     except Exception:  # noqa: BLE001 — a display table never breaks the board
         _btts = []
     if _btts:
-        _bname, _blegs, _bcombo = _btts[0]
-        _bodds = 1.0
-        for _r in _blegs:
-            _bodds *= _r[4]
+        _bc = extra_codes.get("btts_codes") or {}
         out += [_CANON_RULE, "TABLE 3D · BOTH TEAMS TO SCORE",
-                f"(the {len(_blegs)} strongest BTTS-yes games, {round(BTTS_MIN*100)}%+ "
-                f"model chance, one slip)", _CANON_RULE]
-        for _bf, _pk, _ch, _k, _pr in _blegs:
+                f"({len(_btts)} BTTS-yes singles, {round(BTTS_MIN*100)}%+ model chance, "
+                f"one code each)", _CANON_RULE]
+        for _bname, _blegs, _bcombo in _btts:
+            _bf, _pk, _ch, _k, _pr = _blegs[0]
             out.append(f"   • {kickoff(_bf)} "
                        f"{comp.where(_bf.fixture.split(' (')[0], _bf.fixture.rsplit('(', 1)[-1].rstrip(')'))} "
-                       f"— BTTS yes @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f})")
-        out.append(f"BTTS slip: {extra_codes.get('btts') or 'PENDING'} "
-                   f"({len(_blegs)} legs · odds {_bodds:.2f} · {round(_bcombo*100)}%)")
+                       f"— BTTS yes @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f}) "
+                       f"· {_bc.get(_bname) or 'PENDING'}")
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
@@ -1606,9 +1603,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         if extra_codes.get("alts_mega"):
             out.append(f"ALT MEGA: {extra_codes['alts_mega']} "
                        f"({extra_codes.get('alts_mega_legs', '?')} legs · every alt acca on one slip · stake 0.1%)")
-        if extra_codes.get("btts"):
-            out.append(f"BTTS: {extra_codes['btts']} "
-                       f"({extra_codes.get('btts_legs', '?')} legs · both teams to score · stake 0.1%)")
+        for _bn, _bcode in (extra_codes.get("btts_codes") or {}).items():
+            out.append(f"{_bn}: {_bcode} (single · both teams to score)")
         if extra_codes.get("value_mega"):
             out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
                        f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
@@ -1670,16 +1666,20 @@ def render_subscriber_codes(board_text: str, board: list, board_date: str) -> st
 
 # BOTH TEAMS TO SCORE table (Architect 2026-10-10: "I want it on board. Do it
 # for SportyBet and bet365"): over 1.5 out-ranks BTTS-yes on nearly every game,
-# so BTTS never became a pick. TABLE 3D lists the strongest BTTS-yes games
-# (calibrated model chance >= BTTS_MIN, SportyBet price 1.20-2.00, model-rated
-# fixtures only) and books them on one slip.
-BTTS_MIN = 0.65
-BTTS_MAX_LEGS = 6
+# so BTTS never became a pick. TABLE 3D lists the BTTS-yes games (calibrated
+# model chance >= BTTS_MIN, SportyBet price 1.20-2.00, model-rated fixtures
+# only).
+# SINGLES AT 50% (Architect 2026-10-31): the one-slip rule lost even on a day
+# 58% of games went BTTS (the 6-leg 15:00 slip landed 2/6), and the 65% bar let
+# 10 of 54 BTTS-yes games through. Each game is now its own single with its own
+# code; the bar is 50% (31-10 replay: 64 singles, 41 won, +1.70 at 1 unit).
+BTTS_MIN = 0.50
 
 
 def _build_btts(board: list) -> list[tuple]:
-    """[("BTTS", legs, combined chance)] or []. A leg is (bf, pick, chance,
-    market key, SportyBet price) - the alt-slip shape the ledger grades."""
+    """[("BTTS 1", [leg], chance), ...] strongest first, one single per game,
+    or []. A leg is (bf, pick, chance, market key, SportyBet price) - the
+    alt-slip shape the ledger grades."""
     from engine.calibration import btts_yes as _cal
     rows = []
     for bf in board:
@@ -1688,26 +1688,11 @@ def _build_btts(board: list) -> list[tuple]:
             continue
         ch = _cal(p.p_btts_yes)
         price = getattr(bf, "btts_price", None)
-        if ch is None or ch < BTTS_MIN or not price \
-                or not (DEPLOY_ODDS_MIN <= price <= DEPLOY_ODDS_MAX):
+        if ch is None or ch < BTTS_MIN or not price                 or not (DEPLOY_ODDS_MIN <= price <= DEPLOY_ODDS_MAX):
             continue
         rows.append((bf, "Both teams to score — yes", ch, mkt.BTTS_YES, price))
     rows.sort(key=lambda r: -r[2])
-    # KICKOFF COHORTS (Architect 2026-10-26): one slip, so one kickoff window —
-    # the window with the most BTTS games (then the strongest), up to 6 of them
-    cands = [(cid, merged, b) for cid, merged, b in cohorts.buckets(rows, lambda b: len(b) >= 2)
-             if len(b) >= 2]
-    if not cands:
-        return []
-    cid, merged, rows = max(cands, key=lambda t: (min(len(t[2]), BTTS_MAX_LEGS), t[2][0][2]))
-    rows = rows[:BTTS_MAX_LEGS]
-    cohorts.remember(rows, cid, merged)
-    if len(rows) < 2:
-        return []
-    combo = 1.0
-    for r in rows:
-        combo *= r[2]
-    return [("BTTS", rows, combo)]
+    return [(f"BTTS {i}", [r], r[2]) for i, r in enumerate(rows, 1)]
 
 
 def _acca_odds(legs) -> float:

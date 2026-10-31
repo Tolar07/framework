@@ -113,14 +113,14 @@
  },
  "Annecy v Montpellier": {
   "absent": [],
-  "at": "2026-10-31T12:00Z",
+  "at": "2026-10-31T12:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803299,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Augsburg v Freiburg": {
   "absent": [
@@ -1165,24 +1165,19 @@
     "type": "injury"
    },
    {
-    "name": "Ahmed Kutucu",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Khusniddin Alikulov",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:00Z",
-  "away_missing_share": 0.10986027433304558,
-  "away_unavailable": 2,
+  "at": "2026-10-31T12:20Z",
+  "away_missing_share": 0.036719685533114464,
+  "away_unavailable": 1,
   "fotmob_id": 5904792,
-  "home_missing_share": 0.2831702628704863,
+  "home_missing_share": 0.22471411649178571,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-31T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Leicester v Stevenage FC": {
   "absent": [],
@@ -1213,14 +1208,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:00Z",
+  "at": "2026-10-31T12:20Z",
   "away_missing_share": 0.05240496223307381,
   "away_unavailable": 2,
   "fotmob_id": 5868117,
-  "home_missing_share": 0.15542423986086876,
+  "home_missing_share": 0.12174609970714229,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-31T13:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Leverkusen v Stuttgart": {
   "absent": [
@@ -1846,14 +1841,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T12:00Z",
-  "away_missing_share": 0.4806602238635943,
+  "at": "2026-10-31T12:20Z",
+  "away_missing_share": 0.17124320621235484,
   "away_unavailable": 3,
   "fotmob_id": 5868522,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Solihull v Kidderminster": {
   "absent": [],
@@ -2302,7 +2297,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T12:20Z",
   "away_missing_share": 0.15052674266408184,
   "away_unavailable": 1,
   "fotmob_id": 5804028,

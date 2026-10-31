@@ -5364,7 +5364,11 @@
     "home": 35344026,
     "away": 468766296
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "matchup": {
     "say": "Atl\u00e9tico Madrid: possession side v low block; Atl\u00e9tico Madrid: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -5653,7 +5657,9 @@
     "yes": -0.0424,
     "no": 0.0424,
     "signal": null
-   }
+   },
+   "drift_price": 1.36,
+   "drift_pct": 0.7
   },
   {
    "fixture": "Betis v Malaga CF",
@@ -6006,7 +6012,11 @@
     "home": 17195195,
     "away": 9389028
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "matchup": {
     "say": "Real Sociedad B: counter side v high line; Real Sociedad B: counter side v counter-exposed; Girona: possession side v low block; Girona: elite attack v leaky defence -> no strong goals lean",
     "xg": [
@@ -6303,7 +6313,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Celta B v Cordoba",
@@ -7952,7 +7964,11 @@
     "home": 5700106,
     "away": 14024685
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Annecy FC at full strength",
+    "at": "12:20Z"
+   },
    "matchup": {
     "say": "Annecy FC: counter side v high line; Annecy FC: counter side v counter-exposed; Montpellier: counter side v high line; Montpellier: possession side v low block -> no strong goals lean",
     "xg": [

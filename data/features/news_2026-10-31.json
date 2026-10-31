@@ -1,4 +1,83 @@
 {
+ "AE Kifisia FC v Olympiacos": {
+  "absent": [
+   {
+    "name": "Imam Jagne",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Giannis Doiranlis",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jon De Luis",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ayoub El Kaabi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Yusuf Yaz\u0131c\u0131",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:00Z",
+  "away_missing_share": 0.08574978244668864,
+  "away_unavailable": 2,
+  "fotmob_id": 5943283,
+  "home_missing_share": 0.31327512892880693,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-31T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Aalesunds FK v Sandefjord Fotball": {
+  "absent": [
+   {
+    "name": "Marcus Haagensen Reed",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Simen Haram",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "\u00d3lafur Gu\u00f0mundsson",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Bendik Berntsen",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Filip Loftesnes-Bjune",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikolaj M\u00f6ller",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:00Z",
+  "away_missing_share": 0.3862477935298143,
+  "away_unavailable": 6,
+  "fotmob_id": 5105039,
+  "home_missing_share": 0.2911545807045208,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-31T17:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Accrington v Northampton": {
   "absent": [],
   "at": "2026-10-31T09:00Z",
@@ -242,7 +321,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837244,
@@ -395,7 +474,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.27265718843071496,
   "away_unavailable": 5,
   "fotmob_id": 5795498,
@@ -518,7 +597,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T10:40Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5881710,
@@ -596,6 +675,48 @@
   "kickoff_utc": "2026-10-31T10:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "FC St. Gallen 1879 v Servette Geneva": {
+  "absent": [
+   {
+    "name": "Christian Witzig",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Diego Besio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Behar Neziri",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "David Datro Fofana",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Timoth\u00e9 Cognat",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Miroslav Stevanovi\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:00Z",
+  "away_missing_share": 0.440602258382793,
+  "away_unavailable": 6,
+  "fotmob_id": 5804290,
+  "home_missing_share": 0.33551778543760286,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-31T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Fenerbahce Istanbul v Goztepe Izmir": {
   "absent": [
    {
@@ -651,7 +772,7 @@
  },
  "Forest Green Rovers v Harrogate": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906544,
@@ -692,9 +813,51 @@
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Grasshopper Club Zurich v FC Vaduz": {
+  "absent": [
+   {
+    "name": "Tim Meyer",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Julian von Moos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pantaleo Creti",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ranjan Neelakandan",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Mack",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lado Akhalaia",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:00Z",
+  "away_missing_share": 0.2786442803272106,
+  "away_unavailable": 5,
+  "fotmob_id": 5804286,
+  "home_missing_share": 0.42188543213899227,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-31T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Grimsby v York City FC": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838019,
@@ -742,7 +905,7 @@
  },
  "Halifax v Yeovil": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906543,
@@ -811,7 +974,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T10:40Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.26167682778048157,
   "away_unavailable": 3,
   "fotmob_id": 5881713,
@@ -971,7 +1134,7 @@
  },
  "Leyton Orient v Cambridge United": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837246,
@@ -1008,7 +1171,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.10914107500520336,
   "away_unavailable": 2,
   "fotmob_id": 5836900,
@@ -1341,7 +1504,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.19514127438732834,
   "away_unavailable": 3,
   "fotmob_id": 5836903,
@@ -1390,7 +1553,7 @@
  },
  "Plymouth v Reading": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837250,
@@ -1401,7 +1564,7 @@
  },
  "Port Vale v Rochdale": {
   "absent": [],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838022,
@@ -1583,7 +1746,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T09:00Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.1578770689737423,
   "away_unavailable": 3,
   "fotmob_id": 5836906,
@@ -1703,6 +1866,48 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-31T15:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Udinese v Roma": {
+  "absent": [
+   {
+    "name": "Oumar Solet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Idrissa Gueye",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Zanoli",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Manu Kon\u00e9",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mile Svilar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenzo Pellegrini",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-31T11:00Z",
+  "away_missing_share": 0.31488718825752726,
+  "away_unavailable": 4,
+  "fotmob_id": 5749739,
+  "home_missing_share": 0.3235949784914049,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-31T17:00:00.000Z",
+  "lineup_type": "predicted"
  },
  "Vallecano v Celta": {
   "absent": [
@@ -1919,7 +2124,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-31T10:40Z",
+  "at": "2026-10-31T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5881716,

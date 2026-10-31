@@ -38,6 +38,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Callable, Optional
@@ -56,6 +57,8 @@ MIN_CLV_N = 20
 BRIER_MARGIN = 0.002
 MIN_MEMBER_N = 30                 # below this a member keeps an equal weight
 BATCH = 10
+BUDGET_S = float(os.getenv("PANEL_BUDGET_S", "600"))   # all members together (2026-10-31: job hit its 30-min limit)
+MAX_FAILS = 2                                          # batches failed in a row before a member sits out the run
 TEMPERATURE = 0.15
 LINEUP_WINDOW_MIN = (45, 75)      # minutes before kick-off
 MAX_HISTORY = 5000
@@ -310,7 +313,8 @@ def _row(i: int, ctx: dict, anchor: float, source: str) -> dict:
 
 
 def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
-             post: Optional[Callable] = None, record_path: Path = PANEL_RECORD, stage: str = "board") -> dict:
+             post: Optional[Callable] = None, record_path: Path = PANEL_RECORD, stage: str = "board",
+             clock: Callable = time.monotonic) -> dict:
     """{"members": {...run info...}, "picks": [panel block per ctx]}. Never raises."""
     if get is None or post is None:
         import requests
@@ -324,6 +328,7 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
         anchors.append((m, "market") if m is not None else (b, "model") if b is not None else (None, None))
     idx = [i for i, (a, _) in enumerate(anchors) if a is not None]
     answers: dict = {n: {} for n in MEMBERS}
+    t0 = clock()
     for name in MEMBERS:
         key = keys.get(name) or ""
         if not key:
@@ -334,7 +339,14 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
             info[name] = {"status": "no free model available" if name == "openrouter" else "no model"}
             continue
         info[name] = {"model": model, "status": "ok", "answered": 0}
+        fails = 0
         for j in range(0, len(idx), BATCH):
+            if clock() - t0 > BUDGET_S:
+                info[name]["status"] = f"time budget {BUDGET_S:.0f}s used; {info[name]['answered']} answered"
+                break
+            if fails >= MAX_FAILS:
+                info[name]["status"] = f"off for this run after {fails} failed batches: {info[name]['status']}"
+                break
             part = idx[j:j + BATCH]
             rows = [_row(i, ctxs[i], anchors[i][0], anchors[i][1]) for i in part]
             try:
@@ -357,7 +369,9 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
                 break
             except Exception as e:  # noqa: BLE001 — one failed batch leaves only its picks without this member
                 info[name]["status"] = f"partly failed: {type(e).__name__}: {str(e)[:120]}"
+                fails += 1
                 continue
+            fails = 0
             answers[name].update(got)
             info[name]["answered"] += len(got)
     names = [n for n in MEMBERS if info.get(n, {}).get("model")]

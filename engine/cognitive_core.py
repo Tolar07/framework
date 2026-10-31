@@ -31,6 +31,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Callable, Optional
@@ -54,6 +55,9 @@ OVERBOUGHT_RSI = 68
 ENGINE_DIVERGENCE = 0.10          # Elo v Dixon-Coles chance gap that counts as disagreement
 TEMPERATURE = 0.15
 BATCH = 10
+# 2026-10-31: once the models answered again (#215) the reasoning job ran past its 30-minute limit and was
+# cancelled four times, so no verdict was saved for the 31-10 board. Past this budget the rest fall back.
+BUDGET_S = float(os.getenv("COGNITIVE_BUDGET_S", "600"))
 STAKE_MULT = {"BACK": 1.15, "LOWER": 0.5, "VETO": 0.0}
 VERDICTS = tuple(STAKE_MULT)
 FAILURE_MODES = ("TACTICAL_MISMATCH", "LINEUP_OR_FATIGUE", "SHARP_LINE_MOVED_AGAINST",
@@ -181,12 +185,16 @@ def fallback(flags: list[str]) -> dict:
 
 
 def debate(ctxs: list[dict], key: Optional[str] = None, post: Optional[Callable] = None,
-           lessons_path: Path = LESSONS) -> list[dict]:
+           lessons_path: Path = LESSONS, clock: Callable = time.monotonic) -> list[dict]:
     """The debate for each context (same order). Never raises: a failed batch falls back per pick."""
     key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
     out: list[dict] = []
+    t0 = clock()
     for i in range(0, len(ctxs), BATCH):
         part = ctxs[i:i + BATCH]
+        if key and clock() - t0 > BUDGET_S:
+            print(f"cognitive core: time budget {BUDGET_S:.0f}s used after {i} of {len(ctxs)} picks; the rest fall back")
+            key = None
         rows = [{"id": j, **{k: v for k, v in c.items() if k != "domain"}} for j, c in enumerate(part)]
         fams = {(c.get("domain"), c.get("family")) for c in part}
         les = [x for d, f in fams for x in relevant_lessons(d, f, lessons_path=lessons_path)]

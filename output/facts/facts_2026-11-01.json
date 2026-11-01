@@ -1,0 +1,1253 @@
+{
+ "date": "2026-11-01",
+ "picks_generated_at": "2026-10-31T22:01:18Z",
+ "run_at": "2026-11-01T18:41:29+00:00",
+ "recorded_only": true,
+ "members": {
+  "gemini": {
+   "model": "gemini-3.5-flash",
+   "status": "off for this run: RateLimited: gemini: 429",
+   "answered": 0
+  },
+  "nvidia": {
+   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "status": "ok",
+   "answered": 0
+  },
+  "openrouter": {
+   "model": "google/gemma-4-31b-it:free",
+   "status": "ok",
+   "answered": 0
+  }
+ },
+ "fields_agreed": 0,
+ "fields_asked": 952,
+ "fixtures": [
+  {
+   "id": 0,
+   "fixture": "Zwolle v Den Haag",
+   "home": "Zwolle",
+   "away": "Den Haag",
+   "league": "Eredivisie",
+   "kickoff_utc": "2026-11-01T11:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 1,
+   "fixture": "Excelsior v Twente",
+   "home": "Excelsior",
+   "away": "Twente",
+   "league": "Eredivisie",
+   "kickoff_utc": "2026-11-01T13:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 2,
+   "fixture": "Telstar v Utrecht",
+   "home": "Telstar",
+   "away": "Utrecht",
+   "league": "Eredivisie",
+   "kickoff_utc": "2026-11-01T13:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 3,
+   "fixture": "Groningen v Sparta Rotterdam",
+   "home": "Groningen",
+   "away": "Sparta Rotterdam",
+   "league": "Eredivisie",
+   "kickoff_utc": "2026-11-01T15:45:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 4,
+   "fixture": "Odense v Silkeborg",
+   "home": "Odense",
+   "away": "Silkeborg",
+   "league": "Danish Superliga",
+   "kickoff_utc": "2026-11-01T13:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 5,
+   "fixture": "Viborg v Horsens",
+   "home": "Viborg",
+   "away": "Horsens",
+   "league": "Danish Superliga",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 6,
+   "fixture": "Nordsjaelland v Midtjylland",
+   "home": "Nordsjaelland",
+   "away": "Midtjylland",
+   "league": "Danish Superliga",
+   "kickoff_utc": "2026-11-01T15:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 7,
+   "fixture": "Brondby v Aarhus",
+   "home": "Brondby",
+   "away": "Aarhus",
+   "league": "Danish Superliga",
+   "kickoff_utc": "2026-11-01T17:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 8,
+   "fixture": "Cercle Brugge v Antwerp",
+   "home": "Cercle Brugge",
+   "away": "Antwerp",
+   "league": "Belgian Pro League",
+   "kickoff_utc": "2026-11-01T12:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 9,
+   "fixture": "St Truiden v Oud-Heverlee Leuven",
+   "home": "St Truiden",
+   "away": "Oud-Heverlee Leuven",
+   "league": "Belgian Pro League",
+   "kickoff_utc": "2026-11-01T15:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 10,
+   "fixture": "Lommel SK v Gent",
+   "home": "Lommel SK",
+   "away": "Gent",
+   "league": "Belgian Pro League",
+   "kickoff_utc": "2026-11-01T17:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 11,
+   "fixture": "Charleroi v RAAL La Louviere",
+   "home": "Charleroi",
+   "away": "RAAL La Louviere",
+   "league": "Belgian Pro League",
+   "kickoff_utc": "2026-11-01T18:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 12,
+   "fixture": "Falkirk v Celtic",
+   "home": "Falkirk",
+   "away": "Celtic",
+   "league": "Scottish Premiership",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 13,
+   "fixture": "HNK Rijeka v NK Varazdin",
+   "home": "HNK Rijeka",
+   "away": "NK Varazdin",
+   "league": "HNL",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 14,
+   "fixture": "NK Lokomotiva Zagreb v NK Osijek",
+   "home": "NK Lokomotiva Zagreb",
+   "away": "NK Osijek",
+   "league": "HNL",
+   "kickoff_utc": "2026-11-01T17:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 15,
+   "fixture": "Frosinone v Torino",
+   "home": "Frosinone",
+   "away": "Torino",
+   "league": "Serie A",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 16,
+   "fixture": "Lazio v Cagliari",
+   "home": "Lazio",
+   "away": "Cagliari",
+   "league": "Serie A",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 17,
+   "fixture": "Lecce v Genoa",
+   "home": "Lecce",
+   "away": "Genoa",
+   "league": "Serie A",
+   "kickoff_utc": "2026-11-01T17:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 18,
+   "fixture": "Juventus v Napoli",
+   "home": "Juventus",
+   "away": "Napoli",
+   "league": "Serie A",
+   "kickoff_utc": "2026-11-01T19:45:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 19,
+   "fixture": "Union Berlin v FC Koln",
+   "home": "Union Berlin",
+   "away": "FC Koln",
+   "league": "Bundesliga",
+   "kickoff_utc": "2026-11-01T14:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 20,
+   "fixture": "Ein Frankfurt v Hamburg",
+   "home": "Ein Frankfurt",
+   "away": "Hamburg",
+   "league": "Bundesliga",
+   "kickoff_utc": "2026-11-01T16:30:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 21,
+   "fixture": "Strasbourg v Auxerre",
+   "home": "Strasbourg",
+   "away": "Auxerre",
+   "league": "Ligue 1",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 22,
+   "fixture": "Lyon v Angers",
+   "home": "Lyon",
+   "away": "Angers",
+   "league": "Ligue 1",
+   "kickoff_utc": "2026-11-01T16:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 23,
+   "fixture": "Paris FC v Monaco",
+   "home": "Paris FC",
+   "away": "Monaco",
+   "league": "Ligue 1",
+   "kickoff_utc": "2026-11-01T16:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 24,
+   "fixture": "Marseille v Toulouse",
+   "home": "Marseille",
+   "away": "Toulouse",
+   "league": "Ligue 1",
+   "kickoff_utc": "2026-11-01T19:45:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 25,
+   "fixture": "Arouca v Nacional",
+   "home": "Arouca",
+   "away": "Nacional",
+   "league": "Primeira Liga",
+   "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 26,
+   "fixture": "Academico de Viseu FC v Rio Ave",
+   "home": "Academico de Viseu FC",
+   "away": "Rio Ave",
+   "league": "Primeira Liga",
+   "kickoff_utc": "2026-11-01T18:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 27,
+   "fixture": "Maritimo Madeira v Santa Clara",
+   "home": "Maritimo Madeira",
+   "away": "Santa Clara",
+   "league": "Primeira Liga",
+   "kickoff_utc": "2026-11-01T18:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 28,
+   "fixture": "Sp Braga v Famalicao",
+   "home": "Sp Braga",
+   "away": "Famalicao",
+   "league": "Primeira Liga",
+   "kickoff_utc": "2026-11-01T20:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 29,
+   "fixture": "Liverpool v Arsenal",
+   "home": "Liverpool",
+   "away": "Arsenal",
+   "league": "Premier League",
+   "kickoff_utc": "2026-11-01T16:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 30,
+   "fixture": "Getafe v Sevilla",
+   "home": "Getafe",
+   "away": "Sevilla",
+   "league": "La Liga",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 31,
+   "fixture": "Racing Santander v Real Madrid",
+   "home": "Racing Santander",
+   "away": "Real Madrid",
+   "league": "La Liga",
+   "kickoff_utc": "2026-11-01T15:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 32,
+   "fixture": "Elche v Valencia",
+   "home": "Elche",
+   "away": "Valencia",
+   "league": "La Liga",
+   "kickoff_utc": "2026-11-01T17:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 33,
+   "fixture": "Ath Bilbao v Sociedad",
+   "home": "Ath Bilbao",
+   "away": "Sociedad",
+   "league": "La Liga",
+   "kickoff_utc": "2026-11-01T20:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 34,
+   "fixture": "Eldense v Granada",
+   "home": "Eldense",
+   "away": "Granada",
+   "league": "La Liga 2",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 35,
+   "fixture": "Ceuta v Sp Gijon",
+   "home": "Ceuta",
+   "away": "Sp Gijon",
+   "league": "La Liga 2",
+   "kickoff_utc": "2026-11-01T15:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 36,
+   "fixture": "Burgos v Castellon",
+   "home": "Burgos",
+   "away": "Castellon",
+   "league": "La Liga 2",
+   "kickoff_utc": "2026-11-01T17:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 37,
+   "fixture": "Tenerife v Andorra",
+   "home": "Tenerife",
+   "away": "Andorra",
+   "league": "La Liga 2",
+   "kickoff_utc": "2026-11-01T20:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 38,
+   "fixture": "SS Arezzo v Ascoli Calcio 1898",
+   "home": "SS Arezzo",
+   "away": "Ascoli Calcio 1898",
+   "league": "Serie B",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 39,
+   "fixture": "Avellino v SC Pisa",
+   "home": "Avellino",
+   "away": "SC Pisa",
+   "league": "Serie B",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 40,
+   "fixture": "Hellas Verona v Carrarese",
+   "home": "Hellas Verona",
+   "away": "Carrarese",
+   "league": "Serie B",
+   "kickoff_utc": "2026-11-01T16:15:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 41,
+   "fixture": "Palermo v L.R. Vicenza",
+   "home": "Palermo",
+   "away": "L.R. Vicenza",
+   "league": "Serie B",
+   "kickoff_utc": "2026-11-01T18:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 42,
+   "fixture": "FC St. Pauli v Nurnberg",
+   "home": "FC St. Pauli",
+   "away": "Nurnberg",
+   "league": "2. Bundesliga",
+   "kickoff_utc": "2026-11-01T12:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 43,
+   "fixture": "Greuther Furth v Holstein Kiel",
+   "home": "Greuther Furth",
+   "away": "Holstein Kiel",
+   "league": "2. Bundesliga",
+   "kickoff_utc": "2026-11-01T12:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 44,
+   "fixture": "Hannover v Dresden",
+   "home": "Hannover",
+   "away": "Dresden",
+   "league": "2. Bundesliga",
+   "kickoff_utc": "2026-11-01T12:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 45,
+   "fixture": "Sheffield Wednesday v Blackpool FC",
+   "home": "Sheffield Wednesday",
+   "away": "Blackpool FC",
+   "league": "League One",
+   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 46,
+   "fixture": "Amed Sportif Faaliyetler v Eyupspor",
+   "home": "Amed Sportif Faaliyetler",
+   "away": "Eyupspor",
+   "league": "Turkish Super Lig",
+   "kickoff_utc": "2026-11-01T10:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 47,
+   "fixture": "Istanbul BB v Samsunspor",
+   "home": "Istanbul BB",
+   "away": "Samsunspor",
+   "league": "Turkish Super Lig",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 48,
+   "fixture": "Trabzonspor v Gaziantep FK",
+   "home": "Trabzonspor",
+   "away": "Gaziantep FK",
+   "league": "Turkish Super Lig",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 49,
+   "fixture": "Kasimpasa Istanbul v Besiktas Istanbul",
+   "home": "Kasimpasa Istanbul",
+   "away": "Besiktas Istanbul",
+   "league": "Turkish Super Lig",
+   "kickoff_utc": "2026-11-01T16:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 50,
+   "fixture": "APO Levadiakos FC v Aris Thessaloniki",
+   "home": "APO Levadiakos FC",
+   "away": "Aris Thessaloniki",
+   "league": "Greek Super League",
+   "kickoff_utc": "2026-11-01T15:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 51,
+   "fixture": "Panaitolikos Agrinio v OFI Crete",
+   "home": "Panaitolikos Agrinio",
+   "away": "OFI Crete",
+   "league": "Greek Super League",
+   "kickoff_utc": "2026-11-01T16:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 52,
+   "fixture": "PAOK v Asteras Tripolis",
+   "home": "PAOK",
+   "away": "Asteras Tripolis",
+   "league": "Greek Super League",
+   "kickoff_utc": "2026-11-01T17:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 53,
+   "fixture": "Panathinaikos v AEK Athens",
+   "home": "Panathinaikos",
+   "away": "AEK Athens",
+   "league": "Greek Super League",
+   "kickoff_utc": "2026-11-01T17:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 54,
+   "fixture": "Salzburg v Austria Lustenau",
+   "home": "Salzburg",
+   "away": "Austria Lustenau",
+   "league": "Austrian Bundesliga",
+   "kickoff_utc": "2026-11-01T13:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 55,
+   "fixture": "Wolfsberger AC v Sturm Graz",
+   "home": "Wolfsberger AC",
+   "away": "Sturm Graz",
+   "league": "Austrian Bundesliga",
+   "kickoff_utc": "2026-11-01T13:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 56,
+   "fixture": "FK Austria Wien v SK Rapid",
+   "home": "FK Austria Wien",
+   "away": "SK Rapid",
+   "league": "Austrian Bundesliga",
+   "kickoff_utc": "2026-11-01T16:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 57,
+   "fixture": "Young Boys Bern v FC Zurich",
+   "home": "Young Boys Bern",
+   "away": "FC Zurich",
+   "league": "Swiss Super League",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 58,
+   "fixture": "Lausanne-Sport v FC Thun",
+   "home": "Lausanne-Sport",
+   "away": "FC Thun",
+   "league": "Swiss Super League",
+   "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 59,
+   "fixture": "Lugano v Basel",
+   "home": "Lugano",
+   "away": "Basel",
+   "league": "Swiss Super League",
+   "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 60,
+   "fixture": "SK Brann v Molde",
+   "home": "SK Brann",
+   "away": "Molde",
+   "league": "Eliteserien",
+   "kickoff_utc": "2026-11-01T13:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 61,
+   "fixture": "IK Start v Lillestroem SK",
+   "home": "IK Start",
+   "away": "Lillestroem SK",
+   "league": "Eliteserien",
+   "kickoff_utc": "2026-11-01T16:00:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 62,
+   "fixture": "Sarpsborg 08 v Kristiansund BK",
+   "home": "Sarpsborg 08",
+   "away": "Kristiansund BK",
+   "league": "Eliteserien",
+   "kickoff_utc": "2026-11-01T16:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 63,
+   "fixture": "Vaalerenga IF v Tromsoe IL",
+   "home": "Vaalerenga IF",
+   "away": "Tromsoe IL",
+   "league": "Eliteserien",
+   "kickoff_utc": "2026-11-01T18:15:00Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 64,
+   "fixture": "Djurgardens IF v Degerfors IF",
+   "home": "Djurgardens IF",
+   "away": "Degerfors IF",
+   "league": "Allsvenskan",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 65,
+   "fixture": "Malmo v Hammarby IF",
+   "home": "Malmo",
+   "away": "Hammarby IF",
+   "league": "Allsvenskan",
+   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 66,
+   "fixture": "BK Hacken v IFK Goteborg",
+   "home": "BK Hacken",
+   "away": "IFK Goteborg",
+   "league": "Allsvenskan",
+   "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 67,
+   "fixture": "Vasteraas SK v IF Brommapojkarna",
+   "home": "Vasteraas SK",
+   "away": "IF Brommapojkarna",
+   "league": "Allsvenskan",
+   "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "PENDING",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  }
+ ],
+ "picks": [
+  {
+   "fixture": "Zwolle v Den Haag",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Excelsior v Twente",
+   "market": "SB:16|hcp=2.5|Home (+2.5)",
+   "pick": "Excelsior (+2.5) Asian handicap",
+   "facts": []
+  },
+  {
+   "fixture": "Telstar v Utrecht",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Telstar Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Groningen v Sparta Rotterdam",
+   "market": "SB:33||No",
+   "pick": "Groningen Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "Odense v Silkeborg",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Viborg v Horsens",
+   "market": "SB:10||Home or Away",
+   "pick": "Viborg or Horsens",
+   "facts": []
+  },
+  {
+   "fixture": "Nordsjaelland v Midtjylland",
+   "market": "SB:10||Home or Away",
+   "pick": "Nordsjaelland or Midtjylland",
+   "facts": []
+  },
+  {
+   "fixture": "Brondby v Aarhus",
+   "market": "SB:20|total=0.5|Over 0.5",
+   "pick": "Aarhus Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Cercle Brugge v Antwerp",
+   "market": "SB:16|hcp=-1.5|Away (+1.5)",
+   "pick": "Antwerp (+1.5) Asian handicap",
+   "facts": []
+  },
+  {
+   "fixture": "St Truiden v Oud-Heverlee Leuven",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Lommel SK v Gent",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Charleroi v RAAL La Louviere",
+   "market": "SB:10||Home or Away",
+   "pick": "Charleroi or RAAL La Louviere",
+   "facts": []
+  },
+  {
+   "fixture": "Falkirk v Celtic",
+   "market": "SB:20|total=3.5|Under 3.5",
+   "pick": "Celtic Under 3.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "HNK Rijeka v NK Varazdin",
+   "market": "SB:10||Home or Away",
+   "pick": "HNK Rijeka or NK Varazdin",
+   "facts": []
+  },
+  {
+   "fixture": "NK Lokomotiva Zagreb v NK Osijek",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Frosinone v Torino",
+   "market": "SB:10||Home or Away",
+   "pick": "Frosinone or Torino",
+   "facts": []
+  },
+  {
+   "fixture": "Lazio v Cagliari",
+   "market": "SB:10||Home or Away",
+   "pick": "Lazio or Cagliari",
+   "facts": []
+  },
+  {
+   "fixture": "Lecce v Genoa",
+   "market": "SB:10||Home or Away",
+   "pick": "Lecce or Genoa",
+   "facts": []
+  },
+  {
+   "fixture": "Juventus v Napoli",
+   "market": "SB:10||Home or Away",
+   "pick": "Juventus or Napoli",
+   "facts": []
+  },
+  {
+   "fixture": "Union Berlin v FC Koln",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Ein Frankfurt v Hamburg",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Hamburg (+2.5) Asian handicap",
+   "facts": []
+  },
+  {
+   "fixture": "Strasbourg v Auxerre",
+   "market": "SB:10||Home or Away",
+   "pick": "Strasbourg or Auxerre",
+   "facts": []
+  },
+  {
+   "fixture": "Lyon v Angers",
+   "market": "SB:19|total=3.5|Under 3.5",
+   "pick": "Lyon Under 3.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Paris FC v Monaco",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Marseille v Toulouse",
+   "market": "SB:33||No",
+   "pick": "Marseille Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "Arouca v Nacional",
+   "market": "SB:10||Home or Away",
+   "pick": "Arouca or Nacional",
+   "facts": []
+  },
+  {
+   "fixture": "Academico de Viseu FC v Rio Ave",
+   "market": "SB:10||Home or Away",
+   "pick": "Academico de Viseu FC or Rio Ave",
+   "facts": []
+  },
+  {
+   "fixture": "Maritimo Madeira v Santa Clara",
+   "market": "SB:19|total=1.5|Under 1.5",
+   "pick": "Maritimo Madeira Under 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Sp Braga v Famalicao",
+   "market": "SB:10||Home or Draw",
+   "pick": "Sp Braga or draw",
+   "facts": []
+  },
+  {
+   "fixture": "Liverpool v Arsenal",
+   "market": "SB:10||Home or Away",
+   "pick": "Liverpool or Arsenal",
+   "facts": []
+  },
+  {
+   "fixture": "Getafe v Sevilla",
+   "market": "SB:33||No",
+   "pick": "Getafe Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "Racing Santander v Real Madrid",
+   "market": "SB:18|total=5.5|Under 5.5",
+   "pick": "Under 5.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Elche v Valencia",
+   "market": "SB:10||Home or Away",
+   "pick": "Elche or Valencia",
+   "facts": []
+  },
+  {
+   "fixture": "Ath Bilbao v Sociedad",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Ath Bilbao Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Eldense v Granada",
+   "market": "SB:10||Home or Away",
+   "pick": "Eldense or Granada",
+   "facts": []
+  },
+  {
+   "fixture": "Ceuta v Sp Gijon",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Burgos v Castellon",
+   "market": "SB:10||Home or Away",
+   "pick": "Burgos or Castellon",
+   "facts": []
+  },
+  {
+   "fixture": "Tenerife v Andorra",
+   "market": "SB:10||Home or Away",
+   "pick": "Tenerife or Andorra",
+   "facts": []
+  },
+  {
+   "fixture": "SS Arezzo v Ascoli Calcio 1898",
+   "market": "SB:10||Home or Away",
+   "pick": "SS Arezzo or Ascoli Calcio 1898",
+   "facts": []
+  },
+  {
+   "fixture": "Avellino v SC Pisa",
+   "market": "SB:34||No",
+   "pick": "SC Pisa Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "Hellas Verona v Carrarese",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Palermo v L.R. Vicenza",
+   "market": "SB:10||Home or Away",
+   "pick": "Palermo or L.R. Vicenza",
+   "facts": []
+  },
+  {
+   "fixture": "FC St. Pauli v Nurnberg",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Greuther Furth v Holstein Kiel",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Greuther Furth Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Hannover v Dresden",
+   "market": "SB:10||Home or Away",
+   "pick": "Hannover or Dresden",
+   "facts": []
+  },
+  {
+   "fixture": "Sheffield Wednesday v Blackpool FC",
+   "market": "SB:10||Home or Away",
+   "pick": "Sheffield Wednesday or Blackpool FC",
+   "facts": []
+  },
+  {
+   "fixture": "Amed Sportif Faaliyetler v Eyupspor",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Istanbul BB v Samsunspor",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Trabzonspor v Gaziantep FK",
+   "market": "SB:547|total=1.5|Home/Away & Over 1.5",
+   "pick": "Trabzonspor or Gaziantep FK & Over 1.5",
+   "facts": []
+  },
+  {
+   "fixture": "Kasimpasa Istanbul v Besiktas Istanbul",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "APO Levadiakos FC v Aris Thessaloniki",
+   "market": "SB:10||Home or Away",
+   "pick": "APO Levadiakos FC or Aris Thessaloniki",
+   "facts": []
+  },
+  {
+   "fixture": "Panaitolikos Agrinio v OFI Crete",
+   "market": "SB:34||No",
+   "pick": "OFI Crete Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "PAOK v Asteras Tripolis",
+   "market": "SB:19|total=3.5|Under 3.5",
+   "pick": "PAOK Under 3.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Panathinaikos v AEK Athens",
+   "market": "SB:33||No",
+   "pick": "Panathinaikos Win to Nil — no",
+   "facts": []
+  },
+  {
+   "fixture": "Salzburg v Austria Lustenau",
+   "market": "SB:18|total=5.5|Under 5.5",
+   "pick": "Under 5.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Wolfsberger AC v Sturm Graz",
+   "market": "SB:10||Home or Away",
+   "pick": "Wolfsberger AC or Sturm Graz",
+   "facts": []
+  },
+  {
+   "fixture": "FK Austria Wien v SK Rapid",
+   "market": "SB:10||Home or Away",
+   "pick": "FK Austria Wien or SK Rapid",
+   "facts": []
+  },
+  {
+   "fixture": "Young Boys Bern v FC Zurich",
+   "market": "SB:18|total=2.5|Over 2.5",
+   "pick": "Over 2.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Lausanne-Sport v FC Thun",
+   "market": "SB:10||Home or Away",
+   "pick": "Lausanne-Sport or FC Thun",
+   "facts": []
+  },
+  {
+   "fixture": "Lugano v Basel",
+   "market": "SB:10||Home or Away",
+   "pick": "Lugano or Basel",
+   "facts": []
+  },
+  {
+   "fixture": "SK Brann v Molde",
+   "market": "SB:10||Home or Away",
+   "pick": "SK Brann or Molde",
+   "facts": []
+  },
+  {
+   "fixture": "IK Start v Lillestroem SK",
+   "market": "SB:20|total=0.5|Over 0.5",
+   "pick": "Lillestroem SK Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Sarpsborg 08 v Kristiansund BK",
+   "market": "SB:10||Home or Away",
+   "pick": "Sarpsborg 08 or Kristiansund BK",
+   "facts": []
+  },
+  {
+   "fixture": "Vaalerenga IF v Tromsoe IL",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Vaalerenga IF Over 0.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Djurgardens IF v Degerfors IF",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "facts": []
+  },
+  {
+   "fixture": "Malmo v Hammarby IF",
+   "market": "SB:10||Home or Away",
+   "pick": "Malmo or Hammarby IF",
+   "facts": []
+  },
+  {
+   "fixture": "BK Hacken v IFK Goteborg",
+   "market": "SB:10||Home or Away",
+   "pick": "BK Hacken or IFK Goteborg",
+   "facts": []
+  },
+  {
+   "fixture": "Vasteraas SK v IF Brommapojkarna",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "facts": []
+  }
+ ]
+}

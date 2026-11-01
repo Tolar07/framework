@@ -9,9 +9,9 @@
    "flat_return": -0.0793,
    "model_said": 0.79,
    "ai_said": 0.799,
-   "clv_n": 73,
-   "mean_clv": 0.15,
-   "beat_close": 37
+   "clv_n": 100,
+   "mean_clv": 0.18,
+   "beat_close": 50
   },
   "lower": {
    "n": 101,
@@ -20,9 +20,9 @@
    "flat_return": 0.0209,
    "model_said": 0.793,
    "ai_said": 0.784,
-   "clv_n": 107,
+   "clv_n": 119,
    "mean_clv": 0.06,
-   "beat_close": 41
+   "beat_close": 47
   },
   "veto": {
    "n": 129,
@@ -31,8 +31,8 @@
    "flat_return": -0.0141,
    "model_said": 0.786,
    "ai_said": 0.76,
-   "clv_n": 133,
-   "mean_clv": 0.1,
+   "clv_n": 136,
+   "mean_clv": 0.06,
    "beat_close": 57
   }
  },

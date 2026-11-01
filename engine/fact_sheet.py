@@ -273,6 +273,8 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
             evidence[fx["id"]] = (evidence[fx["id"]] + "; " + fm)[:1600]
     have = [i for i in range(len(fxs)) if evidence.get(i)]
 
+    t_read = clock()     # the readers get their own budget: Gemini's 429 waits must not use it up
+
     def reader(name: str) -> None:
         # Each reader writes only its own info[name] / answers[name] entry.
         key = keys.get(name) or ""
@@ -285,12 +287,22 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
             return
         info[name] = {"model": model, "status": "ok", "answered": 0}
         for j in range(0, len(have), BATCH):
-            if clock() - t0 > BUDGET_S:
+            if clock() - t_read > BUDGET_S:
                 info[name]["status"] = f"time budget used; {info[name]['answered']} answered"
                 break
             rows = [{**fxs[i], "evidence": evidence[i]} for i in have[j:j + BATCH]]
+            content = READ_PROMPT + json.dumps(rows, ensure_ascii=False)
             try:
-                obj = VP.chat_json(name, model, key, READ_PROMPT + json.dumps(rows, ensure_ascii=False), post)
+                try:
+                    obj = VP.chat_json(name, model, key, content, post)
+                except VP.RateLimited:
+                    # a ":free" OpenRouter model is often throttled upstream; the next free one may answer
+                    # (2026-11-01 22:38: gemma 429 -> OpenRouter off, 0 agreed)
+                    nxt = VP._next_free(str(model), get) if name == "openrouter" else None
+                    if not nxt:
+                        raise
+                    info[name]["model"] = model = nxt
+                    obj = VP.chat_json(name, model, key, content, post)
             except (VP.RateLimited, VP.PaidModelError, VP.ChargedError) as e:
                 info[name]["status"] = f"off for this run: {e}"
                 break

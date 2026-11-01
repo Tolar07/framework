@@ -172,7 +172,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:20Z",
+  "at": "2026-11-01T14:40Z",
   "away_missing_share": 0.27483275744989544,
   "away_unavailable": 5,
   "fotmob_id": 5107647,
@@ -669,12 +669,12 @@
     "type": "injury"
    },
    {
-    "name": "Tyrique Mercera",
+    "name": "Elvis van der Laan",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Elvis van der Laan",
+    "name": "Travis Hernes",
     "side": "home",
     "type": "injury"
    },
@@ -684,12 +684,12 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:20Z",
+  "at": "2026-11-01T14:40Z",
   "away_missing_share": 0.07216662498786104,
   "away_unavailable": 1,
   "fotmob_id": 5781789,
-  "home_missing_share": 0.16564131073772276,
-  "home_unavailable": 5,
+  "home_missing_share": 0.12221840592456613,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T15:45:00.000Z",
   "lineup_type": "predicted"
  },
@@ -827,7 +827,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:20Z",
+  "at": "2026-11-01T14:40Z",
   "away_missing_share": 0.3087130472154802,
   "away_unavailable": 5,
   "fotmob_id": 5107650,
@@ -1653,7 +1653,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T10:00Z",
+  "at": "2026-11-01T14:40Z",
   "away_missing_share": 0.1903967886924978,
   "away_unavailable": 2,
   "fotmob_id": 5105037,
@@ -1672,6 +1672,28 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
   "lineup_type": "confirmed"
+ },
+ "Sp Braga v Famalicao": {
+  "absent": [
+   {
+    "name": "Sikou Niakat\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Matheus Colombo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T14:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 1,
+  "fotmob_id": 5887665,
+  "home_missing_share": 0.0470606524032034,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-01T20:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Strasbourg v Auxerre": {
   "absent": [
@@ -1861,7 +1883,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T14:20Z",
+  "at": "2026-11-01T14:40Z",
   "away_missing_share": 0.05927761761030033,
   "away_unavailable": 1,
   "fotmob_id": 5107652,

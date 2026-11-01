@@ -1956,7 +1956,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7391
+   "panel_prob": 0.7391,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7491,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.765
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.765,
+    "edge": -0.0208,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Academico de Viseu FC v Rio Ave",
@@ -4486,7 +4512,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7256
+   "panel_prob": 0.7256,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7856,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.76
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.76,
+    "edge": -0.0272,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Lugano v Basel",
@@ -4558,7 +4610,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7817
+   "panel_prob": 0.7817,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8217,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.805
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.805,
+    "edge": -0.034,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "SK Brann v Molde",
@@ -8295,6 +8373,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-11-01T14:40+00:00",
+   "picks": 3,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "ok",
+     "answered": 3
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "partly failed: ReadTimeout: HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=120)",
+     "answered": 0
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

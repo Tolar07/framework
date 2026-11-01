@@ -3865,7 +3865,11 @@
     "home": 133362117,
     "away": 52157614
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Toulouse at full strength",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "Marseille: set-piece threat v weak set-piece defence; Marseille: high press v build-up side; Toulouse: elite attack v leaky defence -> BTTS & goals",
     "xg": [

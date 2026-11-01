@@ -161,7 +161,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Excelsior v Twente",
@@ -7398,7 +7400,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Istanbul BB v Samsunspor",

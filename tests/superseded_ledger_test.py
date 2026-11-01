@@ -60,11 +60,11 @@ def _bfx(i, praw, price, src="model"):
 _brd = [_bfx(0, 0.80, 1.55), _bfx(1, 0.78, 1.60), _bfx(2, 0.30, 1.50), _bfx(3, 0.80, 2.40),
         _bfx(4, 0.80, 1.55, "market"), _bfx(5, 0.79, None)]
 _bt = _pb._build_btts(_brd)
-assert _bt and [r[0].fixture[:2] for r in _bt[0][1]] == ["H0", "H1"], _bt
-assert all(r[2] >= _pb.BTTS_MIN and 1.20 <= r[4] <= 2.00 for r in _bt[0][1])
-assert _pb._build_btts(_brd[:1]) == [], "one BTTS game is not a slip"
+assert [(n, l[0][0].fixture[:2]) for n, l, _ in _bt] == [("BTTS 1", "H0"), ("BTTS 2", "H1")], _bt
+assert all(len(l) == 1 and l[0][2] >= _pb.BTTS_MIN and 1.20 <= l[0][4] <= 2.00 for _, l, _ in _bt)
+assert len(_pb._build_btts(_brd[:1])) == 1, "one BTTS game is one single (Architect 2026-10-31)"
 _rd2 = (Path(__file__).parent.parent / "run_daily.py").read_text(encoding="utf-8")
-assert 'extra_codes["btts"]' in _rd2 and "btts=_btts_l(shown)" in _rd2  # shown = the focus-day board (engine/focus.py)
+assert 'extra_codes.setdefault("btts_codes"' in _rd2 and "btts=_btts_l(shown)" in _rd2  # shown = the focus-day board (engine/focus.py)
 _b3 = (Path(__file__).parent.parent / "output" / "bet365_board.py").read_text(encoding="utf-8")
 assert "_build_btts(board)" in _b3, "bet365 board lists the BTTS games"
 print("BTTS table: OK")

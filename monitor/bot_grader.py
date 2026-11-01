@@ -540,27 +540,40 @@ def write_back(graded: list[dict], now: datetime, root: Path | None = None) -> d
 
 
 def push_repos(changed: dict[str, int], now: datetime, root: Path | None = None) -> list[str]:
+    """Commit and push ONLY the graded/ folders. The bots push their own ledger all day, so a
+    rejected push re-bases by moving the index to the latest main (mixed reset: the bot's
+    files are taken as they are on main, never from this older checkout) and re-adding the
+    graded folders; nothing the bot wrote can be reverted."""
     root = root or BOTS
     notes = []
     for repo in changed:
         cwd = root / repo
+        paths = [sub for r, sub in SIDECAR.values() if r == repo]
 
         def git(*a: str, cwd: Path = cwd) -> subprocess.CompletedProcess:
             return subprocess.run(["git", *a], cwd=cwd, capture_output=True, text=True)  # noqa: S603,S607
-        git("add", "ledger")
-        if git("diff", "--staged", "--quiet").returncode == 0:
+
+        def commit(paths: list[str] = paths) -> bool:
+            git("add", "--", *paths)
+            if git("diff", "--staged", "--quiet").returncode == 0:
+                return False
+            git("-c", "user.name=olp-xdv-agent", "-c", "user.email=olp-xdv-agent@users.noreply.github.com",
+                "commit", "-q", "-m", f"graded bets {now:%Y-%m-%d %H:%M} (framework bot_grader) [skip ci]")
+            return True
+        if not commit():
             continue
-        git("-c", "user.name=olp-xdv-agent", "-c", "user.email=olp-xdv-agent@users.noreply.github.com",
-            "commit", "-q", "-m", f"graded bets {now:%Y-%m-%d %H:%M} (framework bot_grader) [skip ci]")
         ok = False
-        for _ in range(4):
+        for _ in range(5):
             if git("push", "-q", "origin", "HEAD:main").returncode == 0:
                 ok = True
                 break
-            if git("pull", "-q", "--rebase", "origin", "main").returncode != 0:
-                git("rebase", "--abort")
-                break
             time.sleep(3)
+            if git("fetch", "-q", "--depth=1", "origin", "main").returncode != 0:
+                continue
+            git("reset", "-q", "--mixed", "FETCH_HEAD")
+            if not commit():          # main already holds these exact grades
+                ok = True
+                break
         notes.append(f"{repo} {'saved' if ok else 'NOT saved'}")
     return notes
 

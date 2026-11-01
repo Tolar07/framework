@@ -169,4 +169,37 @@ bg.BOTS, bg.CACHE, bg.GRADED_DIR, bg.PICKS_DIR = bots, tmp / "codes.json", uni, 
 bg._fetch_code = lambda c: payload
 line = bg.run(now, dry=True)
 assert "bets read" in line and "NGN" not in line and "£" not in line and "ABC123" not in line, line
+# ── pushing: a bot's own push lands in between; its files are never reverted ─
+import subprocess  # noqa: E402
+
+
+def sh(*a, cwd):
+    r = subprocess.run(["git", *a], cwd=cwd, capture_output=True, text=True)  # noqa: S603,S607 (fixed git args)
+    assert r.returncode == 0, (a, r.stderr)
+    return r.stdout
+
+
+gt = tmp / "git"
+remote, seed, bot, wb = gt / "remote.git", gt / "seed", gt / "bot", gt / "wb" / "matchbook-agent"
+gt.mkdir()
+sh("init", "-q", "--bare", "-b", "main", str(remote), cwd=gt)
+sh("clone", "-q", str(remote), str(seed), cwd=gt)
+ident = ["-c", "user.name=t", "-c", "user.email=t@t"]
+(seed / "ledger").mkdir()
+(seed / "ledger" / "ledger.jsonl").write_text("v1\n")
+sh("add", ".", cwd=seed)
+sh(*ident, "commit", "-q", "-m", "seed", cwd=seed)
+sh("push", "-q", "origin", "HEAD:main", cwd=seed)
+sh("clone", "-q", "--depth=1", "file://" + str(remote).replace("\\", "/"), str(wb), cwd=gt)
+sh("clone", "-q", str(remote), str(bot), cwd=gt)
+(bot / "ledger" / "ledger.jsonl").write_text("v2 from the bot\n")           # the bot pushes meanwhile
+sh(*ident, "commit", "-qam", "bot ledger", cwd=bot)
+sh("push", "-q", "origin", "HEAD:main", cwd=bot)
+(wb / "ledger" / "graded").mkdir(parents=True)
+(wb / "ledger" / "graded" / "2026-10-31.json").write_text("{}\n")
+assert bg.push_repos({"matchbook-agent": 1}, now, root=gt / "wb") == ["matchbook-agent saved"]
+sh("pull", "-q", "origin", "main", cwd=bot)
+assert (bot / "ledger" / "ledger.jsonl").read_text() == "v2 from the bot\n", "the bot's ledger kept"
+assert (bot / "ledger" / "graded" / "2026-10-31.json").exists(), "the grades landed"
+
 print("ALL BOT GRADER TESTS PASSED")

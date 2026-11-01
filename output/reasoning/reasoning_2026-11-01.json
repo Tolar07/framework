@@ -149,7 +149,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8462
+   "panel_prob": 0.8462,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8162,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.8462
+    },
+    "domain": "football",
+    "family": "Asian handicap",
+    "panel_prob": 0.8462,
+    "edge": 0.0239,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 5,
+     "earned": false,
+     "panel_brier": 0.0398,
+     "live_brier": 0.0376,
+     "panel_brier_on_live": 0.0398,
+     "clv_n": 5,
+     "panel_clv_hit": 0.2,
+     "live_clv_hit": 0.6
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Telstar v Utrecht",
@@ -4550,7 +4576,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8064
+   "panel_prob": 0.8064,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8064,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.8064
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8064,
+    "edge": 0.0161,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "IK Start v Lillestroem SK",
@@ -8120,6 +8172,27 @@
     "gemini": {
      "model": "gemini-3.5-flash",
      "status": "off for this run: gemini: 429",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 2
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-11-01T12:40+00:00",
+   "picks": 2,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "partly failed: HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
      "answered": 0
     },
     "nvidia": {

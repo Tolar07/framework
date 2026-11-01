@@ -140,7 +140,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.0354536194312813,
   "away_unavailable": 1,
   "fotmob_id": 5967130,
@@ -460,7 +460,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967133,
@@ -487,14 +487,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
-  "away_missing_share": 0.2298857755833787,
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.18694650926339867,
   "away_unavailable": 5,
   "fotmob_id": 5781794,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "FC St. Pauli v Nurnberg": {
   "absent": [
@@ -583,7 +583,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.3069164829511664,
   "away_unavailable": 4,
   "fotmob_id": 5749734,
@@ -731,7 +731,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.2587165538179282,
   "away_unavailable": 6,
   "fotmob_id": 5765951,
@@ -862,16 +862,21 @@
     "name": "Afonso Sousa",
     "side": "away",
     "type": "suspension"
+   },
+   {
+    "name": "Fatih Kaya",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
-  "away_missing_share": 0.050571404717588066,
-  "away_unavailable": 1,
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.07246711628357133,
+  "away_unavailable": 2,
   "fotmob_id": 5904787,
   "home_missing_share": 0.17752071336850006,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Lausanne-Sport v FC Thun": {
   "absent": [
@@ -943,7 +948,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.09320035477727046,
   "away_unavailable": 2,
   "fotmob_id": 5749736,
@@ -1317,6 +1322,38 @@
   "kickoff_utc": "2026-11-01T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Palermo v L.R. Vicenza": {
+  "absent": [
+   {
+    "name": "Gabriel Strefezza",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jesse Joronen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Federico Barba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frank Tsadjout",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.051673095467695274,
+  "away_unavailable": 1,
+  "fotmob_id": 5967135,
+  "home_missing_share": 0.2529640257188619,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-01T18:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Panathinaikos v AEK Athens": {
   "absent": [
    {
@@ -1436,13 +1473,8 @@
     "type": "injury"
    },
    {
-    "name": "Ulrik Mathisen",
+    "name": "Kjartan Kjartansson",
     "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Sivert Hansen",
-    "side": "away",
     "type": "injury"
    },
    {
@@ -1454,16 +1486,21 @@
     "name": "Seydina Diop",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Mads Kikkenborg",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
-  "away_missing_share": 0.22069412100438227,
-  "away_unavailable": 6,
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.14118584360074954,
+  "away_unavailable": 5,
   "fotmob_id": 5105036,
-  "home_missing_share": 0.2763977877647436,
-  "home_unavailable": 5,
+  "home_missing_share": 0.255132408525125,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "SS Arezzo v Ascoli Calcio 1898": {
   "absent": [
@@ -1478,17 +1515,22 @@
     "type": "injury"
    },
    {
+    "name": "Matteo Gilli",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Manuel Alagna",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.07460762127197315,
   "away_unavailable": 1,
   "fotmob_id": 5967129,
-  "home_missing_share": 0.12646496165688179,
-  "home_unavailable": 2,
+  "home_missing_share": 0.15452943816888134,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -1510,11 +1552,6 @@
     "type": "injury"
    },
    {
-    "name": "Dion Kacuri",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Emmanuel Chukwu",
     "side": "away",
     "type": "injury"
@@ -1525,14 +1562,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
-  "away_missing_share": 0.29227947412425775,
-  "away_unavailable": 3,
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.21400539672606467,
+  "away_unavailable": 2,
   "fotmob_id": 5846015,
-  "home_missing_share": 0.3879658666246286,
+  "home_missing_share": 0.33865841422496823,
   "home_unavailable": 8,
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Sarpsborg 08 v Kristiansund BK": {
   "absent": [
@@ -1573,7 +1610,7 @@
  },
  "Sheffield Wednesday v Blackpool FC": {
   "absent": [],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837251,
@@ -1615,7 +1652,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 0.13739180103303453,
   "away_unavailable": 4,
   "fotmob_id": 5802980,
@@ -1642,8 +1679,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
-  "away_missing_share": 0.39546152490850667,
+  "at": "2026-11-01T12:40Z",
+  "away_missing_share": 0.3917845777889662,
   "away_unavailable": 5,
   "fotmob_id": 5781790,
   "home_missing_share": 0.0,
@@ -1822,7 +1859,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
+  "at": "2026-11-01T12:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 9,
   "fotmob_id": 5846016,

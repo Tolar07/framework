@@ -185,6 +185,8 @@ def grade_leg(leg: dict, games: Games, tally: dict) -> dict:
     out = dict(leg)
     key = leg.get("key") or ""
     g = games.find(leg) if key else None
+    if g is not None:
+        out["game"] = g["id"]               # one id per match across the bots (point 6 exposure line)
     res = None
     if g is not None:
         r = g["result"]
@@ -744,6 +746,30 @@ def study_lines(path: Path | None = None, min_n: int = 30) -> list[str]:
     return [f"Best: {best}", f"Worst: {worst}"]
 
 
+def game_exposure(bets: list[dict], today: str) -> list[str]:
+    """POINT 6 (the Architect, 2026-11-01 14:07): each game's total money across all bots today, in £.
+    A game is the universe's match id, else SportyBet's event id, else the names; an acca's stake counts
+    in full on every game it carries (all of it is lost if that game goes wrong)."""
+    per: dict[str, dict] = defaultdict(lambda: {"gbp": 0.0, "bots": set(), "tickets": 0, "name": ""})
+    for b in bets:
+        if b["paper"] or b["date"] != today:
+            continue
+        for x in {(leg.get("game") or leg.get("event_id") or f"{_n(leg.get('home') or '')}|{_n(leg.get('away') or '')}"):
+                  leg for leg in b["legs"]}.items():
+            g = per[x[0]]
+            g["gbp"] += _gbp(b, "stake")
+            g["bots"].add(BOT_NAMES.get(b["bot"], b["bot"]).split(" acct")[0])
+            g["tickets"] += 1
+            g["name"] = g["name"] or f"{x[1].get('home')} v {x[1].get('away')}"
+    if not per:
+        return []
+    top = sorted(per.values(), key=lambda g: -g["gbp"])[:3]
+    three = sum(1 for g in per.values() if len(g["bots"]) >= 3)
+    return ([f"Games bet today: {len(per)}; on all three bots: {three}. Most money on one game:"]
+            + [f"{g['name']}: £{g['gbp']:.2f} on {g['tickets']} tickets ({', '.join(sorted(g['bots']))})"
+               for g in top])
+
+
 def ungraded_line(bets: list[dict], today: str) -> str:
     real = [b for b in bets if not b["paper"] and b["date"] <= today and b.get("profit") is None]
     why: dict[str, int] = defaultdict(int)
@@ -772,6 +798,9 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
     sl = study_lines()
     if sl:
         out += ["", "MODEL SIDES STUDY (paper singles, bar 50%)"] + sl
+    ge = game_exposure(bets, today)
+    if ge:
+        out += ["", "MONEY PER GAME TODAY (all bots, £)"] + ge
     out += ["", ungraded_line(bets, today)]
     over = [b for b in last30 if b["cur"] == "GBP" and b.get("profit") is not None
             and b["profit"] < -b["stake"] - 0.01]

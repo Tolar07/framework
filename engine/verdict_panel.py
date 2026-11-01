@@ -64,8 +64,12 @@ LINEUP_WINDOW_MIN = (45, 75)      # minutes before kick-off
 MAX_HISTORY = 5000
 
 MEMBERS = {
-    "gemini": {"key": "GEMINI_API_KEY", "base": "https://generativelanguage.googleapis.com/v1beta/openai",
-               "env": "PANEL_GEMINI_MODEL", "prefer": ["gemini-3.5-flash", "gemini-3.5-flash-lite"]},
+    # 2026-11-01: the panel shared the cognitive core's model and key, so the core's debate used the free
+    # allowance first and the panel got 429 every run. It now prefers flash-lite (its own per-model quota),
+    # steps to the next Gemini model on a 429, and uses PANEL_GEMINI_API_KEY (a second free key) when set.
+    "gemini": {"key": "PANEL_GEMINI_API_KEY", "fallback_key": "GEMINI_API_KEY",
+               "base": "https://generativelanguage.googleapis.com/v1beta/openai",
+               "env": "PANEL_GEMINI_MODEL", "prefer": ["gemini-3.5-flash-lite", "gemini-3.5-flash"]},
     "nvidia": {"key": "NVIDIA_API_KEY", "base": "https://integrate.api.nvidia.com/v1",
                "env": "PANEL_NVIDIA_MODEL", "prefer": ["nvidia/nemotron-3.5-lightning-30b-a3b",
                                                        "mistralai/mistral-large-4-1t-a52b"]},
@@ -164,9 +168,6 @@ def pick_model(name: str, get: Callable, key: str) -> Optional[str]:
     """The member's model: its env override, else the first preferred id the account lists."""
     spec = MEMBERS[name]
     want = os.getenv(spec["env"], "").strip()
-    if name == "gemini" and not want:
-        from engine import cognitive_core as CC
-        want = CC.model()            # OLP_GEMINI_MODEL, default gemini-3.5-flash (as the core)
     if name == "openrouter":
         try:
             free = free_openrouter_models(get)
@@ -183,6 +184,20 @@ def pick_model(name: str, get: Callable, key: str) -> Optional[str]:
     except Exception:  # noqa: BLE001 — the first preference, unverified
         return spec["prefer"][0]
     return next((m for m in spec["prefer"] if m in listed), spec["prefer"][0])
+
+
+def member_key(name: str) -> str:
+    """The member's secret: its own key, else its fallback (the panel's Gemini falls back to GEMINI_API_KEY)."""
+    spec = MEMBERS[name]
+    return (os.getenv(spec["key"], "").strip()
+            or (os.getenv(spec["fallback_key"], "").strip() if spec.get("fallback_key") else ""))
+
+
+def _next_gemini(model: str) -> Optional[str]:
+    """The next preferred Gemini model after `model` (each Gemini model has its own free quota), or None."""
+    prefer = MEMBERS["gemini"]["prefer"]
+    rest = prefer[prefer.index(model) + 1:] if model in prefer else prefer
+    return next((m for m in rest if m != model), None)
 
 
 def _next_free(model: str, get: Callable) -> Optional[str]:
@@ -319,7 +334,7 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
     if get is None or post is None:
         import requests
         get, post = get or requests.get, post or requests.post
-    keys = keys if keys is not None else {n: os.getenv(s["key"], "").strip() for n, s in MEMBERS.items()}
+    keys = keys if keys is not None else {n: member_key(n) for n in MEMBERS}
     hist = (load_record(record_path).get("history") or [])
     info: dict = {}
     anchors = []
@@ -334,7 +349,7 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
         # Each member writes only its own info[name] / answers[name] entry.
         key = keys.get(name) or ""
         if not key:
-            info[name] = {"status": f"missing secret {MEMBERS[name]['key']}"}
+            info[name] = {"status": f"missing secret {MEMBERS[name].get('fallback_key') or MEMBERS[name]['key']}"}
             return
         model = pick_model(name, get, key)
         if not model:
@@ -355,7 +370,9 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
                 got = ask(name, model, key, rows, post)
             except RateLimited as e:
                 # A ":free" OpenRouter model is often throttled upstream; the next free one may answer.
-                nxt = _next_free(model, get) if name == "openrouter" else None
+                # A Gemini model over its free quota: the next Gemini model has its own quota.
+                nxt = (_next_free(model, get) if name == "openrouter"
+                       else _next_gemini(model) if name == "gemini" else None)
                 if nxt:
                     info[name]["model"] = model = nxt
                     try:

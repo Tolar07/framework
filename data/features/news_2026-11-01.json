@@ -39,11 +39,6 @@
  "Amed Sportif Faaliyetler v Eyupspor": {
   "absent": [
    {
-    "name": "Collins Sor",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Lumbardh Dellova",
     "side": "home",
     "type": "suspension"
@@ -52,16 +47,58 @@
     "name": "Dilhan Demir",
     "side": "home",
     "type": "injury"
+   },
+   {
+    "name": "Mbaye Diagne",
+    "side": "home",
+    "type": "suspension"
    }
   ],
-  "at": "2026-11-01T09:20Z",
+  "at": "2026-11-01T09:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5904788,
-  "home_missing_share": 0.17064665600165727,
-  "home_unavailable": 5,
+  "home_missing_share": 0.08600870366786023,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T10:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
+ },
+ "Arouca v Nacional": {
+  "absent": [
+   {
+    "name": "Miguel Puche",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gabriel Rukavina",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Ulisses Rocha",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "L\u00e9o Santos",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Filipe Soares",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.178052103429498,
+  "away_unavailable": 3,
+  "fotmob_id": 5887664,
+  "home_missing_share": 0.05437510367195073,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Avellino v SC Pisa": {
   "absent": [
@@ -83,6 +120,48 @@
   "home_missing_share": 0.08463213559718877,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "BK Hacken v IFK Goteborg": {
+  "absent": [
+   {
+    "name": "Filip \u00d6hman",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gustav Lindgren",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Ben Engdahl",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "August Erlingmark",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Arbnor Mu\u00e7olli",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ramon-Pascal Lundqvist",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.27483275744989544,
+  "away_unavailable": 5,
+  "fotmob_id": 5107647,
+  "home_missing_share": 0.2485147792907038,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Cercle Brugge v Antwerp": {
@@ -543,6 +622,38 @@
   "kickoff_utc": "2026-11-01T12:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "IF Elfsborg v Orgryte IS": {
+  "absent": [
+   {
+    "name": "Per Frick",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rasmus Alm",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "William Svensson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jerome Tibbling Ugwo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.3087130472154802,
+  "away_unavailable": 5,
+  "fotmob_id": 5107650,
+  "home_missing_share": 0.020553463387772673,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Istanbul BB v Samsunspor": {
   "absent": [
    {
@@ -578,6 +689,48 @@
   "home_missing_share": 0.17275777075499604,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Lausanne-Sport v FC Thun": {
+  "absent": [
+   {
+    "name": "Koba Koindredi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tyler Fredricson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Beyatt Lekoueiry",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marc Gutbub",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fabio Saiz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gen\u00eds Montolio",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.1809134796974843,
+  "away_unavailable": 5,
+  "fotmob_id": 5804287,
+  "home_missing_share": 0.3067652172306339,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Lazio v Cagliari": {
@@ -616,6 +769,43 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Lugano v Basel": {
+  "absent": [
+   {
+    "name": "Claudio Cassano",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Renato Steffen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kazeem Olaigbe",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Gabriel Sigua",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Aaron Malouda",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.2627437847276614,
+  "away_unavailable": 7,
+  "fotmob_id": 5804288,
+  "home_missing_share": 0.06459435773970959,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Malmo v Hammarby IF": {
   "absent": [
@@ -1007,6 +1197,23 @@
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-01T14:30:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Vasteraas SK v IF Brommapojkarna": {
+  "absent": [
+   {
+    "name": "Simon Strand",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-11-01T09:40Z",
+  "away_missing_share": 0.05927761761030033,
+  "away_unavailable": 1,
+  "fotmob_id": 5107652,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-01T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Viborg v Horsens": {
   "absent": [

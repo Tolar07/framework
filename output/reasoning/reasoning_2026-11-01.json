@@ -3377,7 +3377,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.822
+   "panel_prob": 0.822,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8216,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.8216
+    },
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.8216,
+    "edge": -0.0059,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 7,
+     "earned": false,
+     "panel_brier": 0.1188,
+     "live_brier": 0.1203,
+     "panel_brier_on_live": 0.1188,
+     "clv_n": 6,
+     "panel_clv_hit": 0.5,
+     "live_clv_hit": 0.5
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Istanbul BB v Samsunspor",
@@ -7910,5 +7936,28 @@
   },
   "authority": 0,
   "missing": []
- }
+ },
+ "lineup_passes": [
+  {
+   "at": "2026-11-01T09:40+00:00",
+   "picks": 1,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "partly failed: HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  }
+ ]
 }

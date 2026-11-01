@@ -171,6 +171,40 @@ def prompt_contest_date() -> str | None:
     return _or_grace(ch.get("since") or (max(ended) if ended else None), 30)
 
 
+def _newest_name(folder: str, pattern: str, rx: str = r"(\d{4}-\d{2}-\d{2})") -> str | None:
+    import re as _re
+    names = [f.name for f in (ROOT / folder).glob(pattern)]
+    dates = [m.group(1) for n in names if (m := _re.search(rx, n))]
+    return max(dates) if dates else None
+
+
+def universe_date() -> str | None:
+    """Paper learning on EVERY game (bet on or not): the newest graded universe sweep."""
+    return _newest_name("data/universe", "graded_*.jsonl*")
+
+
+def paper_book_date() -> str | None:
+    p = ROOT / "backtest" / "PAPER_BOOK.md"
+    return datetime.fromtimestamp(p.stat().st_mtime, UTC).date().isoformat() if p.exists() else None
+
+
+def sharp_list_date() -> str | None:
+    return _newest_name("data/sharp", "sharp_*.json")
+
+
+def research_date() -> str | None:
+    rows = _jsonl(ROOT / "memory" / "hypotheses.jsonl")
+    return max((h.get("tested_at") or "") for h in rows) or None if rows else None
+
+
+def matchbook_ledger_date() -> str | None:
+    return (_json(_read("data/matchbook/summary.json")).get("fetched") or "")[:10] or None
+
+
+def bot_challengers_date() -> str | None:
+    return _or_grace((_json(_read("data/bots/learning.json")).get("built_at") or "")[:10] or None, 2)
+
+
 def ai_review_date() -> str | None:
     rows = [h for h in _jsonl(ROOT / "memory" / "hypotheses.jsonl")
             if str(h.get("source") or "").startswith("ai-review")]
@@ -202,6 +236,15 @@ LOOPS: list[tuple] = [
     ("prompt contest", "verdict_panel.prompt_round champion v challenger prompt", "fresh",
      prompt_contest_date, None, 30),
     ("AI weekly review", "research/ai_review.py hypotheses the models proposed", "fresh", ai_review_date, None, 9),
+    ("universe sweep", "engine/universe.py every SportyBet game graded, bet on or not", "fresh",
+     universe_date, None, 1),
+    ("paper book", "engine/paper_book.py fixed-rule paper bets on every game", "fresh", paper_book_date, None, 2),
+    ("sharp list", "monitor/sharp_list.py parallel sharp-value picks", "fresh", sharp_list_date, None, 2),
+    ("research runner", "research/runner.py hypotheses tested walk-forward", "fresh", research_date, None, 9),
+    ("matchbook ledger", "monitor/matchbook_ledger.py live bot record by family (order 44)", "fresh",
+     matchbook_ledger_date, None, 2),
+    ("bot challengers", "monitor/bot_learning.py the bots' paper challengers v live", "fresh",
+     bot_challengers_date, None, 2),
 ]
 
 

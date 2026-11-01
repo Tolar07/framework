@@ -20,7 +20,7 @@ props = si.proposals([{"input": "referee", "why": "", "value": 2, "status": "MIS
                       {"input": "h2h", "why": "", "value": 1, "status": "TESTED", "where": [],
                        "evidence": ["no gain"]}], loops)
 assert props[0]["title"] == "Learning loop stalled: tactics lessons" and props[0]["ev"] == 10.0
-assert [p["title"] for p in props if p["kind"] != "promote"][1] == "Model input: referee (missing)"
+assert [p["title"] for p in props if p["kind"] not in ("promote", "build")][1] == "Model input: referee (missing)"
 assert all(p["ev"] > 0.3 for p in props), "a tested input with no gain and low value is not proposed"
 md = si.render(inputs, loops, props, "2026-10-28")
 assert "## (a)" in md and "## (b)" in md and "## (c)" in md and "stalled" in md

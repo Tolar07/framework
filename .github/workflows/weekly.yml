@@ -55,6 +55,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           python research/ai_review.py
+          python research/runner.py      # re-test every open hypothesis as data grows (stalled since 10-20 without the Claude session)
           git config user.name "olp-xdv-bot"
           git config user.email "bot@users.noreply.github.com"
           python3 monitor/fdata.py save "ai review $(date -u +%Y-%m-%d) [skip ci]" memory/hypotheses.jsonl memory/strategy_queue.jsonl

@@ -159,6 +159,30 @@ def promotions(root: Path | None = None) -> list[dict]:
                         "body": f"engine/fact_sheet.py study: {v['n']} graded picks, won {v['won_rate']:.0%} v market "
                                 f"{v['market_rate']:.0%} (residual {v['residual']:+.1%}). Promotion = the fact becomes "
                                 "a model input via engine/learned_weights.py. Architect decision."})
+    for b in rd("data/bots/learning.json").get("bots") or []:
+        for v in b.get("variants") or []:
+            if str(v.get("verdict") or "") == "challenger beats live":
+                out.append({"title": f"Promotion ready: {b['bot']} challenger {v['variant']} beats {v['baseline']}",
+                            "ev": 4.5, "kind": "promote",
+                            "body": f"monitor/bot_learning.py (the bot's own paper challenger): graded {v['graded']} v "
+                                    f"{v['baseline_graded']}, level-stake ROI {(v.get('roi') or 0):+.1%} v "
+                                    f"{(v.get('baseline_roi') or 0):+.1%}, CLV {(v.get('clv') or 0):+.1%} v "
+                                    f"{(v.get('baseline_clv') or 0):+.1%}. Promotion = the bot's live rule takes the "
+                                    "challenger's setting. Architect decision (stakes / thresholds)."})
+    qpath = root / "memory" / "strategy_queue.jsonl"
+    try:
+        queue = [json.loads(x) for x in qpath.read_text(encoding="utf-8").splitlines() if x.strip()]
+    except (OSError, ValueError):
+        queue = []
+    for q in queue:
+        if q.get("kind") == "candidate_feature":
+            out.append({"title": f"Model input proven: {q.get('hypothesis')} — wire it in as a shadow feature",
+                        "ev": 3.5, "kind": "build",
+                        "body": f"research/runner.py accepted {q.get('hypothesis')}: {str(q.get('idea'))[:200]} "
+                                f"(evidence {q.get('evidence')}). Nothing consumes candidate features yet: build it as "
+                                "a model input in SHADOW (engine/inputs.py style), add it to engine/learned_weights.py "
+                                "and report walk-forward Brier / CLV. Promotion to the live model stays with the "
+                                "Architect."})
     for fam, a in (rd("memory/panel_record.json").get("authority") or {}).items():
         if (a or {}).get("earned"):
             out.append({"title": f"Promotion ready: verdict panel earned authority in {fam}", "ev": 4.0,

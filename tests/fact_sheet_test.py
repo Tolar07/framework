@@ -140,6 +140,24 @@ def test_an_empty_sheet_is_not_done_so_the_next_run_tries_again():
     assert not FS.done({"picks_generated_at": "old", "members": {"nvidia": {"answered": 5}}}, picks)
 
 
+def test_games_we_did_not_bet_are_sheeted_and_studied_against_the_model():
+    doc = {"date": "2026-11-01", "singles": [dict(SINGLE)], "rated": [
+        dict(SINGLE),                                             # on the board: not repeated
+        {"fixture": "Twente v NEC", "home": "Twente", "away": "NEC", "kickoff_utc": "2026-11-02T11:15:00Z"}]}
+    assert [r["fixture"] for r in FS.rated_unbet(doc)] == ["Twente v NEC"]
+    tmp = Path(tempfile.mkdtemp())
+    out, led = tmp / "facts", tmp / "picks"
+    out.mkdir()
+    led.mkdir()
+    (out / "facts_2026-11-01.json").write_text(json.dumps({"date": "2026-11-01", "picks": [], "rated": [
+        {"fixture": "Twente v NEC", "facts": [{"fact": "rotation", "side": "home", "direction": -1, "size": 1.0}]}]}))
+    (led / "picks_2026-11-01.json").write_text(json.dumps({"singles": [], "rated": [
+        {"fixture": "Twente v NEC", "ft": "0-2", "p": [0.6, 0.25, 0.15]}]}))
+    rec = FS.study(out, led)
+    cell = rec["facts"]["unbet: rotation (-)"]
+    assert cell["n"] == 1 and cell["won_rate"] == 0.0 and cell["market_rate"] == 0.6
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

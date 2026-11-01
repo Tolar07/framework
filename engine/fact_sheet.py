@@ -45,6 +45,7 @@ BATCH = 6                                   # fixtures per call
 BUDGET_S = float(os.getenv("FACT_SHEET_BUDGET_S", "420"))
 MIN_AGREE = 2
 WAIT_429_S = 45                             # one wait on a 429 before the next Gemini model
+MAX_RATED = 20                              # rated games NOT bet on, also sheeted (learning beyond our bets)
 MIN_STUDY_N = 30                            # below this a fact's residual is shown but not trusted
 
 # field -> kind. Per side: <field>_home / <field>_away.
@@ -332,21 +333,34 @@ def signed(single: dict, agreed: dict) -> list[dict]:
     return rows
 
 
+def rated_unbet(picks_doc: dict, n: int = MAX_RATED) -> list[dict]:
+    """Rated fixtures that are not on the board, earliest kick-off first, as home-side pseudo-picks."""
+    on = {s.get("fixture") for s in picks_doc.get("singles") or []}
+    rows = [r for r in picks_doc.get("rated") or [] if r.get("fixture") not in on and r.get("home") and r.get("away")]
+    rows.sort(key=lambda r: str(r.get("kickoff_utc") or r.get("kickoff") or ""))
+    return [{"fixture": r["fixture"], "home": r["home"], "away": r["away"], "league": r.get("league"),
+             "kickoff_utc": r.get("kickoff_utc") or r.get("kickoff"), "market": "home win", "pick": "Home"}
+            for r in rows[:n]]
+
+
 def build(picks_doc: dict, **kw) -> dict:
     singles = picks_doc.get("singles") or []
-    sheet = gather(singles, **kw)
+    rated = rated_unbet(picks_doc)
+    sheet = gather(singles + rated, **kw)
     by_fx = {f["fixture"]: f for f in sheet["fixtures"]}
     picks = []
     for s in singles:
         f = by_fx.get(s.get("fixture")) or {}
         picks.append({"fixture": s.get("fixture"), "market": s.get("market"), "pick": s.get("pick"),
                       "facts": signed(s, f.get("agreed") or {})})
+    rated_out = [{"fixture": r["fixture"], "facts": signed(r, (by_fx.get(r["fixture"]) or {}).get("agreed") or {})}
+                 for r in rated]
     filled = sum(len(f["agreed"]) for f in sheet["fixtures"])
     return {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
             "run_at": datetime.now(UTC).isoformat(timespec="seconds"), "recorded_only": True,
             "members": sheet["members"], "fields_agreed": filled,
             "fields_asked": len(all_fields()) * len(sheet["fixtures"]),
-            "fixtures": sheet["fixtures"], "picks": picks}
+            "fixtures": sheet["fixtures"], "picks": picks, "rated": rated_out}
 
 
 # ---------------------------------------------------------------- the study (results decide)
@@ -383,6 +397,24 @@ def study(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
                 c["n"] += 1
                 c["won"] += s["result"] == "won"
                 c["market"] += a
+        # games we did NOT bet: the home result against the model's own chance (no market anchor here)
+        rated_by = {r.get("fixture"): r for r in led.get("rated") or []}
+        for p in doc.get("rated") or []:
+            r = rated_by.get(p.get("fixture")) or {}
+            uid = (doc["date"], p.get("fixture"), "rated")
+            ft, probs = str(r.get("ft") or ""), r.get("p")
+            m = re.match(r"^(\d+)-(\d+)$", ft)
+            ph = VP._num(probs[0]) if isinstance(probs, list) and probs else None
+            if uid in seen or not m or ph is None:
+                continue
+            seen.add(uid)
+            won = int(m.group(1)) > int(m.group(2))
+            for x in p.get("facts") or []:
+                key = f"unbet: {x['fact']} ({'+' if x['direction'] > 0 else '-' if x['direction'] < 0 else '0'})"
+                c = cells.setdefault(key, {"n": 0, "won": 0, "market": 0.0})
+                c["n"] += 1
+                c["won"] += won
+                c["market"] += ph
     out = {}
     for k, c in sorted(cells.items()):
         out[k] = {"n": c["n"], "won_rate": round(c["won"] / c["n"], 3),

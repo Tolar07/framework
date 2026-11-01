@@ -35,7 +35,9 @@ BET_RULE_KEYS = {"kind", "market", "sport", "price_min", "price_max", "covered",
                  "sharp_ev_min", "drift_max"}
 
 PROMPT = """You are the weekly research analyst of a sports-betting framework. Below: the last {days} days of
-graded picks summarised (by market family and price band), the framework's own studies, and every
+graded picks summarised (by market family and price band), the framework's own studies, the paper learning
+on EVERY game it watches (bet on or not: paper book, universe and both-sides studies, strategy competition,
+the bots' paper challengers), and every
 hypothesis already tested (do NOT repeat one). Answer: what single change would have helped most?
 Express each idea as a TESTABLE hypothesis in this exact test format (it is run walk-forward on every
 graded game; no code, only these keys):
@@ -102,6 +104,36 @@ def studies() -> dict:
     return out
 
 
+# The learning on games we did NOT bet (Architect 2026-11-01: "paper bets on football matches that we
+# do not actually bet on ... make sure everything is connected"): each study's head, so the models
+# propose from every game the framework watches, not only its own picks.
+PAPER_STUDIES = ("backtest/PAPER_BOOK.md", "backtest/UNIVERSE_STUDY.md", "backtest/BOTH_SIDES_STUDY.md",
+                 "backtest/MODEL_SIDES_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md", "research/RESULTS.md")
+STUDY_CHARS = 1500
+
+
+def paper_learning(root: Path = ROOT) -> dict:
+    out: dict = {}
+    for rel in PAPER_STUDIES:
+        try:
+            out[rel] = (root / rel).read_text(encoding="utf-8")[:STUDY_CHARS]
+        except OSError:
+            out[rel] = "PENDING (not found)"
+    try:
+        st = json.loads((root / "memory" / "strategies.json").read_text(encoding="utf-8"))
+        out["experiment engine (memory/strategies.json)"] = json.dumps(st, ensure_ascii=False)[:STUDY_CHARS]
+    except (OSError, ValueError):
+        out["experiment engine (memory/strategies.json)"] = "PENDING"
+    try:
+        bots = json.loads((root / "data" / "bots" / "learning.json").read_text(encoding="utf-8"))
+        out["bot paper challengers (data/bots/learning.json)"] = [
+            {"bot": b["bot"], **{k: v.get(k) for k in ("variant", "baseline", "verdict", "graded", "roi", "baseline_roi")}}
+            for b in bots.get("bots") or [] for v in b.get("variants") or []]
+    except (OSError, ValueError):
+        out["bot paper challengers (data/bots/learning.json)"] = "PENDING"
+    return out
+
+
 def clean_test(t: object) -> Optional[dict]:
     """The test with only the runner's keys, or None when it can't be run."""
     if not isinstance(t, dict):
@@ -125,7 +157,8 @@ def propose(today: date, hyps: list[dict], post: Callable, get: Callable,
     keys = keys if keys is not None else {n: VP.member_key(n) for n in VP.MEMBERS}
     existing = [{"id": h.get("id"), "idea": h.get("idea"), "test": h.get("test"), "status": h.get("status"),
                  "verdict": h.get("verdict")} for h in hyps]
-    data = {"week": week_summary(today), "studies": studies(), "existing_hypotheses": existing}
+    data = {"week": week_summary(today), "studies": studies(), "paper_learning_every_game": paper_learning(),
+            "existing_hypotheses": existing}
     content = PROMPT.format(days=DAYS, spec=spec_text(), n=MAX_NEW) + json.dumps(data, ensure_ascii=False)
     obj, who = None, "none"
     for name in VP.MEMBERS:

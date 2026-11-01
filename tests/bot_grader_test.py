@@ -229,4 +229,10 @@ rep_txt = bg.build_report(gall, "2026-10-31", {})
 assert "RULES ON PAPER" in rep_txt and "matchbook inplay (paper): 1 bets, 1 won" in rep_txt, rep_txt
 assert "Matchbook: 1 bets" in rep_txt, "paper never counts in a bot's money"
 
+# ── point 6: money per game across the bots ──────────────────────────────────
+ex = bg.game_exposure(gall, "2026-10-31")
+assert ex and "Games bet today: 2; on all three bots: 0" in ex[0], ex
+assert any("Exeter City v Fleetwood Town: £1.50 on 2 tickets (Betfair, SportyBet)" in x for x in ex), ex
+assert "MONEY PER GAME TODAY" in bg.build_report(gall, "2026-10-31", {})
+
 print("ALL BOT GRADER TESTS PASSED")

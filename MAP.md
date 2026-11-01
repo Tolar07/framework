@@ -88,6 +88,9 @@ Repository secrets. Values are never in the repo.
 | `ODDS_API_KEY` | `pipeline/odds.py` | The Odds API, last-resort prices — **rotate, see §10** |
 | `MATCHBOOK_LEDGER_KEY` | `matchbook_ledger.yml` | private half of a READ-ONLY deploy key on `Tolar07/matchbook-agent` (fetches its `ledger/`); added 2026-10-15 |
 | `GEMINI_API_KEY` | `reasoning.yml` | the Architect's Google AI Studio key (free tier); set 2026-10-19. Optional repo variable `GEMINI_MODEL` pins a model, else the newest stable Flash-Lite |
+| `NVIDIA_API_KEY` | `reasoning.yml` | verdict panel member (free NVIDIA NIM model); optional variable `PANEL_NVIDIA_MODEL` |
+| `OPENROUTER_API_KEY` | `reasoning.yml` | verdict panel member, `:free` models ONLY (code guard refuses any other id); optional variable `PANEL_OPENROUTER_MODEL` |
+| `PANEL_GEMINI_API_KEY` (optional) | `reasoning.yml` | a second free AI Studio key for the verdict panel's Gemini, so it doesn't share the reasoning step's allowance (2026-11-01, PR #232); unset -> `GEMINI_API_KEY`. Optional variable `PANEL_GEMINI_MODEL` (default flash-lite, then flash on a 429) |
 | `THESPORTSDB_KEY` | `data/thesportsdb_fixtures.py` (falls back to the public key) | fixtures |
 | `API_FOOTBALL_KEY` | `data/fixtures_source.py`, `data/api_football_results.py` | fixtures fallback; free plan, ends 2026-10-17 |
 | `ANTHROPIC_API_KEY` / `CLAUDE_CODE_OAUTH_TOKEN` | `claude-review.yml` | PR review — not set |

@@ -258,3 +258,26 @@ def test_member_sits_out_after_two_failed_batches():
     assert len(calls) == 2
     assert res["members"]["nvidia"]["status"].startswith("off for this run after 2 failed batches")
     assert res["members"]["gemini"]["answered"] == 5      # one per batch, all 5 batches
+
+
+def test_gemini_over_quota_falls_to_the_next_gemini_model():
+    # 2026-11-01: the panel's Gemini got 429 every run (the core's debate used the shared allowance)
+    base = answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.60})
+
+    def post(url, json=None, **kw):
+        if "generativelanguage" in url and json["model"] == "gemini-3.5-flash-lite":
+            return Resp({}, 429)
+        return base(url, json=json, **kw)
+    res = VP.evaluate([dict(CTX)], keys=KEYS, get=get, post=post, record_path=tmp())
+    assert res["members"]["gemini"]["model"] == "gemini-3.5-flash"
+    assert res["members"]["gemini"]["answered"] == 1
+
+
+def test_panel_gemini_prefers_its_own_key_then_the_shared_one(monkeypatch):
+    monkeypatch.delenv("PANEL_GEMINI_API_KEY", raising=False)
+    monkeypatch.setenv("GEMINI_API_KEY", "shared")
+    assert VP.member_key("gemini") == "shared"
+    monkeypatch.setenv("PANEL_GEMINI_API_KEY", "own")
+    assert VP.member_key("gemini") == "own"
+    monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
+    assert VP.member_key("nvidia") == ""

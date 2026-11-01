@@ -211,37 +211,39 @@ def _next_free(model: str, get: Callable) -> Optional[str]:
     return next((m for m in rest if m in free and m.endswith(":free")), None)
 
 
-def _parse(text: str) -> dict:
-    text = re.sub(r"```(?:json)?", "", text or "").strip()
-    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
-    i = text.find("{")
-    obj, _ = json.JSONDecoder().raw_decode(text[i:] if i >= 0 else text)
-    return {p.get("id"): p for p in obj.get("picks") or []}
-
-
-def ask(name: str, model: str, key: str, rows: list[dict], post: Callable) -> dict:
-    """One member, one batch -> {id: prob}. Raises RateLimited / PaidModelError / ChargedError."""
+def chat_json(name: str, model: str, key: str, content: str, post: Callable, timeout: int = 120) -> dict:
+    """One member, one prompt -> the JSON object it answered. The same guards as the panel:
+    OpenRouter ":free" only and a charged answer raises; a 429 raises RateLimited."""
     if name == "openrouter":
         openrouter_guard(model)
-    body = {"model": model, "temperature": TEMPERATURE,
-            "messages": [{"role": "user", "content": PROMPT + json.dumps(rows, ensure_ascii=False)}]}
+    body = {"model": model, "temperature": TEMPERATURE, "messages": [{"role": "user", "content": content}]}
     if name == "openrouter":
         body["usage"] = {"include": True}            # so a charge would show up and be caught
     if name != "nvidia":
         body["response_format"] = {"type": "json_object"}
     r = post(MEMBERS[name]["base"] + "/chat/completions", headers={"Authorization": f"Bearer {key}"},
-             json=body, timeout=120)
+             json=body, timeout=timeout)
     if getattr(r, "status_code", 200) == 429:
         raise RateLimited(f"{name}: 429")
     r.raise_for_status()
     got = r.json()
     if name == "openrouter" and charged(got) > 0:
         raise ChargedError(f"OpenRouter charged {charged(got)} for {model}")
+    text = re.sub(r"```(?:json)?", "", got["choices"][0]["message"]["content"] or "").strip()
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
+    i = text.find("{")
+    obj, _ = json.JSONDecoder().raw_decode(text[i:] if i >= 0 else text)
+    return obj
+
+
+def ask(name: str, model: str, key: str, rows: list[dict], post: Callable) -> dict:
+    """One member, one batch -> {id: prob}. Raises RateLimited / PaidModelError / ChargedError."""
+    obj = chat_json(name, model, key, PROMPT + json.dumps(rows, ensure_ascii=False), post)
     out = {}
-    for i, p in _parse(got["choices"][0]["message"]["content"]).items():
+    for p in obj.get("picks") or []:
         v = _num(p.get("prob"))
         if v is not None and 0 <= v <= 1:
-            out[i] = v
+            out[p.get("id")] = v
     return out
 
 

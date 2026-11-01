@@ -44,6 +44,29 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scripts/weekly_review.py
+      - name: AI weekly review -> new hypotheses, tested at once (bot-training plan step 6)
+        # Free models only (Gemini -> NVIDIA -> OpenRouter ":free"); ideas, never code: research/runner.py
+        # tests them walk-forward and an accepted rule only becomes a SHADOW strategy.
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PANEL_GEMINI_API_KEY: ${{ secrets.PANEL_GEMINI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python research/ai_review.py
+          git config user.name "olp-xdv-bot"
+          git config user.email "bot@users.noreply.github.com"
+          python3 monitor/fdata.py save "ai review $(date -u +%Y-%m-%d) [skip ci]" memory/hypotheses.jsonl memory/strategy_queue.jsonl
+          git add memory/hypotheses.jsonl memory/strategy_queue.jsonl research/RESULTS.md 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -q -m "ai review $(date -u +%Y-%m-%d) [skip ci]"
+          for i in 1 2 3; do
+            if git pull --rebase -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::ai review: could not save to main"; exit 1
       - name: Save the CLV scorecard for the WhatsApp mirror
         run: |
           python scripts/clv_scorecard.py > /dev/null

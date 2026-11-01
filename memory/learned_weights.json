@@ -1,0 +1,31 @@
+{
+ "built_at": "2026-11-01T18:27:25+00:00",
+ "recorded_only": true,
+ "rows": 143,
+ "ridge": 4.0,
+ "weights": {
+  "bias": {
+   "w": 0.2496,
+   "rows": 143
+  },
+  "member:gemini": {
+   "w": 0.0,
+   "rows": 0
+  },
+  "member:nvidia": {
+   "w": 0.0,
+   "rows": 7
+  },
+  "member:openrouter": {
+   "w": 0.0,
+   "rows": 0
+  }
+ },
+ "walk_forward": {
+  "n": 90,
+  "learned_brier": 0.1633,
+  "market_brier": 0.1664,
+  "panel_brier": 0.1664,
+  "beats_market": true
+ }
+}

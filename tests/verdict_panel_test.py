@@ -281,3 +281,54 @@ def test_panel_gemini_prefers_its_own_key_then_the_shared_one(monkeypatch):
     assert VP.member_key("gemini") == "own"
     monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
     assert VP.member_key("nvidia") == ""
+
+
+def _prompt_hist(n: int, champ_err: float, chal_err: float) -> list[dict]:
+    out = []
+    for i in range(n):
+        won = i % 2 == 0
+        for pid, err in (("p0", champ_err), ("p1", chal_err)):
+            p = (1 - err) if won else err
+            out.append({"id": f"{pid}{i}", "prompt": pid, "members": {"nvidia": p}, "won": won, "anchor": 0.5})
+    return out
+
+
+def test_prompt_contest_promotes_a_better_challenger_and_waits_on_thin_records():
+    prompts = {"champion": {"id": "p0", "text": VP.PROMPT}, "challenger": {"id": "p1", "text": VP.PROMPT}}
+    assert VP.decide(prompts, _prompt_hist(10, 0.4, 0.2))[0] == "wait"
+    assert VP.decide(prompts, _prompt_hist(70, 0.4, 0.2))[0] == "promote"
+    assert VP.decide(prompts, _prompt_hist(130, 0.3, 0.3))[0] == "retire"
+    assert VP.decide({"champion": prompts["champion"], "challenger": None}, [])[0] == "none"
+
+
+def test_picks_split_between_champion_and_challenger_by_fixture():
+    prompts = {"champion": {"id": "p0", "text": VP.PROMPT}, "challenger": {"id": "p1", "text": VP.PROMPT}}
+    ids = {VP.prompt_for({"fixture": f"Team{i} v Other{i}"}, prompts) for i in range(20)}
+    assert ids == {"p0", "p1"}
+    assert VP.prompt_for({"fixture": "A v B"}, prompts) == VP.prompt_for({"fixture": "A v B"}, prompts)
+
+
+def test_a_written_challenger_must_keep_the_safety_rules():
+    assert VP.valid_prompt(VP.PROMPT)
+    assert not VP.valid_prompt("Give a probability for each pick. PICKS:")
+    bad = VP.PROMPT.replace("Never invent", "Feel free to estimate")
+    assert not VP.valid_prompt(bad)
+
+
+def test_prompt_round_writes_a_challenger_then_promotes_it():
+    d = Path(tempfile.mkdtemp())
+    path, rec = d / "prompts.json", d / "rec.json"
+    rec.write_text(json.dumps({"history": []}))
+    better = VP.PROMPT.replace("by at most 0.08.", "by at most 0.08, less when the news is thin.")
+
+    def post(url, json=None, **kw):
+        return Resp({"choices": [{"message": {"content": __import__("json").dumps(
+            {"prompt": better, "change": "smaller moves on thin news"})}}]})
+    msg = VP.prompt_round(path, rec, post=post, get=get, key="g")
+    p = json.loads(path.read_text())
+    assert "new challenger p1" in msg and p["challenger"]["id"] == "p1"
+    rec.write_text(json.dumps({"history": _prompt_hist(70, 0.4, 0.2)}))
+    msg = VP.prompt_round(path, rec, post=post, get=get, key="g")
+    p = json.loads(path.read_text())
+    assert p["champion"]["id"] == "p1" and p["history"][-1]["id"] == "p0"
+    assert p["challenger"]["id"] == "p2"

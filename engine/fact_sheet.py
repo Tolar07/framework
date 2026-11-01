@@ -175,7 +175,7 @@ def _search(post: Callable, key: str, model: str, rows: list[dict]) -> dict:
     text = re.sub(r"```(?:json)?", "", text).strip()
     i = text.find("{")
     obj, _ = json.JSONDecoder().raw_decode(text[i:] if i >= 0 else text)
-    return {f.get("id"): f for f in obj.get("fixtures") or []}
+    return {VP.as_id(f.get("id")): f for f in obj.get("fixtures") or []}
 
 
 def _search_retry(post: Callable, key: str, model: str, rows: list[dict],
@@ -269,7 +269,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                 info[name]["status"] = f"partly failed: {type(e).__name__}: {str(e)[:100]}"
                 continue
             for f in obj.get("fixtures") or []:
-                i = f.get("id")
+                i = VP.as_id(f.get("id"))
                 if i in have:
                     answers[name][i] = {k: clean(k, f.get(k)) for k in all_fields()}
                     info[name]["answered"] += 1

@@ -136,3 +136,6 @@ c:/
 
 # The private data checkout (Tolar07/framework-data, monitor/fdata.py)
 .fdata/
+
+# bot repos checked out by universe.yml for monitor/bot_grader.py (private ledgers; never committed here)
+.bots/

@@ -35,6 +35,33 @@ jobs:
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
           path: .fdata
           fetch-depth: 1
+      # The three bots' private repos, for monitor/bot_grader.py (improvement plan point 4):
+      # one write deploy key per repo, so the grader can save its graded files beside each
+      # bot's ledger. Not fatal: without a key that bot is simply not graded this run.
+      - name: Check out the SportyBet bot's ledger
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/sportybet-agent
+          ssh-key: ${{ secrets.BOT_LEDGER_KEY_SPORTYBET }}
+          path: .bots/sportybet-agent
+          fetch-depth: 1
+      - name: Check out the Matchbook bot's ledger
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/matchbook-agent
+          ssh-key: ${{ secrets.BOT_LEDGER_KEY_MATCHBOOK }}
+          path: .bots/matchbook-agent
+          fetch-depth: 1
+      - name: Check out the Betfair bot's ledger
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/betfair-agent
+          ssh-key: ${{ secrets.BOT_LEDGER_KEY_BETFAIR }}
+          path: .bots/betfair-agent
+          fetch-depth: 1
       - name: Lay the private data over the workspace (monitor/fdata.py)
         env:
           FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
@@ -50,6 +77,7 @@ jobs:
           path: |
             data/cache/universe
             data/cache/flashscore
+            data/cache/bot_grader
           key: olp-xdv-universe-${{ github.run_id }}
           restore-keys: olp-xdv-universe-
       - name: Sweep, grade, archive
@@ -59,6 +87,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          NGN_PER_GBP: ${{ vars.NGN_PER_GBP }}   # the bot report's pound total; unset = 2,000
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"

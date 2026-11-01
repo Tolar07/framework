@@ -1656,14 +1656,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T19:20Z",
+  "at": "2026-11-01T19:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 1,
   "fotmob_id": 5887665,
-  "home_missing_share": 0.0470606524032034,
+  "home_missing_share": 0.07416963540589383,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T20:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Strasbourg v Auxerre": {
   "absent": [

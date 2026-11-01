@@ -44,6 +44,7 @@ NATIVE_URL = os.getenv("GEMINI_NATIVE_URL", "https://generativelanguage.googleap
 BATCH = 6                                   # fixtures per call
 BUDGET_S = float(os.getenv("FACT_SHEET_BUDGET_S", "420"))
 MIN_AGREE = 2
+WAIT_429_S = 45                             # one wait on a 429 before the next Gemini model
 MIN_STUDY_N = 30                            # below this a fact's residual is shown but not trusted
 
 # field -> kind. Per side: <field>_home / <field>_away.
@@ -145,6 +146,22 @@ def fixtures(singles: list[dict]) -> list[dict]:
     return list(seen.values())
 
 
+def local_evidence(singles: list[dict], fixture: str) -> str:
+    """What the framework itself already knows about a fixture (news check, line-up check, missing squad
+    value), as text for the readers when Gemini can't search (2026-11-01: Gemini 429 all evening)."""
+    bits: list[str] = []
+    for s in singles:
+        if s.get("fixture") != fixture:
+            continue
+        for label, v in (("team news", s.get("news_note")), ("news level", s.get("news_level")),
+                         ("line-up check", (s.get("lineup_check") or {}).get("note")
+                          if isinstance(s.get("lineup_check"), dict) else s.get("lineup_check")),
+                         ("share of squad value missing", s.get("missing"))):
+            if v not in (None, "", "None", {}) and f"{label}: {v}" not in bits:
+                bits.append(f"{label}: {v}")
+    return ("framework data (no web search): " + "; ".join(bits))[:1200] if bits else ""
+
+
 def _search(post: Callable, key: str, model: str, rows: list[dict]) -> dict:
     r = post(f"{NATIVE_URL}/models/{model}:generateContent", headers={"x-goog-api-key": key}, timeout=180,
              json={"contents": [{"role": "user", "parts": [{"text": SEARCH_PROMPT + json.dumps(rows, ensure_ascii=False)}]}],
@@ -160,8 +177,25 @@ def _search(post: Callable, key: str, model: str, rows: list[dict]) -> dict:
     return {f.get("id"): f for f in obj.get("fixtures") or []}
 
 
+def _search_retry(post: Callable, key: str, model: str, rows: list[dict],
+                  sleep: Callable) -> tuple[Optional[dict], str]:
+    """(answer, "") or (None, "429" | the error). A 429 is waited out once (a per-minute limit clears)."""
+    for attempt in (0, 1):
+        try:
+            return _search(post, key, model, rows), ""
+        except VP.RateLimited:
+            if attempt == 0:
+                sleep(WAIT_429_S)
+                continue
+            return None, "429"
+        except Exception as e:  # noqa: BLE001
+            return None, f"{type(e).__name__}: {str(e)[:100]}"
+    return None, "429"
+
+
 def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
-           post: Optional[Callable] = None, clock: Callable = time.monotonic) -> dict:
+           post: Optional[Callable] = None, clock: Callable = time.monotonic,
+           sleep: Callable = time.sleep) -> dict:
     """{"members": {...}, "fixtures": [{fixture, evidence, answers: {member: {field: v}}, agreed: {...}}]}.
     Never raises."""
     if get is None or post is None:
@@ -184,21 +218,18 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                 info["gemini"]["status"] = f"time budget used; {info['gemini']['answered']} answered"
                 break
             rows = fxs[j:j + BATCH]
-            try:
-                got = _search(post, gkey, str(model), rows)
-            except VP.RateLimited:
+            got, why = _search_retry(post, gkey, str(model), rows, sleep)
+            while got is None and why == "429":
                 model = VP._next_gemini(str(model))
                 if not model:
-                    info["gemini"]["status"] = "off for this run: 429 on every Gemini model"
                     break
                 info["gemini"]["model"] = model
-                try:
-                    got = _search(post, gkey, model, rows)
-                except Exception as e:  # noqa: BLE001
-                    info["gemini"]["status"] = f"off for this run: {type(e).__name__}: {str(e)[:100]}"
+                got, why = _search_retry(post, gkey, model, rows, sleep)
+            if got is None:
+                if why == "429":
+                    info["gemini"]["status"] = "off for this run: 429 on every Gemini model"
                     break
-            except Exception as e:  # noqa: BLE001 — one failed batch leaves only its fixtures unfilled
-                info["gemini"]["status"] = f"partly failed: {type(e).__name__}: {str(e)[:100]}"
+                info["gemini"]["status"] = f"partly failed: {why}"
                 continue
             for i, f in got.items():
                 if isinstance(i, int) and 0 <= i < len(fxs):
@@ -206,6 +237,12 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                     answers["gemini"][i] = {k: clean(k, f.get(k)) for k in all_fields()}
                     info["gemini"]["answered"] += 1
     # the readers: only fixtures that have evidence, only from that evidence
+    # no web evidence for a fixture (Gemini off or silent): the readers get the framework's own data
+    for fx in fxs:
+        if not evidence.get(fx["id"]):
+            loc = local_evidence(singles, fx["fixture"])
+            if loc:
+                evidence[fx["id"]] = loc
     have = [i for i in range(len(fxs)) if evidence.get(i)]
     for name in ("nvidia", "openrouter"):
         key = keys.get(name) or ""
@@ -244,9 +281,18 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
             v, n = agree(k, [a.get(k) for a in by.values()])
             if v is not None:
                 agreed[k], support[k] = v, n
-        out.append({**fx, "evidence": evidence.get(i) or "PENDING", "answers": by, "agreed": agreed,
+        ev = evidence.get(i) or ""
+        src = "framework" if ev.startswith("framework data") else "web" if ev else None
+        out.append({**fx, "evidence": ev or "PENDING", "evidence_source": src, "answers": by, "agreed": agreed,
                     "support": support})
     return {"members": info, "fixtures": out}
+
+
+def done(old: dict, picks_doc: dict) -> bool:
+    """This board already has a fact sheet worth keeping: same board and some member answered.
+    An empty sheet (every model rate-limited) is tried again on the next reasoning run."""
+    return old.get("picks_generated_at") == picks_doc.get("generated_at") and any(
+        (m or {}).get("answered") for m in (old.get("members") or {}).values())
 
 
 def signed(single: dict, agreed: dict) -> list[dict]:

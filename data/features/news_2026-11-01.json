@@ -881,14 +881,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T19:00Z",
+  "at": "2026-11-01T19:20Z",
   "away_missing_share": 0.31836781963872174,
   "away_unavailable": 8,
   "fotmob_id": 5749735,
   "home_missing_share": 0.43887455352734306,
   "home_unavailable": 7,
   "kickoff_utc": "2026-11-01T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lausanne-Sport v FC Thun": {
   "absent": [
@@ -1656,7 +1656,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T19:00Z",
+  "at": "2026-11-01T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 1,
   "fotmob_id": 5887665,

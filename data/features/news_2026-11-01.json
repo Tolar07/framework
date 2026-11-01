@@ -2,16 +2,6 @@
  "APO Levadiakos FC v Aris Thessaloniki": {
   "absent": [
    {
-    "name": "David Cobnan",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Panagiotis Simelidis",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Manu Garc\u00eda",
     "side": "away",
     "type": "injury"
@@ -27,14 +17,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
-  "away_missing_share": 0.3214258974707087,
+  "at": "2026-11-01T14:20Z",
+  "away_missing_share": 0.29527332442850646,
   "away_unavailable": 4,
   "fotmob_id": 5943284,
-  "home_missing_share": 0.1415506358889868,
-  "home_unavailable": 2,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Academico de Viseu FC v Rio Ave": {
   "absent": [
@@ -118,14 +108,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
+  "at": "2026-11-01T14:20Z",
   "away_missing_share": 0.178052103429498,
   "away_unavailable": 3,
   "fotmob_id": 5887664,
-  "home_missing_share": 0.05437510367195073,
+  "home_missing_share": 0.052821339215062164,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Avellino v SC Pisa": {
   "absent": [
@@ -182,7 +172,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
+  "at": "2026-11-01T14:20Z",
   "away_missing_share": 0.27483275744989544,
   "away_unavailable": 5,
   "fotmob_id": 5107647,
@@ -278,14 +268,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
-  "away_missing_share": 0.34026100482681254,
+  "at": "2026-11-01T14:20Z",
+  "away_missing_share": 0.23079474777271075,
   "away_unavailable": 4,
   "fotmob_id": 5868517,
-  "home_missing_share": 0.14209158591883037,
+  "home_missing_share": 0.11899847373838511,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T15:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Charleroi v RAAL La Louviere": {
   "absent": [
@@ -694,7 +684,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:00Z",
+  "at": "2026-11-01T14:20Z",
   "away_missing_share": 0.07216662498786104,
   "away_unavailable": 1,
   "fotmob_id": 5781789,
@@ -837,7 +827,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
+  "at": "2026-11-01T14:20Z",
   "away_missing_share": 0.3087130472154802,
   "away_unavailable": 5,
   "fotmob_id": 5107650,
@@ -953,14 +943,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
-  "away_missing_share": 0.1809134796974843,
+  "at": "2026-11-01T14:20Z",
+  "away_missing_share": 0.1399791314761142,
   "away_unavailable": 5,
   "fotmob_id": 5804287,
-  "home_missing_share": 0.3067652172306339,
+  "home_missing_share": 0.3051868782673895,
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lazio v Cagliari": {
   "absent": [
@@ -1143,14 +1133,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
-  "away_missing_share": 0.2627437847276614,
-  "away_unavailable": 7,
+  "at": "2026-11-01T14:20Z",
+  "away_missing_share": 0.2639293917827875,
+  "away_unavailable": 6,
   "fotmob_id": 5804288,
-  "home_missing_share": 0.06459435773970959,
+  "home_missing_share": 0.039015786805854435,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lyon v Angers": {
   "absent": [
@@ -1515,14 +1505,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:00Z",
-  "away_missing_share": 0.29905470065007783,
+  "at": "2026-11-01T14:20Z",
+  "away_missing_share": 0.2899710033004162,
   "away_unavailable": 5,
   "fotmob_id": 5868118,
-  "home_missing_share": 0.19235516137879285,
+  "home_missing_share": 0.2019261460369596,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "SK Brann v Molde": {
   "absent": [
@@ -1871,7 +1861,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T14:00Z",
+  "at": "2026-11-01T14:20Z",
   "away_missing_share": 0.05927761761030033,
   "away_unavailable": 1,
   "fotmob_id": 5107652,

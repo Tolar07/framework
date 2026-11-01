@@ -48,7 +48,7 @@ MIN_AGREE = 2
 # nvidia_alt is a second, different model family on NVIDIA's free key (2026-11-01 23:00: OpenRouter's
 # free allowance was spent on every model, so one reader was left and no fact could be agreed).
 READERS = {"nvidia": "nvidia", "nvidia_alt": "nvidia", "openrouter": "openrouter"}
-NVIDIA_ALT_MODEL = os.getenv("FACT_NVIDIA_ALT_MODEL", "mistralai/mistral-large-4-1t-a52b")
+NVIDIA_ALT_MODEL = os.getenv("FACT_NVIDIA_ALT_MODEL", "meta/llama-3.3-70b-instruct")   # mistral-large 1T: 0 answered in 420 s
 WAIT_429_S = 45                             # one wait on a 429 before the next Gemini model
 MAX_RATED = 20                              # rated games NOT bet on, also sheeted (learning beyond our bets)
 MIN_STUDY_N = 30                            # below this a fact's residual is shown but not trusted

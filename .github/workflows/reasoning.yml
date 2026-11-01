@@ -55,6 +55,8 @@ jobs:
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
           OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-3.5-flash)
           COGNITIVE_STAKES: ${{ vars.COGNITIVE_STAKES || '1' }}  # standing order 48: ON; set the variable to 0 to switch off
+          PANEL_GEMINI_API_KEY: ${{ secrets.PANEL_GEMINI_API_KEY }}   # optional 2nd free key for the panel; else GEMINI_API_KEY
+          PANEL_GEMINI_MODEL: ${{ vars.PANEL_GEMINI_MODEL }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}           # verdict panel (to-do #5): free NIM model
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}   # verdict panel: ":free" models ONLY (code guard)
           PANEL_NVIDIA_MODEL: ${{ vars.PANEL_NVIDIA_MODEL }}

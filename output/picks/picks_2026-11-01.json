@@ -23475,5 +23475,202 @@
     "chance_corr": 0.4135
    }
   ]
- }
+ },
+ "replaced": [
+  {
+   "kind": "single",
+   "name": "Falkirk v Celtic",
+   "old_code": "Y0V7X1",
+   "new_code": "QZM6ER",
+   "notes": [
+    "Falkirk v Celtic: Celtic Under 3.5 goals \u2192 Falkirk (+2.5) Asian handicap (team news: Falkirk missing 36% of value (Joseph Gardner, Aodhan Doherty, Leon McCann); support: Celtic missing 20%)"
+   ],
+   "odds": 1.24,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Falkirk v Celtic",
+     "home": "Falkirk",
+     "away": "Celtic",
+     "kickoff": "2026-11-01",
+     "market": "SB:16|hcp=2.5|Home (+2.5)",
+     "pick": "Falkirk (+2.5) Asian handicap",
+     "price": 1.24,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Falkirk v Celtic"
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 2",
+   "old_code": "T059P7",
+   "new_code": "XSASEH",
+   "notes": [
+    "Falkirk v Celtic: Celtic Under 3.5 goals \u2192 Falkirk (+2.5) Asian handicap (team news: Falkirk missing 36% of value (Joseph Gardner, Aodhan Doherty, Leon McCann); support: Celtic missing 20%)"
+   ],
+   "odds": 19.414,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Odense v Silkeborg",
+     "home": "Odense",
+     "away": "Silkeborg",
+     "kickoff": "2026-11-01",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Falkirk v Celtic",
+     "home": "Falkirk",
+     "away": "Celtic",
+     "kickoff": "2026-11-01",
+     "market": "SB:16|hcp=2.5|Home (+2.5)",
+     "pick": "Falkirk (+2.5) Asian handicap",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Istanbul BB v Samsunspor",
+     "home": "Istanbul BB",
+     "away": "Samsunspor",
+     "kickoff": "2026-11-01",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Viborg v Horsens",
+     "home": "Viborg",
+     "away": "Horsens",
+     "kickoff": "2026-11-01",
+     "market": "SB:10||Home or Away",
+     "pick": "Viborg or Horsens",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Djurgardens IF v Degerfors IF",
+     "home": "Djurgardens IF",
+     "away": "Degerfors IF",
+     "kickoff": "2026-11-01",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Malmo v Hammarby IF",
+     "home": "Malmo",
+     "away": "Hammarby IF",
+     "kickoff": "2026-11-01",
+     "market": "SB:10||Home or Away",
+     "pick": "Malmo or Hammarby IF",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Hannover v Dresden",
+     "home": "Hannover",
+     "away": "Dresden",
+     "kickoff": "2026-11-01",
+     "market": "SB:10||Home or Away",
+     "pick": "Hannover or Dresden",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Getafe v Sevilla",
+     "home": "Getafe",
+     "away": "Sevilla",
+     "kickoff": "2026-11-01",
+     "market": "SB:33||No",
+     "pick": "Getafe Win to Nil \u2014 no",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Greuther Furth v Holstein Kiel",
+     "home": "Greuther Furth",
+     "away": "Holstein Kiel",
+     "kickoff": "2026-11-01",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Greuther Furth Over 0.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Young Boys Bern v FC Zurich",
+     "home": "Young Boys Bern",
+     "away": "FC Zurich",
+     "kickoff": "2026-11-01",
+     "market": "SB:18|total=2.5|Over 2.5",
+     "pick": "Over 2.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "FC St. Pauli v Nurnberg",
+     "home": "FC St. Pauli",
+     "away": "Nurnberg",
+     "kickoff": "2026-11-01",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Eldense v Granada",
+     "home": "Eldense",
+     "away": "Granada",
+     "kickoff": "2026-11-01",
+     "market": "SB:10||Home or Away",
+     "pick": "Eldense or Granada",
+     "price": 1.31,
+     "result": null
+    },
+    {
+     "fixture": "Cercle Brugge v Antwerp",
+     "home": "Cercle Brugge",
+     "away": "Antwerp",
+     "kickoff": "2026-11-01",
+     "market": "SB:16|hcp=-1.5|Away (+1.5)",
+     "pick": "Antwerp (+1.5) Asian handicap",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Trabzonspor v Gaziantep FK",
+     "home": "Trabzonspor",
+     "away": "Gaziantep FK",
+     "kickoff": "2026-11-01",
+     "market": "SB:547|total=1.5|Home/Away & Over 1.5",
+     "pick": "Trabzonspor or Gaziantep FK & Over 1.5",
+     "price": 1.25,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Odense v Silkeborg",
+    "Falkirk v Celtic",
+    "Istanbul BB v Samsunspor",
+    "Viborg v Horsens",
+    "Djurgardens IF v Degerfors IF",
+    "Malmo v Hammarby IF",
+    "Hannover v Dresden",
+    "Getafe v Sevilla",
+    "Greuther Furth v Holstein Kiel",
+    "Young Boys Bern v FC Zurich",
+    "FC St. Pauli v Nurnberg",
+    "Eldense v Granada",
+    "Cercle Brugge v Antwerp",
+    "Trabzonspor v Gaziantep FK"
+   ]
+  }
+ ]
 }

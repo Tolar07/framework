@@ -14,7 +14,7 @@
     "sr:match:73719464"
    ],
    "odds": 14.98,
-   "result": null
+   "result": "lost"
   },
   {
    "name": "NBA acca B",
@@ -25,7 +25,7 @@
     "sr:match:73719474"
    ],
    "odds": 6.38,
-   "result": null
+   "result": "won"
   }
  ],
  "picks": [
@@ -55,9 +55,9 @@
     "total": 231.5
    },
    "code": "VAFVQ2",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "90-112",
+   "close_value": 0.1554,
    "matchbook": {
     "back": null,
     "listed": true
@@ -90,9 +90,9 @@
     "total": 216.5
    },
    "code": "YB962S",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "104-109",
+   "close_value": 0.3254,
    "matchbook": {
     "back": null,
     "listed": true
@@ -125,9 +125,9 @@
     "total": 239.5
    },
    "code": "JQNLX0",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "121-99",
+   "close_value": 0.1862,
    "matchbook": {
     "back": null,
     "listed": true
@@ -160,9 +160,9 @@
     "total": 233.5
    },
    "code": "N0103U",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "136-105",
+   "close_value": 0.2816,
    "matchbook": {
     "back": null,
     "listed": true
@@ -195,9 +195,9 @@
     "total": 237.5
    },
    "code": "VCA9UM",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "111-136",
+   "close_value": 0.1307,
    "matchbook": {
     "back": null,
     "listed": true
@@ -230,9 +230,9 @@
     "total": 226.5
    },
    "code": "HSUU0M",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "121-111",
+   "close_value": 0.3385,
    "matchbook": {
     "back": null,
     "listed": true
@@ -265,9 +265,9 @@
     "total": 218.5
    },
    "code": "ZSUDJ1",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "119-98",
+   "close_value": -0.0084,
    "matchbook": {
     "back": null,
     "listed": false
@@ -434,7 +434,7 @@
      "290-299": 0.0006
     }
    },
-   "score": null
+   "score": "90-112"
   },
   {
    "tip": "2026-10-31T22:00:00+00:00",
@@ -592,7 +592,7 @@
      "270-279": 0.0014
     }
    },
-   "score": null
+   "score": "104-109"
   },
   {
    "tip": "2026-10-31T23:00:00+00:00",
@@ -751,7 +751,7 @@
      "300-309": 0.0004
     }
    },
-   "score": null
+   "score": "121-99"
   },
   {
    "tip": "2026-11-01T00:00:00+00:00",
@@ -910,7 +910,7 @@
      "290-299": 0.0008
     }
    },
-   "score": null
+   "score": "136-105"
   },
   {
    "tip": "2026-11-01T00:00:00+00:00",
@@ -1069,7 +1069,7 @@
      "300-309": 0.0003
     }
    },
-   "score": null
+   "score": "111-136"
   },
   {
    "tip": "2026-11-01T00:00:00+00:00",
@@ -1218,7 +1218,7 @@
      "280-289": 0.0014
     }
    },
-   "score": null
+   "score": "121-111"
   },
   {
    "tip": "2026-11-01T00:30:00+00:00",
@@ -1348,7 +1348,7 @@
      "280-289": 0.0003
     }
    },
-   "score": null
+   "score": "119-98"
   }
  ],
  "players": {

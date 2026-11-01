@@ -1,20 +1,27 @@
 {
- "at": "2026-10-31T21:48:16Z",
+ "at": "2026-11-01T07:02:24Z",
  "clv": {
-  "mean_pts": null,
-  "mean_pts_split": null,
-  "n": 0,
-  "n_split": 0,
-  "positive": null
+  "mean_pts": 0.25,
+  "mean_pts_split": 0.625,
+  "n": 20,
+  "n_split": 8,
+  "positive": 0.5
  },
- "games": 0,
+ "games": 20,
  "lines": {
-  "n": 0
+  "n": 130,
+  "projection": {
+   "brier": 0.2645318343846153,
+   "logloss": 0.7246382961150261
+  },
+  "sharp": {
+   "brier": 0.23960248592307695,
+   "logloss": 0.6720796821655336
+  }
  },
  "open": false,
  "why": [
-  "0 graded games < 150",
-  "no graded lines",
-  "no positive CLV against the sharp close"
+  "20 graded games < 150",
+  "does not beat the sharp line on both Brier and log loss"
  ]
 }

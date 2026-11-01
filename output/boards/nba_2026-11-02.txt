@@ -1,0 +1,109 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Mon 02 Nov 2026   ·   tip-off = UK time
+Run ID: OLPXDV-20261101-0701-605d05
+Games checked against the sharp line: 4
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+20:30  Orlando Magic v Boston Celtics
+   1st half Under 113.5 points @2.00 · chance 56% · fair 1.78 · value +12.1%
+   code VWP0KH
+   Game shape (sharp line, label only): typical 108-114 | Boston Celtics by 11+ 40% · Boston Celtics by 6-10 14% · Boston Celtics by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 18%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+22:00  Indiana Pacers v Brooklyn Nets
+   1st half Under 117.5 points @1.95 · chance 56% · fair 1.79 · value +9.2%
+   code UX0QPJ
+   Game shape (sharp line, label only): typical 118-113 | Indiana Pacers by 11+ 34% · Brooklyn Nets by 11+ 15% · Indiana Pacers by 1-5 14% | total 230-239 21% · 220-229 21% · 240-249 16%
+   Matchbook: back 1.71
+
+01:30  Golden State Warriors v LA Clippers
+   1st half Over 107.5 points @2.00 · chance 59% · fair 1.70 · value +17.9%
+   code ZKHAVR
+   Game shape (sharp line, label only): typical 111-108 | Golden State Warriors by 11+ 29% · LA Clippers by 11+ 18% · Golden State Warriors by 1-5 15% | total 210-219 21% · 220-229 21% · 200-209 16%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+02:00  Los Angeles Lakers v Toronto Raptors
+   1st half Over 111.5 points @1.95 · chance 59% · fair 1.70 · value +15.0%
+   code HSFCQB
+   Game shape (sharp line, label only): typical 116-112 | Los Angeles Lakers by 11+ 34% · Toronto Raptors by 11+ 15% · Los Angeles Lakers by 1-5 14% | total 220-229 22% · 230-239 20% · 210-219 17%
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+NBA acca A (2 picks, odds 3.90): WDTK9T
+NBA acca B (2 picks, odds 3.90): WVQH8X
+
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+20:30  Orlando Magic v Boston Celtics
+   Boston Celtics to win (incl. OT) @1.41 · fair 1.45 · -2.6%
+   Boston Celtics (-11.5) handicap @2.90 · fair 2.77 · +4.7%
+   Over 221.5 points (incl. OT) @1.85 · fair 1.92 · -3.4%
+   1st half Under 109.5 points @2.70 · fair 2.34 · +15.2%
+   1st quarter Under 57.5 points @1.84 · fair 1.79 · +2.9%
+   Orlando Magic Over 110.5 points (incl. OT) @2.30 · fair 2.39 · -3.7%
+   Boston Celtics Over 116.5 points (incl. OT) @2.30 · fair 2.33 · -1.1%
+   Over 220.5 points (regulation time, no OT) @1.85 · fair 1.91 · -3.2%
+   Boston Celtics (-4.5) 1st half handicap @2.10 · fair 2.05 · +2.4%
+   Boston Celtics (-2.5) 1st quarter handicap @2.00 · fair 2.07 · -3.4%
+   Boston Celtics (-3.5) 2nd quarter handicap @2.35 · fair 2.34 · +0.5%
+   Boston Celtics (-3.5) 3rd quarter handicap @2.25 · fair 2.31 · -2.4%
+   Game shape (sharp line, label only): typical 108-114 | Boston Celtics by 11+ 40% · Boston Celtics by 6-10 14% · Boston Celtics by 1-5 14% | total 220-229 22% · 210-219 20% · 230-239 18%
+
+22:00  Indiana Pacers v Brooklyn Nets
+   Brooklyn Nets to win (incl. OT) @2.47 · fair 2.56 · -3.5%
+   Indiana Pacers (-9.5) handicap @2.91 · fair 2.77 · +5.0%
+   Under 243.5 points (incl. OT) @1.27 · fair 1.31 · -2.9%
+   1st half Under 112.5 points @2.85 · fair 2.54 · +12.2%
+   1st quarter Under 59.5 points @1.85 · fair 1.79 · +3.2%
+   Game shape (sharp line, label only): typical 118-113 | Indiana Pacers by 11+ 34% · Brooklyn Nets by 11+ 15% · Indiana Pacers by 1-5 14% | total 230-239 21% · 220-229 21% · 240-249 16%
+
+01:30  Golden State Warriors v LA Clippers
+   LA Clippers to win (incl. OT) @2.18 · fair 2.23 · -2.2%
+   Golden State Warriors (+1.5) handicap @1.65 · fair 1.63 · +1.0%
+   Over 216.5 points (incl. OT) @1.71 · fair 1.77 · -3.2%
+   1st half Over 111.5 points @2.70 · fair 2.19 · +23.2%
+   1st quarter Over 53.5 points @1.90 · fair 1.67 · +13.8%
+   Golden State Warriors Over 110.5 points (incl. OT) @1.87 · fair 1.91 · -2.0%
+   LA Clippers Over 108.5 points (incl. OT) @1.91 · fair 2.00 · -4.4%
+   Over 220.5 points (regulation time, no OT) @2.15 · fair 2.20 · -2.5%
+   Golden State Warriors (-1.5) 1st half handicap @2.05 · fair 1.99 · +3.2%
+   LA Clippers (+3.5) 3rd quarter handicap @1.56 · fair 1.60 · -2.6%
+   Golden State Warriors (+0.5) 1st quarter handicap @1.76 · fair 1.77 · -0.8%
+   Golden State Warriors (+0.5) 2nd quarter handicap @1.78 · fair 1.78 · -0.1%
+   Game shape (sharp line, label only): typical 111-108 | Golden State Warriors by 11+ 29% · LA Clippers by 11+ 18% · Golden State Warriors by 1-5 15% | total 210-219 21% · 220-229 21% · 200-209 16%
+
+02:00  Los Angeles Lakers v Toronto Raptors
+   Toronto Raptors to win (incl. OT) @2.52 · fair 2.61 · -3.3%
+   Los Angeles Lakers (-9.5) handicap @2.84 · fair 2.77 · +2.5%
+   Under 240.5 points (incl. OT) @1.27 · fair 1.31 · -2.9%
+   1st half Over 116.5 points @2.85 · fair 2.36 · +20.7%
+   1st quarter Over 55.5 points @1.83 · fair 1.67 · +9.8%
+   Los Angeles Lakers Over 115.5 points (incl. OT) @1.87 · fair 1.91 · -2.0%
+   Toronto Raptors Under 110.5 points (incl. OT) @2.10 · fair 2.15 · -2.5%
+   Under 225.5 points (regulation time, no OT) @2.05 · fair 2.10 · -2.2%
+   Los Angeles Lakers (-5.5) 1st half handicap @2.50 · fair 2.46 · +1.4%
+   Los Angeles Lakers (-1.5) 2nd quarter handicap @2.00 · fair 2.02 · -1.1%
+   Los Angeles Lakers (-2.5) 1st quarter handicap @2.15 · fair 2.21 · -2.9%
+   Los Angeles Lakers (-3.5) 3rd quarter handicap @2.40 · fair 2.47 · -3.0%
+   Game shape (sharp line, label only): typical 116-112 | Los Angeles Lakers by 11+ 34% · Toronto Raptors by 11+ 15% · Los Angeles Lakers by 1-5 14% | total 220-229 22% · 230-239 20% · 210-219 17%
+
+──────────────────────────────────
+Game shape check (20 games): likeliest margin band landed 50% (said 39%) · likeliest total band 25% (said 22%)
+NBA record (regular season): 62 picks · won 38 (61%) · £1 each returned +10.88 (+17.5%) · beat the closing line on average by +16.4%
+Line watch record: 32 picks · won 16 (50%) · £1 each returned -1.37 (-4.3%) · beat the closing line on average by +14.5%
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

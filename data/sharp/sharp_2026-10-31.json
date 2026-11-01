@@ -178,8 +178,8 @@
    "sharp_ev": 0.0412,
    "code": "PLY0FK",
    "url": "http://www.sportybet.com/ng/?shareCode=PLY0FK",
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "run_id": "SHARP-e67c177c"
   },
   {
@@ -262,8 +262,8 @@
    "sharp_ev": 0.029,
    "code": "LGME92",
    "url": "http://www.sportybet.com/ng/?shareCode=LGME92",
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "4-0",
    "run_id": "SHARP-e67c177c"
   }
  ],

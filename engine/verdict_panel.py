@@ -212,6 +212,15 @@ def _next_free(model: str, get: Callable) -> Optional[str]:
     return next((m for m in rest if m in free and m.endswith(":free")), None)
 
 
+def as_id(x):
+    """A pick / fixture id as the int it was sent as: some models answer "3" for 3 (2026-11-01: every
+    OpenRouter answer was dropped that way, 0 answered in every run)."""
+    try:
+        return int(x)
+    except (TypeError, ValueError):
+        return x
+
+
 def chat_json(name: str, model: str, key: str, content: str, post: Callable, timeout: int = 120) -> dict:
     """One member, one prompt -> the JSON object it answered. The same guards as the panel:
     OpenRouter ":free" only and a charged answer raises; a 429 raises RateLimited."""
@@ -244,7 +253,7 @@ def ask(name: str, model: str, key: str, rows: list[dict], post: Callable, promp
     for p in obj.get("picks") or []:
         v = _num(p.get("prob"))
         if v is not None and 0 <= v <= 1:
-            out[p.get("id")] = v
+            out[as_id(p.get("id"))] = v
     return out
 
 

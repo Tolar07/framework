@@ -332,3 +332,11 @@ def test_prompt_round_writes_a_challenger_then_promotes_it():
     p = json.loads(path.read_text())
     assert p["champion"]["id"] == "p1" and p["history"][-1]["id"] == "p0"
     assert p["challenger"]["id"] == "p2"
+
+
+def test_string_ids_from_a_model_are_not_dropped():
+    # 2026-11-01: OpenRouter answered "0" for id 0 -> every answer dropped, 0 answered every run
+    def post(url, json=None, **kw):
+        return Resp({"choices": [{"message": {"content": __import__("json").dumps(
+            {"picks": [{"id": "0", "prob": 0.61, "why": "x"}]})}}]})
+    assert VP.ask("nvidia", "m", "k", [{"id": 0}], post) == {0: 0.61}

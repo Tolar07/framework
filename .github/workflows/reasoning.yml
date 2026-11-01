@@ -46,7 +46,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -q requests
+      - run: pip install -q requests numpy   # numpy: engine/learned_weights.py (step 3)
 
       - name: Reason over today's and tomorrow's picks
         env:

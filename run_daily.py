@@ -39,6 +39,7 @@ from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_bloc
 from engine import market_implied as mi
 from engine import full_markets as fm
 from engine import short_legs as sl
+from engine import day_override
 
 UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
 EV_PREF_PP = 0.02      # see VALUE-AWARE PICK in the selection loop
@@ -621,6 +622,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                          f"{len(approved_blocks)} approved block(s) in force")
     except Exception as e:  # noqa: BLE001 — the watch is an extra, never a blocker
         all_flags.append(f"losing-market watch unavailable ({e})")
+    _day_ov, day_struck = day_override.get(target), 0
     for bf in board:
         if bf.probs is None:
             continue
@@ -754,8 +756,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         if cands and sl.safest_is_short(getattr(bf, "short_legs", []), cands):
             short_games += 1
             _n = len(cands)
-            cands = sl.with_edge(cands)
+            cands = sl.with_edge(cands, _day_ov.get("forced_edge"))
             short_skipped += not cands
+        # ONE-DAY OVERRIDE (engine/day_override.py): a single the Architect struck off for this date
+        if cands and day_override.struck(_day_ov, bf.probs.home_team):
+            cands = []
+            day_struck += 1
         if not cands:
             continue
 
@@ -920,7 +926,11 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     if short_games:
         all_flags.append(f"No forced picks (plan point 3): {short_games} game(s) whose safest outcome is under "
                          f"{DEPLOY_ODDS_MIN:.2f}; {short_skipped} got no single (no other market "
-                         f"{round(sl.FORCED_EDGE * 100)}+ pts over break-even)")
+                         f"{round((_day_ov.get('forced_edge', sl.FORCED_EDGE)) * 100)}+ pts over break-even)")
+    if _day_ov:
+        all_flags.append(f"one-day override for {target} (config/day_overrides.json): forced-pick margin "
+                         f"{round(_day_ov.get('forced_edge', sl.FORCED_EDGE) * 100)} pts, "
+                         f"{day_struck} single(s) struck off by the Architect")
     if shootout_unders:
         all_flags.append(f"No Unders in a shootout (order 43): {shootout_unders} match Under outcome(s) "
                          "dropped where the team profiles read both sides scoring plenty")

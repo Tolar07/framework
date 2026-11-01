@@ -256,7 +256,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T10:00Z",
   "away_missing_share": 0.08320121609712354,
   "away_unavailable": 4,
   "fotmob_id": 5749733,
@@ -552,6 +552,38 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T12:30:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Groningen v Sparta Rotterdam": {
+  "absent": [
+   {
+    "name": "Malcolm Jeng",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tyrique Mercera",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Elvis van der Laan",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Shunsuke Mito",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T10:00Z",
+  "away_missing_share": 0.07216662498786104,
+  "away_unavailable": 1,
+  "fotmob_id": 5781789,
+  "home_missing_share": 0.16564131073772276,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-01T15:45:00.000Z",
+  "lineup_type": "predicted"
  },
  "HNK Rijeka v NK Varazdin": {
   "absent": [
@@ -1034,6 +1066,43 @@
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Sarpsborg 08 v Kristiansund BK": {
+  "absent": [
+   {
+    "name": "Daniel Seland Karlsbakk",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Michael Opoku",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frederik Carstensen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Leander Alvheim",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Dan Ulvestad",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-11-01T10:00Z",
+  "away_missing_share": 0.1903967886924978,
+  "away_unavailable": 2,
+  "fotmob_id": 5105037,
+  "home_missing_share": 0.5378835487977157,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-01T16:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Sheffield Wednesday v Blackpool FC": {
   "absent": [],
   "at": "2026-11-01T09:00Z",
@@ -1359,8 +1428,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
-  "away_missing_share": 0.1261465220364593,
+  "at": "2026-11-01T10:00Z",
+  "away_missing_share": 0.13397967273107494,
   "away_unavailable": 2,
   "fotmob_id": 5781792,
   "home_missing_share": 0.22843011515655753,

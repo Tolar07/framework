@@ -28,3 +28,11 @@ lw._read = real
 assert "STALLED" in lw.render(list(rows.values()))
 assert {x[0] for x in lw.LOOPS} >= {"tactics lessons", "why record", "results learning", "match study"}
 print("learning watch: fresh / grew checks, stalled loops flagged: OK")
+
+# bot-training plan loops (2026-11-01): a new loop is fresh during its grace, stalled after it
+from datetime import date as _d  # noqa: E402
+assert lw._or_grace(None, 2, _d(2026, 11, 2)) == lw.NEW_LOOPS_START
+assert lw._or_grace(None, 2, _d(2026, 11, 10)) is None
+assert lw._or_grace("2026-11-09", 2, _d(2026, 11, 10)) == "2026-11-09"
+assert {"AI fact sheet", "verdict panel", "learned weights", "prompt contest", "AI weekly review"} <= {
+    x[0] for x in lw.LOOPS}

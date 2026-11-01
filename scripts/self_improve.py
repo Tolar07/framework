@@ -132,8 +132,44 @@ def audit_loops() -> list[dict]:
 GAP = {"MISSING": 1.0, "CONTEXT": 0.7, "TESTED": 0.15, "LIVE": 0.0}
 
 
-def proposals(inputs: list[dict], loops: list[dict]) -> list[dict]:
+def promotions(root: Path | None = None) -> list[dict]:
+    """Bot-training plan (2026-11-01): a learning loop that has EARNED a say becomes a proposal for the
+    Architect — the evidence and what promotion would change. Nothing here promotes anything."""
+    root = root or ROOT
+
+    def rd(rel: str) -> dict:
+        try:
+            return json.loads((root / rel).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
     out = []
+    lw = rd("memory/learned_weights.json")
+    wf = lw.get("walk_forward") or {}
+    if wf.get("beats_market"):
+        top = sorted(((k, v["w"]) for k, v in (lw.get("weights") or {}).items()), key=lambda kv: -abs(kv[1]))[:4]
+        out.append({"title": "Promotion ready: learned weights beat the market out of sample", "ev": 5.0,
+                    "kind": "promote",
+                    "body": f"engine/learned_weights.py: {wf['n']} walk-forward picks, Brier {wf['learned_brier']} "
+                            f"v market {wf['market_brier']}. Largest weights: {top}. Promotion = the board's chance "
+                            "(or the panel's probability) uses the learned model. Architect decision."})
+    for k, v in (rd("memory/fact_record.json").get("facts") or {}).items():
+        if v.get("trusted") and abs(v.get("residual") or 0) >= 0.05:
+            out.append({"title": f"Promotion ready: fact '{k}' moves results beyond the market", "ev": 4.0,
+                        "kind": "promote",
+                        "body": f"engine/fact_sheet.py study: {v['n']} graded picks, won {v['won_rate']:.0%} v market "
+                                f"{v['market_rate']:.0%} (residual {v['residual']:+.1%}). Promotion = the fact becomes "
+                                "a model input via engine/learned_weights.py. Architect decision."})
+    for fam, a in (rd("memory/panel_record.json").get("authority") or {}).items():
+        if (a or {}).get("earned"):
+            out.append({"title": f"Promotion ready: verdict panel earned authority in {fam}", "ev": 4.0,
+                        "kind": "promote",
+                        "body": f"engine/verdict_panel.py earned_authority: {a}. Promotion = VERDICT_STAKES on for this "
+                                "family. Architect decision."})
+    return out
+
+
+def proposals(inputs: list[dict], loops: list[dict]) -> list[dict]:
+    out = promotions()
     for r in loops:
         if not r["ok"]:
             out.append({"title": f"Learning loop stalled: {r['loop']}", "ev": 10.0, "kind": "fix",

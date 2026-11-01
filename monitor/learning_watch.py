@@ -132,6 +132,51 @@ def shadow_picks(text: str | None) -> int:
     return int(_json(text).get("picks") or 0)
 
 
+# Bot-training plan loops (2026-11-01). A loop built today has no evidence yet: until START + its
+# allowance it reads as fresh on START, after that it must show its own evidence.
+NEW_LOOPS_START = "2026-11-01"
+
+
+def _or_grace(newest: str | None, allow: int, today: date | None = None) -> str | None:
+    if newest:
+        return newest
+    today = today or datetime.now(UTC).date()
+    start = date.fromisoformat(NEW_LOOPS_START)
+    return NEW_LOOPS_START if today <= start + timedelta(days=allow) else None
+
+
+def facts_date() -> str | None:
+    """Newest fact sheet in which at least one model answered."""
+    best = None
+    for f in sorted((ROOT / "output" / "facts").glob("facts_*.json")):
+        d = _json(f.read_text(encoding="utf-8"))
+        if any((m or {}).get("answered") for m in (d.get("members") or {}).values()):
+            best = (d.get("run_at") or d.get("date") or "")[:10] or best
+    return _or_grace(best, 2)
+
+
+def panel_member_rows(text: str | None) -> int:
+    return sum(1 for r in _json(text).get("history") or [] if r.get("members"))
+
+
+def learned_weights_date() -> str | None:
+    return _or_grace((_json(_read("memory/learned_weights.json")).get("built_at") or "")[:10] or None, 2)
+
+
+def prompt_contest_date() -> str | None:
+    """A contest is running (a challenger exists) or ended recently."""
+    d = _json(_read("memory/panel_prompts.json"))
+    ch = d.get("challenger") or {}
+    ended = [h.get("ended") for h in d.get("history") or [] if h.get("ended")]
+    return _or_grace(ch.get("since") or (max(ended) if ended else None), 30)
+
+
+def ai_review_date() -> str | None:
+    rows = [h for h in _jsonl(ROOT / "memory" / "hypotheses.jsonl")
+            if str(h.get("source") or "").startswith("ai-review")]
+    return _or_grace(max((h.get("added") or "") for h in rows) if rows else None, 9)
+
+
 # (name, what it learns, kind, reader, file for GREW, allowance days)
 LOOPS: list[tuple] = [
     ("results learning", "engine/learning.py chance shift per family / league", "fresh",
@@ -149,6 +194,14 @@ LOOPS: list[tuple] = [
     ("reasoning lessons", "engine/reasoning.py daily market rules", "fresh", reasoning_date, None, 3),
     ("experiment engine", "engine/experiments.py strategies in shadow", "fresh", strategies_date, None, 3),
     ("nightly refit", "engine/retrain.py out-of-sample refit", "fresh", retrain_date, None, 3),
+    ("AI fact sheet", "engine/fact_sheet.py facts 2 of 3 models agree on", "fresh", facts_date, None, 2),
+    ("verdict panel", "engine/verdict_panel.py graded picks the AI members answered", "grew",
+     panel_member_rows, "memory/panel_record.json", 4),
+    ("learned weights", "engine/learned_weights.py walk-forward weights per member / fact", "fresh",
+     learned_weights_date, None, 2),
+    ("prompt contest", "verdict_panel.prompt_round champion v challenger prompt", "fresh",
+     prompt_contest_date, None, 30),
+    ("AI weekly review", "research/ai_review.py hypotheses the models proposed", "fresh", ai_review_date, None, 9),
 ]
 
 

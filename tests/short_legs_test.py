@@ -30,10 +30,10 @@ board = [bf(0, 0.95, 1.12), bf(1, 0.94, 1.10), bf(2, 0.93, 1.11), bf(3, 0.84, 1.
 slips = sl.build(board)
 assert len(slips) == 1, slips
 name, legs, chance = slips[0]
-assert name == "Short-3 #1" and [l[0].fixture[:2] for l in legs] == ["H0", "H1", "H2"]
+assert name == "Short-3 #1" and [x[0].fixture[:2] for x in legs] == ["H0", "H1", "H2"]
 odds = legs[0][4] * legs[1][4] * legs[2][4]
 assert odds >= sl.SLIP_MIN_ODDS and abs(chance - 0.95 * 0.94 * 0.93) < 1e-9
-assert all(l[3] == "SB:18|total=1.5|Over 1.5" for l in legs)
+assert all(x[3] == "SB:18|total=1.5|Over 1.5" for x in legs)
 src = (ROOT / "run_daily.py").read_text(encoding="utf-8")
 assert "sl.safest_is_short" in src and "sl.with_edge" in src and 'extra_codes["short3"]' in src
 led = (ROOT / "engine" / "picks_ledger.py").read_text(encoding="utf-8")

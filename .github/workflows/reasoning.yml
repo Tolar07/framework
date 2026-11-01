@@ -70,8 +70,8 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          python3 monitor/fdata.py save "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json
-          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
+          python3 monitor/fdata.py save "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json memory/panel_prompts.json
+          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json memory/panel_prompts.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
           if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
           git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           for i in 1 2 3; do

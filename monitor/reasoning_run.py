@@ -77,6 +77,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"verdict panel: {VP.grade(now=now)} newly graded · {VP.summary_line()}")
     except Exception as e:  # noqa: BLE001 — never blocks the verdict record
         print(f"verdict panel: grading failed: {e}")
+    try:     # step 4 (2026-11-01): champion v challenger prompt; the better Brier stays
+        print(VP.prompt_round())
+    except Exception as e:  # noqa: BLE001
+        print(f"prompt contest failed: {e}")
     # step 2 of the bot-training plan (2026-11-01): the models fill a FACT sheet (2 of 3 must agree),
     # recorded only; the study sets each fact against the market once the picks are graded
     from engine import fact_sheet as FS

@@ -45,6 +45,7 @@ from typing import Callable, Optional
 
 ROOT = Path(__file__).parent.parent
 PANEL_RECORD = ROOT / "memory" / "panel_record.json"
+PROMPTS_FILE = ROOT / "memory" / "panel_prompts.json"   # step 4: champion v challenger prompt
 OUT_DIR = ROOT / "output" / "reasoning"
 LEDGER_DIR = ROOT / "output" / "picks"
 
@@ -236,9 +237,9 @@ def chat_json(name: str, model: str, key: str, content: str, post: Callable, tim
     return obj
 
 
-def ask(name: str, model: str, key: str, rows: list[dict], post: Callable) -> dict:
+def ask(name: str, model: str, key: str, rows: list[dict], post: Callable, prompt: str = PROMPT) -> dict:
     """One member, one batch -> {id: prob}. Raises RateLimited / PaidModelError / ChargedError."""
-    obj = chat_json(name, model, key, PROMPT + json.dumps(rows, ensure_ascii=False), post)
+    obj = chat_json(name, model, key, prompt + json.dumps(rows, ensure_ascii=False), post)
     out = {}
     for p in obj.get("picks") or []:
         v = _num(p.get("prob"))
@@ -320,6 +321,135 @@ def authority_table(history: list[dict]) -> dict:
     return {f"{d} | {f} | {s}": earned_authority(d, f, history, s) for d, f, s in keys}
 
 
+# ---------------------------------------------------------------- prompt contest (plan step 4)
+MIN_PROMPT_N = 60                 # graded picks each prompt needs before the contest is decided
+PROMPT_MUST = ("anchor", "Never invent", '"picks"', '"prob"', "PICKS:")
+WRITE_PROMPT = """You improve the instructions given to a panel of language models that price football and
+basketball picks. Below: the CURRENT instructions, the lessons the framework wrote from its graded mistakes,
+and how the current instructions scored. Write ONE improved version that applies the lessons. Keep every
+rule about starting from the anchor (the sharp market's chance), moving at most 0.08 and only for a
+concrete fact, never inventing a number or news item (keep the words "Never invent"), treating null or
+PENDING as unknown, and the exact JSON answer format ({"picks": [{"id", "prob", "why"}]}). The text must
+end with the line "PICKS:". Return JSON only: {"prompt": "<the full new instructions>", "change": "<one sentence>"}
+"""
+
+
+def load_prompts(path: Path = PROMPTS_FILE) -> dict:
+    """{"champion": {id, text}, "challenger": {id, text, since} | None, "history": [...]}."""
+    try:
+        d = json.loads(path.read_text(encoding="utf-8"))
+        if d.get("champion", {}).get("text"):
+            return d
+    except (OSError, ValueError):
+        pass
+    return {"champion": {"id": "p0", "text": PROMPT}, "challenger": None, "history": []}
+
+
+def prompt_for(ctx: dict, prompts: dict) -> str:
+    """The prompt id for one pick: half the fixtures (stable by name) go to the challenger."""
+    ch = prompts.get("challenger")
+    if not ch:
+        return prompts["champion"]["id"]
+    import zlib
+    return ch["id"] if zlib.crc32(str(ctx.get("fixture") or "").encode()) % 2 else prompts["champion"]["id"]
+
+
+def valid_prompt(text: str) -> bool:
+    return (isinstance(text, str) and 300 <= len(text) <= 5000 and all(m in text for m in PROMPT_MUST)
+            and text.rstrip().endswith("PICKS:"))
+
+
+def prompt_scores(history: list[dict]) -> dict:
+    """{prompt id: {"n", "brier"}}: Brier of the members' mean probability on graded rows."""
+    out: dict = {}
+    for r in history:
+        vals = [v for v in (r.get("members") or {}).values() if v is not None]
+        if not vals or not r.get("prompt"):
+            continue
+        c = out.setdefault(r["prompt"], {"n": 0, "sq": 0.0})
+        c["n"] += 1
+        c["sq"] += (sum(vals) / len(vals) - float(r["won"])) ** 2
+    return {k: {"n": v["n"], "brier": round(v["sq"] / v["n"], 4)} for k, v in out.items()}
+
+
+def decide(prompts: dict, history: list[dict]) -> tuple[str, dict]:
+    """("promote" | "retire" | "wait" | "none", scores). Promote: the challenger's Brier beats the
+    champion's by BRIER_MARGIN on MIN_PROMPT_N each; retire: 2x that many and still not better."""
+    sc = prompt_scores(history)
+    ch = prompts.get("challenger")
+    if not ch:
+        return "none", sc
+    a, b = sc.get(prompts["champion"]["id"], {"n": 0}), sc.get(ch["id"], {"n": 0})
+    if a["n"] >= MIN_PROMPT_N and b["n"] >= MIN_PROMPT_N:
+        if b["brier"] + BRIER_MARGIN <= a["brier"]:
+            return "promote", sc
+        if b["n"] >= 2 * MIN_PROMPT_N:
+            return "retire", sc
+    return "wait", sc
+
+
+def write_challenger(prompts: dict, scores: dict, lessons: list, post: Callable, get: Callable,
+                     key: Optional[str] = None) -> Optional[dict]:
+    """A new challenger written by Gemini from the lessons, or None (no key, no answer, or invalid)."""
+    key = key if key is not None else member_key("gemini")
+    if not key:
+        return None
+    model = pick_model("gemini", get, key)
+    content = (WRITE_PROMPT + "\nCURRENT INSTRUCTIONS:\n" + prompts["champion"]["text"]
+               + "\nLESSONS:\n" + json.dumps(lessons[:12], ensure_ascii=False)
+               + "\nSCORES (Brier, lower is better):\n" + json.dumps(scores))
+    try:
+        obj = chat_json("gemini", str(model), key, content, post, timeout=180)
+    except Exception:  # noqa: BLE001
+        return None
+    text = str(obj.get("prompt") or "")
+    if not text.rstrip().endswith("PICKS:"):
+        text = text.rstrip() + "\n\nPICKS:"
+    if not valid_prompt(text):
+        return None
+    n = 1 + max([int(str(h.get("id", "p0"))[1:] or 0) for h in prompts.get("history") or []]
+                + [int(str(prompts["champion"]["id"])[1:] or 0)])
+    return {"id": f"p{n}", "text": text + "\n", "change": str(obj.get("change") or "")[:200],
+            "since": datetime.now(UTC).date().isoformat()}
+
+
+def prompt_round(path: Path = PROMPTS_FILE, record_path: Path = PANEL_RECORD,
+                 post: Optional[Callable] = None, get: Optional[Callable] = None,
+                 key: Optional[str] = None) -> str:
+    """Decide the contest; promote or retire; write a challenger when there is none. One line back."""
+    if get is None or post is None:
+        import requests
+        get, post = get or requests.get, post or requests.post
+    prompts = load_prompts(path)
+    hist = load_record(record_path).get("history") or []
+    verdict, sc = decide(prompts, hist)
+    msg = f"prompt contest: {verdict}"
+    if verdict in ("promote", "retire"):
+        ch, champ = prompts["challenger"], prompts["champion"]
+        win, lose = (ch, champ) if verdict == "promote" else (champ, ch)
+        prompts["history"] = (prompts.get("history") or []) + [
+            {"id": lose["id"], "text": lose["text"], "ended": datetime.now(UTC).date().isoformat(),
+             "scores": sc, "lost_to": win["id"]}]
+        prompts["champion"], prompts["challenger"] = {"id": win["id"], "text": win["text"]}, None
+        msg += f" · {win['id']} now champion ({sc})"
+    if not prompts.get("challenger"):
+        try:
+            from engine import reasoning as R
+            lessons = (R.load_lessons().get("football") or {}).get("lessons") or []
+        except Exception:  # noqa: BLE001
+            lessons = []
+        new = write_challenger(prompts, sc, lessons, post, get, key)
+        if new:
+            prompts["challenger"] = new
+            msg += f" · new challenger {new['id']}: {new['change']}"
+        else:
+            msg += " · no new challenger this run"
+    else:
+        msg += " · " + ", ".join(f"{k} n{v['n']} {v['brier']}" for k, v in sc.items())
+    path.write_text(json.dumps(prompts, indent=1, ensure_ascii=False), encoding="utf-8")
+    return msg
+
+
 # ---------------------------------------------------------------- the panel
 def _row(i: int, ctx: dict, anchor: float, source: str) -> dict:
     return {"id": i, "fixture": ctx.get("fixture"), "league": ctx.get("league"), "pick": ctx.get("pick"),
@@ -331,7 +461,8 @@ def _row(i: int, ctx: dict, anchor: float, source: str) -> dict:
 
 def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
              post: Optional[Callable] = None, record_path: Path = PANEL_RECORD, stage: str = "board",
-             clock: Callable = time.monotonic, parallel: bool = True) -> dict:
+             clock: Callable = time.monotonic, parallel: bool = True,
+             prompts_path: Optional[Path] = None) -> dict:
     """{"members": {...run info...}, "picks": [panel block per ctx]}. Never raises."""
     if get is None or post is None:
         import requests
@@ -345,6 +476,12 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
         anchors.append((m, "market") if m is not None else (b, "model") if b is not None else (None, None))
     idx = [i for i, (a, _) in enumerate(anchors) if a is not None]
     answers: dict = {n: {} for n in MEMBERS}
+    # step 4 (2026-11-01): with a challenger prompt, half the picks (by fixture) go to each prompt
+    prompts = load_prompts(prompts_path or PROMPTS_FILE)
+    variant = {i: prompt_for(ctxs[i], prompts) for i in idx}
+    texts = {p["id"]: p["text"] for p in (prompts["champion"], prompts.get("challenger")) if p}
+    batches = [(pid, ids[j:j + BATCH]) for pid in texts for ids in [[i for i in idx if variant[i] == pid]]
+               for j in range(0, len(ids), BATCH)]
     t0 = clock()
 
     def member(name: str) -> None:
@@ -359,17 +496,16 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
             return
         info[name] = {"model": model, "status": "ok", "answered": 0}
         fails = 0
-        for j in range(0, len(idx), BATCH):
+        for pid, part in batches:
             if clock() - t0 > BUDGET_S:
                 info[name]["status"] = f"time budget {BUDGET_S:.0f}s used; {info[name]['answered']} answered"
                 break
             if fails >= MAX_FAILS:
                 info[name]["status"] = f"off for this run after {fails} failed batches: {info[name]['status']}"
                 break
-            part = idx[j:j + BATCH]
             rows = [_row(i, ctxs[i], anchors[i][0], anchors[i][1]) for i in part]
             try:
-                got = ask(name, model, key, rows, post)
+                got = ask(name, model, key, rows, post, texts[pid])
             except RateLimited as e:
                 # A ":free" OpenRouter model is often throttled upstream; the next free one may answer.
                 # A Gemini model over its free quota: the next Gemini model has its own quota.
@@ -378,7 +514,7 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
                 if nxt:
                     info[name]["model"] = model = nxt
                     try:
-                        got = ask(name, model, key, rows, post)
+                        got = ask(name, model, key, rows, post, texts[pid])
                     except Exception as e2:  # noqa: BLE001
                         info[name]["status"] = f"off for this run: {e2}"
                         break
@@ -415,7 +551,7 @@ def evaluate(ctxs: list[dict], keys: Optional[dict] = None, get: Optional[Callab
     for i, c in enumerate(ctxs):
         anchor, src = anchors[i]
         mem = {n: round(answers[n][i], 4) for n in names if i in answers[n]}
-        blk = {"stage": stage, "anchor": anchor, "anchor_source": src, "members": mem,
+        blk = {"stage": stage, "anchor": anchor, "anchor_source": src, "members": mem, "prompt": variant.get(i),
                "domain": c.get("domain") or "football", "family": c.get("family")}
         w = {n: weights[n]["weight"] for n in mem if weights[n]["weight"] > 0}
         if anchor is not None and w:
@@ -505,6 +641,7 @@ def grade(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: P
                     live = _num(x.get("ai_chance"))
                     hist.append({"id": rid, "date": r["date"], "domain": blk.get("domain") or sport,
                                  "family": blk.get("family"), "stage": blk.get("stage") or "board",
+                                 "prompt": blk.get("prompt"),
                                  "anchor": blk.get("anchor"), "members": blk.get("members") or {},
                                  "panel_prob": blk["panel_prob"], "edge": blk.get("edge"),
                                  "live_prob": live if live is not None else _num(x.get("model_chance")),

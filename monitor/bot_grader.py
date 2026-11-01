@@ -918,9 +918,20 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
     changed = write_back(real, now)
     notes += push_repos(changed, now) if os.environ.get("GITHUB_ACTIONS") == "true" else \
         [f"graded files written for {', '.join(changed) or 'no repo'} (not pushed outside Actions)"]
+    learning = ""
+    try:      # the bots' paper challengers (bot-training step 5), for the report and self_improve
+        from monitor import bot_learning
+        rows = bot_learning.collect(BOTS)
+        bot_learning.save(rows)
+        learning = bot_learning.report_block(rows)
+        notes.append(f"challengers read for {len(rows)} bot ledger(s)")
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"challengers not read: {type(e).__name__}")
     due = today if force_report else report_day(now)
     if due:
         text = build_report(graded, due, tally)
+        if learning:
+            text += "\n\n" + learning
         if datetime.fromisoformat(due).weekday() == 6:
             text += "\n\n" + weekly_summary(graded, due)
         ok, _ = send(text)

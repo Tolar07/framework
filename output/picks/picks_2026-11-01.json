@@ -2067,8 +2067,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.12,
    "ev": -0.043776959383322045,
    "missing": {
@@ -2373,8 +2373,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": 0.007859758935276018,
    "missing": {
@@ -2550,8 +2550,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.05101564836601291,
    "missing": {
@@ -3021,7 +3021,11 @@
     "home": 49465507,
     "away": 101991387
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "matchup": {
     "say": "Union Berlin: blunt attack v tight defence; 1. FC K\u00f6ln: counter side v high line -> BTTS",
     "xg": [
@@ -3277,7 +3281,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Strasbourg v Auxerre",
@@ -3343,8 +3349,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.017690116060875116,
    "missing": {
@@ -4763,7 +4769,9 @@
     "yes": -0.0362,
     "no": 0.0362,
     "signal": null
-   }
+   },
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Getafe v Sevilla",
@@ -6119,8 +6127,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.76,
    "stake_pct": 0.25,
    "ev": -0.012007742131997623,
    "missing": {
@@ -6282,8 +6290,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 3.36,
    "stake_pct": 0.25,
    "ev": -0.0420402903614413,
    "missing": {
@@ -7281,8 +7289,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.25,
    "ev": -0.03508813339413408,
    "missing": {
@@ -22773,8 +22781,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -2.27,
    "stake_pct": 0.25,
    "ev": -0.05933350081076583,
    "missing": {

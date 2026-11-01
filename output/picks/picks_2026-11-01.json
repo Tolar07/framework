@@ -4536,7 +4536,11 @@
     "home": 85426844,
     "away": 40227058
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Braga rotated: confirmed XI worth 63% of predicted",
+    "at": "20:00Z"
+   },
    "matchup": {
     "say": "Famalic\u00e3o: blunt attack v tight defence -> no strong goals lean",
     "xg": [
@@ -4572,8 +4576,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.12,
    "ev": -0.08666413848665355,
    "missing": {

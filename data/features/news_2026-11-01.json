@@ -182,7 +182,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T11:00Z",
   "away_missing_share": 0.05059710558892728,
   "away_unavailable": 1,
   "fotmob_id": 5811793,
@@ -396,7 +396,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T11:00Z",
   "away_missing_share": 0.384554743910575,
   "away_unavailable": 4,
   "fotmob_id": 5881715,
@@ -544,7 +544,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T11:00Z",
   "away_missing_share": 0.2007780273266056,
   "away_unavailable": 5,
   "fotmob_id": 5881711,
@@ -645,7 +645,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T11:00Z",
   "away_missing_share": 0.1396431679261196,
   "away_unavailable": 3,
   "fotmob_id": 5881712,
@@ -844,6 +844,43 @@
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Lecce v Genoa": {
+  "absent": [
+   {
+    "name": "Ivan Ili\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Willem Geubbels",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Medon Berisha",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenzo Venturino",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Elias Havel",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T11:00Z",
+  "away_missing_share": 0.08779497373300323,
+  "away_unavailable": 2,
+  "fotmob_id": 5749737,
+  "home_missing_share": 0.3567799034044118,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-01T17:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Liverpool v Arsenal": {
   "absent": [
    {
@@ -1002,6 +1039,43 @@
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "NK Lokomotiva Zagreb v NK Osijek": {
+  "absent": [
+   {
+    "name": "Fran Kara\u010di\u0107",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Marko Paja\u010d",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Anton Matkovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luka Vrban\u010di\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jona Je\u017ei\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T11:00Z",
+  "away_missing_share": 0.5950747678741949,
+  "away_unavailable": 8,
+  "fotmob_id": 5765950,
+  "home_missing_share": 0.11617176103061756,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-01T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Nordsjaelland v Midtjylland": {
   "absent": [
    {
@@ -1038,6 +1112,48 @@
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "PAOK v Asteras Tripolis": {
+  "absent": [
+   {
+    "name": "Tom Louchet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fedor Chalov",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Michailidis",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juli\u00e1n Bartolo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Issiaga Sylla",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adri\u00e1n Riera",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T11:00Z",
+  "away_missing_share": 0.15486674799216943,
+  "away_unavailable": 3,
+  "fotmob_id": 5943287,
+  "home_missing_share": 0.2854502844956948,
+  "home_unavailable": 8,
+  "kickoff_utc": "2026-11-01T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Paris FC v Monaco": {
   "absent": [

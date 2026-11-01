@@ -256,14 +256,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:20Z",
-  "away_missing_share": 0.08320121609712354,
+  "at": "2026-11-01T10:40Z",
+  "away_missing_share": 0.0879789999438899,
   "away_unavailable": 4,
   "fotmob_id": 5749733,
-  "home_missing_share": 0.37151981613870894,
+  "home_missing_share": 0.4135580921229633,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-01T11:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Djurgardens IF v Degerfors IF": {
   "absent": [
@@ -842,6 +842,48 @@
   "home_missing_share": 0.19449501461489085,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T14:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Liverpool v Arsenal": {
+  "absent": [
+   {
+    "name": "Dominik Szoboszlai",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Hugo Ekitik\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jeremie Frimpong",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "William Saliba",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Bukayo Saka",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Christos Tzolis",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T10:40Z",
+  "away_missing_share": 0.29883696898314255,
+  "away_unavailable": 4,
+  "fotmob_id": 5795501,
+  "home_missing_share": 0.29918784781027274,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-01T16:30:00.000Z",
   "lineup_type": "predicted"
  },
  "Lugano v Basel": {
@@ -1537,20 +1579,15 @@
     "name": "Luka Reischl",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Donat Barany",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:20Z",
-  "away_missing_share": 0.13397967273107494,
-  "away_unavailable": 2,
+  "at": "2026-11-01T10:40Z",
+  "away_missing_share": 0.07616385979205796,
+  "away_unavailable": 1,
   "fotmob_id": 5781792,
-  "home_missing_share": 0.22843011515655753,
+  "home_missing_share": 0.2333931210103262,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T11:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  }
 }

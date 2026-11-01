@@ -226,6 +226,13 @@ def main(argv: list[str] | None = None) -> int:
         importlib.import_module("profile_study").main()
         if morning_due:
             print(f"[{now:%H:%M}Z] {send_daily_note(now)}")
+    try:
+        # every bot bet graded by game + market + side, written beside each bot's ledger, and the
+        # daily report at 23:00 UK to the Architect's chat (improvement plan point 4, 2026-11-01)
+        from monitor import bot_grader
+        print(f"[{now:%H:%M}Z] {bot_grader.run(now)}")
+    except Exception as e:  # noqa: BLE001 — the grader never stops the sweep
+        print(f"[{now:%H:%M}Z] bot grader skipped ({type(e).__name__}: {str(e)[:60]})")
     print(f"[{now:%H:%M}Z] {persist(now)}")
     return 0
 

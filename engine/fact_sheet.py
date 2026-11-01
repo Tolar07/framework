@@ -44,6 +44,11 @@ NATIVE_URL = os.getenv("GEMINI_NATIVE_URL", "https://generativelanguage.googleap
 BATCH = 6                                   # fixtures per call
 BUDGET_S = float(os.getenv("FACT_SHEET_BUDGET_S", "420"))
 MIN_AGREE = 2
+# Readers of Gemini's (or FotMob's) evidence: reader -> panel member whose key and endpoint it uses.
+# nvidia_alt is a second, different model family on NVIDIA's free key (2026-11-01 23:00: OpenRouter's
+# free allowance was spent on every model, so one reader was left and no fact could be agreed).
+READERS = {"nvidia": "nvidia", "nvidia_alt": "nvidia", "openrouter": "openrouter"}
+NVIDIA_ALT_MODEL = os.getenv("FACT_NVIDIA_ALT_MODEL", "mistralai/mistral-large-4-1t-a52b")
 WAIT_429_S = 45                             # one wait on a 429 before the next Gemini model
 MAX_RATED = 20                              # rated games NOT bet on, also sheeted (learning beyond our bets)
 MIN_STUDY_N = 30                            # below this a fact's residual is shown but not trusted
@@ -228,7 +233,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
     keys = keys if keys is not None else {n: VP.member_key(n) for n in VP.MEMBERS}
     fxs = fixtures(singles)
     info: dict = {}
-    answers: dict = {n: {} for n in VP.MEMBERS}
+    answers: dict = {n: {} for n in ("gemini", *READERS)}
     evidence: dict = {}
     t0 = clock()
     gkey = keys.get("gemini") or ""
@@ -277,11 +282,12 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
 
     def reader(name: str) -> None:
         # Each reader writes only its own info[name] / answers[name] entry.
-        key = keys.get(name) or ""
+        member = READERS[name]
+        key = keys.get(member) or ""
         if not key:
-            info[name] = {"status": f"missing secret {VP.MEMBERS[name]['key']}"}
+            info[name] = {"status": f"missing secret {VP.MEMBERS[member]['key']}"}
             return
-        model = VP.pick_model(name, get, key)
+        model = NVIDIA_ALT_MODEL if name == "nvidia_alt" else VP.pick_model(member, get, key)
         if not model:
             info[name] = {"status": "no free model available" if name == "openrouter" else "no model"}
             return
@@ -294,7 +300,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
             content = READ_PROMPT + json.dumps(rows, ensure_ascii=False)
             try:
                 try:
-                    obj = VP.chat_json(name, model, key, content, post)
+                    obj = VP.chat_json(member, model, key, content, post)
                 except VP.RateLimited:
                     # a ":free" OpenRouter model is often throttled upstream; the next free one may answer
                     # (2026-11-01 22:38: gemma 429 -> OpenRouter off, 0 agreed)
@@ -302,7 +308,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                     if not nxt:
                         raise
                     info[name]["model"] = model = nxt
-                    obj = VP.chat_json(name, model, key, content, post)
+                    obj = VP.chat_json(member, model, key, content, post)
             except (VP.RateLimited, VP.PaidModelError, VP.ChargedError) as e:
                 info[name]["status"] = f"off for this run: {e}"
                 break
@@ -317,12 +323,12 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
 
     # 2026-11-01 20:08: read one after another, NVIDIA used the whole budget and OpenRouter answered 0
     from concurrent.futures import ThreadPoolExecutor
-    with ThreadPoolExecutor(max_workers=2) as ex:
-        list(ex.map(reader, ["nvidia", "openrouter"]))
+    with ThreadPoolExecutor(max_workers=len(READERS)) as ex:
+        list(ex.map(reader, list(READERS)))
     out = []
     for fx in fxs:
         i = fx["id"]
-        by = {n: answers[n][i] for n in VP.MEMBERS if i in answers[n]}
+        by = {n: answers[n][i] for n in answers if i in answers[n]}
         agreed, support = {}, {}
         for k in all_fields():
             v, n = agree(k, [a.get(k) for a in by.values()])

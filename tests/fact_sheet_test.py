@@ -206,6 +206,24 @@ def test_throttled_openrouter_reader_falls_to_the_next_free_model():
     assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
 
 
+def test_two_nvidia_model_families_agree_when_openrouter_is_spent():
+    # 2026-11-01 23:00: OpenRouter's free allowance spent on every model -> one reader, 0 agreed
+    seen_models = set()
+    news = {"Ajax v PSV": {"home_unavailable": 2, "absent": [{"name": "X", "side": "home", "type": "injury"}]}}
+
+    def post(url, json=None, **kw):
+        if ":generateContent" in url or "openrouter" in url:
+            return Resp({}, 429)
+        seen_models.add(json["model"])
+        body = __import__("json").dumps({"fixtures": [{"id": 0, "key_absences_home": 2}]})
+        return Resp({"choices": [{"message": {"content": body}}]})
+    doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get, post=post,
+                   sleep=lambda s: None, news=news)
+    assert FS.NVIDIA_ALT_MODEL in seen_models and len(seen_models) == 2
+    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
+    assert doc["fixtures"][0]["support"]["key_absences_home"] == 2
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

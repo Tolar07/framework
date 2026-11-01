@@ -790,7 +790,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T15:20Z",
+  "at": "2026-11-01T15:40Z",
   "away_missing_share": 0.05684235165112617,
   "away_unavailable": 3,
   "fotmob_id": 5967138,
@@ -1012,7 +1012,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:00Z",
+  "at": "2026-11-01T15:40Z",
   "away_missing_share": 0.08779497373300323,
   "away_unavailable": 2,
   "fotmob_id": 5749737,
@@ -1024,17 +1024,17 @@
  "Liverpool v Arsenal": {
   "absent": [
    {
-    "name": "Dominik Szoboszlai",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Hugo Ekitik\u00e9",
     "side": "home",
     "type": "injury"
    },
    {
     "name": "Jeremie Frimpong",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giovanni Leoni",
     "side": "home",
     "type": "injury"
    },
@@ -1049,19 +1049,19 @@
     "type": "injury"
    },
    {
-    "name": "Christos Tzolis",
+    "name": "Max Dowman",
     "side": "away",
-    "type": "injury"
+    "type": "suspension"
    }
   ],
-  "at": "2026-11-01T15:20Z",
-  "away_missing_share": 0.29883696898314255,
-  "away_unavailable": 4,
+  "at": "2026-11-01T15:40Z",
+  "away_missing_share": 0.2554602751695224,
+  "away_unavailable": 3,
   "fotmob_id": 5795501,
-  "home_missing_share": 0.29918784781027274,
-  "home_unavailable": 6,
+  "home_missing_share": 0.22035110961873772,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T16:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lommel SK v Gent": {
   "absent": [
@@ -1155,24 +1155,19 @@
     "type": "injury"
    },
    {
-    "name": "Emmanuel Biumla",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Amine El Ouazzani",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:20Z",
-  "away_missing_share": 0.13475440426617438,
-  "away_unavailable": 2,
+  "at": "2026-11-01T15:40Z",
+  "away_missing_share": 0.05350802139427284,
+  "away_unavailable": 1,
   "fotmob_id": 5802976,
-  "home_missing_share": 0.3509734441708888,
+  "home_missing_share": 0.384923836512327,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-01T16:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Malmo v Hammarby IF": {
   "absent": [
@@ -1283,7 +1278,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:00Z",
+  "at": "2026-11-01T15:40Z",
   "away_missing_share": 0.5950747678741949,
   "away_unavailable": 8,
   "fotmob_id": 5765950,
@@ -1362,7 +1357,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:00Z",
+  "at": "2026-11-01T15:40Z",
   "away_missing_share": 0.15486674799216943,
   "away_unavailable": 3,
   "fotmob_id": 5943287,
@@ -1463,14 +1458,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:20Z",
-  "away_missing_share": 0.17078468916091488,
+  "at": "2026-11-01T15:40Z",
+  "away_missing_share": 0.1636660294318085,
   "away_unavailable": 2,
   "fotmob_id": 5802979,
-  "home_missing_share": 0.3105232657083768,
+  "home_missing_share": 0.3340266569013173,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T16:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Racing Santander v Real Madrid": {
   "absent": [

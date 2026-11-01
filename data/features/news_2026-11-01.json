@@ -1369,14 +1369,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:40Z",
-  "away_missing_share": 0.051673095467695274,
+  "at": "2026-11-01T18:00Z",
+  "away_missing_share": 0.06243456601824813,
   "away_unavailable": 1,
   "fotmob_id": 5967135,
-  "home_missing_share": 0.2529640257188619,
+  "home_missing_share": 0.218339646752846,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Panathinaikos v AEK Athens": {
   "absent": [

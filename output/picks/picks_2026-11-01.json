@@ -6677,7 +6677,11 @@
     "home": 16623043,
     "away": 6180198
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "matchup": {
     "say": "Palermo: counter side v counter-exposed -> BTTS & goals",
     "xg": [
@@ -6712,8 +6716,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.04031812075321206,
    "missing": {

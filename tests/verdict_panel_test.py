@@ -221,10 +221,29 @@ def test_time_budget_stops_the_panel_and_keeps_what_answered():
     ticks = iter([0, 0, 0, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6, 10 ** 6])
     ctxs = [dict(CTX) for _ in range(25)]
     res = VP.evaluate(ctxs, keys=KEYS, get=get, post=answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.6}),
-                      record_path=tmp(), clock=lambda: next(ticks, 10 ** 6))
+                      record_path=tmp(), clock=lambda: next(ticks, 10 ** 6), parallel=False)
     assert res["members"]["gemini"]["answered"] == 2      # the fake answers one pick per batch: 2 batches in budget
     assert "time budget" in res["members"]["nvidia"]["status"]
     assert len(res["picks"]) == 25
+
+
+def test_members_are_asked_side_by_side():
+    # 2026-11-01: asked one after another, NVIDIA used the whole budget and OpenRouter got 0 answers
+    import threading
+    openrouter_asked = threading.Event()
+    seen = {}
+    base = answers({"gemini": 0.55, "nvidia": 0.55, "openrouter": 0.6})
+
+    def post(url, json=None, **kw):
+        if "openrouter" in url:
+            openrouter_asked.set()
+        if "nvidia" in url:
+            seen["openrouter_while_nvidia_busy"] = openrouter_asked.wait(timeout=5)
+        return base(url, json=json, **kw)
+    res = VP.evaluate([dict(CTX)], keys=KEYS, get=get, post=post, record_path=tmp())
+    assert seen["openrouter_while_nvidia_busy"] is True
+    assert res["members"]["openrouter"]["answered"] == 1
+    assert set(res["picks"][0]["members"]) == {"gemini", "nvidia", "openrouter"}
 
 
 def test_member_sits_out_after_two_failed_batches():

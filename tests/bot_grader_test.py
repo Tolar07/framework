@@ -235,4 +235,13 @@ assert ex and "Games bet today: 2; on all three bots: 0" in ex[0], ex
 assert any("Exeter City v Fleetwood Town: £1.50 on 2 tickets (Betfair, SportyBet)" in x for x in ex), ex
 assert "MONEY PER GAME TODAY" in bg.build_report(gall, "2026-10-31", {})
 
+# ── point 8: Betfair's 'singles covered' line in the one daily report ──────────
+bfj = json.loads(bfp.read_text())
+bfj["skipped"] = {"S9": "cash £0.40 < stake £1.00", "S8": "no Betfair twin for SB:548||2-4",
+                  "S7": "A v B: only £0.5 at 1.4", "S6": "weird", "b1/R2": "R2 out of room"}
+bfp.write_text(json.dumps(bfj))
+cov = bg.betfair_coverage("2026-10-31", root=bots)
+assert cov.startswith("Betfair singles covered: 1 of 5; missed - ") and "cash 1" in cov and "price/liquidity 1" in cov, cov
+assert bg.betfair_coverage("2026-01-01", root=bots) is None
+
 print("ALL BOT GRADER TESTS PASSED")

@@ -31,3 +31,10 @@ assert all(r["won"] == (r["key"] in ("SB:29||Yes", "SB:18|total=2.5|Over 2.5")) 
 L = ms.report(recs, ["2026-11-01"])
 assert any(x.startswith("| 50% |") for x in L)
 print("model_sides_study_test: OK")
+
+# a whole line (Over 2) is refunded on exactly 2: the chance leaves the refunds out, as the grading does
+w = ms.chance("SB:18|total=2|Over 2", g)
+from engine import full_markets as fm  # noqa: E402
+win, push = fm.evaluate(g, fm.rule_for(18, "total=2", "Over 2"))
+assert push > 0 and abs(w - win / (1 - push)) < 1e-9
+print("model_sides_study_test (whole lines): OK")

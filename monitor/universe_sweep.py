@@ -149,7 +149,7 @@ def _persist_framework(now: datetime) -> str:
          "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md", "data/teams",
          "backtest/PROFILE_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md",
          "data/features", "backtest/FEATURES_STUDY.md",
-         "backtest/BOTH_SIDES_STUDY.md")
+         "backtest/BOTH_SIDES_STUDY.md", "backtest/MODEL_SIDES_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -202,6 +202,10 @@ def main(argv: list[str] | None = None) -> int:
             importlib.import_module("both_sides_study").main()
         except Exception as e:  # noqa: BLE001 — the both-sides study never stops the sweep
             print(f"[{now:%H:%M}Z] both-sides study skipped ({str(e)[:60]})")
+        try:  # every side of every market at the model's own chance, paper (Architect 2026-11-01)
+            importlib.import_module("model_sides_study").main()
+        except Exception as e:  # noqa: BLE001 — the paper study never stops the sweep
+            print(f"[{now:%H:%M}Z] model sides study skipped ({str(e)[:60]})")
         try:
             importlib.import_module("matchbook_price_study").main()
         except Exception as e:  # noqa: BLE001 — the Matchbook study never stops the sweep

@@ -350,7 +350,9 @@ def sportybet_bets(repo: Path, since: str, cache: dict, board: dict | None = Non
                 continue
             placed = {(x.get("code") or "").upper(): x.get("section")
                       for x in _rows(_read(folder / f"placed_{day}.json"))}
-            for b in _rows(_read(p)):
+            day_led = _read(p) or {}
+            for b in list(_rows(day_led)) + [dict(t, section="survivor top-up")
+                                             for t in (day_led.get("topups") or {}).values()]:
                 if b.get("status") != "placed" or not b.get("code"):
                     continue
                 code = b["code"].upper()
@@ -372,9 +374,25 @@ def sportybet_bets(repo: Path, since: str, cache: dict, board: dict | None = Non
                     "bot": acct, "cur": "NGN", "date": day, "id": b.get("bet_id") or b["code"],
                     "code": b["code"], "kind": kind, "stake": float(b.get("stake") or 0),
                     "odds": float(b.get("odds") or 0), "paper": False})
+            # ON PAPER since 2026-11-01 (sportybet-agent #60): the rule's pick with the stake it would have had
+            for n, b in enumerate((_read(folder / sub / "ledger.json") or {}).get("paper") or []):
+                day = (b.get("at") or "")[:10]
+                if day < since:
+                    continue
+                name = label or f"rule {b.get('rule') or '?'}"
+                row = {"bot": acct, "cur": "NGN", "date": day, "id": f"paper-{sub}-{n}", "kind": f"{name} (paper)",
+                       "stake": float(b.get("stake") or 0), "odds": float(b.get("odds") or 0), "paper": True}
+                if b.get("code"):
+                    row["code"] = b["code"]
+                else:                               # steam: SEL:<event>|<market>|<specifier>|<outcome id>
+                    sel = (b.get("key") or "").removeprefix("SEL:").split("|")
+                    key = f"SB:{sel[1]}|{sel[2]}|{b.get('outcome')}" if len(sel) == 4 and b.get("outcome") else None
+                    row["legs"] = [{"event_id": b.get("sb_event") or sel[0], "ko": b.get("start"), "key": key}]
+                out[(acct, row["id"])] = row
     bets = list(out.values())
     for b in bets:
-        b["legs"] = code_legs(b["code"], cache) or []
+        if "legs" not in b:
+            b["legs"] = code_legs(b["code"], cache) or []
     return bets
 
 
@@ -437,13 +455,45 @@ def matchbook_bets(repo: Path, since: str) -> list[dict]:
             "legs": [{"home": home.strip(), "away": away.strip(), "ko": ko, "sport": sport,
                       "key": key, "own": own}],
         })
+    # ON PAPER since 2026-11-01 (matchbook-agent #135): steam and in-play picks never placed
+    for name in ("steam_paper.jsonl", "inplay_paper.jsonl"):
+        path = repo / "ledger" / name
+        for n, line in enumerate(path.read_text(encoding="utf-8").splitlines() if path.exists() else []):
+            try:
+                r = json.loads(line)
+            except ValueError:
+                continue
+            ko = r.get("start") or r.get("at") or ""
+            day = _uk_day(ko)
+            if day < since:
+                continue
+            key, home, away, sport = _mb_key(r)
+            out.append({"bot": "matchbook", "cur": "GBP", "date": day, "id": f"{name}-{n}",
+                        "kind": f"{r.get('source') or name.split('_')[0]} (paper)",
+                        "stake": float(r.get("stake_gbp") or 1), "odds": float(r.get("odds") or 0), "paper": True,
+                        "legs": [{"home": home.strip(), "away": away.strip(), "ko": ko, "sport": sport, "key": key}]})
     return out
 
 
 def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
     out = []
     for p in sorted((repo / "ledger").glob("paper_20??-??-??.json")):
-        for b in _rows(_read(p)):
+        d = _read(p) or {}
+        for b in d.get("paper_rules") or []:     # ON PAPER since 2026-11-01 (betfair-agent #2): R4 value
+            ko = b.get("kickoff_utc") or ""
+            day = _uk_day(ko) if ko else p.stem[6:]
+            if day < since:
+                continue
+            legs = (code_legs(b["code"].split("/")[0], cache) if b.get("code") else None) or []
+            if len(legs) != 1:
+                home, _, away = (b.get("fixture") or "").partition(" v ")
+                legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"),
+                         "sport": "basketball" if b.get("sport") == "nba" else "football"}]
+            out.append({"bot": "betfair", "cur": "GBP", "date": day, "id": f"paper-{b.get('code')}",
+                        "kind": f"{b.get('section') or '?'} {b.get('rule') or ''} (paper)".strip(),
+                        "stake": float(b.get("stake") or 0), "odds": float(b.get("price") or 0),
+                        "paper": True, "legs": legs})
+        for b in _rows(d):
             if b.get("mode") != "live" or not b.get("bet_id"):   # paper rows are the bot's own study
                 continue
             ko = b.get("kickoff_utc") or ""
@@ -452,7 +502,7 @@ def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
                 continue
             st = (b.get("result") or "").upper()
             own = {"WON": "won", "LOST": "lost", "VOIDED": "void", "VOID": "void"}.get(st)
-            legs = (code_legs(b["code"], cache) if b.get("code") else None) or []
+            legs = (code_legs(b["code"].split("/")[0], cache) if b.get("code") else None) or []
             if len(legs) != 1:
                 home, _, away = (b.get("fixture") or "").partition(" v ")
                 legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"),
@@ -600,7 +650,8 @@ def _days(today: str, n: int) -> str:
 def _bot_lines(bets: list[dict], since: str, today: str) -> list[str]:
     lines, total = [], 0.0
     for bot in ("matchbook", "betfair", "sportybet", "sportybet2"):
-        bs = [b for b in bets if b["bot"] == bot and since <= b["date"] <= today and b.get("profit") is not None]
+        bs = [b for b in bets if b["bot"] == bot and not b["paper"] and since <= b["date"] <= today
+              and b.get("profit") is not None]
         if not bs:
             continue
         cur = bs[0]["cur"]
@@ -655,18 +706,23 @@ def slip_types(bets: list[dict]) -> dict:
     g: dict[str, list[dict]] = defaultdict(list)
     for b in bets:
         if b.get("profit") is not None:
-            g[("paper " if b["paper"] else "") + (b["kind"] if b["paper"] else f"{b['bot']} {b['kind']}")].append(b)
+            g[("paper " if b["paper"] else "") + (b["kind"] if b["bot"] == "board" else f"{b['bot']} {b['kind']}")].append(b)
     return g
 
 
-def _paper_lines(groups: dict) -> list[str]:
+def _paper_lines(groups: dict, board: bool = True) -> list[str]:
+    """Board slips in units (1 each); the bots' papered rules in £ at the stakes they would have had."""
     out = []
     for name, bs in sorted(groups.items()):
-        if not name.startswith("paper "):
+        if not name.startswith("paper ") or (bs[0]["bot"] == "board") != board:
             continue
-        pr = sum(b["profit"] for b in bs)
-        out.append(f"{name[6:]}: {len(bs)} slips, {sum(b['result'] == 'won' for b in bs)} won, "
-                   f"{pr:+.2f} units ({pr / len(bs):+.0%})")
+        won = sum(b["result"] == "won" for b in bs)
+        if board:
+            pr = sum(b["profit"] for b in bs)
+            out.append(f"{name[6:]}: {len(bs)} slips, {won} won, {pr:+.2f} units ({pr / len(bs):+.0%})")
+        else:
+            st, pr = sum(_gbp(b, "stake") for b in bs), sum(_gbp(b, "profit") for b in bs)
+            out.append(f"{name[6:]}: {len(bs)} bets, {won} won, {_money(pr, 'GBP')} ({pr / st if st else 0:+.0%})")
     return out
 
 
@@ -710,6 +766,9 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
     out += ["", "BY RULE AND SLIP TYPE (real money, 30 days, £)"]
     out += _table({k: v for k, v in types.items() if not k.startswith("paper ")}, min_n=1, top=99) or ["none yet"]
     out += ["", "BOARD SLIPS AS PAPER (1 unit each, 30 days)"] + (_paper_lines(types) or ["none yet"])
+    rules_paper = _paper_lines(types, board=False)
+    if rules_paper:
+        out += ["", "RULES ON PAPER (stakes they would have had, 30 days, £)"] + rules_paper
     sl = study_lines()
     if sl:
         out += ["", "MODEL SIDES STUDY (paper singles, bar 50%)"] + sl

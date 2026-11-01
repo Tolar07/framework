@@ -202,4 +202,31 @@ sh("pull", "-q", "origin", "main", cwd=bot)
 assert (bot / "ledger" / "ledger.jsonl").read_text() == "v2 from the bot\n", "the bot's ledger kept"
 assert (bot / "ledger" / "graded" / "2026-10-31.json").exists(), "the grades landed"
 
+# ── rules on paper (2026-11-01): read from each bot, graded, never in the money totals ──
+(sb / "steam").mkdir(parents=True, exist_ok=True)
+(sb / "rules" / "ledger.json").write_text(json.dumps({"bets": [], "paper": [
+    {"at": "2026-10-31T10:00:00+00:00", "rule": "edge", "status": "paper", "code": "ABC123", "stake": 700,
+     "odds": 1.41}]}))
+(sb / "steam" / "ledger.json").write_text(json.dumps({"bets": [], "paper": [
+    {"at": "2026-10-31T12:00:00+00:00", "status": "paper", "sb_event": "sr:match:2", "outcome": "Home",
+     "key": "SEL:sr:match:2|1||1", "stake": 1000, "odds": 2.3, "start": "2026-10-31T17:30:00.000Z"}]}))
+(bots / "matchbook-agent" / "ledger" / "inplay_paper.jsonl").write_text(json.dumps(
+    {"source": "inplay", "mode": "paper", "event_name": "Bodo/Glimt vs Viking FK", "start": "2026-10-31T17:30:00.000Z",
+     "market_name": "Total", "runner_name": "UNDER 1.5", "odds": 1.8, "stake_gbp": 1.0}) + "\n")
+bfp = bots / "betfair-agent" / "ledger" / "paper_2026-10-31.json"
+bfj = json.loads(bfp.read_text())
+bfj["paper_rules"] = [{"code": "ABC123", "rule": "R4", "section": "value", "stake": 1.0, "price": 1.45,
+                       "kickoff_utc": "2026-10-31T15:00:00+00:00", "mode": "paper-rule"}]
+bfp.write_text(json.dumps(bfj))
+allb = (bg.sportybet_bets(bots / "sportybet-agent", "2026-10-25", cache)
+        + bg.matchbook_bets(bots / "matchbook-agent", "2026-10-25") + bg.betfair_bets(bots / "betfair-agent", "2026-10-25", cache))
+pg = {b["kind"]: bg.grade_slip(b, G, defaultdict(int), now) for b in allb if b["paper"]}
+assert set(pg) == {"rule edge (paper)", "steam (paper)", "inplay (paper)", "value R4 (paper)"}, set(pg)
+assert pg["steam (paper)"]["result"] == "won", "steam paper leg rebuilt from its selection key (Bodo 1-0, Home)"
+assert pg["inplay (paper)"]["result"] == "won" and pg["rule edge (paper)"]["result"] == "void"
+gall = [bg.grade_slip(b, G, defaultdict(int), now) for b in allb]
+rep_txt = bg.build_report(gall, "2026-10-31", {})
+assert "RULES ON PAPER" in rep_txt and "matchbook inplay (paper): 1 bets, 1 won" in rep_txt, rep_txt
+assert "Matchbook: 1 bets" in rep_txt, "paper never counts in a bot's money"
+
 print("ALL BOT GRADER TESTS PASSED")

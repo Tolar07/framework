@@ -37,21 +37,16 @@
     "name": "Nelson Abbey",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Brandon Aguilera",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:00Z",
-  "away_missing_share": 0.22079789441234687,
-  "away_unavailable": 3,
+  "at": "2026-11-01T17:20Z",
+  "away_missing_share": 0.17594724824083136,
+  "away_unavailable": 2,
   "fotmob_id": 5887663,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-01T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Amed Sportif Faaliyetler v Eyupspor": {
   "absent": [
@@ -300,7 +295,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:00Z",
+  "at": "2026-11-01T17:20Z",
   "away_missing_share": 0.05464444855475778,
   "away_unavailable": 2,
   "fotmob_id": 5811794,
@@ -1076,14 +1071,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:00Z",
+  "at": "2026-11-01T17:20Z",
   "away_missing_share": 0.019584341072172953,
   "away_unavailable": 1,
   "fotmob_id": 5811796,
   "home_missing_share": 0.07743736944125708,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T17:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Lugano v Basel": {
   "absent": [
@@ -1374,7 +1369,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:00Z",
+  "at": "2026-11-01T17:20Z",
   "away_missing_share": 0.051673095467695274,
   "away_unavailable": 1,
   "fotmob_id": 5967135,

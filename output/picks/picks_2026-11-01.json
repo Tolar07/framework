@@ -1548,7 +1548,11 @@
     "home": 25230005,
     "away": 35644945
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Lommel: blunt attack v tight defence; Gent: counter side v high line -> unders / one side blank",
     "xg": [
@@ -4198,7 +4202,11 @@
     "home": 7950281,
     "away": 17887982
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [

@@ -2533,7 +2533,34 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.6889
+   "panel_prob": 0.6889,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7089,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.722,
+     "nvidia": 0.7089
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7154,
+    "edge": -0.0485,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Ath Bilbao v Sociedad",
@@ -2819,7 +2846,34 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.6894
+   "panel_prob": 0.6894,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7294,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.742,
+     "nvidia": 0.7294
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7357,
+    "edge": -0.0436,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Tenerife v Andorra",
@@ -8441,6 +8495,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-11-01T16:40+00:00",
+   "picks": 2,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "ok",
+     "answered": 2
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 2
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

@@ -44,7 +44,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:00Z",
+  "at": "2026-11-01T16:40Z",
   "away_missing_share": 0.22079789441234687,
   "away_unavailable": 3,
   "fotmob_id": 5887663,
@@ -194,11 +194,6 @@
     "type": "injury"
    },
    {
-    "name": "K\u00e9vin Appin",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Ousmane Nana Camara",
     "side": "away",
     "type": "injury"
@@ -209,19 +204,19 @@
     "type": "injury"
    },
    {
-    "name": "Juanjo Nieto",
+    "name": "Fran Castillo",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:20Z",
-  "away_missing_share": 0.31195771384782073,
-  "away_unavailable": 4,
+  "at": "2026-11-01T16:40Z",
+  "away_missing_share": 0.23949236094172643,
+  "away_unavailable": 3,
   "fotmob_id": 5868515,
-  "home_missing_share": 0.5349652269212576,
-  "home_unavailable": 3,
+  "home_missing_share": 0.3032812105556846,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Cercle Brugge v Antwerp": {
   "absent": [
@@ -381,11 +376,6 @@
     "type": "injury"
    },
    {
-    "name": "Pedro Bigas",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Harvey Elliott",
     "side": "away",
     "type": "suspension"
@@ -401,14 +391,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:20Z",
+  "at": "2026-11-01T16:40Z",
   "away_missing_share": 0.3476801010327675,
   "away_unavailable": 6,
   "fotmob_id": 5868114,
-  "home_missing_share": 0.1187578388587803,
-  "home_unavailable": 2,
+  "home_missing_share": 0.10094924128622074,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Eldense v Granada": {
   "absent": [
@@ -1091,7 +1081,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:20Z",
+  "at": "2026-11-01T16:40Z",
   "away_missing_share": 0.08400883929781379,
   "away_unavailable": 2,
   "fotmob_id": 5811796,
@@ -1219,7 +1209,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:00Z",
+  "at": "2026-11-01T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5887668,
@@ -1421,7 +1411,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:20Z",
+  "at": "2026-11-01T16:40Z",
   "away_missing_share": 0.05288802347725265,
   "away_unavailable": 1,
   "fotmob_id": 5943285,

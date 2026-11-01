@@ -1150,8 +1150,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -2.33,
    "stake_pct": 0.25,
    "ev": -0.055326494150742755,
    "missing": null,
@@ -2224,8 +2224,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.12,
    "ev": -0.04529545778137656,
    "missing": {
@@ -2745,8 +2745,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.39,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0012708281469401284,
    "missing": {
@@ -5181,7 +5181,11 @@
     "home": 20573102,
     "away": 69301555
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -5806,7 +5810,11 @@
     "home": 3015260,
     "away": 7130211
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Burgos CF: aerial threat v weak in the air; Burgos CF: high press v build-up side; Castell\u00f3n: possession side v low block -> BTTS & goals",
     "xg": [
@@ -8420,8 +8428,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.039953786425108495,
    "missing": {

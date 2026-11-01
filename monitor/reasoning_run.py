@@ -91,8 +91,7 @@ def main(argv: list[str] | None = None) -> int:
             out = FS.OUT_DIR / f"facts_{d}.json"
             try:
                 picks = json.loads(src.read_text(encoding="utf-8"))
-                if out.exists() and not a.force and json.loads(out.read_text(encoding="utf-8")).get(
-                        "picks_generated_at") == picks.get("generated_at"):
+                if out.exists() and not a.force and FS.done(json.loads(out.read_text(encoding="utf-8")), picks):
                     continue
                 doc = FS.build(picks)
                 out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")

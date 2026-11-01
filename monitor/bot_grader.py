@@ -779,12 +779,41 @@ def ungraded_line(bets: list[dict], today: str) -> str:
     return f"Could not grade yet: {len(real)} bets" + (f" ({detail})" if detail else "")
 
 
+MISS = (("cash", ("cash ",)), ("no Betfair market", ("no betfair twin", "no market")),
+        ("not on Betfair", ("no event", "not on betfair", "no runner", "not found")),
+        ("price/liquidity", ("price", "only £", "no back")))
+
+
+def betfair_coverage(day: str, root: Path | None = None) -> str | None:
+    """Betfair's 'singles covered' line (the Architect, 2026-11-01 morning: "let's see if it's gonna cater
+    for all the singles"), moved here from Betfair's 22:41 report when that went quiet (point 8): the
+    SportyBet singles Betfair backed that day, and why the rest were missed."""
+    d = _read((root or BOTS) / "betfair-agent" / "ledger" / f"paper_{day}.json")
+    if not d:
+        return None
+    live = {b.get("code") for b in d.get("bets") or [] if b.get("mode") == "live" and "/" not in str(b.get("code"))}
+    missed: dict[str, int] = defaultdict(int)
+    for code, why in (d.get("skipped") or {}).items():
+        if code in live or "/" in code:
+            continue
+        w = str(why).lower()
+        missed[next((name for name, keys in MISS if any(k in w for k in keys)), "other")] += 1
+    total = len(live) + sum(missed.values())
+    if not total:
+        return None
+    why = ", ".join(f"{k} {v}" for k, v in sorted(missed.items(), key=lambda kv: -kv[1]))
+    return f"Betfair singles covered: {len(live)} of {total}" + (f"; missed - {why}" if why else "")
+
+
 def build_report(bets: list[dict], today: str, tally: dict) -> str:
     d7, d30 = _days(today, 7), _days(today, WINDOW)
     last30 = [b for b in bets if d30 <= b["date"] <= today]
     pretty = datetime.fromisoformat(today).strftime("%a %d %b")
     out = [f"BOT RESULTS {pretty} (graded by game, market and side)", "", "TODAY"]
     out += _bot_lines(bets, today, today)
+    cov = betfair_coverage(today)
+    if cov:
+        out.append(cov)
     out += ["", "LAST 7 DAYS"] + _bot_lines(bets, d7, today)
     out += ["", "LAST 30 DAYS"] + _bot_lines(bets, d30, today)
     out += ["", "BY MARKET AND SIDE (singles, all bots, 30 days, £)"] + (_table(market_side(last30)) or ["none yet"])

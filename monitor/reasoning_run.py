@@ -104,6 +104,15 @@ def main(argv: list[str] | None = None) -> int:
             print(FS.summary_line(frec))
         except Exception as e:  # noqa: BLE001
             print(f"fact sheet study failed: {e}")
+    # step 3 (2026-11-01): one model, fitted on the graded picks, decides how much each member and
+    # each fact counts; judged walk-forward against the market. Recorded only
+    from engine import learned_weights as LW
+    try:
+        lw = LW.build()
+        LW.RECORD.write_text(json.dumps(lw, indent=1), encoding="utf-8")
+        print(LW.summary_line(lw))
+    except Exception as e:  # noqa: BLE001
+        print(f"learned weights failed: {e}")
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))

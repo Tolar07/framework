@@ -3121,7 +3121,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Ein Frankfurt v Hamburg",
@@ -6663,7 +6665,11 @@
     "home": 20448135,
     "away": 20790295
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -6818,7 +6824,11 @@
     "home": 11087328,
     "away": 12610166
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Greuther F\u00fcrth missing 13% of value (Silas Pr\u00fcfrock, Maxim Dal, Benjamin Zank); support: Holstein Kiel missing 21%",
+    "at": "11:40Z"
+   },
    "matchup": {
     "say": "Greuther F\u00fcrth: counter side v high line; Greuther F\u00fcrth: counter side v counter-exposed; Holstein Kiel: high press v build-up side -> no strong goals lean",
     "xg": [
@@ -6985,7 +6995,11 @@
     "home": 15164092,
     "away": 10316545
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "matchup": {
     "say": "Hannover 96: set-piece threat v weak set-piece defence; Hannover 96: elite attack v leaky defence -> BTTS & goals",
     "xg": [

@@ -3091,7 +3091,34 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.729
+   "panel_prob": 0.729,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7785,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.788,
+     "nvidia": 0.73
+    },
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.759,
+    "edge": -0.0816,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 7,
+     "earned": false,
+     "panel_brier": 0.1188,
+     "live_brier": 0.1203,
+     "panel_brier_on_live": 0.1188,
+     "clv_n": 6,
+     "panel_clv_hit": 0.5,
+     "live_clv_hit": 0.5
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Greuther Furth v Holstein Kiel",
@@ -3163,7 +3190,34 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.826
+   "panel_prob": 0.826,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7863,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.782,
+     "nvidia": 0.76
+    },
+    "domain": "football",
+    "family": "Home goals",
+    "panel_prob": 0.771,
+    "edge": -0.0671,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 1,
+     "earned": false,
+     "panel_brier": 0.0296,
+     "live_brier": 0.04,
+     "panel_brier_on_live": 0.0296,
+     "clv_n": 1,
+     "panel_clv_hit": 0.0,
+     "live_clv_hit": 1.0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Hannover v Dresden",
@@ -3233,7 +3287,34 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.756
+   "panel_prob": 0.756,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7561,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.762,
+     "nvidia": 0.7561
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7591,
+    "edge": -0.0284,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Sheffield Wednesday v Blackpool FC",
@@ -7951,6 +8032,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-11-01T11:40+00:00",
+   "picks": 3,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "ok",
+     "answered": 3
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 3
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

@@ -1225,7 +1225,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Cercle Brugge v Antwerp",
@@ -2307,7 +2309,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Frosinone v Torino",
@@ -2828,7 +2832,9 @@
     "yes": -0.041,
     "no": 0.041,
     "signal": null
-   }
+   },
+   "drift_price": 1.39,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Juventus v Napoli",
@@ -3062,8 +3068,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.04604169779986933,
    "missing": {
@@ -8449,7 +8455,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.18,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Panathinaikos v AEK Athens",

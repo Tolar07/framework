@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T13:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.3214258974707087,
   "away_unavailable": 4,
   "fotmob_id": 5943284,
@@ -118,7 +118,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.178052103429498,
   "away_unavailable": 3,
   "fotmob_id": 5887664,
@@ -182,7 +182,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.27483275744989544,
   "away_unavailable": 5,
   "fotmob_id": 5107647,
@@ -278,7 +278,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:20Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.34026100482681254,
   "away_unavailable": 4,
   "fotmob_id": 5868517,
@@ -837,7 +837,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.3087130472154802,
   "away_unavailable": 5,
   "fotmob_id": 5107650,
@@ -878,6 +878,48 @@
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Juventus v Napoli": {
+  "absent": [
+   {
+    "name": "Kenan Y\u0131ld\u0131z",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kh\u00e9phren Thuram-Ulien",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Francisco Concei\u00e7\u00e3o",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Buongiorno",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "David Neres",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Beno\u00eet Badiashile",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T14:00Z",
+  "away_missing_share": 0.2810798494549315,
+  "away_unavailable": 8,
+  "fotmob_id": 5749735,
+  "home_missing_share": 0.48224702436413536,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-11-01T19:45:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Lausanne-Sport v FC Thun": {
   "absent": [
    {
@@ -911,7 +953,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.1809134796974843,
   "away_unavailable": 5,
   "fotmob_id": 5804287,
@@ -1101,7 +1143,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.2627437847276614,
   "away_unavailable": 7,
   "fotmob_id": 5804288,
@@ -1206,6 +1248,28 @@
   "kickoff_utc": "2026-11-01T18:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Marseille v Toulouse": {
+  "absent": [
+   {
+    "name": "Derek Cornelius",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rafik Messali",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T14:00Z",
+  "away_missing_share": 0.021804021010637758,
+  "away_unavailable": 1,
+  "fotmob_id": 5802977,
+  "home_missing_share": 0.011038651320599759,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-01T19:45:00.000Z",
+  "lineup_type": "predicted"
+ },
  "NK Lokomotiva Zagreb v NK Osijek": {
   "absent": [
    {
@@ -1271,14 +1335,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T13:40Z",
-  "away_missing_share": 0.335313274816581,
+  "at": "2026-11-01T14:00Z",
+  "away_missing_share": 0.336507062096052,
   "away_unavailable": 6,
   "fotmob_id": 5739541,
-  "home_missing_share": 0.024609691358342935,
+  "home_missing_share": 0.02434890740307724,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "PAOK v Asteras Tripolis": {
   "absent": [
@@ -1451,8 +1515,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:20Z",
-  "away_missing_share": 0.28571862027821726,
+  "at": "2026-11-01T14:00Z",
+  "away_missing_share": 0.29905470065007783,
   "away_unavailable": 5,
   "fotmob_id": 5868118,
   "home_missing_share": 0.19235516137879285,
@@ -1688,6 +1752,33 @@
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Tenerife v Andorra": {
+  "absent": [
+   {
+    "name": "Pau L\u00f3pez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gael Alonso",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Th\u00e9o Le Normand",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T14:00Z",
+  "away_missing_share": 0.3194279932085219,
+  "away_unavailable": 5,
+  "fotmob_id": 5868523,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-01T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Trabzonspor v Gaziantep FK": {
   "absent": [
    {
@@ -1780,7 +1871,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T09:40Z",
+  "at": "2026-11-01T14:00Z",
   "away_missing_share": 0.05927761761030033,
   "away_unavailable": 1,
   "fotmob_id": 5107652,

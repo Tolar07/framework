@@ -274,7 +274,7 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
         _bt = []
     if _bt:
         out += ["", _RULE, "bet365 BOTH TEAMS TO SCORE (same games as SportyBet TABLE 3D)", _RULE]
-        for _bf, _pk, _ch, _k, _pr in _bt[0][1]:
+        for _bf, _pk, _ch, _k, _pr in (_s[1][0] for _s in _bt):
             out.append(f"• {kickoff(_bf)} {_bf.fixture.split(' (')[0]} — Both Teams to Score: Yes "
                        f"({round(_ch*100)}%) · DEPLOY AT {deploy_at(_ch):.2f} · SportyBet {_pr:.2f}")
     out += ["", _RULE, "bet365 SINGLES", _RULE]

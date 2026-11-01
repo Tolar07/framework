@@ -214,7 +214,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.31195771384782073,
   "away_unavailable": 4,
   "fotmob_id": 5868515,
@@ -401,7 +401,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.3476801010327675,
   "away_unavailable": 6,
   "fotmob_id": 5868114,
@@ -790,14 +790,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T15:40Z",
-  "away_missing_share": 0.05684235165112617,
+  "at": "2026-11-01T16:00Z",
+  "away_missing_share": 0.05532165995444872,
   "away_unavailable": 3,
   "fotmob_id": 5967138,
-  "home_missing_share": 0.3624491707810636,
+  "home_missing_share": 0.32491564267260253,
   "home_unavailable": 8,
   "kickoff_utc": "2026-11-01T16:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "IF Elfsborg v Orgryte IS": {
   "absent": [
@@ -1012,7 +1012,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.08779497373300323,
   "away_unavailable": 2,
   "fotmob_id": 5749737,
@@ -1091,7 +1091,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.08400883929781379,
   "away_unavailable": 2,
   "fotmob_id": 5811796,
@@ -1278,7 +1278,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.5950747678741949,
   "away_unavailable": 8,
   "fotmob_id": 5765950,
@@ -1357,7 +1357,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.15486674799216943,
   "away_unavailable": 3,
   "fotmob_id": 5943287,
@@ -1421,7 +1421,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T16:00Z",
   "away_missing_share": 0.05288802347725265,
   "away_unavailable": 1,
   "fotmob_id": 5943285,

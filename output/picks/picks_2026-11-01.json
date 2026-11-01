@@ -3216,8 +3216,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -2.36,
    "stake_pct": 0.25,
    "ev": -0.005045839121045281,
    "missing": null,
@@ -4700,8 +4700,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.76,
    "stake_pct": 0.25,
    "ev": -0.01743805907856988,
    "missing": {
@@ -6469,7 +6469,11 @@
     "home": 17326025,
     "away": 12448255
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [

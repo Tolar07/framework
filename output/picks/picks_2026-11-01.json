@@ -2210,7 +2210,11 @@
     "home": 4058258,
     "away": 3932086
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:71913120",
    "sb_tid": "sr:tournament:170",
@@ -2701,7 +2705,11 @@
     "home": 43455990,
     "away": 97243138
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "Genoa: counter side v high line -> no strong goals lean",
     "xg": [
@@ -8368,7 +8376,11 @@
     "home": 41676969,
     "away": 2528207
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Asteras Tripolis missing 14% of value (Juli\u00e1n Bartolo, Issiaga Sylla, Adri\u00e1n Riera); support: PAOK Thessaloniki missing 24%",
+    "at": "16:20Z"
+   },
    "matchup": {
     "say": "PAOK Thessaloniki: set-piece threat v weak set-piece defence; PAOK Thessaloniki: aerial threat v weak in the air; PAOK Thessaloniki: possession side v low block; PAOK Thessaloniki: elite attack v leaky defence; Asteras Tripolis: counter side v high line; Asteras Tripolis: counter side v counter-exposed -> no strong goals lean",
     "xg": [

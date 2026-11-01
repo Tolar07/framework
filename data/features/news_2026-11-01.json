@@ -214,7 +214,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
+  "at": "2026-11-01T16:20Z",
   "away_missing_share": 0.31195771384782073,
   "away_unavailable": 4,
   "fotmob_id": 5868515,
@@ -401,7 +401,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
+  "at": "2026-11-01T16:20Z",
   "away_missing_share": 0.3476801010327675,
   "away_unavailable": 6,
   "fotmob_id": 5868114,
@@ -1012,14 +1012,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
-  "away_missing_share": 0.08779497373300323,
+  "at": "2026-11-01T16:20Z",
+  "away_missing_share": 0.0999397189372965,
   "away_unavailable": 2,
   "fotmob_id": 5749737,
-  "home_missing_share": 0.3567799034044118,
+  "home_missing_share": 0.3565433808689136,
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-01T17:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Liverpool v Arsenal": {
   "absent": [
@@ -1091,7 +1091,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
+  "at": "2026-11-01T16:20Z",
   "away_missing_share": 0.08400883929781379,
   "away_unavailable": 2,
   "fotmob_id": 5811796,
@@ -1278,14 +1278,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
-  "away_missing_share": 0.5950747678741949,
-  "away_unavailable": 8,
+  "at": "2026-11-01T16:20Z",
+  "away_missing_share": 0.5016664012757498,
+  "away_unavailable": 7,
   "fotmob_id": 5765950,
-  "home_missing_share": 0.11617176103061756,
+  "home_missing_share": 0.11476033913069107,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Nordsjaelland v Midtjylland": {
   "absent": [
@@ -1357,14 +1357,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
-  "away_missing_share": 0.15486674799216943,
+  "at": "2026-11-01T16:20Z",
+  "away_missing_share": 0.13518229083983963,
   "away_unavailable": 3,
   "fotmob_id": 5943287,
-  "home_missing_share": 0.2854502844956948,
+  "home_missing_share": 0.24313442695246046,
   "home_unavailable": 8,
   "kickoff_utc": "2026-11-01T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Palermo v L.R. Vicenza": {
   "absent": [
@@ -1421,7 +1421,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:00Z",
+  "at": "2026-11-01T16:20Z",
   "away_missing_share": 0.05288802347725265,
   "away_unavailable": 1,
   "fotmob_id": 5943285,

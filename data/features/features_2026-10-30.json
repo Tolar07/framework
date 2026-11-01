@@ -215,7 +215,7 @@
   },
   "date": "2026-10-30",
   "fixture": "Casa Pia v Sp Lisbon",
-  "ft": "PENDING",
+  "ft": "0-2",
   "home": "Casa Pia",
   "league": "Primeira Liga",
   "model_p": [
@@ -1016,7 +1016,7 @@
   },
   "date": "2026-10-30",
   "fixture": "Lille v Lens",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Lille",
   "league": "Ligue 1",
   "model_p": [
@@ -1751,7 +1751,7 @@
   },
   "date": "2026-10-30",
   "fixture": "Sheffield United v Wrexham",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Sheffield United",
   "league": "Championship",
   "model_p": [
@@ -1849,7 +1849,7 @@
   },
   "date": "2026-10-30",
   "fixture": "Villarreal v Espanol",
-  "ft": "PENDING",
+  "ft": "0-1",
   "home": "Villarreal",
   "league": "La Liga",
   "model_p": [

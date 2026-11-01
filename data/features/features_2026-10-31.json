@@ -11,20 +11,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.6895,
+    "btts": 0.4514,
+    "draw": 0.2112,
+    "home": 0.0993,
+    "over25": 0.5139
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.6516,
+    "btts": 0.4533,
+    "draw": 0.2162,
+    "home": 0.1321,
+    "over25": 0.5066
    }
   },
   "date": "2026-10-31",
@@ -42,12 +42,38 @@
    0.358
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Imam Jagne",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Giannis Doiranlis",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jon De Luis",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ayoub El Kaabi",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Yusuf Yaz\u0131c\u0131",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T16:20Z",
+   "away_missing": 0.05962297710481448,
+   "edge": -0.1507,
+   "home_missing": 0.2103235769231665,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -78,20 +104,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.315,
+    "btts": 0.6778,
+    "draw": 0.242,
+    "home": 0.443,
+    "over25": 0.6748
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3153,
+    "btts": 0.6766,
+    "draw": 0.2471,
+    "home": 0.4375,
+    "over25": 0.6682
    }
   },
   "date": "2026-10-31",
@@ -109,12 +135,43 @@
    0.611
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Marcus Haagensen Reed",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Simen Haram",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "\u00d3lafur Gu\u00f0mundsson",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Bendik Berntsen",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Filip Loftesnes-Bjune",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nikolaj M\u00f6ller",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T16:20Z",
+   "away_missing": 0.3127790086406748,
+   "edge": 0.0541,
+   "home_missing": 0.25872323073687037,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -145,20 +202,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2803,
+    "btts": 0.5088,
+    "draw": 0.3016,
+    "home": 0.4181,
+    "over25": 0.4272
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2903,
+    "btts": 0.4906,
+    "draw": 0.2903,
+    "home": 0.4194,
+    "over25": 0.4301
    }
   },
   "date": "2026-10-31",
@@ -177,11 +234,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -212,20 +269,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2304,
+    "btts": 0.6748,
+    "draw": 0.2252,
+    "home": 0.5444,
+    "over25": 0.6944
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2411,
+    "btts": 0.6588,
+    "draw": 0.2173,
+    "home": 0.5415,
+    "over25": 0.6751
    }
   },
   "date": "2026-10-31",
@@ -243,12 +300,43 @@
    0.628
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Simon Adingra",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Caio Henrique",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kasper Dolberg",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kees Smit",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Stije Resink",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ayoub Oufkir",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-31T19:20Z",
+   "away_missing": 0.3409634403651413,
+   "edge": -0.0119,
+   "home_missing": 0.352883327982941,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -279,20 +367,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2806,
+    "btts": 0.4949,
+    "draw": 0.3168,
+    "home": 0.4025,
+    "over25": 0.4118
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2858,
+    "btts": 0.4852,
+    "draw": 0.3042,
+    "home": 0.41,
+    "over25": 0.4186
    }
   },
   "date": "2026-10-31",
@@ -310,12 +398,38 @@
    0.402
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Capi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pepe S\u00e1nchez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Samuel Obeng",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Edgar Gonz\u00e1lez",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Nicholas Gioacchini",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:20Z",
+   "away_missing": 0.24395165459804244,
+   "edge": -0.0066,
+   "home_missing": 0.2505126360590848,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -346,20 +460,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1989,
+    "btts": 0.5714,
+    "draw": 0.2377,
+    "home": 0.5634,
+    "over25": 0.5917
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2075,
+    "btts": 0.5749,
+    "draw": 0.2334,
+    "home": 0.5591,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-31",
@@ -378,11 +492,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -413,20 +527,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4024,
+    "btts": 0.6135,
+    "draw": 0.2518,
+    "home": 0.3458,
+    "over25": 0.6019
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4142,
+    "btts": 0.617,
+    "draw": 0.2589,
+    "home": 0.327,
+    "over25": 0.5913
    }
   },
   "date": "2026-10-31",
@@ -445,11 +559,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -480,20 +594,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.1864,
+    "btts": 0.6402,
+    "draw": 0.2148,
+    "home": 0.5988,
+    "over25": 0.6813
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.1979,
+    "btts": 0.625,
+    "draw": 0.2086,
+    "home": 0.5936,
+    "over25": 0.6604
    }
   },
   "date": "2026-10-31",
@@ -511,12 +625,38 @@
    0.629
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ilay Camara",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lucas Hey",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Killian Sardella",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Do\u011fucan Haspolat",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Reda Laalaoui",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-31T19:00Z",
+   "away_missing": 0.14106331990224166,
+   "edge": -0.042,
+   "home_missing": 0.18303817008629167,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -547,20 +687,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4078,
+    "btts": 0.5578,
+    "draw": 0.2764,
+    "home": 0.3159,
+    "over25": 0.5025
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.402,
+    "btts": 0.5481,
+    "draw": 0.2778,
+    "home": 0.3202,
+    "over25": 0.5013
    }
   },
   "date": "2026-10-31",
@@ -579,11 +719,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T12:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -614,20 +754,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2545,
+    "btts": 0.5784,
+    "draw": 0.2683,
+    "home": 0.4772,
+    "over25": 0.5387
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2607,
+    "btts": 0.5599,
+    "draw": 0.2657,
+    "home": 0.4736,
+    "over25": 0.5412
    }
   },
   "date": "2026-10-31",
@@ -645,12 +785,33 @@
    0.545
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Amadou Onana",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Matteo Ruggeri",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Aaron Wan-Bissaka",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ryan Sessegnon",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-31T19:00Z",
+   "away_missing": 0.07189255871811866,
+   "edge": -0.166,
+   "home_missing": 0.23791679251629236,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -681,20 +842,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4015,
+    "btts": 0.6385,
+    "draw": 0.2621,
+    "home": 0.3364,
+    "over25": 0.6091
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4029,
+    "btts": 0.6265,
+    "draw": 0.2583,
+    "home": 0.3388,
+    "over25": 0.6079
    }
   },
   "date": "2026-10-31",
@@ -712,12 +873,38 @@
    0.66
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Noahkai Banks",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Juma Bah",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Sima Suso",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Philipp Treu",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Florent Muslija",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:40Z",
+   "away_missing": 0.16279795603949523,
+   "edge": -0.1651,
+   "home_missing": 0.32789608693208017,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -748,20 +935,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.0398,
+    "btts": 0.5226,
+    "draw": 0.0796,
+    "home": 0.8806,
+    "over25": 0.8129
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.0469,
+    "btts": 0.5171,
+    "draw": 0.0852,
+    "home": 0.8679,
+    "over25": 0.8
    }
   },
   "date": "2026-10-31",
@@ -779,12 +966,38 @@
    0.571
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Dani Olmo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eric Garc\u00eda",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Roony Bardghji",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Facundo Garc\u00e9s",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mikel Rodr\u00edguez",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:20Z",
+   "away_missing": 0.10539544748868432,
+   "edge": -0.023,
+   "home_missing": 0.12843712995188214,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -815,20 +1028,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4148,
+    "btts": 0.637,
+    "draw": 0.2489,
+    "home": 0.3363,
+    "over25": 0.6154
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.408,
+    "btts": 0.6343,
+    "draw": 0.2557,
+    "home": 0.3364,
+    "over25": 0.6156
    }
   },
   "date": "2026-10-31",
@@ -847,11 +1060,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -882,20 +1095,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1403,
+    "btts": 0.5394,
+    "draw": 0.2005,
+    "home": 0.6592,
+    "over25": 0.6102
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1588,
+    "btts": 0.542,
+    "draw": 0.2037,
+    "home": 0.6375,
+    "over25": 0.5995
    }
   },
   "date": "2026-10-31",
@@ -914,11 +1127,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -949,20 +1162,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1103,
+    "btts": 0.6419,
+    "draw": 0.1601,
+    "home": 0.7297,
+    "over25": 0.7746
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1187,
+    "btts": 0.6265,
+    "draw": 0.146,
+    "home": 0.7353,
+    "over25": 0.7605
    }
   },
   "date": "2026-10-31",
@@ -980,12 +1193,43 @@
    0.636
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jamal Musiala",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Luis D\u00edaz",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bara Ndiaye",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Giannis Konstantelias",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kau\u00e3 Prates",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Emre Can",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T17:00Z",
+   "away_missing": 0.0755276959153405,
+   "edge": -0.1847,
+   "home_missing": 0.2602461732295553,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1016,20 +1260,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.0944,
+    "btts": 0.5189,
+    "draw": 0.1599,
+    "home": 0.7456,
+    "over25": 0.6483
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1051,
+    "btts": 0.5118,
+    "draw": 0.1572,
+    "home": 0.7376,
+    "over25": 0.6501
    }
   },
   "date": "2026-10-31",
@@ -1047,12 +1291,43 @@
    0.489
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Juan Hern\u00e1ndez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Facundo Bernal",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "J\u00fanior Firpo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pablo Mart\u00ednez",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Juan Cruz",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Diego Murillo",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T17:00Z",
+   "away_missing": 0.2445730133048873,
+   "edge": 0.0539,
+   "home_missing": 0.1907001354766199,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1114,12 +1389,38 @@
    0.484
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "L\u00e9andre Kuavita",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kurt Abrahams",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Kevin Mac Allister",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ond\u0159ej Kri\u010dfalu\u0161i",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Rob Schoofs",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:20Z",
+   "away_missing": 0.3577016516624435,
+   "edge": 0.2161,
+   "home_missing": 0.14163999382420805,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1150,20 +1451,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1812,
+    "btts": 0.5486,
+    "draw": 0.2492,
+    "home": 0.5696,
+    "over25": 0.5313
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1927,
+    "btts": 0.5249,
+    "draw": 0.2416,
+    "home": 0.5657,
+    "over25": 0.5398
    }
   },
   "date": "2026-10-31",
@@ -1181,12 +1482,43 @@
    0.651
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Roberto Piccoli",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Emil Holm",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jay Enem",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jan Zi\u00f3lkowski",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Michael Folorunsho",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Matteo Pessina",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:40Z",
+   "away_missing": 0.40133517560651333,
+   "edge": 0.1975,
+   "home_missing": 0.2038163671513741,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1217,20 +1549,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4002,
+    "btts": 0.5764,
+    "draw": 0.2796,
+    "home": 0.3202,
+    "over25": 0.5189
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4096,
+    "btts": 0.5685,
+    "draw": 0.2742,
+    "home": 0.3162,
+    "over25": 0.5222
    }
   },
   "date": "2026-10-31",
@@ -1248,12 +1580,23 @@
    0.586
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ethan Erhahon",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Noah Eile",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.17202451997338733,
+   "edge": 0.1269,
+   "home_missing": 0.04508625652731625,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1284,20 +1627,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0985,
+    "btts": 0.5381,
+    "draw": 0.1493,
+    "home": 0.7522,
+    "over25": 0.6813
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1113,
+    "btts": 0.5393,
+    "draw": 0.1584,
+    "home": 0.7303,
+    "over25": 0.669
    }
   },
   "date": "2026-10-31",
@@ -1316,11 +1659,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1351,20 +1694,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3676,
+    "btts": 0.6495,
+    "draw": 0.2475,
+    "home": 0.3849,
+    "over25": 0.6498
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3663,
+    "btts": 0.6468,
+    "draw": 0.2524,
+    "home": 0.3813,
+    "over25": 0.6312
    }
   },
   "date": "2026-10-31",
@@ -1383,11 +1726,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T17:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1418,20 +1761,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2551,
+    "btts": 0.5436,
+    "draw": 0.2884,
+    "home": 0.4564,
+    "over25": 0.4874
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2629,
+    "btts": 0.5469,
+    "draw": 0.2851,
+    "home": 0.452,
+    "over25": 0.5091
    }
   },
   "date": "2026-10-31",
@@ -1449,12 +1792,38 @@
    0.579
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Alex Scott",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Veljko Milosavljevi\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Alex T\u00f3th",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Joe Rodon",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mateo Joseph",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.09626259699273748,
+   "edge": -0.1886,
+   "home_missing": 0.28485228809928664,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1485,20 +1854,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3641,
+    "btts": 0.555,
+    "draw": 0.2871,
+    "home": 0.3488,
+    "over25": 0.4861
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.369,
+    "btts": 0.5253,
+    "draw": 0.2822,
+    "home": 0.3489,
+    "over25": 0.4709
    }
   },
   "date": "2026-10-31",
@@ -1516,12 +1885,23 @@
    0.445
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Josh Neufville",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Stephen Humphrys",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:40Z",
+   "away_missing": 0.0,
+   "edge": -0.206,
+   "home_missing": 0.20602987252654506,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1552,20 +1932,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2837,
+    "btts": 0.6077,
+    "draw": 0.2648,
+    "home": 0.4514,
+    "over25": 0.577
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2889,
+    "btts": 0.5949,
+    "draw": 0.2619,
+    "home": 0.4492,
+    "over25": 0.574
    }
   },
   "date": "2026-10-31",
@@ -1583,12 +1963,43 @@
    0.584
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Yehor Yarmoliuk",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Antoni Milambo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Rico Henry",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Igor Jesus",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nicol\u00f2 Savona",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nicol\u00e1s Dominguez",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.1536937461909937,
+   "edge": -0.0446,
+   "home_missing": 0.19829078166636638,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1619,20 +2030,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2851,
+    "btts": 0.539,
+    "draw": 0.2811,
+    "home": 0.4338,
+    "over25": 0.4724
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2941,
+    "btts": 0.5171,
+    "draw": 0.2821,
+    "home": 0.4238,
+    "over25": 0.4675
    }
   },
   "date": "2026-10-31",
@@ -1650,12 +2061,43 @@
    0.591
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Hannibal Mejbri",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bashir Humphreys",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Armando Broja",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Colby Bishop",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Benjamin Arthur",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luke Brooke-Smith",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.24226828319330718,
+   "edge": -0.2987,
+   "home_missing": 0.5409789509508606,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1686,20 +2128,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.3981,
+    "btts": 0.6813,
+    "draw": 0.2468,
+    "home": 0.3551,
+    "over25": 0.6711
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.3946,
+    "btts": 0.6729,
+    "draw": 0.2445,
+    "home": 0.3609,
+    "over25": 0.6628
    }
   },
   "date": "2026-10-31",
@@ -1717,12 +2159,43 @@
    0.728
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Wout Asselman",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jamal Amofa",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jasper Meijster",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eus Waayers",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Pim Saathof",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nick Marsman",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:20Z",
+   "away_missing": 0.0942420781095773,
+   "edge": 0.0058,
+   "home_missing": 0.08844177657441221,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1753,20 +2226,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3108,
+    "btts": 0.5951,
+    "draw": 0.2882,
+    "home": 0.401,
+    "over25": 0.5327
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.305,
+    "btts": 0.5703,
+    "draw": 0.2839,
+    "home": 0.4111,
+    "over25": 0.5265
    }
   },
   "date": "2026-10-31",
@@ -1784,12 +2257,28 @@
    0.563
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Luca Zanimacchia",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kevin Lasagna",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Gianluca Caprari",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T15:40Z",
+   "away_missing": 0.14450003645572881,
+   "edge": 0.1445,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1887,20 +2376,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3028,
+    "btts": 0.6404,
+    "draw": 0.2665,
+    "home": 0.4307,
+    "over25": 0.5976
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3142,
+    "btts": 0.6125,
+    "draw": 0.2614,
+    "home": 0.4244,
+    "over25": 0.5919
    }
   },
   "date": "2026-10-31",
@@ -1918,12 +2407,43 @@
    0.679
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jo\u00e3o Pedro",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Maxence Lacroix",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Reece James",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Benjamin \u0160e\u0161ko",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Patrick Dorgu",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Marcus Rashford",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:20Z",
+   "away_missing": 0.2838430627755982,
+   "edge": -0.0391,
+   "home_missing": 0.3229403635943988,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -1954,20 +2474,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3553,
+    "btts": 0.585,
+    "draw": 0.2706,
+    "home": 0.3741,
+    "over25": 0.5514
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.362,
+    "btts": 0.5875,
+    "draw": 0.2615,
+    "home": 0.3765,
+    "over25": 0.5512
    }
   },
   "date": "2026-10-31",
@@ -1986,11 +2506,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2021,20 +2541,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4012,
+    "btts": 0.5522,
+    "draw": 0.2926,
+    "home": 0.3062,
+    "over25": 0.4887
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3949,
+    "btts": 0.5469,
+    "draw": 0.2881,
+    "home": 0.317,
+    "over25": 0.5
    }
   },
   "date": "2026-10-31",
@@ -2052,12 +2572,43 @@
    0.484
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Haji Wright",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Aur\u00e8le Amenda",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Josh Eccles",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Daniel Ballard",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nordi Mukiele",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Romaine Mundle",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.1899645177715017,
+   "edge": -0.1304,
+   "home_missing": 0.3203887148264077,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2088,20 +2639,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.328,
+    "btts": 0.5418,
+    "draw": 0.3075,
+    "home": 0.3645,
+    "over25": 0.466
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3388,
+    "btts": 0.5296,
+    "draw": 0.2964,
+    "home": 0.3648,
+    "over25": 0.4695
    }
   },
   "date": "2026-10-31",
@@ -2119,12 +2670,43 @@
    0.43
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Tommaso Barbieri",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Simone Pontisso",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Fabio Gerli",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Edoardo Pierozzi",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Christian Kouan",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Alioune Sylla",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:20Z",
+   "away_missing": 0.17517291137786875,
+   "edge": -0.0639,
+   "home_missing": 0.23912015919791646,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2155,20 +2737,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4254,
+    "btts": 0.622,
+    "draw": 0.2563,
+    "home": 0.3183,
+    "over25": 0.5966
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4296,
+    "btts": 0.6138,
+    "draw": 0.2554,
+    "home": 0.315,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-31",
@@ -2187,11 +2769,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2222,20 +2804,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.4204,
+    "btts": 0.6353,
+    "draw": 0.2544,
+    "home": 0.3253,
+    "over25": 0.611
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.4223,
+    "btts": 0.6328,
+    "draw": 0.25,
+    "home": 0.3276,
+    "over25": 0.6076
    }
   },
   "date": "2026-10-31",
@@ -2253,12 +2835,28 @@
    0.656
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Fabian N\u00fcrnberger",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Luca Marseiler",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Yosuke Furukawa",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:20Z",
+   "away_missing": 0.0,
+   "edge": -0.1551,
+   "home_missing": 0.15506033918640455,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2289,20 +2887,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3434,
+    "btts": 0.6117,
+    "draw": 0.2673,
+    "home": 0.3893,
+    "over25": 0.5799
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3549,
+    "btts": 0.6057,
+    "draw": 0.2612,
+    "home": 0.3839,
+    "over25": 0.5714
    }
   },
   "date": "2026-10-31",
@@ -2320,12 +2918,38 @@
    0.58
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Unai Elgezabal",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Elijah Gift",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Nico Melamed",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Daijiro Chirino",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Rodrigo Ely",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.13474944451913207,
+   "edge": 0.0825,
+   "home_missing": 0.05220663541076431,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2356,20 +2980,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.3662,
+    "btts": 0.5279,
+    "draw": 0.2952,
+    "home": 0.3386,
+    "over25": 0.4478
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.3734,
+    "btts": 0.5171,
+    "draw": 0.2847,
+    "home": 0.3419,
+    "over25": 0.4588
    }
   },
   "date": "2026-10-31",
@@ -2387,12 +3011,28 @@
    0.57
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mustafa Yumlu",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Feyttullah G\u00fcrl\u00fck",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Fredy",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T09:40Z",
+   "away_missing": 0.05040248707772758,
+   "edge": 0.0258,
+   "home_missing": 0.024559621294231906,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2423,20 +3063,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.3855,
+    "btts": 0.7215,
+    "draw": 0.235,
+    "home": 0.3796,
+    "over25": 0.7312
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.3802,
+    "btts": 0.7111,
+    "draw": 0.2318,
+    "home": 0.388,
+    "over25": 0.7161
    }
   },
   "date": "2026-10-31",
@@ -2454,12 +3094,33 @@
    0.658
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Leonardo Bertone",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bongeli Beenga",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jerome Bieler",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lorenzo Villa",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T18:20Z",
+   "away_missing": 0.039204419248676375,
+   "edge": 0.0127,
+   "home_missing": 0.02647843972532421,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2490,20 +3151,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.2246,
+    "btts": 0.5931,
+    "draw": 0.2411,
+    "home": 0.5343,
+    "over25": 0.5848
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.2303,
+    "btts": 0.5805,
+    "draw": 0.2421,
+    "home": 0.5275,
+    "over25": 0.5814
    }
   },
   "date": "2026-10-31",
@@ -2521,12 +3182,43 @@
    0.609
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Christian Witzig",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Diego Besio",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Behar Neziri",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "David Datro Fofana",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Timoth\u00e9 Cognat",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Miroslav Stevanovi\u0107",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T15:40Z",
+   "away_missing": 0.440602258382793,
+   "edge": 0.0952,
+   "home_missing": 0.34541550872944676,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2557,20 +3249,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1547,
+    "btts": 0.5799,
+    "draw": 0.1981,
+    "home": 0.6472,
+    "over25": 0.6338
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1666,
+    "btts": 0.5754,
+    "draw": 0.1999,
+    "home": 0.6336,
+    "over25": 0.6295
    }
   },
   "date": "2026-10-31",
@@ -2588,12 +3280,43 @@
    0.612
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jayden Oosterwolde",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Archie Brown",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Marco Asensio",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Furkan Bay\u0131r",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Ibrahim Sabra",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Og\u00fcn Bayrak",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T15:20Z",
+   "away_missing": 0.07179110882873477,
+   "edge": -0.2915,
+   "home_missing": 0.3633035466645322,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2691,20 +3414,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3728,
+    "btts": 0.5729,
+    "draw": 0.2755,
+    "home": 0.3517,
+    "over25": 0.5279
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3642,
+    "btts": 0.5615,
+    "draw": 0.2785,
+    "home": 0.3573,
+    "over25": 0.5159
    }
   },
   "date": "2026-10-31",
@@ -2723,11 +3446,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2758,20 +3481,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.306,
+    "btts": 0.6049,
+    "draw": 0.2617,
+    "home": 0.4323,
+    "over25": 0.5799
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3201,
+    "btts": 0.6072,
+    "draw": 0.2579,
+    "home": 0.422,
+    "over25": 0.5814
    }
   },
   "date": "2026-10-31",
@@ -2790,11 +3513,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T12:00Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2825,20 +3548,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5388,
+    "btts": 0.6087,
+    "draw": 0.2306,
+    "home": 0.2306,
+    "over25": 0.619
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5359,
+    "btts": 0.603,
+    "draw": 0.2315,
+    "home": 0.2326,
+    "over25": 0.6079
    }
   },
   "date": "2026-10-31",
@@ -2856,12 +3579,33 @@
    0.56
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Kennedy Okpaleke",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sigurd Kvile",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Simen Bolkan Nordli",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Johan Bakke",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.17644703994647457,
+   "edge": 0.0489,
+   "home_missing": 0.12757408918531846,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2892,20 +3636,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2718,
+    "btts": 0.6256,
+    "draw": 0.2512,
+    "home": 0.477,
+    "over25": 0.6019
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2763,
+    "btts": 0.6072,
+    "draw": 0.2539,
+    "home": 0.4698,
+    "over25": 0.5913
    }
   },
   "date": "2026-10-31",
@@ -2923,12 +3667,43 @@
    0.515
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Rafa\u0142 Str\u0105czek",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Aleksander Paluszek",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Adrian B\u0142\u0105d",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dani Silva",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Paulinho B\u00f3ia",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mariusz Fornalczyk",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T18:40Z",
+   "away_missing": 0.20646508191562996,
+   "edge": 0.081,
+   "home_missing": 0.12548253486165814,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -2959,20 +3734,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3976,
+    "btts": 0.6742,
+    "draw": 0.2549,
+    "home": 0.3475,
+    "over25": 0.6667
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.4096,
+    "btts": 0.6569,
+    "draw": 0.2479,
+    "home": 0.3425,
+    "over25": 0.6432
    }
   },
   "date": "2026-10-31",
@@ -2990,12 +3765,43 @@
    0.702
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Tim Meyer",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Julian von Moos",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Pantaleo Creti",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ranjan Neelakandan",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luca Mack",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Stephan Seiler",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T15:40Z",
+   "away_missing": 0.2666289236898227,
+   "edge": -0.1155,
+   "home_missing": 0.3821576152586199,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3026,20 +3832,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3205,
+    "btts": 0.6202,
+    "draw": 0.2548,
+    "home": 0.4247,
+    "over25": 0.6019
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3323,
+    "btts": 0.6138,
+    "draw": 0.256,
+    "home": 0.4118,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-31",
@@ -3058,11 +3864,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T11:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3093,20 +3899,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.5302,
+    "btts": 0.5468,
+    "draw": 0.2542,
+    "home": 0.2155,
+    "over25": 0.5226
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.5079,
+    "btts": 0.5496,
+    "draw": 0.2684,
+    "home": 0.2237,
+    "over25": 0.5291
    }
   },
   "date": "2026-10-31",
@@ -3125,11 +3931,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T18:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3160,20 +3966,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0893,
+    "btts": 0.4592,
+    "draw": 0.1723,
+    "home": 0.7384,
+    "over25": 0.5686
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1114,
+    "btts": 0.458,
+    "draw": 0.1799,
+    "home": 0.7087,
+    "over25": 0.5628
    }
   },
   "date": "2026-10-31",
@@ -3183,12 +3989,38 @@
   "league": "HNL",
   "model_p": "PENDING",
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Adrion Pajaziti",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dario Mare\u0161i\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ivica Ivu\u0161i\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sule Wisdom Aondowase",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Stjepan Ku\u010di\u0161",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:20Z",
+   "away_missing": 0.2595521481536087,
+   "edge": 0.002,
+   "home_missing": 0.25751288294767555,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3219,20 +4051,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3219,
+    "btts": 0.6112,
+    "draw": 0.255,
+    "home": 0.4231,
+    "over25": 0.5946
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3028,
+    "btts": 0.6088,
+    "draw": 0.2607,
+    "home": 0.4365,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-31",
@@ -3251,11 +4083,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T12:00Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3286,20 +4118,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3013,
+    "btts": 0.6863,
+    "draw": 0.2425,
+    "home": 0.4561,
+    "over25": 0.6848
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3123,
+    "btts": 0.6782,
+    "draw": 0.2381,
+    "home": 0.4497,
+    "over25": 0.6735
    }
   },
   "date": "2026-10-31",
@@ -3317,12 +4149,28 @@
    0.664
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Philippe Sandler",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Du\u0161an Tadi\u0107",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Emre Mor",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T17:00Z",
+   "away_missing": 0.09664733539393221,
+   "edge": 0.0966,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3353,20 +4201,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.377,
+    "btts": 0.5714,
+    "draw": 0.2844,
+    "home": 0.3386,
+    "over25": 0.5088
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3756,
+    "btts": 0.557,
+    "draw": 0.2817,
+    "home": 0.3427,
+    "over25": 0.5143
    }
   },
   "date": "2026-10-31",
@@ -3384,12 +4232,38 @@
    0.599
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ilyas Ansah",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Charlie Hughes",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lucas Gourna-Douath",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sa\u0161a Luki\u0107",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Jack Taylor",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.05132624407356974,
+   "edge": -0.2676,
+   "home_missing": 0.3189567423120124,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3420,20 +4294,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.4092,
+    "btts": 0.622,
+    "draw": 0.2606,
+    "home": 0.3301,
+    "over25": 0.5956
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.406,
+    "btts": 0.6187,
+    "draw": 0.265,
+    "home": 0.329,
+    "over25": 0.5897
    }
   },
   "date": "2026-10-31",
@@ -3451,12 +4325,33 @@
    0.471
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Owen Gibs",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "M\u00e1rton D\u00e1rdai",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Gustaf Nilsson",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Boris Lum",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:20Z",
+   "away_missing": 0.3048155887605512,
+   "edge": 0.2916,
+   "home_missing": 0.013213629538307545,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3487,20 +4382,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.4624,
+    "btts": 0.6576,
+    "draw": 0.245,
+    "home": 0.2926,
+    "over25": 0.6545
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.4548,
+    "btts": 0.6479,
+    "draw": 0.2513,
+    "home": 0.2939,
+    "over25": 0.6373
    }
   },
   "date": "2026-10-31",
@@ -3518,12 +4413,23 @@
    0.699
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Moritz Broschinski",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sirlord Conteh",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:00Z",
+   "away_missing": 0.042650791178211134,
+   "edge": -0.0064,
+   "home_missing": 0.049067839850426204,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3554,20 +4460,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2783,
+    "btts": 0.6106,
+    "draw": 0.26,
+    "home": 0.4617,
+    "over25": 0.5799
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2998,
+    "btts": 0.5943,
+    "draw": 0.2567,
+    "home": 0.4435,
+    "over25": 0.5685
    }
   },
   "date": "2026-10-31",
@@ -3585,12 +4491,33 @@
    0.588
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Maksymilian Stryjek",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bailey Rice",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Zach Mitchell",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Samuel Stanton",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.12463840467360791,
+   "edge": 0.0631,
+   "home_missing": 0.06152665882430894,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3621,20 +4548,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3397,
+    "btts": 0.5664,
+    "draw": 0.2875,
+    "home": 0.3729,
+    "over25": 0.5
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3567,
+    "btts": 0.5469,
+    "draw": 0.2772,
+    "home": 0.3661,
+    "over25": 0.4961
    }
   },
   "date": "2026-10-31",
@@ -3652,12 +4579,33 @@
    0.447
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Tanguy Zoukrou",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bruno Petkovi\u0107",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Massadio Ha\u00efdara",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Khusniddin Alikulov",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T12:40Z",
+   "away_missing": 0.036719685533114464,
+   "edge": -0.188,
+   "home_missing": 0.22471411649178571,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3688,20 +4636,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.127,
+    "btts": 0.5813,
+    "draw": 0.1707,
+    "home": 0.7023,
+    "over25": 0.6863
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.1389,
+    "btts": 0.5805,
+    "draw": 0.1717,
+    "home": 0.6894,
+    "over25": 0.6813
    }
   },
   "date": "2026-10-31",
@@ -3719,12 +4667,33 @@
    0.586
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "George Bello",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ramiz Harakat\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Quincy Butler",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mazou Bambara",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T18:00Z",
+   "away_missing": 0.09996095922448814,
+   "edge": -0.0526,
+   "home_missing": 0.152578507668236,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3755,20 +4724,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.2471,
+    "btts": 0.6301,
+    "draw": 0.2354,
+    "home": 0.5175,
+    "over25": 0.637
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.256,
+    "btts": 0.6218,
+    "draw": 0.2429,
+    "home": 0.5011,
+    "over25": 0.6156
    }
   },
   "date": "2026-10-31",
@@ -3822,20 +4791,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1834,
+    "btts": 0.5636,
+    "draw": 0.2304,
+    "home": 0.5862,
+    "over25": 0.5854
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1872,
+    "btts": 0.5452,
+    "draw": 0.2273,
+    "home": 0.5856,
+    "over25": 0.5699
    }
   },
   "date": "2026-10-31",
@@ -3854,11 +4823,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3889,20 +4858,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.6547,
+    "btts": 0.5902,
+    "draw": 0.2031,
+    "home": 0.1422,
+    "over25": 0.6561
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.6448,
+    "btts": 0.5769,
+    "draw": 0.1945,
+    "home": 0.1607,
+    "over25": 0.6444
    }
   },
   "date": "2026-10-31",
@@ -3920,12 +4889,28 @@
    0.643
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Enzo Bardeli",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Johnny Cardoso",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Koke",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T12:20Z",
+   "away_missing": 0.05240496223307381,
+   "edge": -0.0693,
+   "home_missing": 0.12174609970714229,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -3956,20 +4941,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2069,
+    "btts": 0.7053,
+    "draw": 0.2159,
+    "home": 0.5773,
+    "over25": 0.7457
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2176,
+    "btts": 0.692,
+    "draw": 0.2065,
+    "home": 0.5759,
+    "over25": 0.7332
    }
   },
   "date": "2026-10-31",
@@ -3987,12 +4972,43 @@
    0.71
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Christian Kofane",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eliesse Ben Seghir",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Loic Bad\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Angelo Stiller",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Leo Sauer",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Josha Vagnoman",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.2626731598204861,
+   "edge": -0.1285,
+   "home_missing": 0.3911391372923736,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4023,20 +5039,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3471,
+    "btts": 0.5672,
+    "draw": 0.2797,
+    "home": 0.3732,
+    "over25": 0.5075
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3505,
+    "btts": 0.5541,
+    "draw": 0.2784,
+    "home": 0.3711,
+    "over25": 0.5066
    }
   },
   "date": "2026-10-31",
@@ -4055,11 +5071,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T11:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4090,20 +5106,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4241,
+    "btts": 0.5486,
+    "draw": 0.2796,
+    "home": 0.2963,
+    "over25": 0.4861
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4221,
+    "btts": 0.5263,
+    "draw": 0.2782,
+    "home": 0.2997,
+    "over25": 0.4805
    }
   },
   "date": "2026-10-31",
@@ -4121,12 +5137,28 @@
    0.501
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mason Melia",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Tendayi Darikwa",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Paik Seung-Ho",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:40Z",
+   "away_missing": 0.024257822314248792,
+   "edge": -0.1174,
+   "home_missing": 0.14167944768296803,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4224,20 +5256,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2075,
+    "btts": 0.6389,
+    "draw": 0.2264,
+    "home": 0.566,
+    "over25": 0.6499
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2147,
+    "btts": 0.6188,
+    "draw": 0.2225,
+    "home": 0.5627,
+    "over25": 0.6444
    }
   },
   "date": "2026-10-31",
@@ -4255,12 +5287,33 @@
    0.617
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Antoine Semenyo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ferdi Kad\u0131o\u011flu",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Evan Ferguson",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Pascal Struijk",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.3741502385143145,
+   "edge": 0.2861,
+   "home_missing": 0.08800507546326956,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4291,20 +5344,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2309,
+    "btts": 0.5514,
+    "draw": 0.2546,
+    "home": 0.5145,
+    "over25": 0.5226
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2435,
+    "btts": 0.5526,
+    "draw": 0.2567,
+    "home": 0.4998,
+    "over25": 0.5291
    }
   },
   "date": "2026-10-31",
@@ -4323,11 +5376,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4358,20 +5411,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5009,
+    "btts": 0.5946,
+    "draw": 0.2511,
+    "home": 0.248,
+    "over25": 0.5813
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4854,
+    "btts": 0.5928,
+    "draw": 0.2549,
+    "home": 0.2597,
+    "over25": 0.5685
    }
   },
   "date": "2026-10-31",
@@ -4389,12 +5442,43 @@
    0.555
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Tommy St. Jago",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Keano Vanrafelghem",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Leo Hjelde",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Daan Heymans",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Ken Nkuba",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Adri\u00e1n Palacios",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.14889350395889736,
+   "edge": -0.0872,
+   "home_missing": 0.23613584044981703,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4425,20 +5509,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0738,
+    "btts": 0.5152,
+    "draw": 0.1422,
+    "home": 0.784,
+    "over25": 0.6911
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0864,
+    "btts": 0.5105,
+    "draw": 0.1391,
+    "home": 0.7745,
+    "over25": 0.6787
    }
   },
   "date": "2026-10-31",
@@ -4456,12 +5540,33 @@
    0.487
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Alfie Jones",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Rokas Puk\u0161tas",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Collins Sichenje",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Matt Godden",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.053842618532271,
+   "edge": -0.0437,
+   "home_missing": 0.0975190768384708,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4492,20 +5597,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.4693,
+    "btts": 0.599,
+    "draw": 0.2689,
+    "home": 0.2618,
+    "over25": 0.5558
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.4648,
+    "btts": 0.5852,
+    "draw": 0.2694,
+    "home": 0.2658,
+    "over25": 0.5627
    }
   },
   "date": "2026-10-31",
@@ -4523,12 +5628,43 @@
    0.631
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Alexis Saelemaekers",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Matteo Gabbia",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Samuel Chukwueze",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lautaro Mart\u00ednez",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Curtis Jones",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luis Henrique",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:00Z",
+   "away_missing": 0.29882689191511014,
+   "edge": 0.0795,
+   "home_missing": 0.2193373477327609,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4559,20 +5695,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1777,
+    "btts": 0.5279,
+    "draw": 0.2369,
+    "home": 0.5854,
+    "over25": 0.5276
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1866,
+    "btts": 0.5144,
+    "draw": 0.2391,
+    "home": 0.5743,
+    "over25": 0.5208
    }
   },
   "date": "2026-10-31",
@@ -4590,12 +5726,43 @@
    0.519
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mathis Servais",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ta\u00efryk Arconte",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Casper de Norre",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Patrick Agyemang",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Sondre Klingen Lang\u00e5s",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Eiran Cashin",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.4667904703311443,
+   "edge": 0.1611,
+   "home_missing": 0.3057058296788499,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4658,11 +5825,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4693,20 +5860,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.26,
+    "btts": 0.5966,
+    "draw": 0.2783,
+    "home": 0.4617,
+    "over25": 0.5486
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2697,
+    "btts": 0.5805,
+    "draw": 0.2697,
+    "home": 0.4605,
+    "over25": 0.5512
    }
   },
   "date": "2026-10-31",
@@ -4724,12 +5891,38 @@
    0.512
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Alessandro Sersanti",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "St\u00eanio",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Joris Manquant",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jonathan Silva",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Federico Chinetti",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:40Z",
+   "away_missing": 0.12048027289778206,
+   "edge": -0.0265,
+   "home_missing": 0.14694956476964183,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4768,12 +5961,12 @@
     "over25": "PENDING"
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.3779,
+    "btts": 0.5236,
+    "draw": 0.2848,
+    "home": 0.3372,
+    "over25": 0.4675
    }
   },
   "date": "2026-10-31",
@@ -4791,12 +5984,33 @@
    0.56
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Miguel Silva",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Alexandre Duville-Parsemain",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jeremy Ar\u00e9valo",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Robinho",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.3178851333355314,
+   "edge": 0.1722,
+   "home_missing": 0.14565044653958883,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4827,20 +6041,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2318,
+    "btts": 0.5926,
+    "draw": 0.2492,
+    "home": 0.5191,
+    "over25": 0.5813
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.243,
+    "btts": 0.5928,
+    "draw": 0.2424,
+    "home": 0.5146,
+    "over25": 0.5867
    }
   },
   "date": "2026-10-31",
@@ -4858,12 +6072,33 @@
    0.487
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Dylan Williams",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ismeal Kabia",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Malik Dijksteel",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Keanu Baccus",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.24815864087591638,
+   "edge": 0.1989,
+   "home_missing": 0.04929220294266395,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4894,20 +6129,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.171,
+    "btts": 0.5735,
+    "draw": 0.2204,
+    "home": 0.6085,
+    "over25": 0.6024
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1775,
+    "btts": 0.557,
+    "draw": 0.2109,
+    "home": 0.6116,
+    "over25": 0.5985
    }
   },
   "date": "2026-10-31",
@@ -4925,12 +6160,43 @@
    0.558
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Papa Diallo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mohamed Tour\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ali Ahmed",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Edoardo Bove",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Kwadwo Baah",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Jeremy Ngakia",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T12:00Z",
+   "away_missing": 0.21988906508179124,
+   "edge": -0.0098,
+   "home_missing": 0.22971829207679204,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -4961,20 +6227,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2181,
+    "btts": 0.5806,
+    "draw": 0.2337,
+    "home": 0.5483,
+    "over25": 0.5827
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2147,
+    "btts": 0.5789,
+    "draw": 0.2361,
+    "home": 0.5492,
+    "over25": 0.5882
    }
   },
   "date": "2026-10-31",
@@ -4993,11 +6259,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5028,20 +6294,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.0311,
+    "btts": 0.5178,
+    "draw": 0.0568,
+    "home": 0.9121,
+    "over25": 0.8412
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.0379,
+    "btts": 0.5118,
+    "draw": 0.0706,
+    "home": 0.8915,
+    "over25": 0.8258
    }
   },
   "date": "2026-10-31",
@@ -5059,12 +6325,43 @@
    0.543
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Paul Wanner",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jerdy Schouten",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Adamo Nagalo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jaden Slory",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Amine Lachkar",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Justin Hoogma",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T17:20Z",
+   "away_missing": 0.1871765713318841,
+   "edge": -0.0629,
+   "home_missing": 0.25011024927177955,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5095,20 +6392,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.493,
+    "btts": 0.6481,
+    "draw": 0.2405,
+    "home": 0.2665,
+    "over25": 0.6513
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.4732,
+    "btts": 0.6463,
+    "draw": 0.2426,
+    "home": 0.2842,
+    "over25": 0.6373
    }
   },
   "date": "2026-10-31",
@@ -5126,12 +6423,23 @@
    0.63
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Ben Woods",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Rio Adebisi",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": -0.1101,
+   "home_missing": 0.11013443739113887,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5162,20 +6470,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3887,
+    "btts": 0.6241,
+    "draw": 0.2585,
+    "home": 0.3529,
+    "over25": 0.5854
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3816,
+    "btts": 0.6122,
+    "draw": 0.265,
+    "home": 0.3534,
+    "over25": 0.5814
    }
   },
   "date": "2026-10-31",
@@ -5194,11 +6502,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T11:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5229,20 +6537,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1545,
+    "btts": 0.4798,
+    "draw": 0.2354,
+    "home": 0.6102,
+    "over25": 0.49
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1685,
+    "btts": 0.4677,
+    "draw": 0.2419,
+    "home": 0.5896,
+    "over25": 0.4815
    }
   },
   "date": "2026-10-31",
@@ -5261,11 +6569,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T12:00Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5296,20 +6604,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.045,
+    "btts": 0.4356,
+    "draw": 0.1152,
+    "home": 0.8397,
+    "over25": 0.6606
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.0626,
+    "btts": 0.433,
+    "draw": 0.1213,
+    "home": 0.8162,
+    "over25": 0.6517
    }
   },
   "date": "2026-10-31",
@@ -5327,12 +6635,38 @@
    0.419
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "William Gomes",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Oskar Pietuszewski",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vasco Sousa",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Isra Salazar",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Fabr\u00edcio Garcia",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T20:00Z",
+   "away_missing": 0.10539923201952585,
+   "edge": -0.0552,
+   "home_missing": 0.16059653724006998,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5363,20 +6697,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.287,
+    "btts": 0.5473,
+    "draw": 0.275,
+    "home": 0.438,
+    "over25": 0.5063
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.2939,
+    "btts": 0.56,
+    "draw": 0.2687,
+    "home": 0.4374,
+    "over25": 0.5238
    }
   },
   "date": "2026-10-31",
@@ -5394,12 +6728,28 @@
    0.522
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Marko Ragu\u017e",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Vesel Demaku",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Alessandro Goiginger",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T15:40Z",
+   "away_missing": 0.0,
+   "edge": -0.0971,
+   "home_missing": 0.09705016592779692,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5430,20 +6780,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1099,
+    "btts": 0.4707,
+    "draw": 0.1939,
+    "home": 0.6963,
+    "over25": 0.55
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1212,
+    "btts": 0.4651,
+    "draw": 0.189,
+    "home": 0.6898,
+    "over25": 0.5526
    }
   },
   "date": "2026-10-31",
@@ -5462,11 +6812,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5497,20 +6847,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2762,
+    "btts": 0.5038,
+    "draw": 0.326,
+    "home": 0.3978,
+    "over25": 0.4132
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2889,
+    "btts": 0.4906,
+    "draw": 0.3029,
+    "home": 0.4082,
+    "over25": 0.4286
    }
   },
   "date": "2026-10-31",
@@ -5528,12 +6878,33 @@
    0.432
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mattia Viti",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bjorn Meijer",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Danel Sinani",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Davide Bariti",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T18:20Z",
+   "away_missing": 0.05023151686337126,
+   "edge": -0.4351,
+   "home_missing": 0.48530898253554994,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5564,20 +6935,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5244,
+    "btts": 0.6205,
+    "draw": 0.2491,
+    "home": 0.2265,
+    "over25": 0.611
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5181,
+    "btts": 0.603,
+    "draw": 0.2454,
+    "home": 0.2365,
+    "over25": 0.6064
    }
   },
   "date": "2026-10-31",
@@ -5595,12 +6966,43 @@
    0.459
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Soufian El-Faouzi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Moussa Sylla",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Robin Gosens",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Maxime Est\u00e8ve",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Assan Ou\u00e9draogo",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Marc Guiu",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:40Z",
+   "away_missing": 0.21883757943911325,
+   "edge": -0.1712,
+   "home_missing": 0.39008193209846004,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5631,20 +7033,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2284,
+    "btts": 0.5,
+    "draw": 0.2806,
+    "home": 0.491,
+    "over25": 0.4486
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2514,
+    "btts": 0.5,
+    "draw": 0.2773,
+    "home": 0.4713,
+    "over25": 0.4591
    }
   },
   "date": "2026-10-31",
@@ -5663,11 +7065,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5729,12 +7131,28 @@
    0.568
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Bryan Gil",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Javier Bo\u00f1ar",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Jastin Garc\u00eda",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T12:20Z",
+   "away_missing": 0.17124320621235484,
+   "edge": 0.1712,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5765,20 +7183,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3516,
+    "btts": 0.5556,
+    "draw": 0.2753,
+    "home": 0.3731,
+    "over25": 0.5025
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3522,
+    "btts": 0.5921,
+    "draw": 0.2745,
+    "home": 0.3733,
+    "over25": 0.5526
    }
   },
   "date": "2026-10-31",
@@ -5797,11 +7215,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5930,12 +7348,43 @@
    0.406
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Matthieu Epolo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Josu\u00e9 Homawoo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Casper Nielsen",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jamie Roche",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nayel Mehssatou",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Basile Vroninks",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T16:40Z",
+   "away_missing": 0.3058655831813662,
+   "edge": -0.0859,
+   "home_missing": 0.3917430967384639,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -5966,20 +7415,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0824,
+    "btts": 0.4911,
+    "draw": 0.1454,
+    "home": 0.7723,
+    "over25": 0.6514
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.0963,
+    "btts": 0.4947,
+    "draw": 0.1526,
+    "home": 0.751,
+    "over25": 0.6432
    }
   },
   "date": "2026-10-31",
@@ -5998,11 +7447,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6033,20 +7482,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1874,
+    "btts": 0.5088,
+    "draw": 0.2483,
+    "home": 0.5643,
+    "over25": 0.4874
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1956,
+    "btts": 0.5013,
+    "draw": 0.2469,
+    "home": 0.5576,
+    "over25": 0.4961
    }
   },
   "date": "2026-10-31",
@@ -6064,12 +7513,43 @@
    0.489
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Lamine Ciss\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Eric Bocat",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Sam Gallagher",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Harry Clarke",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Alistair McCann",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Liam Gibbs",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T12:00Z",
+   "away_missing": 0.23601410712965437,
+   "edge": 0.1178,
+   "home_missing": 0.11818368196837477,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6100,20 +7580,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2839,
+    "btts": 0.5013,
+    "draw": 0.3154,
+    "home": 0.4007,
+    "over25": 0.4146
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2975,
+    "btts": 0.4798,
+    "draw": 0.2975,
+    "home": 0.4051,
+    "over25": 0.4171
    }
   },
   "date": "2026-10-31",
@@ -6131,12 +7611,38 @@
    0.486
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Niklas Pyyhti\u00e4",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Hamza El Kaouakibi",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bjarki Steinn Bjarkason",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Jonathan Klinsmann",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Luca Schirone",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:40Z",
+   "away_missing": 0.11962366190780219,
+   "edge": -0.0531,
+   "home_missing": 0.17269401872338339,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6167,20 +7673,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1952,
+    "btts": 0.5313,
+    "draw": 0.2488,
+    "home": 0.556,
+    "over25": 0.5088
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2041,
+    "btts": 0.5249,
+    "draw": 0.248,
+    "home": 0.5479,
+    "over25": 0.5195
    }
   },
   "date": "2026-10-31",
@@ -6198,12 +7704,43 @@
    0.458
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Moussa Kounfolo Yeo",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ronald",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Cameron Burgess",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Ryoya Morishita",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Lewis Miller",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Sam Morsy",
+     "side": "away",
+     "type": "suspension"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.21710227264507753,
+   "edge": 0.0011,
+   "home_missing": 0.21598419185905035,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6234,20 +7771,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3139,
+    "btts": 0.5827,
+    "draw": 0.2672,
+    "home": 0.4189,
+    "over25": 0.5427
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3265,
+    "btts": 0.5789,
+    "draw": 0.2705,
+    "home": 0.4029,
+    "over25": 0.5409
    }
   },
   "date": "2026-10-31",
@@ -6266,11 +7803,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6301,20 +7838,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3295,
+    "btts": 0.6316,
+    "draw": 0.2501,
+    "home": 0.4204,
+    "over25": 0.6238
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3343,
+    "btts": 0.6329,
+    "draw": 0.2496,
+    "home": 0.416,
+    "over25": 0.6156
    }
   },
   "date": "2026-10-31",
@@ -6333,11 +7870,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6368,20 +7905,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.1807,
+    "btts": 0.5486,
+    "draw": 0.2311,
+    "home": 0.5881,
+    "over25": 0.563
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.194,
+    "btts": 0.5366,
+    "draw": 0.232,
+    "home": 0.574,
+    "over25": 0.5612
    }
   },
   "date": "2026-10-31",
@@ -6399,12 +7936,43 @@
    0.561
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Xavi Simons",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Lucas Bergvall",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "S\u00e1vio",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Isma\u00efla Sarr",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Chadi Riad",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Takehiro Tomiyasu",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T16:40Z",
+   "away_missing": 0.18162382220054216,
+   "edge": -0.1397,
+   "home_missing": 0.32130780428145356,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6435,20 +8003,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2601,
+    "btts": 0.5628,
+    "draw": 0.2601,
+    "home": 0.4798,
+    "over25": 0.5316
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2619,
+    "btts": 0.5585,
+    "draw": 0.2619,
+    "home": 0.4762,
+    "over25": 0.5291
    }
   },
   "date": "2026-10-31",
@@ -6467,11 +8035,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6502,20 +8070,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2772,
+    "btts": 0.55,
+    "draw": 0.2851,
+    "home": 0.4377,
+    "over25": 0.4874
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T18:20Z",
+    "away": 0.2842,
+    "btts": 0.5263,
+    "draw": 0.2801,
+    "home": 0.4357,
+    "over25": 0.4883
    }
   },
   "date": "2026-10-31",
@@ -6533,12 +8101,33 @@
    0.619
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Anis Ouzenadji",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Th\u00e9o Eyoum",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Djibril Sidib\u00e9",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Martin Rossignol",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T19:00Z",
+   "away_missing": 0.1814552121906912,
+   "edge": 0.1407,
+   "home_missing": 0.04079720938043854,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6569,20 +8158,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.615,
+    "btts": 0.5848,
+    "draw": 0.22,
+    "home": 0.165,
+    "over25": 0.6158
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T15:20Z",
+    "away": 0.6056,
+    "btts": 0.567,
+    "draw": 0.2156,
+    "home": 0.1787,
+    "over25": 0.6079
    }
   },
   "date": "2026-10-31",
@@ -6600,12 +8189,43 @@
    0.542
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Oumar Solet",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Idrissa Gueye",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Alessandro Zanoli",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Manu Kon\u00e9",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Mile Svilar",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Lorenzo Pellegrini",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T16:20Z",
+   "away_missing": 0.3107369501784522,
+   "edge": 0.0161,
+   "home_missing": 0.2946686175917287,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6636,20 +8256,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3153,
+    "btts": 0.5189,
+    "draw": 0.3056,
+    "home": 0.3791,
+    "over25": 0.43
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3184,
+    "btts": 0.5066,
+    "draw": 0.2971,
+    "home": 0.3845,
+    "over25": 0.4473
    }
   },
   "date": "2026-10-31",
@@ -6667,12 +8287,43 @@
    0.498
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Augusto Batalla",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Luiz Felipe",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Path\u00e9 Ciss",
+     "side": "home",
+     "type": "suspension"
+    },
+    {
+     "name": "Jones El-Abdellaoui",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Miguel Rom\u00e1n",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "\u00c1lvaro N\u00fa\u00f1ez",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.24103427466655786,
+   "edge": 0.1102,
+   "home_missing": 0.13085258338722328,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6703,20 +8354,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5378,
+    "btts": 0.6303,
+    "draw": 0.2175,
+    "home": 0.2447,
+    "over25": 0.6529
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.5318,
+    "btts": 0.6407,
+    "draw": 0.2283,
+    "home": 0.24,
+    "over25": 0.6563
    }
   },
   "date": "2026-10-31",
@@ -6735,11 +8386,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "simple"
   },
   "xg": {
    "away": {
@@ -6770,20 +8421,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.364,
+    "btts": 0.7038,
+    "draw": 0.2494,
+    "home": 0.3866,
+    "over25": 0.6992
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.369,
+    "btts": 0.6834,
+    "draw": 0.246,
+    "home": 0.3849,
+    "over25": 0.6889
    }
   },
   "date": "2026-10-31",
@@ -6801,12 +8452,43 @@
    0.644
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Jens Stage",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Keke Topp",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Felix Agu",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Albian Hajdari",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Patrick Wimmer",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nathan De Cat",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:00Z",
+   "away_missing": 0.3419948684120273,
+   "edge": 0.0055,
+   "home_missing": 0.33653319339798965,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6837,20 +8519,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1989,
+    "btts": 0.5693,
+    "draw": 0.2425,
+    "home": 0.5586,
+    "over25": 0.5572
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2078,
+    "btts": 0.5483,
+    "draw": 0.2378,
+    "home": 0.5544,
+    "over25": 0.5527
    }
   },
   "date": "2026-10-31",
@@ -6868,12 +8550,33 @@
    0.551
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Keiber Lamadrid",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Toby Collyer",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Michael Johnston",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Nolan Galves",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.26479378488411315,
+   "edge": 0.2588,
+   "home_missing": 0.005955930546346095,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6904,20 +8607,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3528,
+    "btts": 0.6513,
+    "draw": 0.2452,
+    "home": 0.402,
+    "over25": 0.6389
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.3574,
+    "btts": 0.6452,
+    "draw": 0.256,
+    "home": 0.3866,
+    "over25": 0.6234
    }
   },
   "date": "2026-10-31",
@@ -6935,12 +8638,28 @@
    0.632
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Mateusz Wieteska",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Stefan Feiertag",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Norbert Wojtuszek",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T13:00Z",
+   "away_missing": 0.12976732088094145,
+   "edge": -0.0012,
+   "home_missing": 0.13093401124642606,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -6971,20 +8690,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2193,
+    "btts": 0.5514,
+    "draw": 0.253,
+    "home": 0.5277,
+    "over25": 0.535
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2276,
+    "btts": 0.5438,
+    "draw": 0.2584,
+    "home": 0.514,
+    "over25": 0.5238
    }
   },
   "date": "2026-10-31",
@@ -7003,11 +8722,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -7038,20 +8757,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.3184,
+    "btts": 0.5906,
+    "draw": 0.2668,
+    "home": 0.4148,
+    "over25": 0.5622
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.3304,
+    "btts": 0.589,
+    "draw": 0.269,
+    "home": 0.4006,
+    "over25": 0.5526
    }
   },
   "date": "2026-10-31",
@@ -7069,12 +8788,33 @@
    0.497
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Sidnei Tavares",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dani Pacheco",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Quentin Boisgard",
+     "side": "away",
+     "type": "suspension"
+    },
+    {
+     "name": "Franti\u0161ek Plach",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T10:20Z",
+   "away_missing": 0.056005814398724325,
+   "edge": -0.0826,
+   "home_missing": 0.1386437165111595,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -7105,20 +8845,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.1833,
+    "btts": 0.6318,
+    "draw": 0.198,
+    "home": 0.6187,
+    "over25": 0.6863
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T09:20Z",
+    "away": 0.1828,
+    "btts": 0.6266,
+    "draw": 0.2001,
+    "home": 0.6171,
+    "over25": 0.6797
    }
   },
   "date": "2026-10-31",
@@ -7136,12 +8876,28 @@
    0.692
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Aster Vranckx",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Mattias Svanberg",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Fraser Hornby",
+     "side": "home",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T11:20Z",
+   "away_missing": 0.0,
+   "edge": -0.2427,
+   "home_missing": 0.24271955598869,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -7180,12 +8936,12 @@
     "over25": "PENDING"
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1871,
+    "btts": 0.6095,
+    "draw": 0.2058,
+    "home": 0.6071,
+    "over25": 0.6501
    }
   },
   "date": "2026-10-31",
@@ -7203,12 +8959,38 @@
    0.628
   ],
   "news": {
-   "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "absent": [
+    {
+     "name": "Raul Jim\u00e9nez",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Boubacar Traor\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Bertrand Traor\u00e9",
+     "side": "home",
+     "type": "injury"
+    },
+    {
+     "name": "Dylan Lawlor",
+     "side": "away",
+     "type": "injury"
+    },
+    {
+     "name": "Calum Chambers",
+     "side": "away",
+     "type": "injury"
+    }
+   ],
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.13552913187295057,
+   "edge": 0.0918,
+   "home_missing": 0.043726198301974266,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -7239,20 +9021,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2557,
+    "btts": 0.6049,
+    "draw": 0.2344,
+    "home": 0.51,
+    "over25": 0.6102
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.2669,
+    "btts": 0.6088,
+    "draw": 0.2491,
+    "home": 0.484,
+    "over25": 0.598
    }
   },
   "date": "2026-10-31",
@@ -7271,11 +9053,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:40Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {
@@ -7306,20 +9088,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1741,
+    "btts": 0.5404,
+    "draw": 0.2206,
+    "home": 0.6053,
+    "over25": 0.5743
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-31T12:20Z",
+    "away": 0.1817,
+    "btts": 0.5333,
+    "draw": 0.2219,
+    "home": 0.5964,
+    "over25": 0.5614
    }
   },
   "date": "2026-10-31",
@@ -7338,11 +9120,11 @@
   ],
   "news": {
    "absent": "PENDING",
-   "at": "PENDING",
-   "away_missing": "PENDING",
-   "edge": "PENDING",
-   "home_missing": "PENDING",
-   "lineup": "PENDING"
+   "at": "2026-10-31T14:20Z",
+   "away_missing": 0.0,
+   "edge": 0.0,
+   "home_missing": 0.0,
+   "lineup": "confirmed"
   },
   "xg": {
    "away": {

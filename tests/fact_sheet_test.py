@@ -158,6 +158,32 @@ def test_games_we_did_not_bet_are_sheeted_and_studied_against_the_model():
     assert cell["n"] == 1 and cell["won_rate"] == 0.0 and cell["market_rate"] == 0.6
 
 
+def test_fotmob_news_reaches_both_readers_side_by_side():
+    # 2026-11-01 20:08: readers in series -> OpenRouter 0 answered; framework data alone -> all null
+    import threading
+    or_asked = threading.Event()
+    seen = {}
+    news = {"Ajax v PSV": {"at": "2026-11-02T12:00Z", "lineup_type": "confirmed", "home_unavailable": 3,
+                           "away_unavailable": 0, "absent": [{"name": "A. Keeper", "side": "home", "type": "injury"}]}}
+
+    def post(url, json=None, **kw):
+        if ":generateContent" in url:
+            return Resp({}, 429)
+        text = json["messages"][0]["content"]
+        assert "A. Keeper (home, injury)" in text
+        if "openrouter" in url:
+            or_asked.set()
+        else:
+            seen["parallel"] = or_asked.wait(timeout=5)
+        body = __import__("json").dumps({"fixtures": [{"id": "0", "key_absences_home": 3}]})
+        return Resp({"choices": [{"message": {"content": body}}]})
+    doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get, post=post,
+                   sleep=lambda s: None, news=news)
+    assert seen["parallel"] is True
+    assert doc["members"]["openrouter"]["answered"] == 1 and doc["members"]["nvidia"]["answered"] == 1
+    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 3
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

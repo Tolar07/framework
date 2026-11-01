@@ -43,6 +43,7 @@ OUT = ROOT / "backtest" / "MODEL_SIDES_STUDY.md"
 BARS = (0.50, 0.55, 0.60, 0.65)
 DAYS = 45                       # boards read, newest first
 MIN_PRICE = 1.01
+NGN_STAKE = 1000                # SportyBet: NGN 1,000 a single (the board singles stake, 2026-10-24)
 
 
 def _n(s: str) -> str:
@@ -145,7 +146,7 @@ def _row(rs: list[dict]) -> str:
     w = sum(x["won"] for x in rs)
     pl = sum((x["price"] - 1) if x["won"] else -1 for x in rs)
     ch = sum(x["chance"] for x in rs) / n
-    return f"{n} | {w} | {w / n:.0%} | {ch:.0%} | {pl:+.2f} | {pl / n:+.1%}"
+    return f"{n} | {w} | {w / n:.0%} | {ch:.0%} | {pl:+.2f} | ₦{pl * NGN_STAKE:+,.0f} | {pl / n:+.1%}"
 
 
 def report(recs: list[dict], days: list[str]) -> list[str]:
@@ -155,8 +156,8 @@ def report(recs: list[dict], days: list[str]) -> list[str]:
          "SportyBet's last price before kick-off, 1 unit. Nothing here is staked.", "",
          f"Boards read: {len(days)} ({days[0] if days else '-'} to {days[-1] if days else '-'}) · "
          f"{len(recs)} paper singles at 50%+.", "",
-         "## By bar (all markets)", "", "| Bar | Singles | Won | Hit | Avg chance | Profit | ROI |",
-         "|---|---|---|---|---|---|---|"]
+         "## By bar (all markets)", "", "| Bar | Singles | Won | Hit | Avg chance | Profit (1 unit) | Profit (₦1,000 a single) | ROI |",
+         "|---|---|---|---|---|---|---|---|"]
     for b in BARS:
         rs = [x for x in recs if x["chance"] >= b]
         if rs:
@@ -167,13 +168,13 @@ def report(recs: list[dict], days: list[str]) -> list[str]:
             if x["chance"] >= b:
                 groups[(x["market"], re.sub(r"[\d.:+-]+", "N", x["side"]).replace("(N)", "").strip())].append(x)
         L += ["", f"## Bar {b:.0%}: by market and side (10+ singles)", "",
-              "| Market | Side | Singles | Won | Hit | Avg chance | Profit | ROI |",
-              "|---|---|---|---|---|---|---|---|"]
+              "| Market | Side | Singles | Won | Hit | Avg chance | Profit (1 unit) | Profit (₦1,000 a single) | ROI |",
+              "|---|---|---|---|---|---|---|---|---|"]
         for (mk, sd), rs in sorted(groups.items(), key=lambda t: -len(t[1])):
             if len(rs) >= 10:
                 L.append(f"| {mk} | {sd} | {_row(rs)} |")
-    L += ["", "## By day (bar 50%)", "", "| Day | Singles | Won | Hit | Avg chance | Profit | ROI |",
-          "|---|---|---|---|---|---|---|"]
+    L += ["", "## By day (bar 50%)", "", "| Day | Singles | Won | Hit | Avg chance | Profit (1 unit) | Profit (₦1,000 a single) | ROI |",
+          "|---|---|---|---|---|---|---|---|"]
     for d in days:
         rs = [x for x in recs if x["date"] == d]
         if rs:

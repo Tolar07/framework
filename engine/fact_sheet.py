@@ -147,6 +147,29 @@ def fixtures(singles: list[dict]) -> list[dict]:
     return list(seen.values())
 
 
+NEWS_DIR = ROOT / "data" / "features"
+
+
+def load_news(day: Optional[str], folder: Path = NEWS_DIR) -> dict:
+    """FotMob team news the pre-kickoff loop captured for every fixture (data/features/news_<date>.json)."""
+    try:
+        return json.loads((folder / f"news_{day}.json").read_text(encoding="utf-8")) if day else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def fotmob_evidence(news: dict, fixture: str) -> str:
+    n = news.get(fixture) or {}
+    if not n:
+        return ""
+    out = [f"FotMob ({n.get('at') or 'PENDING'}, line-ups {n.get('lineup_type') or 'PENDING'}): "
+           f"home unavailable {n.get('home_unavailable', 'PENDING')}, away unavailable {n.get('away_unavailable', 'PENDING')}"]
+    absent = [f"{a.get('name')} ({a.get('side')}, {a.get('type')})" for a in n.get("absent") or []][:12]
+    if absent:
+        out.append("absent: " + ", ".join(absent))
+    return "; ".join(out)
+
+
 def local_evidence(singles: list[dict], fixture: str) -> str:
     """What the framework itself already knows about a fixture (news check, line-up check, missing squad
     value), as text for the readers when Gemini can't search (2026-11-01: Gemini 429 all evening)."""
@@ -196,7 +219,7 @@ def _search_retry(post: Callable, key: str, model: str, rows: list[dict],
 
 def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, clock: Callable = time.monotonic,
-           sleep: Callable = time.sleep) -> dict:
+           sleep: Callable = time.sleep, news: Optional[dict] = None) -> dict:
     """{"members": {...}, "fixtures": [{fixture, evidence, answers: {member: {field: v}}, agreed: {...}}]}.
     Never raises."""
     if get is None or post is None:
@@ -238,22 +261,28 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                     answers["gemini"][i] = {k: clean(k, f.get(k)) for k in all_fields()}
                     info["gemini"]["answered"] += 1
     # the readers: only fixtures that have evidence, only from that evidence
-    # no web evidence for a fixture (Gemini off or silent): the readers get the framework's own data
+    # no web evidence for a fixture (Gemini off or silent): the readers get the framework's own data;
+    # FotMob's captured team news is added to every fixture's evidence (2026-11-01: framework data alone
+    # left every field null)
     for fx in fxs:
+        fm = fotmob_evidence(news or {}, fx["fixture"])
         if not evidence.get(fx["id"]):
             loc = local_evidence(singles, fx["fixture"])
-            if loc:
-                evidence[fx["id"]] = loc
+            evidence[fx["id"]] = "; ".join(x for x in (loc or ("framework data (no web search)" if fm else ""), fm) if x)
+        elif fm:
+            evidence[fx["id"]] = (evidence[fx["id"]] + "; " + fm)[:1600]
     have = [i for i in range(len(fxs)) if evidence.get(i)]
-    for name in ("nvidia", "openrouter"):
+
+    def reader(name: str) -> None:
+        # Each reader writes only its own info[name] / answers[name] entry.
         key = keys.get(name) or ""
         if not key:
             info[name] = {"status": f"missing secret {VP.MEMBERS[name]['key']}"}
-            continue
+            return
         model = VP.pick_model(name, get, key)
         if not model:
             info[name] = {"status": "no free model available" if name == "openrouter" else "no model"}
-            continue
+            return
         info[name] = {"model": model, "status": "ok", "answered": 0}
         for j in range(0, len(have), BATCH):
             if clock() - t0 > BUDGET_S:
@@ -273,6 +302,11 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                 if i in have:
                     answers[name][i] = {k: clean(k, f.get(k)) for k in all_fields()}
                     info[name]["answered"] += 1
+
+    # 2026-11-01 20:08: read one after another, NVIDIA used the whole budget and OpenRouter answered 0
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=2) as ex:
+        list(ex.map(reader, ["nvidia", "openrouter"]))
     out = []
     for fx in fxs:
         i = fx["id"]
@@ -346,6 +380,7 @@ def rated_unbet(picks_doc: dict, n: int = MAX_RATED) -> list[dict]:
 def build(picks_doc: dict, **kw) -> dict:
     singles = picks_doc.get("singles") or []
     rated = rated_unbet(picks_doc)
+    kw.setdefault("news", load_news(picks_doc.get("date")))
     sheet = gather(singles + rated, **kw)
     by_fx = {f["fixture"]: f for f in sheet["fixtures"]}
     picks = []

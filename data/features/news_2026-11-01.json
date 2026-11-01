@@ -256,7 +256,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:00Z",
+  "at": "2026-11-01T10:20Z",
   "away_missing_share": 0.08320121609712354,
   "away_unavailable": 4,
   "fotmob_id": 5749733,
@@ -654,6 +654,48 @@
   "kickoff_utc": "2026-11-01T12:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Hellas Verona v Carrarese": {
+  "absent": [
+   {
+    "name": "Tom\u00e1s Suslov",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Suat Serdar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Domagoj Bradari\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nicholas Bonfanti",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Colin Dagba",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Guido Pagliuca",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-11-01T10:20Z",
+  "away_missing_share": 0.05684235165112617,
+  "away_unavailable": 3,
+  "fotmob_id": 5967138,
+  "home_missing_share": 0.3624491707810636,
+  "home_unavailable": 8,
+  "kickoff_utc": "2026-11-01T16:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "IF Elfsborg v Orgryte IS": {
   "absent": [
    {
@@ -839,6 +881,43 @@
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Lyon v Angers": {
+  "absent": [
+   {
+    "name": "Tyler Morton",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lo\u00efs Openda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pavel \u0160ulc",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Emmanuel Biumla",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Amine El Ouazzani",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T10:20Z",
+  "away_missing_share": 0.13475440426617438,
+  "away_unavailable": 2,
+  "fotmob_id": 5802976,
+  "home_missing_share": 0.3509734441708888,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-01T16:15:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Malmo v Hammarby IF": {
   "absent": [
    {
@@ -916,6 +995,43 @@
   "home_missing_share": 0.024609691358342935,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Paris FC v Monaco": {
+  "absent": [
+   {
+    "name": "Nhoa Sangui",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rudy Matondo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Koleosho",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ansu Fati",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Stanis Idumbo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T10:20Z",
+  "away_missing_share": 0.17078468916091488,
+  "away_unavailable": 2,
+  "fotmob_id": 5802979,
+  "home_missing_share": 0.3105232657083768,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-01T16:15:00.000Z",
   "lineup_type": "predicted"
  },
  "Racing Santander v Real Madrid": {
@@ -1428,7 +1544,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:00Z",
+  "at": "2026-11-01T10:20Z",
   "away_missing_share": 0.13397967273107494,
   "away_unavailable": 2,
   "fotmob_id": 5781792,

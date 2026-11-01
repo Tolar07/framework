@@ -1,21 +1,20 @@
 {
  "football": {
-  "date": "2026-10-31",
-  "graded": 214,
+  "date": "2026-11-01",
+  "graded": 287,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
-   "Back positive Asian Handicap (+0.5, +1.5, +2.5) selections even with small model-to-breakeven deficits (<3%): positive handicap cushions went 11 of 11.",
-   "Do not veto Over 1.5 goals at 1.20–1.29 solely due to a LOSING framework record; Over 1.5 hit reliably when vetoed.",
-   "Do not veto Double Chance '12' when missing player value exceeds 20%: heavy squad disruption produced decisive winners without a single draw.",
+   "Back positive Asian Handicap (+0.5, +1.5, +2.5) selections even with small model-to-breakeven deficits (<3%): positive handicap cushions perform reliably.",
+   "Do not veto Over 1.5 goals at short odds (1.20–1.31) solely due to a LOSING framework record; use 'lower' instead.",
    "Never apply Double Chance '12' lay-the-draw veto rules to 'Team or Draw' (1X/X2): 1X/X2 provides true draw protection.",
    "Do not blanket veto Double Chance '12' for LOSING framework records: restrict vetoes strictly to tightly priced domestic derbies without squad disparity.",
    "Do not veto team Over 0.5 goals simply because model chance is slightly below break-even: backed and vetoed team Over 0.5 picks frequently score.",
-   "Exercise caution backing team Over 0.5 against dominant favorites or away sides: backed selections lost against elite defenses.",
+   "Exercise caution backing team Over 0.5 against dominant favorites or away sides: backed selections can lose against elite defenses.",
    "Do not blanket veto 'Win to Nil — no' at <=1.24 on framework records: most selections win unless the favorite's defense is entirely intact.",
    "Do not treat Under 4.5 or Under totals as automatic safe cushions: short odds unders can still fail.",
    "Back Under 3.5 in cup ties only when verified extreme squad rotation (missing value share >50%) suppresses offensive output."
   ],
-  "summary": "Refined lessons to reinforce high-performing positive Asian Handicap selections and clarify boundary conditions for goals and double-chance markets based on recent verdict outcomes.",
+  "summary": "Refined and kept concrete lessons focusing on the success of positive Asian handicaps, lowering confidence instead of vetoing short-odds Over 1.5 and Under totals, and protecting 1X/X2 double chance selections.",
   "history": [
    {
     "date": "2026-10-23",
@@ -51,21 +50,26 @@
     "date": "2026-10-31",
     "graded": 214,
     "n": 10
+   },
+   {
+    "date": "2026-11-01",
+    "graded": 287,
+    "n": 9
    }
   ]
  },
  "nba": {
-  "date": "2026-10-31",
-  "graded": 48,
+  "date": "2026-11-01",
+  "graded": 55,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
    "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record (saved 2 of 2 losses).",
-   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher (won 10 of 11); avoid or reduce stake on Unders at 120.5 or higher (lost 4 of 6).",
+   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher (won 11 of 13); avoid or reduce stake on Unders at 120.5 or higher (won 2 of 3).",
    "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher (won 4 of 4).",
    "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65.",
-   "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85 (won 2 of 3)."
+   "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85 (won 3 of 4)."
   ],
-  "summary": "Retained all five current lessons as they continue to be validated by the graded verdicts and accurately govern odds thresholds, family record adjustments, and total line filters.",
+  "summary": "Refined the record statistics for 1st half Under lines and NBA underdog handicaps to accurately reflect recent performance.",
   "history": [
    {
     "date": "2026-10-23",
@@ -101,7 +105,70 @@
     "date": "2026-10-31",
     "graded": 48,
     "n": 5
+   },
+   {
+    "date": "2026-11-01",
+    "graded": 55,
+    "n": 5
    }
   ]
- }
+ },
+ "cognitive": [
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Over/Under",
+   "fixture": "PSV Eindhoven v Willem II",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High-probability bets can still lose to extreme scoring outliers; ensure model risk assessment accounts for tail-risk blowouts in high-total goal lines."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Away goals",
+   "fixture": "Heerenveen v Nijmegen",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "Even high-probability picks face random variance; never assume a bet is guaranteed despite an 80 percent base probability."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Over/Under",
+   "fixture": "Mechelen v Genk",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High-probability Over 1.5 bets can still fail due to normal match variance; maintain strict risk management even on strong model signals."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Double chance",
+   "fixture": "Standard v Kortrijk",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High-probability double chance bets can still fail due to normal match variance; always account for inherent draw risk in football."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Asian handicap",
+   "fixture": "Barcelona v Alaves",
+   "failure_mode": "OVERCONFIDENT_CALIBRATION",
+   "lesson": "Do not rely on high uncalibrated model probabilities without market validation for extreme handicap lines prone to blowouts."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Over/Under",
+   "fixture": "Sociedad B v Girona",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High-probability models still lose to expected statistical variance; always manage risk even when Over 1.5 probability reaches 79%."
+  },
+  {
+   "date": "2026-10-31",
+   "domain": "football",
+   "family": "Asian handicap",
+   "fixture": "Oldham v Crawley Town",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High probability picks near 79 percent will still lose roughly one out of five times due to standard statistical variance."
+  }
+ ]
 }

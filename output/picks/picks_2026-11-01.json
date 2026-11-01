@@ -235,8 +235,8 @@
     "spec": "hcp=2.5",
     "outcome": "Home (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -4.72,
    "stake_pct": 0.25,
    "ev": -0.012351552796299736,
    "missing": {
@@ -357,7 +357,11 @@
     "home": 5314437,
     "away": 23727285
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: FC Utrecht missing 39%",
+    "at": "13:00Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> BTTS & goals",
     "xg": [
@@ -391,8 +395,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -4.62,
    "stake_pct": 0.25,
    "ev": -0.03455125239477752,
    "missing": {
@@ -652,7 +656,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Odense v Silkeborg",
@@ -7947,7 +7953,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": -2.4
   },
   {
    "fixture": "APO Levadiakos FC v Aris Thessaloniki",
@@ -8230,7 +8238,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "PAOK v Asteras Tripolis",
@@ -8588,7 +8598,11 @@
     "home": 30448098,
     "away": 2692302
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "matchup": {
     "say": "Salzburg: possession side v low block; Salzburg: elite attack v leaky defence; Austria Lustenau: counter side v high line; Austria Lustenau: blunt attack v tight defence; Austria Lustenau: counter side v counter-exposed -> BTTS & goals",
     "xg": [
@@ -8627,8 +8641,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.020087338476404204,
    "missing": {
@@ -8794,8 +8808,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.061669467057071436,
    "missing": {
@@ -9013,7 +9027,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Young Boys Bern v FC Zurich",
@@ -9581,8 +9597,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.012702586440118901,
    "missing": {
@@ -9824,7 +9840,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Sarpsborg 08 v Kristiansund BK",
@@ -9987,7 +10005,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Vaalerenga IF v Tromsoe IL",

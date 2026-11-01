@@ -48,7 +48,8 @@ def test_goals_lines() -> None:
     assert cal.model_prob("UNDER_1_5", 0.25) == 1 - cal.over(1.5, 0.75)
     # 3.5 and 4.5 (Architect 2026-10-14, GOALS_LINE_STUDY): the model's top-end
     # Unders were over-confident — a raw 80% Under 3.5 reads ~75%
-    assert abs(cal.model_prob("SB:18|total=3.5|Under 3.5", 0.80) - 0.749) < 0.002
+    # ... and since 2026-11-01 the big-Under margin takes 5 more points off (under_margin_test.py)
+    assert abs(cal.model_prob("SB:18|total=3.5|Under 3.5", 0.80) - (0.749 - cal.UNDER_MARGIN)) < 0.002
     assert cal.model_prob("UNDER_3_5", 0.80) == cal.model_prob("SB:18|total=3.5|Under 3.5", 0.80)
     assert cal.goals_key("SB:18|total=4.5|Under 4.5") == (4.5, False)
     assert cal.goals_key("SB:18|total=5.5|Over 5.5") is None, "untested lines stay raw"

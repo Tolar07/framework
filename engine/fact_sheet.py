@@ -324,10 +324,12 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
 
 
 def done(old: dict, picks_doc: dict) -> bool:
-    """This board already has a fact sheet worth keeping: same board and some member answered.
+    """This board already has a fact sheet worth keeping: same board and two members answered.
     An empty sheet (every model rate-limited) is tried again on the next reasoning run."""
-    return old.get("picks_generated_at") == picks_doc.get("generated_at") and any(
-        (m or {}).get("answered") for m in (old.get("members") or {}).values())
+    # at least MIN_AGREE members answered: one model alone can never agree a fact (2026-11-01 22:17: a
+    # NVIDIA-only sheet counted as done and the side-by-side fix was never tried on that board)
+    return old.get("picks_generated_at") == picks_doc.get("generated_at") and sum(
+        1 for m in (old.get("members") or {}).values() if (m or {}).get("answered")) >= MIN_AGREE
 
 
 def signed(single: dict, agreed: dict) -> list[dict]:

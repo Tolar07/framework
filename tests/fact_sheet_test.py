@@ -136,8 +136,11 @@ def test_gemini_over_its_limit_readers_use_the_framework_data():
 def test_an_empty_sheet_is_not_done_so_the_next_run_tries_again():
     picks = {"generated_at": "g"}
     assert not FS.done({"picks_generated_at": "g", "members": {"gemini": {"answered": 0}}}, picks)
-    assert FS.done({"picks_generated_at": "g", "members": {"nvidia": {"answered": 5}}}, picks)
-    assert not FS.done({"picks_generated_at": "old", "members": {"nvidia": {"answered": 5}}}, picks)
+    assert not FS.done({"picks_generated_at": "g", "members": {"nvidia": {"answered": 5}}}, picks)
+    assert FS.done({"picks_generated_at": "g", "members": {"nvidia": {"answered": 5}, "openrouter": {"answered": 3}}},
+                   picks)
+    assert not FS.done({"picks_generated_at": "old", "members": {"nvidia": {"answered": 5},
+                                                                 "openrouter": {"answered": 3}}}, picks)
 
 
 def test_games_we_did_not_bet_are_sheeted_and_studied_against_the_model():

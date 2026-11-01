@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T09:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5904788,
@@ -110,6 +110,38 @@
   "home_missing_share": 0.24358992639312788,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T12:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Ceuta v Sp Gijon": {
+  "absent": [
+   {
+    "name": "Kenneth Obinna Mamah",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Andr\u00e9s Ferrari",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikita Iosifov",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Konrad de la Fuente",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:20Z",
+  "away_missing_share": 0.34026100482681254,
+  "away_unavailable": 4,
+  "fotmob_id": 5868517,
+  "home_missing_share": 0.14209158591883037,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-01T15:15:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Como v Venezia FC": {
@@ -662,6 +694,43 @@
   "home_missing_share": 0.024609691358342935,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Racing Santander v Real Madrid": {
+  "absent": [
+   {
+    "name": "Andr\u00e9s Martin",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jorge Salinas",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Vin\u00edcius J\u00fanior",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Federico Valverde",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Rodrygo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T09:20Z",
+  "away_missing_share": 0.28571862027821726,
+  "away_unavailable": 5,
+  "fotmob_id": 5868118,
+  "home_missing_share": 0.19235516137879285,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-01T15:15:00.000Z",
   "lineup_type": "predicted"
  },
  "SK Brann v Molde": {

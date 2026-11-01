@@ -1,27 +1,27 @@
 {
  "date": "2026-11-01",
  "picks_generated_at": "2026-10-31T22:01:18Z",
- "run_at": "2026-11-01T18:41:29+00:00",
+ "run_at": "2026-11-01T20:16:43+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
    "model": "gemini-3.5-flash",
-   "status": "off for this run: RateLimited: gemini: 429",
+   "status": "off for this run: 429 on every Gemini model",
    "answered": 0
   },
   "nvidia": {
    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-   "status": "ok",
-   "answered": 0
+   "status": "time budget used; 30 answered",
+   "answered": 30
   },
   "openrouter": {
    "model": "google/gemma-4-31b-it:free",
-   "status": "ok",
+   "status": "time budget used; 0 answered",
    "answered": 0
   }
  },
  "fields_agreed": 0,
- "fields_asked": 952,
+ "fields_asked": 1008,
  "fixtures": [
   {
    "id": 0,
@@ -30,8 +30,26 @@
    "away": "Den Haag",
    "league": "Eredivisie",
    "kickoff_utc": "2026-11-01T11:15:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.18958222825975732, 'away': 0.14404846798306378}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -42,8 +60,26 @@
    "away": "Twente",
    "league": "Eredivisie",
    "kickoff_utc": "2026-11-01T13:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: FC Twente missing 25%; news level: OK; line-up check: support: FC Twente missing 19%; share of squad value missing: {'home': 0.0, 'away': 0.2522278756747908}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -54,8 +90,26 @@
    "away": "Utrecht",
    "league": "Eredivisie",
    "kickoff_utc": "2026-11-01T13:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: FC Utrecht missing 38%; news level: OK; line-up check: support: FC Utrecht missing 39%; share of squad value missing: {'home': 0.0, 'away': 0.3813208061970744}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -66,8 +120,26 @@
    "away": "Sparta Rotterdam",
    "league": "Eredivisie",
    "kickoff_utc": "2026-11-01T15:45:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: FC Groningen missing 16%; news level: OK; line-up check: support: FC Groningen missing 12%; share of squad value missing: {'home': 0.15506429326489024, 'away': 0.0794651292537672}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -79,6 +151,7 @@
    "league": "Danish Superliga",
    "kickoff_utc": "2026-11-01T13:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -90,8 +163,26 @@
    "away": "Horsens",
    "league": "Danish Superliga",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.17809123388079554, 'away': 0.2860172868279948}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -102,8 +193,26 @@
    "away": "Midtjylland",
    "league": "Danish Superliga",
    "kickoff_utc": "2026-11-01T15:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Midtjylland (+1.5) Asian handicap (FC Midtjylland missing 21% of value (Mikel Gogorza, Martin Erlić, Elías Ólafsson)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.02659764567450937, 'away': 0.21043141732052698}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -115,6 +224,7 @@
    "league": "Danish Superliga",
    "kickoff_utc": "2026-11-01T17:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -126,8 +236,26 @@
    "away": "Antwerp",
    "league": "Belgian Pro League",
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: Cercle Brugge missing 29%; news level: OK; line-up check: support: Cercle Brugge missing 26%; share of squad value missing: {'home': 0.2890499055621493, 'away': 0.047898247463590005}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -139,6 +267,7 @@
    "league": "Belgian Pro League",
    "kickoff_utc": "2026-11-01T15:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -150,8 +279,26 @@
    "away": "Gent",
    "league": "Belgian Pro League",
    "kickoff_utc": "2026-11-01T17:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.07193120300572106, 'away': 0.07386425299911123}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -162,8 +309,26 @@
    "away": "RAAL La Louviere",
    "league": "Belgian Pro League",
    "kickoff_utc": "2026-11-01T18:15:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: RAAL La Louvière at full strength; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.07499241254561483, 'away': 0.05623112481564663}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": 0,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -174,8 +339,26 @@
    "away": "Celtic",
    "league": "Scottish Premiership",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: Falkirk missing 33% of value (Joseph Gardner, Leon McCann, Aodhan Doherty); support: Celtic missing 19%; news level: RISK; line-up check: Falkirk missing 36% of value (Joseph Gardner, Aodhan Doherty, Leon McCann); support: Celtic missing 26%; share of squad value missing: {'home': 0.330509851282589, 'away': 0.19411844430806213}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -186,8 +369,26 @@
    "away": "NK Varazdin",
    "league": "HNL",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from HNK Rijeka (+0.5) Asian handicap (Rijeka missing 17% of value (Junior Ligue, Téo Barišić); support: NK Varaždin missing 28%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.16562966018296146, 'away': 0.28154524750770293}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -198,8 +399,26 @@
    "away": "NK Osijek",
    "league": "HNL",
    "kickoff_utc": "2026-11-01T17:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.13172525151729816, 'away': 0.5383372473619932}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -210,8 +429,26 @@
    "away": "Torino",
    "league": "Serie A",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Torino Over 0.5 goals (Torino missing 24% of value (Niccolò Fortini, Rolando Mandragora, Ricardo Rodríguez)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.029154237832078843, 'away': 0.24335999517014642}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -222,8 +459,26 @@
    "away": "Cagliari",
    "league": "Serie A",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: Lazio missing 20%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.19521920058999218, 'away': 0.09927566145530259}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -234,8 +489,26 @@
    "away": "Genoa",
    "league": "Serie A",
    "kickoff_utc": "2026-11-01T17:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Genoa Win to Nil — no (Lecce missing 36% of value (Willem Geubbels, Ivan Ilić, Medon Berisha); support: Genoa missing 16%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.35642901071656424, 'away': 0.15630692022382792}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -246,8 +519,26 @@
    "away": "Napoli",
    "league": "Serie A",
    "kickoff_utc": "2026-11-01T19:45:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Napoli (0:2) handicap (Napoli missing 27% of value (Alessandro Buongiorno, David Neres, Benoît Badiashile); support: Juventus missing 51%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.5098918922656323, 'away': 0.26954190573670544}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -258,8 +549,26 @@
    "away": "FC Koln",
    "league": "Bundesliga",
    "kickoff_utc": "2026-11-01T14:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.18358618878007224, 'away': 0.24619037898939208}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -271,6 +580,7 @@
    "league": "Bundesliga",
    "kickoff_utc": "2026-11-01T16:30:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -282,8 +592,26 @@
    "away": "Auxerre",
    "league": "Ligue 1",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.38110728947634537, 'away': 0.12361060537082678}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -294,8 +622,26 @@
    "away": "Angers",
    "league": "Ligue 1",
    "kickoff_utc": "2026-11-01T16:15:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: Angers missing 14% of value (Emmanuel Biumla, Amine El Ouazzani); support: Lyon missing 38%; news level: CAUTION; line-up check: support: Lyon missing 38%; share of squad value missing: {'home': 0.37826354819936964, 'away': 0.14236163103113236}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -306,8 +652,26 @@
    "away": "Monaco",
    "league": "Ligue 1",
    "kickoff_utc": "2026-11-01T16:15:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Paris FC Win to Nil — no (Monaco missing 17% of value (Ansu Fati, Stanis Idumbo, Eric Dier); support: Paris FC missing 21%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.21329189799445625, 'away': 0.16919774090518303}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -318,8 +682,26 @@
    "away": "Toulouse",
    "league": "Ligue 1",
    "kickoff_utc": "2026-11-01T19:45:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: Toulouse at full strength; news level: OK; line-up check: Toulouse at full strength; share of squad value missing: {'home': 0.012435283269992879, 'away': 0.05265053751009806}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -330,8 +712,26 @@
    "away": "Nacional",
    "league": "Primeira Liga",
    "kickoff_utc": "2026-11-01T15:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: Nacional missing 18%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.055069148031397376, 'away': 0.17605396107628682}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -342,8 +742,26 @@
    "away": "Rio Ave",
    "league": "Primeira Liga",
    "kickoff_utc": "2026-11-01T18:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: Rio Ave missing 22%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.21761458898328678}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -354,8 +772,26 @@
    "away": "Santa Clara",
    "league": "Primeira Liga",
    "kickoff_utc": "2026-11-01T18:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Maritimo Madeira (+1.5) Asian handicap (Marítimo missing 13% of value (Yellu Santiago)); news level: OK; line-up check: support: Marítimo missing 13%; share of squad value missing: {'home': 0.12871263790301204, 'away': 0.0}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -366,8 +802,26 @@
    "away": "Famalicao",
    "league": "Primeira Liga",
    "kickoff_utc": "2026-11-01T20:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: Braga at full strength; news level: OK; line-up check: Braga rotated: confirmed XI worth 63% of predicted; share of squad value missing: {'home': 0.05498111275189865, 'away': 0.0}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 0,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -378,8 +832,26 @@
    "away": "Arsenal",
    "league": "Premier League",
    "kickoff_utc": "2026-11-01T16:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Arsenal Win to Nil — no (Liverpool missing 34% of value (Dominik Szoboszlai, Hugo Ekitiké, Jeremie Frimpong); support: Arsenal missing 31%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.3356551327114903, 'away': 0.3069494022071442}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -390,8 +862,26 @@
    "away": "Sevilla",
    "league": "La Liga",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: support: Getafe missing 45%; news level: OK; line-up check: support: Getafe missing 41%; share of squad value missing: {'home': 0.45482920771637425, 'away': 0.02380964259489088}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -402,8 +892,26 @@
    "away": "Real Madrid",
    "league": "La Liga",
    "kickoff_utc": "2026-11-01T15:15:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Real Madrid to win (Real Madrid missing 28% of value (Vinícius Júnior, Federico Valverde, Rodrygo); support: Racing Santander missing 17%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.17255113538048558, 'away': 0.28143126417879116}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -414,8 +922,26 @@
    "away": "Valencia",
    "league": "La Liga",
    "kickoff_utc": "2026-11-01T17:30:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Valencia (0:2) handicap (Valencia missing 36% of value (Harvey Elliott, Diego López, José Copete); support: Elche missing 12%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.12154569615674625, 'away': 0.3648451803622785}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -427,6 +953,7 @@
    "league": "La Liga",
    "kickoff_utc": "2026-11-01T20:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -438,8 +965,26 @@
    "away": "Granada",
    "league": "La Liga 2",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
-   "answers": {},
+   "evidence": "framework data (no web search): team news: swapped from Granada (+1.5) Asian handicap (Granada missing 47% of value (Pedro Alemañ, Alejandro Marqués, José Arnáiz); support: Eldense missing 29%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.2913358418425474, 'away': 0.4747964068190042}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -450,7 +995,8 @@
    "away": "Sp Gijon",
    "league": "La Liga 2",
    "kickoff_utc": "2026-11-01T15:15:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.13420775718648334, 'away': 0.3507993536973291}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -462,7 +1008,8 @@
    "away": "Castellon",
    "league": "La Liga 2",
    "kickoff_utc": "2026-11-01T17:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Castellon Win to Nil — no (Burgos CF missing 56% of value (David González, Jon Karrikaburu, Kévin Appin); support: Castellón missing 32%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.5590944537110298, 'away': 0.3168911438371992}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -474,7 +1021,8 @@
    "away": "Andorra",
    "league": "La Liga 2",
    "kickoff_utc": "2026-11-01T20:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Andorra (0:2) handicap (FC Andorra missing 37% of value (Pau López, Gael Alonso, Martí Vilà)); news level: OK; line-up check: no confirmed lineup published; share of squad value missing: {'home': 0.0, 'away': 0.36538364701002807}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -486,7 +1034,8 @@
    "away": "Ascoli Calcio 1898",
    "league": "Serie B",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.08490203494714461}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -498,7 +1047,8 @@
    "away": "SC Pisa",
    "league": "Serie B",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: Avellino at full strength; news level: OK; line-up check: Avellino at full strength; share of squad value missing: {'home': 0.09203791553975606, 'away': 0.032018022127471804}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -510,7 +1060,8 @@
    "away": "Carrarese",
    "league": "Serie B",
    "kickoff_utc": "2026-11-01T16:15:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.36728870527977203, 'away': 0.05514577880526208}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -522,7 +1073,8 @@
    "away": "L.R. Vicenza",
    "league": "Serie B",
    "kickoff_utc": "2026-11-01T18:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.27659283635974347, 'away': 0.06296492053196415}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -534,7 +1086,8 @@
    "away": "Nurnberg",
    "league": "2. Bundesliga",
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Nurnberg (+1.5) Asian handicap (1. FC Nürnberg missing 36% of value (Mohamed Alì Zoma, Mikayil Faye, Finn Becker)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.3621358212321876}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -546,7 +1099,8 @@
    "away": "Holstein Kiel",
    "league": "2. Bundesliga",
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: support: Holstein Kiel missing 20%; news level: OK; line-up check: Greuther Fürth missing 13% of value (Silas Prüfrock, Maxim Dal, Benjamin Zank); support: Holstein Kiel missing 21%; share of squad value missing: {'home': 0.10882688612330908, 'away': 0.20357050872416707}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -558,7 +1112,8 @@
    "away": "Dresden",
    "league": "2. Bundesliga",
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0584508829328866, 'away': 0.12429268469903693}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -570,7 +1125,8 @@
    "away": "Blackpool FC",
    "league": "League One",
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.0}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -582,7 +1138,8 @@
    "away": "Eyupspor",
    "league": "Turkish Super Lig",
    "kickoff_utc": "2026-11-01T10:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.15399092491676813, 'away': 0.0}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -594,7 +1151,8 @@
    "away": "Samsunspor",
    "league": "Turkish Super Lig",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.17601080451816176, 'away': 0.1350848123972375}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -606,7 +1164,8 @@
    "away": "Gaziantep FK",
    "league": "Turkish Super Lig",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Trabzonspor or Draw & Over 1.5 (Trabzonspor missing 30% of value (Franculino, Arseniy Batagov, Aral Şimşir); support: Gaziantep FK missing 61%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.29840214982500834, 'away': 0.6072477391148298}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -619,6 +1178,7 @@
    "league": "Turkish Super Lig",
    "kickoff_utc": "2026-11-01T16:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -630,7 +1190,8 @@
    "away": "Aris Thessaloniki",
    "league": "Greek Super League",
    "kickoff_utc": "2026-11-01T15:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from APO Levadiakos FC (+1.5) Asian handicap (Levadiakos missing 13% of value (David Cobnan, Panagiotis Simelidis); support: Aris Thessaloniki missing 32%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.1346250195995493, 'away': 0.31940646029694664}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -643,6 +1204,7 @@
    "league": "Greek Super League",
    "kickoff_utc": "2026-11-01T16:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -654,7 +1216,8 @@
    "away": "Asteras Tripolis",
    "league": "Greek Super League",
    "kickoff_utc": "2026-11-01T17:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: support: PAOK Thessaloniki missing 28%; news level: OK; line-up check: Asteras Tripolis missing 14% of value (Julián Bartolo, Issiaga Sylla, Adrián Riera); support: PAOK Thessaloniki missing 24%; share of squad value missing: {'home': 0.28050252405226417, 'away': 0.09645936133341386}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -666,7 +1229,8 @@
    "away": "AEK Athens",
    "league": "Greek Super League",
    "kickoff_utc": "2026-11-01T17:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: support: Panathinaikos missing 44%; news level: OK; line-up check: support: Panathinaikos missing 44%; share of squad value missing: {'home': 0.4381413058297091, 'away': 0.050188845814209085}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -678,7 +1242,8 @@
    "away": "Austria Lustenau",
    "league": "Austrian Bundesliga",
    "kickoff_utc": "2026-11-01T13:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Salzburg & Over 1.5 (Salzburg missing 42% of value (Sota Kitano, Damir Redzic, Jesper Lindstrøm); support: Austria Lustenau missing 28%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.42268773035629653, 'away': 0.28161966454974585}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -690,7 +1255,8 @@
    "away": "Sturm Graz",
    "league": "Austrian Bundesliga",
    "kickoff_utc": "2026-11-01T13:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Sturm Graz (+0.5) Asian handicap (Sturm Graz missing 100% of value (Nelson Weiper, Filip Rózga, Leon Grgić); support: Wolfsberger AC missing 100%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 1.0, 'away': 1.0}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -703,6 +1269,7 @@
    "league": "Austrian Bundesliga",
    "kickoff_utc": "2026-11-01T16:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -714,7 +1281,8 @@
    "away": "FC Zurich",
    "league": "Swiss Super League",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: support: FC Zürich missing 24%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.07075573908395374, 'away': 0.23840132193494254}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -726,7 +1294,8 @@
    "away": "FC Thun",
    "league": "Swiss Super League",
    "kickoff_utc": "2026-11-01T15:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from FC Thun Over 0.5 goals (Thun missing 16% of value (Marc Gutbub, Fabio Saiz, Genís Montolio); support: Lausanne missing 30%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.30491050302713935, 'away': 0.156980023461306}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -738,7 +1307,8 @@
    "away": "Basel",
    "league": "Swiss Super League",
    "kickoff_utc": "2026-11-01T15:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: swapped from Basel (0:3) handicap (Basel missing 25% of value (Kazeem Olaigbe, Gabriel Sigua, Aaron Malouda)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.07545110955386426, 'away': 0.2536196927083038}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -750,7 +1320,8 @@
    "away": "Molde",
    "league": "Eliteserien",
    "kickoff_utc": "2026-11-01T13:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.28346682631127795, 'away': 0.1743532228705679}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -763,6 +1334,7 @@
    "league": "Eliteserien",
    "kickoff_utc": "2026-11-01T16:00:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -774,7 +1346,8 @@
    "away": "Kristiansund BK",
    "league": "Eliteserien",
    "kickoff_utc": "2026-11-01T16:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.5167235034856527, 'away': 0.17857361684095238}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -787,6 +1360,7 @@
    "league": "Eliteserien",
    "kickoff_utc": "2026-11-01T18:15:00Z",
    "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -798,7 +1372,8 @@
    "away": "Degerfors IF",
    "league": "Allsvenskan",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.313113299800139}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -810,7 +1385,8 @@
    "away": "Hammarby IF",
    "league": "Allsvenskan",
    "kickoff_utc": "2026-11-01T13:00:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.33738033050834954, 'away': 0.16255624541932012}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -822,7 +1398,8 @@
    "away": "IFK Goteborg",
    "league": "Allsvenskan",
    "kickoff_utc": "2026-11-01T15:30:00.000Z",
-   "evidence": "PENDING",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.2485147792907038, 'away': 0.27483275744989544}",
+   "evidence_source": "framework",
    "answers": {},
    "agreed": {},
    "support": {}
@@ -834,7 +1411,60 @@
    "away": "IF Brommapojkarna",
    "league": "Allsvenskan",
    "kickoff_utc": "2026-11-01T15:30:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.05927761761030033}",
+   "evidence_source": "framework",
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 68,
+   "fixture": "Como v Venezia FC",
+   "home": "Como",
+   "away": "Venezia FC",
+   "league": "Serie A",
+   "kickoff_utc": "2026-11-01",
    "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 69,
+   "fixture": "Empoli v Juve Stabia",
+   "home": "Empoli",
+   "away": "Juve Stabia",
+   "league": "Serie B",
+   "kickoff_utc": "2026-11-01",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 70,
+   "fixture": "KFUM Oslo v HamKam",
+   "home": "KFUM Oslo",
+   "away": "HamKam",
+   "league": "Eliteserien",
+   "kickoff_utc": "2026-11-01",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 71,
+   "fixture": "IF Elfsborg v Orgryte IS",
+   "home": "IF Elfsborg",
+   "away": "Orgryte IS",
+   "league": "Allsvenskan",
+   "kickoff_utc": "2026-11-01",
+   "evidence": "PENDING",
+   "evidence_source": null,
    "answers": {},
    "agreed": {},
    "support": {}
@@ -1247,6 +1877,24 @@
    "fixture": "Vasteraas SK v IF Brommapojkarna",
    "market": "SB:18|total=1.5|Over 1.5",
    "pick": "Over 1.5 goals",
+   "facts": []
+  }
+ ],
+ "rated": [
+  {
+   "fixture": "Como v Venezia FC",
+   "facts": []
+  },
+  {
+   "fixture": "Empoli v Juve Stabia",
+   "facts": []
+  },
+  {
+   "fixture": "KFUM Oslo v HamKam",
+   "facts": []
+  },
+  {
+   "fixture": "IF Elfsborg v Orgryte IS",
    "facts": []
   }
  ]

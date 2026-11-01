@@ -3,6 +3,11 @@
   "id": "p0",
   "text": "You are one member of a panel that prices sports picks. For each pick give YOUR probability\nthat it wins (\"prob\", 0-1).\nRules:\n- START from \"anchor\": the sharp bookmaker's de-margined chance (\"anchor_source\": \"market\"), or the\n  model's chance when there is no sharp line (\"model\"). The market is well calibrated: move away from\n  the anchor only for a concrete fact in the context (line-ups, absences, the tactical matchup, flags),\n  and by at most 0.08.\n- Never invent a number, a line-up or a news item (HR59). Inputs that read null or PENDING are\n  unknown: unknown is a reason for caution, never for a bigger chance.\n- \"model_chance\" is the framework's own model; when it is far above the anchor it has usually been\n  overconfident.\nReturn JSON only: {\"picks\": [{\"id\": <id>, \"prob\": <0-1>, \"why\": \"<one short sentence>\"}]}\n\nPICKS:\n"
  },
- "challenger": null,
+ "challenger": {
+  "id": "p1",
+  "text": "You are one member of a panel that prices sports picks. For each pick give YOUR probability that it wins (\"prob\", 0-1).\nRules:\n- START from \"anchor\": the sharp bookmaker's de-margined chance (\"anchor_source\": \"market\"), or the model's chance when there is no sharp line (\"model\"). The market is well calibrated: move away from the anchor only for a concrete fact in the context (line-ups, absences, the tactical matchup, flags), and by at most 0.08.\n- Never invent a number, a line-up or a news item (HR59). Inputs that read null or PENDING are unknown: unknown is a reason for caution, never for a bigger chance.\n- \"model_chance\" is the framework's own model; when it is far above the anchor it has usually been overconfident.\n- Back positive Asian Handicap (+0.5, +1.5, +2.5) selections even with small model deficits, as cushions perform reliably, and do not veto Over 1.5 at short odds or team Over 0.5 solely due to framework records.\n- Do not blanket veto Double Chance '1X/X2' or 'Win to Nil — no' based on record; apply strict tactical analysis and evaluate elite defenses with caution.\nReturn JSON only: {\"picks\": [{\"id\": <id>, \"prob\": <0-1>, \"why\": \"<one short sentence>\"}]}\n\nPICKS:\n",
+  "change": "Updated the panel instructions to integrate specific learning guidelines on Asian Handicap, short odds overs, team Over 0.5, Double Chance, and Win to Nil markets.",
+  "since": "2026-11-01"
+ },
  "history": []
 }

@@ -1718,7 +1718,11 @@
     "home": 15784656,
     "away": 9870101
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "matchup": {
     "say": "Sporting Charleroi: set-piece threat v weak set-piece defence; Sporting Charleroi: aerial threat v weak in the air; Sporting Charleroi: possession side v low block; RAAL La Louvi\u00e8re: counter side v high line; RAAL La Louvi\u00e8re: counter side v counter-exposed -> no strong goals lean",
     "xg": [
@@ -1757,8 +1761,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -2.42,
    "stake_pct": 0.25,
    "ev": -0.04804102167731106,
    "missing": {
@@ -4240,8 +4244,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -0.77,
    "stake_pct": 0.25,
    "ev": -0.00689989751356801,
    "missing": {
@@ -4402,8 +4406,8 @@
     "spec": "total=1.5",
     "outcome": "Under 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -0.77,
    "stake_pct": 0.25,
    "ev": -0.036117103476442036,
    "missing": {
@@ -4660,7 +4664,9 @@
     "yes": -0.0163,
     "no": 0.0163,
     "signal": null
-   }
+   },
+   "drift_price": 1.17,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Liverpool v Arsenal",
@@ -10206,8 +10212,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": -0.03353969719421934,
    "missing": null,

@@ -295,14 +295,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:20Z",
+  "at": "2026-11-01T17:40Z",
   "away_missing_share": 0.05464444855475778,
   "away_unavailable": 2,
   "fotmob_id": 5811794,
-  "home_missing_share": 0.18575347688635474,
+  "home_missing_share": 0.18217582570733315,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T18:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Como v Venezia FC": {
   "absent": [
@@ -1369,7 +1369,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T17:20Z",
+  "at": "2026-11-01T17:40Z",
   "away_missing_share": 0.051673095467695274,
   "away_unavailable": 1,
   "fotmob_id": 5967135,

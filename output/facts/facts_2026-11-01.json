@@ -1,7 +1,7 @@
 {
  "date": "2026-11-01",
  "picks_generated_at": "2026-10-31T22:01:18Z",
- "run_at": "2026-11-01T23:00:48+00:00",
+ "run_at": "2026-11-01T23:25:09+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -9,15 +9,20 @@
    "status": "off for this run: 429 on every Gemini model",
    "answered": 0
   },
-  "nvidia": {
-   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-   "status": "time budget used; 36 answered",
-   "answered": 36
+  "nvidia_alt": {
+   "model": "mistralai/mistral-large-4-1t-a52b",
+   "status": "time budget used; 0 answered",
+   "answered": 0
   },
   "openrouter": {
    "model": "google/gemma-4-26b-a4b-it:free",
    "status": "off for this run: openrouter: 429",
    "answered": 0
+  },
+  "nvidia": {
+   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "status": "time budget used; 42 answered",
+   "answered": 42
   }
  },
  "fields_agreed": 0,
@@ -242,8 +247,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 0,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -285,8 +290,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -315,8 +320,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -345,8 +350,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -375,8 +380,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -405,8 +410,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -435,8 +440,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -465,8 +470,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -495,8 +500,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -525,8 +530,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -555,8 +560,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -598,8 +603,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -808,9 +813,9 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
-     "rotation_home": true,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
      "motivation_away": null,
@@ -838,8 +843,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -868,8 +873,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -898,8 +903,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -928,8 +933,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -971,8 +976,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1001,8 +1006,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1031,8 +1036,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1061,8 +1066,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 0,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1091,8 +1096,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1121,8 +1126,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 0,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1151,8 +1156,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
+     "key_absences_home": 1,
+     "key_absences_away": 1,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -1177,7 +1182,24 @@
    "kickoff_utc": "2026-11-01T18:30:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.27659283635974347, 'away': 0.06296492053196415}; FotMob (2026-11-01T18:00Z, line-ups confirmed): home unavailable 3, away unavailable 1; absent: Gabriel Strefezza (home, injury), Jesse Joronen (home, injury), Federico Barba (home, injury), Frank Tsadjout (away, injury)",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -1190,7 +1212,24 @@
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
    "evidence": "framework data (no web search): team news: swapped from Nurnberg (+1.5) Asian handicap (1. FC Nürnberg missing 36% of value (Mohamed Alì Zoma, Mikayil Faye, Finn Becker)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.3621358212321876}; FotMob (2026-11-01T11:40Z, line-ups confirmed): home unavailable 0, away unavailable 4; absent: Mohamed Alì Zoma (away, injury), Mikayil Faye (away, injury), Finn Becker (away, injury)",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -1203,7 +1242,24 @@
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
    "evidence": "framework data (no web search): team news: support: Holstein Kiel missing 20%; news level: OK; line-up check: Greuther Fürth missing 13% of value (Silas Prüfrock, Maxim Dal, Benjamin Zank); support: Holstein Kiel missing 21%; share of squad value missing: {'home': 0.10882688612330908, 'away': 0.20357050872416707}; FotMob (2026-11-01T11:40Z, line-ups confirmed): home unavailable 3, away unavailable 5; absent: Silas Prüfrock (home, injury), Maxim Dal (home, injury), Benjamin Zank (home, injury), Frederik Roslyng (away, injury), Lasse Rosenboom (away, injury), Hamza Muqaj (away, injury)",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -1216,7 +1272,24 @@
    "kickoff_utc": "2026-11-01T12:30:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0584508829328866, 'away': 0.12429268469903693}; FotMob (2026-11-01T11:40Z, line-ups confirmed): home unavailable 1, away unavailable 3; absent: Mustapha Bundu (home, injury), Kenneth Schmidt (away, injury), Thomas Leon Keller (away, injury), Lars Bünning (away, injury)",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -1229,7 +1302,24 @@
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.0}; FotMob (2026-11-01T13:00Z, line-ups confirmed): home unavailable 0, away unavailable 0",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -1242,7 +1332,24 @@
    "kickoff_utc": "2026-11-01T10:30:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.15399092491676813, 'away': 0.0}; FotMob (2026-11-01T09:40Z, line-ups confirmed): home unavailable 4, away unavailable 0; absent: Lumbardh Dellova (home, suspension), Dilhan Demir (home, injury), Mbaye Diagne (home, suspension)",
    "evidence_source": "framework",
-   "answers": {},
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },

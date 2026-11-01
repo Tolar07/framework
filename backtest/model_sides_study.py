@@ -71,7 +71,9 @@ def chance(k: str, g: np.ndarray) -> float | None:
     rule = fm.rule_for(*pk) if pk else None
     if rule is None:
         return None
-    win, _push = fm.evaluate(g, rule)
+    win, push = fm.evaluate(g, rule)
+    if push > 0:            # a whole line: refunded games are left out of the grading, so out of the chance too
+        return win / (1 - push) if push < 1 else None
     mid, spec, out = pk
     if mid == 29:                                   # BTTS: engine/calibration.btts_yes
         yes = cal.btts_yes(fm.evaluate(g, fm.rule_for(29, "", "Yes"))[0])

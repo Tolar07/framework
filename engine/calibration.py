@@ -149,12 +149,39 @@ def is_btts_key(key: str) -> Optional[bool]:
     return None
 
 
+# BIG-UNDER MARGIN (Architect 2026-11-01, improvement plan point 2, a stopgap until the goals refit):
+# on 30-31 Oct the model said Under 3.5 65% / won 61%, Under 4.5 86% / 81%, Under 5.5 93% / 91%
+# (backtest/MODEL_SIDES_STUDY.md). The board's chance for a match-total Under on a line of 3.5 or more
+# is cut by UNDER_MARGIN, so those picks need 5 more points to make the board. 0 turns it off.
+UNDER_MARGIN = 0.05
+UNDER_MARGIN_FROM = 3.5
+
+
+def under_margin(key: str) -> float:
+    """UNDER_MARGIN for a match-total Under on a line >= UNDER_MARGIN_FROM (SB:18 or UNDER_x_5), else 0."""
+    line = None
+    if key and key.startswith("SB:18|") and key.rsplit("|", 1)[-1].strip().lower().startswith("under"):
+        try:
+            line = float(dict(x.split("=", 1) for x in key[6:].rsplit("|", 1)[0].split("|") if "=" in x)["total"])
+        except (KeyError, ValueError):
+            return 0.0
+    elif key in ("UNDER_3_5", "UNDER_4_5", "UNDER_5_5"):
+        line = float(key[6:].replace("_", "."))
+    return UNDER_MARGIN if line is not None and line >= UNDER_MARGIN_FROM else 0.0
+
+
 def model_prob(key: str, raw: Optional[float]) -> Optional[float]:
-    """The model's chance for `key` with the BTTS calibration applied; any
-    other market comes back unchanged. `raw` is the model's own chance for
-    that same outcome (for BTTS-no, the raw no-chance)."""
+    """The model's chance for `key`, calibrated (BTTS, goals lines, result families), with the
+    big-Under margin taken off (under_margin). `raw` is the model's own chance for that same
+    outcome (for BTTS-no, the raw no-chance)."""
     if raw is None:
         return None
+    p = _model_prob(key, raw)
+    m = under_margin(key)
+    return p if p is None or not m else max(0.0, p - m)
+
+
+def _model_prob(key: str, raw: float) -> Optional[float]:
     rf = result_family(key)
     if rf is not None:
         a, b = PARAMS.get(rf, (0.0, 1.0))

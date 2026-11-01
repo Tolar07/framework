@@ -152,7 +152,7 @@
     "type": "suspension"
    },
    {
-    "name": "Ben Engdahl",
+    "name": "Filip Helander",
     "side": "home",
     "type": "injury"
    },
@@ -172,14 +172,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:40Z",
-  "away_missing_share": 0.27483275744989544,
+  "at": "2026-11-01T15:00Z",
+  "away_missing_share": 0.23119927549036,
   "away_unavailable": 5,
   "fotmob_id": 5107647,
-  "home_missing_share": 0.2485147792907038,
-  "home_unavailable": 3,
+  "home_missing_share": 0.28684273576250097,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Burgos v Castellon": {
   "absent": [
@@ -677,21 +677,16 @@
     "name": "Travis Hernes",
     "side": "home",
     "type": "injury"
-   },
-   {
-    "name": "Shunsuke Mito",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:40Z",
-  "away_missing_share": 0.07216662498786104,
-  "away_unavailable": 1,
+  "at": "2026-11-01T15:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
   "fotmob_id": 5781789,
   "home_missing_share": 0.12221840592456613,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T15:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "HNK Rijeka v NK Varazdin": {
   "absent": [
@@ -795,7 +790,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T10:20Z",
+  "at": "2026-11-01T15:00Z",
   "away_missing_share": 0.05684235165112617,
   "away_unavailable": 3,
   "fotmob_id": 5967138,
@@ -812,29 +807,29 @@
     "type": "injury"
    },
    {
-    "name": "Rasmus Alm",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "William Svensson",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Jerome Tibbling Ugwo",
+    "name": "Benjamin Laturnus",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Aydarus Abukar",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T14:40Z",
-  "away_missing_share": 0.3087130472154802,
-  "away_unavailable": 5,
+  "at": "2026-11-01T15:00Z",
+  "away_missing_share": 0.21236417116991949,
+  "away_unavailable": 3,
   "fotmob_id": 5107650,
-  "home_missing_share": 0.020553463387772673,
+  "home_missing_share": 0.01670448265327489,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Istanbul BB v Samsunspor": {
   "absent": [
@@ -1059,7 +1054,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:40Z",
+  "at": "2026-11-01T15:00Z",
   "away_missing_share": 0.29883696898314255,
   "away_unavailable": 4,
   "fotmob_id": 5795501,
@@ -1170,7 +1165,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:20Z",
+  "at": "2026-11-01T15:00Z",
   "away_missing_share": 0.13475440426617438,
   "away_unavailable": 2,
   "fotmob_id": 5802976,
@@ -1468,7 +1463,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T10:20Z",
+  "at": "2026-11-01T15:00Z",
   "away_missing_share": 0.17078468916091488,
   "away_unavailable": 2,
   "fotmob_id": 5802979,
@@ -1653,14 +1648,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T14:40Z",
-  "away_missing_share": 0.1903967886924978,
+  "at": "2026-11-01T15:00Z",
+  "away_missing_share": 0.2036905352598077,
   "away_unavailable": 2,
   "fotmob_id": 5105037,
-  "home_missing_share": 0.5378835487977157,
+  "home_missing_share": 0.5209465753060737,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T16:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sheffield Wednesday v Blackpool FC": {
   "absent": [],
@@ -1883,14 +1878,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T14:40Z",
-  "away_missing_share": 0.05927761761030033,
+  "at": "2026-11-01T15:00Z",
+  "away_missing_share": 0.05446449508423441,
   "away_unavailable": 1,
   "fotmob_id": 5107652,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-01T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Viborg v Horsens": {
   "absent": [

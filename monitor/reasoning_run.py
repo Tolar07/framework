@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -76,6 +77,33 @@ def main(argv: list[str] | None = None) -> int:
         print(f"verdict panel: {VP.grade(now=now)} newly graded · {VP.summary_line()}")
     except Exception as e:  # noqa: BLE001 — never blocks the verdict record
         print(f"verdict panel: grading failed: {e}")
+    # step 2 of the bot-training plan (2026-11-01): the models fill a FACT sheet (2 of 3 must agree),
+    # recorded only; the study sets each fact against the market once the picks are graded
+    from engine import fact_sheet as FS
+    if os.getenv("FACT_SHEET", "1") != "0":
+        FS.OUT_DIR.mkdir(parents=True, exist_ok=True)
+        for d in dates:
+            src = R.LEDGER_DIR / f"picks_{d}.json"
+            out = FS.OUT_DIR / f"facts_{d}.json"
+            try:
+                picks = json.loads(src.read_text(encoding="utf-8"))
+                if out.exists() and not a.force and json.loads(out.read_text(encoding="utf-8")).get(
+                        "picks_generated_at") == picks.get("generated_at"):
+                    continue
+                doc = FS.build(picks)
+                out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+                print(f"fact sheet {d}: {doc['fields_agreed']}/{doc['fields_asked']} fields agreed · "
+                      + ", ".join(f"{n} {m.get('answered', 0)}" for n, m in doc["members"].items()))
+            except FileNotFoundError:
+                continue
+            except Exception as e:  # noqa: BLE001 — recorded only: never blocks the verdict record
+                print(f"fact sheet {d}: failed: {type(e).__name__}: {e}")
+        try:
+            frec = FS.study()
+            FS.RECORD.write_text(json.dumps(frec, indent=1), encoding="utf-8")
+            print(FS.summary_line(frec))
+        except Exception as e:  # noqa: BLE001
+            print(f"fact sheet study failed: {e}")
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))

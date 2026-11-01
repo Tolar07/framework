@@ -187,6 +187,25 @@ def test_fotmob_news_reaches_both_readers_side_by_side():
     assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 3
 
 
+def test_throttled_openrouter_reader_falls_to_the_next_free_model():
+    free2 = {"data": [{"id": m, "pricing": {"prompt": "0", "completion": "0"}}
+                      for m in ("google/gemma-4-31b-it:free", "google/gemma-4-26b-a4b-it:free")]}
+    get2 = lambda url, **kw: Resp(free2) if "openrouter" in url else get(url, **kw)  # noqa: E731
+    news = {"Ajax v PSV": {"home_unavailable": 2, "absent": [{"name": "X", "side": "home", "type": "injury"}]}}
+
+    def post(url, json=None, **kw):
+        if ":generateContent" in url:
+            return Resp({}, 429)
+        if "openrouter" in url and json["model"] == "google/gemma-4-31b-it:free":
+            return Resp({}, 429)
+        body = __import__("json").dumps({"fixtures": [{"id": 0, "key_absences_home": 2}]})
+        return Resp({"choices": [{"message": {"content": body}}]})
+    doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get2, post=post,
+                   sleep=lambda s: None, news=news)
+    assert doc["members"]["openrouter"]["model"] == "google/gemma-4-26b-a4b-it:free"
+    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

@@ -113,6 +113,33 @@ def test_study_sets_facts_against_the_market():
     assert "key_absences (-)" in FS.summary_line(rec)
 
 
+def test_gemini_over_its_limit_readers_use_the_framework_data():
+    # 2026-11-01 18:41: Gemini 429 on every model -> 0/952 fields; the readers had nothing to read
+    single = {**SINGLE, "news_level": "RISK", "news_note": "Ajax keeper and two centre-backs out"}
+    sent = []
+
+    def post(url, json=None, **kw):
+        if ":generateContent" in url:
+            sent.append("gemini")
+            return Resp({}, 429)
+        assert "framework data (no web search)" in json["messages"][0]["content"]
+        body = __import__("json").dumps({"fixtures": [{"id": 0, "key_absences_home": 3}]})
+        return Resp({"choices": [{"message": {"content": body}}]})
+    doc = FS.build({"date": "d", "generated_at": "g", "singles": [single]}, keys=KEYS, get=get, post=post,
+                   sleep=lambda s: None)
+    f = doc["fixtures"][0]
+    assert sent.count("gemini") == 4                     # each Gemini model: tried, waited, tried again
+    assert f["evidence_source"] == "framework" and f["agreed"]["key_absences_home"] == 3
+    assert "429" in doc["members"]["gemini"]["status"]
+
+
+def test_an_empty_sheet_is_not_done_so_the_next_run_tries_again():
+    picks = {"generated_at": "g"}
+    assert not FS.done({"picks_generated_at": "g", "members": {"gemini": {"answered": 0}}}, picks)
+    assert FS.done({"picks_generated_at": "g", "members": {"nvidia": {"answered": 5}}}, picks)
+    assert not FS.done({"picks_generated_at": "old", "members": {"nvidia": {"answered": 5}}}, picks)
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

@@ -517,7 +517,11 @@
     "home": 20486252,
     "away": 23624189
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: FC Groningen missing 12%",
+    "at": "15:20Z"
+   },
    "matchup": {
     "say": "FC Groningen: counter side v counter-exposed; Sparta Rotterdam: counter side v high line; Sparta Rotterdam: aerial threat v weak in the air; Sparta Rotterdam: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -555,8 +559,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -1.57,
    "stake_pct": 0.25,
    "ev": -0.03925037732314751,
    "missing": {
@@ -1856,7 +1860,9 @@
     "yes": -0.0372,
     "no": 0.0372,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Falkirk v Celtic",
@@ -9962,7 +9968,11 @@
     "home": 5973413,
     "away": 6233942
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "matchup": {
     "say": "Kristiansund: blunt attack v tight defence -> no strong goals lean",
     "xg": [
@@ -10217,7 +10227,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Djurgardens IF v Degerfors IF",

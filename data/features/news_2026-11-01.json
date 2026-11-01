@@ -790,7 +790,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T15:00Z",
+  "at": "2026-11-01T15:20Z",
   "away_missing_share": 0.05684235165112617,
   "away_unavailable": 3,
   "fotmob_id": 5967138,
@@ -1054,7 +1054,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:00Z",
+  "at": "2026-11-01T15:20Z",
   "away_missing_share": 0.29883696898314255,
   "away_unavailable": 4,
   "fotmob_id": 5795501,
@@ -1165,7 +1165,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:00Z",
+  "at": "2026-11-01T15:20Z",
   "away_missing_share": 0.13475440426617438,
   "away_unavailable": 2,
   "fotmob_id": 5802976,
@@ -1463,7 +1463,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T15:00Z",
+  "at": "2026-11-01T15:20Z",
   "away_missing_share": 0.17078468916091488,
   "away_unavailable": 2,
   "fotmob_id": 5802979,

@@ -1581,8 +1581,13 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3 or board_code or alts or values or extra_codes.get("clv_accas"):
+    if (accas or mega_codes or safe3 or board_code or alts or values or extra_codes.get("clv_accas")
+            or extra_codes.get("short3")):
         out += ["", "ALL CODES"]
+        for _s in extra_codes.get("short3") or []:        # engine/short_legs.py (2026-11-01), paper
+            out.append(f"{_s['name']}: {_s['code'] or 'PENDING'} (3 short legs · odds {_s['odds']:.2f} · "
+                       f"{round(_s['chance']*100)}% · " + " + ".join(l['pick'] for l in _s['alt_legs'])
+                       + " · paper)")
         for _s in extra_codes.get("clv_accas") or []:     # engine/clv_accas.py (2026-10-21)
             out.append(f"{_s['name']}: {_s['code'] or 'PENDING'} ({len(_s['legs'])} legs · odds "
                        f"{_s['odds']:.2f} · {round(_s['chance']*100)}% · positive-CLV markets)")

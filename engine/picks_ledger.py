@@ -199,6 +199,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
            for slot in ("accas", "safe3")},
         # POSITIVE-CLV ACCAS (engine/clv_accas.py, Architect 2026-10-21), graded like the accas
         "clv_accas": list((combined or {}).get("clv_accas") or []),
+        # SHORT 3-LEG SLIPS (engine/short_legs.py, 2026-11-01): own-market legs, graded like alt slips
+        "short3": list((combined or {}).get("short3") or []),
         "combined": [{"name": n, "of": kind, "code": (combined or {}).get(key), "result": None}
                      for n, kind, key in (("ACCAS MEGA", "accas", "accas_mega"),
                                           ("ALT MEGA", "alts", "alts_mega"),
@@ -375,7 +377,7 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
         for slip in (doc.get("alts", []) + doc.get("replaced", [])
-                     + doc.get("value", []) + doc.get("btts", [])):                         # own-market legs
+                     + doc.get("value", []) + doc.get("btts", []) + doc.get("short3", [])):  # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] in (None, "no-90min-result"):
                     ev = find(events, leg["home"], leg["away"], leg["kickoff"] or doc["date"],
@@ -398,9 +400,9 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
                 cmb["result"] = new
                 changed += 1
         for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts",
-                     "accas_dropped", "safe3_dropped", "clv_accas"):
+                     "accas_dropped", "safe3_dropped", "clv_accas", "short3"):
             for slip in doc.get(kind, []):
-                if kind in ("alts", "replaced", "value", "btts"):
+                if kind in ("alts", "replaced", "value", "btts", "short3"):
                     legs = slip.get("alt_legs", [])
                 else:
                     legs = [by_fixture.get(f) for f in slip["legs"]]

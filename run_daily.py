@@ -38,6 +38,7 @@ from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_bloc
                           CERTAINTY_HIGH_PP, MODEL_WEIGHT)
 from engine import market_implied as mi
 from engine import full_markets as fm
+from engine import short_legs as sl
 
 UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
 EV_PREF_PP = 0.02      # see VALUE-AWARE PICK in the selection loop
@@ -552,6 +553,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # can actually be stated, rather than falling back to an HR30 exception.
     ladder_fixtures = ladder_rejected = dog_hcp_dropped = approved_dropped = 0
     shootout_unders = 0
+    short_games = short_skipped = 0        # NO FORCED PICKS (engine/short_legs.py, 2026-11-01)
     try:                                   # team profiles for order 43 (best effort)
         from data import league_strength as _ls
         from data import team_profiles as _tp
@@ -670,8 +672,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             mgrid = fm.market_matrix(fx)
             dgrid = None if market_only else getattr(p, "matrix", None)
             cands = []
+            bf.short_legs = []             # sub-1.20 outcomes the model backs (engine/short_legs.py)
             for k, price, rule in ladder:
-                if not in_deploy_band(price):
+                short = sl.is_short_price(price)
+                if not in_deploy_band(price) and not short:
                     continue
                 mk = fm.evaluate(mgrid, rule) if mgrid is not None else None
                 # LINE CONSISTENCY GUARD: if the bookmaker's own 1X2 + goals
@@ -691,6 +695,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 cw, cp = md if mk is None else (mk[0] + MODEL_WEIGHT * (md[0] - mk[0]),
                                                 mk[1] + MODEL_WEIGHT * (md[1] - mk[1]))
                 win = round(cw + sh(k), 4)
+                if short:                  # too short for a single: kept for the gate and the 3-leg slips
+                    bf.short_legs.append((win, k, price))
+                    continue
                 if win < DEPLOY_MIN_MODEL_PROB:
                     continue
                 cands.append((win, cw * price + cp - 1, k, md[0],
@@ -740,6 +747,15 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                     _adj.append(((round(c[0] + d, 4),) + c[1:]) if d else c)
                     tactics_adjusted += bool(d)
                 cands = [c for c in _adj if c[0] >= DEPLOY_MIN_MODEL_PROB]
+        # NO FORCED PICKS (Architect 2026-11-01, plan point 3, engine/short_legs.py): when the game's
+        # safest outcome is priced under 1.20, another market is picked only with a real edge over
+        # SportyBet's break-even; otherwise the game gets no single (its short leg can still go on
+        # a 3-leg slip).
+        if cands and sl.safest_is_short(getattr(bf, "short_legs", []), cands):
+            short_games += 1
+            _n = len(cands)
+            cands = sl.with_edge(cands)
+            short_skipped += not cands
         if not cands:
             continue
 
@@ -901,6 +917,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     all_flags.append(f"tactical matchup: {tactics_read} fixture(s) read from the tactical profiles; "
                      f"weight {_tac_w:g} (fitted on unseen matches; 0 = label only), "
                      f"{tactics_adjusted} chance(s) moved (cap ±{_tx.CAP if _tac_db else 0:.0%})")
+    if short_games:
+        all_flags.append(f"No forced picks (plan point 3): {short_games} game(s) whose safest outcome is under "
+                         f"{DEPLOY_ODDS_MIN:.2f}; {short_skipped} got no single (no other market "
+                         f"{round(sl.FORCED_EDGE * 100)}+ pts over break-even)")
     if shootout_unders:
         all_flags.append(f"No Unders in a shootout (order 43): {shootout_unders} match Under outcome(s) "
                          "dropped where the team profiles read both sides scoring plenty")
@@ -1410,6 +1430,22 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             extra_codes.setdefault("btts_codes", {})[_n] = _code
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
+                # SHORT 3-LEG SLIPS (Architect 2026-11-01, plan point 3, engine/short_legs.py): the
+                # sub-1.20 legs the model backs, three to a slip; booked and graded, paper (no bot stakes)
+                try:
+                    from engine import picks_ledger as _pls
+                    _short = sl.build(shown)
+                    _sc = {}
+                    for _n, _legs, _c in _short:
+                        _code, _ = sbk.code_for_legs(sb_index, [
+                            (bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(), bf.probs.home_team,
+                             bf.probs.away_team, key) for bf, _pk, _pr, key, _price in _legs])
+                        _sc[_n] = _code
+                    extra_codes["short3"] = [_pls._alt_slip(n, l, c, _sc.get(n)) for n, l, c in _short]
+                    all_flags.append(f"short 3-leg slips: {len(_short)} built, "
+                                     f"{sum(1 for v in _sc.values() if v)} booked (paper)")
+                except Exception as _e:  # noqa: BLE001 — an extra, never blocks the board
+                    all_flags.append(f"short 3-leg slips not built ({str(_e)[:80]})")
                 megas = _build_megas(deploy)
                 # KICKOFF COHORTS: megas are per kickoff window, so they are always
                 # booked as megas; the all-day board code is only for a day whose

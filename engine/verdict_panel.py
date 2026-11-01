@@ -77,7 +77,9 @@ MEMBERS = {
     "openrouter": {"key": "OPENROUTER_API_KEY", "base": "https://openrouter.ai/api/v1",
                    "env": "PANEL_OPENROUTER_MODEL", "prefer": ["google/gemma-4-31b-it:free",
                                                                "google/gemma-4-26b-a4b-it:free",
-                                                               "nvidia/nemotron-3.5-super-vl:free"]},
+                                                               "nvidia/nemotron-3.5-super-vl:free",
+                                                               "nvidia/nemotron-3-ultra-550b-a55b:free",
+                                                               "nvidia/nemotron-3.5-lightning:free"]},
 }
 
 PROMPT = """You are one member of a panel that prices sports picks. For each pick give YOUR probability

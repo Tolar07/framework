@@ -44,7 +44,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:40Z",
+  "at": "2026-11-01T17:00Z",
   "away_missing_share": 0.22079789441234687,
   "away_unavailable": 3,
   "fotmob_id": 5887663,
@@ -300,7 +300,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:20Z",
+  "at": "2026-11-01T17:00Z",
   "away_missing_share": 0.05464444855475778,
   "away_unavailable": 2,
   "fotmob_id": 5811794,
@@ -1071,24 +1071,19 @@
     "type": "injury"
    },
    {
-    "name": "Josu\u00e9 Vergara",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Mouhamed Ngom",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:40Z",
-  "away_missing_share": 0.08400883929781379,
-  "away_unavailable": 2,
+  "at": "2026-11-01T17:00Z",
+  "away_missing_share": 0.019584341072172953,
+  "away_unavailable": 1,
   "fotmob_id": 5811796,
-  "home_missing_share": 0.07581735846762858,
+  "home_missing_share": 0.07743736944125708,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Lugano v Basel": {
   "absent": [
@@ -1209,14 +1204,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:40Z",
+  "at": "2026-11-01T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5887668,
-  "home_missing_share": 0.1325505973601854,
+  "home_missing_share": 0.13215614503202175,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-01T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Marseille v Toulouse": {
   "absent": [
@@ -1379,7 +1374,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T12:40Z",
+  "at": "2026-11-01T17:00Z",
   "away_missing_share": 0.051673095467695274,
   "away_unavailable": 1,
   "fotmob_id": 5967135,
@@ -1411,14 +1406,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T16:40Z",
-  "away_missing_share": 0.05288802347725265,
+  "at": "2026-11-01T17:00Z",
+  "away_missing_share": 0.046083195054412975,
   "away_unavailable": 1,
   "fotmob_id": 5943285,
-  "home_missing_share": 0.44386515699288515,
+  "home_missing_share": 0.4409949161913635,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-01T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Paris FC v Monaco": {
   "absent": [

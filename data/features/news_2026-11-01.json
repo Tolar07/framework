@@ -36,6 +36,33 @@
   "kickoff_utc": "2026-11-01T15:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Academico de Viseu FC v Rio Ave": {
+  "absent": [
+   {
+    "name": "Cezary Miszta",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nelson Abbey",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Brandon Aguilera",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T12:00Z",
+  "away_missing_share": 0.22079789441234687,
+  "away_unavailable": 3,
+  "fotmob_id": 5887663,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-01T18:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Amed Sportif Faaliyetler v Eyupspor": {
   "absent": [
    {
@@ -219,14 +246,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5811793,
   "home_missing_share": 0.25993917930536903,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T12:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Ceuta v Sp Gijon": {
   "absent": [
@@ -315,7 +342,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.313113299800139,
   "away_unavailable": 2,
   "fotmob_id": 5107645,
@@ -364,11 +391,6 @@
  "Eldense v Granada": {
   "absent": [
    {
-    "name": "Pau Cabanes",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "David Ruiz",
     "side": "home",
     "type": "injury"
@@ -379,29 +401,19 @@
     "type": "suspension"
    },
    {
-    "name": "Alejandro Marqu\u00e9s",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Pedro Alema\u00f1",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Jos\u00e9 Arn\u00e1iz",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
-  "away_missing_share": 0.489497611922551,
-  "away_unavailable": 3,
+  "at": "2026-11-01T12:00Z",
+  "away_missing_share": 0.04841332233642531,
+  "away_unavailable": 1,
   "fotmob_id": 5868519,
-  "home_missing_share": 0.3185296561305485,
-  "home_unavailable": 4,
+  "home_missing_share": 0.04265530163556176,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Empoli v Juve Stabia": {
   "absent": [
@@ -443,7 +455,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.2298857755833787,
   "away_unavailable": 5,
   "fotmob_id": 5781794,
@@ -507,7 +519,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.20257243441275494,
   "away_unavailable": 2,
   "fotmob_id": 5793965,
@@ -576,7 +588,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.02572116740962766,
   "away_unavailable": 2,
   "fotmob_id": 5868116,
@@ -830,7 +842,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.13432701639221975,
   "away_unavailable": 4,
   "fotmob_id": 5904787,
@@ -1141,7 +1153,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.16255624541932012,
   "away_unavailable": 3,
   "fotmob_id": 5107649,
@@ -1149,6 +1161,23 @@
   "home_unavailable": 8,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Maritimo Madeira v Santa Clara": {
+  "absent": [
+   {
+    "name": "Yellu Santiago",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-01T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5887668,
+  "home_missing_share": 0.1325505973601854,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-01T18:00:00.000Z",
+  "lineup_type": "predicted"
  },
  "NK Lokomotiva Zagreb v NK Osijek": {
   "absent": [
@@ -1405,11 +1434,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.18797116080868112,
   "away_unavailable": 6,
   "fotmob_id": 5105036,
-  "home_missing_share": 0.30075627456661447,
+  "home_missing_share": 0.2763977877647436,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-01T13:30:00.000Z",
   "lineup_type": "predicted"
@@ -1474,7 +1503,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.29227947412425775,
   "away_unavailable": 3,
   "fotmob_id": 5846015,
@@ -1591,7 +1620,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.39546152490850667,
   "away_unavailable": 5,
   "fotmob_id": 5781790,
@@ -1633,7 +1662,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.574622593884041,
   "away_unavailable": 10,
   "fotmob_id": 5904785,
@@ -1734,14 +1763,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 0.2786971993781149,
   "away_unavailable": 4,
   "fotmob_id": 5739540,
   "home_missing_share": 0.17277453943108864,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Wolfsberger AC v Sturm Graz": {
   "absent": [
@@ -1771,7 +1800,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T09:00Z",
+  "at": "2026-11-01T12:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 9,
   "fotmob_id": 5846016,
@@ -1813,14 +1842,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-01T11:40Z",
-  "away_missing_share": 0.23237393522096483,
-  "away_unavailable": 6,
+  "at": "2026-11-01T12:00Z",
+  "away_missing_share": 0.20448088374770806,
+  "away_unavailable": 5,
   "fotmob_id": 5804291,
-  "home_missing_share": 0.06840413800005135,
+  "home_missing_share": 0.06602426850845461,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-01T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Zwolle v Den Haag": {
   "absent": [

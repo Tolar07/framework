@@ -439,7 +439,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8035
+   "panel_prob": 0.8035,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8035,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.8035
+    },
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8035,
+    "edge": -0.0278,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 6,
+     "earned": false,
+     "panel_brier": 0.1446,
+     "live_brier": 0.1555,
+     "panel_brier_on_live": 0.1446,
+     "clv_n": 6,
+     "panel_clv_hit": 0.833,
+     "live_clv_hit": 0.667
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Nordsjaelland v Midtjylland",
@@ -4282,7 +4308,33 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.731
+   "panel_prob": 0.731,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.781,
+    "anchor_source": "model",
+    "members": {
+     "nvidia": 0.781
+    },
+    "domain": "football",
+    "family": "Over/Under",
+    "panel_prob": 0.781,
+    "edge": -0.0472,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 7,
+     "earned": false,
+     "panel_brier": 0.1188,
+     "live_brier": 0.1203,
+     "panel_brier_on_live": 0.1188,
+     "clv_n": 6,
+     "panel_clv_hit": 0.5,
+     "live_clv_hit": 0.5
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Lausanne-Sport v FC Thun",
@@ -8053,6 +8105,27 @@
      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
      "status": "ok",
      "answered": 3
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    }
+   }
+  },
+  {
+   "at": "2026-11-01T12:00+00:00",
+   "picks": 2,
+   "members": {
+    "gemini": {
+     "model": "gemini-3.5-flash",
+     "status": "off for this run: gemini: 429",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 2
     },
     "openrouter": {
      "model": "google/gemma-4-26b-a4b-it:free",

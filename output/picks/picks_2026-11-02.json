@@ -116,7 +116,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.69,
+   "drift_pct": -0.6
   },
   {
    "fixture": "Radomiak Radom v Slask Wroclaw",
@@ -1757,7 +1759,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Mjallby AIF v Kalmar FF",
@@ -1920,7 +1924,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.33,
+   "drift_pct": 0.8
   }
  ],
  "accas": [

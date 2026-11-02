@@ -197,7 +197,45 @@ def main(argv: list[str] | None = None) -> int:
             notify.send_architect(card)
     except Exception as e:  # noqa: BLE001
         print(f"CLV scorecard unavailable ({e})")
+    # Edge anchors (shadow): the model's own published edge vs the de-margined
+    # Betfair Exchange consensus, and how much of the published edge the market
+    # erased by close. Reporting only — neither drives selection or stakes.
+    try:
+        anchors = edge_anchor_summary()
+        if anchors:
+            print(anchors)
+            if not a.no_send:
+                from output import notify
+                notify.send_architect(anchors)
+    except Exception as e:  # noqa: BLE001
+        print(f"edge anchors unavailable ({e})")
     return 0
+
+
+def _pct(v) -> str:
+    """A signed % or PENDING when the figure is absent (HR35 — no fake zero)."""
+    return "PENDING" if v is None else f"{v:+.2f}%"
+
+
+def edge_anchor_summary(status: dict | None = None) -> str:
+    """Model edge vs market-consensus edge, and edge decay to the close, over
+    the graded paper legs. Built from CLVLog.phase2_status() (pass `status` to
+    inject one for tests); all figures may be PENDING until enough legs carry
+    the fields. Reporting only."""
+    if status is None:
+        from clv.clv_logger import CLVLog
+        status = CLVLog().phase2_status()
+    s = status
+    n = s.get("legs_with_clv") or 0
+    lines = [
+        "— EDGE ANCHORS (shadow, reporting only) —",
+        f"graded legs: {n}",
+        f"model edge (published):   {_pct(s.get('mean_entry_edge_pct'))}",
+        f"consensus edge (exchange): {_pct(s.get('mean_consensus_edge_pct'))}",
+        f"edge erased by close:     {_pct(s.get('mean_edge_decay_pct'))}",
+        "Consensus = de-margined Betfair Exchange. Drives no selection or stake.",
+    ]
+    return "\n".join(lines)
 
 
 if __name__ == "__main__":

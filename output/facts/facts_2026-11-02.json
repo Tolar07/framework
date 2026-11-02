@@ -1,7 +1,7 @@
 {
  "date": "2026-11-02",
  "picks_generated_at": "2026-11-02T00:36:14Z",
- "run_at": "2026-11-02T00:48:57+00:00",
+ "run_at": "2026-11-02T11:19:26+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -23,9 +23,14 @@
    "model": "openai/gpt-oss-20b",
    "status": "ok",
    "answered": 11
+  },
+  "claude": {
+   "answered": 12,
+   "model": "claude-sonnet-5-5",
+   "run_at": "2026-11-02T11:19:26+00:00"
   }
  },
- "fields_agreed": 19,
+ "fields_agreed": 26,
  "fields_asked": 308,
  "fixtures": [
   {
@@ -35,9 +40,26 @@
    "away": "FC Copenhagen",
    "league": "Danish Superliga",
    "kickoff_utc": "2026-11-02T18:00:00Z",
-   "evidence": "PENDING",
-   "evidence_source": null,
-   "answers": {},
+   "evidence": "No current team news found; web searches returned no usable results for this fixture.",
+   "evidence_source": "claude",
+   "answers": {
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
    "agreed": {},
    "support": {}
   },
@@ -82,15 +104,35 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -134,6 +176,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -141,8 +199,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -186,13 +244,31 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": true,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
-    "away_long_travel": false
+    "away_long_travel": false,
+    "derby": true
    },
    "support": {
-    "away_long_travel": 2
+    "away_long_travel": 3,
+    "derby": 2
    }
   },
   {
@@ -236,6 +312,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -243,8 +335,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -288,6 +380,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -295,8 +403,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -340,6 +448,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -347,8 +471,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -392,13 +516,31 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
+    "away_long_travel": false,
     "derby": false
    },
    "support": {
-    "derby": 2
+    "away_long_travel": 2,
+    "derby": 3
    }
   },
   {
@@ -442,13 +584,35 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
-    "derby": false
+    "away_long_travel": true,
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 2
    },
    "support": {
-    "derby": 2
+    "away_long_travel": 2,
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -492,6 +656,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -500,7 +680,7 @@
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 3
    }
   },
   {
@@ -544,6 +724,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -551,8 +747,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -596,6 +792,22 @@
      "derby": false,
      "weather_severe": null,
      "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
     }
    },
    "agreed": {
@@ -603,8 +815,8 @@
     "derby": false
    },
    "support": {
-    "away_long_travel": 2,
-    "derby": 2
+    "away_long_travel": 3,
+    "derby": 3
    }
   },
   {
@@ -749,7 +961,22 @@
    "fixture": "Radomiak Radom v Slask Wroclaw",
    "market": "SB:10||Home or Away",
    "pick": "Radomiak Radom or Slask Wroclaw",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Sassuolo v Fiorentina",
@@ -761,7 +988,15 @@
    "fixture": "Lorient v Brest",
    "market": "SB:10||Home or Away",
    "pick": "Lorient or Brest",
-   "facts": []
+   "facts": [
+    {
+     "fact": "derby",
+     "side": null,
+     "direction": 0,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Benfica v Alverca",
@@ -791,7 +1026,29 @@
    "fixture": "Genclerbirligi SK v Alanyaspor",
    "market": "SB:10||Home or Away",
    "pick": "Genclerbirligi SK or Alanyaspor",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "PAE PS Kalamata v POT Iraklis",

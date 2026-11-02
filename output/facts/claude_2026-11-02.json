@@ -1,11 +1,12 @@
 {
  "date": "2026-11-02",
  "picks_generated_at": "2026-11-02T00:36:14Z",
- "run_at": "2026-11-02T01:52:44+00:00",
+ "run_at": "2026-11-02T11:19:26+00:00",
  "model": "claude-sonnet-5-5",
  "recorded_only": true,
  "answered": 12,
- "asked": 12,
+ "asked": 22,
+ "reads": 1,
  "fixtures": {
   "Sonderjyske v FC Copenhagen": {
    "rest_days_home": null,
@@ -202,14 +203,14 @@
  },
  "evidence": {
   "Sonderjyske v FC Copenhagen": "No current team news found; web searches returned no usable results for this fixture.",
-  "Radomiak Radom v Slask Wroclaw": "No current team news found; nothing searched for this fixture returned usable results.",
+  "Radomiak Radom v Slask Wroclaw": "Web searches (soccerway.pl, wroclaw.pl, fotmob) returned only older RadomiakÔÇô┼Ül─àsk matches from 2025. They had no current team news, rest days, standings, referee or weather for 2 Nov 2026, so every unverifiable field is null.",
   "Sassuolo v Fiorentina": "Virgilio Sport searches only returned older Sassuolo-Fiorentina previews (Dec 2025, Apr 2026), not this match, so no current facts were verified.",
   "Lorient v Brest": "No current team news found; nothing searched for this fixture returned usable results. Both clubs are Breton, so I marked it as a derby from general knowledge.",
   "Benfica v Alverca": "Bola na Rede and Sports Mole results were undated or for other matchdays, so I could not confirm that any absences apply to this match.",
   "Gil Vicente v Guimaraes": "No current team news found; nothing searched for this fixture returned usable results.",
   "Newcastle v Everton": "Premier League and Sports Mole results were from past seasons' fixtures, with no referee or current absences for this match, so they were not used.",
   "Red Star v Nancy": "No current team news found; nothing searched for this fixture returned usable results.",
-  "Genclerbirligi SK v Alanyaspor": "No current team news found; nothing searched for this fixture returned usable results. The travel flag is an approximate road distance (Ankara to Alanya, about 550 km).",
+  "Genclerbirligi SK v Alanyaspor": "Web searches (fanatik, haberturk, beinsports, fotmob) returned only older Gen├ºlerbirli─ƒiÔÇôAlanyaspor matches from 2025. They had no current team news, rest days, standings, referee or weather for 2 Nov 2026, so every unverifiable field is null.",
   "PAE PS Kalamata v POT Iraklis": "No current team news found; nothing searched for this fixture returned usable results. The travel flag is an approximate road distance (Thessaloniki to Kalamata, about 700 km).",
   "GAIS v AIK": "No current team news found; nothing searched for this fixture returned usable results.",
   "Mjallby AIF v Kalmar FF": "No current team news found; nothing searched for this fixture returned usable results."

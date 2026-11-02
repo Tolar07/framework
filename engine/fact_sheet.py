@@ -345,9 +345,10 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
     out = []
     for fx in fxs:
         i = fx["id"]
-        fm = (news or {}).get(fx["fixture"]) or {}
+        fmn = (news or {}).get(fx["fixture"]) or {}
         by = {n: answers[n][i] for n in answers if i in answers[n]}
-        agreed, support = {}, {}
+        agreed: dict = {}
+        support: dict = {}
         for k in all_fields():
             v, n = agree(k, [a.get(k) for a in by.values()])
             if v is not None:
@@ -355,9 +356,9 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
         # absences are COUNTED from FotMob's list, not asked of a model (2026-11-01: both readers said
         # null to "regular starters", which the evidence can't settle)
         for side in ("home", "away"):
-            listed = [a for a in fm.get("absent") or [] if a.get("side") == side]
-            if fm.get("absent") is not None or fm.get(f"{side}_unavailable") is not None:
-                agreed[f"key_absences_{side}"] = len(listed) if fm.get("absent") is not None                     else int(fm.get(f"{side}_unavailable") or 0)
+            listed = [a for a in fmn.get("absent") or [] if a.get("side") == side]
+            if fmn.get("absent") is not None or fmn.get(f"{side}_unavailable") is not None:
+                agreed[f"key_absences_{side}"] = len(listed) if fmn.get("absent") is not None                     else int(fmn.get(f"{side}_unavailable") or 0)
                 support[f"key_absences_{side}"] = "fotmob"
         ev = evidence.get(i) or ""
         src = "framework" if ev.startswith("framework data") else "web" if ev else None

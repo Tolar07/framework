@@ -90,6 +90,27 @@
    "total": 231.5,
    "ml_home": 1.5747,
    "ml_away": 2.46
+  },
+  "sr:match:73719510": {
+   "at": "21:00Z",
+   "spread": -2.5,
+   "total": 227.5,
+   "ml_home": 1.6711,
+   "ml_away": 2.25
+  },
+  "sr:match:73719512": {
+   "at": "21:00Z",
+   "spread": 5.5,
+   "total": 219.5,
+   "ml_home": 2.8,
+   "ml_away": 1.4608
+  },
+  "sr:match:73719514": {
+   "at": "21:00Z",
+   "spread": -1.5,
+   "total": 236.5,
+   "ml_home": 1.8,
+   "ml_away": 2.06
   }
  }
 }

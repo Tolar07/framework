@@ -37,6 +37,80 @@
     "back": 1.93,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=106.5",
+   "outcome": "Over 106.5",
+   "outcome_id": "12",
+   "price": 1.91,
+   "chance": 0.6217,
+   "fair_price": 1.608,
+   "ev": 0.1875,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-11-02T21:00:00.000131+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719512",
+   "home_key": "LAC",
+   "away_key": "TOR",
+   "espn_id": "401909920",
+   "espn_date": "2026-11-03",
+   "tip": "2026-11-03T03:00:00+00:00",
+   "home": "LA Clippers",
+   "away": "Toronto Raptors",
+   "pick": "1st half Over 106.5 points",
+   "sharp": {
+    "ml_home": 2.8,
+    "ml_away": 1.4608,
+    "spread": 5.5,
+    "total": 219.5
+   },
+   "code": "LNSRXF",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.95,
+    "listed": true
+   }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=121.5",
+   "outcome": "Under 121.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5923,
+   "fair_price": 1.688,
+   "ev": 0.1845,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-11-02T21:00:00.000131+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719514",
+   "home_key": "LAL",
+   "away_key": "MIA",
+   "espn_id": "401909921",
+   "espn_date": "2026-11-03",
+   "tip": "2026-11-03T03:00:00+00:00",
+   "home": "Los Angeles Lakers",
+   "away": "Miami Heat",
+   "pick": "1st half Under 121.5 points",
+   "sharp": {
+    "ml_home": 1.8,
+    "ml_away": 2.06,
+    "spread": -1.5,
+    "total": 236.5
+   },
+   "code": "KYAL2C",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.99,
+    "listed": true
+   }
   }
  ]
 }

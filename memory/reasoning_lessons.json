@@ -1,20 +1,20 @@
 {
  "football": {
-  "date": "2026-11-01",
-  "graded": 287,
-  "model": "gemini-3.5-flash-lite",
+  "date": "2026-11-02",
+  "graded": 353,
+  "model": "gemini-3.8-flash",
   "lessons": [
-   "Back positive Asian Handicap (+0.5, +1.5, +2.5) selections even with small model-to-breakeven deficits (<3%): positive handicap cushions perform reliably.",
-   "Do not veto Over 1.5 goals at short odds (1.20–1.31) solely due to a LOSING framework record; use 'lower' instead.",
-   "Never apply Double Chance '12' lay-the-draw veto rules to 'Team or Draw' (1X/X2): 1X/X2 provides true draw protection.",
-   "Do not blanket veto Double Chance '12' for LOSING framework records: restrict vetoes strictly to tightly priced domestic derbies without squad disparity.",
-   "Do not veto team Over 0.5 goals simply because model chance is slightly below break-even: backed and vetoed team Over 0.5 picks frequently score.",
-   "Exercise caution backing team Over 0.5 against dominant favorites or away sides: backed selections can lose against elite defenses.",
-   "Do not blanket veto 'Win to Nil — no' at <=1.24 on framework records: most selections win unless the favorite's defense is entirely intact.",
-   "Do not treat Under 4.5 or Under totals as automatic safe cushions: short odds unders can still fail.",
-   "Back Under 3.5 in cup ties only when verified extreme squad rotation (missing value share >50%) suppresses offensive output."
+   "Do not confuse Double Chance '12' ('Team A or Team B') with 'Team or Draw' (1X/X2): '12' loses on a draw and provides zero draw protection, losing 6 times when treated as safe.",
+   "Do not routinely back Double Chance '12' at short odds (<1.35) under LOSING framework records: draws occur frequently even with squad absences.",
+   "Veto or severely downgrade 'Win to Nil — no' at <=1.25 when framework record is LOSING or TOO FEW: selections lost 4 of 7 times despite opposition absences.",
+   "Do not veto Over 1.5 goals at short odds (1.20–1.31) solely due to a LOSING framework record; use 'lower' instead (won 25 of 29).",
+   "Stop backing positive Asian Handicap cushions (+0.5 to +4.5) with negative model-to-breakeven margins: cushions frequently fail (Alaves, Excelsior, Oldham, Annecy lost).",
+   "Do not treat Under 4.5 or Under 5.5 totals as automatic safe cushions at short odds: high-variance shootouts caused multiple losses (Leverkusen, Salzburg, Altrincham).",
+   "Exercise strict caution or veto away/underdog Team Over 0.5 goals when framework record is LOSING or edge is negative (e.g. Aarhus shutout confirmed veto).",
+   "Back Team Under 3.5 or Under totals only when verified offensive suppression or heavily rotated attacks are confirmed.",
+   "Never override negative EV on short-priced selections (<=1.25) purely on high nominal handicap or goals cushion: odds-on picks require genuine positive edge."
   ],
-  "summary": "Refined and kept concrete lessons focusing on the success of positive Asian handicaps, lowering confidence instead of vetoing short-odds Over 1.5 and Under totals, and protecting 1X/X2 double chance selections.",
+  "summary": "Replaced the flawed rule treating Double Chance '12' as draw-protected, reversed leniency on 'Win to Nil — no' after 4 losses, and stopped backing negative-edge positive Asian handicaps.",
   "history": [
    {
     "date": "2026-10-23",
@@ -54,6 +54,11 @@
    {
     "date": "2026-11-01",
     "graded": 287,
+    "n": 9
+   },
+   {
+    "date": "2026-11-02",
+    "graded": 353,
     "n": 9
    }
   ]

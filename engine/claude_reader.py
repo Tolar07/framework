@@ -26,7 +26,12 @@ from engine import fact_sheet as FS
 
 NAME = "claude"
 MAX_FIXTURES = 20             # the board's singles first, then rated games, so one run stays small
-EVIDENCE_CHARS = 500
+EVIDENCE_CHARS = 700
+# Team news lands close to kick-off: the 01:52 reading of the 2 Nov board found nothing anywhere. So a
+# board is read again every READ_EVERY_H hours while a game kicks off within SOON_H hours, and those
+# re-reads ask only about the games that are near.
+READ_EVERY_H = 4
+SOON_H = 6
 
 PROMPT = """You are the fact-checking reader of a football betting framework. For each fixture below,
 SEARCH THE WEB for today's team news (injuries, suspensions, expected line-ups), the previous match
@@ -68,8 +73,28 @@ def _future(fx: dict, now: datetime) -> bool:
     return (k if k.tzinfo else k.replace(tzinfo=UTC)) > now
 
 
+def _kickoff(fx: dict) -> Optional[datetime]:
+    try:
+        k = datetime.fromisoformat(str(fx.get("kickoff_utc")).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return k if k.tzinfo else k.replace(tzinfo=UTC)
+
+
+def _reading(day: str, picks: dict) -> dict:
+    """Claude's saved reading of THIS board ({} when none, or of an older board)."""
+    mine = _load(FS.outside_path(day, NAME)) or {}
+    return mine if mine.get("picks_generated_at") == picks.get("generated_at") else {}
+
+
+def _soon(fx: dict, now: datetime) -> bool:
+    k = _kickoff(fx)
+    return k is not None and now < k <= now + timedelta(hours=SOON_H)
+
+
 def pending(now: Optional[datetime] = None) -> list[str]:
-    """Today's and tomorrow's boards with a game still to kick off and no Claude reading of THAT board."""
+    """Today's and tomorrow's boards Claude should read now: never read, or last read READ_EVERY_H+ hours
+    ago while one of its games kicks off within SOON_H hours."""
     now = now or datetime.now(UTC)
     out = []
     for d in (now.date(), now.date() + timedelta(days=1)):
@@ -77,28 +102,41 @@ def pending(now: Optional[datetime] = None) -> list[str]:
         picks = _load(picks_path(day))
         if not picks or not any(_future(s, now) for s in picks.get("singles") or []):
             continue
-        mine = _load(FS.outside_path(day, NAME)) or {}
-        if mine.get("picks_generated_at") != picks.get("generated_at"):
+        mine = _reading(day, picks)
+        if not mine:
+            out.append(day)
+            continue
+        try:
+            last = datetime.fromisoformat(str(mine.get("run_at")))
+        except ValueError:
+            last = now - timedelta(days=1)
+        if now - last >= timedelta(hours=READ_EVERY_H) and any(_soon(fx, now) for fx in targets(picks, now)):
             out.append(day)
     return out
 
 
-def targets(picks: dict, now: Optional[datetime] = None) -> list[dict]:
+def targets(picks: dict, now: Optional[datetime] = None, soon_only: bool = False) -> list[dict]:
     """The fixtures Claude reads, numbered as the fact sheet numbers them: the singles first, then rated
     games not bet on; games already kicked off are skipped (their ids are kept)."""
     now = now or datetime.now(UTC)
     fxs = FS.fixtures((picks.get("singles") or []) + FS.rated_unbet(picks))
-    return [fx for fx in fxs if _future(fx, now)][:MAX_FIXTURES]
+    return [fx for fx in fxs if (_soon(fx, now) if soon_only else _future(fx, now))][:MAX_FIXTURES]
 
 
 def prompt(day: str) -> str:
     picks = _load(picks_path(day)) or {}
+    singles = picks.get("singles") or []
     sheet = {f["fixture"]: f for f in (_load(facts_path(day)) or {}).get("fixtures") or []}
+    news = FS.load_news(day)
     rows = []
-    for fx in targets(picks):
+    for fx in targets(picks, soon_only=bool(_reading(day, picks))):
         ev = str((sheet.get(fx["fixture"]) or {}).get("evidence") or "")
+        if not ev or ev == "PENDING":
+            # the framework's own FotMob check and news notes, as the free readers get them
+            ev = "; ".join(x for x in (FS.fotmob_evidence(news, fx["fixture"]),
+                                       FS.local_evidence(singles, fx["fixture"])) if x)
         row = {"id": fx["id"], "fixture": fx["fixture"], "league": fx.get("league"), "kickoff_utc": fx.get("kickoff_utc")}
-        if ev and ev != "PENDING":
+        if ev:
             row["other_evidence"] = ev[:EVIDENCE_CHARS]
         rows.append(row)
     return PROMPT + json.dumps(rows, ensure_ascii=False, indent=1) + "\n"
@@ -122,8 +160,10 @@ def save(day: str, text: str, model: str = "") -> dict:
     picks = _load(picks_path(day))
     if not picks:
         raise SystemExit(f"no ledger for {day}")
-    by_id = {fx["id"]: fx["fixture"] for fx in targets(picks)}
-    answers, evidence = {}, {}
+    by_id = {fx["id"]: fx["fixture"] for fx in FS.fixtures((picks.get("singles") or []) + FS.rated_unbet(picks))}
+    old = _reading(day, picks)
+    # a re-read asks only about the near games: keep the earlier answers for the rest
+    answers, evidence = dict(old.get("fixtures") or {}), dict(old.get("evidence") or {})
     for r in parse(text):
         fx = by_id.get(r.get("id")) if isinstance(r.get("id"), int) else None
         if not fx:
@@ -135,7 +175,7 @@ def save(day: str, text: str, model: str = "") -> dict:
                 evidence[fx] = str(r["evidence"])[:800]
     reading = {"date": day, "picks_generated_at": picks.get("generated_at"),
                "run_at": datetime.now(UTC).isoformat(timespec="seconds"), "model": model or None,
-               "recorded_only": True, "answered": len(answers), "asked": len(by_id),
+               "recorded_only": True, "answered": len(answers), "asked": len(by_id), "reads": int(old.get("reads") or 0) + 1,
                "fixtures": answers, "evidence": evidence}
     FS.OUT_DIR.mkdir(parents=True, exist_ok=True)
     FS.outside_path(day, NAME).write_text(json.dumps(reading, indent=1, ensure_ascii=False), encoding="utf-8")

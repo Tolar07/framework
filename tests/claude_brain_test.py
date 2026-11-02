@@ -102,3 +102,31 @@ def test_kickoff_without_offset_is_utc():
     assert CRD._future({"kickoff_utc": "2026-11-02T18:00:00"}, now)
     assert not CRD._future({"kickoff_utc": "2026-11-02T10:00:00"}, now)
     assert CRD._future({"kickoff_utc": None}, now)
+
+
+def test_reread_near_kickoff_keeps_earlier_answers(dirs, monkeypatch):
+    clock = {"now": datetime(2026, 11, 2, 1, tzinfo=UTC)}
+    monkeypatch.setattr(CRD, "datetime", type("D", (), {"now": staticmethod(lambda tz=None: clock["now"]),
+                                                         "fromisoformat": staticmethod(datetime.fromisoformat)}))
+    CRD.save("2026-11-02", '{"fixtures": [{"id": 0, "derby": true}]}')
+    saved = json.loads(FS.outside_path("2026-11-02", "claude").read_text(encoding="utf-8"))
+    saved["run_at"] = "2026-11-02T01:00:00+00:00"
+    FS.outside_path("2026-11-02", "claude").write_text(json.dumps(saved), encoding="utf-8")
+    assert CRD.pending(datetime(2026, 11, 2, 3, tzinfo=UTC)) == []           # read 2 h ago
+    assert CRD.pending(datetime(2026, 11, 2, 6, tzinfo=UTC)) == []           # 5 h ago, but kick-off 7.5 h away
+    late = datetime(2026, 11, 2, 9, tzinfo=UTC)
+    assert CRD.pending(late) == ["2026-11-02"]                               # 8 h ago, kick-off in 4.5 h
+    clock["now"] = late
+    assert '"id": 0' in CRD.prompt("2026-11-02")
+    r = CRD.save("2026-11-02", '{"fixtures": [{"id": 0, "rest_days_home": 4}]}')
+    assert r["reads"] == 2 and r["fixtures"]["Ajax v PSV"]["rest_days_home"] == 4
+
+
+def test_prompt_carries_fotmob_evidence(dirs, monkeypatch):
+    monkeypatch.setattr(FS, "load_news", lambda day, folder=None: {
+        "Ajax v PSV": {"at": "08:00", "home_unavailable": 2, "away_unavailable": 0,
+                       "absent": [{"name": "Klaassen", "side": "home", "type": "injury"}]}})
+    early = datetime(2026, 11, 2, 9, tzinfo=UTC)
+    monkeypatch.setattr(CRD, "datetime", type("D", (), {"now": staticmethod(lambda tz=None: early),
+                                                         "fromisoformat": staticmethod(datetime.fromisoformat)}))
+    assert "Klaassen" in CRD.prompt("2026-11-02")

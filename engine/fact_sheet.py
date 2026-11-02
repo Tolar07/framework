@@ -76,7 +76,7 @@ LEVELS = ("low", "normal", "high")
 
 FIELD_DOC = """Fields (null when the sources do not say; NEVER guess):
 - rest_days_home / rest_days_away: whole days since that team's previous competitive match
-- key_absences_home / key_absences_away: regular starters ruled out (injury, suspension)
+- key_absences_home / key_absences_away: players listed as ruled out (injury, suspension) for that team
 - rotation_home / rotation_away: true if the team is expected to rest several regulars (cup, Europe
   midweek, title/relegation already decided)
 - motivation_home / motivation_away: "low" | "normal" | "high" (high = title, relegation, qualification,
@@ -96,9 +96,11 @@ Return JSON only: {"fixtures": [{"id": <id>, "evidence": "...", <fields>}]}
 FIXTURES:
 """
 
-READ_PROMPT = """You check a fact sheet. For each football fixture, read ONLY the evidence given and fill
-the fields from it. Do not use anything that is not in the evidence: a field the evidence does not
-settle is null.
+READ_PROMPT = """You check a fact sheet. For each football fixture, fill the fields from the evidence given.
+Two fields are STABLE facts you may answer from general knowledge when the evidence is silent: "derby"
+(a known local or traditional rivalry) and "away_long_travel" (the two clubs' cities are more than
+~500 km apart or in different countries). Every other field must come from the evidence only: a field
+the evidence does not settle is null.
 """ + FIELD_DOC + """
 Return JSON only: {"fixtures": [{"id": <id>, <fields>}]}
 
@@ -343,12 +345,21 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
     out = []
     for fx in fxs:
         i = fx["id"]
+        fmn = (news or {}).get(fx["fixture"]) or {}
         by = {n: answers[n][i] for n in answers if i in answers[n]}
-        agreed, support = {}, {}
+        agreed: dict = {}
+        support: dict = {}
         for k in all_fields():
             v, n = agree(k, [a.get(k) for a in by.values()])
             if v is not None:
                 agreed[k], support[k] = v, n
+        # absences are COUNTED from FotMob's list, not asked of a model (2026-11-01: both readers said
+        # null to "regular starters", which the evidence can't settle)
+        for side in ("home", "away"):
+            listed = [a for a in fmn.get("absent") or [] if a.get("side") == side]
+            if fmn.get("absent") is not None or fmn.get(f"{side}_unavailable") is not None:
+                agreed[f"key_absences_{side}"] = len(listed) if fmn.get("absent") is not None                     else int(fmn.get(f"{side}_unavailable") or 0)
+                support[f"key_absences_{side}"] = "fotmob"
         ev = evidence.get(i) or ""
         src = "framework" if ev.startswith("framework data") else "web" if ev else None
         out.append({**fx, "evidence": ev or "PENDING", "evidence_source": src, "answers": by, "agreed": agreed,

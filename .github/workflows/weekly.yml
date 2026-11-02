@@ -63,7 +63,7 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -q -m "ai review $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do
-            if git pull --rebase -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            if git pull --rebase --autostash -q origin main && git push -q origin HEAD:main; then exit 0; fi
             git rebase --abort 2>/dev/null || true
             sleep $((i * 5))
           done
@@ -78,7 +78,7 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -q -m "CLV scorecard $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do
-            if git pull --rebase -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            if git pull --rebase --autostash -q origin main && git push -q origin HEAD:main; then exit 0; fi
             git rebase --abort 2>/dev/null || true
             sleep $((i * 5))
           done

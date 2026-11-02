@@ -101,7 +101,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:40Z",
+  "at": "2026-11-02T17:00Z",
   "away_missing_share": 0.5384328764663193,
   "away_unavailable": 8,
   "fotmob_id": 5107646,
@@ -301,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:40Z",
+  "at": "2026-11-02T17:00Z",
   "away_missing_share": 0.10942224437898457,
   "away_unavailable": 2,
   "fotmob_id": 5107648,
@@ -392,11 +392,6 @@
     "type": "injury"
    },
    {
-    "name": "Yoel B\u00e1rcenas",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Ivi L\u00f3pez",
     "side": "away",
     "type": "suspension"
@@ -405,16 +400,21 @@
     "name": "Giorgos Giannoutsos",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Panagiotis Panagiotidis",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:40Z",
-  "away_missing_share": 0.27282086955877366,
-  "away_unavailable": 4,
+  "at": "2026-11-02T17:00Z",
+  "away_missing_share": 0.12981837582514824,
+  "away_unavailable": 3,
   "fotmob_id": 5943282,
-  "home_missing_share": 0.28571847555336083,
+  "home_missing_share": 0.25096132215382894,
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-02T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "RC Deportivo de A Coruna v Osasuna": {
   "absent": [

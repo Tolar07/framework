@@ -1,7 +1,7 @@
 {
  "date": "2026-11-01",
  "picks_generated_at": "2026-10-31T22:01:18Z",
- "run_at": "2026-11-01T23:44:37+00:00",
+ "run_at": "2026-11-02T00:32:31+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -9,20 +9,20 @@
    "status": "off for this run: 429 on every Gemini model",
    "answered": 0
   },
+  "nvidia": {
+   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "status": "time budget used; 12 answered",
+   "answered": 12
+  },
   "nvidia_alt": {
-   "model": "meta/llama-3.3-70b-instruct",
-   "status": "partly failed: HTTPError: 410 Client Error: Gone for url: https://integrate.api.nvidia.com/v1/chat/completions",
-   "answered": 0
+   "model": "openai/gpt-oss-20b",
+   "status": "time budget used; 24 answered",
+   "answered": 24
   },
   "openrouter": {
    "model": "google/gemma-4-26b-a4b-it:free",
    "status": "off for this run: openrouter: 429",
    "answered": 0
-  },
-  "nvidia": {
-   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-   "status": "time budget used; 36 answered",
-   "answered": 36
   }
  },
  "fields_agreed": 0,
@@ -41,8 +41,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -71,8 +71,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 0,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -101,8 +101,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 0,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -131,8 +131,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 0,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -174,8 +174,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -204,8 +204,8 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -247,8 +247,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 0,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -290,8 +306,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -320,8 +352,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -350,8 +398,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -380,8 +444,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -410,8 +490,24 @@
     "nvidia": {
      "rest_days_home": null,
      "rest_days_away": null,
-     "key_absences_home": 1,
-     "key_absences_away": 1,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": null,
+     "derby": null,
+     "weather_severe": null,
+     "referee": null
+    },
+    "nvidia_alt": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
      "rotation_home": null,
      "rotation_away": null,
      "motivation_home": null,
@@ -437,7 +533,7 @@
    "evidence": "framework data (no web search): team news: swapped from Torino Over 0.5 goals (Torino missing 24% of value (Niccolò Fortini, Rolando Mandragora, Ricardo Rodríguez)); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.029154237832078843, 'away': 0.24335999517014642}; FotMob (2026-11-01T13:20Z, line-ups confirmed): home unavailable 1, away unavailable 4; absent: Florian Grillitsch (home, injury), Niccolò Fortini (away, injury), Alessio Cacciamani (away, injury), Rolando Mandragora (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -467,7 +563,7 @@
    "evidence": "framework data (no web search): team news: support: Lazio missing 20%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.19521920058999218, 'away': 0.09927566145530259}; FotMob (2026-11-01T13:20Z, line-ups confirmed): home unavailable 3, away unavailable 2; absent: Nicolò Rovella (home, injury), Albert Guðmundsson (home, injury), Adam Marušić (home, injury), Riyad Idrissi (away, injury), Mattia Felici (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -497,7 +593,7 @@
    "evidence": "framework data (no web search): team news: swapped from Genoa Win to Nil — no (Lecce missing 36% of value (Willem Geubbels, Ivan Ilić, Medon Berisha); support: Genoa missing 16%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.35642901071656424, 'away': 0.15630692022382792}; FotMob (2026-11-01T16:20Z, line-ups confirmed): home unavailable 6, away unavailable 2; absent: Ivan Ilić (home, injury), Willem Geubbels (home, injury), Medon Berisha (home, injury), Lorenzo Venturino (away, injury), Elias Havel (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -527,7 +623,7 @@
    "evidence": "framework data (no web search): team news: swapped from Napoli (0:2) handicap (Napoli missing 27% of value (Alessandro Buongiorno, David Neres, Benoît Badiashile); support: Juventus missing 51%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.5098918922656323, 'away': 0.26954190573670544}; FotMob (2026-11-01T19:20Z, line-ups confirmed): home unavailable 7, away unavailable 8; absent: Kenan Yıldız (home, injury), Khéphren Thuram-Ulien (home, injury), Francisco Conceição (home, injury), Alessandro Buongiorno (away, injury), David Neres (away, injury), Benoît Badiashile (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -557,7 +653,7 @@
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.18358618878007224, 'away': 0.24619037898939208}; FotMob (2026-11-01T13:40Z, line-ups confirmed): home unavailable 5, away unavailable 6; absent: Andrej Ilić (home, injury), Felix Uduokhai (home, suspension), Stanley N'Soki (home, injury), Thijs Dallinga (away, injury), Ragnar Ache (away, injury), Rav van den Berg (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -600,7 +696,7 @@
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.38110728947634537, 'away': 0.12361060537082678}; FotMob (2026-11-01T13:20Z, line-ups confirmed): home unavailable 4, away unavailable 4; absent: Joaquín Panichelli (home, injury), Sebastian Nanasi (home, injury), Fabio Baldé (home, injury), Rémy Lascary (away, injury), Bryan Okoh (away, injury), Sékou Fofana (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -630,7 +726,7 @@
    "evidence": "framework data (no web search): team news: Angers missing 14% of value (Emmanuel Biumla, Amine El Ouazzani); support: Lyon missing 38%; news level: CAUTION; line-up check: support: Lyon missing 38%; share of squad value missing: {'home': 0.37826354819936964, 'away': 0.14236163103113236}; FotMob (2026-11-01T15:40Z, line-ups confirmed): home unavailable 5, away unavailable 1; absent: Tyler Morton (home, injury), Loïs Openda (home, injury), Pavel Šulc (home, injury), Amine El Ouazzani (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -660,7 +756,7 @@
    "evidence": "framework data (no web search): team news: swapped from Paris FC Win to Nil — no (Monaco missing 17% of value (Ansu Fati, Stanis Idumbo, Eric Dier); support: Paris FC missing 21%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.21329189799445625, 'away': 0.16919774090518303}; FotMob (2026-11-01T15:40Z, line-ups confirmed): home unavailable 4, away unavailable 2; absent: Nhoa Sangui (home, injury), Rudy Matondo (home, injury), Luca Koleosho (home, injury), Ansu Fati (away, injury), Stanis Idumbo (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -690,7 +786,7 @@
    "evidence": "framework data (no web search): team news: Toulouse at full strength; news level: OK; line-up check: Toulouse at full strength; share of squad value missing: {'home': 0.012435283269992879, 'away': 0.05265053751009806}; FotMob (2026-11-01T19:00Z, line-ups confirmed): home unavailable 1, away unavailable 1; absent: Derek Cornelius (home, injury), Rafik Messali (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -720,7 +816,7 @@
    "evidence": "framework data (no web search): team news: support: Nacional missing 18%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.055069148031397376, 'away': 0.17605396107628682}; FotMob (2026-11-01T14:20Z, line-ups confirmed): home unavailable 2, away unavailable 3; absent: Miguel Puche (home, injury), Gabriel Rukavina (home, suspension), Ulisses Rocha (away, injury), Léo Santos (away, injury), Filipe Soares (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -750,7 +846,7 @@
    "evidence": "framework data (no web search): team news: support: Rio Ave missing 22%; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.21761458898328678}; FotMob (2026-11-01T17:20Z, line-ups confirmed): home unavailable 0, away unavailable 2; absent: Cezary Miszta (away, injury), Nelson Abbey (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -780,7 +876,7 @@
    "evidence": "framework data (no web search): team news: swapped from Maritimo Madeira (+1.5) Asian handicap (Marítimo missing 13% of value (Yellu Santiago)); news level: OK; line-up check: support: Marítimo missing 13%; share of squad value missing: {'home': 0.12871263790301204, 'away': 0.0}; FotMob (2026-11-01T17:00Z, line-ups confirmed): home unavailable 1, away unavailable 0; absent: Yellu Santiago (home, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
@@ -810,13 +906,13 @@
    "evidence": "framework data (no web search): team news: Braga at full strength; news level: OK; line-up check: Braga rotated: confirmed XI worth 63% of predicted; share of squad value missing: {'home': 0.05498111275189865, 'away': 0.0}; FotMob (2026-11-01T19:40Z, line-ups confirmed): home unavailable 1, away unavailable 1; absent: Sikou Niakaté (home, injury), Matheus Colombo (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
      "rotation_home": true,
-     "rotation_away": null,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -840,13 +936,13 @@
    "evidence": "framework data (no web search): team news: swapped from Arsenal Win to Nil — no (Liverpool missing 34% of value (Dominik Szoboszlai, Hugo Ekitiké, Jeremie Frimpong); support: Arsenal missing 31%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.3356551327114903, 'away': 0.3069494022071442}; FotMob (2026-11-01T15:40Z, line-ups confirmed): home unavailable 4, away unavailable 3; absent: Hugo Ekitiké (home, injury), Jeremie Frimpong (home, injury), Giovanni Leoni (home, injury), William Saliba (away, injury), Bukayo Saka (away, injury), Max Dowman (away, suspension)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
+     "rotation_home": false,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -870,13 +966,13 @@
    "evidence": "framework data (no web search): team news: support: Getafe missing 45%; news level: OK; line-up check: support: Getafe missing 41%; share of squad value missing: {'home': 0.45482920771637425, 'away': 0.02380964259489088}; FotMob (2026-11-01T12:20Z, line-ups confirmed): home unavailable 5, away unavailable 2; absent: Christantus Uche (home, injury), Mario Martín (home, suspension), Zaid Abner Romero (home, injury), Marcão (away, injury), Miguel Sierra (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
+     "rotation_home": false,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -900,13 +996,13 @@
    "evidence": "framework data (no web search): team news: swapped from Real Madrid to win (Real Madrid missing 28% of value (Vinícius Júnior, Federico Valverde, Rodrygo); support: Racing Santander missing 17%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.17255113538048558, 'away': 0.28143126417879116}; FotMob (2026-11-01T14:20Z, line-ups confirmed): home unavailable 2, away unavailable 5; absent: Andrés Martin (home, injury), Jorge Salinas (home, suspension), Vinícius Júnior (away, suspension), Federico Valverde (away, injury), Rodrygo (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
+     "rotation_home": false,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -930,13 +1026,13 @@
    "evidence": "framework data (no web search): team news: swapped from Valencia (0:2) handicap (Valencia missing 36% of value (Harvey Elliott, Diego López, José Copete); support: Elche missing 12%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.12154569615674625, 'away': 0.3648451803622785}; FotMob (2026-11-01T16:40Z, line-ups confirmed): home unavailable 1, away unavailable 6; absent: Marc Aguado (home, injury), Harvey Elliott (away, suspension), Diego López (away, injury), José Copete (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
+     "rotation_home": false,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -973,13 +1069,13 @@
    "evidence": "framework data (no web search): team news: swapped from Granada (+1.5) Asian handicap (Granada missing 47% of value (Pedro Alemañ, Alejandro Marqués, José Arnáiz); support: Eldense missing 29%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.2913358418425474, 'away': 0.4747964068190042}; FotMob (2026-11-01T12:20Z, line-ups confirmed): home unavailable 2, away unavailable 1; absent: David Ruiz (home, injury), Justin Smith (home, suspension), José Arnáiz (away, injury)",
    "evidence_source": "framework",
    "answers": {
-    "nvidia": {
+    "nvidia_alt": {
      "rest_days_home": null,
      "rest_days_away": null,
      "key_absences_home": null,
      "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
+     "rotation_home": false,
+     "rotation_away": false,
      "motivation_home": null,
      "motivation_away": null,
      "new_manager_home": null,
@@ -1002,24 +1098,7 @@
    "kickoff_utc": "2026-11-01T15:15:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.13420775718648334, 'away': 0.3507993536973291}; FotMob (2026-11-01T14:20Z, line-ups confirmed): home unavailable 1, away unavailable 4; absent: Kenneth Obinna Mamah (home, injury), Andrés Ferrari (away, injury), Nikita Iosifov (away, injury), Konrad de la Fuente (away, injury)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },
@@ -1032,24 +1111,7 @@
    "kickoff_utc": "2026-11-01T17:30:00.000Z",
    "evidence": "framework data (no web search): team news: swapped from Castellon Win to Nil — no (Burgos CF missing 56% of value (David González, Jon Karrikaburu, Kévin Appin); support: Castellón missing 32%); news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.5590944537110298, 'away': 0.3168911438371992}; FotMob (2026-11-01T16:40Z, line-ups confirmed): home unavailable 2, away unavailable 3; absent: David González (home, injury), Jon Karrikaburu (home, injury), Ousmane Nana Camara (away, injury), Fabrizio Brignani (away, injury), Fran Castillo (away, injury)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },
@@ -1062,24 +1124,7 @@
    "kickoff_utc": "2026-11-01T20:00:00.000Z",
    "evidence": "framework data (no web search): team news: swapped from Andorra (0:2) handicap (FC Andorra missing 37% of value (Pau López, Gael Alonso, Martí Vilà)); news level: OK; line-up check: no confirmed lineup published; share of squad value missing: {'home': 0.0, 'away': 0.36538364701002807}; FotMob (2026-11-01T14:00Z, line-ups lastStarting11): home unavailable 0, away unavailable 5; absent: Pau López (away, injury), Gael Alonso (away, injury), Théo Le Normand (away, injury)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },
@@ -1092,24 +1137,7 @@
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.0, 'away': 0.08490203494714461}; FotMob (2026-11-01T13:20Z, line-ups confirmed): home unavailable 3, away unavailable 1; absent: Luca Chierico (home, injury), Mattia Viviani (home, injury), Matteo Gilli (home, injury), Manuel Alagna (away, injury)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },
@@ -1122,24 +1150,7 @@
    "kickoff_utc": "2026-11-01T14:00:00.000Z",
    "evidence": "framework data (no web search): team news: Avellino at full strength; news level: OK; line-up check: Avellino at full strength; share of squad value missing: {'home': 0.09203791553975606, 'away': 0.032018022127471804}; FotMob (2026-11-01T13:20Z, line-ups confirmed): home unavailable 1, away unavailable 1; absent: Daniel Fila (home, injury), Mateus Lusuardi (away, injury)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": 0,
-     "key_absences_away": null,
-     "rotation_home": false,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },
@@ -1152,24 +1163,7 @@
    "kickoff_utc": "2026-11-01T16:15:00.000Z",
    "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; line-up check: pick does not depend on one team's lineup; share of squad value missing: {'home': 0.36728870527977203, 'away': 0.05514577880526208}; FotMob (2026-11-01T16:00Z, line-ups confirmed): home unavailable 8, away unavailable 3; absent: Tomás Suslov (home, injury), Suat Serdar (home, injury), Domagoj Bradarić (home, injury), Nicholas Bonfanti (away, injury), Colin Dagba (away, injury), Guido Pagliuca (away, suspension)",
    "evidence_source": "framework",
-   "answers": {
-    "nvidia": {
-     "rest_days_home": null,
-     "rest_days_away": null,
-     "key_absences_home": null,
-     "key_absences_away": null,
-     "rotation_home": null,
-     "rotation_away": null,
-     "motivation_home": null,
-     "motivation_away": null,
-     "new_manager_home": null,
-     "new_manager_away": null,
-     "away_long_travel": null,
-     "derby": null,
-     "weather_severe": null,
-     "referee": null
-    }
-   },
+   "answers": {},
    "agreed": {},
    "support": {}
   },

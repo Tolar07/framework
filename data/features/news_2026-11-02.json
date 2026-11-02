@@ -1,4 +1,46 @@
 {
+ "GAIS v AIK": {
+  "absent": [
+   {
+    "name": "Filip Beckman",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "R\u00f3bert Thorkelsson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Holm\u00e9n",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Filling",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Charlie Pavey",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adri\u00e1n Helm",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T12:00Z",
+  "away_missing_share": 0.5069545160142238,
+  "away_unavailable": 7,
+  "fotmob_id": 5107646,
+  "home_missing_share": 0.4466746735143924,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-02T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Genclerbirligi SK v Alanyaspor": {
   "absent": [
    {
@@ -34,6 +76,43 @@
   "home_missing_share": 0.3395960254145762,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Mjallby AIF v Kalmar FF": {
+  "absent": [
+   {
+    "name": "Jesper Gustavsson",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Timo Stavitski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Villum Dalsgaard",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aboubacar Keita",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Melker Hallberg",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T12:00Z",
+  "away_missing_share": 0.10942224437898457,
+  "away_unavailable": 2,
+  "fotmob_id": 5107648,
+  "home_missing_share": 0.08866819479698355,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-02T18:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Oviedo v Las Palmas": {
@@ -222,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T11:40Z",
+  "at": "2026-11-02T12:00Z",
   "away_missing_share": 0.3194279932085219,
   "away_unavailable": 5,
   "fotmob_id": 5868523,

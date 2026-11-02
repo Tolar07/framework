@@ -39,10 +39,12 @@ def safest_is_short(short_legs: list, cands: list) -> bool:
     return max(w for w, _k, _p in short_legs) >= max(c[0] for c in cands)
 
 
-def with_edge(cands: list) -> list:
-    """Candidates (chance, ev, key, model, market, quote) beating break-even by FORCED_EDGE."""
+def with_edge(cands: list, edge: float | None = None) -> list:
+    """Candidates (chance, ev, key, model, market, quote) beating break-even by FORCED_EDGE
+    (or a one-day `edge`, engine/day_override.py)."""
+    e = FORCED_EDGE if edge is None else edge
     return [c for c in cands if c[5] is not None and c[5].price
-            and c[0] - 1.0 / c[5].price >= FORCED_EDGE]
+            and c[0] - 1.0 / c[5].price >= e]
 
 
 def best_leg(bf):

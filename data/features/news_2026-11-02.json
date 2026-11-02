@@ -1,4 +1,41 @@
 {
+ "Genclerbirligi SK v Alanyaspor": {
+  "absent": [
+   {
+    "name": "Ousmane Diabate",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Pedro Pereira",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dimitrios Goutas",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fatih Aksoy",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Paolo Fernandes",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T11:00Z",
+  "away_missing_share": 0.07230317955348096,
+  "away_unavailable": 2,
+  "fotmob_id": 5904789,
+  "home_missing_share": 0.3395960254145762,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-02T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Oviedo v Las Palmas": {
   "absent": [
    {
@@ -39,6 +76,48 @@
   "home_missing_share": 0.34417629668872546,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Radomiak Radom v Slask Wroclaw": {
+  "absent": [
+   {
+    "name": "Kryspin Szcze\u015bniak",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ibrahima Camar\u00e1",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Anastasios Donis",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Irodotos Christodoulou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Micha\u0142 Mokrzycki",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Damian Warcho\u0142",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T11:00Z",
+  "away_missing_share": 0.10465450889083394,
+  "away_unavailable": 3,
+  "fotmob_id": 5804026,
+  "home_missing_share": 0.1745666561613615,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Tenerife v Andorra": {

@@ -138,14 +138,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:00Z",
-  "away_missing_share": 0.07230317955348096,
+  "at": "2026-11-02T16:20Z",
+  "away_missing_share": 0.06362635923670565,
   "away_unavailable": 2,
   "fotmob_id": 5904789,
-  "home_missing_share": 0.3395960254145762,
+  "home_missing_share": 0.2700126140235803,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Gil Vicente v Guimaraes": {
   "absent": [
@@ -407,7 +407,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:00Z",
+  "at": "2026-11-02T16:20Z",
   "away_missing_share": 0.27282086955877366,
   "away_unavailable": 4,
   "fotmob_id": 5943282,
@@ -491,14 +491,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:00Z",
-  "away_missing_share": 0.10465450889083394,
+  "at": "2026-11-02T16:20Z",
+  "away_missing_share": 0.11064724308313835,
   "away_unavailable": 3,
   "fotmob_id": 5804026,
-  "home_missing_share": 0.1745666561613615,
+  "home_missing_share": 0.15607791112619424,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Rakow v Pogon Szczecin": {
   "absent": [
@@ -582,7 +582,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:00Z",
+  "at": "2026-11-02T16:20Z",
   "away_missing_share": 0.22393117578273222,
   "away_unavailable": 4,
   "fotmob_id": 5749738,
@@ -641,7 +641,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:00Z",
+  "at": "2026-11-02T16:20Z",
   "away_missing_share": 0.13050788133643068,
   "away_unavailable": 2,
   "fotmob_id": 5868524,

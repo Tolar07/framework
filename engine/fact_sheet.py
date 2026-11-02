@@ -239,6 +239,26 @@ def _search_retry(post: Callable, key: str, model: str, rows: list[dict],
     return None, "429"
 
 
+def settle(fixture: str, by: dict, news: Optional[dict]) -> tuple[dict, dict]:
+    """(agreed, support) for one fixture from every member's answers {member: {field: value}}."""
+    fmn = (news or {}).get(fixture) or {}
+    agreed: dict = {}
+    support: dict = {}
+    for k in all_fields():
+        v, n = agree(k, [a.get(k) for a in by.values()])
+        if v is not None:
+            agreed[k], support[k] = v, n
+    # absences are COUNTED from FotMob's list, not asked of a model (2026-11-01: both readers said
+    # null to "regular starters", which the evidence can't settle)
+    for side in ("home", "away"):
+        listed = [a for a in fmn.get("absent") or [] if a.get("side") == side]
+        if fmn.get("absent") is not None or fmn.get(f"{side}_unavailable") is not None:
+            agreed[f"key_absences_{side}"] = (len(listed) if fmn.get("absent") is not None
+                                               else int(fmn.get(f"{side}_unavailable") or 0))
+            support[f"key_absences_{side}"] = "fotmob"
+    return agreed, support
+
+
 def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, clock: Callable = time.monotonic,
            sleep: Callable = time.sleep, news: Optional[dict] = None) -> dict:
@@ -345,21 +365,8 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
     out = []
     for fx in fxs:
         i = fx["id"]
-        fmn = (news or {}).get(fx["fixture"]) or {}
         by = {n: answers[n][i] for n in answers if i in answers[n]}
-        agreed: dict = {}
-        support: dict = {}
-        for k in all_fields():
-            v, n = agree(k, [a.get(k) for a in by.values()])
-            if v is not None:
-                agreed[k], support[k] = v, n
-        # absences are COUNTED from FotMob's list, not asked of a model (2026-11-01: both readers said
-        # null to "regular starters", which the evidence can't settle)
-        for side in ("home", "away"):
-            listed = [a for a in fmn.get("absent") or [] if a.get("side") == side]
-            if fmn.get("absent") is not None or fmn.get(f"{side}_unavailable") is not None:
-                agreed[f"key_absences_{side}"] = len(listed) if fmn.get("absent") is not None                     else int(fmn.get(f"{side}_unavailable") or 0)
-                support[f"key_absences_{side}"] = "fotmob"
+        agreed, support = settle(fx["fixture"], by, news)
         ev = evidence.get(i) or ""
         src = "framework" if ev.startswith("framework data") else "web" if ev else None
         out.append({**fx, "evidence": ev or "PENDING", "evidence_source": src, "answers": by, "agreed": agreed,
@@ -423,11 +430,49 @@ def rated_unbet(picks_doc: dict, n: int = MAX_RATED) -> list[dict]:
             for r in rows[:n]]
 
 
-def build(picks_doc: dict, **kw) -> dict:
-    singles = picks_doc.get("singles") or []
-    rated = rated_unbet(picks_doc)
-    kw.setdefault("news", load_news(picks_doc.get("date")))
-    sheet = gather(singles + rated, **kw)
+# ---------------------------------------------------------------- outside readers
+# Claude reads on the Architect's PC (Architect 2026-11-02: "use you as a reader"): the PC job
+# (engine/claude_reader.py, scripts/claude-brain.ps1) searches the web itself and saves
+# output/facts/<reader>_<date>.json; its answers count as one more member, so Claude plus any one
+# free model can agree a fact. Still two members, never Claude alone (MIN_AGREE).
+OUTSIDE = ("claude",)
+
+
+def outside_path(day: Optional[str], name: str = "claude", out_dir: Optional[Path] = None) -> Path:
+    return (out_dir or OUT_DIR) / f"{name}_{day}.json"
+
+
+def load_outside(picks_doc: dict, out_dir: Optional[Path] = None) -> dict:
+    """{reader: {fixture: {field: value}}} for the outside readers that read THIS board."""
+    got = {}
+    for name in OUTSIDE:
+        try:
+            d = json.loads(outside_path(picks_doc.get("date"), name, out_dir).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if d.get("picks_generated_at") == picks_doc.get("generated_at") and d.get("fixtures"):
+            got[name] = d
+    return got
+
+
+def add_outside(fxs: list[dict], members: dict, outside: dict, news: Optional[dict]) -> None:
+    """Fold each outside reader's answers into the fixtures and settle them again (in place)."""
+    for name, d in outside.items():
+        ans = d.get("fixtures") or {}
+        n = 0
+        for fx in fxs:
+            a = {k: clean(k, v) for k, v in (ans.get(fx["fixture"]) or {}).items() if k in all_fields()}
+            if not any(v is not None for v in a.values()):
+                continue
+            n += 1
+            fx["answers"] = {**(fx.get("answers") or {}), name: a}
+            fx["agreed"], fx["support"] = settle(fx["fixture"], fx["answers"], news)
+            if fx.get("evidence") in (None, "", "PENDING") and (d.get("evidence") or {}).get(fx["fixture"]):
+                fx["evidence"], fx["evidence_source"] = d["evidence"][fx["fixture"]], name
+        members[name] = {"answered": n, "model": d.get("model"), "run_at": d.get("run_at")}
+
+
+def finish(picks_doc: dict, sheet: dict, singles: list[dict], rated: list[dict]) -> dict:
     by_fx = {f["fixture"]: f for f in sheet["fixtures"]}
     picks = []
     for s in singles:
@@ -444,7 +489,24 @@ def build(picks_doc: dict, **kw) -> dict:
             "fixtures": sheet["fixtures"], "picks": picks, "rated": rated_out}
 
 
-# ---------------------------------------------------------------- the study (results decide)
+def build(picks_doc: dict, outside: Optional[dict] = None, **kw) -> dict:
+    singles = picks_doc.get("singles") or []
+    rated = rated_unbet(picks_doc)
+    kw.setdefault("news", load_news(picks_doc.get("date")))
+    sheet = gather(singles + rated, **kw)
+    add_outside(sheet["fixtures"], sheet["members"], load_outside(picks_doc) if outside is None else outside,
+                kw["news"])
+    return finish(picks_doc, sheet, singles, rated)
+
+
+def merge_outside(doc: dict, picks_doc: dict, outside: dict, news: Optional[dict] = None) -> dict:
+    """An existing sheet with the outside readers folded in (the PC job, no model calls)."""
+    sheet = {"members": dict(doc.get("members") or {}), "fixtures": [dict(f) for f in doc.get("fixtures") or []]}
+    add_outside(sheet["fixtures"], sheet["members"], outside,
+                load_news(picks_doc.get("date")) if news is None else news)
+    return finish(picks_doc, sheet, picks_doc.get("singles") or [], rated_unbet(picks_doc))
+
+
 def _anchor(s: dict) -> Optional[float]:
     """The market's chance: the de-margined sharp price, else 1/price (a slight overestimate)."""
     sp = VP._num(s.get("sharp_p"))

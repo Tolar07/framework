@@ -34,3 +34,17 @@ assert all(d > "2026-01-01" for d, *_ in scored), "the first days only train"
 noise = [(f"2026-01-{1 + i // 10:02d}", 0.5, i % 2, float((i * 7) % 3), None) for i in range(400)]
 assert st.wf_preds(noise)[0]["verdict"] != "ADDS INFORMATION"
 print("walk-forward input test: a real signal passes, noise does not: OK")
+
+# lineups / injuries (issue #217): the missing-share feature, walk-forward, never filled in
+docs = [(f"2026-10-{1 + i // 10:02d}", {f"H{i} v A{i}": {
+    "ft": "1-0" if i % 2 else "0-1", "model_p": [0.4, 0.3, 0.3, 0.8, 0.5, 0.2, 0.5],
+    "news": {"home_missing": 0.0 if i % 2 else 0.4, "away_missing": 0.4 if i % 2 else 0.0}}}) for i in range(300)]
+docs.append(("2026-11-01", {"X v Y": {"ft": "1-0", "model_p": [0.4, 0.3, 0.3, 0.8, 0.5, 0.2, 0.5],
+                                      "news": {"home_missing": "PENDING", "away_missing": "PENDING"}},
+                            "P v Q": {"ft": "PENDING", "model_p": [0.4, 0.3, 0.3, 0.8, 0.5, 0.2, 0.5],
+                                      "news": {"home_missing": 0.1, "away_missing": 0.2}}}))
+nr = st.news_rows(docs)
+assert len(nr["home win | missing edge"]) == 300, "PENDING news or result is skipped, not invented"
+s, _ = st.wf_preds(nr["home win | missing edge"])
+assert s["verdict"] == "ADDS INFORMATION", s   # an absence edge that decides the result is picked up
+print("lineup / injury missing-share input: skipped when PENDING, walk-forward verdict: OK")

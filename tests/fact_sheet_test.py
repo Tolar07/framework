@@ -178,13 +178,15 @@ def test_fotmob_news_reaches_both_readers_side_by_side():
             or_asked.set()
         else:
             seen["parallel"] = or_asked.wait(timeout=5)
-        body = __import__("json").dumps({"fixtures": [{"id": "0", "key_absences_home": 3}]})
+        body = __import__("json").dumps({"fixtures": [{"id": "0", "derby": True}]})
         return Resp({"choices": [{"message": {"content": body}}]})
     doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get, post=post,
                    sleep=lambda s: None, news=news)
     assert seen["parallel"] is True
     assert doc["members"]["openrouter"]["answered"] == 1 and doc["members"]["nvidia"]["answered"] == 1
-    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 3
+    assert doc["fixtures"][0]["agreed"]["derby"] is True
+    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 1      # counted from FotMob's list
+    assert doc["fixtures"][0]["support"]["key_absences_home"] == "fotmob"
 
 
 def test_throttled_openrouter_reader_falls_to_the_next_free_model():
@@ -198,12 +200,12 @@ def test_throttled_openrouter_reader_falls_to_the_next_free_model():
             return Resp({}, 429)
         if "openrouter" in url and json["model"] == "google/gemma-4-31b-it:free":
             return Resp({}, 429)
-        body = __import__("json").dumps({"fixtures": [{"id": 0, "key_absences_home": 2}]})
+        body = __import__("json").dumps({"fixtures": [{"id": 0, "away_long_travel": True}]})
         return Resp({"choices": [{"message": {"content": body}}]})
     doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get2, post=post,
                    sleep=lambda s: None, news=news)
     assert doc["members"]["openrouter"]["model"] == "google/gemma-4-26b-a4b-it:free"
-    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
+    assert doc["fixtures"][0]["agreed"]["away_long_travel"] is True
 
 
 def test_two_nvidia_model_families_agree_when_openrouter_is_spent():
@@ -215,13 +217,13 @@ def test_two_nvidia_model_families_agree_when_openrouter_is_spent():
         if ":generateContent" in url or "openrouter" in url:
             return Resp({}, 429)
         seen_models.add(json["model"])
-        body = __import__("json").dumps({"fixtures": [{"id": 0, "key_absences_home": 2}]})
+        body = __import__("json").dumps({"fixtures": [{"id": 0, "derby": True}]})
         return Resp({"choices": [{"message": {"content": body}}]})
     doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get, post=post,
                    sleep=lambda s: None, news=news)
     assert FS.alt_model(get) in seen_models and len(seen_models) == 2
-    assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
-    assert doc["fixtures"][0]["support"]["key_absences_home"] == 2
+    assert doc["fixtures"][0]["agreed"]["derby"] is True
+    assert doc["fixtures"][0]["support"]["derby"] == 2
 
 
 def test_alt_reader_model_comes_from_the_live_list():

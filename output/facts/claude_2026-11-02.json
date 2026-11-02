@@ -1,12 +1,12 @@
 {
  "date": "2026-11-02",
  "picks_generated_at": "2026-11-02T00:36:14Z",
- "run_at": "2026-11-02T11:19:26+00:00",
+ "run_at": "2026-11-02T16:19:46+00:00",
  "model": "claude-sonnet-5-5",
  "recorded_only": true,
  "answered": 12,
  "asked": 22,
- "reads": 1,
+ "reads": 2,
  "fixtures": {
   "Sonderjyske v FC Copenhagen": {
    "rest_days_home": null,
@@ -147,7 +147,7 @@
    "motivation_away": null,
    "new_manager_home": null,
    "new_manager_away": null,
-   "away_long_travel": true,
+   "away_long_travel": null,
    "derby": false,
    "weather_severe": null,
    "referee": null
@@ -179,7 +179,7 @@
    "motivation_away": null,
    "new_manager_home": null,
    "new_manager_away": null,
-   "away_long_travel": false,
+   "away_long_travel": null,
    "derby": false,
    "weather_severe": null,
    "referee": null
@@ -202,17 +202,17 @@
   }
  },
  "evidence": {
-  "Sonderjyske v FC Copenhagen": "No current team news found; web searches returned no usable results for this fixture.",
-  "Radomiak Radom v Slask Wroclaw": "Web searches (soccerway.pl, wroclaw.pl, fotmob) returned only older RadomiakÔÇô┼Ül─àsk matches from 2025. They had no current team news, rest days, standings, referee or weather for 2 Nov 2026, so every unverifiable field is null.",
-  "Sassuolo v Fiorentina": "Virgilio Sport searches only returned older Sassuolo-Fiorentina previews (Dec 2025, Apr 2026), not this match, so no current facts were verified.",
-  "Lorient v Brest": "No current team news found; nothing searched for this fixture returned usable results. Both clubs are Breton, so I marked it as a derby from general knowledge.",
-  "Benfica v Alverca": "Bola na Rede and Sports Mole results were undated or for other matchdays, so I could not confirm that any absences apply to this match.",
-  "Gil Vicente v Guimaraes": "No current team news found; nothing searched for this fixture returned usable results.",
-  "Newcastle v Everton": "Premier League and Sports Mole results were from past seasons' fixtures, with no referee or current absences for this match, so they were not used.",
-  "Red Star v Nancy": "No current team news found; nothing searched for this fixture returned usable results.",
-  "Genclerbirligi SK v Alanyaspor": "Web searches (fanatik, haberturk, beinsports, fotmob) returned only older Gen├ºlerbirli─ƒiÔÇôAlanyaspor matches from 2025. They had no current team news, rest days, standings, referee or weather for 2 Nov 2026, so every unverifiable field is null.",
-  "PAE PS Kalamata v POT Iraklis": "No current team news found; nothing searched for this fixture returned usable results. The travel flag is an approximate road distance (Thessaloniki to Kalamata, about 700 km).",
-  "GAIS v AIK": "No current team news found; nothing searched for this fixture returned usable results.",
-  "Mjallby AIF v Kalmar FF": "No current team news found; nothing searched for this fixture returned usable results."
+  "Sonderjyske v FC Copenhagen": "No usable source found today for this fixture; no current team news retrieved.",
+  "Radomiak Radom v Slask Wroclaw": "No current team news found for this fixture. Search was not run for it, so all situational fields are left null.",
+  "Sassuolo v Fiorentina": "Virgilio Sport and TMW search results only covered past Sassuolo-Fiorentina meetings (Dec 2025, Apr 2026). Nothing for 2 Nov 2026, so the referee and team news are unverified.",
+  "Lorient v Brest": "No current team news found for this fixture. Derby is general knowledge: both clubs are Breton.",
+  "Benfica v Alverca": "Starting11 and FotMob pages confirm the fixture (Primeira Liga GW10, Estadio da Luz, 20:15) but list no injuries, suspensions or lineups. Other results were from earlier meetings.",
+  "Gil Vicente v Guimaraes": "No current team news found for this fixture.",
+  "Newcastle v Everton": "Newcastle World previews describe a Newcastle v Everton game with about 12 absentees (Lascelles ACL, Livramento, Almiron, Gordon suspended). The articles are undated and appear to be from an earlier season, so I did not use them. No Everton list was found.",
+  "Red Star v Nancy": "No current team news found for this fixture.",
+  "Genclerbirligi SK v Alanyaspor": "No current team news found for this fixture. The Ankara-Alanya distance is borderline against the ~500 km threshold, so travel is null.",
+  "PAE PS Kalamata v POT Iraklis": "No current team news found for this fixture. Travel is general knowledge: Thessaloniki to Kalamata is about 700 km by road.",
+  "GAIS v AIK": "No current team news found for this fixture. The Gothenburg-Stockholm distance (about 470 km) is borderline against the ~500 km threshold, so travel is null.",
+  "Mjallby AIF v Kalmar FF": "No current team news found for this fixture."
  }
 }

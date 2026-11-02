@@ -1,7 +1,7 @@
 {
  "date": "2026-11-02",
  "picks_generated_at": "2026-11-02T00:36:14Z",
- "run_at": "2026-11-02T11:19:26+00:00",
+ "run_at": "2026-11-02T16:19:46+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -27,10 +27,10 @@
   "claude": {
    "answered": 12,
    "model": "claude-sonnet-5-5",
-   "run_at": "2026-11-02T11:19:26+00:00"
+   "run_at": "2026-11-02T16:19:46+00:00"
   }
  },
- "fields_agreed": 26,
+ "fields_agreed": 43,
  "fields_asked": 308,
  "fixtures": [
   {
@@ -196,11 +196,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -264,11 +268,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": true
+    "derby": true,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -332,11 +340,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -400,11 +412,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -468,11 +484,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 0
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -536,11 +556,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 0,
+    "key_absences_away": 0
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -596,20 +620,18 @@
      "motivation_away": null,
      "new_manager_home": null,
      "new_manager_away": null,
-     "away_long_travel": true,
+     "away_long_travel": null,
      "derby": false,
      "weather_severe": null,
      "referee": null
     }
    },
    "agreed": {
-    "away_long_travel": true,
     "derby": false,
     "key_absences_home": 3,
     "key_absences_away": 2
    },
    "support": {
-    "away_long_travel": 2,
     "derby": 3,
     "key_absences_home": "fotmob",
     "key_absences_away": "fotmob"
@@ -676,11 +698,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -736,7 +762,7 @@
      "motivation_away": null,
      "new_manager_home": null,
      "new_manager_away": null,
-     "away_long_travel": false,
+     "away_long_travel": null,
      "derby": false,
      "weather_severe": null,
      "referee": null
@@ -744,11 +770,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
-    "away_long_travel": 3,
-    "derby": 3
+    "away_long_travel": 2,
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -812,11 +842,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 2
    },
    "support": {
     "away_long_travel": 3,
-    "derby": 3
+    "derby": 3,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -982,13 +1016,42 @@
    "fixture": "Sassuolo v Fiorentina",
    "market": "SB:10||Home or Away",
    "pick": "Sassuolo or Fiorentina",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Lorient v Brest",
    "market": "SB:10||Home or Away",
    "pick": "Lorient or Brest",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "derby",
      "side": null,
@@ -1002,19 +1065,57 @@
    "fixture": "Benfica v Alverca",
    "market": "SB:18|total=4.5|Under 4.5",
    "pick": "Under 4.5 goals",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": 0,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 0,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Gil Vicente v Guimaraes",
    "market": "SB:10||Home or Away",
    "pick": "Gil Vicente or Guimaraes",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Newcastle v Everton",
    "market": "SB:10||Home or Away",
    "pick": "Newcastle or Everton",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Red Star v Nancy",
@@ -1040,13 +1141,6 @@
      "direction": 1,
      "size": 0.4,
      "source": "ai_fact_sheet"
-    },
-    {
-     "fact": "away_long_travel",
-     "side": "away",
-     "direction": 1,
-     "size": 1.0,
-     "source": "ai_fact_sheet"
     }
    ]
   },
@@ -1054,19 +1148,64 @@
    "fixture": "PAE PS Kalamata v POT Iraklis",
    "market": "SB:10||Home or Away",
    "pick": "PAE PS Kalamata or POT Iraklis",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "GAIS v AIK",
    "market": "SB:10||Home or Away",
    "pick": "GAIS or AIK",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Mjallby AIF v Kalmar FF",
    "market": "SB:10||Home or Away",
    "pick": "Mjallby AIF or Kalmar FF",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    }
+   ]
   }
  ],
  "rated": [

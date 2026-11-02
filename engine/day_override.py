@@ -6,6 +6,8 @@ config/day_overrides.json maps a board date to the changes the Architect approve
   forced_edge  replaces engine/short_legs.FORCED_EDGE for the day (0.0 = a fallback market needs only to
                reach SportyBet's break-even, not beat it by 5 pts)
   no_single    home teams whose game gets no single that day (picks the Architect struck off)
+  only_singles home teams whose games alone may get a single that day (the Architect's vetted list:
+               a game the vetted board did not have, e.g. after a price move, gets none)
 
 A date with no entry runs the normal rules. Entries are kept as the record of what changed and when.
 """
@@ -29,4 +31,7 @@ def get(target: str, path: Path | None = None) -> dict:
 def struck(ov: dict, home: str) -> bool:
     """The Architect struck this game's single off for the day."""
     h = (home or "").strip().lower()
+    only = ov.get("only_singles")
+    if only is not None and h not in {str(x).strip().lower() for x in only}:
+        return True
     return any(h == str(x).strip().lower() for x in ov.get("no_single") or [])

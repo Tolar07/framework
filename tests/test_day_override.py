@@ -24,3 +24,9 @@ def test_with_edge_override():
 
 def test_shipped_file_parses():
     assert d.get("2026-11-02")["forced_edge"] == 0.0
+
+
+def test_only_singles_allow_list():
+    ov = {"only_singles": ["Newcastle"], "no_single": []}
+    assert not d.struck(ov, "Newcastle") and d.struck(ov, "Rakow")
+    assert len(d.get("2026-11-02")["only_singles"]) == 12

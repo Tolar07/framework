@@ -48,7 +48,22 @@ MIN_AGREE = 2
 # nvidia_alt is a second, different model family on NVIDIA's free key (2026-11-01 23:00: OpenRouter's
 # free allowance was spent on every model, so one reader was left and no fact could be agreed).
 READERS = {"nvidia": "nvidia", "nvidia_alt": "nvidia", "openrouter": "openrouter"}
-NVIDIA_ALT_MODEL = os.getenv("FACT_NVIDIA_ALT_MODEL", "meta/llama-3.3-70b-instruct")   # mistral-large 1T: 0 answered in 420 s
+NVIDIA_ALT_MODEL = os.getenv("FACT_NVIDIA_ALT_MODEL", "")   # override; else the first of NVIDIA_ALT_PREFER listed
+# Picked from NVIDIA's LIVE model list each run (2026-11-01: mistral-large too slow, llama-3.3-70b 410 Gone)
+NVIDIA_ALT_PREFER = ("openai/gpt-oss-20b", "google/gemma-3-12b-it", "nvidia/nemotron-3.5-super-vl-120b-a12b")
+
+
+def alt_model(get: Callable) -> str:
+    """The second NVIDIA reader's model: the override, else the first preferred id NVIDIA lists now."""
+    if NVIDIA_ALT_MODEL:
+        return NVIDIA_ALT_MODEL
+    try:
+        r = get(str(VP.MEMBERS["nvidia"]["base"]) + "/models", timeout=30)
+        r.raise_for_status()
+        listed = {str(m.get("id", "")) for m in r.json().get("data") or []}
+    except Exception:  # noqa: BLE001
+        return NVIDIA_ALT_PREFER[0]
+    return next((m for m in NVIDIA_ALT_PREFER if m in listed), NVIDIA_ALT_PREFER[0])
 WAIT_429_S = 45                             # one wait on a 429 before the next Gemini model
 MAX_RATED = 20                              # rated games NOT bet on, also sheeted (learning beyond our bets)
 MIN_STUDY_N = 30                            # below this a fact's residual is shown but not trusted
@@ -287,7 +302,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
         if not key:
             info[name] = {"status": f"missing secret {VP.MEMBERS[member]['key']}"}
             return
-        model = NVIDIA_ALT_MODEL if name == "nvidia_alt" else VP.pick_model(member, get, key)
+        model = alt_model(get) if name == "nvidia_alt" else VP.pick_model(member, get, key)
         if not model:
             info[name] = {"status": "no free model available" if name == "openrouter" else "no model"}
             return

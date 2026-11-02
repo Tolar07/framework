@@ -1,0 +1,29 @@
+{
+ "Tenerife v Andorra": {
+  "absent": [
+   {
+    "name": "Pau L\u00f3pez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gael Alonso",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Th\u00e9o Le Normand",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T09:00Z",
+  "away_missing_share": 0.3194279932085219,
+  "away_unavailable": 5,
+  "fotmob_id": 5868523,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-02T13:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

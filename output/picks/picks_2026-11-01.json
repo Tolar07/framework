@@ -6082,7 +6082,7 @@
    "sharp_ev": -0.0619,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
+   "result": "no-90min-result",
    "ft": null,
    "bias": {
     "yes": {
@@ -18727,7 +18727,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "Empoli v Juve Stabia",

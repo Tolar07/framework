@@ -42,8 +42,8 @@
    "sharp_ev": null,
    "first_price": 1.7,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-2",
    "bias": {
     "yes": {
      "cell": "SB:16|1.50-1.75",
@@ -194,8 +194,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -361,8 +361,8 @@
    "sharp_ev": -0.0381,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-4",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -535,8 +535,8 @@
    "sharp_ev": -0.0471,
    "first_price": 1.35,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1220,8 +1220,8 @@
    "sharp_ev": -0.1583,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-4",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1381,8 +1381,8 @@
    "sharp_ev": null,
    "first_price": 1.34,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "5-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1548,8 +1548,8 @@
    "sharp_ev": null,
    "first_price": 1.35,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1720,8 +1720,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -1889,8 +1889,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1995,7 +1995,7 @@
     "Radomiak Radom v Slask Wroclaw",
     "GAIS v AIK"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1700",
    "cohort_merged": true,
    "earliest_kickoff_utc": "2026-11-02T17:00:00Z",
@@ -2163,7 +2163,7 @@
     "PAE PS Kalamata v POT Iraklis",
     "Genclerbirligi SK v Alanyaspor"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1700",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T17:00:00Z",
@@ -2254,7 +2254,7 @@
     "Mjallby AIF v Kalmar FF",
     "Sonderjyske v FC Copenhagen"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1800",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T18:00:00Z",
@@ -2508,7 +2508,7 @@
      0.0004
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Radomiak Radom v Slask Wroclaw",
@@ -2586,7 +2586,7 @@
      0.0005
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Zaglebie v Korona Kielce",
@@ -2655,7 +2655,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Rakow v Pogon Szczecin",
@@ -2724,7 +2724,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Sassuolo v Fiorentina",
@@ -2814,7 +2814,7 @@
      0.0002
     ]
    ],
-   "ft": null
+   "ft": "2-4"
   },
   {
    "fixture": "Atalanta v Parma",
@@ -2883,7 +2883,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Lorient v Brest",
@@ -2965,7 +2965,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Benfica v Alverca",
@@ -3369,7 +3369,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "Oviedo v Las Palmas",
@@ -3438,7 +3438,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Valladolid v Leganes",
@@ -3507,7 +3507,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "4-3"
   },
   {
    "fixture": "Mallorca v Cadiz",
@@ -3654,7 +3654,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "1-4"
   },
   {
    "fixture": "Reims v Sochaux-Montbeliard",
@@ -3723,7 +3723,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Genclerbirligi SK v Alanyaspor",
@@ -3809,7 +3809,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "5-0"
   },
   {
    "fixture": "Atromitos Athinon v Volos NPS",
@@ -3878,7 +3878,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "PAE PS Kalamata v POT Iraklis",
@@ -3960,7 +3960,7 @@
      0.0003
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "GAIS v AIK",
@@ -4046,7 +4046,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Mjallby AIF v Kalmar FF",
@@ -4132,7 +4132,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   }
  ],
  "study": [],
@@ -4156,11 +4156,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.49,
      "chance": 0.6817548399986424,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1700",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T17:00:00Z",
@@ -4206,11 +4206,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.67,
      "chance": 0.6686650209951361,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-2"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1800",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T18:00:00Z",
@@ -4256,11 +4256,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.86,
      "chance": 0.6558978708188903,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T17:30:00Z",
@@ -4306,11 +4306,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.49,
      "chance": 0.5930218067271043,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1930",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T19:30:00Z",
@@ -4356,11 +4356,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.5,
      "chance": 0.5813330721493128,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-4"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1730",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T17:30:00Z",
@@ -4456,7 +4456,7 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.93,
      "chance": 0.5537519069329024,
-     "result": null,
+     "result": "no-90min-result",
      "ft": null
     }
    ],
@@ -4506,11 +4506,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.86,
      "chance": 0.5343250184133084,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-2"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T19:45:00Z",
@@ -4556,11 +4556,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.57,
      "chance": 0.5276096983763436,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1800",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T18:00:00Z",
@@ -4606,11 +4606,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.84,
      "chance": 0.5213514638482194,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-0"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1600",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T16:00:00Z",
@@ -4656,11 +4656,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.86,
      "chance": 0.5182085088982916,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-3"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1515",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T15:15:00Z",
@@ -4753,7 +4753,7 @@
     "PAE PS Kalamata v POT Iraklis",
     "Genclerbirligi SK v Alanyaspor"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1700",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T17:00:00Z",

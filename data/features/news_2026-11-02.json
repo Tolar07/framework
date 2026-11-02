@@ -78,6 +78,48 @@
   "kickoff_utc": "2026-11-02T15:15:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "PAE PS Kalamata v POT Iraklis": {
+  "absent": [
+   {
+    "name": "Kenneth Vargas",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Panagiotis Panagiotou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dimitrios Naoumis",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yoel B\u00e1rcenas",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ivi L\u00f3pez",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Giorgos Giannoutsos",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T11:40Z",
+  "away_missing_share": 0.27282086955877366,
+  "away_unavailable": 4,
+  "fotmob_id": 5943282,
+  "home_missing_share": 0.28571847555336083,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-02T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Radomiak Radom v Slask Wroclaw": {
   "absent": [
    {
@@ -120,6 +162,48 @@
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Sassuolo v Fiorentina": {
+  "absent": [
+   {
+    "name": "Isma\u00ebl Kon\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kristian Thorstvedt",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Fedde Leysen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Arthur Atta",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Ranieri",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fabiano Parisi",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T11:40Z",
+  "away_missing_share": 0.22393117578273222,
+  "away_unavailable": 4,
+  "fotmob_id": 5749738,
+  "home_missing_share": 0.3717948630655933,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T17:30:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Tenerife v Andorra": {
   "absent": [
    {
@@ -138,13 +222,50 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T09:00Z",
+  "at": "2026-11-02T11:40Z",
   "away_missing_share": 0.3194279932085219,
   "away_unavailable": 5,
   "fotmob_id": 5868523,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T13:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Valladolid v Leganes": {
+  "absent": [
+   {
+    "name": "David Torres",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Juanmi Latasa",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Guille Bueno",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Atienza",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marcos Leiva",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T11:40Z",
+  "away_missing_share": 0.13050788133643068,
+  "away_unavailable": 2,
+  "fotmob_id": 5868524,
+  "home_missing_share": 0.4292059315524254,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-02T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  }
 }

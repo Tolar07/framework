@@ -101,7 +101,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T17:00Z",
+  "at": "2026-11-02T17:20Z",
   "away_missing_share": 0.5384328764663193,
   "away_unavailable": 8,
   "fotmob_id": 5107646,
@@ -291,24 +291,19 @@
     "type": "injury"
    },
    {
-    "name": "Aboubacar Keita",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Melker Hallberg",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T17:00Z",
-  "away_missing_share": 0.10942224437898457,
-  "away_unavailable": 2,
+  "at": "2026-11-02T17:20Z",
+  "away_missing_share": 0.05142061054334982,
+  "away_unavailable": 1,
   "fotmob_id": 5107648,
-  "home_missing_share": 0.08866819479698355,
+  "home_missing_share": 0.08532423775754117,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-02T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Newcastle v Everton": {
   "absent": [

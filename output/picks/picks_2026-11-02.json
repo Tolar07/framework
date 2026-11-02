@@ -790,7 +790,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.52,
+   "drift_pct": 10.1
   },
   {
    "fixture": "Gil Vicente v Guimaraes",
@@ -957,7 +959,9 @@
     "yes": -0.0366,
     "no": 0.0366,
     "signal": null
-   }
+   },
+   "drift_price": 1.35,
+   "drift_pct": -0.7
   },
   {
    "fixture": "Newcastle v Everton",
@@ -1809,7 +1813,11 @@
     "home": 7910258,
     "away": 4387442
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "matchup": {
     "say": "Mj\u00e4llby: blunt attack v tight defence -> no strong goals lean",
     "xg": [

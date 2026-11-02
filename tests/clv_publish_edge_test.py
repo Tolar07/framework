@@ -59,6 +59,35 @@ def test_status_reports_entry_edge_and_decay(tmp_path):
     assert s["mean_clv_pct"] == 10.0
 
 
+def test_consensus_edge_frozen_at_entry(tmp_path):
+    # Consensus prob 0.45 (exchange fair 2.22), price 2.2 -> -1% vs the sharp
+    # market. Frozen on the leg next to the model's own edge.
+    log = CLVLog(tmp_path / "clv.json")
+    leg = log.log_entry("EPL", "A v B", "O2.5", model_prob=0.5, entry_odds=2.2,
+                        consensus_prob=0.45)
+    assert leg.entry_consensus_prob == 0.45
+    assert leg.entry_consensus_edge_pct == -1.0   # 0.45*2.2-1 = -0.01
+    assert leg.entry_edge_pct == 10.0             # model's own edge unchanged
+
+
+def test_consensus_absent_stays_none(tmp_path):
+    # Exchange does not price the pick -> no number, never backfilled (HR35).
+    log = CLVLog(tmp_path / "clv.json")
+    leg = log.log_entry("EPL", "A v B", "BTTS_YES", model_prob=0.5, entry_odds=2.2)
+    assert leg.entry_consensus_prob is None
+    assert leg.entry_consensus_edge_pct is None
+
+
+def test_status_reports_mean_consensus_edge(tmp_path):
+    log = CLVLog(tmp_path / "clv.json")
+    for _ in range(PHASE3_GATE_MIN_LEGS):
+        leg = log.log_entry("EPL", "A v B", "O2.5", model_prob=0.5,
+                            entry_odds=2.2, consensus_prob=0.5)
+        log.log_close(leg.leg_id, closing_odds=2.0)
+    s = log.phase2_status()
+    assert s["mean_consensus_edge_pct"] == 10.0   # 0.5*2.2-1 = +10%
+
+
 def test_old_legs_without_fields_load(tmp_path):
     # A ledger written before these fields must still load (defaults -> None).
     p = tmp_path / "clv.json"
@@ -67,3 +96,4 @@ def test_old_legs_without_fields_load(tmp_path):
     leg = CLVLog(p).legs[0]
     assert leg.entry_fair_odds is None and leg.entry_edge_pct is None
     assert leg.closing_edge_pct is None
+    assert leg.entry_consensus_prob is None and leg.entry_consensus_edge_pct is None

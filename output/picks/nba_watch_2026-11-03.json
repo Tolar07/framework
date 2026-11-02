@@ -1,0 +1,42 @@
+{
+ "date": "2026-11-03",
+ "picks": [
+  {
+   "market_id": "68",
+   "specifier": "total=114.5",
+   "outcome": "Under 114.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5435,
+   "fair_price": 1.84,
+   "ev": 0.0869,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-02T19:05:33.622497+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719492",
+   "home_key": "ORL",
+   "away_key": "WAS",
+   "espn_id": "401909911",
+   "espn_date": "2026-11-03",
+   "tip": "2026-11-03T00:30:00+00:00",
+   "home": "Orlando Magic",
+   "away": "Washington Wizards",
+   "pick": "1st half Under 114.5 points",
+   "sharp": {
+    "ml_home": 1.6452,
+    "ml_away": 2.31,
+    "spread": -2.5,
+    "total": 225.5
+   },
+   "code": "SX40SP",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.93,
+    "listed": true
+   }
+  }
+ ]
+}

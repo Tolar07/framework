@@ -185,6 +185,43 @@
     "back": 1.85,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=106.5",
+   "outcome": "Under 106.5",
+   "outcome_id": "13",
+   "price": 1.93,
+   "chance": 0.5445,
+   "fair_price": 1.836,
+   "ev": 0.0509,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-02T23:45:00.000134+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719486",
+   "home_key": "CHA",
+   "away_key": "DET",
+   "espn_id": "401909908",
+   "espn_date": "2026-11-03",
+   "tip": "2026-11-03T00:30:00+00:00",
+   "home": "Charlotte Hornets",
+   "away": "Detroit Pistons",
+   "pick": "1st half Under 106.5 points",
+   "sharp": {
+    "ml_home": 2.96,
+    "ml_away": 1.4219,
+    "spread": 6.5,
+    "total": 209.5
+   },
+   "code": "XL7FP0",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.99,
+    "listed": true
+   }
   }
  ]
 }

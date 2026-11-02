@@ -484,7 +484,11 @@
     "home": 50155130,
     "away": 40377202
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:00Z"
+   },
    "matchup": {
     "say": "both high lines + an elite attack; Lorient: blunt attack v tight defence -> no strong goals lean",
     "xg": [

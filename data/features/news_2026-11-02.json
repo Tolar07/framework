@@ -17,7 +17,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5749731,
@@ -59,7 +59,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:20Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.4987589205199633,
   "away_unavailable": 6,
   "fotmob_id": 5887671,
@@ -180,7 +180,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:20Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.05220515897324871,
   "away_unavailable": 4,
   "fotmob_id": 5887667,
@@ -222,14 +222,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.18785164734428897,
   "away_unavailable": 3,
   "fotmob_id": 5802975,
-  "home_missing_share": 0.11575844131157392,
+  "home_missing_share": 0.11134534460326678,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Mallorca v Cadiz": {
   "absent": [
@@ -264,14 +264,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
-  "away_missing_share": 0.5126360446282495,
+  "at": "2026-11-02T19:00Z",
+  "away_missing_share": 0.45253279234459187,
   "away_unavailable": 6,
   "fotmob_id": 5868520,
-  "home_missing_share": 0.0901780594202065,
+  "home_missing_share": 0.08417978782753863,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-02T20:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Mjallby AIF v Kalmar FF": {
   "absent": [
@@ -323,7 +323,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5795503,
@@ -444,7 +444,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.31070942027785575,
   "away_unavailable": 3,
   "fotmob_id": 5868113,
@@ -513,18 +513,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.18632882286368144,
   "away_unavailable": 5,
   "fotmob_id": 5804027,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Red Star v Nancy": {
   "absent": [],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803305,
@@ -535,7 +535,7 @@
  },
  "Reims v Sochaux-Montbeliard": {
   "absent": [],
-  "at": "2026-11-02T18:40Z",
+  "at": "2026-11-02T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803306,

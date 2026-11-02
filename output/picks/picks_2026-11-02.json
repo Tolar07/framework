@@ -658,7 +658,11 @@
     "home": 171112747,
     "away": 13792738
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:40Z"
+   },
    "matchup": {
     "say": "Benfica: possession side v low block -> BTTS & goals",
     "xg": [
@@ -693,8 +697,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.58,
+   "clv": -12.66,
    "stake_pct": 0.12,
    "ev": 0.0028535197447763228,
    "missing": {
@@ -860,8 +864,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": 0.74,
    "stake_pct": 0.25,
    "ev": -0.015514676565820285,
    "missing": {
@@ -1036,8 +1040,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": -0.0256746047629004,
    "missing": {

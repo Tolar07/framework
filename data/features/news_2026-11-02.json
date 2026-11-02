@@ -64,14 +64,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:20Z",
-  "away_missing_share": 0.4987589205199633,
+  "at": "2026-11-02T19:40Z",
+  "away_missing_share": 0.5027072585120352,
   "away_unavailable": 6,
   "fotmob_id": 5887671,
-  "home_missing_share": 0.23200868635352287,
+  "home_missing_share": 0.20713726208673244,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T20:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "GAIS v AIK": {
   "absent": [
@@ -540,14 +540,14 @@
  },
  "Reims v Sochaux-Montbeliard": {
   "absent": [],
-  "at": "2026-11-02T19:20Z",
+  "at": "2026-11-02T19:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803306,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Sassuolo v Fiorentina": {
   "absent": [

@@ -647,6 +647,13 @@ def teaching(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path 
     if les:
         lines.append("YOUR LESSONS (written by you from your record; apply them):")
         lines += [f"- {x}" for x in les[:MAX_LESSONS]]
+    # the brain's nightly review (Claude on the Architect's PC, engine/claude_review.py, 2026-11-02)
+    if os.getenv("BRAIN_REVIEW", "1") != "0":
+        from engine import claude_review as CR
+        day, brain = CR.fresh_lessons()
+        if brain:
+            lines.append(f"THE BRAIN'S REVIEW OF YOUR RECORD ({day}; apply these too):")
+            lines += [f"- {x}" for x in brain]
     return "\n".join(lines) + "\n\n"
 
 

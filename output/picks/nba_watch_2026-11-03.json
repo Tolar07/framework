@@ -148,6 +148,43 @@
     "back": 1.99,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=112.5",
+   "outcome": "Over 112.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.59,
+   "fair_price": 1.695,
+   "ev": 0.1211,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-02T23:00:00.000130+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719484",
+   "home_key": "CLE",
+   "away_key": "OKC",
+   "espn_id": "401909907",
+   "espn_date": "2026-11-03",
+   "tip": "2026-11-03T00:00:00+00:00",
+   "home": "Cleveland Cavaliers",
+   "away": "Oklahoma City Thunder",
+   "pick": "1st half Over 112.5 points",
+   "sharp": {
+    "ml_home": 1.5747,
+    "ml_away": 2.46,
+    "spread": -4.5,
+    "total": 229.5
+   },
+   "code": "UBFP20",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.85,
+    "listed": true
+   }
   }
  ]
 }

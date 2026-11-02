@@ -56,6 +56,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"        # progress shows in the log even when the step is cut off
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VERDICT_STAKES: ${{ vars.VERDICT_STAKES }}   # Architect 02-11: unset = verdicts recorded, stakes whole; 1 = the veto/lower cut back
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
           OLP_GEMINI_MODEL: ${{ vars.OLP_GEMINI_MODEL }}      # the cognitive core's model (default gemini-3.5-flash)
           COGNITIVE_STAKES: ${{ vars.COGNITIVE_STAKES || '1' }}  # standing order 48: ON; set the variable to 0 to switch off

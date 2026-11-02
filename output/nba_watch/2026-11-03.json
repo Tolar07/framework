@@ -83,6 +83,13 @@
    "total": 229.5,
    "ml_home": 1.0847,
    "ml_away": 8.4
+  },
+  "sr:match:73719508": {
+   "at": "20:00Z",
+   "spread": -4.5,
+   "total": 231.5,
+   "ml_home": 1.5747,
+   "ml_away": 2.46
   }
  }
 }

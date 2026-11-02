@@ -13,6 +13,10 @@ Brier, log loss, and closing-line value of the bets each version would take
 (home win / over 2.5 when chance x opening price >= 1 + EDGE; CLV = opening /
 closing price - 1, Pinnacle where the file has it).
 
+PART C — lineups / injuries (issue #217): the share of each side's best XI
+that is out (data/features news block, captured before kick-off by
+monitor/news_check) against the model's chance on the board's rated fixtures.
+
 PART B — last-5 xG, the board's own rated fixtures (output/picks "rated":
 the live model's chance) against xG form from data/match_study before the
 day.
@@ -218,7 +222,50 @@ def part_b() -> tuple[dict, dict]:
     return res, {"rated_graded": n, "with_xg_form": found}
 
 
-def report(a: dict, ca: dict, b: dict, cb: dict) -> str:
+# ── part C ──────────────────────────────────────────────────────────────────
+
+
+def news_rows(feature_docs: list[tuple[str, dict]]) -> dict[str, list]:
+    """(day, doc) pairs from data/features -> rows for wf_preds. A fixture with
+    no graded result, no model chance or no news edge is skipped (HR35: never
+    filled in). Features: edge = away missing share - home missing share
+    (positive favours the home side), total = both shares added."""
+    rows: dict[str, list] = {"home win | missing edge": [], "away win | missing edge": [],
+                             "over 2.5 | missing total": [], "BTTS yes | missing total": []}
+    for day, doc in feature_docs:
+        for r in doc.values():
+            ft, pr, nw = r.get("ft") or "", r.get("model_p"), r.get("news") or {}
+            hm, am = nw.get("home_missing"), nw.get("away_missing")
+            if "-" not in ft or not isinstance(pr, list) or len(pr) < 7:
+                continue
+            if not isinstance(hm, (int, float)) or not isinstance(am, (int, float)):
+                continue
+            try:
+                hg, ag = (int(x) for x in ft.split("-"))
+            except ValueError:
+                continue
+            for name, pk, y, f in (("home win | missing edge", 0, int(hg > ag), am - hm),
+                                   ("away win | missing edge", 2, int(ag > hg), am - hm),
+                                   ("over 2.5 | missing total", 4, int(hg + ag > 2), am + hm),
+                                   ("BTTS yes | missing total", 6, int(hg > 0 and ag > 0), am + hm)):
+                p = pr[pk]
+                if isinstance(p, (int, float)) and 0 < p < 1:
+                    rows[name].append((day, float(p), y, f, None))
+    return rows
+
+
+def part_c() -> tuple[dict, dict]:
+    docs = []
+    for path in sorted((ROOT / "data" / "features").glob("features_*.json")):
+        docs.append((path.stem.split("_", 1)[1], json.loads(path.read_text(encoding="utf-8"))))
+    rows = news_rows(docs)
+    total = sum(len(d) for _day, d in docs)
+    res = {k: wf_preds(v)[0] for k, v in rows.items()}
+    return res, {"fixtures": total, "with_news_and_result": len(rows["home win | missing edge"]),
+                 "days": len(docs)}
+
+
+def report(a: dict, ca: dict, b: dict, cb: dict, news: dict, cc: dict) -> str:
     L = ["# INPUTS STUDY — head-to-head, form and last-5 xG beyond the current model", "",
          "Written by `backtest/inputs_study.py` (Architect 2026-10-28). Walk-forward: each feature's "
          "weight is fitted on earlier days only and the day is scored with and without it. Gain > 0 "
@@ -242,7 +289,15 @@ def report(a: dict, ca: dict, b: dict, cb: dict) -> str:
     for k, s in b.items():
         L.append(f"| {k} | {s['scored']} | {s['brier_model']} | {s['brier_gain']:+.5f} ± {s['brier_se']:.5f} | "
                  f"{s['logloss_gain']:+.5f} ± {s['logloss_se']:.5f} | {s['verdict']} / {s['verdict_logloss']} |")
-    live = [k for k, s in {**a, **b}.items()
+    L += ["", f"## C. Lineups / injuries — share of the best XI unavailable ({cc['with_news_and_result']} graded "
+          f"fixtures with news, of {cc['fixtures']} on {cc['days']} days)", "",
+          "| outcome / feature | scored | Brier model | Brier gain ± se | log-loss gain ± se | verdict |",
+          "|---|---|---|---|---|---|"]
+    for k, s in news.items():
+        brier = "PENDING" if s["brier_model"] is None else s["brier_model"]
+        L.append(f"| {k} | {s['scored']} | {brier} | {s['brier_gain']:+.5f} ± {s['brier_se']:.5f} | "
+                 f"{s['logloss_gain']:+.5f} ± {s['logloss_se']:.5f} | {s['verdict']} / {s['verdict_logloss']} |")
+    live = [k for k, s in {**a, **b, **news}.items()
             if s["verdict"] == "ADDS INFORMATION" and s["verdict_logloss"] == "ADDS INFORMATION"]
     L += ["", "## Verdict", "",
           ("Passes on both Brier and log loss (candidate for the retrain / promotion path): "
@@ -256,11 +311,13 @@ def report(a: dict, ca: dict, b: dict, cb: dict) -> str:
 def main() -> int:
     a, ca = part_a()
     b, cb = part_b()
-    OUT.write_text(report(a, ca, b, cb), encoding="utf-8")
-    live = sorted(k for k, s in {**a, **b}.items()
+    c, cc = part_c()
+    OUT.write_text(report(a, ca, b, cb, c, cc), encoding="utf-8")
+    live = sorted(k for k, s in {**a, **b, **c}.items()
                   if s["verdict"] == "ADDS INFORMATION" and s["verdict_logloss"] == "ADDS INFORMATION")
     GATE.write_text(json.dumps({"evaluated_at": date.today().isoformat(), "passes": live,
-                                "coverage": {**ca, **cb}, "part_a": a, "part_b": b}, indent=1), encoding="utf-8")
+                                "coverage": {**ca, **cb, **{"news_" + k: v for k, v in cc.items()}}, "part_a": a, "part_b": b,
+                                "part_c": c}, indent=1), encoding="utf-8")
     print(OUT.read_text(encoding="utf-8"))
     return 0
 

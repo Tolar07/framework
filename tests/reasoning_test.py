@@ -47,7 +47,8 @@ def test_reason_picks_newest_stable_flash_lite_and_cleans_answers():
     assert doc["model"] == "gemini-3.0-flash-lite"
     assert [p["verdict"] for p in doc["picks"]] == ["veto", "back"]
     assert doc["advisory"] is False and doc["note"] is None
-    assert [p["stake_factor"] for p in doc["picks"]] == [0.5, 1.0]   # the verdict acts on the stake
+    assert [p["stake_factor"] for p in doc["picks"]] == [1.0, 1.0]   # verdict stakes off (Architect 02-11)
+    assert [p["advised_stake_factor"] for p in doc["picks"]] == [0.5, 1.0]   # what the verdict advised, recorded
 
 
 def test_no_key_or_failure_reads_pending():
@@ -273,7 +274,8 @@ def test_model_chain_strongest_first_and_falls_back():
         raise AssertionError("the grounded call should have answered")
     doc = R.reason(PICKS, key="k", get=get_pro, post=post_quota, now=NOW)
     assert doc["model"] == "gemini-3.0-flash" and seen[0] == "gemini-3.0-pro"
-    assert [p["stake_factor"] for p in doc["picks"]] == [0.75, 1.0]
+    assert [p["stake_factor"] for p in doc["picks"]] == [1.0, 1.0]
+    assert [p["advised_stake_factor"] for p in doc["picks"]] == [0.75, 1.0]
 
 
 def test_value_singles_get_verdicts_with_their_code():
@@ -326,3 +328,15 @@ def test_a_changed_prompt_re_reasons_the_board():
     assert not R.reasoned_already({"picks_generated_at": "other"}, board)
     assert R.reasoned_already({"picks_generated_at": board["generated_at"], "prompt_version":
                                R.prompt_version(R.PROMPT_NBA)}, board, R.PROMPT_NBA)
+
+
+def test_verdict_stakes_off_by_default_and_architect_switch_restores(monkeypatch):
+    import importlib
+    monkeypatch.delenv("VERDICT_STAKES", raising=False)
+    m = importlib.reload(R)
+    assert set(m.STAKE_FACTOR.values()) == {1.0} and m.ADVISED_STAKE_FACTOR["veto"] == 0.5
+    monkeypatch.setenv("VERDICT_STAKES", "1")
+    m = importlib.reload(R)
+    assert m.STAKE_FACTOR == m.ADVISED_STAKE_FACTOR
+    monkeypatch.delenv("VERDICT_STAKES")
+    importlib.reload(R)

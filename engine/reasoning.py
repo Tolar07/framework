@@ -50,7 +50,13 @@ VERDICTS = ("back", "lower", "veto")
 # THE VERDICT ACTS (the Architect, 2026-10-23: "let it keep acting until it gets itself right ...
 # recursive self-improvement"): the bots scale a single's stake by its verdict. A pick is never
 # dropped and never staked above the rule's amount; PENDING (no answer) keeps the full stake.
-STAKE_FACTOR = {"back": 1.0, "lower": 0.75, "veto": 0.5, "PENDING": 1.0}
+# VERDICT STAKES OFF (the Architect, 2026-11-02 15:36 UK, "Yes" to: switch the veto/lower stake cut off until it
+# shows it can tell winners from losers). 353 graded: backs won 77%, vetoes 78.5%, AI Brier 0.1711 v model 0.1699.
+# Verdicts are still made, recorded and graded; ADVISED_STAKE_FACTOR is what they would have done. Repo variable
+# VERDICT_STAKES=1 (Architect only) puts the cut back. The cognitive core / panel keep their own earned-authority gates.
+ADVISED_STAKE_FACTOR = {"back": 1.0, "lower": 0.75, "veto": 0.5, "PENDING": 1.0}
+VERDICT_STAKES = (os.getenv("VERDICT_STAKES") or "0").strip() == "1"
+STAKE_FACTOR = dict(ADVISED_STAKE_FACTOR) if VERDICT_STAKES else {v: 1.0 for v in ADVISED_STAKE_FACTOR}
 NATIVE_URL = os.getenv("GEMINI_NATIVE_URL", "https://generativelanguage.googleapis.com/v1beta").rstrip("/")
 LESSONS = ROOT / "memory" / "reasoning_lessons.json"
 MAX_LESSONS = 12
@@ -305,7 +311,7 @@ def _clean(p: Optional[dict]) -> dict:
         return {"verdict": "PENDING", "reasons": "malformed answer", "stake_factor": 1.0}
     if v not in VERDICTS or not (0 <= ch <= 1 and 0 <= cf <= 1):
         return {"verdict": "PENDING", "reasons": "malformed answer", "stake_factor": 1.0}
-    return {"verdict": v, "stake_factor": STAKE_FACTOR[v], "ai_chance": round(ch, 4), "confidence": round(cf, 3),
+    return {"verdict": v, "stake_factor": STAKE_FACTOR[v], "advised_stake_factor": ADVISED_STAKE_FACTOR[v], "ai_chance": round(ch, 4), "confidence": round(cf, 3),
             "reasons": str(p.get("reasons") or "")[:400]}
 
 

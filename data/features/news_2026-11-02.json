@@ -241,6 +241,33 @@
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Rakow v Pogon Szczecin": {
+  "absent": [
+   {
+    "name": "Linus Wahlqvist Egnell",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Patryk Dziczek",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Musa Juwara",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T13:40Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 7,
+  "fotmob_id": 5804027,
+  "home_missing_share": null,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-02T19:30:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Sassuolo v Fiorentina": {
   "absent": [
    {

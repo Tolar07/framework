@@ -259,6 +259,22 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
     logged = 0
     already = {(l.fixture, l.market) for l in log.legs}
 
+    # Consensus anchor (de-margined Betfair Exchange, the sharp market):
+    # resolve the exchange's fair chance for each pick key so it can be frozen
+    # on the leg next to the model's own edge. Built once; None where the
+    # exchange does not price the pick (HR35). DEPLOYABLE keys and the SB:
+    # ladder keys are already sharp.market_prob's vocabulary.
+    from data.football_data_source import LEAGUE_CODES as _LC
+    from pipeline import sharp as _sharp
+    _fair, _ = _sharp.fair_book()
+
+    def _consensus(_bf, _key):
+        if not _key or _bf.probs is None:
+            return None
+        _lg = _bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+        _f = _fair.get((_LC.get(_lg), _bf.probs.home_team, _bf.probs.away_team))
+        return _sharp.market_prob(_key, _f) if _f else None
+
     for bf in board:
         if not bf.on_deploy_shortlist or bf.probs is None:
             continue
@@ -292,7 +308,8 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                            model_prob=model_p, entry_odds=quote.price,
                            entry_capture_path="CL-LIVE", phase=PAPER_PHASE,
                            stake=None,   # Phase 2: never a stake
-                           match_date=bf.kickoff_date)
+                           match_date=bf.kickoff_date,
+                           consensus_prob=_consensus(bf, market))
             logged += 1
     # Ladder picks (engine.full_markets keys "SB:...") are logged as the leg the
     # board actually deploys, with the consensus probability it was chosen on.
@@ -308,7 +325,9 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                       fixture=fixture_name, market=k,
                       model_prob=bf.best_model_prob, entry_odds=bf.best_price,
                       entry_capture_path="CL-LIVE", phase=PAPER_PHASE,
-                      stake=None, match_date=bf.kickoff_date)
+                      stake=None, match_date=bf.kickoff_date,
+                      consensus_prob=(bf.sharp_p if getattr(bf, "sharp_p", None)
+                                      is not None else _consensus(bf, k)))
         logged += 1
     flags.append(f"logged {logged} new paper leg(s) with a live entry price")
     return logged, flags

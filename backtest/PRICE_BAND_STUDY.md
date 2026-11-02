@@ -1,8 +1,8 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-11-01 07:02Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-11-02 00:37Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
-**All 1083 graded board singles**: stated 79.0%, landed 77.0% (calibration error -2.0 points) at an average price of 1.251, which needs 79.9% to break even. Return -3.8% ± 1.6.
+**All 1149 graded board singles**: stated 79.0%, landed 77.1% (calibration error -1.9 points) at an average price of 1.251, which needs 79.9% to break even. Return -3.6% ± 1.6.
 
 The prediction is not the problem. The price is.
 
@@ -10,9 +10,9 @@ The prediction is not the problem. The price is.
 
 | band | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
-| 1.00–1.25 | 592 | 77.7% | 79.9% | 82.2% | -5.5% ± 2.1 | LOSING |
-| 1.25–1.30 | 329 | 78.7% | 79.0% | 78.9% | -0.2% ± 2.9 | no edge either way |
-| 1.30–1.50 | 155 | 71.0% | 76.8% | 75.6% | -6.3% ± 4.8 | no edge either way |
+| 1.00–1.25 | 631 | 77.5% | 79.9% | 82.2% | -5.7% ± 2.0 | LOSING |
+| 1.25–1.30 | 347 | 79.3% | 78.9% | 78.9% | +0.5% ± 2.8 | no edge either way |
+| 1.30–1.50 | 164 | 71.3% | 76.7% | 75.6% | -5.7% ± 4.7 | no edge either way |
 | 1.50–2.00 | 7 | 71.4% | 56.2% | 54.3% | +30.0% ± 33.8 | no edge either way |
 | 2.00+ | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
 
@@ -21,9 +21,9 @@ The prediction is not the problem. The price is.
 | tier | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
 | BANKER | 3 | 100.0% | 76.1% | 80.0% | +25.0% ± 2.1 | ahead |
-| BOOK | 23 | 73.9% | 77.5% | 79.1% | -7.4% ± 11.8 | no edge either way |
-| MARKET | 216 | 78.2% | 80.1% | 80.7% | -3.0% ± 3.5 | no edge either way |
-| SAFE | 833 | 76.7% | 79.0% | 80.1% | -4.3% ± 1.8 | LOSING |
+| BOOK | 24 | 75.0% | 77.7% | 79.3% | -6.3% ± 11.3 | no edge either way |
+| MARKET | 218 | 78.0% | 80.0% | 80.7% | -3.4% ± 3.5 | no edge either way |
+| SAFE | 896 | 76.9% | 79.0% | 80.1% | -4.1% ± 1.8 | LOSING |
 | VALUE | 8 | 75.0% | 55.9% | 55.7% | +32.1% ± 29.4 | no edge either way |
 
 ## The other two populations
@@ -31,7 +31,7 @@ The prediction is not the problem. The price is.
 | list | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
 | study picks (demoted, not sent) | 8 | 75.0% | 78.0% | 78.1% | -2.6% ± 21.9 | no edge either way |
-| sharp value list (parallel test) | 61 | 44.3% | 51.6% | 46.8% | -8.7% ± 13.8 | no edge either way |
+| sharp value list (parallel test) | 67 | 44.8% | 51.8% | 47.0% | -6.6% ± 13.3 | no edge either way |
 
 The sharp list takes a price only when SportyBet pays MORE than the Betfair Exchange's fair odds (`engine/sharp_value.py`), with no most-likely-outcome and no 50% floor. It is the control for the price question: same days, same fixtures, same grader.
 

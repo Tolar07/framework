@@ -1,0 +1,81 @@
+{
+ "date": "2026-11-02",
+ "run_id": "SHARP-2fc2569a",
+ "fetched_utc": "2026-11-02T00:37:24Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 22,
+ "fixtures_priced_by_exchange": 11,
+ "picks": [
+  {
+   "league": "La Liga 2",
+   "home": "Valladolid",
+   "away": "Leganes",
+   "fixture": "Valladolid v Leganes (La Liga 2)",
+   "kickoff": "2026-11-02T17:30:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Home or Away",
+   "key": "SB:10||Home or Away",
+   "price": 1.31,
+   "outcome_id": "10",
+   "sharp_p": 0.8398,
+   "fair_price": 1.191,
+   "sharp_ev": 0.1001,
+   "code": "V1ASH1",
+   "url": "http://www.sportybet.com/ng/?shareCode=V1ASH1",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-2fc2569a"
+  },
+  {
+   "league": "Ligue 2",
+   "home": "Red Star",
+   "away": "Nancy",
+   "fixture": "Red Star v Nancy (Ligue 2)",
+   "kickoff": "2026-11-02T19:45:00Z",
+   "market_id": "10",
+   "specifier": "",
+   "outcome": "Draw or Away",
+   "key": "SB:10||Draw or Away",
+   "price": 1.54,
+   "outcome_id": "11",
+   "sharp_p": 0.6812,
+   "fair_price": 1.468,
+   "sharp_ev": 0.049,
+   "code": "WWBQXE",
+   "url": "http://www.sportybet.com/ng/?shareCode=WWBQXE",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-2fc2569a"
+  }
+ ],
+ "suspect": [
+  {
+   "league": "La Liga 2",
+   "home": "Valladolid",
+   "away": "Leganes",
+   "fixture": "Valladolid v Leganes (La Liga 2)",
+   "kickoff": "2026-11-02T17:30:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Away",
+   "key": "SB:1||Away",
+   "price": 3.5,
+   "outcome_id": "3",
+   "sharp_p": 0.4795,
+   "fair_price": 2.086,
+   "sharp_ev": 0.6781
+  }
+ ],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

@@ -52,9 +52,9 @@
     "total": 222.5
    },
    "code": "VWP0KH",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "97-108",
+   "close_value": 0.1537,
    "matchbook": {
     "back": null,
     "listed": true
@@ -326,7 +326,7 @@
      "280-289": 0.0007
     }
    },
-   "score": null
+   "score": "97-108"
   },
   {
    "tip": "2026-11-01T22:00:00+00:00",

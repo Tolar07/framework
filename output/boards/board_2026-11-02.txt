@@ -1,0 +1,1106 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 02 Nov 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261102-0023-96bcc9 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 22 · Verified: 21
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                             Country · League                          AI PICK · win%                             Odds   Alt market                                         O1.5/O2.5  DC/BTTS     Src
+18:00  Sonderjyske v FC Copenhagen         Denmark · Superliga                       ✓ Sonderjyske (+1.5) Asian handicap · 59%  @1.70  —                                                  O88/O69    X279 / Y67  ✓
+
+17:00  Zaglebie v Korona Kielce            Poland · Ekstraklasa                      Under 3.5 goals · 82%                      —      —                                                  O66/U63    1X77 / N55  ✓
+19:30  Rakow v Pogon Szczecin              Poland · Ekstraklasa                      Over 1.5 goals · 79%                       —      —                                                  O79/O54    1271 / Y59  ✓
+17:00  Radomiak Radom v Slask Wroclaw      Poland · Ekstraklasa                      ✓ Radomiak Radom or Slask Wroclaw · 78%    @1.28  —                                                  O87/O66    1275 / Y68  ✓
+
+19:45  Atalanta v Parma                    Italy · Serie A                           Atalanta or draw · 81%                     —      —                                                  O65/U61    1X81 / N60  ✓
+17:30  Sassuolo v Fiorentina               Italy · Serie A                           ✓ Sassuolo or Fiorentina · 79%             @1.30  Under 4.5 goals @1.26                              O78/O56    1276 / Y58  ✓
+
+19:45  Lorient v Brest                     France · Ligue 1                          ✓ Lorient or Brest · 75%                   @1.35  Lorient or Brest & Over 1.5 @1.80                  O75/U51    1X74 / Y53  ✓
+
+20:15  Gil Vicente v Guimaraes             Portugal · Primeira Liga / Liga Portugal  ✓ Gil Vicente or Guimaraes · 75%           @1.36  Guimaraes Under 1.5 goals @1.48                    O63/U63    1273 / N58  ✓
+20:15  Benfica v Alverca                   Portugal · Primeira Liga / Liga Portugal  ᴮ Under 4.5 goals · 73%                    @1.38  —                                                  O84/O65    1X90 / Y51  ✓
+
+20:00  Newcastle v Everton                 England · Premier League                  ✓ Newcastle or Everton · 77%               @1.31  Newcastle or Everton & Under 4.5 @1.59             O76/O50    1271 / Y56  ✓
+
+20:00  RC Deportivo de A Coruna v Osasuna  Spain · La Liga                           RC Deportivo de A Coruna or draw · 80%     —      —                                                  O74/U52    1X80 / Y50  ✓
+
+20:00  Mallorca v Cadiz                    Spain · La Liga 2 / Hypermotion           Mallorca or draw · 86%                     —      —                                                  O62/U65    1X86 / N66  ✓
+17:30  Valladolid v Leganes                Spain · La Liga 2 / Hypermotion           Under 3.5 goals · 82%                      —      —                                                  O65/U62    1X75 / N57  ✓
+13:00  Tenerife v Andorra                  Spain · La Liga 2 / Hypermotion           Over 1.5 goals · 76%                       —      —                                                  O76/O52    1275 / Y55  ✓
+15:15  Oviedo v Las Palmas                 Spain · La Liga 2 / Hypermotion           Oviedo or Las Palmas · 75%                 —      —                                                  O74/U51    1275 / Y52  ✓
+
+19:45  Reims v Sochaux-Montbeliard         France · Ligue 2                          Reims or draw · 82%                        —      —                                                  O73/U54    1X82 / N53  ✓
+19:45  Red Star v Nancy                    France · Ligue 2                          ✓ Red Star or Nancy · 76%                  @1.32  —                                                  O71/U56    1X73 / N51  ✓
+
+17:00  Genclerbirligi SK v Alanyaspor      Turkey · Super Lig                        ✓ Genclerbirligi SK or Alanyaspor · 74%    @1.34  Genclerbirligi SK or Alanyaspor & Under 3.5 @1.74  O66/U62    1268 / N54  ✓
+
+16:00  Atromitos Athinon v Volos NPS       Greece · Super League                     Atromitos Athinon or draw · 83%            —      —                                                  O77/U51    1X83 / Y52  ○
+17:30  PAE PS Kalamata v POT Iraklis       Greece · Super League                     ✓ PAE PS Kalamata or POT Iraklis · 75%     @1.35  PAE PS Kalamata or POT Iraklis & Over 1.5 @1.83    O85/O62    1272 / Y66  ✓
+
+18:00  GAIS v AIK                          Sweden · Allsvenskan                      ✓ GAIS or AIK · 79%                        @1.27  GAIS or AIK & Under 4.5 @1.60                      O74/U51    1273 / Y53  ✓
+18:00  Mjallby AIF v Kalmar FF             Sweden · Allsvenskan                      ✓ Mjallby AIF or Kalmar FF · 76%           @1.32  Kalmar FF Under 1.5 goals @1.51                    O70/U56    1X80 / N54  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 Mega 1 (4 legs · odds 3 · chance 1 in 3): XX7MJ9   load ↦ www.sportybet.com/ng/?shareCode=XX7MJ9
+TABLE 1 Mega 2 (3 legs · odds 3 · chance 1 in 3): GYXM78   load ↦ www.sportybet.com/ng/?shareCode=GYXM78
+TABLE 1 Mega 3 (5 legs · odds 4 · chance 1 in 4): WSNWL3   load ↦ www.sportybet.com/ng/?shareCode=WSNWL3
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                         Country · League                          Pick                                 Chance  Odds   Certainty  Stake  Code
+18:00  Sonderjyske v FC Copenhagen     Denmark · Superliga                       ✓ Sonderjyske (+1.5) Asian handicap  59%     @1.70  MEDIUM     0.25%  UJSNSL
+17:00  Radomiak Radom v Slask Wroclaw  Poland · Ekstraklasa                      ✓ Radomiak Radom or Slask Wroclaw    78%     @1.28  HIGH       0.25%  LBPF1Z
+17:30  Sassuolo v Fiorentina           Italy · Serie A                           ✓ Sassuolo or Fiorentina             79%     @1.30  HIGH       0.25%  S1PU6D
+19:45  Lorient v Brest                 France · Ligue 1                          ✓ Lorient or Brest                   75%     @1.35  HIGH       0.25%  JT65BZ
+20:15  Benfica v Alverca               Portugal · Primeira Liga / Liga Portugal  ᴮ Under 4.5 goals                    73%     @1.38  LOW        0.12%  NCWTEW
+20:15  Gil Vicente v Guimaraes         Portugal · Primeira Liga / Liga Portugal  ✓ Gil Vicente or Guimaraes           75%     @1.36  HIGH       0.25%  NJBLUM
+20:00  Newcastle v Everton             England · Premier League                  ✓ Newcastle or Everton               77%     @1.31  MEDIUM     0.25%  ZKBXHV
+19:45  Red Star v Nancy                France · Ligue 2                          ✓ Red Star or Nancy                  76%     @1.32  HIGH       0.25%  X15NT6
+17:00  Genclerbirligi SK v Alanyaspor  Turkey · Super Lig                        ✓ Genclerbirligi SK or Alanyaspor    74%     @1.34  MEDIUM     0.25%  NDQCYN
+17:30  PAE PS Kalamata v POT Iraklis   Greece · Super League                     ✓ PAE PS Kalamata or POT Iraklis     75%     @1.35  HIGH       0.25%  JPFZTE
+18:00  GAIS v AIK                      Sweden · Allsvenskan                      ✓ GAIS or AIK                        79%     @1.27  MEDIUM     0.25%  QCU7WQ
+18:00  Mjallby AIF v Kalmar FF         Sweden · Allsvenskan                      ✓ Mjallby AIF or Kalmar FF           76%     @1.32  HIGH       0.25%  J6BGPM
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 12 of 12 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+Sharp check: 0 of 5 picks priced above the Betfair Exchange's fair odds (margin removed; average -6.9% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Sassuolo v Fiorentina: tempo 2.8 goals/game · draw tendency 30% | Sassuolo 1.3-1.8 a game, draws 20%, BTTS 75%, clean sheets 10%, SoT 4.2-5.4 | Fiorentina 1.1-1.4 a game, draws 40%, BTTS 55%, clean sheets 30%, SoT 3.9-5.2
+   • Lorient v Brest: tempo 2.8 goals/game · draw tendency 35% · both draw-prone | Lorient 1.3-1.2 a game, draws 40%, BTTS 50%, clean sheets 35%, SoT 3.8-4.0 | Brest 1.4-1.6 a game, draws 30%, BTTS 60%, clean sheets 15%, SoT 4.0-4.6
+   • Benfica v Alverca: tempo 3.1 goals/game · draw tendency 28% | Benfica 2.5-1.0 a game, draws 25%, BTTS 70%, clean sheets 30%, SoT 6.0-3.5 | Alverca 1.2-1.4 a game, draws 30%, BTTS 65%, clean sheets 10%, SoT 3.8-4.5
+   • Gil Vicente v Guimaraes: tempo 2.4 goals/game · draw tendency 25% · a side often fails to score | Gil Vicente 1.1-1.2 a game, draws 30%, BTTS 45%, clean sheets 30%, SoT 4.0-3.4 | Guimaraes 1.1-1.4 a game, draws 20%, BTTS 35%, clean sheets 30%, SoT 4.5-3.8
+   • Newcastle v Everton: tempo 2.9 goals/game · draw tendency 25% | Newcastle 1.4-1.6 a game, draws 15%, BTTS 70%, clean sheets 15%, SoT 4.2-5.2 | Everton 1.3-1.4 a game, draws 35%, BTTS 50%, clean sheets 25%, SoT 4.8-4.5
+   • Red Star v Nancy: tempo 2.6 goals/game · draw tendency 28% | Red Star 1.4-1.2 a game, draws 25%, BTTS 55%, clean sheets 35%, SoT 4.8-3.9 | Nancy 1.3-1.4 a game, draws 30%, BTTS 55%, clean sheets 30%, SoT 3.6-3.8
+   • Genclerbirligi SK v Alanyaspor: tempo 2.4 goals/game · draw tendency 30% · a side often fails to score | Genclerbirligi 0.8-1.6 a game, draws 20%, BTTS 30%, clean sheets 25%, SoT 3.4-5.5 | Alanyaspor 1.2-1.2 a game, draws 40%, BTTS 60%, clean sheets 30%, SoT 4.0-4.5
+   • PAE PS Kalamata v POT Iraklis: tempo 3.1 goals/game · draw tendency 25% · open, high-scoring pairing · a side often fails to score | Kalamata 1.6-2.1 a game, draws 12%, BTTS 62%, clean sheets 0%, SoT 4.5-5.2 | Iraklis 1.1-1.4 a game, draws 38%, BTTS 50%, clean sheets 38%, SoT 2.0-5.0
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Radomiak Radom v Slask Wroclaw: no tactical clash flagged -> BTTS & goals · xG 2.16-1.69 · BTTS 72% · O2.5 74% · corners ~10.2 · pick 79% on the matchup
+   • Sassuolo v Fiorentina: no tactical clash flagged -> BTTS & goals · xG 1.54-1.52 · BTTS 61% · O2.5 59% · corners ~9.2 · pick 76% on the matchup
+   • Lorient v Brest: both high lines + an elite attack; Lorient: blunt attack v tight defence -> no strong goals lean · xG 1.28-1.17 · BTTS 50% · O2.5 44% · corners ~9.0 · pick 73% on the matchup
+   • Benfica v Alverca: Benfica: possession side v low block -> BTTS & goals · xG 2.79-1.08 · BTTS 62% · O2.5 74% · corners ~9.0 · pick 83% on the matchup
+   • Gil Vicente v Guimaraes: no tactical clash flagged -> no strong goals lean · xG 1.40-0.95 · BTTS 46% · O2.5 42% · corners ~9.4 · pick 73% on the matchup
+   • Newcastle v Everton: Newcastle United: counter side v counter-exposed; Everton: aerial threat v weak in the air -> no strong goals lean · xG 1.38-1.37 · BTTS 56% · O2.5 52% · corners ~10.6 · pick 74% on the matchup
+   • Red Star v Nancy: Red Star: counter side v high line; Red Star: high press v build-up side -> no strong goals lean · xG 1.11-1.30 · BTTS 49% · O2.5 43% · corners ~8.4 · pick 73% on the matchup
+   • Genclerbirligi SK v Alanyaspor: Gençlerbirliği: set-piece threat v weak set-piece defence; Alanyaspor: aerial threat v weak in the air -> BTTS · xG 1.70-1.30 · BTTS 60% · O2.5 58% · corners ~10.9 · pick 76% on the matchup
+   • PAE PS Kalamata v POT Iraklis: no tactical clash flagged -> Iraklis may not score · xG 2.02-0.80 · BTTS 48% · O2.5 53% · corners ~7.1 · pick 80% on the matchup
+   • GAIS v AIK: GAIS: aerial threat v weak in the air; GAIS: high press v build-up side; AIK: counter side v high line; AIK: high press v build-up side; AIK: counter side v counter-exposed -> BTTS & goals · xG 2.09-1.26 · BTTS 63% · O2.5 65% · corners ~10.2 · pick 79% on the matchup
+   • Mjallby AIF v Kalmar FF: Mjällby: blunt attack v tight defence -> no strong goals lean · xG 1.14-1.63 · BTTS 55% · O2.5 52% · corners ~10.1 · pick 75% on the matchup
+
+TABLE 2 Mega 1 (4 legs · odds 3 · chance 1 in 3): XX7MJ9   load ↦ www.sportybet.com/ng/?shareCode=XX7MJ9
+TABLE 2 Mega 2 (3 legs · odds 3 · chance 1 in 3): GYXM78   load ↦ www.sportybet.com/ng/?shareCode=GYXM78
+TABLE 2 Mega 3 (5 legs · odds 4 · chance 1 in 4): WSNWL3   load ↦ www.sportybet.com/ng/?shareCode=WSNWL3
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+2 accas · 7 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+5 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code LLB7UH · 4 legs · odds 2.79 · chance 37%
+   • 17:30 Sassuolo v Fiorentina (🇮🇹 Italy · Serie A) — Sassuolo or Fiorentina @1.30 (79%)
+   • 18:00 Mjallby AIF v Kalmar FF (🇸🇪 Sweden · Allsvenskan) — Mjallby AIF or Kalmar FF @1.32 (76%)
+   • 17:00 Radomiak Radom v Slask Wroclaw (🇵🇱 Poland · Ekstraklasa) — Radomiak Radom or Slask Wroclaw @1.28 (78%)
+   • 18:00 GAIS v AIK (🇸🇪 Sweden · Allsvenskan) — GAIS or AIK @1.27 (79%)
+Acca B · code T6WMZF · 3 legs · odds 2.33 · chance 44%
+   • 19:45 Lorient v Brest (🇫🇷 France · Ligue 1) — Lorient or Brest @1.35 (75%)
+   • 20:00 Newcastle v Everton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Newcastle or Everton @1.31 (77%)
+   • 19:45 Red Star v Nancy (🇫🇷 France · Ligue 2) — Red Star or Nancy @1.32 (76%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (4 legs · odds 3 · chance 1 in 3): XX7MJ9   load ↦ www.sportybet.com/ng/?shareCode=XX7MJ9
+TABLE 3 Mega 2 (3 legs · odds 3 · chance 1 in 3): GYXM78   load ↦ www.sportybet.com/ng/?shareCode=GYXM78
+TABLE 3 Mega 3 (5 legs · odds 4 · chance 1 in 4): WSNWL3   load ↦ www.sportybet.com/ng/?shareCode=WSNWL3
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Sassuolo v Fiorentina (🇮🇹 Italy · Serie A) — Sassuolo or Fiorentina (79%) @1.30 · code S1PU6D
+Acca A: 4 legs, model 37% · code LLB7UH
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 1090 legs logged, mean CLV +0.36%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+──────────────────────────────────
+TABLE 3D · BOTH TEAMS TO SCORE
+(12 BTTS-yes singles, 50%+ model chance, one code each)
+──────────────────────────────────
+   • 17:00 Radomiak Radom v Slask Wroclaw (🇵🇱 Poland · Ekstraklasa) — BTTS yes @1.49 (model 68%, fair 1.47) · P3CLSH
+   • 18:00 Sonderjyske v FC Copenhagen (🇩🇰 Denmark · Superliga) — BTTS yes @1.67 (model 67%, fair 1.50) · N01HJK
+   • 17:30 PAE PS Kalamata v POT Iraklis (🇬🇷 Greece · Super League) — BTTS yes @1.86 (model 66%, fair 1.52) · TN6ADJ
+   • 19:30 Rakow v Pogon Szczecin (🇵🇱 Poland · Ekstraklasa) — BTTS yes @1.49 (model 59%, fair 1.69) · WQ76VG
+   • 17:30 Sassuolo v Fiorentina (🇮🇹 Italy · Serie A) — BTTS yes @1.50 (model 58%, fair 1.72) · H4SQ2R
+   • 20:00 Newcastle v Everton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — BTTS yes @1.60 (model 56%, fair 1.79) · Z5WNGB
+   • 13:00 Tenerife v Andorra (🇪🇸 Spain · La Liga 2 / Hypermotion) — BTTS yes @1.93 (model 55%, fair 1.81) · RFJ26X
+   • 19:45 Lorient v Brest (🇫🇷 France · Ligue 1) — BTTS yes @1.86 (model 53%, fair 1.87) · NPWWUU
+   • 18:00 GAIS v AIK (🇸🇪 Sweden · Allsvenskan) — BTTS yes @1.57 (model 53%, fair 1.90) · UQWR3Q
+   • 16:00 Atromitos Athinon v Volos NPS (🇬🇷 Greece · Super League) — BTTS yes @1.84 (model 52%, fair 1.92) · K76YG2
+   • 15:15 Oviedo v Las Palmas (🇪🇸 Spain · La Liga 2 / Hypermotion) — BTTS yes @1.86 (model 52%, fair 1.93) · JK60KZ
+   • 20:00 RC Deportivo de A Coruna v Osasuna (🇪🇸 Spain · La Liga) — BTTS yes @1.96 (model 50%, fair 2.00) · UTUGZP
+
+ALL CODES
+CLV acca A: XX7MJ9 (4 legs · odds 3.01 · 34% · positive-CLV markets)
+CLV acca B: V1XKVX (4 legs · odds 3.17 · 33% · positive-CLV markets)
+BTTS 1: P3CLSH (single · both teams to score)
+BTTS 2: N01HJK (single · both teams to score)
+BTTS 3: TN6ADJ (single · both teams to score)
+BTTS 4: WQ76VG (single · both teams to score)
+BTTS 5: H4SQ2R (single · both teams to score)
+BTTS 6: Z5WNGB (single · both teams to score)
+BTTS 7: RFJ26X (single · both teams to score)
+BTTS 8: NPWWUU (single · both teams to score)
+BTTS 9: UQWR3Q (single · both teams to score)
+BTTS 10: K76YG2 (single · both teams to score)
+BTTS 11: JK60KZ (single · both teams to score)
+BTTS 12: UTUGZP (single · both teams to score)
+Mega 1: XX7MJ9 (4 legs · odds 3 · stake 0.1%)
+Mega 2: GYXM78 (3 legs · odds 3 · stake 0.1%)
+Mega 3: WSNWL3 (5 legs · odds 4 · stake 0.1%)
+Acca A: LLB7UH (4 legs · odds 2.79 · 37% · stake 0.25%)
+Acca B: T6WMZF (3 legs · odds 2.33 · 44% · stake 0.25%)
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+Zwolle v Den Haag | 1-0 | 1X2_AWAY | entry 2.98 | CLV NO DATA (Flashscore has no prices) | MISS
+Zwolle v Den Haag | 1-0 | OVER_2_5 | entry 1.59 | CLV NO DATA (Flashscore has no prices) | MISS
+Excelsior v Twente | 0-9 | 1X2_DRAW | entry 4.94 | CLV NO DATA (Flashscore has no prices) | MISS
+Excelsior v Twente | 0-9 | UNDER_2_5 | entry 2.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Excelsior v Twente | 0-9 | UNDER_1_5 | entry 5.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Excelsior v Twente | 0-9 | BTTS_NO | entry 2.3 | CLV NO DATA (Flashscore has no prices) | HIT
+Excelsior v Twente | 0-9 | UNDER_3_5 | entry 1.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Telstar v Utrecht | 4-2 | 1X2_AWAY | entry 2.37 | CLV NO DATA (Flashscore has no prices) | MISS
+Telstar v Utrecht | 4-2 | OVER_2_5 | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
+Groningen v Sparta Rotterdam | 2-3 | 1X2_HOME | entry 1.82 | CLV NO DATA (Flashscore has no prices) | MISS
+Groningen v Sparta Rotterdam | 2-3 | OVER_2_5 | entry 1.47 | CLV NO DATA (Flashscore has no prices) | HIT
+Groningen v Sparta Rotterdam | 2-3 | DC_1X | entry 1.26 | CLV NO DATA (Flashscore has no prices) | MISS
+Odense v Silkeborg | 4-1 | 1X2_DRAW | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | 1X2_DRAW | entry 4.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | 1X2_AWAY | entry 5.6 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | OVER_2_5 | entry 1.58 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | BTTS_YES | entry 1.68 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | OVER_3_5 | entry 2.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | DC_X2 | entry 2.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Nordsjaelland v Midtjylland | 2-3 | 1X2_DRAW | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
+Nordsjaelland v Midtjylland | 2-3 | 1X2_AWAY | entry 2.85 | CLV NO DATA (Flashscore has no prices) | HIT
+Nordsjaelland v Midtjylland | 2-3 | UNDER_2_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Nordsjaelland v Midtjylland | 2-3 | BTTS_NO | entry 2.6 | CLV NO DATA (Flashscore has no prices) | MISS
+Nordsjaelland v Midtjylland | 2-3 | UNDER_3_5 | entry 1.62 | CLV NO DATA (Flashscore has no prices) | MISS
+Nordsjaelland v Midtjylland | 2-3 | DC_X2 | entry 1.59 | CLV NO DATA (Flashscore has no prices) | HIT
+Brondby v Aarhus | 2-0 | 1X2_DRAW | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
+Brondby v Aarhus | 2-0 | 1X2_AWAY | entry 3.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Brondby v Aarhus | 2-0 | UNDER_2_5 | entry 2.45 | CLV NO DATA (Flashscore has no prices) | HIT
+Brondby v Aarhus | 2-0 | UNDER_1_5 | entry 5.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Brondby v Aarhus | 2-0 | BTTS_NO | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Brondby v Aarhus | 2-0 | UNDER_3_5 | entry 1.62 | CLV NO DATA (Flashscore has no prices) | HIT
+Brondby v Aarhus | 2-0 | DC_X2 | entry 1.72 | CLV NO DATA (Flashscore has no prices) | MISS
+Cercle Brugge v Antwerp | 2-1 | 1X2_HOME | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Cercle Brugge v Antwerp | 2-1 | 1X2_AWAY | entry 3.36 | CLV NO DATA (Flashscore has no prices) | MISS
+Cercle Brugge v Antwerp | 2-1 | OVER_2_5 | entry 1.62 | CLV NO DATA (Flashscore has no prices) | HIT
+Cercle Brugge v Antwerp | 2-1 | OVER_3_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | MISS
+St Truiden v Oud-Heverlee Leuven | 1-2 | 1X2_DRAW | entry 4.26 | CLV NO DATA (Flashscore has no prices) | MISS
+St Truiden v Oud-Heverlee Leuven | 1-2 | UNDER_2_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
+St Truiden v Oud-Heverlee Leuven | 1-2 | UNDER_1_5 | entry 4.8 | CLV NO DATA (Flashscore has no prices) | MISS
+St Truiden v Oud-Heverlee Leuven | 1-2 | BTTS_NO | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
+St Truiden v Oud-Heverlee Leuven | 1-2 | UNDER_3_5 | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | 1X2_HOME | entry 4.84 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | 1X2_DRAW | entry 3.94 | CLV NO DATA (Flashscore has no prices) | MISS
+Lommel SK v Gent | 2-0 | UNDER_2_5 | entry 2.05 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | UNDER_1_5 | entry 4.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Lommel SK v Gent | 2-0 | BTTS_NO | entry 2.0 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | UNDER_3_5 | entry 1.42 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | DC_1X | entry 2.05 | CLV NO DATA (Flashscore has no prices) | HIT
+Charleroi v RAAL La Louviere | 5-2 | 1X2_DRAW | entry 4.45 | CLV NO DATA (Flashscore has no prices) | MISS
+Falkirk v Celtic | 2-0 | 1X2_DRAW | entry 4.88 | CLV NO DATA (Flashscore has no prices) | MISS
+Falkirk v Celtic | 2-0 | UNDER_3_5 | entry 1.61 | CLV NO DATA (Flashscore has no prices) | HIT
+HNK Rijeka v NK Varazdin | 1-1 | 1X2_HOME | entry 1.75 | CLV NO DATA (Flashscore has no prices) | MISS
+HNK Rijeka v NK Varazdin | 1-1 | OVER_2_5 | entry 1.84 | CLV NO DATA (Flashscore has no prices) | MISS
+HNK Rijeka v NK Varazdin | 1-1 | OVER_3_5 | entry 3.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Como v Venezia FC | 1-0 | 1X2_HOME | entry 1.36 | CLV NO DATA (Flashscore has no prices) | HIT
+Como v Venezia FC | 1-0 | UNDER_1_5 | entry 7.3 | CLV NO DATA (Flashscore has no prices) | HIT
+Como v Venezia FC | 1-0 | BTTS_NO | entry 2.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Como v Venezia FC | 1-0 | UNDER_3_5 | entry 1.92 | CLV NO DATA (Flashscore has no prices) | HIT
+Como v Venezia FC | 1-0 | DC_1X | entry 1.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Frosinone v Torino | 2-0 | 1X2_HOME | entry 2.13 | CLV NO DATA (Flashscore has no prices) | HIT
+Frosinone v Torino | 2-0 | OVER_2_5 | entry 1.41 | CLV NO DATA (Flashscore has no prices) | MISS
+Frosinone v Torino | 2-0 | BTTS_YES | entry 1.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Frosinone v Torino | 2-0 | OVER_3_5 | entry 1.99 | CLV NO DATA (Flashscore has no prices) | MISS
+Frosinone v Torino | 2-0 | DC_12 | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Lazio v Cagliari | 2-1 | 1X2_DRAW | entry 4.64 | CLV NO DATA (Flashscore has no prices) | MISS
+Lazio v Cagliari | 2-1 | 1X2_AWAY | entry 6.57 | CLV NO DATA (Flashscore has no prices) | MISS
+Lecce v Genoa | 1-2 | 1X2_HOME | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Lecce v Genoa | 1-2 | 1X2_AWAY | entry 2.41 | CLV NO DATA (Flashscore has no prices) | HIT
+Lecce v Genoa | 1-2 | OVER_2_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Lecce v Genoa | 1-2 | OVER_1_5 | entry 1.43 | CLV NO DATA (Flashscore has no prices) | HIT
+Lecce v Genoa | 1-2 | OVER_3_5 | entry 4.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Lecce v Genoa | 1-2 | DC_12 | entry 1.39 | CLV NO DATA (Flashscore has no prices) | HIT
+Juventus v Napoli | 2-0 | 1X2_HOME | entry 2.31 | CLV NO DATA (Flashscore has no prices) | HIT
+Juventus v Napoli | 2-0 | 1X2_AWAY | entry 3.45 | CLV NO DATA (Flashscore has no prices) | MISS
+Juventus v Napoli | 2-0 | BTTS_NO | entry 2.05 | CLV NO DATA (Flashscore has no prices) | HIT
+Union Berlin v FC Koln | 1-1 | 1X2_HOME | entry 2.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Union Berlin v FC Koln | 1-1 | BTTS_NO | entry 2.45 | CLV NO DATA (Flashscore has no prices) | MISS
+Union Berlin v FC Koln | 1-1 | DC_1X | entry 1.5 | CLV NO DATA (Flashscore has no prices) | HIT
+Strasbourg v Auxerre | 5-1 | 1X2_HOME | entry 1.89 | CLV NO DATA (Flashscore has no prices) | HIT
+Lyon v Angers | 2-0 | 1X2_HOME | entry 1.43 | CLV NO DATA (Flashscore has no prices) | HIT
+Lyon v Angers | 2-0 | 1X2_DRAW | entry 5.26 | CLV NO DATA (Flashscore has no prices) | MISS
+Lyon v Angers | 2-0 | UNDER_1_5 | entry 4.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Paris FC v Monaco | 3-1 | 1X2_HOME | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Paris FC v Monaco | 3-1 | OVER_2_5 | entry 1.8 | CLV NO DATA (Flashscore has no prices) | HIT
+Paris FC v Monaco | 3-1 | OVER_1_5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Paris FC v Monaco | 3-1 | OVER_3_5 | entry 2.95 | CLV NO DATA (Flashscore has no prices) | HIT
+Marseille v Toulouse | 2-0 | 1X2_HOME | entry 2.01 | CLV NO DATA (Flashscore has no prices) | HIT
+Marseille v Toulouse | 2-0 | OVER_2_5 | entry 1.52 | CLV NO DATA (Flashscore has no prices) | MISS
+Arouca v Nacional | 1-0 | 1X2_AWAY | entry 4.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Arouca v Nacional | 1-0 | OVER_2_5 | entry 1.86 | CLV NO DATA (Flashscore has no prices) | MISS
+Arouca v Nacional | 1-0 | OVER_3_5 | entry 3.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Academico de Viseu FC v Rio Ave | 2-1 | 1X2_HOME | entry 1.92 | CLV NO DATA (Flashscore has no prices) | HIT
+Academico de Viseu FC v Rio Ave | 2-1 | OVER_2_5 | entry 1.95 | CLV NO DATA (Flashscore has no prices) | HIT
+Academico de Viseu FC v Rio Ave | 2-1 | OVER_1_5 | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
+Academico de Viseu FC v Rio Ave | 2-1 | BTTS_NO | entry 1.98 | CLV NO DATA (Flashscore has no prices) | MISS
+Academico de Viseu FC v Rio Ave | 2-1 | OVER_3_5 | entry 3.33 | CLV NO DATA (Flashscore has no prices) | MISS
+Academico de Viseu FC v Rio Ave | 2-1 | DC_1X | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Academico de Viseu FC v Rio Ave | 2-1 | DC_12 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Maritimo Madeira v Santa Clara | 0-2 | 1X2_AWAY | entry 2.3 | CLV NO DATA (Flashscore has no prices) | HIT
+Maritimo Madeira v Santa Clara | 0-2 | OVER_2_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Maritimo Madeira v Santa Clara | 0-2 | OVER_1_5 | entry 1.49 | CLV NO DATA (Flashscore has no prices) | HIT
+Maritimo Madeira v Santa Clara | 0-2 | BTTS_YES | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Maritimo Madeira v Santa Clara | 0-2 | OVER_3_5 | entry 4.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Maritimo Madeira v Santa Clara | 0-2 | DC_X2 | entry 1.32 | CLV NO DATA (Flashscore has no prices) | HIT
+Maritimo Madeira v Santa Clara | 0-2 | DC_12 | entry 1.36 | CLV NO DATA (Flashscore has no prices) | HIT
+Sp Braga v Famalicao | 3-0 | 1X2_AWAY | entry 5.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Sp Braga v Famalicao | 3-0 | OVER_3_5 | entry 3.6 | CLV NO DATA (Flashscore has no prices) | MISS
+Sp Braga v Famalicao | 3-0 | DC_X2 | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
+Liverpool v Arsenal | 0-1 | 1X2_AWAY | entry 2.57 | CLV NO DATA (Flashscore has no prices) | HIT
+Liverpool v Arsenal | 0-1 | OVER_2_5 | entry 1.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Liverpool v Arsenal | 0-1 | BTTS_NO | entry 2.15 | CLV NO DATA (Flashscore has no prices) | HIT
+Liverpool v Arsenal | 0-1 | OVER_3_5 | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Liverpool v Arsenal | 0-1 | DC_X2 | entry 1.42 | CLV NO DATA (Flashscore has no prices) | HIT
+Getafe v Sevilla | 3-1 | 1X2_HOME | entry 3.36 | CLV NO DATA (Flashscore has no prices) | HIT
+Getafe v Sevilla | 3-1 | 1X2_DRAW | entry 3.07 | CLV NO DATA (Flashscore has no prices) | MISS
+Getafe v Sevilla | 3-1 | OVER_1_5 | entry 1.54 | CLV NO DATA (Flashscore has no prices) | HIT
+Getafe v Sevilla | 3-1 | BTTS_NO | entry 1.67 | CLV NO DATA (Flashscore has no prices) | MISS
+Getafe v Sevilla | 3-1 | OVER_3_5 | entry 5.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Getafe v Sevilla | 3-1 | DC_1X | entry 1.54 | CLV NO DATA (Flashscore has no prices) | HIT
+Racing Santander v Real Madrid | 0-3 | 1X2_HOME | entry 12.24 | CLV NO DATA (Flashscore has no prices) | MISS
+Racing Santander v Real Madrid | 0-3 | 1X2_DRAW | entry 8.79 | CLV NO DATA (Flashscore has no prices) | MISS
+Racing Santander v Real Madrid | 0-3 | UNDER_2_5 | entry 4.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Racing Santander v Real Madrid | 0-3 | UNDER_1_5 | entry 11.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Racing Santander v Real Madrid | 0-3 | BTTS_YES | entry 1.6 | CLV NO DATA (Flashscore has no prices) | MISS
+Racing Santander v Real Madrid | 0-3 | UNDER_3_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | HIT
+Elche v Valencia | 0-1 | 1X2_HOME | entry 2.42 | CLV NO DATA (Flashscore has no prices) | MISS
+Elche v Valencia | 0-1 | OVER_2_5 | entry 1.93 | CLV NO DATA (Flashscore has no prices) | MISS
+Elche v Valencia | 0-1 | OVER_1_5 | entry 1.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Elche v Valencia | 0-1 | OVER_3_5 | entry 3.25 | CLV NO DATA (Flashscore has no prices) | MISS
+Ath Bilbao v Sociedad | 2-1 | 1X2_AWAY | entry 3.59 | CLV NO DATA (Flashscore has no prices) | MISS
+Ath Bilbao v Sociedad | 2-1 | OVER_2_5 | entry 1.78 | CLV NO DATA (Flashscore has no prices) | HIT
+Ath Bilbao v Sociedad | 2-1 | OVER_1_5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Ath Bilbao v Sociedad | 2-1 | BTTS_YES | entry 1.69 | CLV NO DATA (Flashscore has no prices) | HIT
+Ath Bilbao v Sociedad | 2-1 | OVER_3_5 | entry 2.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Eldense v Granada | 0-2 | 1X2_HOME | entry 2.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Eldense v Granada | 0-2 | OVER_2_5 | entry 1.89 | CLV NO DATA (Flashscore has no prices) | MISS
+Eldense v Granada | 0-2 | OVER_1_5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Eldense v Granada | 0-2 | OVER_3_5 | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Ceuta v Sp Gijon | 0-2 | 1X2_AWAY | entry 2.75 | CLV NO DATA (Flashscore has no prices) | HIT
+Ceuta v Sp Gijon | 0-2 | OVER_2_5 | entry 1.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Ceuta v Sp Gijon | 0-2 | OVER_1_5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Ceuta v Sp Gijon | 0-2 | OVER_3_5 | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Ceuta v Sp Gijon | 0-2 | DC_X2 | entry 1.49 | CLV NO DATA (Flashscore has no prices) | HIT
+Burgos v Castellon | 1-1 | 1X2_HOME | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Burgos v Castellon | 1-1 | 1X2_DRAW | entry 3.4 | CLV NO DATA (Flashscore has no prices) | HIT
+Burgos v Castellon | 1-1 | UNDER_2_5 | entry 1.93 | CLV NO DATA (Flashscore has no prices) | HIT
+Burgos v Castellon | 1-1 | UNDER_1_5 | entry 3.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Burgos v Castellon | 1-1 | BTTS_NO | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
+Burgos v Castellon | 1-1 | UNDER_3_5 | entry 1.37 | CLV NO DATA (Flashscore has no prices) | HIT
+Burgos v Castellon | 1-1 | DC_1X | entry 1.67 | CLV NO DATA (Flashscore has no prices) | HIT
+Empoli v Juve Stabia | 2-2 | 1X2_DRAW | entry 3.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Empoli v Juve Stabia | 2-2 | UNDER_2_5 | entry 1.82 | CLV NO DATA (Flashscore has no prices) | MISS
+Empoli v Juve Stabia | 2-2 | BTTS_NO | entry 2.0 | CLV NO DATA (Flashscore has no prices) | MISS
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | 1X2_AWAY | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | OVER_2_5 | entry 1.88 | CLV NO DATA (Flashscore has no prices) | MISS
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | OVER_1_5 | entry 1.28 | CLV NO DATA (Flashscore has no prices) | MISS
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | OVER_3_5 | entry 3.1 | CLV NO DATA (Flashscore has no prices) | MISS
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | DC_X2 | entry 1.3 | CLV NO DATA (Flashscore has no prices) | HIT
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | DC_12 | entry 1.32 | CLV NO DATA (Flashscore has no prices) | MISS
+Avellino v SC Pisa | 2-0 | 1X2_HOME | entry 3.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Avellino v SC Pisa | 2-0 | 1X2_AWAY | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
+Avellino v SC Pisa | 2-0 | OVER_2_5 | entry 2.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Avellino v SC Pisa | 2-0 | OVER_1_5 | entry 1.33 | CLV NO DATA (Flashscore has no prices) | HIT
+Avellino v SC Pisa | 2-0 | BTTS_YES | entry 1.77 | CLV NO DATA (Flashscore has no prices) | MISS
+Avellino v SC Pisa | 2-0 | OVER_3_5 | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Hellas Verona v Carrarese | 3-0 | 1X2_DRAW | entry 4.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Hellas Verona v Carrarese | 3-0 | 1X2_AWAY | entry 5.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Palermo v L.R. Vicenza | 3-1 | 1X2_HOME | entry 1.53 | CLV NO DATA (Flashscore has no prices) | HIT
+Palermo v L.R. Vicenza | 3-1 | OVER_2_5 | entry 1.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Palermo v L.R. Vicenza | 3-1 | OVER_3_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Palermo v L.R. Vicenza | 3-1 | DC_1X | entry 1.15 | CLV NO DATA (Flashscore has no prices) | HIT
+FC St. Pauli v Nurnberg | 1-3 | 1X2_DRAW | entry 3.7 | CLV NO DATA (Flashscore has no prices) | MISS
+FC St. Pauli v Nurnberg | 1-3 | UNDER_2_5 | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
+FC St. Pauli v Nurnberg | 1-3 | UNDER_1_5 | entry 4.4 | CLV NO DATA (Flashscore has no prices) | MISS
+FC St. Pauli v Nurnberg | 1-3 | BTTS_NO | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
+FC St. Pauli v Nurnberg | 1-3 | UNDER_3_5 | entry 1.49 | CLV NO DATA (Flashscore has no prices) | MISS
+Greuther Furth v Holstein Kiel | 1-0 | 1X2_HOME | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Greuther Furth v Holstein Kiel | 1-0 | BTTS_NO | entry 2.5 | CLV NO DATA (Flashscore has no prices) | HIT
+Greuther Furth v Holstein Kiel | 1-0 | UNDER_3_5 | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
+Hannover v Dresden | 2-1 | 1X2_HOME | entry 2.15 | CLV NO DATA (Flashscore has no prices) | HIT
+Hannover v Dresden | 2-1 | DC_1X | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Sheffield Wednesday v Blackpool FC | 1-1 | 1X2_HOME | entry 1.75 | CLV NO DATA (Flashscore has no prices) | MISS
+Sheffield Wednesday v Blackpool FC | 1-1 | BTTS_NO | entry 2.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Sheffield Wednesday v Blackpool FC | 1-1 | DC_1X | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | 1X2_HOME | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | OVER_2_5 | entry 1.63 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | OVER_1_5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | BTTS_YES | entry 2.15 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | OVER_3_5 | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | DC_1X | entry 1.07 | CLV NO DATA (Flashscore has no prices) | HIT
+Istanbul BB v Samsunspor | 5-2 | 1X2_HOME | entry 1.86 | CLV NO DATA (Flashscore has no prices) | HIT
+Istanbul BB v Samsunspor | 5-2 | OVER_2_5 | entry 1.62 | CLV NO DATA (Flashscore has no prices) | HIT
+Istanbul BB v Samsunspor | 5-2 | BTTS_NO | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
+Istanbul BB v Samsunspor | 5-2 | DC_1X | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Trabzonspor v Gaziantep FK | 2-0 | 1X2_HOME | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Trabzonspor v Gaziantep FK | 2-0 | 1X2_DRAW | entry 6.65 | CLV NO DATA (Flashscore has no prices) | MISS
+Trabzonspor v Gaziantep FK | 2-0 | UNDER_1_5 | entry 7.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Trabzonspor v Gaziantep FK | 2-0 | UNDER_3_5 | entry 1.92 | CLV NO DATA (Flashscore has no prices) | HIT
+Trabzonspor v Gaziantep FK | 2-0 | DC_1X | entry 1.08 | CLV NO DATA (Flashscore has no prices) | HIT
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | 1X2_HOME | entry 5.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | 1X2_DRAW | entry 4.45 | CLV NO DATA (Flashscore has no prices) | HIT
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | UNDER_2_5 | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | UNDER_1_5 | entry 4.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | UNDER_3_5 | entry 1.49 | CLV NO DATA (Flashscore has no prices) | MISS
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | DC_1X | entry 2.25 | CLV NO DATA (Flashscore has no prices) | HIT
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | 1X2_HOME | entry 3.75 | CLV NO DATA (Flashscore has no prices) | HIT
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | 1X2_DRAW | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | OVER_2_5 | entry 2.15 | CLV NO DATA (Flashscore has no prices) | HIT
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | OVER_1_5 | entry 1.37 | CLV NO DATA (Flashscore has no prices) | HIT
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | BTTS_YES | entry 1.93 | CLV NO DATA (Flashscore has no prices) | MISS
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | OVER_3_5 | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | DC_1X | entry 1.73 | CLV NO DATA (Flashscore has no prices) | HIT
+Panaitolikos Agrinio v OFI Crete | 0-1 | OVER_2_5 | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Panaitolikos Agrinio v OFI Crete | 0-1 | OVER_1_5 | entry 1.34 | CLV NO DATA (Flashscore has no prices) | MISS
+Panaitolikos Agrinio v OFI Crete | 0-1 | BTTS_YES | entry 1.79 | CLV NO DATA (Flashscore has no prices) | MISS
+Panaitolikos Agrinio v OFI Crete | 0-1 | OVER_3_5 | entry 3.6 | CLV NO DATA (Flashscore has no prices) | MISS
+PAOK v Asteras Tripolis | 2-1 | 1X2_HOME | entry 1.32 | CLV NO DATA (Flashscore has no prices) | HIT
+PAOK v Asteras Tripolis | 2-1 | 1X2_DRAW | entry 5.5 | CLV NO DATA (Flashscore has no prices) | MISS
+PAOK v Asteras Tripolis | 2-1 | OVER_2_5 | entry 1.7 | CLV NO DATA (Flashscore has no prices) | HIT
+PAOK v Asteras Tripolis | 2-1 | OVER_1_5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+PAOK v Asteras Tripolis | 2-1 | BTTS_YES | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
+PAOK v Asteras Tripolis | 2-1 | OVER_3_5 | entry 2.75 | CLV NO DATA (Flashscore has no prices) | MISS
+PAOK v Asteras Tripolis | 2-1 | DC_1X | entry 1.08 | CLV NO DATA (Flashscore has no prices) | HIT
+Panathinaikos v AEK Athens | 2-0 | 1X2_DRAW | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Panathinaikos v AEK Athens | 2-0 | 1X2_AWAY | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Panathinaikos v AEK Athens | 2-0 | UNDER_2_5 | entry 1.93 | CLV NO DATA (Flashscore has no prices) | HIT
+Panathinaikos v AEK Athens | 2-0 | BTTS_NO | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Panathinaikos v AEK Athens | 2-0 | UNDER_3_5 | entry 1.37 | CLV NO DATA (Flashscore has no prices) | HIT
+Panathinaikos v AEK Athens | 2-0 | DC_X2 | entry 1.61 | CLV NO DATA (Flashscore has no prices) | MISS
+Salzburg v Austria Lustenau | 5-1 | 1X2_HOME | entry 1.17 | CLV NO DATA (Flashscore has no prices) | HIT
+Salzburg v Austria Lustenau | 5-1 | UNDER_3_5 | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
+Salzburg v Austria Lustenau | 5-1 | DC_1X | entry 1.04 | CLV NO DATA (Flashscore has no prices) | HIT
+Wolfsberger AC v Sturm Graz | 1-1 | 1X2_DRAW | entry 4.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Wolfsberger AC v Sturm Graz | 1-1 | UNDER_2_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Wolfsberger AC v Sturm Graz | 1-1 | UNDER_1_5 | entry 4.75 | CLV NO DATA (Flashscore has no prices) | MISS
+Wolfsberger AC v Sturm Graz | 1-1 | BTTS_NO | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Wolfsberger AC v Sturm Graz | 1-1 | UNDER_3_5 | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
+FK Austria Wien v SK Rapid | 0-2 | 1X2_DRAW | entry 4.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Young Boys Bern v FC Zurich | 3-5 | 1X2_DRAW | entry 6.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Young Boys Bern v FC Zurich | 3-5 | 1X2_AWAY | entry 8.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Young Boys Bern v FC Zurich | 3-5 | BTTS_YES | entry 1.44 | CLV NO DATA (Flashscore has no prices) | HIT
+Young Boys Bern v FC Zurich | 3-5 | UNDER_3_5 | entry 2.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Lausanne-Sport v FC Thun | 4-5 | 1X2_AWAY | entry 2.6 | CLV NO DATA (Flashscore has no prices) | HIT
+Lausanne-Sport v FC Thun | 4-5 | OVER_2_5 | entry 1.57 | CLV NO DATA (Flashscore has no prices) | HIT
+Lausanne-Sport v FC Thun | 4-5 | DC_X2 | entry 1.48 | CLV NO DATA (Flashscore has no prices) | HIT
+Lugano v Basel | 2-1 | 1X2_HOME | entry 1.54 | CLV NO DATA (Flashscore has no prices) | HIT
+Lugano v Basel | 2-1 | UNDER_2_5 | entry 2.7 | CLV NO DATA (Flashscore has no prices) | MISS
+Lugano v Basel | 2-1 | UNDER_1_5 | entry 5.5 | CLV NO DATA (Flashscore has no prices) | MISS
+Lugano v Basel | 2-1 | BTTS_NO | entry 2.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Lugano v Basel | 2-1 | UNDER_3_5 | entry 1.7 | CLV NO DATA (Flashscore has no prices) | HIT
+Lugano v Basel | 2-1 | DC_1X | entry 1.16 | CLV NO DATA (Flashscore has no prices) | HIT
+SK Brann v Molde | 3-2 | 1X2_HOME | entry 2.83 | CLV NO DATA (Flashscore has no prices) | HIT
+SK Brann v Molde | 3-2 | UNDER_1_5 | entry 8.4 | CLV NO DATA (Flashscore has no prices) | MISS
+SK Brann v Molde | 3-2 | BTTS_NO | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
+SK Brann v Molde | 3-2 | UNDER_3_5 | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
+SK Brann v Molde | 3-2 | DC_1X | entry 1.65 | CLV NO DATA (Flashscore has no prices) | HIT
+IK Start v Lillestroem SK | 0-1 | 1X2_AWAY | entry 2.46 | CLV NO DATA (Flashscore has no prices) | HIT
+IK Start v Lillestroem SK | 0-1 | BTTS_NO | entry 2.6 | CLV NO DATA (Flashscore has no prices) | HIT
+IK Start v Lillestroem SK | 0-1 | UNDER_3_5 | entry 1.6 | CLV NO DATA (Flashscore has no prices) | HIT
+IK Start v Lillestroem SK | 0-1 | DC_X2 | entry 1.45 | CLV NO DATA (Flashscore has no prices) | HIT
+KFUM Oslo v HamKam | 2-2 | 1X2_HOME | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
+KFUM Oslo v HamKam | 2-2 | OVER_2_5 | entry 1.77 | CLV NO DATA (Flashscore has no prices) | HIT
+KFUM Oslo v HamKam | 2-2 | OVER_3_5 | entry 2.85 | CLV NO DATA (Flashscore has no prices) | HIT
+Sarpsborg 08 v Kristiansund BK | 2-4 | 1X2_DRAW | entry 4.98 | CLV NO DATA (Flashscore has no prices) | MISS
+Sarpsborg 08 v Kristiansund BK | 2-4 | UNDER_2_5 | entry 2.95 | CLV NO DATA (Flashscore has no prices) | MISS
+Sarpsborg 08 v Kristiansund BK | 2-4 | UNDER_1_5 | entry 6.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Sarpsborg 08 v Kristiansund BK | 2-4 | BTTS_NO | entry 2.45 | CLV NO DATA (Flashscore has no prices) | MISS
+Sarpsborg 08 v Kristiansund BK | 2-4 | UNDER_3_5 | entry 1.82 | CLV NO DATA (Flashscore has no prices) | MISS
+Vaalerenga IF v Tromsoe IL | 4-0 | 1X2_AWAY | entry 2.62 | CLV NO DATA (Flashscore has no prices) | MISS
+Vaalerenga IF v Tromsoe IL | 4-0 | OVER_2_5 | entry 1.55 | CLV NO DATA (Flashscore has no prices) | HIT
+Vaalerenga IF v Tromsoe IL | 4-0 | OVER_3_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Djurgardens IF v Degerfors IF | 2-1 | 1X2_HOME | entry 1.3 | CLV NO DATA (Flashscore has no prices) | HIT
+Djurgardens IF v Degerfors IF | 2-1 | 1X2_DRAW | entry 5.9 | CLV NO DATA (Flashscore has no prices) | MISS
+Djurgardens IF v Degerfors IF | 2-1 | BTTS_NO | entry 1.82 | CLV NO DATA (Flashscore has no prices) | MISS
+Djurgardens IF v Degerfors IF | 2-1 | UNDER_3_5 | entry 1.59 | CLV NO DATA (Flashscore has no prices) | HIT
+Djurgardens IF v Degerfors IF | 2-1 | DC_1X | entry 1.08 | CLV NO DATA (Flashscore has no prices) | HIT
+Malmo v Hammarby IF | 1-2 | 1X2_DRAW | entry 4.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Malmo v Hammarby IF | 1-2 | UNDER_2_5 | entry 2.45 | CLV NO DATA (Flashscore has no prices) | MISS
+Malmo v Hammarby IF | 1-2 | UNDER_1_5 | entry 5.0 | CLV NO DATA (Flashscore has no prices) | MISS
+Malmo v Hammarby IF | 1-2 | BTTS_NO | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
+Malmo v Hammarby IF | 1-2 | UNDER_3_5 | entry 1.61 | CLV NO DATA (Flashscore has no prices) | HIT
+BK Hacken v IFK Goteborg | 1-0 | 1X2_DRAW | entry 4.25 | CLV NO DATA (Flashscore has no prices) | MISS
+BK Hacken v IFK Goteborg | 1-0 | UNDER_1_5 | entry 5.25 | CLV NO DATA (Flashscore has no prices) | HIT
+BK Hacken v IFK Goteborg | 1-0 | BTTS_NO | entry 2.45 | CLV NO DATA (Flashscore has no prices) | HIT
+BK Hacken v IFK Goteborg | 1-0 | UNDER_3_5 | entry 1.65 | CLV NO DATA (Flashscore has no prices) | HIT
+IF Elfsborg v Orgryte IS | 2-1 | 1X2_DRAW | entry 5.1 | CLV NO DATA (Flashscore has no prices) | MISS
+IF Elfsborg v Orgryte IS | 2-1 | 1X2_AWAY | entry 7.1 | CLV NO DATA (Flashscore has no prices) | MISS
+IF Elfsborg v Orgryte IS | 2-1 | OVER_2_5 | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
+IF Elfsborg v Orgryte IS | 2-1 | BTTS_YES | entry 1.79 | CLV NO DATA (Flashscore has no prices) | HIT
+IF Elfsborg v Orgryte IS | 2-1 | OVER_3_5 | entry 2.4 | CLV NO DATA (Flashscore has no prices) | MISS
+Vasteraas SK v IF Brommapojkarna | 1-0 | 1X2_AWAY | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
+Vasteraas SK v IF Brommapojkarna | 1-0 | OVER_2_5 | entry 1.69 | CLV NO DATA (Flashscore has no prices) | MISS
+Vasteraas SK v IF Brommapojkarna | 1-0 | OVER_3_5 | entry 2.65 | CLV NO DATA (Flashscore has no prices) | MISS
+Zwolle v Den Haag | 1-0 | SB:10||Home or Away | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Excelsior v Twente | 0-9 | SB:20|total=3.5|Under 3.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | MISS
+Telstar v Utrecht | 4-2 | SB:19|total=0.5|Over 0.5 | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+Groningen v Sparta Rotterdam | 2-3 | SB:33||No | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Odense v Silkeborg | 4-1 | SB:18|total=4.5|Under 4.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | MISS
+Viborg v Horsens | 1-0 | SB:10||Home or Away | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Nordsjaelland v Midtjylland | 2-3 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Brondby v Aarhus | 2-0 | SB:20|total=0.5|Over 0.5 | entry 1.27 | CLV NO DATA (Flashscore has no prices) | MISS
+Cercle Brugge v Antwerp | 2-1 | SB:33||No | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+St Truiden v Oud-Heverlee Leuven | 1-2 | SB:18|total=4.5|Under 4.5 | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Lommel SK v Gent | 2-0 | SB:10||Draw or Away | entry 1.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Charleroi v RAAL La Louviere | 5-2 | SB:10||Home or Away | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Falkirk v Celtic | 2-0 | SB:16|hcp=2.5|Home (+2.5) | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+HNK Rijeka v NK Varazdin | 1-1 | SB:10||Home or Away | entry 1.26 | CLV NO DATA (Flashscore has no prices) | MISS
+Como v Venezia FC | 1-0 | SB:547|total=1.5|Home/Away & Over 1.5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | MISS
+Frosinone v Torino | 2-0 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Lazio v Cagliari | 2-1 | SB:10||Home or Away | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Lecce v Genoa | 1-2 | SB:10||Home or Away | entry 1.39 | CLV NO DATA (Flashscore has no prices) | HIT
+Juventus v Napoli | 2-0 | SB:10||Home or Away | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Union Berlin v FC Koln | 1-1 | SB:18|total=1.5|Over 1.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Strasbourg v Auxerre | 5-1 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Lyon v Angers | 2-0 | SB:18|total=1.5|Over 1.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Paris FC v Monaco | 3-1 | SB:18|total=1.5|Over 1.5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Marseille v Toulouse | 2-0 | SB:33||No | entry 1.23 | CLV NO DATA (Flashscore has no prices) | MISS
+Arouca v Nacional | 1-0 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Academico de Viseu FC v Rio Ave | 2-1 | SB:10||Home or Away | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Maritimo Madeira v Santa Clara | 0-2 | SB:19|total=1.5|Under 1.5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Sp Braga v Famalicao | 3-0 | SB:10||Home or Away | entry 1.28 | CLV NO DATA (Flashscore has no prices) | HIT
+Liverpool v Arsenal | 0-1 | SB:10||Home or Away | entry 1.34 | CLV NO DATA (Flashscore has no prices) | HIT
+Getafe v Sevilla | 3-1 | SB:33||No | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Racing Santander v Real Madrid | 0-3 | SB:18|total=2.5|Over 2.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Elche v Valencia | 0-1 | SB:19|total=0.5|Over 0.5 | entry 1.28 | CLV NO DATA (Flashscore has no prices) | MISS
+Ath Bilbao v Sociedad | 2-1 | SB:19|total=0.5|Over 0.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Eldense v Granada | 0-2 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
+Ceuta v Sp Gijon | 0-2 | SB:18|total=1.5|Over 1.5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+Burgos v Castellon | 1-1 | SB:10||Home or Away | entry 1.3 | CLV NO DATA (Flashscore has no prices) | MISS
+Empoli v Juve Stabia | 2-2 | SB:18|total=1.5|Over 1.5 | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
+SS Arezzo v Ascoli Calcio 1898 | 0-0 | SB:10||Home or Away | entry 1.32 | CLV NO DATA (Flashscore has no prices) | MISS
+Avellino v SC Pisa | 2-0 | SB:34||No | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Hellas Verona v Carrarese | 3-0 | SB:18|total=1.5|Over 1.5 | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+Palermo v L.R. Vicenza | 3-1 | SB:10||Home or Away | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+FC St. Pauli v Nurnberg | 1-3 | SB:18|total=1.5|Over 1.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Greuther Furth v Holstein Kiel | 1-0 | SB:20|total=2.5|Under 2.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Hannover v Dresden | 2-1 | SB:10||Home or Away | entry 1.28 | CLV NO DATA (Flashscore has no prices) | HIT
+Sheffield Wednesday v Blackpool FC | 1-1 | SB:10||Home or Away | entry 1.24 | CLV NO DATA (Flashscore has no prices) | MISS
+Amed Sportif Faaliyetler v Eyupspor | 5-1 | SB:18|total=1.5|Over 1.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Istanbul BB v Samsunspor | 5-2 | SB:18|total=1.5|Over 1.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Trabzonspor v Gaziantep FK | 2-0 | SB:547|total=1.5|Home/Away & Over 1.5 | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
+Kasimpasa Istanbul v Besiktas Istanbul | 2-2 | SB:18|total=1.5|Over 1.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+APO Levadiakos FC v Aris Thessaloniki | 3-0 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
+Panaitolikos Agrinio v OFI Crete | 0-1 | SB:34||No | entry 1.21 | CLV NO DATA (Flashscore has no prices) | MISS
+PAOK v Asteras Tripolis | 2-1 | SB:18|total=1.5|Over 1.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+Panathinaikos v AEK Athens | 2-0 | SB:33||No | entry 1.22 | CLV NO DATA (Flashscore has no prices) | MISS
+Salzburg v Austria Lustenau | 5-1 | SB:18|total=5.5|Under 5.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | MISS
+Wolfsberger AC v Sturm Graz | 1-1 | SB:10||Home or Away | entry 1.22 | CLV NO DATA (Flashscore has no prices) | MISS
+FK Austria Wien v SK Rapid | 0-2 | SB:10||Home or Away | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+Young Boys Bern v FC Zurich | 3-5 | SB:18|total=2.5|Over 2.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Lausanne-Sport v FC Thun | 4-5 | SB:10||Home or Away | entry 1.28 | CLV NO DATA (Flashscore has no prices) | HIT
+Lugano v Basel | 2-1 | SB:18|total=4.5|Under 4.5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
+SK Brann v Molde | 3-2 | SB:10||Home or Away | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+IK Start v Lillestroem SK | 0-1 | SB:20|total=0.5|Over 0.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+KFUM Oslo v HamKam | 2-2 | SB:19|total=0.5|Over 0.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
+Sarpsborg 08 v Kristiansund BK | 2-4 | SB:16|hcp=-2.5|Away (+2.5) | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
+Vaalerenga IF v Tromsoe IL | 4-0 | SB:16|hcp=-1.5|Away (+1.5) | entry 1.2 | CLV NO DATA (Flashscore has no prices) | MISS
+Djurgardens IF v Degerfors IF | 2-1 | SB:18|total=4.5|Under 4.5 | entry 1.24 | CLV NO DATA (Flashscore has no prices) | HIT
+Malmo v Hammarby IF | 1-2 | SB:10||Home or Away | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+BK Hacken v IFK Goteborg | 1-0 | SB:10||Home or Away | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+IF Elfsborg v Orgryte IS | 2-1 | SB:20|total=1.5|Under 1.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
+Vasteraas SK v IF Brommapojkarna | 1-0 | SB:18|total=1.5|Over 1.5 | entry 1.22 | CLV NO DATA (Flashscore has no prices) | MISS
+
+============================================================
+
+DETAIL — HR53 full per-fixture audit (not sent to Telegram)
+
+PART 0 — HEADER
+Date: 2026-11-02 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
+Calibration: 1090 legs logged, mean CLV +0.36%
+SOURCE NOTES (where the data came from, not problems):
+  · graded 362 of 661 pending leg(s)
+  · picks 2026-10-03: 73 graded, 3 pending (Flashscore)
+  · picks 2026-10-04: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
+  · picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
+  · picks 2026-10-06: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
+  · picks 2026-10-07: 0 graded, 0 pending (Flashscore)
+  · picks 2026-10-08: 1 graded, 0 pending; 1/1 rated fixtures graded (Flashscore)
+  · picks 2026-10-09: 24 graded, 0 pending; 23/24 rated fixtures graded (Flashscore)
+  · picks 2026-10-10: 120 graded, 2 pending; 116/122 rated fixtures graded (Flashscore)
+  · picks 2026-10-11: 67 graded, 2 pending; 62/69 rated fixtures graded (Flashscore)
+  · picks 2026-10-12: 18 graded, 0 pending; 18/18 rated fixtures graded (Flashscore)
+  · picks 2026-10-13: 8 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
+  · picks 2026-10-14: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
+  · picks 2026-10-15: 35 graded, 1 pending; 35/36 rated fixtures graded (Flashscore)
+  · picks 2026-10-16: 21 graded, 1 pending; 21/22 rated fixtures graded (Flashscore)
+  · picks 2026-10-17: 126 graded, 2 pending; 126/128 rated fixtures graded (Flashscore)
+  · picks 2026-10-18: 64 graded, 1 pending; 64/65 rated fixtures graded (Flashscore)
+  · picks 2026-10-19: 11 graded, 0 pending; 11/11 rated fixtures graded (Flashscore)
+  · picks 2026-10-20: 44 graded, 0 pending; 44/44 rated fixtures graded (Flashscore)
+  · picks 2026-10-21: 11 graded, 0 pending; 11/11 rated fixtures graded (Flashscore)
+  · picks 2026-10-22: 35 graded, 1 pending; 35/36 rated fixtures graded (Flashscore)
+  · picks 2026-10-23: 25 graded, 1 pending; 25/26 rated fixtures graded (Flashscore)
+  · picks 2026-10-24: 119 graded, 1 pending; 119/120 rated fixtures graded (Flashscore)
+  · picks 2026-10-25: 73 graded, 0 pending; 73/73 rated fixtures graded (Flashscore)
+  · picks 2026-10-26: 11 graded, 1 pending; 11/12 rated fixtures graded (Flashscore)
+  · picks 2026-10-27: 27 graded, 0 pending; 27/27 rated fixtures graded (Flashscore)
+  · picks 2026-10-28: 26 graded, 3 pending; 26/29 rated fixtures graded (Flashscore)
+  · picks 2026-10-29: 5 graded, 0 pending; 5/5 rated fixtures graded (Flashscore)
+  · picks 2026-10-30: 22 graded, 1 pending; 23/24 rated fixtures graded (Flashscore)
+  · picks 2026-10-31: 73 graded, 1 pending; 109/110 rated fixtures graded (Flashscore)
+  · picks 2026-11-01: 66 graded, 2 pending; 70/72 rated fixtures graded (Flashscore)
+  · picks 2026-10-09: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
+  · picks 2026-10-13: 16 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
+  · 2 result(s) Flashscore lacked were taken from FotMob
+  · SportyBet events pulled live
+  · Eredivisie: 18 fixture(s) priced from SportyBet
+  · SportyBet events served from cache (<=60min)
+  · Danish Superliga: 7 fixture(s) priced from SportyBet
+  · Danish Superliga: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Belgian Pro League: 10 fixture(s) priced from SportyBet
+  · Scottish Premiership: 12 fixture(s) priced from SportyBet
+  · Ekstraklasa: 12 fixture(s) priced from SportyBet
+  · Ekstraklasa: price check — 3 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · HNL: 5 fixture(s) priced from SportyBet
+  · Championship: 24 fixture(s) priced from SportyBet
+  · Serie A: 22 fixture(s) priced from SportyBet
+  · Serie A: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Bundesliga: 18 fixture(s) priced from SportyBet
+  · Ligue 1: 19 fixture(s) priced from SportyBet
+  · Ligue 1: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Europa League: 18 fixture(s) priced from SportyBet
+  · Primeira Liga: 11 fixture(s) priced from SportyBet
+  · Primeira Liga: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Premier League: 21 fixture(s) priced from SportyBet
+  · Premier League: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · La Liga: 11 fixture(s) priced from SportyBet
+  · La Liga: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Champions League: 18 fixture(s) priced from SportyBet
+  · Conference League: 18 fixture(s) priced from SportyBet
+  · La Liga 2: 14 fixture(s) priced from SportyBet
+  · La Liga 2: price check — 4 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Serie B: 10 fixture(s) priced from SportyBet
+  · 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  · Ligue 2: 11 fixture(s) priced from SportyBet
+  · Ligue 2: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · League One: 15 fixture(s) priced from SportyBet
+  · League Two: 13 fixture(s) priced from SportyBet
+  · National League: 11 fixture(s) priced from SportyBet
+  · FA Cup: 40 fixture(s) priced from SportyBet
+  · UEFA Nations League: 22 fixture(s) priced from SportyBet
+  · Turkish Super Lig: 10 fixture(s) priced from SportyBet
+  · Turkish Super Lig: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Greek Super League: 16 fixture(s) priced from SportyBet
+  · Greek Super League: price check — 1 agree with an independent book, 0 differ, 1 unchecked (margin-free, 5 pts)
+  · Austrian Bundesliga: 12 fixture(s) priced from SportyBet
+  · Swiss Super League: 6 fixture(s) priced from SportyBet
+  · Eliteserien: 8 fixture(s) priced from SportyBet
+  · Allsvenskan: 11 fixture(s) priced from SportyBet
+  · Allsvenskan: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · Turkish Cup: 0 fixture(s) priced from SportyBet
+  · Turkish Cup: no games on offer (SportyBet lists none)
+  · Eredivisie: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Eredivisie: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Eredivisie: 9 fixture(s) blended with shots-on-target ratings
+  · Danish Superliga: 7 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Danish Superliga: model fitted on last season + 72 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Belgian Pro League: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Belgian Pro League: model fitted on last season + 80 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Belgian Pro League: 10 fixture(s) blended with shots-on-target ratings
+  · Scottish Premiership: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Scottish Premiership: model fitted on last season + 66 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Scottish Premiership: 6 fixture(s) blended with shots-on-target ratings
+  · Ekstraklasa: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ekstraklasa: model fitted on last season + 106 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · HNL: 5 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · HNL: 5/5 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Championship: 24 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Championship: model fitted on last season + 144 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Championship: 3 feed name(s) matched to the model's spelling — Bolton Wanderers -> Bolton, Cardiff City -> Cardiff, Lincoln City -> Lincoln
+  · Championship: 24 fixture(s) blended with shots-on-target ratings
+  · Serie A: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Serie A: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie A: 1 feed name(s) matched to the model's spelling — Venezia FC -> Venezia
+  · Serie A: 0 fixture(s) blended with xG ratings (Understat)
+  · Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Bundesliga: model fitted on last season + 63 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Bundesliga: 2 feed name(s) matched to the model's spelling — SV 07 Elversberg -> Elversberg, Schalke -> Schalke 04
+  · Bundesliga: 0 fixture(s) blended with xG ratings (Understat)
+  · Ligue 1: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ligue 1: model fitted on last season + 72 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Ligue 1: 1 feed name(s) matched to the model's spelling — Le Mans FC -> Le Mans
+  · Ligue 1: 0 fixture(s) blended with xG ratings (Understat)
+  · Europa League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Europa League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Primeira Liga: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Primeira Liga: model fitted on last season + 81 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Primeira Liga: 2 feed name(s) matched to the model's spelling — Academico de Viseu FC -> Academico Viseu, Maritimo Madeira -> Maritimo
+  · Premier League: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Premier League: model fitted on last season + 80 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Premier League: 3 feed name(s) matched to the model's spelling — Coventry City -> Coventry, Hull City -> Hull, Ipswich Town -> Ipswich
+  · Premier League: 0 fixture(s) blended with xG ratings (Understat)
+  · La Liga: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · La Liga: model fitted on last season + 99 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · La Liga: 3 feed name(s) matched to the model's spelling — Malaga CF -> Malaga, RC Deportivo de A Coruna -> La Coruna, Racing Santander -> Santander
+  · La Liga: 0 fixture(s) blended with xG ratings (Understat)
+  · Champions League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Champions League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Conference League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Conference League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · La Liga 2: 14 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · La Liga 2: model fitted on last season + 121 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Serie B: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie B: 6 feed name(s) matched to the model's spelling — Ascoli Calcio 1898 -> Ascoli, Benevento Calcio -> Benevento, Hellas Verona -> Verona, L.R. Vicenza -> Vicenza, SC Pisa -> Pisa, SS Arezzo -> Arezzo
+  · 2. Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · 2. Bundesliga: model fitted on last season + 81 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · 2. Bundesliga: 3 feed name(s) matched to the model's spelling — Energie Cottbus -> Cottbus, FC St. Pauli -> St Pauli, VfL 1899 Osnabruck -> Osnabruck
+  · Ligue 2: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ligue 2: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Ligue 2: 1 feed name(s) matched to the model's spelling — Sochaux-Montbeliard -> Sochaux
+  · League One: 15 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · League One: model fitted on last season + 143 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League One: 10 feed name(s) matched to the model's spelling — Blackpool FC -> Blackpool, Bromley FC -> Bromley, Cambridge United -> Cambridge, Doncaster Rovers -> Doncaster, Oxford United -> Oxford, Peterborough United -> Peterboro, Sheffield Wednesday -> Sheffield Weds, Stevenage FC -> Stevenage, Stockport County FC -> Stockport, Wycombe Wanderers -> Wycombe
+  · League Two: 13 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · League Two: model fitted on last season + 151 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League Two: 3 feed name(s) matched to the model's spelling — Barnet FC -> Barnet, Colchester United -> Colchester, York City FC -> York
+  · National League: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · National League: model fitted on last season + 177 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · National League: 1 feed name(s) matched to the model's spelling — Scunthorpe United -> Scunthorpe
+  · FA Cup: 40 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · FA Cup: 35/40 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
+  · UEFA Nations League: 22 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · UEFA Nations League: national-team history via martj42/international_results — 1105 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-10-06; no odds in this source, so a leg's CLV comes from its SportyBet closing capture
+  · UEFA Nations League: national Elo blended into 22 fixture(s)
+  · Turkish Super Lig: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Turkish Super Lig: model fitted on last season + 81 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Turkish Super Lig: 12 feed name(s) matched to the model's spelling — Amed Sportif Faaliyetler -> Amedspor, Besiktas Istanbul -> Besiktas, Caykur Rizespor -> Rizespor, Corum FK -> Corum, Erzurumspor FK -> Erzurumspor, Fenerbahce Istanbul -> Fenerbahce, Galatasaray Istanbul -> Galatasaray, Gaziantep FK -> Gaziantep, Genclerbirligi SK -> Genclerbirligi, Goztepe Izmir -> Goztep, Istanbul BB -> Buyuksehyr, Kasimpasa Istanbul -> Kasimpasa
+  · Greek Super League: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Greek Super League: model fitted on last season + 55 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Greek Super League: 10 feed name(s) matched to the model's spelling — AE Kifisia FC -> Kifisia, AEK Athens -> AEK, APO Levadiakos FC -> Levadeiakos, Aris Thessaloniki -> Aris, Atromitos Athinon -> Atromitos, Olympiacos -> Olympiakos, PAE PS Kalamata -> Kalamata, POT Iraklis -> Iraklis, Panaitolikos Agrinio -> Panetolikos, Volos NPS -> Volos NFC
+  · Austrian Bundesliga: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Austrian Bundesliga: model fitted on last season + 60 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Austrian Bundesliga: 8 feed name(s) matched to the model's spelling — Austria Lustenau -> A. Lustenau, FK Austria Wien -> Austria Vienna, Grazer AK 1902 -> Grazer AK, LASK Linz -> LASK, SCR Altach -> Altach, SV Ried -> Ried, TSV Hartberg -> Hartberg, WSG Tirol -> Tirol
+  · Swiss Super League: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Swiss Super League: model fitted on last season + 66 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Swiss Super League: 10 feed name(s) matched to the model's spelling — FC Luzern -> Luzern, FC Sion -> Sion, FC St. Gallen 1879 -> St. Gallen, FC Thun -> Thun, FC Vaduz -> Vaduz, FC Zurich -> Zurich, Grasshopper Club Zurich -> Grasshoppers, Lausanne-Sport -> Lausanne, Servette Geneva -> Servette, Young Boys Bern -> Young Boys
+  · Eliteserien: 8 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Eliteserien: model fitted on last season + 192 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Eliteserien: 12 feed name(s) matched to the model's spelling — Aalesunds FK -> Aalesund, Bodoe/Glimt -> Bodo/Glimt, Fredrikstad FK -> Fredrikstad, IK Start -> Start, Kristiansund BK -> Kristiansund, Lillestroem SK -> Lillestrom, Rosenborg BK -> Rosenborg, SK Brann -> Brann, Sandefjord Fotball -> Sandefjord, Tromsoe IL -> Tromso, Vaalerenga IF -> Valerenga, Viking FK -> Viking
+  · Allsvenskan: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Allsvenskan: model fitted on last season + 208 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Allsvenskan: 14 feed name(s) matched to the model's spelling — BK Hacken -> Hacken, Degerfors IF -> Degerfors, Djurgardens IF -> Djurgarden, Halmstads BK -> Halmstad, Hammarby IF -> Hammarby, IF Brommapojkarna -> Brommapojkarna, IF Elfsborg -> Elfsborg, IFK Goteborg -> Goteborg, IK Sirius -> Sirius, Kalmar FF -> Kalmar, Malmo -> Malmo FF, Mjallby AIF -> Mjallby, Orgryte IS -> Orgryte, Vasteraas SK -> Vasteras SK
+  · Turkish Cup: 0 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Turkish Cup: 0/0 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · TARGET DAY 2026-11-02: 22 fixture(s) kicking off that day (364 outside the target day excluded)
+  · Fixture check (TheSportsDB · ESPN · football-data · FotMob · Flashscore): 21/22 confirmed by two independent sources, 1 one source only, 0 conflict(s)
+  · Learning from 13659 graded singles: Result & total +6.6pp (190/298 won vs 168.5 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.4pp (740/940 won vs 706.8 expected) · DC & total +3.1pp (744/1089 won vs 709.0 expected) · Matchbook close (order 44): Double chance -0.1pp (CLV -0.1% over 83)
+  · losing-market watch: 11 flag(s), 0 approved block(s) in force
+  · value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
+  · tactical matchup: 18 fixture(s) read from the tactical profiles; weight 0 (fitted on unseen matches; 0 = label only), 0 chance(s) moved (cap ±5%)
+  · No forced picks (plan point 3): 22 game(s) whose safest outcome is under 1.20; 2 got no single (no other market 0+ pts over break-even)
+  · one-day override for 2026-11-02 (config/day_overrides.json): forced-pick margin 0 pts, 8 single(s) struck off by the Architect
+  · No Unders in a shootout (order 43): 19 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
+  · same-result price shopping: 142 outcome(s) dropped for the same bet at a better price under another market
+  · full market ladder: 22 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
+  · team profiles: 16 deploy pick(s) profiled (last 20 games each side)
+  · deploy odds band 1.20–2.00: 10 fixture(s) dropped from THE CALL (price out of band)
+  · team news (FotMob): 11 pick(s) checked, 0 flagged for injuries/suspensions, 1 swapped to an alternative the news doesn't touch
+  · switched shaky picks: 0 moved to a steadier market (order 32)
+  · sharp check: 5 pick(s) priced on the Betfair Exchange, 0 above its fair odds
+  · value: 2/12 picks positive EV on our chance x price (avg EV -2.0%); the scorecard tracks whether +EV picks really return more
+  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.2%, live 896 @ -4.1% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -6.1%, live 24 @ -6.3% · MARKET est -3.9%, live 218 @ -3.4%
+  · logged 60 new paper leg(s) with a live entry price
+  · Phase 3 gate: 1090 of 30 legs with logged CLV; mean CLV 0.364
+  · experiment engine: singles by "S9 4 a league" — 0 pick(s) kept off (graded)
+  · positive-CLV accas: 2 built from Double chance +0.19% over 459, Home goals +0.24% over 71
+  · 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
+  · alt-market accas: 0/0 booked (a different market from each fixture's main pick)
+  · positive-value bets (order 37): 0 found, 0/0 slip(s) booked
+  · ACCAS MEGA not booked: the accas sit in different kickoff windows
+  · short 3-leg slips: 0 built, 0 booked (paper)
+  · SportyBet booking codes: 12/12 singles, 2/2 accas, 3/3 mega slips
+  · AI Survivor: graded 8 pick(s)
+  · AI Survivor: 4 lineage(s) born
+  · AI Survivor: 16 alive, 0 holding a pick for 2026-11-02 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+12 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Sonderjyske v FC Copenhagen (Danish Superliga)
+   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, football-data.co.uk, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2
+   Standings/form — home: P12 8pts, last5 7/15 | away: P2 26pts, last5 8/15  (recent-form tilt +0.07)
+   Match result (model probabilities):
+      Sonderjyske to win .......... 21%
+      Draw ......................... 23%
+      FC Copenhagen to win .......... 56%
+   Goals: Over 1.5 goals 88% (model) | Over 2.5 goals 69% (model)
+   Both teams to score YES 67% (model)
+   Likely scores (model, label only): 1-1 10% · 1-2 9% · 0-2 7% | goals 0-1 12% · 2-3 41% · 4+ 47% | clean sheet Sonderjyske 11% · FC Copenhagen 27%
+   Expected goals (model): Sonderjyske 1.323, FC Copenhagen 2.226
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Sonderjyske to win 22% · Draw 25% · FC Copenhagen to win 54%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Sonderjyske (+1.5) Asian handicap
+      Model probability .......... 59%
+      Best quoted price .......... 1.70 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.13 or longer
+      HR30 numerical MES ......... +0.07% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+2. Radomiak Radom v Slask Wroclaw (Ekstraklasa)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, football-data.co.uk, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2
+   Standings/form — home: P17 8pts, last5 0/15 | away: P15 9pts, last5 3/15  (recent-form tilt -0.20)
+   Match result (model probabilities):
+      Radomiak Radom to win .......... 43%
+      Draw ......................... 25%
+      Slask Wroclaw to win .......... 32%
+   Goals: Over 1.5 goals 87% (model) | Over 2.5 goals 66% (model)
+   Both teams to score YES 68% (model)
+   Likely scores (model, label only): 1-1 11% · 2-1 9% · 1-2 8% | goals 0-1 13% · 2-3 42% · 4+ 45% | clean sheet Radomiak Radom 21% · Slask Wroclaw 16%
+   Expected goals (model): Radomiak Radom 1.836, Slask Wroclaw 1.581
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Radomiak Radom to win 50% · Draw 26% · Slask Wroclaw to win 24%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Radomiak Radom or Slask Wroclaw
+      Model probability .......... 78%
+      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.15 or longer
+      HR30 numerical MES ......... -2.90% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+3. Sassuolo v Fiorentina (Serie A)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2
+   Standings/form — home: P15 8pts, last5 1/15 | away: P18 5pts, last5 2/15  (recent-form tilt -0.07)
+   Match result (model probabilities):
+      Sassuolo to win .......... 42%
+      Draw ......................... 24%
+      Fiorentina to win .......... 34%
+   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 56% (model)
+   Both teams to score YES 58% (model)
+   Likely scores (model, label only): 1-1 11% · 2-1 9% · 1-0 9% | goals 0-1 22% · 2-3 45% · 4+ 33% | clean sheet Sassuolo 26% · Fiorentina 21%
+   Expected goals (model): Sassuolo 1.553, Fiorentina 1.358
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Sassuolo to win 48% · Draw 27% · Fiorentina to win 25%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Sassuolo or Fiorentina
+      Model probability .......... 79%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.28 or longer
+      HR30 numerical MES ......... -0.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+4. Lorient v Brest (Ligue 1)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P9 12pts, last5 8/15 | away: P13 9pts, last5 4/15  (recent-form tilt +0.27)
+   Match result (model probabilities):
+      Lorient to win .......... 47%
+      Draw ......................... 27%
+      Brest to win .......... 26%
+   Goals: Over 1.5 goals 75% (model) | Under 2.5 goals 51% (model)
+   Both teams to score YES 53% (model)
+   Likely scores (model, label only): 1-1 13% · 1-0 10% · 2-1 9% | goals 0-1 25% · 2-3 48% · 4+ 27% | clean sheet Lorient 33% · Brest 21%
+   Expected goals (model): Lorient 1.553, Brest 1.097
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Lorient to win 56% · Draw 27% · Brest to win 17%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Lorient or Brest
+      Model probability .......... 75%
+      Best quoted price .......... 1.35 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.33 or longer
+      HR30 numerical MES ......... -1.60% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+5. Benfica v Alverca (Primeira Liga)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2
+   Standings/form — home: P2 22pts, last5 12/15 | away: P8 11pts, last5 9/15  (recent-form tilt +0.20)
+   Match result (model probabilities):
+      Benfica to win .......... 75%
+      Draw ......................... 14%
+      Alverca to win .......... 10%
+   Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 65% (model)
+   Both teams to score YES 51% (model)
+   Likely scores (model, label only): 2-0 11% · 3-0 10% · 1-0 9% | goals 0-1 16% · 2-3 41% · 4+ 43% | clean sheet Benfica 45% · Alverca 8%
+   Expected goals (model): Benfica 2.539, Alverca 0.808
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Benfica to win 70% · Draw 29% · Alverca to win 1%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +15pp on draw (Elo 70%/29%/1% vs Dixon-Coles 75%/14%/10%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Best available market: Under 4.5 goals
+      Model probability .......... 73%
+      Best quoted price .......... 1.38 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.19 or longer
+      HR30 numerical MES ......... +0.29% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+6. Gil Vicente v Guimaraes (Primeira Liga)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P7 14pts, last5 7/15 | away: P13 8pts, last5 5/15  (recent-form tilt +0.13)
+   Match result (model probabilities):
+      Gil Vicente to win .......... 46%
+      Draw ......................... 27%
+      Guimaraes to win .......... 27%
+   Goals: Over 1.5 goals 63% (model) | Under 2.5 goals 63% (model)
+   Both teams to score NO 58% (model)
+   Likely scores (model, label only): 1-0 15% · 1-1 12% · 0-1 11% | goals 0-1 37% · 2-3 45% · 4+ 17% | clean sheet Gil Vicente 41% · Guimaraes 28%
+   Expected goals (model): Gil Vicente 1.267, Guimaraes 0.903
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Gil Vicente to win 57% · Draw 32% · Guimaraes to win 10%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -17pp on away win (Elo 57%/32%/10% vs Dixon-Coles 46%/27%/27%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Best available market: Gil Vicente or Guimaraes
+      Model probability .......... 75%
+      Best quoted price .......... 1.36 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.59 or longer
+      HR30 numerical MES ......... -1.55% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+7. Newcastle v Everton (Premier League)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P8 11pts, last5 6/15 | away: P11 10pts, last5 5/15  (recent-form tilt +0.07)
+   Match result (model probabilities):
+      Newcastle to win .......... 41%
+      Draw ......................... 29%
+      Everton to win .......... 30%
+   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 50% (model)
+   Both teams to score YES 56% (model)
+   Likely scores (model, label only): 1-1 14% · 2-1 9% · 1-0 8% | goals 0-1 24% · 2-3 48% · 4+ 28% | clean sheet Newcastle 29% · Everton 23%
+   Expected goals (model): Newcastle 1.462, Everton 1.223
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Newcastle to win 45% · Draw 29% · Everton to win 26%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Newcastle or Everton
+      Model probability .......... 77%
+      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.31 or longer
+      HR30 numerical MES ......... -2.57% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+8. Red Star v Nancy (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P6 17pts, last5 9/15 | away: P3 19pts, last5 12/15  (recent-form tilt -0.20)
+   Match result (model probabilities):
+      Red Star to win .......... 44%
+      Draw ......................... 29%
+      Nancy to win .......... 27%
+   Goals: Over 1.5 goals 71% (model) | Under 2.5 goals 56% (model)
+   Both teams to score NO 51% (model)
+   Likely scores (model, label only): 1-1 14% · 1-0 11% · 0-0 10% | goals 0-1 29% · 2-3 48% · 4+ 23% | clean sheet Red Star 35% · Nancy 25%
+   Expected goals (model): Red Star 1.388, Nancy 1.037
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Red Star to win 56% · Draw 28% · Nancy to win 16%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Red Star or Nancy
+      Model probability .......... 76%
+      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.42 or longer
+      HR30 numerical MES ......... -3.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+9. Genclerbirligi SK v Alanyaspor (Turkish Super Lig)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: NO DATA | away: P11 12pts, last5 5/15
+   Match result (model probabilities):
+      Genclerbirligi SK to win .......... 34%
+      Draw ......................... 32%
+      Alanyaspor to win .......... 35%
+   Goals: Over 1.5 goals 66% (model) | Under 2.5 goals 62% (model)
+   Both teams to score NO 54% (model)
+   Likely scores (model, label only): 1-1 15% · 0-0 12% · 0-1 11% | goals 0-1 34% · 2-3 48% · 4+ 18% | clean sheet Genclerbirligi SK 33% · Alanyaspor 34%
+   Expected goals (model): Genclerbirligi SK 1.091, Alanyaspor 1.117
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Genclerbirligi SK to win 38% · Draw 28% · Alanyaspor to win 34%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Genclerbirligi SK or Alanyaspor
+      Model probability .......... 74%
+      Best quoted price .......... 1.34 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.51 or longer
+      HR30 numerical MES ......... -3.62% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+10. PAE PS Kalamata v POT Iraklis (Greek Super League)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com, fotmob.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: NO DATA | away: NO DATA
+   Match result (model probabilities):
+      PAE PS Kalamata to win .......... 42%
+      Draw ......................... 28%
+      POT Iraklis to win .......... 29%
+   Goals: Over 1.5 goals 85% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 66% (model)
+   Likely scores (model, label only): 1-1 13% · 2-1 9% · 1-2 7% | goals 0-1 15% · 2-3 46% · 4+ 39% | clean sheet PAE PS Kalamata 24% · POT Iraklis 17%
+   Expected goals (model): PAE PS Kalamata 1.745, POT Iraklis 1.44
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      PAE PS Kalamata to win 45% · Draw 33% · POT Iraklis to win 22%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: PAE PS Kalamata or POT Iraklis
+      Model probability .......... 75%
+      Best quoted price .......... 1.35 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.17 or longer
+      HR30 numerical MES ......... -2.42% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+11. GAIS v AIK (Allsvenskan)
+   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, fotmob.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P10 34pts, last5 7/15 | away: P8 38pts, last5 5/15  (recent-form tilt +0.13)
+   Match result (model probabilities):
+      GAIS to win .......... 46%
+      Draw ......................... 27%
+      AIK to win .......... 27%
+   Goals: Over 1.5 goals 74% (model) | Under 2.5 goals 51% (model)
+   Both teams to score YES 53% (model)
+   Likely scores (model, label only): 1-1 13% · 1-0 11% · 2-1 9% | goals 0-1 26% · 2-3 47% · 4+ 27% | clean sheet GAIS 33% · AIK 22%
+   Expected goals (model): GAIS 1.521, AIK 1.104
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      GAIS to win 52% · Draw 23% · AIK to win 25%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: GAIS or AIK
+      Model probability .......... 79%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.35 or longer
+      HR30 numerical MES ......... -3.43% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+12. Mjallby AIF v Kalmar FF (Allsvenskan)
+   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, fotmob.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: NO DATA | away: NO DATA
+   Match result (model probabilities):
+      Mjallby AIF to win .......... 54%
+      Draw ......................... 26%
+      Kalmar FF to win .......... 20%
+   Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 56% (model)
+   Both teams to score NO 54% (model)
+   Likely scores (model, label only): 1-0 13% · 1-1 12% · 2-0 11% | goals 0-1 30% · 2-3 48% · 4+ 23% | clean sheet Mjallby AIF 42% · Kalmar FF 21%
+   Expected goals (model): Mjallby AIF 1.581, Kalmar FF 0.856
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Mjallby AIF to win 76% · Draw 13% · Kalmar FF to win 11%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +22pp on home win (Elo 76%/13%/11% vs Dixon-Coles 54%/26%/20%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Best available market: Mjallby AIF or Kalmar FF
+      Model probability .......... 76%
+      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.42 or longer
+      HR30 numerical MES ......... -2.40% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Sonderjyske v FC Copenhagen (Danish Superliga) | FC Copenha·56% | O88 / O69 | X279 / Y67 | ✓
+Radomiak Radom v Slask Wroclaw (Ekstraklasa) | Radomiak R·43% | O87 / O66 | 1275 / Y68 | ✓
+Zaglebie v Korona Kielce (Ekstraklasa) | Zaglebie·44% | O66 / U63 | 1X77 / N55 | ✓
+Rakow v Pogon Szczecin (Ekstraklasa) | Pogon Szcz·36% | O79 / O54 | 1271 / Y59 | ✓
+Sassuolo v Fiorentina (Serie A) | Sassuolo·42% | O78 / O56 | 1276 / Y58 | ✓
+Atalanta v Parma (Serie A) | Atalanta·56% | O65 / U61 | 1X81 / N60 | ✓
+Lorient v Brest (Ligue 1) | Lorient·47% | O75 / U51 | 1X74 / Y53 | ✓
+Benfica v Alverca (Primeira Liga) | Benfica·75% | O84 / O65 | 1X90 / Y51 | ✓
+Gil Vicente v Guimaraes (Primeira Liga) | Gil Vicent·46% | O63 / U63 | 1273 / N58 | ✓
+Newcastle v Everton (Premier League) | Newcastle·41% | O76 / O50 | 1271 / Y56 | ✓
+RC Deportivo de A Coruna v Osasuna (La Liga) | RC Deporti·53% | O74 / U52 | 1X80 / Y50 | ✓
+Tenerife v Andorra (La Liga 2) | Tenerife·44% | O76 / O52 | 1275 / Y55 | ✓
+Oviedo v Las Palmas (La Liga 2) | Oviedo·49% | O74 / U51 | 1275 / Y52 | ✓
+Valladolid v Leganes (La Liga 2) | Valladolid·47% | O65 / U62 | 1X75 / N57 | ✓
+Mallorca v Cadiz (La Liga 2) | Mallorca·60% | O62 / U65 | 1X86 / N66 | ✓
+Red Star v Nancy (Ligue 2) | Red Star·44% | O71 / U56 | 1X73 / N51 | ✓
+Reims v Sochaux-Montbeliard (Ligue 2) | Reims·56% | O73 / U54 | 1X82 / N53 | ✓
+Genclerbirligi SK v Alanyaspor (Turkish Super Lig) | Alanyaspor·35% | O66 / U62 | 1268 / N54 | ✓
+Atromitos Athinon v Volos NPS (Greek Super League) | Atromitos ·54% | O77 / U51 | 1X83 / Y52 | ○
+PAE PS Kalamata v POT Iraklis (Greek Super League) | PAE PS Kal·42% | O85 / O62 | 1272 / Y66 | ✓
+GAIS v AIK (Allsvenskan) | GAIS·46% | O74 / U51 | 1273 / Y53 | ✓
+Mjallby AIF v Kalmar FF (Allsvenskan) | Mjallby AI·54% | O70 / U56 | 1X80 / N54 | ✓
+
+PART 3 — REJECTED / WATCHLIST
+Zaglebie v Korona Kielce (Ekstraklasa): no deploy: no live price in the 1.20–2.00 odds band
+Rakow v Pogon Szczecin (Ekstraklasa): no deploy: no live price in the 1.20–2.00 odds band
+Atalanta v Parma (Serie A): no deploy: no live price in the 1.20–2.00 odds band
+RC Deportivo de A Coruna v Osasuna (La Liga): no deploy: no live price in the 1.20–2.00 odds band
+Tenerife v Andorra (La Liga 2): no deploy: no live price in the 1.20–2.00 odds band
+Oviedo v Las Palmas (La Liga 2): no deploy: no live price in the 1.20–2.00 odds band
+Valladolid v Leganes (La Liga 2): no deploy: no live price in the 1.20–2.00 odds band
+Mallorca v Cadiz (La Liga 2): no deploy: no live price in the 1.20–2.00 odds band
+Reims v Sochaux-Montbeliard (Ligue 2): no deploy: no live price in the 1.20–2.00 odds band
+Atromitos Athinon v Volos NPS (Greek Super League): no deploy: no live price in the 1.20–2.00 odds band
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 21
+SINGLE-SOURCE: 1
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): VERIFIED 21 · CONFLICT 0 · SINGLE-SOURCE 1
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

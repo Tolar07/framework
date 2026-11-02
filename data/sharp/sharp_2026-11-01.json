@@ -31,8 +31,8 @@
    "sharp_ev": 0.0792,
    "code": "Y21K6T",
    "url": "http://www.sportybet.com/ng/?shareCode=Y21K6T",
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-2",
    "run_id": "SHARP-e168a732"
   },
   {
@@ -52,8 +52,8 @@
    "sharp_ev": 0.0224,
    "code": "SEKD64",
    "url": "http://www.sportybet.com/ng/?shareCode=SEKD64",
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "run_id": "SHARP-e168a732"
   },
   {
@@ -73,8 +73,8 @@
    "sharp_ev": 0.1352,
    "code": "QDMESD",
    "url": "http://www.sportybet.com/ng/?shareCode=QDMESD",
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "run_id": "SHARP-e168a732"
   },
   {
@@ -94,8 +94,8 @@
    "sharp_ev": 0.0447,
    "code": "WEVVD4",
    "url": "http://www.sportybet.com/ng/?shareCode=WEVVD4",
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "run_id": "SHARP-e168a732"
   },
   {
@@ -115,8 +115,8 @@
    "sharp_ev": 0.0416,
    "code": "G8V5GR",
    "url": "http://www.sportybet.com/ng/?shareCode=G8V5GR",
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "3-0",
    "run_id": "SHARP-e168a732"
   },
   {
@@ -136,8 +136,8 @@
    "sharp_ev": 0.099,
    "code": "MVRV0L",
    "url": "http://www.sportybet.com/ng/?shareCode=MVRV0L",
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "run_id": "SHARP-e168a732"
   }
  ],

@@ -95,3 +95,10 @@ def test_review_saves_lessons_and_reasoning_reads_them(tmp_path, monkeypatch):
     monkeypatch.setenv("BRAIN_REVIEW", "0")
     assert "THE BRAIN'S REVIEW" not in R.teaching("football", out_dir=tmp_path, ledger_dir=tmp_path,
                                                   lessons_path=tmp_path / "x.json")
+
+
+def test_kickoff_without_offset_is_utc():
+    now = datetime(2026, 11, 2, 12, tzinfo=UTC)
+    assert CRD._future({"kickoff_utc": "2026-11-02T18:00:00"}, now)
+    assert not CRD._future({"kickoff_utc": "2026-11-02T10:00:00"}, now)
+    assert CRD._future({"kickoff_utc": None}, now)

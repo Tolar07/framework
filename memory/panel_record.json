@@ -2655,59 +2655,1723 @@
    "clv": null,
    "won": true,
    "graded_at": "2026-11-01T07:17:22+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Zwolle v Den Haag|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8086,
+   "members": {
+    "nvidia": 0.8086
+   },
+   "panel_prob": 0.8086,
+   "edge": -0.0216,
+   "live_prob": 0.815,
+   "live_back": false,
+   "clv": 1.68,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Excelsior v Twente|SB:16|hcp=2.5|Home (+2.5)|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Asian handicap",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8162,
+   "members": {
+    "nvidia": 0.8462
+   },
+   "panel_prob": 0.8462,
+   "edge": 0.0239,
+   "live_prob": 0.835,
+   "live_back": true,
+   "clv": -4.72,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Excelsior v Twente|SB:16|hcp=2.5|Home (+2.5)|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Asian handicap",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.8162,
+   "members": {
+    "nvidia": 0.8462
+   },
+   "panel_prob": 0.8462,
+   "edge": 0.0239,
+   "live_prob": 0.835,
+   "live_back": true,
+   "clv": -4.72,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Telstar v Utrecht|SB:19|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7786,
+   "members": {
+    "nvidia": 0.8086
+   },
+   "panel_prob": 0.8086,
+   "edge": 0.0027,
+   "live_prob": 0.82,
+   "live_back": true,
+   "clv": -4.62,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Groningen v Sparta Rotterdam|SB:33||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7686,
+   "members": {
+    "nvidia": 0.7986
+   },
+   "panel_prob": 0.7986,
+   "edge": -0.0018,
+   "live_prob": 0.795,
+   "live_back": false,
+   "clv": -1.57,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Odense v Silkeborg|SB:18|total=4.5|Under 4.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8191,
+   "members": {
+    "nvidia": 0.8191
+   },
+   "panel_prob": 0.8191,
+   "edge": -0.0089,
+   "live_prob": 0.785,
+   "live_back": false,
+   "clv": -0.82,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Viborg v Horsens|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8035,
+   "members": {
+    "nvidia": 0.8035
+   },
+   "panel_prob": 0.8035,
+   "edge": -0.0278,
+   "live_prob": 0.815,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Viborg v Horsens|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.8035,
+   "members": {
+    "nvidia": 0.8035
+   },
+   "panel_prob": 0.8035,
+   "edge": -0.0278,
+   "live_prob": 0.815,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Nordsjaelland v Midtjylland|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7756,
+   "members": {
+    "nvidia": 0.7456
+   },
+   "panel_prob": 0.7456,
+   "edge": -0.0531,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Brondby v Aarhus|SB:20|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Away goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7497,
+   "members": {
+    "nvidia": 0.7497
+   },
+   "panel_prob": 0.7497,
+   "edge": -0.0554,
+   "live_prob": 0.73,
+   "live_back": false,
+   "clv": -2.33,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Cercle Brugge v Antwerp|SB:16|hcp=-1.5|Away (+1.5)|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Asian handicap",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7497,
+   "members": {
+    "nvidia": 0.7797
+   },
+   "panel_prob": 0.7797,
+   "edge": 0.0058,
+   "live_prob": 0.785,
+   "live_back": true,
+   "clv": 2.38,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|St Truiden v Oud-Heverlee Leuven|SB:18|total=4.5|Under 4.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8184,
+   "members": {
+    "nvidia": 0.8184
+   },
+   "panel_prob": 0.8184,
+   "edge": -0.0016,
+   "live_prob": 0.79,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lommel SK v Gent|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7546,
+   "members": {
+    "nvidia": 0.7546
+   },
+   "panel_prob": 0.7546,
+   "edge": -0.0492,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 1.61,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Charleroi v RAAL La Louviere|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7892,
+   "members": {
+    "nvidia": 0.8192
+   },
+   "panel_prob": 0.8192,
+   "edge": -0.0088,
+   "live_prob": 0.78,
+   "live_back": false,
+   "clv": -2.42,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Falkirk v Celtic|SB:20|total=3.5|Under 3.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Away goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8182,
+   "members": {
+    "nvidia": 0.8582
+   },
+   "panel_prob": 0.8582,
+   "edge": 0.0384,
+   "live_prob": 0.8,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|HNK Rijeka v NK Varazdin|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7817,
+   "members": {
+    "nvidia": 0.7517
+   },
+   "panel_prob": 0.7517,
+   "edge": -0.0529,
+   "live_prob": 0.785,
+   "live_back": false,
+   "clv": 0.8,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|NK Lokomotiva Zagreb v NK Osijek|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7577,
+   "members": {
+    "nvidia": 0.7577
+   },
+   "panel_prob": 0.7577,
+   "edge": -0.0453,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.8,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Frosinone v Torino|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7489,
+   "members": {
+    "nvidia": 0.7189
+   },
+   "panel_prob": 0.7189,
+   "edge": -0.0798,
+   "live_prob": 0.78,
+   "live_back": false,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lazio v Cagliari|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7923,
+   "members": {
+    "nvidia": 0.7623
+   },
+   "panel_prob": 0.7623,
+   "edge": -0.0852,
+   "live_prob": 0.805,
+   "live_back": false,
+   "clv": -2.44,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lecce v Genoa|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.6784,
+   "members": {
+    "nvidia": 0.6284
+   },
+   "panel_prob": 0.6284,
+   "edge": -0.1265,
+   "live_prob": 0.715,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Juventus v Napoli|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.6995,
+   "members": {
+    "nvidia": 0.6395
+   },
+   "panel_prob": 0.6395,
+   "edge": -0.1367,
+   "live_prob": 0.725,
+   "live_back": false,
+   "clv": 1.5,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Union Berlin v FC Koln|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7884,
+   "members": {
+    "nvidia": 0.7884
+   },
+   "panel_prob": 0.7884,
+   "edge": -0.046,
+   "live_prob": 0.785,
+   "live_back": false,
+   "clv": -0.82,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Union Berlin v FC Koln|SB:18|total=1.5|Over 1.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7884,
+   "members": {
+    "gemini": 0.775,
+    "nvidia": 0.7884
+   },
+   "panel_prob": 0.7817,
+   "edge": -0.0541,
+   "live_prob": 0.785,
+   "live_back": false,
+   "clv": -0.82,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Strasbourg v Auxerre|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7594,
+   "members": {
+    "nvidia": 0.7594
+   },
+   "panel_prob": 0.7594,
+   "edge": -0.0356,
+   "live_prob": 0.7963,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lyon v Angers|SB:19|total=3.5|Under 3.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8117,
+   "members": {
+    "nvidia": 0.7817
+   },
+   "panel_prob": 0.7817,
+   "edge": -0.0463,
+   "live_prob": 0.8117,
+   "live_back": true,
+   "clv": 3.39,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Paris FC v Monaco|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7737,
+   "members": {
+    "nvidia": 0.7537
+   },
+   "panel_prob": 0.7537,
+   "edge": -0.0503,
+   "live_prob": 0.7737,
+   "live_back": true,
+   "clv": 0.8,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Marseille v Toulouse|SB:33||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7863,
+   "members": {
+    "nvidia": 0.8363
+   },
+   "panel_prob": 0.8363,
+   "edge": 0.0286,
+   "live_prob": 0.7863,
+   "live_back": true,
+   "clv": -0.81,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Arouca v Nacional|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7491,
+   "members": {
+    "nvidia": 0.7391
+   },
+   "panel_prob": 0.7391,
+   "edge": -0.054,
+   "live_prob": 0.7851,
+   "live_back": true,
+   "clv": 3.23,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Arouca v Nacional|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7491,
+   "members": {
+    "gemini": 0.765
+   },
+   "panel_prob": 0.765,
+   "edge": -0.0208,
+   "live_prob": 0.7851,
+   "live_back": true,
+   "clv": 3.23,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Academico de Viseu FC v Rio Ave|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7926,
+   "members": {
+    "nvidia": 0.7726
+   },
+   "panel_prob": 0.7726,
+   "edge": -0.0033,
+   "live_prob": 0.7926,
+   "live_back": true,
+   "clv": -0.77,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Maritimo Madeira v Santa Clara|SB:19|total=1.5|Under 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7472,
+   "members": {
+    "nvidia": 0.7772
+   },
+   "panel_prob": 0.7772,
+   "edge": 0.0026,
+   "live_prob": 0.7472,
+   "live_back": true,
+   "clv": -0.77,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Maritimo Madeira v Santa Clara|SB:19|total=1.5|Under 1.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7472,
+   "members": {
+    "nvidia": 0.744
+   },
+   "panel_prob": 0.744,
+   "edge": -0.0402,
+   "live_prob": 0.7472,
+   "live_back": true,
+   "clv": -0.77,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Sp Braga v Famalicao|SB:10||Home or Draw|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.817,
+   "members": {
+    "nvidia": 0.857
+   },
+   "panel_prob": 0.857,
+   "edge": 0.0284,
+   "live_prob": 0.8261,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Liverpool v Arsenal|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7157,
+   "members": {
+    "nvidia": 0.7157
+   },
+   "panel_prob": 0.7157,
+   "edge": -0.0481,
+   "live_prob": 0.7616,
+   "live_back": true,
+   "clv": 0.76,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Liverpool v Arsenal|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7157,
+   "members": {
+    "nvidia": 0.7157
+   },
+   "panel_prob": 0.7157,
+   "edge": -0.0481,
+   "live_prob": 0.7616,
+   "live_back": true,
+   "clv": 0.76,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Getafe v Sevilla|SB:33||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7868,
+   "members": {
+    "nvidia": 0.8268
+   },
+   "panel_prob": 0.8268,
+   "edge": -0.0078,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 1.69,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Racing Santander v Real Madrid|SB:18|total=5.5|Under 5.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7446,
+   "members": {
+    "nvidia": 0.7746
+   },
+   "panel_prob": 0.7746,
+   "edge": 0.0535,
+   "live_prob": 0.744,
+   "live_back": true,
+   "clv": 4.62,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Racing Santander v Real Madrid|SB:18|total=5.5|Under 5.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7446,
+   "members": {
+    "gemini": 0.765,
+    "nvidia": 0.7446
+   },
+   "panel_prob": 0.7548,
+   "edge": 0.0265,
+   "live_prob": 0.744,
+   "live_back": true,
+   "clv": 4.62,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Elche v Valencia|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7089,
+   "members": {
+    "nvidia": 0.6889
+   },
+   "panel_prob": 0.6889,
+   "edge": -0.0838,
+   "live_prob": 0.763,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Elche v Valencia|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7089,
+   "members": {
+    "gemini": 0.722,
+    "nvidia": 0.7089
+   },
+   "panel_prob": 0.7154,
+   "edge": -0.0485,
+   "live_prob": 0.763,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Ath Bilbao v Sociedad|SB:19|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8115,
+   "members": {
+    "nvidia": 0.8115
+   },
+   "panel_prob": 0.8115,
+   "edge": -0.0262,
+   "live_prob": 0.811,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Eldense v Granada|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7183,
+   "members": {
+    "nvidia": 0.6883
+   },
+   "panel_prob": 0.6883,
+   "edge": -0.0983,
+   "live_prob": 0.764,
+   "live_back": true,
+   "clv": -0.76,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Ceuta v Sp Gijon|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7554,
+   "members": {
+    "nvidia": 0.7554
+   },
+   "panel_prob": 0.7554,
+   "edge": -0.0331,
+   "live_prob": 0.755,
+   "live_back": true,
+   "clv": -5.88,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Burgos v Castellon|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7294,
+   "members": {
+    "nvidia": 0.6894
+   },
+   "panel_prob": 0.6894,
+   "edge": -0.1038,
+   "live_prob": 0.757,
+   "live_back": true,
+   "clv": -0.76,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Burgos v Castellon|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7294,
+   "members": {
+    "gemini": 0.742,
+    "nvidia": 0.7294
+   },
+   "panel_prob": 0.7357,
+   "edge": -0.0436,
+   "live_prob": 0.757,
+   "live_back": true,
+   "clv": -0.76,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|SS Arezzo v Ascoli Calcio 1898|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7713,
+   "members": {
+    "nvidia": 0.7713
+   },
+   "panel_prob": 0.7713,
+   "edge": 0.0181,
+   "live_prob": 0.771,
+   "live_back": true,
+   "clv": 0.76,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Avellino v SC Pisa|SB:34||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Away win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7788,
+   "members": {
+    "nvidia": 0.8088
+   },
+   "panel_prob": 0.8088,
+   "edge": -0.0052,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 3.36,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Hellas Verona v Carrarese|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7879,
+   "members": {
+    "nvidia": 0.788
+   },
+   "panel_prob": 0.788,
+   "edge": -0.0386,
+   "live_prob": 0.81,
+   "live_back": true,
+   "clv": -3.17,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Palermo v L.R. Vicenza|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8225,
+   "members": {
+    "nvidia": 0.823
+   },
+   "panel_prob": 0.823,
+   "edge": -0.0124,
+   "live_prob": 0.8225,
+   "live_back": true,
+   "clv": 0.84,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|FC St. Pauli v Nurnberg|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7785,
+   "members": {
+    "nvidia": 0.729
+   },
+   "panel_prob": 0.729,
+   "edge": -0.1179,
+   "live_prob": 0.79,
+   "live_back": true,
+   "clv": 0.83,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|FC St. Pauli v Nurnberg|SB:18|total=1.5|Over 1.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7785,
+   "members": {
+    "gemini": 0.788,
+    "nvidia": 0.73
+   },
+   "panel_prob": 0.759,
+   "edge": -0.0816,
+   "live_prob": 0.79,
+   "live_back": true,
+   "clv": 0.83,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Greuther Furth v Holstein Kiel|SB:19|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7863,
+   "members": {
+    "nvidia": 0.826
+   },
+   "panel_prob": 0.826,
+   "edge": -0.0005,
+   "live_prob": 0.7863,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Greuther Furth v Holstein Kiel|SB:19|total=0.5|Over 0.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7863,
+   "members": {
+    "gemini": 0.782,
+    "nvidia": 0.76
+   },
+   "panel_prob": 0.771,
+   "edge": -0.0671,
+   "live_prob": 0.7863,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Hannover v Dresden|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7561,
+   "members": {
+    "nvidia": 0.756
+   },
+   "panel_prob": 0.756,
+   "edge": -0.0323,
+   "live_prob": 0.774,
+   "live_back": true,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Hannover v Dresden|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7561,
+   "members": {
+    "gemini": 0.762,
+    "nvidia": 0.7561
+   },
+   "panel_prob": 0.7591,
+   "edge": -0.0284,
+   "live_prob": 0.774,
+   "live_back": true,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Sheffield Wednesday v Blackpool FC|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.801,
+   "members": {
+    "nvidia": 0.801
+   },
+   "panel_prob": 0.801,
+   "edge": -0.0068,
+   "live_prob": 0.801,
+   "live_back": true,
+   "clv": -0.8,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Amed Sportif Faaliyetler v Eyupspor|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8216,
+   "members": {
+    "nvidia": 0.822
+   },
+   "panel_prob": 0.822,
+   "edge": -0.0054,
+   "live_prob": 0.8216,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Amed Sportif Faaliyetler v Eyupspor|SB:18|total=1.5|Over 1.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.8216,
+   "members": {
+    "nvidia": 0.8216
+   },
+   "panel_prob": 0.8216,
+   "edge": -0.0059,
+   "live_prob": 0.8216,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Istanbul BB v Samsunspor|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.807,
+   "members": {
+    "nvidia": 0.807
+   },
+   "panel_prob": 0.807,
+   "edge": -0.0316,
+   "live_prob": 0.812,
+   "live_back": true,
+   "clv": -0.83,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Trabzonspor v Gaziantep FK|SB:547|total=1.5|Home/Away & Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "DC & total",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7335,
+   "members": {
+    "nvidia": 0.684
+   },
+   "panel_prob": 0.684,
+   "edge": -0.145,
+   "live_prob": 0.7335,
+   "live_back": false,
+   "clv": 5.04,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Kasimpasa Istanbul v Besiktas Istanbul|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7859,
+   "members": {
+    "nvidia": 0.786
+   },
+   "panel_prob": 0.786,
+   "edge": -0.0332,
+   "live_prob": 0.7859,
+   "live_back": true,
+   "clv": 4.24,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|APO Levadiakos FC v Aris Thessaloniki|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7434,
+   "members": {
+    "nvidia": 0.6934
+   },
+   "panel_prob": 0.6934,
+   "edge": -0.0916,
+   "live_prob": 0.77,
+   "live_back": true,
+   "clv": -3.68,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Panaitolikos Agrinio v OFI Crete|SB:34||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Away win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7857,
+   "members": {
+    "nvidia": 0.7857
+   },
+   "panel_prob": 0.7857,
+   "edge": -0.0493,
+   "live_prob": 0.8,
+   "live_back": false,
+   "clv": -0.82,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|PAOK v Asteras Tripolis|SB:19|total=3.5|Under 3.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7869,
+   "members": {
+    "nvidia": 0.8269
+   },
+   "panel_prob": 0.8269,
+   "edge": 0.0088,
+   "live_prob": 0.79,
+   "live_back": true,
+   "clv": 0.83,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Panathinaikos v AEK Athens|SB:33||No|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.793,
+   "members": {
+    "nvidia": 0.843
+   },
+   "panel_prob": 0.843,
+   "edge": 0.0116,
+   "live_prob": 0.81,
+   "live_back": false,
+   "clv": -2.44,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Salzburg v Austria Lustenau|SB:18|total=5.5|Under 5.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7967,
+   "members": {
+    "nvidia": 0.8467
+   },
+   "panel_prob": 0.8467,
+   "edge": 0.0414,
+   "live_prob": 0.81,
+   "live_back": true,
+   "clv": -1.6,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Wolfsberger AC v Sturm Graz|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7919,
+   "members": {
+    "nvidia": 0.7119
+   },
+   "panel_prob": 0.7119,
+   "edge": -0.1315,
+   "live_prob": 0.82,
+   "live_back": true,
+   "clv": 0.0,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|FK Austria Wien v SK Rapid|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7965,
+   "members": {
+    "nvidia": 0.7965
+   },
+   "panel_prob": 0.7965,
+   "edge": -0.0123,
+   "live_prob": 0.81,
+   "live_back": true,
+   "clv": -1.59,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Young Boys Bern v FC Zurich|SB:18|total=2.5|Over 2.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.781,
+   "members": {
+    "nvidia": 0.731
+   },
+   "panel_prob": 0.731,
+   "edge": -0.1082,
+   "live_prob": 0.82,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Young Boys Bern v FC Zurich|SB:18|total=2.5|Over 2.5|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.781,
+   "members": {
+    "nvidia": 0.781
+   },
+   "panel_prob": 0.781,
+   "edge": -0.0472,
+   "live_prob": 0.82,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lausanne-Sport v FC Thun|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7856,
+   "members": {
+    "nvidia": 0.7256
+   },
+   "panel_prob": 0.7256,
+   "edge": -0.0712,
+   "live_prob": 0.79,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lausanne-Sport v FC Thun|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.7856,
+   "members": {
+    "gemini": 0.76
+   },
+   "panel_prob": 0.76,
+   "edge": -0.0272,
+   "live_prob": 0.79,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lugano v Basel|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8217,
+   "members": {
+    "nvidia": 0.7817
+   },
+   "panel_prob": 0.7817,
+   "edge": -0.062,
+   "live_prob": 0.83,
+   "live_back": true,
+   "clv": 1.69,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Lugano v Basel|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.8217,
+   "members": {
+    "gemini": 0.805
+   },
+   "panel_prob": 0.805,
+   "edge": -0.034,
+   "live_prob": 0.83,
+   "live_back": true,
+   "clv": 1.69,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|SK Brann v Molde|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8064,
+   "members": {
+    "nvidia": 0.8064
+   },
+   "panel_prob": 0.8064,
+   "edge": 0.0161,
+   "live_prob": 0.797,
+   "live_back": true,
+   "clv": 1.61,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|SK Brann v Molde|SB:10||Home or Away|lineup",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": null,
+   "anchor": 0.8064,
+   "members": {
+    "nvidia": 0.8064
+   },
+   "panel_prob": 0.8064,
+   "edge": 0.0161,
+   "live_prob": 0.797,
+   "live_back": true,
+   "clv": 1.61,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|IK Start v Lillestroem SK|SB:20|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Away goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8057,
+   "members": {
+    "nvidia": 0.8057
+   },
+   "panel_prob": 0.8057,
+   "edge": -0.0332,
+   "live_prob": 0.805,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Sarpsborg 08 v Kristiansund BK|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8234,
+   "members": {
+    "nvidia": 0.8234
+   },
+   "panel_prob": 0.8234,
+   "edge": -0.0119,
+   "live_prob": 0.823,
+   "live_back": true,
+   "clv": 0.84,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Vaalerenga IF v Tromsoe IL|SB:19|total=0.5|Over 0.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home goals",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8054,
+   "members": {
+    "nvidia": 0.8054
+   },
+   "panel_prob": 0.8054,
+   "edge": -0.0335,
+   "live_prob": 0.805,
+   "live_back": true,
+   "clv": 2.56,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Djurgardens IF v Degerfors IF|SB:18|total=4.5|Under 4.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8004,
+   "members": {
+    "nvidia": 0.8004
+   },
+   "panel_prob": 0.8004,
+   "edge": -0.0075,
+   "live_prob": 0.8,
+   "live_back": true,
+   "clv": 0.81,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Malmo v Hammarby IF|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7917,
+   "members": {
+    "nvidia": 0.7917
+   },
+   "panel_prob": 0.7917,
+   "edge": -0.0183,
+   "live_prob": 0.791,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|BK Hacken v IFK Goteborg|SB:10||Home or Away|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.8005,
+   "members": {
+    "nvidia": 0.8005
+   },
+   "panel_prob": 0.8005,
+   "edge": -0.0154,
+   "live_prob": 0.8,
+   "live_back": true,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-01|Vasteraas SK v IF Brommapojkarna|SB:18|total=1.5|Over 1.5|board",
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Over/Under",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.7897,
+   "members": {
+    "nvidia": 0.7897
+   },
+   "panel_prob": 0.7897,
+   "edge": -0.0287,
+   "live_prob": 0.789,
+   "live_back": true,
+   "clv": 1.65,
+   "won": false,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "nba|2026-11-02|Orlando Magic v Boston Celtics|NBA:68|total=113.5|Under 113.5|board",
+   "date": "2026-11-02",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.5603,
+   "members": {
+    "gemini": 0.5603,
+    "nvidia": 0.5603
+   },
+   "panel_prob": 0.5603,
+   "edge": 0.1206,
+   "live_prob": 0.56,
+   "live_back": true,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "nba|2026-11-02|Indiana Pacers v Brooklyn Nets|NBA:68|total=117.5|Under 117.5|board",
+   "date": "2026-11-02",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.5598,
+   "members": {
+    "gemini": 0.5598,
+    "nvidia": 0.5598
+   },
+   "panel_prob": 0.5598,
+   "edge": 0.0916,
+   "live_prob": 0.55,
+   "live_back": true,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "nba|2026-11-02|Golden State Warriors v LA Clippers|NBA:68|total=107.5|Over 107.5|board",
+   "date": "2026-11-02",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.5894,
+   "members": {
+    "gemini": 0.5894,
+    "nvidia": 0.5894
+   },
+   "panel_prob": 0.5894,
+   "edge": 0.1788,
+   "live_prob": 0.57,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "nba|2026-11-02|Los Angeles Lakers v Toronto Raptors|NBA:68|total=111.5|Over 111.5|board",
+   "date": "2026-11-02",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": null,
+   "anchor": 0.5899,
+   "members": {
+    "gemini": 0.5899,
+    "nvidia": 0.5899
+   },
+   "panel_prob": 0.5899,
+   "edge": 0.1503,
+   "live_prob": 0.57,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-02T06:53:17+00:00"
   }
  ],
  "updated": "2026-11-02",
  "authority": {
   "football | Asian handicap | board": {
-   "n": 17,
+   "n": 19,
    "earned": false,
-   "panel_brier": 0.1506,
-   "live_brier": 0.1507,
-   "panel_brier_on_live": 0.1506,
-   "clv_n": 17,
-   "panel_clv_hit": 0.353,
-   "live_clv_hit": 0.529
+   "panel_brier": 0.1749,
+   "live_brier": 0.1739,
+   "panel_brier_on_live": 0.1749,
+   "clv_n": 19,
+   "panel_clv_hit": 0.368,
+   "live_clv_hit": 0.526
   },
   "football | Asian handicap | lineup": {
-   "n": 5,
+   "n": 6,
    "earned": false,
-   "panel_brier": 0.0398,
-   "live_brier": 0.0376,
-   "panel_brier_on_live": 0.0398,
-   "clv_n": 5,
-   "panel_clv_hit": 0.2,
-   "live_clv_hit": 0.6
+   "panel_brier": 0.1525,
+   "live_brier": 0.1475,
+   "panel_brier_on_live": 0.1525,
+   "clv_n": 6,
+   "panel_clv_hit": 0.167,
+   "live_clv_hit": 0.5
   },
   "football | Away goals | board": {
-   "n": 4,
+   "n": 7,
    "earned": false,
-   "panel_brier": 0.1959,
-   "live_brier": 0.2252,
-   "panel_brier_on_live": 0.1959,
-   "clv_n": 4,
-   "panel_clv_hit": 0.5,
-   "live_clv_hit": 0.25
+   "panel_brier": 0.2005,
+   "live_brier": 0.2159,
+   "panel_brier_on_live": 0.2005,
+   "clv_n": 7,
+   "panel_clv_hit": 0.571,
+   "live_clv_hit": 0.429
   },
   "football | Away win to nil | board": {
-   "n": 2,
+   "n": 4,
    "earned": false,
-   "panel_brier": 0.0444,
-   "live_brier": 0.0462,
-   "panel_brier_on_live": 0.0444,
-   "clv_n": 2,
+   "panel_brier": 0.1857,
+   "live_brier": 0.1964,
+   "panel_brier_on_live": 0.1857,
+   "clv_n": 4,
    "panel_clv_hit": 0.5,
    "live_clv_hit": 0.5
   },
   "football | DC & total | board": {
-   "n": 2,
+   "n": 3,
    "earned": false,
-   "panel_brier": 0.304,
-   "live_brier": 0.2588,
-   "panel_brier_on_live": 0.304,
-   "clv_n": 2,
-   "panel_clv_hit": 0.5,
-   "live_clv_hit": 0.5
+   "panel_brier": 0.2359,
+   "live_brier": 0.1962,
+   "panel_brier_on_live": 0.2359,
+   "clv_n": 3,
+   "panel_clv_hit": 0.333,
+   "live_clv_hit": 0.333
   },
   "football | DC & total | lineup": {
    "n": 1,
@@ -2720,23 +4384,23 @@
    "live_clv_hit": 1.0
   },
   "football | Double chance | board": {
-   "n": 31,
+   "n": 60,
    "earned": false,
-   "panel_brier": 0.1613,
-   "live_brier": 0.163,
-   "panel_brier_on_live": 0.1613,
-   "clv_n": 31,
-   "panel_clv_hit": 0.645,
-   "live_clv_hit": 0.581
+   "panel_brier": 0.155,
+   "live_brier": 0.1544,
+   "panel_brier_on_live": 0.155,
+   "clv_n": 60,
+   "panel_clv_hit": 0.633,
+   "live_clv_hit": 0.5
   },
   "football | Double chance | lineup": {
-   "n": 6,
+   "n": 15,
    "earned": false,
-   "panel_brier": 0.1446,
-   "live_brier": 0.1555,
-   "panel_brier_on_live": 0.1446,
-   "clv_n": 6,
-   "panel_clv_hit": 0.833,
+   "panel_brier": 0.1237,
+   "live_brier": 0.1243,
+   "panel_brier_on_live": 0.1237,
+   "clv_n": 15,
+   "panel_clv_hit": 0.667,
    "live_clv_hit": 0.667
   },
   "football | European handicap | board": {
@@ -2760,34 +4424,34 @@
    "live_clv_hit": 1.0
   },
   "football | Home goals | board": {
-   "n": 6,
+   "n": 13,
    "earned": false,
-   "panel_brier": 0.2267,
-   "live_brier": 0.2309,
-   "panel_brier_on_live": 0.2267,
-   "clv_n": 5,
-   "panel_clv_hit": 0.2,
-   "live_clv_hit": 1.0
+   "panel_brier": 0.1252,
+   "live_brier": 0.1293,
+   "panel_brier_on_live": 0.1252,
+   "clv_n": 12,
+   "panel_clv_hit": 0.333,
+   "live_clv_hit": 0.667
   },
   "football | Home goals | lineup": {
-   "n": 1,
+   "n": 3,
    "earned": false,
-   "panel_brier": 0.0296,
-   "live_brier": 0.04,
-   "panel_brier_on_live": 0.0296,
-   "clv_n": 1,
-   "panel_clv_hit": 0.0,
-   "live_clv_hit": 1.0
+   "panel_brier": 0.0492,
+   "live_brier": 0.0499,
+   "panel_brier_on_live": 0.0492,
+   "clv_n": 3,
+   "panel_clv_hit": 0.667,
+   "live_clv_hit": 0.333
   },
   "football | Home win to nil | board": {
-   "n": 4,
+   "n": 8,
    "earned": false,
-   "panel_brier": 0.4656,
-   "live_brier": 0.4276,
-   "panel_brier_on_live": 0.4656,
-   "clv_n": 4,
-   "panel_clv_hit": 0.75,
-   "live_clv_hit": 0.75
+   "panel_brier": 0.4179,
+   "live_brier": 0.385,
+   "panel_brier_on_live": 0.4179,
+   "clv_n": 8,
+   "panel_clv_hit": 0.5,
+   "live_clv_hit": 0.625
   },
   "football | Multigoals | board": {
    "n": 2,
@@ -2800,31 +4464,31 @@
    "live_clv_hit": 0.5
   },
   "football | Over/Under | board": {
-   "n": 56,
+   "n": 74,
    "earned": false,
-   "panel_brier": 0.1398,
-   "live_brier": 0.1417,
-   "panel_brier_on_live": 0.1398,
-   "clv_n": 55,
-   "panel_clv_hit": 0.673,
-   "live_clv_hit": 0.673
+   "panel_brier": 0.1514,
+   "live_brier": 0.1505,
+   "panel_brier_on_live": 0.1514,
+   "clv_n": 73,
+   "panel_clv_hit": 0.63,
+   "live_clv_hit": 0.644
   },
   "football | Over/Under | lineup": {
-   "n": 7,
+   "n": 12,
    "earned": false,
-   "panel_brier": 0.1188,
-   "live_brier": 0.1203,
-   "panel_brier_on_live": 0.1188,
-   "clv_n": 6,
-   "panel_clv_hit": 0.5,
-   "live_clv_hit": 0.5
+   "panel_brier": 0.0898,
+   "live_brier": 0.0885,
+   "panel_brier_on_live": 0.0898,
+   "clv_n": 11,
+   "panel_clv_hit": 0.636,
+   "live_clv_hit": 0.636
   },
   "nba | NBA 1st half total | board": {
-   "n": 16,
+   "n": 20,
    "earned": false,
-   "panel_brier": 0.1941,
-   "live_brier": 0.1979,
-   "panel_brier_on_live": 0.1941,
+   "panel_brier": 0.1915,
+   "live_brier": 0.1966,
+   "panel_brier_on_live": 0.1915,
    "clv_n": 0
   },
   "nba | NBA handicap | board": {
@@ -2839,13 +4503,16 @@
  "members": {
   "gemini": {
    "weight": 1.0,
-   "n": 4,
+   "n": 18,
    "dropped": null
   },
   "nvidia": {
-   "weight": 1.0,
-   "n": 14,
-   "dropped": null
+   "weight": 0.0,
+   "n": 98,
+   "brier": 0.1657,
+   "anchor_brier": 0.1625,
+   "wins": 92,
+   "dropped": "worse than the market anchor"
   },
   "openrouter": {
    "weight": 1.0,

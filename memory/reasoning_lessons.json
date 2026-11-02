@@ -59,17 +59,18 @@
   ]
  },
  "nba": {
-  "date": "2026-11-01",
-  "graded": 55,
+  "date": "2026-11-02",
+  "graded": 59,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
-   "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record (saved 2 of 2 losses).",
-   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher (won 11 of 13); avoid or reduce stake on Unders at 120.5 or higher (won 2 of 3).",
-   "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher (won 4 of 4).",
+   "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record.",
+   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher; avoid or reduce stake on Unders at 120.5 or higher.",
+   "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher.",
    "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65.",
-   "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85 (won 3 of 4)."
+   "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85.",
+   "Apply reduced stake and lower confidence on 1st half Over bets in NBA totals due to recent volatility and mixed results."
   ],
-  "summary": "Refined the record statistics for 1st half Under lines and NBA underdog handicaps to accurately reflect recent performance.",
+  "summary": "Refined lessons to maintain strict threshold rules on 1st half totals, odds minimums, and added a specific caution rule for 1st half Over bets based on recent performance.",
   "history": [
    {
     "date": "2026-10-23",
@@ -110,6 +111,11 @@
     "date": "2026-11-01",
     "graded": 55,
     "n": 5
+   },
+   {
+    "date": "2026-11-02",
+    "graded": 59,
+    "n": 6
    }
   ]
  },
@@ -169,6 +175,22 @@
    "fixture": "Oldham v Crawley Town",
    "failure_mode": "VARIANCE_BAD_BEAT",
    "lesson": "High probability picks near 79 percent will still lose roughly one out of five times due to standard statistical variance."
+  },
+  {
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "fixture": "Marseille v Toulouse",
+   "failure_mode": "OVERCONFIDENT_CALIBRATION",
+   "lesson": "Calibrate high-confidence probabilities carefully and avoid uncalibrated bets when market validation is unavailable."
+  },
+  {
+   "date": "2026-11-01",
+   "domain": "football",
+   "family": "Home win to nil",
+   "fixture": "Panathinaikos v AEK Athens",
+   "failure_mode": "VARIANCE_BAD_BEAT",
+   "lesson": "High probability model estimates can still lose to normal match variance; maintain strict bankroll management regardless of high confidence."
   }
  ]
 }

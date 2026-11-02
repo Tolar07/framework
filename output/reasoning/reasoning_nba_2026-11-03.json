@@ -1,0 +1,935 @@
+{
+ "date": "2026-11-03",
+ "picks_generated_at": "2026-11-02T06:51:51Z",
+ "run_at": "2026-11-02T06:53:17+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Cleveland Cavaliers v Oklahoma City Thunder",
+   "market": "NBA:68|total=117.5|Under 117.5",
+   "pick": "1st half Under 117.5 points",
+   "price": 1.9,
+   "model_chance": 0.6091,
+   "code": "QPURWR",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.6091,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 117.5 is below 120.0 points at odds of 1.90 meeting our lesson rules.",
+   "market_chance": null,
+   "anchored_chance": 0.6091,
+   "anchored_edge": 0.0828,
+   "cognitive": {
+    "blue_team_thesis": "Base probability of 0.6091 aligns with market probability for 1st half Under 117.5 points.",
+    "red_team_attack": "Profile lean data is missing, introducing epistemic risk for this first-half total line.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6091,
+    "market_prob": 0.6091,
+    "cognitive_prob": 0.5891,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6091,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6091,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.6091,
+     "nvidia": 0.6091
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6091,
+    "edge": 0.1573,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6091
+  },
+  {
+   "fixture": "Indiana Pacers v Atlanta Hawks",
+   "market": "NBA:68|total=118.5|Under 118.5",
+   "pick": "1st half Under 118.5 points",
+   "price": 2.0,
+   "model_chance": 0.5596,
+   "code": "PV2XJS",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5596,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING, but our lesson dictates avoiding or reducing stake on Unders at 120.5 or higher (line is 118.5 is close, taking caution with lower stake).",
+   "market_chance": null,
+   "anchored_chance": 0.5596,
+   "anchored_edge": 0.0596,
+   "cognitive": {
+    "blue_team_thesis": "Base model probability of 0.5596 matches market pricing for 1st half Under 118.5 points.",
+    "red_team_attack": "Lack of profile lean data creates epistemic uncertainty surrounding the baseline projection.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5596,
+    "market_prob": 0.5596,
+    "cognitive_prob": 0.5396,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5596,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5596,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5596,
+     "nvidia": 0.5596
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5596,
+    "edge": 0.1192,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5596
+  },
+  {
+   "fixture": "New York Knicks v Brooklyn Nets",
+   "market": "NBA:68|total=113.5|Under 113.5",
+   "pick": "1st half Under 113.5 points",
+   "price": 2.0,
+   "model_chance": 0.5769,
+   "code": "QQFK9P",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.5769,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 113.5 sits comfortably below 120.0 points with acceptable odds of 2.0.",
+   "market_chance": null,
+   "anchored_chance": 0.5769,
+   "anchored_edge": 0.0769,
+   "cognitive": {
+    "blue_team_thesis": "Model base probability of 0.5769 aligns with market probability for 1st half Under 113.5 points.",
+    "red_team_attack": "Profile lean is missing from the input data, raising epistemic risk.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5769,
+    "market_prob": 0.5769,
+    "cognitive_prob": 0.5569,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5769,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5769,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5769,
+     "nvidia": 0.5769
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5769,
+    "edge": 0.1538,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5769
+  },
+  {
+   "fixture": "Orlando Magic v Washington Wizards",
+   "market": "NBA:68|total=108.5|Over 108.5",
+   "pick": "1st half Over 108.5 points",
+   "price": 1.9,
+   "model_chance": 0.6379,
+   "code": "TKYJ2P",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.6379,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in this family, but our lessons require caution and a reduced stake on 1st half Overs following recent volatility.",
+   "market_chance": null,
+   "anchored_chance": 0.6379,
+   "anchored_edge": 0.1116,
+   "cognitive": {
+    "blue_team_thesis": "Strong base probability of 0.6379 matches market probability for 1st half Over 108.5 points.",
+    "red_team_attack": "Profile lean input is absent, representing unquantified epistemic uncertainty.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6379,
+    "market_prob": 0.6379,
+    "cognitive_prob": 0.6179,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6379,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6379,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.6379,
+     "nvidia": 0.6379
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6379,
+    "edge": 0.212,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6379
+  },
+  {
+   "fixture": "Philadelphia 76ers v Chicago Bulls",
+   "market": "NBA:68|total=116.5|Over 116.5",
+   "pick": "1st half Over 116.5 points",
+   "price": 1.94,
+   "model_chance": 0.623,
+   "code": "XHRYDX",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.623,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, but we apply a reduced stake on 1st half Overs based on recent tactical learnings.",
+   "market_chance": null,
+   "anchored_chance": 0.623,
+   "anchored_edge": 0.1075,
+   "cognitive": {
+    "blue_team_thesis": "Base model probability of 0.6230 is backed by market consensus for 1st half Over 116.5 points.",
+    "red_team_attack": "Missing profile lean indicator forces caution due to incomplete situational context.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.623,
+    "market_prob": 0.623,
+    "cognitive_prob": 0.603,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.623,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.623,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.623,
+     "nvidia": 0.623
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.623,
+    "edge": 0.2086,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.623
+  },
+  {
+   "fixture": "Dallas Mavericks v Sacramento Kings",
+   "market": "NBA:68|total=120.5|Under 120.5",
+   "pick": "1st half Under 120.5 points",
+   "price": 1.92,
+   "model_chance": 0.5924,
+   "code": "TQ17UR",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5924,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING, but our lesson dictates avoiding or reducing stake on Unders at 120.5 or higher (line is exactly 120.5).",
+   "market_chance": null,
+   "anchored_chance": 0.5924,
+   "anchored_edge": 0.0716,
+   "cognitive": {
+    "blue_team_thesis": "Market probability and base model probability agree at 0.5924 for 1st half Under 120.5 points.",
+    "red_team_attack": "Profile lean is missing, adding epistemic risk to the total evaluation.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5924,
+    "market_prob": 0.5924,
+    "cognitive_prob": 0.5724,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5924,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5924,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5924,
+     "nvidia": 0.5924
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5924,
+    "edge": 0.1374,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5924
+  },
+  {
+   "fixture": "Memphis Grizzlies v New Orleans Pelicans",
+   "market": "NBA:68|total=120.5|Under 120.5",
+   "pick": "1st half Under 120.5 points",
+   "price": 1.92,
+   "model_chance": 0.5759,
+   "code": "X96P28",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.5759,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING, but our lesson dictates avoiding or reducing stake on Unders at 120.5 or higher (line is exactly 120.5).",
+   "market_chance": null,
+   "anchored_chance": 0.5759,
+   "anchored_edge": 0.0551,
+   "cognitive": {
+    "blue_team_thesis": "Solid base probability of 0.5759 equal to market probability for 1st half Under 120.5 points.",
+    "red_team_attack": "Absence of profile lean data requires a risk discount on the pick.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5759,
+    "market_prob": 0.5759,
+    "cognitive_prob": 0.5559,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5759,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5759,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5759,
+     "nvidia": 0.5759
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5759,
+    "edge": 0.1057,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5759
+  },
+  {
+   "fixture": "Minnesota Timberwolves v Milwaukee Bucks",
+   "market": "NBA:68|total=113.5|Over 113.5",
+   "pick": "1st half Over 113.5 points",
+   "price": 1.92,
+   "model_chance": 0.6226,
+   "code": "VJFC99",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.6226,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, but our lessons require caution and reduced stake on 1st half Overs.",
+   "market_chance": null,
+   "anchored_chance": 0.6226,
+   "anchored_edge": 0.1018,
+   "cognitive": {
+    "blue_team_thesis": "High base probability of 0.6226 matches sharp market probability for 1st half Over 113.5 points.",
+    "red_team_attack": "Profile lean is listed as missing, indicating epistemic uncertainty.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6226,
+    "market_prob": 0.6226,
+    "cognitive_prob": 0.6026,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6226,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6226,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.6226,
+     "nvidia": 0.6226
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6226,
+    "edge": 0.1954,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6226
+  },
+  {
+   "fixture": "Houston Rockets v Boston Celtics",
+   "market": "NBA:68|total=112.5|Under 112.5",
+   "pick": "1st half Under 112.5 points",
+   "price": 1.94,
+   "model_chance": 0.5934,
+   "code": "X9TGFV",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.5934,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 112.5 is well below 120.0 points with odds at 1.94 satisfying our criteria.",
+   "market_chance": null,
+   "anchored_chance": 0.5934,
+   "anchored_edge": 0.0779,
+   "cognitive": {
+    "blue_team_thesis": "Base probability of 0.5934 aligns directly with market pricing for 1st half Under 112.5 points.",
+    "red_team_attack": "Profile lean metric is missing, presenting unmodeled risk factors.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5934,
+    "market_prob": 0.5934,
+    "cognitive_prob": 0.5734,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5934,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5934,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5934,
+     "nvidia": 0.5934
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5934,
+    "edge": 0.1512,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5934
+  },
+  {
+   "fixture": "San Antonio Spurs v Utah Jazz",
+   "market": "NBA:68|total=112.5|Over 112.5",
+   "pick": "1st half Over 112.5 points",
+   "price": 1.94,
+   "model_chance": 0.6064,
+   "code": "YYQD1U",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.6064,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, but our lessons require caution and a reduced stake on 1st half Overs.",
+   "market_chance": null,
+   "anchored_chance": 0.6064,
+   "anchored_edge": 0.0909,
+   "cognitive": {
+    "blue_team_thesis": "Model base probability of 0.6064 matches market probability for 1st half Over 112.5 points.",
+    "red_team_attack": "Missing profile lean data introduces epistemic uncertainty.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.6064,
+    "market_prob": 0.6064,
+    "cognitive_prob": 0.5864,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6064,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6064,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.6064,
+     "nvidia": 0.6064
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.6064,
+    "edge": 0.1764,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6064
+  },
+  {
+   "fixture": "Denver Nuggets v Portland Trail Blazers",
+   "market": "NBA:68|total=117.5|Under 117.5",
+   "pick": "1st half Under 117.5 points",
+   "price": 2.0,
+   "model_chance": 0.5763,
+   "code": "W26QCL",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.58,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 117.5 is below 120.0 points with acceptable odds of 2.0.",
+   "market_chance": null,
+   "anchored_chance": 0.58,
+   "anchored_edge": 0.08,
+   "cognitive": {
+    "blue_team_thesis": "Model base probability of 0.5763 aligns perfectly with market probability at odds of 2.0, providing a solid theoretical edge.",
+    "red_team_attack": "Missing profile_lean introduces epistemic risk, leaving key tactical profile inputs unconfirmed.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.03,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5763,
+    "market_prob": 0.5763,
+    "cognitive_prob": 0.5463,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5763,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5763,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5763,
+     "nvidia": 0.5763
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5763,
+    "edge": 0.1526,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5763
+  },
+  {
+   "fixture": "Golden State Warriors v Phoenix Suns",
+   "market": "NBA:68|total=116.5|Under 116.5",
+   "pick": "1st half Under 116.5 points",
+   "price": 2.0,
+   "model_chance": 0.5765,
+   "code": "Q95F1C",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.58,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 116.5 is below 120.0 points with acceptable odds of 2.0.",
+   "market_chance": null,
+   "anchored_chance": 0.58,
+   "anchored_edge": 0.08,
+   "cognitive": {
+    "blue_team_thesis": "Base probability of 0.5765 matches the sharp market probability, offering a clean baseline model edge at price 2.0.",
+    "red_team_attack": "Epistemic risk from missing profile_lean requires caution as game pace and profile tendencies are not fully established.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.03,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5765,
+    "market_prob": 0.5765,
+    "cognitive_prob": 0.5465,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "cog_brier": 0.1941,
+     "base_brier": 0.1941,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5765,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5765,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5765,
+     "nvidia": 0.5765
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5765,
+    "edge": 0.153,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 16,
+     "earned": false,
+     "panel_brier": 0.1941,
+     "live_brier": 0.1979,
+     "panel_brier_on_live": 0.1941,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5765
+  }
+ ],
+ "prompt_version": "975031f938",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-3.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 0,
+   "LOWER": 12,
+   "VETO": 0
+  },
+  "fallback": 0,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "ok",
+    "answered": 12
+   },
+   "openrouter": {
+    "model": "google/gemma-4-26b-a4b-it:free",
+    "status": "off for this run: openrouter: 429",
+    "answered": 0
+   },
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
+    "status": "ok",
+    "answered": 12
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 1.0,
+    "n": 4,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 1.0,
+    "n": 14,
+    "dropped": null
+   },
+   "openrouter": {
+    "weight": 0.0,
+    "n": 0,
+    "dropped": "rate-limited or refused this run"
+   }
+  },
+  "authority": 0,
+  "missing": []
+ },
+ "sport": "nba"
+}

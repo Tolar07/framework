@@ -1,20 +1,20 @@
 {
- "built_at": "2026-11-02T00:37:14+00:00",
+ "built_at": "2026-11-02T06:57:20+00:00",
  "recorded_only": true,
- "rows": 143,
+ "rows": 213,
  "ridge": 4.0,
  "weights": {
   "bias": {
-   "w": 0.2496,
-   "rows": 143
+   "w": 0.2333,
+   "rows": 213
   },
   "member:gemini": {
    "w": 0.0,
-   "rows": 0
+   "rows": 4
   },
   "member:nvidia": {
-   "w": 0.0,
-   "rows": 7
+   "w": -0.1322,
+   "rows": 77
   },
   "member:openrouter": {
    "w": 0.0,
@@ -22,10 +22,10 @@
   }
  },
  "walk_forward": {
-  "n": 90,
-  "learned_brier": 0.1633,
-  "market_brier": 0.1664,
-  "panel_brier": 0.1664,
+  "n": 160,
+  "learned_brier": 0.1662,
+  "market_brier": 0.1689,
+  "panel_brier": 0.1704,
   "beats_market": true
  }
 }

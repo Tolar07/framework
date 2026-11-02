@@ -61,9 +61,11 @@ def _load(p: Path) -> Optional[dict]:
 
 def _future(fx: dict, now: datetime) -> bool:
     try:
-        return datetime.fromisoformat(str(fx.get("kickoff_utc")).replace("Z", "+00:00")) > now
+        k = datetime.fromisoformat(str(fx.get("kickoff_utc")).replace("Z", "+00:00"))
     except ValueError:
         return True           # no kick-off time: read it rather than miss it
+    # rated games carry kick-offs without an offset; they are UTC (2026-11-02 01:24: TypeError)
+    return (k if k.tzinfo else k.replace(tzinfo=UTC)) > now
 
 
 def pending(now: Optional[datetime] = None) -> list[str]:

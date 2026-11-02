@@ -17,7 +17,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:20Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5749731,
@@ -222,7 +222,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:20Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.18785164734428897,
   "away_unavailable": 3,
   "fotmob_id": 5802975,
@@ -264,7 +264,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:00Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.5126360446282495,
   "away_unavailable": 6,
   "fotmob_id": 5868520,
@@ -323,7 +323,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:00Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5795503,
@@ -444,7 +444,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:00Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.31070942027785575,
   "away_unavailable": 3,
   "fotmob_id": 5868113,
@@ -508,23 +508,23 @@
     "type": "suspension"
    },
    {
-    "name": "Musa Juwara",
+    "name": "Mor Ndiaye",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T18:20Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 7,
+  "at": "2026-11-02T18:40Z",
+  "away_missing_share": 0.18632882286368144,
+  "away_unavailable": 5,
   "fotmob_id": 5804027,
-  "home_missing_share": null,
+  "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "simple"
  },
  "Red Star v Nancy": {
   "absent": [],
-  "at": "2026-11-02T18:20Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803305,
@@ -535,7 +535,7 @@
  },
  "Reims v Sochaux-Montbeliard": {
   "absent": [],
-  "at": "2026-11-02T18:20Z",
+  "at": "2026-11-02T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803306,

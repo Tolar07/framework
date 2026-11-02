@@ -96,14 +96,14 @@
     "type": "injury"
    },
    {
-    "name": "Adri\u00e1n Helm",
+    "name": "Eskil Smidesang Edh",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T12:00Z",
-  "away_missing_share": 0.5069545160142238,
-  "away_unavailable": 7,
+  "at": "2026-11-02T16:40Z",
+  "away_missing_share": 0.5384328764663193,
+  "away_unavailable": 8,
   "fotmob_id": 5107646,
   "home_missing_share": 0.4466746735143924,
   "home_unavailable": 6,
@@ -301,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T12:00Z",
+  "at": "2026-11-02T16:40Z",
   "away_missing_share": 0.10942224437898457,
   "away_unavailable": 2,
   "fotmob_id": 5107648,
@@ -407,7 +407,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:20Z",
+  "at": "2026-11-02T16:40Z",
   "away_missing_share": 0.27282086955877366,
   "away_unavailable": 4,
   "fotmob_id": 5943282,
@@ -582,14 +582,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:20Z",
-  "away_missing_share": 0.22393117578273222,
+  "at": "2026-11-02T16:40Z",
+  "away_missing_share": 0.2155752274546325,
   "away_unavailable": 4,
   "fotmob_id": 5749738,
-  "home_missing_share": 0.3717948630655933,
+  "home_missing_share": 0.3375984950808103,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Tenerife v Andorra": {
   "absent": [
@@ -641,13 +641,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T16:20Z",
-  "away_missing_share": 0.13050788133643068,
+  "at": "2026-11-02T16:40Z",
+  "away_missing_share": 0.10218102464150064,
   "away_unavailable": 2,
   "fotmob_id": 5868524,
-  "home_missing_share": 0.4292059315524254,
-  "home_unavailable": 6,
+  "home_missing_share": 0.3469382466173532,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-02T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

@@ -6,10 +6,10 @@
    "train_n": 22,
    "train_effect": 0.442,
    "train_z": 2.18,
-   "test_n": 1,
-   "test_effect": -0.899,
-   "test_z": null,
-   "checked": "2026-11-01"
+   "test_n": 2,
+   "test_effect": -0.653,
+   "test_z": -2.65,
+   "checked": "2026-11-02"
   },
   "possession side v low block": {
    "status": "candidate",
@@ -17,11 +17,11 @@
    "train_n": 242,
    "train_effect": 0.122,
    "train_z": 2.05,
-   "test_n": 94,
-   "test_effect": 0.02,
-   "test_z": 0.19,
-   "checked": "2026-11-01"
+   "test_n": 100,
+   "test_effect": 0.006,
+   "test_z": 0.06,
+   "checked": "2026-11-02"
   }
  },
- "updated": "2026-11-01"
+ "updated": "2026-11-02"
 }

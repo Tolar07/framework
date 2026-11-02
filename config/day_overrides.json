@@ -1,0 +1,27 @@
+{
+  "2026-11-02": {
+    "why": "Architect 2026-11-01 23:40: 2 Nov board = a mixture of the two dry-run boards; 12 singles at a 0-pt forced-pick margin, 5 struck off",
+    "forced_edge": 0.0,
+    "no_single": [
+      "Tenerife",
+      "Zaglebie",
+      "Atalanta",
+      "Reims",
+      "Mallorca"
+    ],
+    "only_singles": [
+      "Radomiak Radom",
+      "Genclerbirligi SK",
+      "Sassuolo",
+      "PAE PS Kalamata",
+      "Sonderjyske",
+      "GAIS",
+      "Mjallby AIF",
+      "Lorient",
+      "Red Star",
+      "Newcastle",
+      "Benfica",
+      "Gil Vicente"
+    ]
+  }
+}

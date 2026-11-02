@@ -2,11 +2,13 @@
  "date": "2026-11-03",
  "gone": [
   "sr:match:73719492|68|total=108.5|Over 108.5",
-  "sr:match:73719484|68|total=117.5|Under 117.5"
+  "sr:match:73719484|68|total=117.5|Under 117.5",
+  "sr:match:73719486|68|total=106.5|Under 106.5"
  ],
  "reopen": [
   "sr:match:73719492",
-  "sr:match:73719484"
+  "sr:match:73719484",
+  "sr:match:73719486"
  ],
  "first": {
   "sr:match:73719484": {

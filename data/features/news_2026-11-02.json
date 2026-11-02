@@ -1,4 +1,46 @@
 {
+ "Oviedo v Las Palmas": {
+  "absent": [
+   {
+    "name": "Ilyas Chaira",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Christopher Ramos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Carlos Fern\u00e1ndez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giovanni Bonfanti",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ale Garc\u00eda",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Enrique Clemente",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T09:20Z",
+  "away_missing_share": 0.5562543279239949,
+  "away_unavailable": 9,
+  "fotmob_id": 5868521,
+  "home_missing_share": 0.34417629668872546,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Tenerife v Andorra": {
   "absent": [
    {

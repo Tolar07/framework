@@ -1,5 +1,5 @@
 {
- "reviewed": "2026-10-30",
+ "reviewed": "2026-11-02",
  "inputs": [
   {
    "input": "team strength",
@@ -24,9 +24,9 @@
     "engine/form.py"
    ],
    "evidence": [
-    "home win | xG edge: NO CLEAR EFFECT (Brier +0.00165)",
-    "over 2.5 | xG total: NO CLEAR EFFECT (Brier +0.00103)",
-    "BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00019)"
+    "home win | xG edge: NO CLEAR EFFECT (Brier +0.00146)",
+    "over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00036)",
+    "BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00024)"
    ]
   },
   {
@@ -140,93 +140,215 @@
    "what": "engine/learning.py chance shift per family / league",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-29",
+   "newest": "2026-11-01",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-10-29 (1 d old)"
+   "note": "newest evidence 2026-11-01 (1 d old)"
   },
   {
    "loop": "match study",
    "what": "monitor/match_study_run.py per-match expected v happened v why",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-29",
+   "newest": "2026-11-01",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-10-29 (1 d old)"
+   "note": "newest evidence 2026-11-01 (1 d old)"
   },
   {
    "loop": "why record",
    "what": "engine/why_record.py right / unlucky / outplayed / game-changed",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-29",
+   "newest": "2026-11-01",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-10-29 (1 d old)"
+   "note": "newest evidence 2026-11-01 (1 d old)"
   },
   {
    "loop": "tactics lessons",
    "what": "engine/tactics_study.py lessons tested on unseen matches",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 55,
+   "now": 102,
    "then": null,
    "ok": true,
-   "note": "55 tested (no history 7 d back)"
+   "note": "102 tested (no history 7 d back)"
   },
   {
    "loop": "slip post-mortem",
    "what": "engine/leg_postmortem.py slip-killer leg classes",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 360,
-   "then": 221,
+   "now": 399,
+   "then": 299,
    "ok": true,
-   "note": "221 -> 360 tested over 7 d"
+   "note": "299 -> 399 tested over 7 d"
   },
   {
    "loop": "why-weighted shadow",
    "what": "engine/why_learning.py walk-forward v the live learner",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 988,
+   "now": 1149,
    "then": null,
    "ok": true,
-   "note": "988 tested (no history 7 d back)"
+   "note": "1149 tested (no history 7 d back)"
   },
   {
    "loop": "reasoning lessons",
    "what": "engine/reasoning.py daily market rules",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-30",
-   "age_days": 0,
+   "newest": "2026-11-01",
+   "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-10-30 (0 d old)"
+   "note": "newest evidence 2026-11-01 (1 d old)"
   },
   {
    "loop": "experiment engine",
    "what": "engine/experiments.py strategies in shadow",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-30",
+   "newest": "2026-11-02",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-10-30 (0 d old)"
+   "note": "newest evidence 2026-11-02 (0 d old)"
   },
   {
    "loop": "nightly refit",
    "what": "engine/retrain.py out-of-sample refit",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-10-30",
+   "newest": "2026-11-02",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-10-30 (0 d old)"
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "AI fact sheet",
+   "what": "engine/fact_sheet.py facts 2 of 3 models agree on",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-02",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "verdict panel",
+   "what": "engine/verdict_panel.py graded picks the AI members answered",
+   "kind": "grew",
+   "allowance_days": 7,
+   "now": 14,
+   "then": null,
+   "ok": true,
+   "note": "14 tested (no history 7 d back)"
+  },
+  {
+   "loop": "learned weights",
+   "what": "engine/learned_weights.py walk-forward weights per member / fact",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-02",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "prompt contest",
+   "what": "verdict_panel.prompt_round champion v challenger prompt",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-01",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-11-01 (1 d old)"
+  },
+  {
+   "loop": "AI weekly review",
+   "what": "research/ai_review.py hypotheses the models proposed",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-01",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-11-01 (1 d old)"
+  },
+  {
+   "loop": "universe sweep",
+   "what": "engine/universe.py every SportyBet game graded, bet on or not",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-02",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "paper book",
+   "what": "engine/paper_book.py fixed-rule paper bets on every game",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-02",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "sharp list",
+   "what": "monitor/sharp_list.py parallel sharp-value picks",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-02",
+   "age_days": 0,
+   "ok": true,
+   "note": "newest evidence 2026-11-02 (0 d old)"
+  },
+  {
+   "loop": "research runner",
+   "what": "research/runner.py hypotheses tested walk-forward",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-01",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-11-01 (1 d old)"
+  },
+  {
+   "loop": "matchbook ledger",
+   "what": "monitor/matchbook_ledger.py live bot record by family (order 44)",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-01",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-11-01 (1 d old)"
+  },
+  {
+   "loop": "bot challengers",
+   "what": "monitor/bot_learning.py the bots' paper challengers v live",
+   "kind": "fresh",
+   "allowance_days": 7,
+   "newest": "2026-11-01",
+   "age_days": 1,
+   "ok": true,
+   "note": "newest evidence 2026-11-01 (1 d old)"
   }
  ],
  "proposals": [
+  {
+   "title": "Promotion ready: learned weights beat the market out of sample",
+   "ev": 5.0,
+   "kind": "promote",
+   "body": "engine/learned_weights.py: 90 walk-forward picks, Brier 0.1633 v market 0.1664. Largest weights: [('bias', 0.2496), ('member:gemini', 0.0), ('member:nvidia', 0.0), ('member:openrouter', 0.0)]. Promotion = the board's chance (or the panel's probability) uses the learned model. Architect decision."
+  },
+  {
+   "title": "Model input proven: H003 \u2014 wire it in as a shadow feature",
+   "ev": 3.5,
+   "kind": "build",
+   "body": "research/runner.py accepted H003: SportyBet's closing Over 2.5 price knows something the model doesn't \u2014 lean the model's Over 2.5 toward it (evidence {'brier_model': 0.2429, 'gain': 0.0038, 'last_coef': 0.239, 'rows': 785, 'scored': 658, 'se': 0.00165, 'verdict': 'ADDS INFORMATION'}). Nothing consumes candidate features yet: build it as a model input in SHADOW (engine/inputs.py style), add it to engine/learned_weights.py and report walk-forward Brier / CLV. Promotion to the live model stays with the Architect."
+  },
   {
    "title": "Model input: lineups / injuries (context)",
    "ev": 3.5,
@@ -243,7 +365,7 @@
    "title": "Model input: xG for / against (tested)",
    "ev": 0.75,
    "kind": "input",
-   "body": "'xG for / against' was tested and is not a live probability input (home win | xG edge: NO CLEAR EFFECT (Brier +0.00165); over 2.5 | xG total: NO CLEAR EFFECT (Brier +0.00103)). Re-test when the data has grown; nothing to build now."
+   "body": "'xG for / against' was tested and is not a live probability input (home win | xG edge: NO CLEAR EFFECT (Brier +0.00146); over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00036)). Re-test when the data has grown; nothing to build now."
   },
   {
    "title": "Model input: travel distance (context)",
@@ -277,7 +399,7 @@
   }
  ],
  "issues_opened": [
-  "https://github.com/Tolar07/framework/issues/217",
-  "https://github.com/Tolar07/framework/issues/218"
+  "https://github.com/Tolar07/framework/issues/250",
+  "https://github.com/Tolar07/framework/issues/251"
  ]
 }

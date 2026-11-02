@@ -19,13 +19,13 @@ Written by `backtest/inputs_study.py` (Architect 2026-10-28). Walk-forward: each
 | over 2.5 | form_venue_ppg | 3690 | 0.2506 | -0.00029 ± 0.00020 | -0.00071 ± 0.00045 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.15% (678) | +0.17% (707) |
 | over 2.5 | form_goals | 3690 | 0.2506 | +0.00023 ± 0.00060 | +0.00067 ± 0.00129 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.15% (678) | -0.04% (693) |
 
-## B. Last-5 xG — the board's rated fixtures (741 graded, 408 with 3+ studied matches a side)
+## B. Last-5 xG — the board's rated fixtures (938 graded, 513 with 3+ studied matches a side)
 
 | outcome / feature | scored | Brier model | Brier gain ± se | log-loss gain ± se | verdict |
 |---|---|---|---|---|---|
-| home win | xG edge | 326 | 0.2169 | +0.00165 ± 0.00250 | +0.00334 ± 0.00557 | NO CLEAR EFFECT / NO CLEAR EFFECT |
-| over 2.5 | xG total | 326 | 0.2358 | +0.00103 ± 0.00246 | +0.00189 ± 0.00561 | NO CLEAR EFFECT / NO CLEAR EFFECT |
-| BTTS yes | xG total | 326 | 0.2377 | -0.00019 ± 0.00067 | -0.00043 ± 0.00142 | NO CLEAR EFFECT / NO CLEAR EFFECT |
+| home win | xG edge | 431 | 0.2224 | +0.00146 ± 0.00215 | +0.00335 ± 0.00479 | NO CLEAR EFFECT / NO CLEAR EFFECT |
+| over 2.5 | xG total | 431 | 0.2411 | -0.00036 ± 0.00210 | -0.00147 ± 0.00484 | NO CLEAR EFFECT / NO CLEAR EFFECT |
+| BTTS yes | xG total | 431 | 0.2403 | -0.00024 ± 0.00065 | -0.00055 ± 0.00139 | NO CLEAR EFFECT / NO CLEAR EFFECT |
 
 ## Verdict
 

@@ -26,6 +26,48 @@
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
   "lineup_type": "predicted"
  },
+ "Benfica v Alverca": {
+  "absent": [
+   {
+    "name": "Leandro Barreiro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jakub Kami\u0144ski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Enzo Barrenechea",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bastien Meupiyou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Noah Raveyre",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Juli\u00e1n Mart\u00ednez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:20Z",
+  "away_missing_share": 0.4987589205199633,
+  "away_unavailable": 6,
+  "fotmob_id": 5887671,
+  "home_missing_share": 0.23200868635352287,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T20:15:00.000Z",
+  "lineup_type": "predicted"
+ },
  "GAIS v AIK": {
   "absent": [
    {
@@ -104,6 +146,48 @@
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Gil Vicente v Guimaraes": {
+  "absent": [
+   {
+    "name": "Mohamed Bamba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antonio Espigares",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Arthur Tchaptchet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juan Diego Castillo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gui",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Francisco Dias",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:20Z",
+  "away_missing_share": 0.05220515897324871,
+  "away_unavailable": 4,
+  "fotmob_id": 5887667,
+  "home_missing_share": 0.1229479803418141,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-02T20:15:00.000Z",
+  "lineup_type": "predicted"
  },
  "Lorient v Brest": {
   "absent": [
@@ -256,11 +340,6 @@
  "Oviedo v Las Palmas": {
   "absent": [
    {
-    "name": "Ilyas Chaira",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Christopher Ramos",
     "side": "home",
     "type": "injury"
@@ -271,29 +350,29 @@
     "type": "injury"
    },
    {
-    "name": "Giovanni Bonfanti",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Ale Garc\u00eda",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Enrique Clemente",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marvin Park",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Viti",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T14:00Z",
-  "away_missing_share": 0.5562543279239949,
-  "away_unavailable": 9,
+  "at": "2026-11-02T14:20Z",
+  "away_missing_share": 0.27955152814183926,
+  "away_unavailable": 6,
   "fotmob_id": 5868521,
-  "home_missing_share": 0.34417629668872546,
-  "home_unavailable": 4,
+  "home_missing_share": 0.20100351686259557,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-11-02T15:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "PAE PS Kalamata v POT Iraklis": {
   "absent": [

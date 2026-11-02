@@ -1,4 +1,31 @@
 {
+ "Atalanta v Parma": {
+  "absent": [
+   {
+    "name": "Giacomo Raspadori",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gianluca Scamacca",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Odilon Kossounou",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5749731,
+  "home_missing_share": 0.3397374291355786,
+  "home_unavailable": 10,
+  "kickoff_utc": "2026-11-02T19:45:00.000Z",
+  "lineup_type": "predicted"
+ },
  "GAIS v AIK": {
   "absent": [
    {
@@ -78,6 +105,90 @@
   "kickoff_utc": "2026-11-02T17:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Lorient v Brest": {
+  "absent": [
+   {
+    "name": "Noah Mbamba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Panos Katseris",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mohamed Bamba",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giovani Versini",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Brendan Chardonnet",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Rapha\u00ebl Le Guen",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.18785164734428897,
+  "away_unavailable": 3,
+  "fotmob_id": 5802975,
+  "home_missing_share": 0.11575844131157392,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T19:45:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Mallorca v Cadiz": {
+  "absent": [
+   {
+    "name": "Manu Morlanes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jan Salas",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antoniu Roca",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gonzalo Petit",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Giorgi Gocholeishvili",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jandro Orellana",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.5126360446282495,
+  "away_unavailable": 6,
+  "fotmob_id": 5868520,
+  "home_missing_share": 0.0901780594202065,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-02T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Mjallby AIF v Kalmar FF": {
   "absent": [
    {
@@ -115,6 +226,33 @@
   "kickoff_utc": "2026-11-02T18:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Newcastle v Everton": {
+  "absent": [
+   {
+    "name": "Valentino Livramento",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Matias Fernandez-Pardo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lewis Miley",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5795503,
+  "home_missing_share": 0.3670362129160664,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-02T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Oviedo v Las Palmas": {
   "absent": [
    {
@@ -148,7 +286,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T09:20Z",
+  "at": "2026-11-02T14:00Z",
   "away_missing_share": 0.5562543279239949,
   "away_unavailable": 9,
   "fotmob_id": 5868521,
@@ -198,6 +336,48 @@
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-02T17:30:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "RC Deportivo de A Coruna v Osasuna": {
+  "absent": [
+   {
+    "name": "Marc Casad\u00f3",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Zakaria Eddahchouri",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pierre-Emerick Aubameyang",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aimar Oroz",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Romain Del Castillo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jorge Herrando",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.31070942027785575,
+  "away_unavailable": 3,
+  "fotmob_id": 5868113,
+  "home_missing_share": 0.26677065717137194,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-02T20:00:00.000Z",
+  "lineup_type": "predicted"
  },
  "Radomiak Radom v Slask Wroclaw": {
   "absent": [
@@ -267,6 +447,28 @@
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:30:00.000Z",
   "lineup_type": "unavailable"
+ },
+ "Red Star v Nancy": {
+  "absent": [],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803305,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-02T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Reims v Sochaux-Montbeliard": {
+  "absent": [],
+  "at": "2026-11-02T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803306,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-02T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Sassuolo v Fiorentina": {
   "absent": [

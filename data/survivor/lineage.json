@@ -1106,6 +1106,36 @@
    "retired": "2026-11-01"
   },
   {
+   "lineage_id": "ln_6d69aace96",
+   "parent_id": "ln_210c3d4911",
+   "generation": 14,
+   "bankroll": 1.5,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-25",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-11-02"
+  },
+  {
+   "lineage_id": "ln_7723ee9dd3",
+   "parent_id": "ln_ab05e65eb3",
+   "generation": 13,
+   "bankroll": 1.49,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-27",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-11-02"
+  },
+  {
    "lineage_id": "ln_2608c4ba33",
    "parent_id": "ln_6d69aace96",
    "generation": 15,
@@ -1132,21 +1162,6 @@
    "last_result": null,
    "to_breed": false,
    "holding": null
-  },
-  {
-   "lineage_id": "ln_6d69aace96",
-   "parent_id": "ln_210c3d4911",
-   "generation": 14,
-   "bankroll": 1.5,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-25",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-11-02"
   },
   {
    "lineage_id": "ln_33292b3ea1",
@@ -1343,21 +1358,6 @@
    "last_result": null,
    "to_breed": false,
    "holding": null
-  },
-  {
-   "lineage_id": "ln_7723ee9dd3",
-   "parent_id": "ln_ab05e65eb3",
-   "generation": 13,
-   "bankroll": 1.49,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-27",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-11-02"
   }
  ],
  "last_bred_date": "2026-11-02",

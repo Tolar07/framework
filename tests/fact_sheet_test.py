@@ -219,9 +219,15 @@ def test_two_nvidia_model_families_agree_when_openrouter_is_spent():
         return Resp({"choices": [{"message": {"content": body}}]})
     doc = FS.build({"date": "d", "singles": [dict(SINGLE)]}, keys=KEYS, get=get, post=post,
                    sleep=lambda s: None, news=news)
-    assert FS.NVIDIA_ALT_MODEL in seen_models and len(seen_models) == 2
+    assert FS.alt_model(get) in seen_models and len(seen_models) == 2
     assert doc["fixtures"][0]["agreed"]["key_absences_home"] == 2
     assert doc["fixtures"][0]["support"]["key_absences_home"] == 2
+
+
+def test_alt_reader_model_comes_from_the_live_list():
+    listed = lambda url, **kw: Resp({"data": [{"id": "google/gemma-3-12b-it"}, {"id": "x"}]})  # noqa: E731
+    assert FS.alt_model(listed) == "google/gemma-3-12b-it"
+    assert FS.alt_model(lambda url, **kw: Resp({}, 500)) == FS.NVIDIA_ALT_PREFER[0]
 
 
 def main() -> None:

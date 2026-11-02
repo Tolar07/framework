@@ -15,6 +15,10 @@ on:
         description: "Judge the boards again even if already reasoned (e.g. after a model or prompt change)"
         type: boolean
         default: false
+      date:
+        description: "Picks date to reason over (YYYY-MM-DD); blank = today and tomorrow"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -64,7 +68,7 @@ jobs:
           VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
           PYTHONIOENCODING: utf-8
           FORCE: ${{ inputs.force && '--force' || '' }}
-        run: python monitor/reasoning_run.py $FORCE
+        run: python monitor/reasoning_run.py $FORCE ${{ github.event.inputs.date && format('--date {0}', github.event.inputs.date) || '' }}
 
       - name: Save
         run: |

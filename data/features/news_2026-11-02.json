@@ -91,24 +91,24 @@
     "type": "injury"
    },
    {
-    "name": "Charlie Pavey",
+    "name": "Eskil Smidesang Edh",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Eskil Smidesang Edh",
+    "name": "Adri\u00e1n Helm",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T17:20Z",
-  "away_missing_share": 0.5384328764663193,
-  "away_unavailable": 8,
+  "at": "2026-11-02T17:40Z",
+  "away_missing_share": 0.5345840864247069,
+  "away_unavailable": 6,
   "fotmob_id": 5107646,
-  "home_missing_share": 0.4466746735143924,
+  "home_missing_share": 0.4751229501000215,
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-02T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Genclerbirligi SK v Alanyaspor": {
   "absent": [

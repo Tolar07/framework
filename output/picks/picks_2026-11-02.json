@@ -33,8 +33,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.68,
+   "clv": 1.19,
    "stake_pct": 0.25,
    "ev": 0.0007062340374852649,
    "missing": null,
@@ -1645,7 +1645,11 @@
     "home": 4357396,
     "away": 10033908
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "matchup": {
     "say": "GAIS: aerial threat v weak in the air; GAIS: high press v build-up side; AIK: counter side v high line; AIK: high press v build-up side; AIK: counter side v counter-exposed -> BTTS & goals",
     "xg": [
@@ -1684,8 +1688,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.034326841780657924,
    "missing": {
@@ -1853,8 +1857,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -0.75,
    "stake_pct": 0.25,
    "ev": -0.023952901326931175,
    "missing": {

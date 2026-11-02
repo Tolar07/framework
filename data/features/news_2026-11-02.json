@@ -15,16 +15,21 @@
     "name": "Odilon Kossounou",
     "side": "home",
     "type": "injury"
+   },
+   {
+    "name": "Adri\u00e1n Bernab\u00e9",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:00Z",
-  "away_missing_share": 0.0,
-  "away_unavailable": 0,
+  "at": "2026-11-02T19:20Z",
+  "away_missing_share": 0.1200877207804565,
+  "away_unavailable": 1,
   "fotmob_id": 5749731,
-  "home_missing_share": 0.3397374291355786,
+  "home_missing_share": 0.33122838550481254,
   "home_unavailable": 10,
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Benfica v Alverca": {
   "absent": [
@@ -59,7 +64,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:00Z",
+  "at": "2026-11-02T19:20Z",
   "away_missing_share": 0.4987589205199633,
   "away_unavailable": 6,
   "fotmob_id": 5887671,
@@ -180,14 +185,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:00Z",
+  "at": "2026-11-02T19:20Z",
   "away_missing_share": 0.05220515897324871,
-  "away_unavailable": 4,
+  "away_unavailable": 3,
   "fotmob_id": 5887667,
-  "home_missing_share": 0.1229479803418141,
+  "home_missing_share": 0.1560949193420072,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-02T20:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lorient v Brest": {
   "absent": [
@@ -323,14 +328,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:00Z",
+  "at": "2026-11-02T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5795503,
-  "home_missing_share": 0.3670362129160664,
-  "home_unavailable": 5,
+  "home_missing_share": 0.3131023217861772,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-02T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Oviedo v Las Palmas": {
   "absent": [
@@ -424,7 +429,7 @@
     "type": "injury"
    },
    {
-    "name": "Pierre-Emerick Aubameyang",
+    "name": "Bright Ede",
     "side": "home",
     "type": "injury"
    },
@@ -444,14 +449,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-02T19:00Z",
-  "away_missing_share": 0.31070942027785575,
+  "at": "2026-11-02T19:20Z",
+  "away_missing_share": 0.28119442420660107,
   "away_unavailable": 3,
   "fotmob_id": 5868113,
-  "home_missing_share": 0.26677065717137194,
-  "home_unavailable": 4,
+  "home_missing_share": 0.2331698417606681,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-02T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Radomiak Radom v Slask Wroclaw": {
   "absent": [
@@ -524,25 +529,25 @@
  },
  "Red Star v Nancy": {
   "absent": [],
-  "at": "2026-11-02T19:00Z",
+  "at": "2026-11-02T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803305,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Reims v Sochaux-Montbeliard": {
   "absent": [],
-  "at": "2026-11-02T19:00Z",
+  "at": "2026-11-02T19:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803306,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-02T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Sassuolo v Fiorentina": {
   "absent": [

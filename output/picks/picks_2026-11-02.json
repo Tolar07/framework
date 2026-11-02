@@ -523,8 +523,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -0.74,
    "stake_pct": 0.25,
    "ev": -0.015974388175162724,
    "missing": {
@@ -822,7 +822,11 @@
     "home": 15956146,
     "away": 16688110
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
@@ -991,7 +995,11 @@
     "home": 283276850,
     "away": 335788170
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "Newcastle United: counter side v counter-exposed; Everton: aerial threat v weak in the air -> no strong goals lean",
     "xg": [
@@ -1156,7 +1164,11 @@
     "home": 6439717,
     "away": 5605628
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "19:20Z"
+   },
    "matchup": {
     "say": "Red Star: counter side v high line; Red Star: high press v build-up side -> no strong goals lean",
     "xg": [
@@ -1192,8 +1204,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03578765875443701,
    "missing": {

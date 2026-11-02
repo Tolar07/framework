@@ -1,0 +1,375 @@
+{
+ "date": "2026-11-03",
+ "picks_generated_at": "2026-11-02T22:02:21Z",
+ "run_at": "2026-11-02T22:05:27+00:00",
+ "recorded_only": true,
+ "members": {
+  "gemini": {
+   "model": "gemini-3.5-flash",
+   "status": "off for this run: 429 on every Gemini model",
+   "answered": 0
+  },
+  "openrouter": {
+   "model": "google/gemma-4-31b-it:free",
+   "status": "ok",
+   "answered": 0
+  },
+  "nvidia": {
+   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "status": "ok",
+   "answered": 0
+  },
+  "nvidia_alt": {
+   "model": "openai/gpt-oss-20b",
+   "status": "ok",
+   "answered": 0
+  }
+ },
+ "fields_agreed": 0,
+ "fields_asked": 280,
+ "fixtures": [
+  {
+   "id": 0,
+   "fixture": "Blackburn v Stoke",
+   "home": "Blackburn",
+   "away": "Stoke",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 1,
+   "fixture": "Charlton v Bolton Wanderers",
+   "home": "Charlton",
+   "away": "Bolton Wanderers",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 2,
+   "fixture": "Derby v Norwich",
+   "home": "Derby",
+   "away": "Norwich",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 3,
+   "fixture": "Portsmouth v Swansea",
+   "home": "Portsmouth",
+   "away": "Swansea",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 4,
+   "fixture": "Preston v Sheffield United",
+   "home": "Preston",
+   "away": "Sheffield United",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 5,
+   "fixture": "QPR v Burnley",
+   "home": "QPR",
+   "away": "Burnley",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 6,
+   "fixture": "Watford v Lincoln City",
+   "home": "Watford",
+   "away": "Lincoln City",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 7,
+   "fixture": "Birmingham v Millwall",
+   "home": "Birmingham",
+   "away": "Millwall",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 8,
+   "fixture": "West Brom v Southampton",
+   "home": "West Brom",
+   "away": "Southampton",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 9,
+   "fixture": "Galatasaray Istanbul v Stuttgart",
+   "home": "Galatasaray Istanbul",
+   "away": "Stuttgart",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 10,
+   "fixture": "Shakhtar D v Sporting",
+   "home": "Shakhtar D",
+   "away": "Sporting",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 11,
+   "fixture": "Atletico Madrid v Bayern Munich",
+   "home": "Atletico Madrid",
+   "away": "Bayern Munich",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 12,
+   "fixture": "Barcelona v Aston Villa",
+   "home": "Barcelona",
+   "away": "Aston Villa",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 13,
+   "fixture": "Bodoe/Glimt v Lille",
+   "home": "Bodoe/Glimt",
+   "away": "Lille",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 14,
+   "fixture": "Feyenoord v Inter",
+   "home": "Feyenoord",
+   "away": "Inter",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 15,
+   "fixture": "LASK Linz v Slovan Bratislava",
+   "home": "LASK Linz",
+   "away": "Slovan Bratislava",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 16,
+   "fixture": "Man Utd v Roma",
+   "home": "Man Utd",
+   "away": "Roma",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 17,
+   "fixture": "Villarreal v PSG",
+   "home": "Villarreal",
+   "away": "PSG",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 18,
+   "fixture": "Huddersfield v Luton",
+   "home": "Huddersfield",
+   "away": "Luton",
+   "league": "League One",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 19,
+   "fixture": "Wigan v Mansfield",
+   "home": "Wigan",
+   "away": "Mansfield",
+   "league": "League One",
+   "kickoff_utc": "2026-11-03",
+   "evidence": "PENDING",
+   "evidence_source": null,
+   "answers": {},
+   "agreed": {},
+   "support": {}
+  }
+ ],
+ "picks": [],
+ "rated": [
+  {
+   "fixture": "Blackburn v Stoke",
+   "facts": []
+  },
+  {
+   "fixture": "Charlton v Bolton Wanderers",
+   "facts": []
+  },
+  {
+   "fixture": "Derby v Norwich",
+   "facts": []
+  },
+  {
+   "fixture": "Portsmouth v Swansea",
+   "facts": []
+  },
+  {
+   "fixture": "Preston v Sheffield United",
+   "facts": []
+  },
+  {
+   "fixture": "QPR v Burnley",
+   "facts": []
+  },
+  {
+   "fixture": "Watford v Lincoln City",
+   "facts": []
+  },
+  {
+   "fixture": "Birmingham v Millwall",
+   "facts": []
+  },
+  {
+   "fixture": "West Brom v Southampton",
+   "facts": []
+  },
+  {
+   "fixture": "Galatasaray Istanbul v Stuttgart",
+   "facts": []
+  },
+  {
+   "fixture": "Shakhtar D v Sporting",
+   "facts": []
+  },
+  {
+   "fixture": "Atletico Madrid v Bayern Munich",
+   "facts": []
+  },
+  {
+   "fixture": "Barcelona v Aston Villa",
+   "facts": []
+  },
+  {
+   "fixture": "Bodoe/Glimt v Lille",
+   "facts": []
+  },
+  {
+   "fixture": "Feyenoord v Inter",
+   "facts": []
+  },
+  {
+   "fixture": "LASK Linz v Slovan Bratislava",
+   "facts": []
+  },
+  {
+   "fixture": "Man Utd v Roma",
+   "facts": []
+  },
+  {
+   "fixture": "Villarreal v PSG",
+   "facts": []
+  },
+  {
+   "fixture": "Huddersfield v Luton",
+   "facts": []
+  },
+  {
+   "fixture": "Wigan v Mansfield",
+   "facts": []
+  }
+ ]
+}

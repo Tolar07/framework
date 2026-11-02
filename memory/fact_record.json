@@ -1,5 +1,27 @@
 {
- "graded_picks": 70,
- "facts": {},
- "built_at": "2026-11-02T21:49:12+00:00"
+ "graded_picks": 86,
+ "facts": {
+  "derby (0)": {
+   "n": 1,
+   "won_rate": 1.0,
+   "market_rate": 0.706,
+   "residual": 0.294,
+   "trusted": false
+  },
+  "key_absences (+)": {
+   "n": 7,
+   "won_rate": 0.714,
+   "market_rate": 0.751,
+   "residual": -0.037,
+   "trusted": false
+  },
+  "key_absences (-)": {
+   "n": 7,
+   "won_rate": 0.714,
+   "market_rate": 0.751,
+   "residual": -0.037,
+   "trusted": false
+  }
+ },
+ "built_at": "2026-11-02T22:05:27+00:00"
 }

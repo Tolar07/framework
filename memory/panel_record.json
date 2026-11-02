@@ -4319,19 +4319,214 @@
    "clv": null,
    "won": true,
    "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Sonderjyske v FC Copenhagen|SB:16|hcp=1.5|Home (+1.5)|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Asian handicap",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.5887,
+   "members": {
+    "gemini": 0.58
+   },
+   "panel_prob": 0.58,
+   "edge": -0.014,
+   "live_prob": 0.59,
+   "live_back": true,
+   "clv": 1.19,
+   "won": false,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Radomiak Radom v Slask Wroclaw|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.784,
+   "members": {
+    "gemini": 0.78
+   },
+   "panel_prob": 0.78,
+   "edge": -0.0016,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Sassuolo v Fiorentina|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.74,
+   "members": {
+    "gemini": 0.74,
+    "nvidia": 0.76
+   },
+   "panel_prob": 0.75,
+   "edge": -0.025,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Sassuolo v Fiorentina|SB:10||Home or Away|lineup",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.74,
+   "members": {
+    "gemini": 0.74,
+    "nvidia": 0.74
+   },
+   "panel_prob": 0.74,
+   "edge": -0.038,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Lorient v Brest|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7058,
+   "members": {
+    "gemini": 0.71
+   },
+   "panel_prob": 0.71,
+   "edge": -0.0415,
+   "live_prob": 0.74,
+   "live_back": false,
+   "clv": -0.74,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Red Star v Nancy|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6377,
+   "members": {
+    "gemini": 0.64,
+    "nvidia": 0.7177
+   },
+   "panel_prob": 0.6788,
+   "edge": -0.104,
+   "live_prob": 0.74,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Genclerbirligi SK v Alanyaspor|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7447,
+   "members": {
+    "gemini": 0.74,
+    "nvidia": 0.762
+   },
+   "panel_prob": 0.751,
+   "edge": 0.0063,
+   "live_prob": 0.73,
+   "live_back": false,
+   "clv": 0.75,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|PAE PS Kalamata v POT Iraklis|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7482,
+   "members": {
+    "gemini": 0.75,
+    "nvidia": 0.797
+   },
+   "panel_prob": 0.7735,
+   "edge": 0.0442,
+   "live_prob": 0.75,
+   "live_back": true,
+   "clv": 0.75,
+   "won": false,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|GAIS v AIK|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7858,
+   "members": {
+    "gemini": 0.78
+   },
+   "panel_prob": 0.78,
+   "edge": -0.0094,
+   "live_prob": 0.775,
+   "live_back": false,
+   "clv": 0.79,
+   "won": true,
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Mjallby AIF v Kalmar FF|SB:10||Home or Away|board",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7648,
+   "members": {
+    "gemini": 0.76
+   },
+   "panel_prob": 0.76,
+   "edge": 0.0032,
+   "live_prob": 0.748,
+   "live_back": false,
+   "clv": -0.75,
+   "won": false,
+   "graded_at": "2026-11-02T22:03:53+00:00"
   }
  ],
  "updated": "2026-11-02",
  "authority": {
   "football | Asian handicap | board": {
-   "n": 19,
+   "n": 20,
    "earned": false,
-   "panel_brier": 0.1749,
-   "live_brier": 0.1739,
-   "panel_brier_on_live": 0.1749,
-   "clv_n": 19,
-   "panel_clv_hit": 0.368,
-   "live_clv_hit": 0.526
+   "panel_brier": 0.183,
+   "live_brier": 0.1826,
+   "panel_brier_on_live": 0.183,
+   "clv_n": 20,
+   "panel_clv_hit": 0.35,
+   "live_clv_hit": 0.55
   },
   "football | Asian handicap | lineup": {
    "n": 6,
@@ -4384,24 +4579,24 @@
    "live_clv_hit": 1.0
   },
   "football | Double chance | board": {
-   "n": 60,
+   "n": 68,
    "earned": false,
-   "panel_brier": 0.155,
-   "live_brier": 0.1544,
-   "panel_brier_on_live": 0.155,
-   "clv_n": 60,
-   "panel_clv_hit": 0.633,
-   "live_clv_hit": 0.5
+   "panel_brier": 0.16,
+   "live_brier": 0.1581,
+   "panel_brier_on_live": 0.16,
+   "clv_n": 68,
+   "panel_clv_hit": 0.632,
+   "live_clv_hit": 0.515
   },
   "football | Double chance | lineup": {
-   "n": 15,
+   "n": 16,
    "earned": false,
-   "panel_brier": 0.1237,
-   "live_brier": 0.1243,
-   "panel_brier_on_live": 0.1237,
-   "clv_n": 15,
-   "panel_clv_hit": 0.667,
-   "live_clv_hit": 0.667
+   "panel_brier": 0.1202,
+   "live_brier": 0.1198,
+   "panel_brier_on_live": 0.1202,
+   "clv_n": 16,
+   "panel_clv_hit": 0.688,
+   "live_clv_hit": 0.688
   },
   "football | European handicap | board": {
    "n": 1,
@@ -4503,15 +4698,15 @@
  "members": {
   "gemini": {
    "weight": 1.0,
-   "n": 18,
+   "n": 28,
    "dropped": null
   },
   "nvidia": {
    "weight": 0.0,
-   "n": 98,
-   "brier": 0.1657,
-   "anchor_brier": 0.1625,
-   "wins": 92,
+   "n": 103,
+   "brier": 0.1664,
+   "anchor_brier": 0.1633,
+   "wins": 96,
    "dropped": "worse than the market anchor"
   },
   "openrouter": {

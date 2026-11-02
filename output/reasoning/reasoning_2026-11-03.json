@@ -1,0 +1,68 @@
+{
+ "date": "2026-11-03",
+ "picks_generated_at": "2026-11-02T22:02:21Z",
+ "run_at": "2026-11-02T22:03:53+00:00",
+ "model": "gemini-2.5-pro",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [],
+ "prompt_version": "2bd3c30e1b",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": []
+ },
+ "cognitive": {
+  "model": "gemini-3.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 0,
+   "LOWER": 0,
+   "VETO": 0
+  },
+  "fallback": 0,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "openrouter": {
+    "model": "google/gemma-4-31b-it:free",
+    "status": "ok",
+    "answered": 0
+   },
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
+    "status": "ok",
+    "answered": 0
+   },
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "ok",
+    "answered": 0
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 1.0,
+    "n": 18,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 0.0,
+    "n": 98,
+    "brier": 0.1657,
+    "anchor_brier": 0.1625,
+    "wins": 92,
+    "dropped": "worse than the market anchor"
+   },
+   "openrouter": {
+    "weight": 1.0,
+    "n": 0,
+    "dropped": null
+   }
+  },
+  "authority": 0,
+  "missing": []
+ }
+}

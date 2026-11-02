@@ -1,34 +1,34 @@
 {
  "updated": "2026-11-02",
- "graded": 353,
+ "graded": 362,
  "by_verdict": {
   "back": {
-   "n": 100,
+   "n": 102,
    "won": 77,
-   "hit": 0.77,
-   "flat_return": -0.0379,
-   "model_said": 0.789,
-   "ai_said": 0.797,
+   "hit": 0.755,
+   "flat_return": -0.0568,
+   "model_said": 0.787,
+   "ai_said": 0.794,
    "clv_n": 106,
    "mean_clv": 0.16,
    "beat_close": 52
   },
   "lower": {
-   "n": 118,
-   "won": 95,
-   "hit": 0.805,
-   "flat_return": 0.0122,
-   "model_said": 0.792,
-   "ai_said": 0.784,
+   "n": 124,
+   "won": 101,
+   "hit": 0.815,
+   "flat_return": 0.0266,
+   "model_said": 0.79,
+   "ai_said": 0.782,
    "clv_n": 129,
    "mean_clv": -0.02,
    "beat_close": 52
   },
   "veto": {
-   "n": 135,
+   "n": 136,
    "won": 106,
-   "hit": 0.785,
-   "flat_return": -0.0217,
+   "hit": 0.779,
+   "flat_return": -0.0289,
    "model_said": 0.786,
    "ai_said": 0.761,
    "clv_n": 137,
@@ -37,9 +37,9 @@
   }
  },
  "brier": {
-  "n": 353,
-  "model": 0.1699,
-  "ai": 0.1711
+  "n": 362,
+  "model": 0.1707,
+  "ai": 0.1719
  },
  "nba": {
   "graded": 59,
@@ -66,10 +66,10 @@
  },
  "cognitive_authority": {
   "football | Asian handicap": {
-   "n": 19,
+   "n": 20,
    "earned": false,
-   "cog_brier": 0.1744,
-   "base_brier": 0.1731,
+   "cog_brier": 0.1802,
+   "base_brier": 0.1818,
    "veto_loss_rate": null
   },
   "football | Away goals": {
@@ -94,10 +94,10 @@
    "veto_loss_rate": null
   },
   "football | Double chance": {
-   "n": 60,
+   "n": 68,
    "earned": false,
-   "cog_brier": 0.153,
-   "base_brier": 0.1522,
+   "cog_brier": 0.1578,
+   "base_brier": 0.1559,
    "veto_loss_rate": null
   },
   "football | European handicap": {
@@ -3148,6 +3148,132 @@
    "cog_brier": 0.185,
    "flags": [],
    "graded_at": "2026-11-02T06:53:17+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Sonderjyske v FC Copenhagen|SB:16|hcp=1.5|Home (+1.5)",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Asian handicap",
+   "verdict": "LOWER",
+   "base_prob": 0.5887,
+   "cognitive_prob": 0.5387,
+   "won": false,
+   "base_brier": 0.3466,
+   "cog_brier": 0.2902,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Radomiak Radom v Slask Wroclaw|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.784,
+   "cognitive_prob": 0.744,
+   "won": true,
+   "base_brier": 0.0467,
+   "cog_brier": 0.0655,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Sassuolo v Fiorentina|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7888,
+   "cognitive_prob": 0.74,
+   "won": true,
+   "base_brier": 0.0446,
+   "cog_brier": 0.0676,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Lorient v Brest|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7543,
+   "cognitive_prob": 0.7058,
+   "won": true,
+   "base_brier": 0.0604,
+   "cog_brier": 0.0866,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Red Star v Nancy|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7559,
+   "cognitive_prob": 0.6759,
+   "won": true,
+   "base_brier": 0.0596,
+   "cog_brier": 0.105,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Genclerbirligi SK v Alanyaspor|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7447,
+   "cognitive_prob": 0.7147,
+   "won": true,
+   "base_brier": 0.0652,
+   "cog_brier": 0.0814,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|PAE PS Kalamata v POT Iraklis|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7482,
+   "cognitive_prob": 0.7182,
+   "won": false,
+   "base_brier": 0.5598,
+   "cog_brier": 0.5158,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|GAIS v AIK|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7858,
+   "cognitive_prob": 0.7858,
+   "won": true,
+   "base_brier": 0.0459,
+   "cog_brier": 0.0459,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Mjallby AIF v Kalmar FF|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "BACK",
+   "base_prob": 0.7648,
+   "cognitive_prob": 0.7648,
+   "won": false,
+   "base_brier": 0.5849,
+   "cog_brier": 0.5849,
+   "flags": [],
+   "graded_at": "2026-11-02T22:03:53+00:00"
   }
  ]
 }

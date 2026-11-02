@@ -53,6 +53,18 @@ class LoggedLeg:
     closing_odds: Optional[float] = None
     closing_capture_path: Optional[str] = None
     clv_pct: Optional[float] = None          # (entry_implied_prob... see clv formula below
+    # Publish-time snapshot of what the MODEL claimed, frozen at log_entry and
+    # NEVER rewritten by a later refit (HR "every code kept and graded"). The
+    # price (entry_odds) and model_prob were already frozen; these two derive
+    # the modelled fair price and value edge AT PUBLISH so the claim is stored
+    # as a fact, not recomputed from a model that may have moved on. Old legs
+    # written before this field carry None.
+    entry_fair_odds: Optional[float] = None   # modelled fair price = 1/model_prob at publish
+    entry_edge_pct: Optional[float] = None    # value edge claimed = (model_prob*entry_odds-1)*100
+    # The same value edge measured against the CLOSING price. entry_edge_pct
+    # minus this is how much of the published edge the market erased by close —
+    # grading the claim's movement, alongside clv_pct which grades the price.
+    closing_edge_pct: Optional[float] = None
     ft_result: Optional[str] = None
     hit: Optional[bool] = None
     stake: Optional[float] = None            # None for Phase 2 paper legs
@@ -62,6 +74,27 @@ class LoggedLeg:
 
 def implied_prob(decimal_odds: float) -> float:
     return 1.0 / decimal_odds
+
+
+def fair_odds(model_prob: float) -> Optional[float]:
+    """The price the model thinks is fair = 1 / model_prob. None for a
+    non-positive probability (nothing to freeze rather than a bogus number)."""
+    if not model_prob or model_prob <= 0:
+        return None
+    return round(1.0 / model_prob, 4)
+
+
+def value_edge_pct(model_prob: float, decimal_odds: float) -> Optional[float]:
+    """The value edge of a price given the model's probability:
+
+        edge% = (model_prob * decimal_odds - 1) * 100
+
+    Positive means the price pays more than the model's fair odds. This is the
+    SAME number the board shows as the pick's edge; freezing it at publish is
+    what makes the claim gradeable later. None when either input is missing."""
+    if not model_prob or model_prob <= 0 or not decimal_odds:
+        return None
+    return round((model_prob * decimal_odds - 1.0) * 100, 3)
 
 
 def compute_clv(entry_odds: float, closing_odds: float) -> float:
@@ -120,6 +153,12 @@ class CLVLog:
             model_prob=model_prob, entry_odds=entry_odds,
             entry_capture_path=entry_capture_path, phase=phase, stake=stake,
             match_date=match_date,
+            # Freeze the modelled claim NOW. entry_odds may be None (HR46: no
+            # backfilled guess), in which case the edge stays None but the fair
+            # price is still recorded from model_prob alone.
+            entry_fair_odds=fair_odds(model_prob),
+            entry_edge_pct=(value_edge_pct(model_prob, entry_odds)
+                            if entry_odds else None),
         )
         self.legs.append(leg)
         self._save()
@@ -133,6 +172,11 @@ class CLVLog:
                 leg.closing_capture_path = closing_capture_path
                 if leg.entry_odds:
                     leg.clv_pct = compute_clv(leg.entry_odds, closing_odds)
+                # The model's edge measured against the close. entry_edge_pct
+                # minus this is the edge the market erased by close — the claim's
+                # movement, not just the price's (clv_pct). model_prob is frozen,
+                # so this grades the ORIGINAL claim, never a re-modelled one.
+                leg.closing_edge_pct = value_edge_pct(leg.model_prob, closing_odds)
                 self._save()
                 return leg
         raise KeyError(f"No leg with id {leg_id}")
@@ -167,12 +211,25 @@ class CLVLog:
         n = len(legs_with_clv)
         mean_clv = round(sum(l.clv_pct for l in legs_with_clv) / n, 3) if n else None
         gate_met = n >= PHASE3_GATE_MIN_LEGS and (mean_clv or 0) > 0
+        # Published-edge accounting over the SAME graded legs: what the model
+        # claimed at publish (entry_edge_pct), what survived to the close
+        # (closing_edge_pct), and the mean decay between them. Lets the record
+        # show "we claimed +X%, the market left +Y%" beside the price CLV.
+        entry_edges = [l.entry_edge_pct for l in legs_with_clv
+                       if l.entry_edge_pct is not None]
+        mean_entry_edge = (round(sum(entry_edges) / len(entry_edges), 3)
+                           if entry_edges else None)
+        decays = [l.entry_edge_pct - l.closing_edge_pct for l in legs_with_clv
+                  if l.entry_edge_pct is not None and l.closing_edge_pct is not None]
+        mean_edge_decay = round(sum(decays) / len(decays), 3) if decays else None
         return {
             "legs_logged_total": len(self.legs),
             "legs_with_clv": n,
             "gate_requirement": PHASE3_GATE_MIN_LEGS,
             "mean_clv_pct": mean_clv,
             "positive_mean_clv": (mean_clv or 0) > 0,
+            "mean_entry_edge_pct": mean_entry_edge,
+            "mean_edge_decay_pct": mean_edge_decay,
             "gate_met_pending_architect_signoff": gate_met,
             "note": "CLV logged: ZERO" if n == 0 else f"{n} legs with logged CLV",
         }

@@ -65,6 +65,15 @@ class LoggedLeg:
     # minus this is how much of the published edge the market erased by close —
     # grading the claim's movement, alongside clv_pct which grades the price.
     closing_edge_pct: Optional[float] = None
+    # Consensus anchor: the de-margined Betfair Exchange fair probability for
+    # this pick (pipeline/sharp.py de-vigs the exchange, the sharp market
+    # consensus) and the edge of the taken price against it — both frozen at
+    # publish. This is the market-consensus anchor rather than the model's own
+    # view. SHADOW beside entry_edge_pct: recorded and graded, drives no
+    # selection or stake until the Architect promotes it (selection is
+    # protected). None where the exchange does not price this pick (HR35).
+    entry_consensus_prob: Optional[float] = None
+    entry_consensus_edge_pct: Optional[float] = None
     ft_result: Optional[str] = None
     hit: Optional[bool] = None
     stake: Optional[float] = None            # None for Phase 2 paper legs
@@ -139,7 +148,8 @@ class CLVLog:
     def log_entry(self, league: str, fixture: str, market: str, model_prob: float,
                   entry_odds: Optional[float], entry_capture_path: str = "CL-LIVE",
                   phase: str = "phase2_paper", stake: Optional[float] = None,
-                  match_date: Optional[str] = None) -> LoggedLeg:
+                  match_date: Optional[str] = None,
+                  consensus_prob: Optional[float] = None) -> LoggedLeg:
         """Record a pick at pick-time. HR46: entry_odds should be captured NOW,
         not reconstructed later — if it's unavailable, pass None and it will
         show as NO DATA — PENDING on the board, never backfilled with a guess."""
@@ -159,6 +169,11 @@ class CLVLog:
             entry_fair_odds=fair_odds(model_prob),
             entry_edge_pct=(value_edge_pct(model_prob, entry_odds)
                             if entry_odds else None),
+            # Consensus anchor, frozen the same way. Edge of the taken price vs
+            # the exchange's fair chance = (consensus_prob*entry_odds-1)*100.
+            entry_consensus_prob=consensus_prob,
+            entry_consensus_edge_pct=(value_edge_pct(consensus_prob, entry_odds)
+                                      if (consensus_prob and entry_odds) else None),
         )
         self.legs.append(leg)
         self._save()
@@ -222,6 +237,11 @@ class CLVLog:
         decays = [l.entry_edge_pct - l.closing_edge_pct for l in legs_with_clv
                   if l.entry_edge_pct is not None and l.closing_edge_pct is not None]
         mean_edge_decay = round(sum(decays) / len(decays), 3) if decays else None
+        # Consensus-anchored edge over the graded legs the exchange priced.
+        cons_edges = [l.entry_consensus_edge_pct for l in legs_with_clv
+                      if l.entry_consensus_edge_pct is not None]
+        mean_consensus_edge = (round(sum(cons_edges) / len(cons_edges), 3)
+                               if cons_edges else None)
         return {
             "legs_logged_total": len(self.legs),
             "legs_with_clv": n,
@@ -230,6 +250,7 @@ class CLVLog:
             "positive_mean_clv": (mean_clv or 0) > 0,
             "mean_entry_edge_pct": mean_entry_edge,
             "mean_edge_decay_pct": mean_edge_decay,
+            "mean_consensus_edge_pct": mean_consensus_edge,
             "gate_met_pending_architect_signoff": gate_met,
             "note": "CLV logged: ZERO" if n == 0 else f"{n} legs with logged CLV",
         }

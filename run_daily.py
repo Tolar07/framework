@@ -1372,8 +1372,14 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                 out[name] = code
                     return out
 
-                accas = _build_accas(deploy)
-                acca_codes = _book(accas)
+                # ONE OUTCOME, ONE SLIP (Architect 2026-11-03, engine/slip_overlap.py): the slips are built
+                # best record first, each from the games the earlier ones left free (a game's leg is its main
+                # pick, so a free game = a new match + outcome): 50%+ accas, positive-CLV accas, main accas.
+                def _free(*groups):
+                    taken = {id(bf) for g in groups for _n, ls, _c in g for bf, *_r in ls}
+                    return [b for b in deploy if id(b) not in taken]
+                safe3 = _build_safe3(deploy)
+                _cslips = []
                 # POSITIVE-CLV ACCAS (Architect 2026-10-21): extra accas from the
                 # deploy picks whose market family has had positive CLV; the
                 # board's accas and megas are unchanged (engine/clv_accas.py)
@@ -1381,7 +1387,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                     from engine import clv_accas as _ca
                     from engine import picks_ledger as _plc
                     _cstats = _ca.family_clv(_plc.LEDGER_DIR, target)
-                    _cslips = _ca.build(deploy, _cstats)
+                    _cslips = _ca.build(_free(safe3), _cstats)
                     _ccodes = _book(_cslips)
                     extra_codes["clv_accas"] = [{**_plc._slip(n, l, c, _ccodes.get(n)),
                                                  "families": sorted(_ca.positive_families(_cstats))}
@@ -1389,8 +1395,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                     all_flags.append(_ca.note(_cstats, _cslips))
                 except Exception as _e:  # noqa: BLE001 — an extra, never blocks the board
                     all_flags.append(f"positive-CLV accas not built ({str(_e)[:80]})")
+                accas = _build_accas(_free(safe3, _cslips))
+                acca_codes = _book(accas)
                 acca_code = acca_codes.get("Acca A")
-                safe3 = _build_safe3(deploy)
                 safe3_codes = _book(safe3)
                 from engine.cohorts import same_cohort as _one_window
                 # KICKOFF COHORTS (Architect 2026-10-26): a combined code joins only

@@ -1808,6 +1808,1521 @@
     "no": null,
     "signal": null
    }
+  },
+  {
+   "fixture": "Blackburn v Stoke",
+   "league": "Championship",
+   "home": "Blackburn",
+   "away": "Stoke",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Blackburn or Stoke",
+   "price": 1.33,
+   "chance": 0.7572,
+   "chance_raw": 0.7244,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "QZMXWU",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5836911,
+   "kickoff_utc": "2026-11-03T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 13184466,
+    "away": 54559287
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "no tactical clash flagged -> no strong goals lean",
+    "xg": [
+     1.867,
+     1.002
+    ],
+    "btts": 0.535,
+    "over25": 0.547,
+    "over15": 0.78,
+    "corners": 11.1,
+    "pick_matchup_chance": 0.776,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x5",
+      "5-4-1 x2"
+     ],
+     [
+      "3-4-3 x6",
+      "3-5-2 x1"
+     ]
+    ],
+    "tags": []
+   },
+   "sb_event_id": "sr:match:72339986",
+   "sb_tid": "sr:tournament:18",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.025910692548421044,
+   "missing": {
+    "home": 0.23198530664599903,
+    "away": 0.10715354621530027
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.33,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.30-1.50",
+     "n": 5981,
+     "landed": 0.6763,
+     "fair": 0.6744,
+     "bias": 0.0019,
+     "se": 0.0061,
+     "ret": -0.0745,
+     "shrunk": 0.0018
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.232
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.107
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0214,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0027,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.28,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Charlton v Bolton Wanderers",
+   "league": "Championship",
+   "home": "Charlton",
+   "away": "Bolton Wanderers",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Charlton or Bolton Wanderers",
+   "price": 1.32,
+   "chance": 0.778,
+   "chance_raw": 0.7452,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "SXQYD4",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5836920,
+   "kickoff_utc": "2026-11-03T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 20169114,
+    "away": 17250915
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "Charlton Athletic: counter side v high line; Charlton Athletic: set-piece threat v weak set-piece defence; Charlton Athletic: counter side v counter-exposed -> no strong goals lean",
+    "xg": [
+     1.605,
+     1.19
+    ],
+    "btts": 0.556,
+    "over25": 0.529,
+    "over15": 0.768,
+    "corners": 11.1,
+    "pick_matchup_chance": 0.753,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x5",
+      "3-4-2-1 x2"
+     ],
+     [
+      "4-2-3-1 x7",
+      "4-4-2 x1"
+     ]
+    ],
+    "tags": [
+     "counter side v high line",
+     "set-piece threat v weak set-piece defence",
+     "counter side v counter-exposed"
+    ]
+   },
+   "sb_event_id": "sr:match:72340004",
+   "sb_tid": "sr:tournament:18",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.005745189982584997,
+   "missing": {
+    "home": 0.0983557390077159,
+    "away": 0.06860326082789814
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.32,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.30-1.50",
+     "n": 5981,
+     "landed": 0.6763,
+     "fair": 0.6744,
+     "bias": 0.0019,
+     "se": 0.0061,
+     "ret": -0.0745,
+     "shrunk": 0.0018
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.098
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.069
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0843,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0105,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.28,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Portsmouth v Swansea",
+   "league": "Championship",
+   "home": "Portsmouth",
+   "away": "Swansea",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Portsmouth or Swansea",
+   "price": 1.35,
+   "chance": 0.7531,
+   "chance_raw": 0.7203,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "YWWBZT",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5836913,
+   "kickoff_utc": "2026-11-03T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 18768213,
+    "away": 37205399
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "Portsmouth: high press v build-up side -> no strong goals lean",
+    "xg": [
+     1.732,
+     1.063
+    ],
+    "btts": 0.539,
+    "over25": 0.529,
+    "over15": 0.768,
+    "corners": 9.2,
+    "pick_matchup_chance": 0.763,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x8"
+     ],
+     [
+      "4-3-3 x7",
+      "4-1-4-1 x1"
+     ]
+    ],
+    "tags": [
+     "high press v build-up side"
+    ]
+   },
+   "sb_event_id": "sr:match:72339990",
+   "sb_tid": "sr:tournament:18",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01676347828322211,
+   "missing": {
+    "home": 0.24133661970549983,
+    "away": 0.27019983971834116
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.35,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.30-1.50",
+     "n": 5981,
+     "landed": 0.6763,
+     "fair": 0.6744,
+     "bias": 0.0019,
+     "se": 0.0061,
+     "ret": -0.0745,
+     "shrunk": 0.0018
+    },
+    "no": {
+     "cell": "SB:10|2.50-4.00",
+     "n": 772,
+     "landed": 0.2098,
+     "fair": 0.3195,
+     "bias": -0.1096,
+     "se": 0.0168,
+     "ret": -0.3966,
+     "shrunk": -0.0871
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.241
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.27
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0477,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.006,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.28,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Watford v Lincoln City",
+   "league": "Championship",
+   "home": "Watford",
+   "away": "Lincoln City",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Watford or Lincoln City",
+   "price": 1.33,
+   "chance": 0.7767,
+   "chance_raw": 0.7439,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "JY1HX4",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5836916,
+   "kickoff_utc": "2026-11-03T19:45:00.000Z",
+   "predicted_xi": {
+    "home": 32547901,
+    "away": 13405615
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "Lincoln City: set-piece threat v weak set-piece defence; Lincoln City: aerial threat v weak in the air -> no strong goals lean",
+    "xg": [
+     1.526,
+     1.221
+    ],
+    "btts": 0.552,
+    "over25": 0.518,
+    "over15": 0.76,
+    "corners": 10.3,
+    "pick_matchup_chance": 0.748,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x3",
+      "5-3-2 x3"
+     ],
+     [
+      "3-4-2-1 x4",
+      "4-2-3-1 x4"
+     ]
+    ],
+    "tags": [
+     "set-piece threat v weak set-piece defence",
+     "aerial threat v weak in the air"
+    ]
+   },
+   "sb_event_id": "sr:match:72339996",
+   "sb_tid": "sr:tournament:18",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -2.47442746887927e-05,
+   "missing": {
+    "home": 0.20909804876401147,
+    "away": 0.14428548722423543
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.33,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.30-1.50",
+     "n": 5981,
+     "landed": 0.6763,
+     "fair": 0.6744,
+     "bias": 0.0019,
+     "se": 0.0061,
+     "ret": -0.0745,
+     "shrunk": 0.0018
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.209
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.144
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.1,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0125,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.28,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "West Brom v Southampton",
+   "league": "Championship",
+   "home": "West Brom",
+   "away": "Southampton",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "West Brom or Southampton",
+   "price": 1.31,
+   "chance": 0.7781,
+   "chance_raw": 0.7453,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "JUCW2Z",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5836917,
+   "kickoff_utc": "2026-11-03T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 26275905,
+    "away": 53733788
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "Southampton: counter side v high line -> BTTS",
+    "xg": [
+     1.671,
+     1.292
+    ],
+    "btts": 0.589,
+    "over25": 0.568,
+    "over15": 0.795,
+    "corners": 11.4,
+    "pick_matchup_chance": 0.76,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-4-2 x4",
+      "4-4-1-1 x2"
+     ],
+     [
+      "4-2-3-1 x7",
+      "4-4-2 x1"
+     ]
+    ],
+    "tags": [
+     "counter side v high line"
+    ]
+   },
+   "sb_event_id": "sr:match:72339998",
+   "sb_tid": "sr:tournament:18",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.013167936235507383,
+   "missing": {
+    "home": 0.2910010558391304,
+    "away": 0.040995712162724185
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.31,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.30-1.50",
+     "n": 5981,
+     "landed": 0.6763,
+     "fair": 0.6744,
+     "bias": 0.0019,
+     "se": 0.0061,
+     "ret": -0.0745,
+     "shrunk": 0.0018
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.291
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.041
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0623,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0078,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.53,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Shakhtar D v Sporting",
+   "league": "Champions League",
+   "home": "Shakhtar D",
+   "away": "Sporting",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Shakhtar D or Sporting",
+   "price": 1.28,
+   "chance": 0.7885,
+   "chance_raw": 0.7557,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "HSR4BQ",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-11-03T17:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "matchup": null,
+   "sb_event_id": "sr:match:74165976",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.02241081677112433,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.28,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.20-1.30",
+     "n": 6761,
+     "landed": 0.7645,
+     "fair": 0.7391,
+     "bias": 0.0255,
+     "se": 0.0053,
+     "ret": -0.0456,
+     "shrunk": 0.0247
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": true
+   },
+   "context": {
+    "facts": [],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0331,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0041,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 9.28,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Atletico Madrid v Bayern Munich",
+   "league": "Champions League",
+   "home": "Atletico Madrid",
+   "away": "Bayern Munich",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Atletico Madrid or Bayern Munich",
+   "price": 1.27,
+   "chance": 0.7984,
+   "chance_raw": 0.7656,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "N2ZC2D",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106266,
+   "kickoff_utc": "2026-11-03T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 489287949,
+    "away": 525174080
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "no tactical clash flagged -> BTTS & goals",
+    "xg": [
+     1.32,
+     1.986
+    ],
+    "btts": 0.632,
+    "over25": 0.642,
+    "over15": 0.842,
+    "corners": 10.6,
+    "pick_matchup_chance": 0.783,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-4-2 x4",
+      "4-2-3-1 x2"
+     ],
+     [
+      "4-2-3-1 x8"
+     ]
+    ],
+    "tags": []
+   },
+   "sb_event_id": "sr:match:74165980",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.017549715864484283,
+   "missing": {
+    "home": 0.04364837487561552,
+    "away": 0.3196598588958538
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.20-1.30",
+     "n": 6761,
+     "landed": 0.7645,
+     "fair": 0.7391,
+     "bias": 0.0255,
+     "se": 0.0053,
+     "ret": -0.0456,
+     "shrunk": 0.0247
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": true
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.044
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.32
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0517,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0065,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.53,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Barcelona v Aston Villa",
+   "league": "Champions League",
+   "home": "Barcelona",
+   "away": "Aston Villa",
+   "kickoff": "2026-11-03",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Barcelona & Over 1.5",
+   "price": 1.3,
+   "chance": 0.7657,
+   "chance_raw": 0.6988,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "LEUF9K",
+   "news_level": "CAUTION",
+   "news_note": "Barcelona missing 19% of value (Dani Olmo, Jules Kound\u00e9, Eric Garc\u00eda); support: Aston Villa missing 21%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106263,
+   "kickoff_utc": "2026-11-03T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 877440476,
+    "away": 391715268
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "both high lines + an elite attack; Barcelona: counter side v high line; Barcelona: possession side v low block; Barcelona: elite attack v leaky defence; Barcelona: counter side v counter-exposed; Aston Villa: counter side v high line; Aston Villa: counter side v counter-exposed -> BTTS & goals",
+    "xg": [
+     2.768,
+     1.456
+    ],
+    "btts": 0.719,
+    "over25": 0.793,
+    "over15": 0.924,
+    "corners": 9.4,
+    "pick_matchup_chance": 0.61,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x7",
+      "4-3-3 x1"
+     ],
+     [
+      "4-2-3-1 x7",
+      "3-4-2-1 x1"
+     ]
+    ],
+    "tags": [
+     "counter side v high line",
+     "possession side v low block",
+     "elite attack v leaky defence",
+     "counter side v counter-exposed",
+     "counter side v high line",
+     "counter side v counter-exposed"
+    ]
+   },
+   "sb_event_id": "sr:match:74165984",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 37,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Home & Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.08116787071652187,
+   "missing": {
+    "home": 0.18729982160877684,
+    "away": 0.20906729806252483
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.3,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:37|1.30-1.50",
+     "n": 88,
+     "landed": 0.6591,
+     "fair": 0.6042,
+     "bias": 0.0549,
+     "se": 0.0521,
+     "ret": -0.0755,
+     "shrunk": 0.0168
+    },
+    "no": {
+     "cell": "SB:37|4.00+",
+     "n": 17890,
+     "landed": 0.0985,
+     "fair": 0.1086,
+     "bias": -0.0101,
+     "se": 0.0023,
+     "ret": -0.2544,
+     "shrunk": -0.01
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.187
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.209
+     },
+     {
+      "fact": "team_news_caution",
+      "source": "news_check",
+      "side": null,
+      "direction": -1,
+      "size": 0.5,
+      "note": "Barcelona missing 19% of value (Dani Olmo, Jules Kound\u00e9, Eric Garc\u00eda); support: Aston Villa missing 21%"
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Result & total",
+    "n": 2,
+    "down": 1.5108,
+    "up": 0.0,
+    "alarm": null
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.53,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "LASK Linz v Slovan Bratislava",
+   "league": "Champions League",
+   "home": "LASK Linz",
+   "away": "Slovan Bratislava",
+   "kickoff": "2026-11-03",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "LASK Linz & Over 1.5",
+   "price": 1.41,
+   "chance": 0.7088,
+   "chance_raw": 0.6419,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "ZE0WTJ",
+   "news_level": "CAUTION",
+   "news_note": "LASK missing 12% of value (George Bello, Ramiz Harakat\u00e9)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106408,
+   "kickoff_utc": "2026-11-03T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 22980309,
+    "away": 11020670
+   },
+   "lineup_check": null,
+   "matchup": null,
+   "sb_event_id": "sr:match:74165990",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 37,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Home & Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.08365349317094406,
+   "missing": {
+    "home": 0.12229957017701124,
+    "away": 0.05300723245385796
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.41,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:37|1.30-1.50",
+     "n": 88,
+     "landed": 0.6591,
+     "fair": 0.6042,
+     "bias": 0.0549,
+     "se": 0.0521,
+     "ret": -0.0755,
+     "shrunk": 0.0168
+    },
+    "no": {
+     "cell": "SB:37|2.50-4.00",
+     "n": 5019,
+     "landed": 0.2815,
+     "fair": 0.266,
+     "bias": 0.0156,
+     "se": 0.0062,
+     "ret": -0.1165,
+     "shrunk": 0.015
+    },
+    "short_leg": false
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.122
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.053
+     },
+     {
+      "fact": "team_news_caution",
+      "source": "news_check",
+      "side": null,
+      "direction": -1,
+      "size": 0.5,
+      "note": "LASK missing 12% of value (George Bello, Ramiz Harakat\u00e9)"
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Result & total",
+    "n": 2,
+    "down": 1.5108,
+    "up": 0.0,
+    "alarm": null
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.53,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+  },
+  {
+   "fixture": "Man Utd v Roma",
+   "league": "Champions League",
+   "home": "Man Utd",
+   "away": "Roma",
+   "kickoff": "2026-11-03",
+   "market": "SB:10||Home or Away",
+   "pick": "Man Utd or Roma",
+   "price": 1.27,
+   "chance": 0.7963,
+   "chance_raw": 0.7635,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "UYTAM6",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106291,
+   "kickoff_utc": "2026-11-03T20:00:00.000Z",
+   "predicted_xi": {
+    "home": 490770152,
+    "away": 255174156
+   },
+   "lineup_check": null,
+   "matchup": {
+    "say": "Manchester United: counter side v high line; Roma: elite attack v leaky defence -> BTTS & goals",
+    "xg": [
+     2.174,
+     1.528
+    ],
+    "btts": 0.694,
+    "over25": 0.715,
+    "over15": 0.884,
+    "corners": 9.6,
+    "pick_matchup_chance": 0.794,
+    "weight": 0.0,
+    "better_market": null,
+    "formations": [
+     [
+      "4-2-3-1 x8"
+     ],
+     [
+      "3-4-2-1 x7",
+      "3-5-2 x1"
+     ]
+    ],
+    "tags": [
+     "counter side v high line",
+     "elite attack v leaky defence"
+    ]
+   },
+   "sb_event_id": "sr:match:74165992",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.02015662735998891,
+   "missing": {
+    "home": 0.3341412603201323,
+    "away": 0.28702120514499496
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.20-1.30",
+     "n": 6761,
+     "landed": 0.7645,
+     "fair": 0.7391,
+     "bias": 0.0255,
+     "se": 0.0053,
+     "ret": -0.0456,
+     "shrunk": 0.0247
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 103,
+     "landed": 0.1262,
+     "fair": 0.2035,
+     "bias": -0.0773,
+     "se": 0.0397,
+     "ret": -0.4053,
+     "shrunk": -0.0263
+    },
+    "short_leg": true
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.334
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.287
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 488,
+    "down": 9.2819,
+    "up": 2.8633,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 199,
+    "yes": null,
+    "no": null
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0419,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0052,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 11.53,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   },
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
   }
  ],
  "accas": [
@@ -4204,1513 +5719,7 @@
    ]
   }
  ],
- "singles_dropped": [
-  {
-   "fixture": "Blackburn v Stoke",
-   "league": "Championship",
-   "home": "Blackburn",
-   "away": "Stoke",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Blackburn or Stoke",
-   "price": 1.33,
-   "chance": 0.7572,
-   "chance_raw": 0.7244,
-   "tier": "SAFE",
-   "certainty": "HIGH",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 5836911,
-   "kickoff_utc": "2026-11-03T19:45:00.000Z",
-   "predicted_xi": {
-    "home": 13184466,
-    "away": 54559287
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "no tactical clash flagged -> no strong goals lean",
-    "xg": [
-     1.867,
-     1.002
-    ],
-    "btts": 0.535,
-    "over25": 0.547,
-    "over15": 0.78,
-    "corners": 11.1,
-    "pick_matchup_chance": 0.776,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x5",
-      "5-4-1 x2"
-     ],
-     [
-      "3-4-3 x6",
-      "3-5-2 x1"
-     ]
-    ],
-    "tags": []
-   },
-   "sb_event_id": "sr:match:72339986",
-   "sb_tid": "sr:tournament:18",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.25,
-   "ev": -0.025910692548421044,
-   "missing": {
-    "home": 0.23198530664599903,
-    "away": 0.10715354621530027
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.33,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.30-1.50",
-     "n": 5981,
-     "landed": 0.6763,
-     "fair": 0.6744,
-     "bias": 0.0019,
-     "se": 0.0061,
-     "ret": -0.0745,
-     "shrunk": 0.0018
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.232
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.107
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0214,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0027,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.28,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Charlton v Bolton Wanderers",
-   "league": "Championship",
-   "home": "Charlton",
-   "away": "Bolton Wanderers",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Charlton or Bolton Wanderers",
-   "price": 1.32,
-   "chance": 0.778,
-   "chance_raw": 0.7452,
-   "tier": "SAFE",
-   "certainty": "HIGH",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 5836920,
-   "kickoff_utc": "2026-11-03T19:45:00.000Z",
-   "predicted_xi": {
-    "home": 20169114,
-    "away": 17250915
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "Charlton Athletic: counter side v high line; Charlton Athletic: set-piece threat v weak set-piece defence; Charlton Athletic: counter side v counter-exposed -> no strong goals lean",
-    "xg": [
-     1.605,
-     1.19
-    ],
-    "btts": 0.556,
-    "over25": 0.529,
-    "over15": 0.768,
-    "corners": 11.1,
-    "pick_matchup_chance": 0.753,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x5",
-      "3-4-2-1 x2"
-     ],
-     [
-      "4-2-3-1 x7",
-      "4-4-2 x1"
-     ]
-    ],
-    "tags": [
-     "counter side v high line",
-     "set-piece threat v weak set-piece defence",
-     "counter side v counter-exposed"
-    ]
-   },
-   "sb_event_id": "sr:match:72340004",
-   "sb_tid": "sr:tournament:18",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.25,
-   "ev": -0.005745189982584997,
-   "missing": {
-    "home": 0.0983557390077159,
-    "away": 0.06860326082789814
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.32,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.30-1.50",
-     "n": 5981,
-     "landed": 0.6763,
-     "fair": 0.6744,
-     "bias": 0.0019,
-     "se": 0.0061,
-     "ret": -0.0745,
-     "shrunk": 0.0018
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.098
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.069
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0843,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0105,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.28,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Portsmouth v Swansea",
-   "league": "Championship",
-   "home": "Portsmouth",
-   "away": "Swansea",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Portsmouth or Swansea",
-   "price": 1.35,
-   "chance": 0.7531,
-   "chance_raw": 0.7203,
-   "tier": "SAFE",
-   "certainty": "HIGH",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 5836913,
-   "kickoff_utc": "2026-11-03T19:45:00.000Z",
-   "predicted_xi": {
-    "home": 18768213,
-    "away": 37205399
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "Portsmouth: high press v build-up side -> no strong goals lean",
-    "xg": [
-     1.732,
-     1.063
-    ],
-    "btts": 0.539,
-    "over25": 0.529,
-    "over15": 0.768,
-    "corners": 9.2,
-    "pick_matchup_chance": 0.763,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x8"
-     ],
-     [
-      "4-3-3 x7",
-      "4-1-4-1 x1"
-     ]
-    ],
-    "tags": [
-     "high press v build-up side"
-    ]
-   },
-   "sb_event_id": "sr:match:72339990",
-   "sb_tid": "sr:tournament:18",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.25,
-   "ev": -0.01676347828322211,
-   "missing": {
-    "home": 0.24133661970549983,
-    "away": 0.27019983971834116
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.35,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.30-1.50",
-     "n": 5981,
-     "landed": 0.6763,
-     "fair": 0.6744,
-     "bias": 0.0019,
-     "se": 0.0061,
-     "ret": -0.0745,
-     "shrunk": 0.0018
-    },
-    "no": {
-     "cell": "SB:10|2.50-4.00",
-     "n": 772,
-     "landed": 0.2098,
-     "fair": 0.3195,
-     "bias": -0.1096,
-     "se": 0.0168,
-     "ret": -0.3966,
-     "shrunk": -0.0871
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.241
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.27
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0477,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.006,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.28,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Watford v Lincoln City",
-   "league": "Championship",
-   "home": "Watford",
-   "away": "Lincoln City",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Watford or Lincoln City",
-   "price": 1.33,
-   "chance": 0.7767,
-   "chance_raw": 0.7439,
-   "tier": "SAFE",
-   "certainty": "MEDIUM",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 5836916,
-   "kickoff_utc": "2026-11-03T19:45:00.000Z",
-   "predicted_xi": {
-    "home": 32547901,
-    "away": 13405615
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "Lincoln City: set-piece threat v weak set-piece defence; Lincoln City: aerial threat v weak in the air -> no strong goals lean",
-    "xg": [
-     1.526,
-     1.221
-    ],
-    "btts": 0.552,
-    "over25": 0.518,
-    "over15": 0.76,
-    "corners": 10.3,
-    "pick_matchup_chance": 0.748,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x3",
-      "5-3-2 x3"
-     ],
-     [
-      "3-4-2-1 x4",
-      "4-2-3-1 x4"
-     ]
-    ],
-    "tags": [
-     "set-piece threat v weak set-piece defence",
-     "aerial threat v weak in the air"
-    ]
-   },
-   "sb_event_id": "sr:match:72339996",
-   "sb_tid": "sr:tournament:18",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.25,
-   "ev": -2.47442746887927e-05,
-   "missing": {
-    "home": 0.20909804876401147,
-    "away": 0.14428548722423543
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.33,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.30-1.50",
-     "n": 5981,
-     "landed": 0.6763,
-     "fair": 0.6744,
-     "bias": 0.0019,
-     "se": 0.0061,
-     "ret": -0.0745,
-     "shrunk": 0.0018
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.209
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.144
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.1,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0125,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.28,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "West Brom v Southampton",
-   "league": "Championship",
-   "home": "West Brom",
-   "away": "Southampton",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "West Brom or Southampton",
-   "price": 1.31,
-   "chance": 0.7781,
-   "chance_raw": 0.7453,
-   "tier": "SAFE",
-   "certainty": "HIGH",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 5836917,
-   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-   "predicted_xi": {
-    "home": 26275905,
-    "away": 53733788
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "Southampton: counter side v high line -> BTTS",
-    "xg": [
-     1.671,
-     1.292
-    ],
-    "btts": 0.589,
-    "over25": 0.568,
-    "over15": 0.795,
-    "corners": 11.4,
-    "pick_matchup_chance": 0.76,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-4-2 x4",
-      "4-4-1-1 x2"
-     ],
-     [
-      "4-2-3-1 x7",
-      "4-4-2 x1"
-     ]
-    ],
-    "tags": [
-     "counter side v high line"
-    ]
-   },
-   "sb_event_id": "sr:match:72339998",
-   "sb_tid": "sr:tournament:18",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.25,
-   "ev": -0.013167936235507383,
-   "missing": {
-    "home": 0.2910010558391304,
-    "away": 0.040995712162724185
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.31,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.30-1.50",
-     "n": 5981,
-     "landed": 0.6763,
-     "fair": 0.6744,
-     "bias": 0.0019,
-     "se": 0.0061,
-     "ret": -0.0745,
-     "shrunk": 0.0018
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.291
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.041
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0623,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0078,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.53,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Shakhtar D v Sporting",
-   "league": "Champions League",
-   "home": "Shakhtar D",
-   "away": "Sporting",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Shakhtar D or Sporting",
-   "price": 1.28,
-   "chance": 0.7885,
-   "chance_raw": 0.7557,
-   "tier": "MARKET",
-   "certainty": "LOW",
-   "code": null,
-   "news_level": null,
-   "news_note": null,
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": null,
-   "kickoff_utc": "2026-11-03T17:45:00Z",
-   "predicted_xi": null,
-   "lineup_check": null,
-   "matchup": null,
-   "sb_event_id": "sr:match:74165976",
-   "sb_tid": "sr:tournament:7",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.02241081677112433,
-   "missing": null,
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.28,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.20-1.30",
-     "n": 6761,
-     "landed": 0.7645,
-     "fair": 0.7391,
-     "bias": 0.0255,
-     "se": 0.0053,
-     "ret": -0.0456,
-     "shrunk": 0.0247
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": true
-   },
-   "context": {
-    "facts": [],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0331,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0041,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 9.28,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Atletico Madrid v Bayern Munich",
-   "league": "Champions League",
-   "home": "Atletico Madrid",
-   "away": "Bayern Munich",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Atletico Madrid or Bayern Munich",
-   "price": 1.27,
-   "chance": 0.7984,
-   "chance_raw": 0.7656,
-   "tier": "MARKET",
-   "certainty": "LOW",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 6106266,
-   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-   "predicted_xi": {
-    "home": 489287949,
-    "away": 525174080
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "no tactical clash flagged -> BTTS & goals",
-    "xg": [
-     1.32,
-     1.986
-    ],
-    "btts": 0.632,
-    "over25": 0.642,
-    "over15": 0.842,
-    "corners": 10.6,
-    "pick_matchup_chance": 0.783,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-4-2 x4",
-      "4-2-3-1 x2"
-     ],
-     [
-      "4-2-3-1 x8"
-     ]
-    ],
-    "tags": []
-   },
-   "sb_event_id": "sr:match:74165980",
-   "sb_tid": "sr:tournament:7",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.017549715864484283,
-   "missing": {
-    "home": 0.04364837487561552,
-    "away": 0.3196598588958538
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.27,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.20-1.30",
-     "n": 6761,
-     "landed": 0.7645,
-     "fair": 0.7391,
-     "bias": 0.0255,
-     "se": 0.0053,
-     "ret": -0.0456,
-     "shrunk": 0.0247
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": true
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.044
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.32
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0517,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0065,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.53,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Barcelona v Aston Villa",
-   "league": "Champions League",
-   "home": "Barcelona",
-   "away": "Aston Villa",
-   "kickoff": "2026-11-03",
-   "market": "SB:37|total=1.5|Home & Over 1.5",
-   "pick": "Barcelona & Over 1.5",
-   "price": 1.3,
-   "chance": 0.7657,
-   "chance_raw": 0.6988,
-   "tier": "MARKET",
-   "certainty": "LOW",
-   "code": null,
-   "news_level": "CAUTION",
-   "news_note": "Barcelona missing 19% of value (Dani Olmo, Jules Kound\u00e9, Eric Garc\u00eda); support: Aston Villa missing 21%",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 6106263,
-   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-   "predicted_xi": {
-    "home": 877440476,
-    "away": 391715268
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "both high lines + an elite attack; Barcelona: counter side v high line; Barcelona: possession side v low block; Barcelona: elite attack v leaky defence; Barcelona: counter side v counter-exposed; Aston Villa: counter side v high line; Aston Villa: counter side v counter-exposed -> BTTS & goals",
-    "xg": [
-     2.768,
-     1.456
-    ],
-    "btts": 0.719,
-    "over25": 0.793,
-    "over15": 0.924,
-    "corners": 9.4,
-    "pick_matchup_chance": 0.61,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x7",
-      "4-3-3 x1"
-     ],
-     [
-      "4-2-3-1 x7",
-      "3-4-2-1 x1"
-     ]
-    ],
-    "tags": [
-     "counter side v high line",
-     "possession side v low block",
-     "elite attack v leaky defence",
-     "counter side v counter-exposed",
-     "counter side v high line",
-     "counter side v counter-exposed"
-    ]
-   },
-   "sb_event_id": "sr:match:74165984",
-   "sb_tid": "sr:tournament:7",
-   "sb_market": {
-    "id": 37,
-    "desc": null,
-    "spec": "total=1.5",
-    "outcome": "Home & Over 1.5"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.08116787071652187,
-   "missing": {
-    "home": 0.18729982160877684,
-    "away": 0.20906729806252483
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.3,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:37|1.30-1.50",
-     "n": 88,
-     "landed": 0.6591,
-     "fair": 0.6042,
-     "bias": 0.0549,
-     "se": 0.0521,
-     "ret": -0.0755,
-     "shrunk": 0.0168
-    },
-    "no": {
-     "cell": "SB:37|4.00+",
-     "n": 17890,
-     "landed": 0.0985,
-     "fair": 0.1086,
-     "bias": -0.0101,
-     "se": 0.0023,
-     "ret": -0.2544,
-     "shrunk": -0.01
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.187
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.209
-     },
-     {
-      "fact": "team_news_caution",
-      "source": "news_check",
-      "side": null,
-      "direction": -1,
-      "size": 0.5,
-      "note": "Barcelona missing 19% of value (Dani Olmo, Jules Kound\u00e9, Eric Garc\u00eda); support: Aston Villa missing 21%"
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Result & total",
-    "n": 2,
-    "down": 1.5108,
-    "up": 0.0,
-    "alarm": null
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.53,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "LASK Linz v Slovan Bratislava",
-   "league": "Champions League",
-   "home": "LASK Linz",
-   "away": "Slovan Bratislava",
-   "kickoff": "2026-11-03",
-   "market": "SB:37|total=1.5|Home & Over 1.5",
-   "pick": "LASK Linz & Over 1.5",
-   "price": 1.41,
-   "chance": 0.7088,
-   "chance_raw": 0.6419,
-   "tier": "MARKET",
-   "certainty": "LOW",
-   "code": null,
-   "news_level": "CAUTION",
-   "news_note": "LASK missing 12% of value (George Bello, Ramiz Harakat\u00e9)",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 6106408,
-   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-   "predicted_xi": {
-    "home": 22980309,
-    "away": 11020670
-   },
-   "lineup_check": null,
-   "matchup": null,
-   "sb_event_id": "sr:match:74165990",
-   "sb_tid": "sr:tournament:7",
-   "sb_market": {
-    "id": 37,
-    "desc": null,
-    "spec": "total=1.5",
-    "outcome": "Home & Over 1.5"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.08365349317094406,
-   "missing": {
-    "home": 0.12229957017701124,
-    "away": 0.05300723245385796
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.41,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:37|1.30-1.50",
-     "n": 88,
-     "landed": 0.6591,
-     "fair": 0.6042,
-     "bias": 0.0549,
-     "se": 0.0521,
-     "ret": -0.0755,
-     "shrunk": 0.0168
-    },
-    "no": {
-     "cell": "SB:37|2.50-4.00",
-     "n": 5019,
-     "landed": 0.2815,
-     "fair": 0.266,
-     "bias": 0.0156,
-     "se": 0.0062,
-     "ret": -0.1165,
-     "shrunk": 0.015
-    },
-    "short_leg": false
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.122
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.053
-     },
-     {
-      "fact": "team_news_caution",
-      "source": "news_check",
-      "side": null,
-      "direction": -1,
-      "size": 0.5,
-      "note": "LASK missing 12% of value (George Bello, Ramiz Harakat\u00e9)"
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Result & total",
-    "n": 2,
-    "down": 1.5108,
-    "up": 0.0,
-    "alarm": null
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.53,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  },
-  {
-   "fixture": "Man Utd v Roma",
-   "league": "Champions League",
-   "home": "Man Utd",
-   "away": "Roma",
-   "kickoff": "2026-11-03",
-   "market": "SB:10||Home or Away",
-   "pick": "Man Utd or Roma",
-   "price": 1.27,
-   "chance": 0.7963,
-   "chance_raw": 0.7635,
-   "tier": "MARKET",
-   "certainty": "LOW",
-   "code": null,
-   "news_level": "OK",
-   "news_note": "pick does not depend on one team's lineup",
-   "switched_from": null,
-   "orig_market": null,
-   "fotmob_id": 6106291,
-   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-   "predicted_xi": {
-    "home": 490770152,
-    "away": 255174156
-   },
-   "lineup_check": null,
-   "matchup": {
-    "say": "Manchester United: counter side v high line; Roma: elite attack v leaky defence -> BTTS & goals",
-    "xg": [
-     2.174,
-     1.528
-    ],
-    "btts": 0.694,
-    "over25": 0.715,
-    "over15": 0.884,
-    "corners": 9.6,
-    "pick_matchup_chance": 0.794,
-    "weight": 0.0,
-    "better_market": null,
-    "formations": [
-     [
-      "4-2-3-1 x8"
-     ],
-     [
-      "3-4-2-1 x7",
-      "3-5-2 x1"
-     ]
-    ],
-    "tags": [
-     "counter side v high line",
-     "elite attack v leaky defence"
-    ]
-   },
-   "sb_event_id": "sr:match:74165992",
-   "sb_tid": "sr:tournament:7",
-   "sb_market": {
-    "id": 10,
-    "desc": null,
-    "spec": "",
-    "outcome": "Home or Away"
-   },
-   "closing_price": null,
-   "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.02015662735998891,
-   "missing": {
-    "home": 0.3341412603201323,
-    "away": 0.28702120514499496
-   },
-   "sharp_p": null,
-   "sharp_ev": null,
-   "first_price": 1.27,
-   "drift_since_board": null,
-   "result": null,
-   "ft": null,
-   "bias": {
-    "yes": {
-     "cell": "SB:10|1.20-1.30",
-     "n": 6761,
-     "landed": 0.7645,
-     "fair": 0.7391,
-     "bias": 0.0255,
-     "se": 0.0053,
-     "ret": -0.0456,
-     "shrunk": 0.0247
-    },
-    "no": {
-     "cell": "SB:10|4.00+",
-     "n": 103,
-     "landed": 0.1262,
-     "fair": 0.2035,
-     "bias": -0.0773,
-     "se": 0.0397,
-     "ret": -0.4053,
-     "shrunk": -0.0263
-    },
-    "short_leg": true
-   },
-   "context": {
-    "facts": [
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "home",
-      "direction": -1,
-      "size": 0.334
-     },
-     {
-      "fact": "squad_value_missing",
-      "source": "fotmob",
-      "side": "away",
-      "direction": 1,
-      "size": 0.287
-     }
-    ],
-    "backs": "home",
-    "unknown": [
-     "rest",
-     "travel",
-     "motivation",
-     "weather",
-     "referee",
-     "new_manager",
-     "derby"
-    ]
-   },
-   "drift": {
-    "family": "Double chance",
-    "n": 488,
-    "down": 9.2819,
-    "up": 2.8633,
-    "alarm": "down"
-   },
-   "blend": {
-    "w": 0.9,
-    "n_fit": 199,
-    "yes": null,
-    "no": null
-   },
-   "shop": null,
-   "kelly": {
-    "full": 0.0419,
-    "market": null,
-    "disagree": null,
-    "shrunk": 0.0052,
-    "no_edge": null
-   },
-   "timing": {
-    "hours_to_ko": 11.53,
-    "after_lineups": false,
-    "sb_move": 0.0,
-    "sharp_gap": null,
-    "yes": null,
-    "no": null,
-    "signal": null
-   }
-  }
- ],
+ "singles_dropped": [],
  "accas_dropped": [],
  "safe3_dropped": [],
  "clv_accas": [

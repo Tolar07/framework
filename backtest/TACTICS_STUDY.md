@@ -1,6 +1,6 @@
 # TACTICS STUDY — matchup read, walk-forward (engine/tactics_study.py)
 
-_Regenerated 2026-11-03 01:24 UTC by the nightly match study._
+_Regenerated 2026-11-03 16:38 UTC by the nightly match study._
 
 - Matches read walk-forward (profiles from earlier matches only): **1691**
 - BTTS Brier: matchup 0.2458 v the season base rate 0.2452 (lower is better)

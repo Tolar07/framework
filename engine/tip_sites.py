@@ -5,10 +5,12 @@ sites too, so we can analyse them"). Paper only: nothing here selects a pick or 
 finding is promoted without the Architect.
 
 Only sites that let robots read the page are used. Forebet, PredictZ and WinDrawWin sit behind a
-Cloudflare bot check (HTTP 403 on 2026-11-03) and are NOT worked around. Statarea draws its tips with
-JavaScript (nothing in the HTML), so it is left out too.
+Cloudflare bot check (HTTP 403 on 2026-11-03) and are NOT worked around.
 
   vitibet   https://www.vitibet.com  quick tips: 1/X/2 percentages, a predicted score, a 1X2 / double chance tip
+  statarea  https://www.statarea.com predictions (robots.txt: Allow /): a 1X2 / double chance tip, the 1/X/2
+            percentages and the over 1.5/2.5/3.5 and both-teams-to-score percentages. The page draws its tips
+            with JavaScript, so it is read with a headless browser (Playwright), once per run, like a visitor.
 
 Each tip becomes a one-leg "slip" in the engine/tipsters.py format (poster "site:<name>"), written to
 data/tip_sites/slips_<day>.jsonl, so monitor/tipster_run.py grades it with the same strict Flashscore
@@ -30,7 +32,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 FOLDER = ROOT / "data" / "tip_sites"
 UA = "Mozilla/5.0 (compatible; olp-xdv-tipsites/1.0; paper study)"
-SITES = {"vitibet": "https://www.vitibet.com/index.php?clanek=quicktips&sekce=fotbal&lang=en"}
+SITES = {"vitibet": "https://www.vitibet.com/index.php?clanek=quicktips&sekce=fotbal&lang=en",
+         "statarea": "https://www.statarea.com/predictions"}
+NEEDS_BROWSER = {"statarea"}
 
 TIPS = {"1": ("1x2", "home"), "X": ("1x2", "draw"), "2": ("1x2", "away"), "0": ("1x2", "draw"),
         "1X": ("dc", "1x"), "10": ("dc", "1x"), "X2": ("dc", "x2"), "02": ("dc", "x2"), "12": ("dc", "12")}
@@ -40,6 +44,20 @@ def fetch(url: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read().decode("utf-8", errors="replace")
+
+
+def fetch_rendered(url: str) -> str:
+    """The page after its JavaScript ran (headless Chromium). Playwright is imported here so the rest of
+    the module works without it."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        try:
+            pg = b.new_page(user_agent=UA)
+            pg.goto(url, wait_until="networkidle", timeout=90000)
+            return pg.content()
+        finally:
+            b.close()
 
 
 def _pct(s: str) -> float | None:
@@ -83,10 +101,49 @@ def parse_vitibet(page: str, now: datetime) -> list[dict]:
     return out
 
 
-PARSERS = {"vitibet": parse_vitibet}
+def parse_statarea(page: str, now: datetime) -> list[dict]:
+    """One slip per game that has not started. Times are in the page's own time zone (it names it)."""
+    from zoneinfo import ZoneInfo
+    tzname = re.search(r'class="zoneastext">\s*([A-Za-z_]+/[A-Za-z_]+)\s*<', page)
+    try:
+        tz = ZoneInfo(tzname.group(1)) if tzname else UTC
+    except Exception:  # noqa: BLE001 — an unknown zone name: no tips rather than wrong kick-offs
+        return []
+    out = []
+    for mid, block in re.findall(r'<div class="match" id="(\d+)">(.*?)<div class="userrow"', page, re.S):
+        tip = re.search(r'<div class="tip">.*?<div class="type\d+">\s*([0-9X]{1,2})\s*<', block, re.S)
+        when = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2})', block)
+        home = re.search(r'class="hostteam">\s*<div class="goals">([^<]*)</div>\s*<div class="name"><a[^>]*>([^<]+)</a>', block)
+        away = re.search(r'class="guestteam">\s*<div class="goals">([^<]*)</div>\s*<div class="name"><a[^>]*>([^<]+)</a>', block)
+        if not (tip and when and home and away):
+            continue
+        if home.group(1).strip() not in ("-", "") or away.group(1).strip() not in ("-", ""):
+            continue                             # a score is showing: started or finished
+        kickoff = datetime.strptime(when.group(1), "%Y-%m-%d %H:%M").replace(tzinfo=tz).astimezone(UTC)
+        if kickoff <= now:
+            continue
+        mapped = TIPS.get(tip.group(1).upper())
+        if mapped is None:
+            continue
+        vals = [int(v) / 100 for v in re.findall(r'<div class="value [a-z]\d+">(\d+)</div>', block)]
+        leg = {"sport": "football", "home": htmlmod.unescape(home.group(2)).strip(),
+               "away": htmlmod.unescape(away.group(2)).strip(),
+               "kickoff": kickoff.strftime("%Y-%m-%dT%H:%M:%SZ"), "market": mapped[0], "selection": mapped[1],
+               "price": None, "text": f"statarea tip {tip.group(1).upper()}",
+               "p": vals[0:3] if len(vals) >= 3 else [None, None, None], "score_tip": None}
+        if len(vals) >= 11:                      # over 1.5 / 2.5 / 3.5, both teams to score: kept for later study
+            leg["p_over"] = {"1.5": vals[6], "2.5": vals[7], "3.5": vals[8]}
+            leg["p_btts"] = vals[9]
+        out.append({"poster": "site:statarea", "post_url": f"site:statarea:{mid}", "official": False,
+                    "posted_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "book": "site", "code": None,
+                    "stated_odds": None, "legs": [leg]})
+    return out
 
 
-def collect(folder: Path, now: datetime, get=fetch) -> list[str]:
+PARSERS = {"vitibet": parse_vitibet, "statarea": parse_statarea}
+
+
+def collect(folder: Path, now: datetime, get=fetch, get_js=fetch_rendered) -> list[str]:
     """Read every site once and append the new tips. Returns one note per site."""
     folder.mkdir(parents=True, exist_ok=True)
     seen = set()
@@ -100,7 +157,7 @@ def collect(folder: Path, now: datetime, get=fetch) -> list[str]:
     notes = []
     for site, url in SITES.items():
         try:
-            rows = PARSERS[site](get(url), now)
+            rows = PARSERS[site]((get_js if site in NEEDS_BROWSER else get)(url), now)
         except Exception as e:  # noqa: BLE001 — one site down must not stop the others
             notes.append(f"{site}: unavailable ({str(e)[:80]})")
             continue

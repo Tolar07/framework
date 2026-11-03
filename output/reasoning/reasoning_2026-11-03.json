@@ -1,7 +1,7 @@
 {
  "date": "2026-11-03",
- "picks_generated_at": "2026-11-02T22:02:21Z",
- "run_at": "2026-11-02T22:03:53+00:00",
+ "picks_generated_at": "2026-11-03T06:57:42Z",
+ "run_at": "2026-11-03T06:59:07+00:00",
  "model": "gemini-2.5-pro",
  "advisory": false,
  "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
@@ -31,13 +31,13 @@
     "status": "ok",
     "answered": 0
    },
-   "gemini": {
-    "model": "gemini-3.5-flash-lite",
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
     "status": "ok",
     "answered": 0
    },
-   "nvidia": {
-    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
     "status": "ok",
     "answered": 0
    }
@@ -45,15 +45,15 @@
   "weights": {
    "gemini": {
     "weight": 1.0,
-    "n": 18,
+    "n": 28,
     "dropped": null
    },
    "nvidia": {
     "weight": 0.0,
-    "n": 98,
-    "brier": 0.1657,
-    "anchor_brier": 0.1625,
-    "wins": 92,
+    "n": 103,
+    "brier": 0.1664,
+    "anchor_brier": 0.1633,
+    "wins": 96,
     "dropped": "worse than the market anchor"
    },
    "openrouter": {

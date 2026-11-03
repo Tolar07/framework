@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-02",
- "graded": 362,
+ "updated": "2026-11-03",
+ "graded": 365,
  "by_verdict": {
   "back": {
    "n": 102,
@@ -14,12 +14,12 @@
    "beat_close": 52
   },
   "lower": {
-   "n": 124,
-   "won": 101,
-   "hit": 0.815,
-   "flat_return": 0.0266,
-   "model_said": 0.79,
-   "ai_said": 0.782,
+   "n": 127,
+   "won": 103,
+   "hit": 0.811,
+   "flat_return": 0.0235,
+   "model_said": 0.789,
+   "ai_said": 0.781,
    "clv_n": 129,
    "mean_clv": -0.02,
    "beat_close": 52
@@ -37,24 +37,24 @@
   }
  },
  "brier": {
-  "n": 362,
-  "model": 0.1707,
-  "ai": 0.1719
+  "n": 365,
+  "model": 0.1711,
+  "ai": 0.1724
  },
  "nba": {
-  "graded": 59,
+  "graded": 71,
   "by_verdict": {
    "back": {
-    "n": 34,
-    "won": 23,
-    "flat_return": 0.3162,
-    "close_value": 0.1758
+    "n": 39,
+    "won": 27,
+    "flat_return": 0.3485,
+    "close_value": 0.1746
    },
    "lower": {
-    "n": 23,
-    "won": 18,
-    "flat_return": 0.4839,
-    "close_value": 0.1354
+    "n": 30,
+    "won": 21,
+    "flat_return": 0.3297,
+    "close_value": 0.1517
    },
    "veto": {
     "n": 2,
@@ -94,10 +94,10 @@
    "veto_loss_rate": null
   },
   "football | Double chance": {
-   "n": 68,
+   "n": 70,
    "earned": false,
-   "cog_brier": 0.1578,
-   "base_brier": 0.1559,
+   "cog_brier": 0.1614,
+   "base_brier": 0.1602,
    "veto_loss_rate": null
   },
   "football | European handicap": {
@@ -129,17 +129,17 @@
    "veto_loss_rate": null
   },
   "football | Over/Under": {
-   "n": 74,
+   "n": 75,
    "earned": false,
-   "cog_brier": 0.1504,
-   "base_brier": 0.1492,
+   "cog_brier": 0.1496,
+   "base_brier": 0.1482,
    "veto_loss_rate": null
   },
   "nba | NBA 1st half total": {
-   "n": 20,
+   "n": 32,
    "earned": false,
-   "cog_brier": 0.195,
-   "base_brier": 0.1915,
+   "cog_brier": 0.2108,
+   "base_brier": 0.2087,
    "veto_loss_rate": null
   },
   "nba | NBA handicap": {
@@ -3274,6 +3274,216 @@
    "cog_brier": 0.5849,
    "flags": [],
    "graded_at": "2026-11-02T22:03:53+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Benfica v Alverca|SB:18|total=4.5|Under 4.5",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Over/Under",
+   "verdict": "LOWER",
+   "base_prob": 0.7267,
+   "cognitive_prob": 0.7067,
+   "won": true,
+   "base_brier": 0.0747,
+   "cog_brier": 0.086,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Gil Vicente v Guimaraes|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7493,
+   "cognitive_prob": 0.6987,
+   "won": false,
+   "base_brier": 0.5615,
+   "cog_brier": 0.4882,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "football|2026-11-02|Newcastle v Everton|SB:10||Home or Away",
+   "date": "2026-11-02",
+   "domain": "football",
+   "family": "Double chance",
+   "verdict": "LOWER",
+   "base_prob": 0.7692,
+   "cognitive_prob": 0.7241,
+   "won": true,
+   "base_brier": 0.0533,
+   "cog_brier": 0.0761,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Cleveland Cavaliers v Oklahoma City Thunder|NBA:68|total=117.5|Under 117.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.6091,
+   "cognitive_prob": 0.5891,
+   "won": true,
+   "base_brier": 0.1528,
+   "cog_brier": 0.1688,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Indiana Pacers v Atlanta Hawks|NBA:68|total=118.5|Under 118.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5596,
+   "cognitive_prob": 0.5396,
+   "won": false,
+   "base_brier": 0.3132,
+   "cog_brier": 0.2912,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|New York Knicks v Brooklyn Nets|NBA:68|total=113.5|Under 113.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5769,
+   "cognitive_prob": 0.5569,
+   "won": true,
+   "base_brier": 0.179,
+   "cog_brier": 0.1963,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Orlando Magic v Washington Wizards|NBA:68|total=108.5|Over 108.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.6379,
+   "cognitive_prob": 0.6179,
+   "won": true,
+   "base_brier": 0.1311,
+   "cog_brier": 0.146,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Philadelphia 76ers v Chicago Bulls|NBA:68|total=116.5|Over 116.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.623,
+   "cognitive_prob": 0.603,
+   "won": true,
+   "base_brier": 0.1421,
+   "cog_brier": 0.1576,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Dallas Mavericks v Sacramento Kings|NBA:68|total=120.5|Under 120.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5924,
+   "cognitive_prob": 0.5724,
+   "won": true,
+   "base_brier": 0.1661,
+   "cog_brier": 0.1828,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Memphis Grizzlies v New Orleans Pelicans|NBA:68|total=120.5|Under 120.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5759,
+   "cognitive_prob": 0.5559,
+   "won": false,
+   "base_brier": 0.3317,
+   "cog_brier": 0.309,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Minnesota Timberwolves v Milwaukee Bucks|NBA:68|total=113.5|Over 113.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.6226,
+   "cognitive_prob": 0.6026,
+   "won": false,
+   "base_brier": 0.3876,
+   "cog_brier": 0.3631,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Houston Rockets v Boston Celtics|NBA:68|total=112.5|Under 112.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5934,
+   "cognitive_prob": 0.5734,
+   "won": true,
+   "base_brier": 0.1653,
+   "cog_brier": 0.182,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|San Antonio Spurs v Utah Jazz|NBA:68|total=112.5|Over 112.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.6064,
+   "cognitive_prob": 0.5864,
+   "won": false,
+   "base_brier": 0.3677,
+   "cog_brier": 0.3439,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Denver Nuggets v Portland Trail Blazers|NBA:68|total=117.5|Under 117.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5763,
+   "cognitive_prob": 0.5463,
+   "won": false,
+   "base_brier": 0.3321,
+   "cog_brier": 0.2984,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "nba|2026-11-03|Golden State Warriors v Phoenix Suns|NBA:68|total=116.5|Under 116.5",
+   "date": "2026-11-03",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "verdict": "LOWER",
+   "base_prob": 0.5765,
+   "cognitive_prob": 0.5465,
+   "won": true,
+   "base_brier": 0.1794,
+   "cog_brier": 0.2057,
+   "flags": [],
+   "graded_at": "2026-11-03T06:59:07+00:00"
   }
  ]
 }

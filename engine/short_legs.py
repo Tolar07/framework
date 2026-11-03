@@ -25,7 +25,9 @@ FORCED_EDGE = 0.05          # a fallback market's chance - 1/price
 # day"): games clearing FORCED_EDGE always keep their single; when that leaves fewer than FILL_MIN_SINGLES
 # singles on the board, the best break-even (FILL_EDGE) fallbacks top it up, highest edge first.
 FILL_EDGE = 0.0
-FILL_MIN_SINGLES = 12
+# Architect 2026-11-03 13:35 ("Option 1"): NO CAP, full coverage. Every break-even fallback keeps its single
+# (the 12 a day was a cap in practice: the previews showed 12 of 96 on Saturday). A number brings a cap back.
+FILL_MIN_SINGLES = None
 LEG_MIN = 0.85              # a short leg's chance
 LEG_EDGE = 0.02             # a short leg's chance - 1/price
 SLIP_LEGS = 3
@@ -94,6 +96,8 @@ def fill_quota(board: list, minimum: int = FILL_MIN_SINGLES) -> list:
     (chance - 1/price) first, until the board holds `minimum` singles."""
     live = [b for b in board if getattr(b, "on_deploy_shortlist", False) and getattr(b, "best_price", None)]
     fills = [b for b in live if getattr(b, "forced_fill", False)]
+    if minimum is None:          # no cap: every fill stays
+        return []
     room = max(0, minimum - (len(live) - len(fills)))
     fills.sort(key=lambda b: (b.best_model_prob or 0) - 1.0 / b.best_price, reverse=True)
     dropped = fills[room:]

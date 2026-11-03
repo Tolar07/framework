@@ -54,4 +54,6 @@ extra = B(0.75, 1.40, True)
 assert sl.fill_quota(full + [extra], minimum=3) == [extra]            # board already full: no fill
 empty_day = [B(0.74, 1.36, True) for _ in range(5)]
 assert sl.fill_quota(empty_day, minimum=12) == []                     # an empty day keeps every fill
+assert sl.fill_quota([B(0.74, 1.36, True) for _ in range(40)], minimum=None) == []   # no cap (2026-11-03)
+assert sl.FILL_MIN_SINGLES is None
 print("short_legs_test: ok")

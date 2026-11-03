@@ -23,5 +23,9 @@
       "Benfica",
       "Gil Vicente"
     ]
+  },
+  "2026-11-03": {
+    "why": "Architect 2026-11-02 21:02 'full production ... I lift everything' + 2026-11-03 07:52 'the bots are not placing': the 5-pt forced-pick margin (#225) left 0 of 22 games with a single; 0-pt margin for 3 Nov as on 2 Nov",
+    "forced_edge": 0.0
   }
 }

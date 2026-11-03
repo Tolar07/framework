@@ -1,15 +1,15 @@
 {
- "evaluated_at": "2026-11-02",
+ "evaluated_at": "2026-11-03",
  "passes": [],
  "coverage": {
   "matches": 3783,
   "with_h2h": 3549,
   "leagues": 14,
-  "rated_graded": 938,
-  "with_xg_form": 513,
-  "news_fixtures": 990,
-  "news_with_news_and_result": 460,
-  "news_days": 23
+  "rated_graded": 959,
+  "with_xg_form": 522,
+  "news_fixtures": 1012,
+  "news_with_news_and_result": 473,
+  "news_days": 24
  },
  "part_a": {
   "home win | h2h_gd": {
@@ -31,8 +31,8 @@
      "clv_se": 0.26
     },
     "with_feature": {
-     "bets": 921,
-     "clv": -0.67,
+     "bets": 920,
+     "clv": -0.66,
      "clv_se": 0.25
     }
    }
@@ -81,7 +81,7 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1049,
+     "bets": 1048,
      "clv": -0.69,
      "clv_se": 0.25
     }
@@ -106,8 +106,8 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1032,
-     "clv": -0.72,
+     "bets": 1031,
+     "clv": -0.71,
      "clv_se": 0.25
     }
    }
@@ -116,7 +116,7 @@
    "rows": 3783,
    "scored": 3738,
    "brier_model": 0.2226,
-   "brier_gain": -0.00019,
+   "brier_gain": -0.0002,
    "brier_se": 9e-05,
    "logloss_model": 0.6357,
    "logloss_gain": -0.00046,
@@ -156,7 +156,7 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1053,
+     "bets": 1054,
      "clv": -0.78,
      "clv_se": 0.24
     }
@@ -206,7 +206,7 @@
      "clv_se": 0.2
     },
     "with_feature": {
-     "bets": 703,
+     "bets": 701,
      "clv": 0.28,
      "clv_se": 0.19
     }
@@ -315,95 +315,95 @@
  },
  "part_b": {
   "home win | xG edge": {
-   "rows": 513,
-   "scored": 431,
+   "rows": 522,
+   "scored": 440,
    "brier_model": 0.2224,
-   "brier_gain": 0.00146,
-   "brier_se": 0.00215,
-   "logloss_model": 0.6342,
-   "logloss_gain": 0.00335,
-   "logloss_se": 0.00479,
-   "last_coef": 0.197,
+   "brier_gain": 0.00147,
+   "brier_se": 0.00212,
+   "logloss_model": 0.6343,
+   "logloss_gain": 0.00338,
+   "logloss_se": 0.00471,
+   "last_coef": 0.207,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "over 2.5 | xG total": {
-   "rows": 513,
-   "scored": 431,
-   "brier_model": 0.2411,
-   "brier_gain": -0.00036,
-   "brier_se": 0.0021,
-   "logloss_model": 0.6758,
-   "logloss_gain": -0.00147,
-   "logloss_se": 0.00484,
-   "last_coef": 0.134,
+   "rows": 522,
+   "scored": 440,
+   "brier_model": 0.2427,
+   "brier_gain": -0.00025,
+   "brier_se": 0.00207,
+   "logloss_model": 0.6791,
+   "logloss_gain": -0.00127,
+   "logloss_se": 0.00475,
+   "last_coef": 0.122,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "BTTS yes | xG total": {
-   "rows": 513,
-   "scored": 431,
-   "brier_model": 0.2403,
-   "brier_gain": -0.00024,
-   "brier_se": 0.00065,
-   "logloss_model": 0.6737,
-   "logloss_gain": -0.00055,
-   "logloss_se": 0.00139,
-   "last_coef": 0.064,
+   "rows": 522,
+   "scored": 440,
+   "brier_model": 0.2407,
+   "brier_gain": -0.00022,
+   "brier_se": 0.00064,
+   "logloss_model": 0.6744,
+   "logloss_gain": -0.00051,
+   "logloss_se": 0.00137,
+   "last_coef": 0.054,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   }
  },
  "part_c": {
   "home win | missing edge": {
-   "rows": 460,
-   "scored": 414,
-   "brier_model": 0.226,
-   "brier_gain": -0.00109,
-   "brier_se": 0.00181,
-   "logloss_model": 0.6418,
-   "logloss_gain": -0.00219,
-   "logloss_se": 0.00389,
-   "last_coef": 0.018,
+   "rows": 473,
+   "scored": 427,
+   "brier_model": 0.2275,
+   "brier_gain": -0.00106,
+   "brier_se": 0.00176,
+   "logloss_model": 0.6449,
+   "logloss_gain": -0.00214,
+   "logloss_se": 0.00377,
+   "last_coef": -0.033,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "away win | missing edge": {
-   "rows": 460,
-   "scored": 414,
-   "brier_model": 0.187,
-   "brier_gain": -0.00132,
-   "brier_se": 0.00084,
-   "logloss_model": 0.5563,
-   "logloss_gain": -0.00317,
-   "logloss_se": 0.00204,
-   "last_coef": 0.004,
+   "rows": 473,
+   "scored": 427,
+   "brier_model": 0.1892,
+   "brier_gain": -0.00128,
+   "brier_se": 0.00082,
+   "logloss_model": 0.5614,
+   "logloss_gain": -0.0031,
+   "logloss_se": 0.00199,
+   "last_coef": 0.041,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "over 2.5 | missing total": {
-   "rows": 460,
-   "scored": 414,
-   "brier_model": 0.2405,
-   "brier_gain": 0.00153,
-   "brier_se": 0.00296,
-   "logloss_model": 0.6743,
-   "logloss_gain": 0.0032,
-   "logloss_se": 0.00621,
-   "last_coef": -0.213,
+   "rows": 473,
+   "scored": 427,
+   "brier_model": 0.2415,
+   "brier_gain": 0.00048,
+   "brier_se": 0.00294,
+   "logloss_model": 0.6763,
+   "logloss_gain": 0.00098,
+   "logloss_se": 0.00616,
+   "last_coef": -0.217,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   },
   "BTTS yes | missing total": {
-   "rows": 460,
-   "scored": 414,
-   "brier_model": 0.243,
-   "brier_gain": -0.00601,
-   "brier_se": 0.00362,
-   "logloss_model": 0.6794,
-   "logloss_gain": -0.0142,
-   "logloss_se": 0.00828,
-   "last_coef": -0.166,
+   "rows": 473,
+   "scored": 427,
+   "brier_model": 0.2419,
+   "brier_gain": -0.00638,
+   "brier_se": 0.00353,
+   "logloss_model": 0.6771,
+   "logloss_gain": -0.01489,
+   "logloss_se": 0.00806,
+   "last_coef": -0.15,
    "verdict": "NO CLEAR EFFECT",
    "verdict_logloss": "NO CLEAR EFFECT"
   }

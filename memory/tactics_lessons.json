@@ -9,7 +9,7 @@
    "test_n": 2,
    "test_effect": -0.653,
    "test_z": -2.65,
-   "checked": "2026-11-02"
+   "checked": "2026-11-03"
   },
   "possession side v low block": {
    "status": "candidate",
@@ -17,11 +17,22 @@
    "train_n": 242,
    "train_effect": 0.122,
    "train_z": 2.05,
-   "test_n": 100,
-   "test_effect": 0.006,
-   "test_z": 0.06,
-   "checked": "2026-11-02"
+   "test_n": 104,
+   "test_effect": 0.013,
+   "test_z": 0.14,
+   "checked": "2026-11-03"
+  },
+  "counter side v counter-exposed": {
+   "status": "candidate",
+   "written_at": "2026-11-03",
+   "train_n": 376,
+   "train_effect": -0.103,
+   "train_z": -2.44,
+   "test_n": 0,
+   "test_effect": 0.0,
+   "test_z": null,
+   "checked": "2026-11-03"
   }
  },
- "updated": "2026-11-02"
+ "updated": "2026-11-03"
 }

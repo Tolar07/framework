@@ -3544,6 +3544,225 @@
      "chance": 0.7935
     }
    ]
+  },
+  {
+   "name": "Acca D",
+   "code": "WUHS04",
+   "odds": 2.065,
+   "chance": 0.50130142792,
+   "legs": [
+    "Atletico Madrid v Bayern Munich",
+    "Man Utd v Roma",
+    "Shakhtar D v Sporting"
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261103_1745",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-03T17:45:00Z",
+   "latest_kickoff_utc": "2026-11-03T20:00:00Z",
+   "leg_detail": [
+    {
+     "fixture": "Atletico Madrid v Bayern Munich",
+     "home": "Atletico Madrid",
+     "away": "Bayern Munich",
+     "kickoff_utc": "2026-11-03T20:00:00.000Z",
+     "sb_event_id": "sr:match:74165980",
+     "sb_tid": "sr:tournament:7",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Atletico Madrid or Bayern Munich",
+     "price": 1.27,
+     "chance": 0.7984
+    },
+    {
+     "fixture": "Man Utd v Roma",
+     "home": "Man Utd",
+     "away": "Roma",
+     "kickoff_utc": "2026-11-03T20:00:00.000Z",
+     "sb_event_id": "sr:match:74165992",
+     "sb_tid": "sr:tournament:7",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Man Utd or Roma",
+     "price": 1.27,
+     "chance": 0.7963
+    },
+    {
+     "fixture": "Shakhtar D v Sporting",
+     "home": "Shakhtar D",
+     "away": "Sporting",
+     "kickoff_utc": "2026-11-03T17:45:00Z",
+     "sb_event_id": "sr:match:74165976",
+     "sb_tid": "sr:tournament:7",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Shakhtar D or Sporting",
+     "price": 1.28,
+     "chance": 0.7885
+    }
+   ],
+   "added": "2026-11-03 11:00Z, Architect: accas from the 10 games S9 had kept off"
+  },
+  {
+   "name": "Acca E",
+   "code": "J8ZZ3P",
+   "odds": 2.3,
+   "chance": 0.47018451006,
+   "legs": [
+    "West Brom v Southampton",
+    "Charlton v Bolton Wanderers",
+    "Watford v Lincoln City"
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261103_1945",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-03T19:45:00Z",
+   "latest_kickoff_utc": "2026-11-03T20:00:00Z",
+   "leg_detail": [
+    {
+     "fixture": "West Brom v Southampton",
+     "home": "West Brom",
+     "away": "Southampton",
+     "kickoff_utc": "2026-11-03T20:00:00.000Z",
+     "sb_event_id": "sr:match:72339998",
+     "sb_tid": "sr:tournament:18",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "West Brom or Southampton",
+     "price": 1.31,
+     "chance": 0.7781
+    },
+    {
+     "fixture": "Charlton v Bolton Wanderers",
+     "home": "Charlton",
+     "away": "Bolton Wanderers",
+     "kickoff_utc": "2026-11-03T19:45:00.000Z",
+     "sb_event_id": "sr:match:72340004",
+     "sb_tid": "sr:tournament:18",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Charlton or Bolton Wanderers",
+     "price": 1.32,
+     "chance": 0.778
+    },
+    {
+     "fixture": "Watford v Lincoln City",
+     "home": "Watford",
+     "away": "Lincoln City",
+     "kickoff_utc": "2026-11-03T19:45:00.000Z",
+     "sb_event_id": "sr:match:72339996",
+     "sb_tid": "sr:tournament:18",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Watford or Lincoln City",
+     "price": 1.33,
+     "chance": 0.7767
+    }
+   ],
+   "added": "2026-11-03 11:00Z, Architect: accas from the 10 games S9 had kept off"
+  },
+  {
+   "name": "Acca F",
+   "code": "ZSVVE9",
+   "odds": 2.334,
+   "chance": 0.43663837292400004,
+   "legs": [
+    "Barcelona v Aston Villa",
+    "Blackburn v Stoke",
+    "Portsmouth v Swansea"
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261103_1945",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-03T19:45:00Z",
+   "latest_kickoff_utc": "2026-11-03T20:00:00Z",
+   "leg_detail": [
+    {
+     "fixture": "Barcelona v Aston Villa",
+     "home": "Barcelona",
+     "away": "Aston Villa",
+     "kickoff_utc": "2026-11-03T20:00:00.000Z",
+     "sb_event_id": "sr:match:74165984",
+     "sb_tid": "sr:tournament:7",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "sb_market": {
+      "id": 37,
+      "desc": null,
+      "spec": "total=1.5",
+      "outcome": "Home & Over 1.5"
+     },
+     "pick": "Barcelona & Over 1.5",
+     "price": 1.3,
+     "chance": 0.7657
+    },
+    {
+     "fixture": "Blackburn v Stoke",
+     "home": "Blackburn",
+     "away": "Stoke",
+     "kickoff_utc": "2026-11-03T19:45:00.000Z",
+     "sb_event_id": "sr:match:72339986",
+     "sb_tid": "sr:tournament:18",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Blackburn or Stoke",
+     "price": 1.33,
+     "chance": 0.7572
+    },
+    {
+     "fixture": "Portsmouth v Swansea",
+     "home": "Portsmouth",
+     "away": "Swansea",
+     "kickoff_utc": "2026-11-03T19:45:00.000Z",
+     "sb_event_id": "sr:match:72339990",
+     "sb_tid": "sr:tournament:18",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Portsmouth or Swansea",
+     "price": 1.35,
+     "chance": 0.7531
+    }
+   ],
+   "added": "2026-11-03 11:00Z, Architect: accas from the 10 games S9 had kept off"
   }
  ],
  "safe3": [],

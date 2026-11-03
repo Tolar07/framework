@@ -91,10 +91,13 @@ def band(price: float | None) -> str:
     return "2.00+"
 
 
-def leg(s: dict, verdict: str | None = None) -> dict:
-    """A ledger single (or picks_ledger._single(bf) at board time) -> leg."""
+def leg(s: dict, verdict: str | None = None, board_at: str | None = None) -> dict:
+    """A ledger single (or picks_ledger._single(bf) at board time) -> leg. board_at: when that board was
+    built, so a scored day counts only the scout confirmations it could have seen (None = now)."""
+    from engine import scout
     from engine.learning import family
-    return {"fixture": s.get("fixture"), "league": s.get("league") or "?",
+    return {"scout": scout.single_effect(s, before=board_at),
+            "fixture": s.get("fixture"), "league": s.get("league") or "?",
             "market": s.get("market"), "family": family(s.get("market")),
             "price": s.get("price"), "chance": s.get("chance"),
             "close": s.get("closing_price"), "result": s.get("result"),
@@ -149,6 +152,13 @@ GEMINI_WHY = "the reasoning step runs after the board is built — no verdict ex
 UNIVERSE_WHY = "picks from every SportyBet game, not the board's candidates"
 
 
+SCOUT_SINCE = "2026-11-03"
+
+
+def _scout_ok(x: dict, _c: dict) -> bool:
+    return (x.get("scout") or 0) >= 0
+
+
 def _board_rules() -> list[Strategy]:
     w = WRITTEN
     singles = [
@@ -175,6 +185,11 @@ def _board_rules() -> list[Strategy]:
         Strategy("S9 4 a league", "singles",
                  f"at most {LEAGUE_CAP} singles a league a day, the most likely first",
                  lambda x, _c: (x.get("league_rank") or 1) <= LEAGUE_CAP, since="2026-10-28"),
+        # Architect 2026-11-03 ("the scout ... should be able to affect the picks"): a pick a starter's
+        # absence hurts, reported by the scout AND listed by FotMob (engine/scout.py). Board time reads the
+        # scout saved after the previous board (the evening scout feeds the morning refresh).
+        Strategy("S10 scout: no confirmed hurt", "singles",
+                 "singles no confirmed absence (scout + FotMob) works against", _scout_ok, since=SCOUT_SINCE),
     ]
     slips = []
     for slot, code, label in (("accas", "A", "accas"), ("safe3", "T", "50%+ accas")):
@@ -186,6 +201,9 @@ def _board_rules() -> list[Strategy]:
                      lambda x, _c: bool(x["chance"] and x["price"]) and x["chance"] * x["price"] >= 1.0, since=w),
             Strategy(f"{code}7 {label}: no Gemini veto", slot, f"{label} with no leg the reasoning step vetoed",
                      lambda x, _c: x["verdict"] != "veto", since=w, wireable=False, why_not=GEMINI_WHY),
+            Strategy(f"{code}8 {label}: no scout-hurt leg", slot,
+                     f"{label} with no leg a confirmed absence (scout + FotMob) works against",
+                     _scout_ok, since=SCOUT_SINCE),
         ]
     return singles + slips
 
@@ -292,7 +310,7 @@ def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR) 
         except (OSError, ValueError):
             continue
         v = _verdicts(doc["date"], reasoning_dir)
-        legs = rank_leagues([leg(s, v.get((s.get("fixture"), s.get("market"))))
+        legs = rank_leagues([leg(s, v.get((s.get("fixture"), s.get("market"))), doc.get("generated_at"))
                              for s in doc.get("singles", []) + doc.get("singles_dropped", [])])
         by_fix = {lg["fixture"]: lg for lg in legs}
         slips = {slot: [{"name": s.get("name"), "odds": s.get("odds"), "result": s.get("result"),

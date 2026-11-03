@@ -185,7 +185,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                   if getattr(bf, "study_pick", False) and bf.probs is not None
                   and bf.best_market_key],
         # TABLE 3D (Architect 2026-10-10): the BTTS slip, graded like an alt slip
-        "btts": [_alt_slip(n, l, c, ((combined or {}).get("btts_codes") or {}).get(n))
+        "btts": [_alt_slip(n, l, c, (((combined or {}).get("btts_codes") or {})
+                                     | ((combined or {}).get("btts_acca_codes") or {})).get(n))
                  for n, l, c in (btts or [])],
         # one code for every slip of a kind (Architect 2026-10-09): lands only
         # when every slip of that kind lands

@@ -1495,6 +1495,15 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                         _code, _ = sbk.code_for_legs(sb_index, _ls)
                         if _code:
                             extra_codes.setdefault("btts_codes", {})[_n] = _code
+                    # BTTS ACCAS (Architect 2026-11-03): the singles also go out as 2-3 leg accas
+                    from output.produce_bet import _build_btts_accas
+                    for _n, _legs, _c in _build_btts_accas(_build_btts(shown)):
+                        _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                                bf.probs.home_team, bf.probs.away_team, key)
+                               for bf, _pick, _prob, key, _price in _legs]
+                        _code, _ = sbk.code_for_legs(sb_index, _ls)
+                        if _code:
+                            extra_codes.setdefault("btts_acca_codes", {})[_n] = _code
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
                 # SHORT 3-LEG SLIPS (Architect 2026-11-01, plan point 3, engine/short_legs.py): the
@@ -1567,6 +1576,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         from output.produce_bet import _build_alt_accas as _alt_accas
         from output.produce_bet import _build_value as _build_value_l
         from output.produce_bet import _build_btts as _btts_l
+        from output.produce_bet import _build_btts_accas as _btts_accas_l
         if frozen is not None:
             raise _KeepFrozen()
         # the accas that were booked, not a rebuild from every game: since #267 the main accas
@@ -1579,7 +1589,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
                                   values=_build_value_l(dep), value_codes=value_codes,
                                   combined=extra_codes,
-                                  btts=_btts_l(shown))
+                                  btts=_btts_l(shown) + _btts_accas_l(_btts_l(shown)))
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001

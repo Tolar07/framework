@@ -1,17 +1,17 @@
 {
- "fetched": "2026-11-02",
- "rows_read": 465,
+ "fetched": "2026-11-03",
+ "rows_read": 477,
  "groups": {
   "all": {
-   "bets": 462,
-   "settled": 453,
-   "won": 263,
-   "lost": 190,
-   "expected_wins": 287.77,
-   "mean_clv": 0.0136,
-   "clv_n": 453,
-   "clv_sd": 0.1437,
-   "roi": -0.0598
+   "bets": 474,
+   "settled": 464,
+   "won": 270,
+   "lost": 194,
+   "expected_wins": 294.46,
+   "mean_clv": 0.0144,
+   "clv_n": 464,
+   "clv_sd": 0.1431,
+   "roi": -0.0559
   },
   "family: 1X2": {
    "bets": 111,
@@ -25,26 +25,26 @@
    "roi": -0.0629
   },
   "family: 1st Half Total": {
-   "bets": 29,
-   "settled": 29,
-   "won": 19,
-   "lost": 10,
-   "expected_wins": 17.48,
-   "mean_clv": -0.0194,
-   "clv_n": 29,
-   "clv_sd": 0.0721,
-   "roi": 0.2728
+   "bets": 39,
+   "settled": 38,
+   "won": 25,
+   "lost": 13,
+   "expected_wins": 22.85,
+   "mean_clv": 0.0005,
+   "clv_n": 38,
+   "clv_sd": 0.0921,
+   "roi": 0.2449
   },
   "family: Asian handicap": {
-   "bets": 22,
-   "settled": 22,
+   "bets": 23,
+   "settled": 23,
    "won": 15,
-   "lost": 7,
-   "expected_wins": 15.08,
-   "mean_clv": 0.0067,
-   "clv_n": 22,
-   "clv_sd": 0.0672,
-   "roi": -0.3872
+   "lost": 8,
+   "expected_wins": 15.66,
+   "mean_clv": 0.005,
+   "clv_n": 23,
+   "clv_sd": 0.0662,
+   "roi": -0.428
   },
   "family: BTTS": {
    "bets": 50,
@@ -80,26 +80,26 @@
    "roi": -0.6
   },
   "family: Over/Under": {
-   "bets": 62,
-   "settled": 61,
-   "won": 29,
+   "bets": 63,
+   "settled": 62,
+   "won": 30,
    "lost": 32,
-   "expected_wins": 30.49,
-   "mean_clv": 0.1154,
-   "clv_n": 61,
-   "clv_sd": 0.2375,
-   "roi": -0.1142
+   "expected_wins": 31.21,
+   "mean_clv": 0.1131,
+   "clv_n": 62,
+   "clv_sd": 0.2363,
+   "roi": -0.1048
   },
   "framework family: 1st Half Total": {
-   "bets": 26,
-   "settled": 26,
-   "won": 16,
-   "lost": 10,
-   "expected_wins": 15.72,
-   "mean_clv": -0.0219,
-   "clv_n": 26,
-   "clv_sd": 0.0757,
-   "roi": 0.2007
+   "bets": 31,
+   "settled": 30,
+   "won": 19,
+   "lost": 11,
+   "expected_wins": 18.12,
+   "mean_clv": -0.0202,
+   "clv_n": 30,
+   "clv_sd": 0.0722,
+   "roi": 0.2258
   },
   "framework family: Asian handicap": {
    "bets": 14,
@@ -146,15 +146,15 @@
    "roi": -0.087
   },
   "source: framework pick": {
-   "bets": 117,
-   "settled": 116,
-   "won": 78,
-   "lost": 38,
-   "expected_wins": 88.9,
-   "mean_clv": -0.0058,
-   "clv_n": 116,
-   "clv_sd": 0.0401,
-   "roi": -0.0367
+   "bets": 122,
+   "settled": 120,
+   "won": 81,
+   "lost": 39,
+   "expected_wins": 91.3,
+   "mean_clv": -0.0059,
+   "clv_n": 120,
+   "clv_sd": 0.0402,
+   "roi": -0.0222
   },
   "source: framework rated market": {
    "bets": 15,
@@ -168,65 +168,65 @@
    "roi": -0.1643
   },
   "source: oracle (blind LLM)": {
-   "bets": 330,
-   "settled": 322,
-   "won": 177,
-   "lost": 145,
-   "expected_wins": 189.87,
-   "mean_clv": 0.0208,
-   "clv_n": 322,
-   "clv_sd": 0.1674,
-   "roi": -0.0679
+   "bets": 337,
+   "settled": 329,
+   "won": 181,
+   "lost": 148,
+   "expected_wins": 194.16,
+   "mean_clv": 0.0221,
+   "clv_n": 329,
+   "clv_sd": 0.1668,
+   "roi": -0.0715
   }
  },
  "paper": {
   "F10": {
-   "graded": 1223,
-   "won": 613,
+   "graded": 1277,
+   "won": 648,
    "expected_wins": 0.0,
-   "flat_return": 0.0064,
-   "mean_clv": -0.0074
+   "flat_return": 0.0181,
+   "mean_clv": -0.0067
   },
   "F10 | 1X2": {
-   "graded": 1223,
-   "won": 613,
+   "graded": 1277,
+   "won": 648,
    "expected_wins": 0.0,
-   "flat_return": 0.0064,
-   "mean_clv": -0.0074
+   "flat_return": 0.0181,
+   "mean_clv": -0.0067
   },
   "F2": {
-   "graded": 1065,
-   "won": 593,
+   "graded": 1108,
+   "won": 625,
    "expected_wins": 0.0,
-   "flat_return": -0.0237,
-   "mean_clv": -0.0062
+   "flat_return": -0.0102,
+   "mean_clv": -0.0055
   },
   "F2 | 1X2": {
-   "graded": 1065,
-   "won": 593,
+   "graded": 1108,
+   "won": 625,
    "expected_wins": 0.0,
-   "flat_return": -0.0237,
-   "mean_clv": -0.0062
+   "flat_return": -0.0102,
+   "mean_clv": -0.0055
   },
   "F9": {
-   "graded": 1980,
-   "won": 1523,
+   "graded": 2049,
+   "won": 1581,
    "expected_wins": 0.0,
-   "flat_return": 0.0073,
-   "mean_clv": -0.0051
+   "flat_return": 0.0104,
+   "mean_clv": -0.0052
   },
   "F9 | Double chance": {
-   "graded": 1980,
-   "won": 1523,
+   "graded": 2049,
+   "won": 1581,
    "expected_wins": 0.0,
-   "flat_return": 0.0073,
-   "mean_clv": -0.0051
+   "flat_return": 0.0104,
+   "mean_clv": -0.0052
   },
   "FW-ALL": {
-   "graded": 1278,
+   "graded": 1280,
    "won": 761,
-   "expected_wins": 735.7,
-   "flat_return": -0.0046,
+   "expected_wins": 736.8,
+   "flat_return": -0.0061,
    "mean_clv": -0.0003
   },
   "FW-ALL | 1X2": {
@@ -237,11 +237,11 @@
    "mean_clv": 0.0034
   },
   "FW-ALL | Asian handicap": {
-   "graded": 145,
+   "graded": 146,
    "won": 93,
-   "expected_wins": 92.7,
-   "flat_return": 0.0092,
-   "mean_clv": 0.0012
+   "expected_wins": 93.3,
+   "flat_return": 0.0023,
+   "mean_clv": 0.0009
   },
   "FW-ALL | Away Team To Win To Nil": {
    "graded": 8,
@@ -251,10 +251,10 @@
    "mean_clv": 0.0025
   },
   "FW-ALL | Away Team Total Goals": {
-   "graded": 41,
+   "graded": 42,
    "won": 28,
-   "expected_wins": 25.6,
-   "flat_return": 0.1149,
+   "expected_wins": 26.1,
+   "flat_return": 0.0883,
    "mean_clv": -0.0026
   },
   "FW-ALL | BTTS": {
@@ -384,39 +384,39 @@
    "mean_clv": 0.0201
   },
   "NBA-ALL": {
-   "graded": 76,
-   "won": 39,
-   "expected_wins": 42.6,
-   "flat_return": -0.0636,
-   "mean_clv": -0.0114
+   "graded": 92,
+   "won": 48,
+   "expected_wins": 51.8,
+   "flat_return": -0.0511,
+   "mean_clv": -0.0075
   },
   "NBA-ALL | 1st Half Total": {
-   "graded": 11,
-   "won": 6,
-   "expected_wins": 6.7,
-   "flat_return": 0.03,
-   "mean_clv": 0.0023
+   "graded": 18,
+   "won": 11,
+   "expected_wins": 10.7,
+   "flat_return": 0.1622,
+   "mean_clv": 0.0082
   },
   "NBA-ALL | Asian handicap": {
-   "graded": 19,
+   "graded": 20,
    "won": 10,
-   "expected_wins": 10.9,
-   "flat_return": -0.0258,
-   "mean_clv": -0.0114
+   "expected_wins": 11.2,
+   "flat_return": -0.0745,
+   "mean_clv": -0.0096
   },
   "NBA-ALL | Moneyline": {
-   "graded": 30,
-   "won": 17,
-   "expected_wins": 16.5,
-   "flat_return": 0.0117,
-   "mean_clv": 0.0051
+   "graded": 36,
+   "won": 20,
+   "expected_wins": 20.2,
+   "flat_return": -0.0275,
+   "mean_clv": 0.0106
   },
   "NBA-ALL | Over/Under": {
-   "graded": 16,
-   "won": 6,
-   "expected_wins": 8.6,
-   "flat_return": -0.3138,
-   "mean_clv": -0.0518
+   "graded": 18,
+   "won": 7,
+   "expected_wins": 9.6,
+   "flat_return": -0.2856,
+   "mean_clv": -0.057
   }
  }
 }

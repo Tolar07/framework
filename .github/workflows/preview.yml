@@ -81,8 +81,13 @@ jobs:
           git add output/preview
           git diff --staged --quiet && exit 0
           git commit -q -m "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          # The dry runs leave scratch files (e.g. data/features/news_<date>.json) that main may
+          # have committed meanwhile; they made the rebase abort ("untracked files would be
+          # overwritten", 2026-11-03). The previews are committed above, so drop the rest.
+          git reset -q --hard HEAD
+          git clean -fdq
           for attempt in 1 2 3 4; do
-            git pull --rebase --autostash -q origin main && git push -q origin HEAD:main && exit 0
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
             sleep $((attempt * 5))
           done
           echo "previews not pushed"; exit 1

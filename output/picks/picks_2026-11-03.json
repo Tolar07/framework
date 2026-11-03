@@ -1735,8 +1735,8 @@
     "spec": "total=4.5",
     "outcome": "Home & Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.75,
+   "clv": 2.86,
    "stake_pct": 0.12,
    "ev": -0.0895138127390045,
    "missing": {

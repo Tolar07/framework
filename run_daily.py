@@ -454,8 +454,28 @@ def run(season: str | None = None, fixtures_season: str | None = None,
               refreeze=refreeze)
     if send:
         return _run(**kw)
-    with _dry_run_sandbox():
-        return _run(**kw)
+    with _dry_run_sandbox() as tmp:
+        out = _run(**kw)
+        _keep_preview(tmp, target_date)
+        return out
+
+
+def _keep_preview(tmp: Path, target: str | None) -> None:
+    """PREVIEW BOARDS (Architect 2026-11-03 11:17: do the boards days ahead, follow the news and the prices,
+    change them before it is time to place): with OLP_PREVIEW_DIR set, a dry run's board and picks are kept as
+    output/preview/preview_<date>_<UTC HHMM>.{json,txt}. Nothing is sent, booked for staking or placed; the
+    real board is still built the night before. monitor/preview_diff.py writes what changed between looks."""
+    import os
+    import shutil
+    dest = os.environ.get("OLP_PREVIEW_DIR")
+    if not dest or not target:
+        return
+    d = Path(dest)
+    d.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%H%M")
+    for src, ext in ((tmp / "picks" / f"picks_{target}.json", "json"), (tmp / "boards" / f"board_{target}.txt", "txt")):
+        if src.exists():
+            shutil.copy2(src, d / f"preview_{target}_{stamp}.{ext}")
 
 
 def _run(season: str | None = None, fixtures_season: str | None = None,

@@ -1,0 +1,88 @@
+name: OLP XDV preview boards
+# PREVIEW BOARDS (Architect 2026-11-03 11:17): "do the boards for tomorrow, next tomorrow ... to the weekend,
+# continuously ... review for any changes, so when it's time to place, then it's placed ... follow the news,
+# track updates". Twice a day this builds the boards for the next PREVIEW_DAYS days as DRY runs
+# (run_daily.py --no-send: scratch copies, nothing sent, nothing staked), keeps each look in output/preview/
+# and writes what changed since the last look (monitor/preview_diff.py). The real board is still built and
+# frozen the night before (daily.yml), with the latest news and prices; the previews are what it is
+# checked against. Read-only for the bots: no bot reads output/preview/.
+on:
+  schedule:
+    - cron: "13 7,15 * * *"    # 07:13 + 15:13 UTC (GitHub may fire late; the board does not depend on it)
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "how many days ahead (from tomorrow)"
+        required: false
+        default: "4"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-preview
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Restore data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/cache
+            backtest/cache
+          key: olp-xdv-data-${{ github.run_id }}
+          restore-keys: olp-xdv-data-
+      - name: Build the preview boards (dry runs, nothing sent)
+        env:
+          ODDS_API_KEY:     ${{ secrets.ODDS_API_KEY }}
+          THESPORTSDB_KEY:  ${{ secrets.THESPORTSDB_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          OLP_PREVIEW_DIR:  output/preview
+          PYTHONIOENCODING: utf-8
+          DAYS: ${{ inputs.days || '4' }}
+        run: |
+          for i in $(seq 1 "$DAYS"); do
+            d=$(TZ=Europe/London date -d "+$i day" +%Y-%m-%d)
+            echo "::group::preview $d"
+            python run_daily.py --no-send --target-date "$d" > /tmp/preview_$d.log 2>&1 \
+              && tail -5 /tmp/preview_$d.log || { echo "preview $d failed"; tail -20 /tmp/preview_$d.log; }
+            echo "::endgroup::"
+          done
+          python monitor/preview_diff.py
+          find output/preview -name 'preview_*' -mtime +7 -delete   # a week of looks is enough
+      - name: Save the previews
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/preview || true
+          git add output/preview
+          git diff --staged --quiet && exit 0
+          git commit -q -m "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          for attempt in 1 2 3 4; do
+            git pull --rebase --autostash -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          echo "previews not pushed"; exit 1

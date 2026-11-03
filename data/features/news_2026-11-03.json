@@ -1,0 +1,56 @@
+{
+ "Galatasaray Istanbul v Stuttgart": {
+  "absent": [
+   {
+    "name": "Angelo Stiller",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Leo Sauer",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Josha Vagnoman",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-03T12:00Z",
+  "away_missing_share": 0.28552247291341176,
+  "away_unavailable": 5,
+  "fotmob_id": 6106341,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-03T17:45:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "IK Sirius v Halmstads BK": {
+  "absent": [
+   {
+    "name": "Jesper Uneken",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Otso Liimatta",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mohamed Soumah",
+    "side": "home",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-11-03T12:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107651,
+  "home_missing_share": 0.21793452053152848,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-03T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

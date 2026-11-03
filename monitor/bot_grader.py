@@ -830,6 +830,12 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
     ge = game_exposure(bets, today)
     if ge:
         out += ["", "MONEY PER GAME TODAY (all bots, £)"] + ge
+    try:                    # the scout's own record (recorded only): one line, never blocks the report
+        from engine import scout as _scout
+        if _scout.enabled():
+            out += ["", _scout.summary_line()]
+    except Exception:  # noqa: BLE001
+        pass
     out += ["", ungraded_line(bets, today)]
     over = [b for b in last30 if b["cur"] == "GBP" and b.get("profit") is not None
             and b["profit"] < -b["stake"] - 0.01]

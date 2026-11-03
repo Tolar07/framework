@@ -208,6 +208,9 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                                           ("50+ MEGA", "safe3", "safe3_mega"))
                      if (combined or {}).get(key)],
     }
+    # ONE OUTCOME, ONE SLIP (Architect 2026-11-03): a slip repeating a match + outcome is graded, never staked
+    from engine import slip_overlap
+    doc["overlap_note"] = slip_overlap.apply(doc)
     # RECORDED ONLY (to-do #7 idea 2): how this kind of side has done, before the board date
     from engine import bias_checks
     bias_checks.annotate_doc(doc, target)

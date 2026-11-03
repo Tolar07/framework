@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q -r requirements.txt
+      - name: Headless browser for the JavaScript tip pages (statarea)
+        run: pip install -q playwright && python -m playwright install --with-deps chromium > /dev/null
       - name: Read, grade, study
         env:
           PYTHONIOENCODING: utf-8

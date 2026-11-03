@@ -519,8 +519,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.01875309628210109,
    "missing": {
@@ -850,8 +850,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 3.33,
    "stake_pct": 0.12,
    "ev": -0.021563085443101482,
    "missing": {
@@ -1017,8 +1017,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.12,
    "ev": -0.00998054858522679,
    "missing": {
@@ -1153,8 +1153,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -1.61,
    "stake_pct": 0.12,
    "ev": -0.020776066271309457,
    "missing": null,
@@ -2589,8 +2589,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -1.5,
    "stake_pct": 0.25,
    "ev": -0.013167936235507383,
    "missing": {
@@ -2861,8 +2861,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.12,
    "ev": -0.017549715864484283,
    "missing": {
@@ -3029,8 +3029,8 @@
     "spec": "total=1.5",
     "outcome": "Home & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.12,
    "ev": -0.08116787071652187,
    "missing": {
@@ -3174,8 +3174,8 @@
     "spec": "total=1.5",
     "outcome": "Home & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.4,
+   "clv": 0.71,
    "stake_pct": 0.12,
    "ev": -0.08365349317094406,
    "missing": {
@@ -3345,8 +3345,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.12,
    "ev": -0.02015662735998891,
    "missing": {

@@ -39,3 +39,19 @@ assert "sl.safest_is_short" in src and "sl.with_edge" in src and 'extra_codes["s
 led = (ROOT / "engine" / "picks_ledger.py").read_text(encoding="utf-8")
 assert '"short3": list(' in led and 'doc.get("short3", [])' in led
 print("short_legs_test: OK")
+
+
+# the mix (Architect 2026-11-03): 5-pt singles first, break-even fills top the board up to the minimum
+B = lambda p, price, fill: NS(on_deploy_shortlist=True, best_price=price, best_model_prob=p,  # noqa: E731
+                             forced_fill=fill, rejection_reason=None)
+strict = [B(0.80, 1.40, False)]
+fills = [B(0.70, 1.45, True), B(0.75, 1.40, True), B(0.60, 1.70, True)]
+assert sl.fill_quota(strict + fills, minimum=3) == [fills[0]]          # lowest edge (0.70 - 1/1.45) goes
+assert not fills[0].on_deploy_shortlist and fills[0].rejection_reason
+assert all(b.on_deploy_shortlist for b in strict + fills[1:])
+full = [B(0.80, 1.40, False) for _ in range(3)]
+extra = B(0.75, 1.40, True)
+assert sl.fill_quota(full + [extra], minimum=3) == [extra]            # board already full: no fill
+empty_day = [B(0.74, 1.36, True) for _ in range(5)]
+assert sl.fill_quota(empty_day, minimum=12) == []                     # an empty day keeps every fill
+print("short_legs_test: ok")

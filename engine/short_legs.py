@@ -21,6 +21,11 @@ from engine.slate import DEPLOY_ODDS_MIN
 
 SHORT_MIN_PRICE = 1.05      # below this a leg adds nothing to a slip
 FORCED_EDGE = 0.05          # a fallback market's chance - 1/price
+# THE MIX (Architect 2026-11-03 08:28: "mix it with the 5 points rule ... let's just have production every
+# day"): games clearing FORCED_EDGE always keep their single; when that leaves fewer than FILL_MIN_SINGLES
+# singles on the board, the best break-even (FILL_EDGE) fallbacks top it up, highest edge first.
+FILL_EDGE = 0.0
+FILL_MIN_SINGLES = 12
 LEG_MIN = 0.85              # a short leg's chance
 LEG_EDGE = 0.02             # a short leg's chance - 1/price
 SLIP_LEGS = 3
@@ -81,3 +86,19 @@ def build(board: list) -> list[tuple]:
             cohorts.remember(slip, cid, merged)
             out.append((f"Short-3 #{len(out) + 1}", slip, chance))
     return out
+
+
+def fill_quota(board: list, minimum: int = FILL_MIN_SINGLES) -> list:
+    """The mix: drop the break-even fill singles (bf.forced_fill) the board does not need. Returns the dropped
+    fixtures. Singles that cleared the 5-pt rule (or never needed it) count first; fills are kept, best edge
+    (chance - 1/price) first, until the board holds `minimum` singles."""
+    live = [b for b in board if getattr(b, "on_deploy_shortlist", False) and getattr(b, "best_price", None)]
+    fills = [b for b in live if getattr(b, "forced_fill", False)]
+    room = max(0, minimum - (len(live) - len(fills)))
+    fills.sort(key=lambda b: (b.best_model_prob or 0) - 1.0 / b.best_price, reverse=True)
+    dropped = fills[room:]
+    for b in dropped:
+        b.on_deploy_shortlist = False
+        b.rejection_reason = (f"no deploy: break-even fill not needed (board has {minimum}+ singles; "
+                              f"the 5-pt rule's own singles go first)")
+    return dropped

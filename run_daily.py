@@ -573,7 +573,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # can actually be stated, rather than falling back to an HR30 exception.
     ladder_fixtures = ladder_rejected = dog_hcp_dropped = approved_dropped = 0
     shootout_unders = 0
-    short_games = short_skipped = 0        # NO FORCED PICKS (engine/short_legs.py, 2026-11-01)
+    short_games = short_skipped = short_filled = 0        # NO FORCED PICKS (engine/short_legs.py, 2026-11-01)
     try:                                   # team profiles for order 43 (best effort)
         from data import league_strength as _ls
         from data import team_profiles as _tp
@@ -775,7 +775,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         if cands and sl.safest_is_short(getattr(bf, "short_legs", []), cands):
             short_games += 1
             _n = len(cands)
-            cands = sl.with_edge(cands, _day_ov.get("forced_edge"))
+            _strict = sl.with_edge(cands, _day_ov.get("forced_edge"))
+            if not _strict:   # THE MIX (2026-11-03): a break-even fallback, kept only if the board needs it
+                _strict = sl.with_edge(cands, sl.FILL_EDGE)
+                bf.forced_fill = bool(_strict)
+                short_filled += bool(_strict)
+            cands = _strict
             short_skipped += not cands
         # ONE-DAY OVERRIDE (engine/day_override.py): a single the Architect struck off for this date
         if cands and day_override.struck(_day_ov, bf.probs.home_team):
@@ -934,6 +939,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 f"SPLIT: model {model_p:.0%} vs market {market_txt} on "
                 f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
 
+    _fill_dropped = len(sl.fill_quota(board)) if short_filled else 0
     _n_value = sum(1 for b in board if getattr(b, "tier", None) == "VALUE")
     all_flags.append(f"value picks (order 36): {_n_value} BTTS-yes / over-goals pick(s) "
                      f"priced above fair odds took the pick from the likeliest outcome")
@@ -946,6 +952,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         all_flags.append(f"No forced picks (plan point 3): {short_games} game(s) whose safest outcome is under "
                          f"{DEPLOY_ODDS_MIN:.2f}; {short_skipped} got no single (no other market "
                          f"{round((_day_ov.get('forced_edge', sl.FORCED_EDGE)) * 100)}+ pts over break-even)")
+        all_flags.append(f"forced-pick mix (2026-11-03): {short_filled} break-even fallback(s) found, "
+                         f"{short_filled - _fill_dropped} kept to reach {sl.FILL_MIN_SINGLES} singles")
     if _day_ov:
         all_flags.append(f"one-day override for {target} (config/day_overrides.json): forced-pick margin "
                          f"{round(_day_ov.get('forced_edge', sl.FORCED_EDGE) * 100)} pts, "

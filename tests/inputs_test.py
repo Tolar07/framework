@@ -48,3 +48,27 @@ assert len(nr["home win | missing edge"]) == 300, "PENDING news or result is ski
 s, _ = st.wf_preds(nr["home win | missing edge"])
 assert s["verdict"] == "ADDS INFORMATION", s   # an absence edge that decides the result is picked up
 print("lineup / injury missing-share input: skipped when PENDING, walk-forward verdict: OK")
+
+# motivation / table (issue #218): season-to-date table before the day, stakes only late in the season
+tm = []
+names = [f"T{i}" for i in range(10)]
+d = 0
+for rnd in range(2):                       # a full double round robin: 18 games each
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            d += 1
+            h, w = (a, b) if rnd == 0 else (b, a)
+            tm.append({"date": f"2026-{9 + d // 100:02d}-{1 + d % 28:02d}", "home": h, "away": w,
+                       "hg": 1 if names.index(h) < names.index(w) else 0, "ag": 0 if names.index(h) < names.index(w) else 1})
+HT = ip.History(tm)
+late = "2027-06-01"
+tf = ip.table_features(HT, "T0", "T9", late)
+assert tf["table_ppg_gap"] > 2 and tf["table_stakes"] == 0.0, tf   # both ends of the table have a stake
+assert ip.table_features(HT, "T0", "T5", late)["table_stakes"] == 1.0
+early = ip.table_features(HT, "T0", "T9", "2026-08-15")
+assert early["table_ppg_gap"] is None and early["table_stakes"] is None, "thin table reads None, not 0"
+assert all(r["played"] == 18 for r in ip.table_asof(HT, late).values())
+tm.append({"date": "2027-05-31", "home": "T0", "away": "T9", "hg": 9, "ag": 0})
+assert ip.table_asof(ip.History(tm), "2027-05-31")["T0"]["played"] == 18, "the day itself is never read"
+assert "table_ppg_gap" in ip.fixture_features(HT, "T0", "T9", late)
+print("motivation / table input: before-the-day table, late-season stakes, thin table None: OK")

@@ -1,26 +1,26 @@
 {
  "2026-11-04": {
-  "file": "preview_2026-11-04_1450.json",
+  "file": "preview_2026-11-04_2109.json",
   "singles": 15,
   "accas": 2,
-  "looks": 4
+  "looks": 5
  },
  "2026-11-05": {
-  "file": "preview_2026-11-05_1500.json",
+  "file": "preview_2026-11-05_2118.json",
   "singles": 35,
-  "accas": 7,
-  "looks": 4
+  "accas": 8,
+  "looks": 5
  },
  "2026-11-06": {
-  "file": "preview_2026-11-06_1511.json",
-  "singles": 24,
-  "accas": 6,
-  "looks": 4
+  "file": "preview_2026-11-06_2127.json",
+  "singles": 25,
+  "accas": 4,
+  "looks": 5
  },
  "2026-11-07": {
-  "file": "preview_2026-11-07_1523.json",
-  "singles": 96,
-  "accas": 18,
-  "looks": 4
+  "file": "preview_2026-11-07_2138.json",
+  "singles": 95,
+  "accas": 20,
+  "looks": 5
  }
 }

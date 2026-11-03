@@ -78,14 +78,16 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/preview || true
-          git add output/preview
-          git diff --staged --quiet && exit 0
-          git commit -q -m "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
-          # the dry runs leave scratch files in the workspace (e.g. data/features/news_*.json); only the
-          # previews are kept, so everything else is set aside before rebasing onto main (run 41629558297)
-          git stash push --include-untracked -q || true
+          # keep a copy of the previews, then for each attempt put them on top of the LATEST main
+          # (a rebase conflicts when another preview run changed the same files: run 41640772565)
+          rm -rf "$RUNNER_TEMP/preview_keep"; cp -r output/preview "$RUNNER_TEMP/preview_keep"
           for attempt in 1 2 3 4; do
-            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            git fetch -q origin main && git reset -q --hard origin/main || { sleep $((attempt * 5)); continue; }
+            mkdir -p output/preview && cp -r "$RUNNER_TEMP/preview_keep/." output/preview/
+            git add output/preview
+            git diff --staged --quiet && exit 0
+            git commit -q -m "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+            git push -q origin HEAD:main && exit 0
             sleep $((attempt * 5))
           done
           echo "previews not pushed"; exit 1

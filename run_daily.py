@@ -973,7 +973,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                          f"{DEPLOY_ODDS_MIN:.2f}; {short_skipped} got no single (no other market "
                          f"{round((_day_ov.get('forced_edge', sl.FORCED_EDGE)) * 100)}+ pts over break-even)")
         all_flags.append(f"forced-pick mix (2026-11-03): {short_filled} break-even fallback(s) found, "
-                         f"{short_filled - _fill_dropped} kept to reach {sl.FILL_MIN_SINGLES} singles")
+                         f"{short_filled - _fill_dropped} kept"
+                         + (f" to reach {sl.FILL_MIN_SINGLES} singles" if sl.FILL_MIN_SINGLES else " (no cap)"))
     if _day_ov:
         all_flags.append(f"one-day override for {target} (config/day_overrides.json): forced-pick margin "
                          f"{round(_day_ov.get('forced_edge', sl.FORCED_EDGE) * 100)} pts, "

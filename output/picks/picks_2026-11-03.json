@@ -757,7 +757,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Bodoe/Glimt v Lille",
@@ -1807,7 +1809,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.76,
+   "drift_pct": -2.2
   },
   {
    "fixture": "Blackburn v Stoke",
@@ -2702,7 +2706,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.29,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Atletico Madrid v Bayern Munich",

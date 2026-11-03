@@ -116,7 +116,7 @@ def table_asof(hist: History, day: str) -> dict[str, dict]:
     start = season_start(day)
     seen: set = set()
     t: dict[str, dict] = {}
-    for team, ms in hist.by_team.items():
+    for ms in hist.by_team.values():
         for m in ms:
             if not (start <= m["date"] < day) or id(m) in seen:
                 continue

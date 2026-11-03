@@ -361,11 +361,6 @@
  "IK Sirius v Halmstads BK": {
   "absent": [
    {
-    "name": "Jesper Uneken",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Otso Liimatta",
     "side": "home",
     "type": "injury"
@@ -376,14 +371,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-11-03T17:00Z",
+  "at": "2026-11-03T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107651,
-  "home_missing_share": 0.21793452053152848,
-  "home_unavailable": 3,
+  "home_missing_share": 0.10552306137760158,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-11-03T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "LASK Linz v Slovan Bratislava": {
   "absent": [

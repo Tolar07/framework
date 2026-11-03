@@ -61,3 +61,17 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def test_bias_only_shadow_splits_the_gain():
+    r = LW.build(_hist(400, True), {})
+    a = r["attribution"]
+    assert a["status"] == "OK"
+    assert abs(a["total_gain"] - (a["bias_gain"] + a["panel_gain"])) < 2e-4
+    assert a["panel_gain"] > 0 and a["recheck_ready"] is True
+    assert "bias" in LW.summary_line(r) and "panel" in LW.summary_line(r)
+
+
+def test_attribution_pending_without_rows():
+    assert LW.attribution({"n": 0}, {"n": 0}) == {"status": "PENDING"}
+    assert LW.build(_hist(10, True), {}).get("attribution") is None

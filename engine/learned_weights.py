@@ -40,6 +40,7 @@ RIDGE = 4.0                # L2 strength: weights need evidence to move off 0
 MIN_TRAIN = 40             # graded rows before a walk-forward fit is attempted
 MIN_N = 60                 # out-of-sample predictions before "beats_market" can be true
 MARGIN = 0.002             # Brier points under the anchor
+RECHECK_N = 300            # out-of-sample rows at which the bias-only v full-model read is re-checked
 
 
 def _logit(p: float) -> float:
@@ -124,8 +125,11 @@ def predict(X: np.ndarray, off: np.ndarray, w: np.ndarray) -> np.ndarray:
     return _sig(off + X @ w)
 
 
-def walk_forward(rs: list[dict], fact_names: list[str]) -> dict:
-    """Each date predicted from a fit on the dates before it -> out-of-sample Brier v the anchor."""
+def walk_forward(rs: list[dict], fact_names: list[str], bias_only: bool = False) -> dict:
+    """Each date predicted from a fit on the dates before it -> out-of-sample Brier v the anchor.
+
+    bias_only: only the global shift b0 is fitted (member and fact columns zeroed, so their weights
+    stay 0): the shadow that shows how much of the gain is calibration and how much is the panel."""
     dates = sorted({r["date"] for r in rs})
     pl, al, pp, n = 0.0, 0.0, 0.0, 0
     pn = 0
@@ -134,8 +138,13 @@ def walk_forward(rs: list[dict], fact_names: list[str]) -> dict:
         test = [r for r in rs if r["date"] == d]
         if len(train) < MIN_TRAIN:
             continue
-        w = fit(*design(train, fact_names))
+        Xtr, otr, ytr = design(train, fact_names)
         Xt, ot, yt = design(test, fact_names)
+        if bias_only:
+            Xtr, Xt = Xtr.copy(), Xt.copy()
+            Xtr[:, 1:] = 0.0
+            Xt[:, 1:] = 0.0
+        w = fit(Xtr, otr, ytr)
         p = predict(Xt, ot, w)
         pl += float(np.sum((p - yt) ** 2))
         al += float(np.sum((_sig(ot) - yt) ** 2))
@@ -171,7 +180,29 @@ def build(history: list[dict] | None = None, facts: dict | None = None) -> dict:
     cover.update({f"fact:{f}": sum(1 for r in rs if f in r["facts"]) for f in fact_names})
     out["weights"] = {k: {"w": round(float(v), 4), "rows": cover.get(k, len(rs))} for k, v in zip(names, w, strict=True)}
     out["walk_forward"] = walk_forward(rs, fact_names)
+    out["bias_only_walk_forward"] = bias_only = walk_forward(rs, fact_names, bias_only=True)
+    out["attribution"] = attribution(out["walk_forward"], bias_only)
     return out
+
+
+def attribution(full: dict, bias_only: dict) -> dict:
+    """Split the out-of-sample gain over the market into the bias part and the member/fact part.
+
+    PENDING (HR35) while either walk-forward has no rows. Recorded only: promotion is the Architect's."""
+    if not full.get("n") or not bias_only.get("n"):
+        return {"status": "PENDING"}
+    gain = full["market_brier"] - full["learned_brier"]
+    bias_gain = bias_only["market_brier"] - bias_only["learned_brier"]
+    return {"status": "OK", "n": full["n"], "total_gain": round(gain, 4), "bias_gain": round(bias_gain, 4),
+            "panel_gain": round(gain - bias_gain, 4), "mostly_bias": bool(bias_gain >= 0.5 * gain > 0),
+            "recheck_at": RECHECK_N, "recheck_ready": bool(full["n"] >= RECHECK_N)}
+
+
+def _attr_text(a: dict) -> str:
+    if a.get("status") != "OK":
+        return ""
+    return (f" · gain {a['total_gain']:+.4f} = bias {a['bias_gain']:+.4f} + panel {a['panel_gain']:+.4f}"
+            + (" (re-check due)" if a["recheck_ready"] else f" (re-check at {a['recheck_at']})"))
 
 
 def summary_line(rec: dict) -> str:
@@ -183,6 +214,7 @@ def summary_line(rec: dict) -> str:
     return (f"learned weights: out of sample n{wf['n']} Brier {wf['learned_brier']} v market {wf['market_brier']}"
             + (f" v panel {wf['panel_brier']}" if "panel_brier" in wf else "")
             + (" · BEATS the market" if wf.get("beats_market") else " · not better than the market yet")
+            + _attr_text(rec.get("attribution") or {})
             + f" · bias {(rec.get('weights') or {}).get('bias', {}).get('w', 0):+.2f}"
             + (" · " + ", ".join(f"{k} {v['w']:+.2f}" for k, v in top) if top else ""))
 

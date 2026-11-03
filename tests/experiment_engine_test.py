@@ -221,3 +221,11 @@ with tempfile.TemporaryDirectory() as d:
     assert len(X.board_bets(_cap, X.load_days(Path(d), Path(d)))) == 4, "load_days ranks each day"
 
 print("experiment_engine_test: OK")
+
+
+# S9 retired by the Architect (2026-11-03): a registry naming it goes back to the default, and it is never live
+
+_reg = Path(tempfile.mkdtemp()) / "strategies.json"
+_reg.write_text(json.dumps({"live": {"singles": "S9 4 a league"}}), encoding="utf-8")
+assert "singles" not in X.live_rules(_reg), "S9 must never be live again"
+print("experiment_engine_test: S9 retired ok")

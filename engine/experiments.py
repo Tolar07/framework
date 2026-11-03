@@ -70,6 +70,9 @@ SLOTS = ("singles", "accas", "safe3", "nba")
 DEFAULT = {"singles": "S0 board singles", "accas": "A0 board accas", "safe3": "T0 board 50%+ accas",
            "nba": "N0 NBA board picks"}
 LEAGUE_CAP = 4          # S9: singles a league a day (REASONING_IDEAS_STUDY.md / RECORDS_STUDY.md)
+# RETIRED BY THE ARCHITECT (2026-11-03 09:39: "lift the S9 for good ... get full coverage"): never live again;
+# a registry still naming one goes back to the default, and the engine never promotes one. Still graded in shadow.
+RETIRED = {"S9 4 a league"}
 NBA_WINNER = {"219"}                                  # moneyline (incl. OT)
 NBA_FULL_GAME = {"219", "223", "225", "227", "228"}   # winner, handicap, total, team totals (incl. OT)
 
@@ -459,7 +462,7 @@ def evaluate(days: list[dict], universe: dict[str, list[dict]], reg: dict, today
     standings: dict[str, dict] = {}
     for slot in SLOTS:
         live_name = reg["live"].get(slot, DEFAULT[slot])
-        if live_name not in by_name:                        # a rule was removed: back to the default
+        if live_name not in by_name or live_name in RETIRED:   # removed or retired: back to the default
             live_name = reg["live"][slot] = DEFAULT[slot]
         live = by_name[live_name]
         qualified: list[tuple] = []
@@ -481,7 +484,7 @@ def evaluate(days: list[dict], universe: dict[str, list[dict]], reg: dict, today
                 reg["flagged"].append(st.name)
                 events.append({"at": today, "slot": slot, "event": "qualifies-not-wireable", "strategy": st.name,
                                "live": live_name, "why": why, "why_not": st.why_not, **z})
-        wired = [q for q in qualified if q[0].wireable]
+        wired = [q for q in qualified if q[0].wireable and q[0].name not in RETIRED]
         if not wired:
             continue
         st, z, why = max(wired, key=lambda q: (q[1]["z_return"] or 0) + (q[1]["z_clv"] or 0))
@@ -547,7 +550,7 @@ def live_rules(path: Path = REGISTRY) -> dict[str, Strategy]:
     out = {}
     for slot in SLOTS:
         st = by_name.get(reg["live"].get(slot, DEFAULT[slot]))
-        if st and st.name != DEFAULT[slot] and st.wireable and st.keep:
+        if st and st.name != DEFAULT[slot] and st.name not in RETIRED and st.wireable and st.keep:
             out[slot] = st
     return out
 

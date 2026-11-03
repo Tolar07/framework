@@ -2,13 +2,15 @@ name: OLP XDV tip sites (paper)
 
 # Architect 2026-11-03: the scouting side also reads the free daily tips of football prediction sites, so
 # they are graded and studied (engine/tip_sites.py). Paper only: nothing here picks or stakes.
-# Reads tips before kick-off, grades finished ones on Flashscore, rewrites data/tip_sites/TIP_SITES_STUDY.md.
+# Reads tips before kick-off, grades finished ones on Flashscore, rewrites data/tip_sites/TIP_SITES_STUDY.md,
+# writes the paper tip board output/tip_boards/tips_<day> and each site's stage (engine/tip_board.py).
 on:
   # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
   workflow_dispatch:
 
 permissions:
-  contents: write   # save the tips, grades and the study
+  contents: write   # save the tips, grades, the study and the tip boards
+  issues: write     # a site that passes the eligibility test opens a self-improvement issue (once)
 
 concurrency:
   group: tip-sites
@@ -29,13 +31,15 @@ jobs:
       - name: Read, grade, study
         env:
           PYTHONIOENCODING: utf-8
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python monitor/tip_sites_run.py
       - name: Commit the tips back
-        if: github.ref == 'refs/heads/main'
+        # always: a zero-tip alarm fails the run (watchdog -> auto-fix) but the other site's tips are still saved
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          git add data/tip_sites
+          git add data/tip_sites output/tip_boards
           git diff --staged --quiet && exit 0
           git commit -q -m "tip sites: tips, grades and study $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           for i in 1 2 3; do git pull --rebase -q origin main && git push -q && exit 0; sleep 5; done

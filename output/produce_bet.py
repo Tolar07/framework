@@ -1581,6 +1581,13 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"{comp.where(_bf.fixture.split(' (')[0], _bf.fixture.rsplit('(', 1)[-1].rstrip(')'))} "
                        f"— BTTS yes @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f}) "
                        f"· {_bc.get(_bname) or 'PENDING'}")
+        _bac = extra_codes.get("btts_acca_codes") or {}
+        for _an, _alegs, _ach in _build_btts_accas(_btts):
+            _aodds = 1.0
+            for _l in _alegs:
+                _aodds *= _l[4]
+            out.append(f"   {_an}: {_bac.get(_an) or 'PENDING'} ({len(_alegs)} legs · odds {_aodds:.2f} · "
+                       f"{round(_ach*100)}%)")
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
@@ -1613,6 +1620,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"({extra_codes.get('alts_mega_legs', '?')} legs · every alt acca on one slip · stake 0.1%)")
         for _bn, _bcode in (extra_codes.get("btts_codes") or {}).items():
             out.append(f"{_bn}: {_bcode} (single · both teams to score)")
+        for _bn, _bcode in (extra_codes.get("btts_acca_codes") or {}).items():
+            out.append(f"{_bn}: {_bcode} (BTTS acca · both teams to score in every game)")
         if extra_codes.get("value_mega"):
             out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
                        f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
@@ -1701,6 +1710,32 @@ def _build_btts(board: list) -> list[tuple]:
         rows.append((bf, "Both teams to score — yes", ch, mkt.BTTS_YES, price))
     rows.sort(key=lambda r: -r[2])
     return [(f"BTTS {i}", [r], r[2]) for i, r in enumerate(rows, 1)]
+
+
+def _btts_groups(n: int) -> list[int]:
+    """Slip sizes for n BTTS singles: 3s, never a 1-leg leftover (4 -> 2+2, 5 -> 3+2, 7 -> 3+2+2)."""
+    if n < 2:
+        return []
+    threes, rest = divmod(n, 3)
+    if rest == 0:
+        return [3] * threes
+    if rest == 2:
+        return [3] * threes + [2]
+    return [3] * (threes - 1) + [2, 2]          # rest 1: turn the last 3+1 into 2+2
+
+
+def _build_btts_accas(singles: list) -> list[tuple]:
+    """BTTS ACCAS (Architect 2026-11-03): the BTTS singles also go out as accas of 2-3 legs,
+    strongest first, each game in one acca only. [("BTTS acca 1", legs, chance), ...]."""
+    out, i = [], 0
+    for k, size in enumerate(_btts_groups(len(singles)), 1):
+        legs = [singles[j][1][0] for j in range(i, i + size)]
+        i += size
+        ch = 1.0
+        for leg in legs:
+            ch *= leg[2]
+        out.append((f"BTTS acca {k}", legs, ch))
+    return out
 
 
 def _acca_odds(legs) -> float:

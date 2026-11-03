@@ -628,7 +628,11 @@
     "home": 230749997,
     "away": 201777414
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Galatasaray: elite attack v leaky defence -> BTTS & goals",
     "xg": [

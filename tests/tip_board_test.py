@@ -46,26 +46,38 @@ def graded_row(site, fid, p, score, home="A", away="B", ko="2026-11-03T20:00:00Z
             "legs": [{"home": home, "away": away, "kickoff": ko, "p": p, "score": score}]}
 
 
-def test_compare_and_decide_need_enough_games_and_a_real_gain():
-    # the site always puts 70 % on the result that happens; the market is a flat 1/3 each
-    rows = [graded_row("vitibet", i, [0.7, 0.15, 0.15], [1, 0], f"H{i}", f"A{i}") for i in range(tb.MIN_N)]
-    market = {"2026-11-03": [{"home": f"H{i}", "away": f"A{i}", "p": [1 / 3] * 3} for i in range(tb.MIN_N)]}
-    # a little noise so the gain has a spread
+def _data(site_p, n, base_p):
+    """n graded games where the result is always a home win (one away win for spread); the market and our
+    model both say base_p."""
+    rows = [graded_row("vitibet", i, site_p, [1, 0], f"H{i}", f"A{i}") for i in range(n)]
     rows[0]["legs"][0]["score"] = [0, 1]
-    cmp = tb.compare(rows, market, {})
-    assert cmp["vitibet"]["vs_market"]["n"] == tb.MIN_N and cmp["vitibet"]["vs_market"]["z"] > tb.Z_PASS
-    st = tb.decide(cmp)
-    assert st["vitibet"]["stage"] == "eligible:shadow"
-    assert st["statarea"]["stage"] == "collecting"
-    few = tb.decide(tb.compare(rows[:50], market, {}))
-    assert few["vitibet"]["stage"] == "collecting"
+    market = {"2026-11-03": [{"home": f"H{i}", "away": f"A{i}", "p": base_p} for i in range(n)]}
+    views = {"2026-11-03": [{"home": f"H{i}", "away": f"A{i}", "p": base_p} for i in range(n)]}
+    return rows, market, views
 
 
-def test_decide_no_added_value_when_mixing_does_not_help():
-    rows = [graded_row("vitibet", i, [0.15, 0.15, 0.7], [1, 0], f"H{i}", f"A{i}") for i in range(tb.MIN_N)]
-    market = {"2026-11-03": [{"home": f"H{i}", "away": f"A{i}", "p": [0.6, 0.25, 0.15]} for i in range(tb.MIN_N)]}
-    rows[0]["legs"][0]["score"] = [0, 1]
-    assert tb.decide(tb.compare(rows, market, {}))["vitibet"]["stage"] == "no added value"
+def test_weekly_test_needs_our_model_and_the_market():
+    rows, market, views = _data([0.7, 0.15, 0.15], tb.MIN_N, [1 / 3] * 3)
+    raw = tb.test(tb.compare(rows, market, views))
+    assert raw["vitibet"]["result"] == "pass" and raw["statarea"]["result"] == "collecting"
+    no_model = tb.test(tb.compare(rows, market, {}))          # market only: not enough vs our model
+    assert no_model["vitibet"]["result"] == "collecting"
+    rows, market, views = _data([0.15, 0.15, 0.7], tb.MIN_N, [0.6, 0.25, 0.15])
+    assert tb.test(tb.compare(rows, market, views))["vitibet"]["result"] == "fail"
+
+
+def test_decide_counts_once_a_week_and_needs_two_in_a_row():
+    ok = {"vitibet": {"result": "pass", "why": "w", "vs_market": {}, "vs_model": {}}}
+    bad = {"vitibet": {"result": "fail", "why": "w", "vs_market": {}, "vs_model": {}}}
+    w1 = tb.decide(ok, {}, "2026-W45")
+    assert w1["vitibet"]["stage"] == "passed 1/2 weekly checks"
+    again = tb.decide(ok, w1, "2026-W45")                     # more runs the same week: no extra pass
+    assert again["vitibet"]["passes"] == ["2026-W45"]
+    assert tb.decide(ok, again, "2026-W46")["vitibet"]["stage"] == "eligible:shadow"
+    reset = tb.decide(bad, again, "2026-W46")                 # a failed week resets the run of passes
+    assert reset["vitibet"]["stage"] == "no added value" and reset["vitibet"]["passes"] == []
+    midweek_fail = tb.decide(bad, w1, "2026-W45")             # a mid-week dip is not a second look
+    assert midweek_fail["vitibet"]["passes"] == ["2026-W45"]
 
 
 def test_market_index_demargins_last_prices():
@@ -85,8 +97,10 @@ def test_run_writes_board_and_stages_and_opens_issue_once(tmp_path, monkeypatch)
     monkeypatch.setattr(tb.tp, "load_graded", lambda f: [])
     import engine.universe as uv
     monkeypatch.setattr(uv, "load_graded", lambda folder=None: [])
-    monkeypatch.setattr(tb, "decide", lambda c: {"vitibet": {"stage": "eligible:shadow", "why": "w",
-                                                              "vs_market": {}, "vs_model": {}}})
+    monkeypatch.setattr(tb, "test", lambda c: {"vitibet": {"result": "pass", "why": "w",
+                                                            "vs_market": {}, "vs_model": {"n": 250, "z": 2.1,
+                                                                                         "mix_gain": 0.004}}})
+    monkeypatch.setattr(tb, "PASSES_NEEDED", 1)
     opened = []
     now = datetime(2026, 11, 3, 18, 0, tzinfo=UTC)
     tb.run(now, open_issue=lambda t, b: opened.append(t) or "https://x/issues/1")
@@ -95,4 +109,7 @@ def test_run_writes_board_and_stages_and_opens_issue_once(tmp_path, monkeypatch)
     assert (tmp_path / "boards" / "tips_2026-11-03.md").exists()
     assert json.loads((tmp_path / "eligibility.json").read_text())["vitibet"]["issue"] == "https://x/issues/1"
     lines = tb.report_lines("2026-11-03")
-    assert lines[0].startswith("TIP SITES") and any("vitibet" in x and "eligible:shadow" in x for x in lines)
+    assert lines[0].startswith("TIP SITES")
+    assert any(x.startswith("vitibet: eligible:shadow, mixed into our model: better (z 2.1, 250 games)")
+               for x in lines)
+    assert "by design" in lines[-1]

@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     folder, now = Path(a.dir), datetime.now(UTC)
     notes = [] if a.no_collect else ts.collect(folder, now)
+    dead = [] if a.no_collect else ts.health(folder, notes)
     import tipster_run
     notes += tipster_run.run(folder, now)
     study = ts.write_study(folder, tp.load_graded(folder), now)
@@ -46,6 +47,10 @@ def main(argv: list[str] | None = None) -> int:
     for n in notes:
         print(" ", n)
     print(f"  study: {study}")
+    if dead:   # the watchdog turns a failed framework run into an auto-fix issue
+        print(f"  ALARM: no tips from {', '.join(dead)} on {ts.ZERO_RUNS_ALARM}+ runs in a row "
+              "(page changed, site down or blocked)")
+        return 1
     return 0
 
 

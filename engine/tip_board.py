@@ -11,12 +11,14 @@ Every run (tip_sites.yml, 3 times a day):
   3. COMPARE every graded tip with the market (SportyBet's last 1X2 prices before kick-off, de-margined, from
              data/universe) and with our model on the games it rated. Brier scores on the same games, and the
              test that matters: does mixing the site into the market (or the model) make the forecast better?
-  4. DECIDE  each site's stage, data/tip_sites/eligibility.json:
-               collecting       fewer than MIN_N graded games matched to the market
-               no added value   enough games, and the site does not improve the market / the model
-               eligible:shadow  enough games and a real improvement (z >= Z_PASS) over the market, and not
-                                worse than our model where both exist -> a framework `self-improvement` issue is
-                                opened (once) to build it as a SHADOW input, recorded only, walk-forward
+  4. DECIDE  each site's stage, data/tip_sites/eligibility.json, once a WEEK (first run of each ISO week):
+               collecting       fewer than MIN_N_MODEL graded games matched to OUR MODEL (the site would be
+                                added to our model, so that is the comparison that counts)
+               no added value   enough games, and mixing the site into our model does not make it better
+               eligible:shadow  mixing the site into our model improves it (z >= Z_PASS), it also improves the
+                                market price, and this held on TWO weekly checks in a row (one look a week, two
+                                in a row: checking three times a day would let luck through) -> a framework
+                                `self-improvement` issue is opened (once) to build it as a SHADOW input
              Going live is never automatic: a shadow that beats the live model walk-forward still needs the
              Architect, like every other input (Protected Constants, the CLV gate, staking untouched).
 """
@@ -37,7 +39,9 @@ BOARDS = ROOT / "output" / "tip_boards"
 PICKS = ROOT / "output" / "picks"
 ELIGIBILITY = ts.FOLDER / "eligibility.json"
 UK = ZoneInfo("Europe/London")
-MIN_N = 300          # graded games matched to the market before a site can pass (as engine/why_learning.py)
+MIN_N = 300          # graded games matched to the market (second condition)
+MIN_N_MODEL = 200    # graded games matched to our model's rated games (the main condition)
+PASSES_NEEDED = 2    # weekly checks in a row that must pass
 Z_PASS = 1.645       # one-sided 95 %
 MIX = 0.2            # the site's weight in the mixed forecast: (1 - MIX) * market + MIX * site
 
@@ -213,21 +217,45 @@ def _summ(rows: list[tuple[float, float, float]]) -> dict:
 
 
 # ── 4. the decision ──────────────────────────────────────────────────────────
-def decide(cmp: dict) -> dict:
-    stages = {}
+def test(cmp: dict) -> dict:
+    """This week's raw result per site: collecting / fail / pass (before the two-weeks-in-a-row rule)."""
+    out = {}
     for site in ts.SITES:
         c = cmp.get(site) or {}
         vm, vd = c.get("vs_market") or {"n": 0}, c.get("vs_model") or {"n": 0}
-        if vm["n"] < MIN_N:
-            stage, why = "collecting", f"{vm['n']}/{MIN_N} graded games matched to the market"
-        elif vm.get("z", 0) >= Z_PASS and (vd["n"] < 30 or vd.get("mix_gain", 0) >= 0):
-            stage, why = "eligible:shadow", (f"mixing it into the market improves the forecast (z {vm['z']}, "
-                                             f"{vm['n']} games); not worse than our model ({vd['n']} games)")
+        if vd["n"] < MIN_N_MODEL or vm["n"] < MIN_N:
+            res, why = "collecting", (f"{vd['n']}/{MIN_N_MODEL} games vs our model, "
+                                      f"{vm['n']}/{MIN_N} vs the market")
+        elif vd.get("z", 0) >= Z_PASS and vm.get("mix_gain", 0) > 0:
+            res, why = "pass", (f"improves our model (z {vd['z']}, {vd['n']} games) and the market "
+                                f"({vm['n']} games)")
         else:
-            stage, why = "no added value", (f"z {vm.get('z')} on {vm['n']} games (needs {Z_PASS})"
-                                            + (f"; worse than our model on {vd['n']}" if vd.get("mix_gain", 0) < 0
-                                               and vd["n"] >= 30 else ""))
-        stages[site] = {"stage": stage, "why": why, "vs_market": vm, "vs_model": vd}
+            res, why = "fail", (f"vs our model z {vd.get('z')} on {vd['n']} games (needs {Z_PASS})"
+                                + ("" if vm.get("mix_gain", 0) > 0 else "; does not improve the market"))
+        out[site] = {"result": res, "why": why, "vs_market": vm, "vs_model": vd}
+    return out
+
+
+def decide(raw: dict, old: dict, week: str) -> dict:
+    """The stage per site. The test counts once per ISO week; eligible after PASSES_NEEDED passes in a row."""
+    stages = {}
+    for site, r in raw.items():
+        prev = old.get(site) or {}
+        passes = list(prev.get("passes") or [])
+        looked = prev.get("checked_week") == week
+        if not looked and r["result"] != "collecting":     # this week's one look
+            passes = passes + [week] if r["result"] == "pass" else []
+        if len(passes) >= PASSES_NEEDED:
+            stage = "eligible:shadow"
+        elif passes:
+            stage = f"passed {len(passes)}/{PASSES_NEEDED} weekly checks"
+        elif r["result"] == "collecting":
+            stage = "collecting"
+        else:
+            stage = "no added value"
+        stages[site] = {**r, "stage": stage, "passes": passes,
+                        "checked_week": week if r["result"] != "collecting" else prev.get("checked_week"),
+                        "issue": prev.get("issue")}
     return stages
 
 
@@ -263,14 +291,15 @@ def run(now: datetime, open_issue=None) -> list[str]:
         (BOARDS / f"tips_{d}.json").write_text(json.dumps(board, indent=1, ensure_ascii=False), encoding="utf-8")
         (BOARDS / f"tips_{d}.md").write_text(board_md(board), encoding="utf-8")
         notes.append(f"tip board {d}: {len(board['games'])} games")
-    stages = decide(compare(graded_rows, market_index(uv.load_graded()), views_by_day))
     old = {}
     try:
         old = json.loads(ELIGIBILITY.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         pass
+    y, w, _ = now.isocalendar()
+    raw = test(compare(graded_rows, market_index(uv.load_graded()), views_by_day))
+    stages = decide(raw, old, f"{y}-W{w:02d}")
     for site, st in stages.items():
-        st["issue"] = (old.get(site) or {}).get("issue")
         if st["stage"] == "eligible:shadow" and not st["issue"] and open_issue is not None:
             st["issue"] = open_issue(ISSUE_TITLE.format(site=site), issue_body(site, st))
         notes.append(f"{site}: {st['stage']} ({st['why']})")
@@ -286,10 +315,16 @@ def report_lines(day: str) -> list[str]:
         stages = json.loads(ELIGIBILITY.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return []
-    L = ["TIP SITES (paper, nothing placed)"]
-    for site, r in sorted((board.get("results") or {}).items()):
-        stage = (stages.get(site) or {}).get("stage", "")
-        L.append(f"{site}: {r['won']} won, {r['lost']} lost, {r['open']} open"
-                 + (f" · {stage}" if stage else ""))
-    return L if len(L) > 1 else []
+    L = ["TIP SITES (paper, nothing placed; may they influence the model?)"]
+    res = board.get("results") or {}
+    for site in ts.SITES:
+        st = stages.get(site) or {}
+        vd = st.get("vs_model") or {}
+        gap = (f", mixed into our model: {'better' if vd.get('mix_gain', 0) > 0 else 'not better'} "
+               f"(z {vd.get('z')}, {vd.get('n')} games)") if vd.get("n") else ""
+        r = res.get(site) or {}
+        day = f" · today {r.get('won', 0)} won / {r.get('lost', 0)} lost" if r else ""
+        L.append(f"{site}: {st.get('stage', 'collecting')}{gap}{day}")
+    L.append("(won/lost alone means little: double-chance tips win about 3 in 4 by design)")
+    return L
 

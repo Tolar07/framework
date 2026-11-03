@@ -34,7 +34,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python monitor/tip_sites_run.py
       - name: Commit the tips back
-        if: github.ref == 'refs/heads/main'
+        # always: a zero-tip alarm fails the run (watchdog -> auto-fix) but the other site's tips are still saved
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"

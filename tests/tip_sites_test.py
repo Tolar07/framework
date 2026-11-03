@@ -84,3 +84,12 @@ def test_parse_statarea_upcoming_only_and_time_zone():
     assert leg["p"] == [0.32, 0.33, 0.35] and leg["p_over"]["2.5"] == 0.68 and leg["p_btts"] == 0.68
     summer = SA.format(mid=5, tip="1", when="2027-06-01 20:00", g="-")      # BST: 20:00 London = 19:00 UTC
     assert ts.parse_statarea(summer, NOW)[0]["legs"][0]["kickoff"] == "2027-06-01T19:00:00Z"
+
+
+def test_health_alarms_after_two_empty_runs(tmp_path):
+    ok = ["vitibet: 30 upcoming tips read, 30 new", "statarea: 35 upcoming tips read, 35 new"]
+    empty = ["vitibet: 0 upcoming tips read, 0 new", "statarea: unavailable (timeout)"]
+    assert ts.health(tmp_path, ok) == []
+    assert ts.health(tmp_path, empty) == []
+    assert ts.health(tmp_path, empty) == ["vitibet", "statarea"]
+    assert ts.health(tmp_path, ok) == []                          # one good run clears it

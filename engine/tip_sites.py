@@ -170,6 +170,25 @@ def collect(folder: Path, now: datetime, get=fetch, get_js=fetch_rendered) -> li
     return notes
 
 
+ZERO_RUNS_ALARM = 2   # a site with no tips on this many runs in a row fails the workflow -> watchdog auto-fix
+
+
+def health(folder: Path, notes: list[str]) -> list[str]:
+    """Count each site's runs in a row with no tips (page changed, site down, blocked). Returns the sites that
+    reached ZERO_RUNS_ALARM, so the run can fail loudly instead of quietly reading nothing (HR35)."""
+    path = folder / "health.json"
+    try:
+        h = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        h = {}
+    for site in SITES:
+        line = next((n for n in notes if n.startswith(f"{site}:")), "")
+        m = re.match(rf"{site}: (\d+) upcoming", line)
+        h[site] = 0 if m and int(m.group(1)) > 0 else int(h.get(site, 0)) + 1
+    path.write_text(json.dumps(h), encoding="utf-8")
+    return [site for site in SITES if h[site] >= ZERO_RUNS_ALARM]
+
+
 def _outcome(h: int, a: int) -> int:
     return 0 if h > a else 1 if h == a else 2
 

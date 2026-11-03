@@ -1,0 +1,200 @@
+##########OLP XDV#########
+==================================
+
+📅  Tue 03 Nov 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261103-0818-94ef47 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 22 · Verified: 20
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                           Country · League        AI PICK · win%                           Odds   Alt market                                           O1.5/O2.5  DC/BTTS     Src
+19:45  QPR v Burnley                     England · Championship  ✓ QPR or Burnley · 79%                   @1.29  QPR or Burnley & Over 2.5 @1.90                      O83/O62    1278 / Y62  ✓
+19:45  Derby v Norwich                   England · Championship  ✓ Derby or Norwich · 78%                 @1.30  Derby or Norwich & Under 3.5 @1.90                   O79/O56    1275 / Y59  ✓
+19:45  Preston v Sheffield United        England · Championship  ✓ Preston or Sheffield United · 78%      @1.30  Preston or Sheffield United & Under 3.5 @1.85        O74/U51    1273 / Y53  ✓
+20:00  Birmingham v Millwall             England · Championship  ✓ Birmingham or Millwall · 78%           @1.30  Birmingham or Millwall & Under 3.5 @1.83             O72/U53    1273 / Y52  ✓
+20:00  West Brom v Southampton           England · Championship  ✓ West Brom or Southampton · 78%         @1.31  West Brom or Southampton & Under 4.5 @1.58           O74/U52    1273 / Y53  ✓
+19:45  Charlton v Bolton Wanderers       England · Championship  ✓ Charlton or Bolton Wanderers · 78%     @1.32  Charlton or Bolton Wanderers & Under 3.5 @1.87       O79/O55    1274 / Y59  ✓
+19:45  Watford v Lincoln City            England · Championship  ✓ Watford or Lincoln City · 78%          @1.33  Watford or Lincoln City & Under 3.5 @1.83            O78/O54    1276 / Y55  ✓
+19:45  Blackburn v Stoke                 England · Championship  ✓ Blackburn or Stoke · 76%               @1.33  —                                                    O65/U62    1270 / N55  ✓
+19:45  Portsmouth v Swansea              England · Championship  ✓ Portsmouth or Swansea · 75%            @1.35  —                                                    O68/U59    1271 / N52  ✓
+
+20:00  Villarreal v PSG                  UEFA Champions League   Villarreal or PSG · 83%                  @1.22  PSG & Over 1.5 @1.76                                 O88/O72    1279 / Y68  ✓ᴹ
+20:00  Bodoe/Glimt v Lille               UEFA Champions League   Bodoe/Glimt or Lille · 81%               @1.24  Bodoe or Glimt & Over 1.5 @1.88                      O84/O66    1X78 / Y63  ✓ᴹ
+17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Galatasaray Istanbul or Stuttgart · 81%  @1.25  Galatasaray Istanbul or Stuttgart & Under 4.5 @1.90  O88/O73    1277 / Y71  ✓ᴹ
+20:00  Feyenoord v Inter                 UEFA Champions League   Feyenoord or Inter · 81%                 @1.26  Feyenoord or Inter & Under 4.5 @1.76                 O86/O68    1277 / Y67  ✓ᴹ
+20:00  Atletico Madrid v Bayern Munich   UEFA Champions League   Atletico Madrid or Bayern Munich · 80%   @1.27  —                                                    O85/O66    1276 / Y67  ○ᴹ
+20:00  Man Utd v Roma                    UEFA Champions League   Man Utd or Roma · 80%                    @1.27  —                                                    O84/O64    1276 / Y65  ○ᴹ
+17:45  Shakhtar D v Sporting             UEFA Champions League   Shakhtar D or Sporting · 79%             @1.28  —                                                    O80/O57    1275 / Y59  ✓ᴹ
+20:00  Barcelona v Aston Villa           UEFA Champions League   Barcelona & Over 1.5 · 77%               @1.30  —                                                    O92/O81    1X88 / Y67  ✓ᴹ
+20:00  LASK Linz v Slovan Bratislava     UEFA Champions League   LASK Linz & Over 1.5 · 71%               @1.41  —                                                    O88/O72    1X88 / Y60  ✓ᴹ
+
+19:45  Huddersfield v Luton              England · League One    ✓ Huddersfield or Luton · 79%            @1.27  —                                                    O84/O64    1277 / Y64  ✓
+19:45  Wigan v Mansfield                 England · League One    ✓ Wigan or Mansfield · 78%               @1.30  Wigan or Mansfield & Under 4.5 @1.57                 O69/U58    1271 / N52  ✓
+
+19:45  Northampton v Oldham              England · League Two    ᴮ Northampton Under 1.5 goals · 63%      @1.51  —                                                    O51/U76    1X70 / N67  ✓
+
+18:00  IK Sirius v Halmstads BK          Sweden · Allsvenskan    ✓ IK Sirius & Under 4.5 · 56%            @1.80  —                                                    O84/O63    1X90 / Y50  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 1 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                           Country · League        Pick                               Chance  Odds   Certainty  Stake  Code
+19:45  Derby v Norwich                   England · Championship  ✓ Derby or Norwich                 78%     @1.30  HIGH       0.25%  JHZ6H4
+19:45  Preston v Sheffield United        England · Championship  ✓ Preston or Sheffield United      78%     @1.30  HIGH       0.25%  YGTU7B
+19:45  QPR v Burnley                     England · Championship  ✓ QPR or Burnley                   79%     @1.29  MEDIUM     0.25%  JD2S02
+20:00  Birmingham v Millwall             England · Championship  ✓ Birmingham or Millwall           78%     @1.30  HIGH       0.25%  TAKJZQ
+17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Galatasaray Istanbul or Stuttgart  81%     @1.25  LOW        0.12%  YKQUBR
+20:00  Bodoe/Glimt v Lille               UEFA Champions League   Bodoe/Glimt or Lille               81%     @1.24  LOW        0.12%  QUR605
+20:00  Feyenoord v Inter                 UEFA Champions League   Feyenoord or Inter                 81%     @1.26  LOW        0.12%  T33LZC
+20:00  Villarreal v PSG                  UEFA Champions League   Villarreal or PSG                  83%     @1.22  LOW        0.12%  NP5XL8
+19:45  Huddersfield v Luton              England · League One    ✓ Huddersfield or Luton            79%     @1.27  HIGH       0.25%  QFVCMF
+19:45  Wigan v Mansfield                 England · League One    ✓ Wigan or Mansfield               78%     @1.30  HIGH       0.25%  NK1CDT
+19:45  Northampton v Oldham              England · League Two    ᴮ Northampton Under 1.5 goals      63%     @1.51  LOW        0.12%  YKVV61
+18:00  IK Sirius v Halmstads BK          Sweden · Allsvenskan    ✓ IK Sirius & Under 4.5            56%     @1.80  LOW        0.12%  X8L8VM
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 12 of 12 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+
+⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • CAUTION: IK Sirius v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — Sirius missing 22% of value (Jesper Uneken, Otso Liimatta, Mohamed Soumah)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Derby v Norwich: tempo 3.1 goals/game · draw tendency 15% · open, high-scoring pairing | Derby 1.1-1.8 a game, draws 20%, BTTS 65%, clean sheets 15%, SoT 4.0-5.8 | Norwich 1.7-1.7 a game, draws 10%, BTTS 75%, clean sheets 0%, SoT 5.0-4.3
+   • Preston v Sheffield United: tempo 2.9 goals/game · draw tendency 22% | Preston 1.0-2.0 a game, draws 20%, BTTS 70%, clean sheets 0%, SoT 3.0-5.2 | Sheffield United 1.4-1.4 a game, draws 25%, BTTS 60%, clean sheets 30%, SoT 4.4-4.4
+   • QPR v Burnley: tempo 3.0 goals/game · draw tendency 41% · both draw-prone · a side often fails to score | QPR 1.4-1.4 a game, draws 35%, BTTS 60%, clean sheets 20%, SoT 5.0-4.5 | Burnley 1.3-1.9 a game, draws 46%, BTTS 85%, clean sheets 15%, SoT 4.2-4.9
+   • Birmingham v Millwall: tempo 2.8 goals/game · draw tendency 30% | Birmingham 1.6-1.0 a game, draws 35%, BTTS 65%, clean sheets 25%, SoT 5.0-3.6 | Millwall 1.7-1.3 a game, draws 25%, BTTS 55%, clean sheets 35%, SoT 4.4-3.2
+   • Huddersfield v Luton: tempo 3.4 goals/game · draw tendency 28% · open, high-scoring pairing | Huddersfield 2.1-1.2 a game, draws 40%, BTTS 75%, clean sheets 25%, SoT 5.9-2.8 | Luton 2.1-1.4 a game, draws 15%, BTTS 75%, clean sheets 20%, SoT 5.3-4.0
+   • Wigan v Mansfield: tempo 2.6 goals/game · draw tendency 25% · a side often fails to score | Wigan 0.9-1.3 a game, draws 15%, BTTS 35%, clean sheets 25%, SoT 3.0-4.1 | Mansfield 1.6-1.4 a game, draws 35%, BTTS 55%, clean sheets 30%, SoT 4.3-3.9
+   • Northampton v Oldham: tempo 2.1 goals/game · draw tendency 31% · a side often fails to score | Northampton 0.8-0.8 a game, draws 42%, BTTS 33%, clean sheets 33%, SoT 3.8-2.9 | Oldham 1.3-1.5 a game, draws 20%, BTTS 55%, clean sheets 20%, SoT 3.9-4.0
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Derby v Norwich: Derby County: high press v build-up side -> no strong goals lean · xG 1.31-1.58 · BTTS 58% · O2.5 55% · corners ~9.5 · pick 75% on the matchup
+   • Preston v Sheffield United: no tactical clash flagged -> no strong goals lean · xG 1.36-1.19 · BTTS 52% · O2.5 47% · corners ~10.8 · pick 73% on the matchup
+   • Birmingham v Millwall: Birmingham City: counter side v counter-exposed; Millwall: set-piece threat v weak set-piece defence; Millwall: aerial threat v weak in the air -> BTTS · xG 1.60-1.37 · BTTS 60% · O2.5 57% · corners ~10.4 · pick 76% on the matchup
+   • Galatasaray Istanbul v Stuttgart: Galatasaray: elite attack v leaky defence -> BTTS & goals · xG 2.31-1.43 · BTTS 68% · O2.5 72% · corners ~11.2 · pick 80% on the matchup
+   • Bodoe/Glimt v Lille: Lille: high press v build-up side; Lille: blunt attack v tight defence -> BTTS & goals · xG 2.94-1.05 · BTTS 61% · O2.5 76% · corners ~8.9 · pick 86% on the matchup
+   • Feyenoord v Inter: no tactical clash flagged -> BTTS & goals · xG 1.63-1.89 · BTTS 68% · O2.5 68% · corners ~9.4 · pick 78% on the matchup
+   • Huddersfield v Luton: Huddersfield Town: counter side v high line; Luton Town: possession side v low block -> BTTS & goals · xG 2.13-1.18 · BTTS 61% · O2.5 64% · corners ~10.5 · pick 80% on the matchup
+   • Wigan v Mansfield: Mansfield Town: elite attack v leaky defence -> BTTS & goals · xG 1.35-1.86 · BTTS 63% · O2.5 62% · corners ~10.5 · pick 77% on the matchup
+   • Northampton v Oldham: no tactical clash flagged -> no strong goals lean · xG 1.36-1.18 · BTTS 51% · O2.5 46% · corners ~10.3 · pick 61% on the matchup
+   • IK Sirius v Halmstads BK: Sirius: set-piece threat v weak set-piece defence; Sirius: aerial threat v weak in the air; Sirius: elite attack v leaky defence; Halmstads BK: blunt attack v tight defence -> Halmstads BK may not score · xG 2.58-0.79 · BTTS 51% · O2.5 66% · corners ~12.4 · pick 53% on the matchup
+
+TABLE 2 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 2 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+3 accas · 9 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+2 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code XX8211 · 3 legs · odds 2.11 · chance 50%
+   • 19:45 QPR v Burnley (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — QPR or Burnley @1.29 (79%)
+   • 20:00 Feyenoord v Inter (🏆 UEFA Champions League) — Feyenoord or Inter @1.26 (81%)
+   • 19:45 Derby v Norwich (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Derby or Norwich @1.30 (78%)
+Acca B · code JEACNP · 3 legs · odds 2.06 · chance 50%
+   • 19:45 Preston v Sheffield United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Preston or Sheffield United @1.30 (78%)
+   • 20:00 Birmingham v Millwall (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Birmingham or Millwall @1.30 (78%)
+   • 20:00 Villarreal v PSG (🏆 UEFA Champions League) — Villarreal or PSG @1.22 (83%)
+Acca C · code Z4UU3G · 3 legs · odds 2.05 · chance 50%
+   • 20:00 Bodoe/Glimt v Lille (🏆 UEFA Champions League) — Bodoe/Glimt or Lille @1.24 (81%)
+   • 19:45 Wigan v Mansfield (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Wigan or Mansfield @1.30 (78%)
+   • 19:45 Huddersfield v Luton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Huddersfield or Luton @1.27 (79%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 3 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Villarreal v PSG (🏆 UEFA Champions League) — Villarreal or PSG (83%) @1.22 · code NP5XL8
+Acca A: 3 legs, model 50% · code XX8211
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 1169 legs logged, mean CLV +0.41%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+──────────────────────────────────
+TABLE 3D · BOTH TEAMS TO SCORE
+(12 BTTS-yes singles, 50%+ model chance, one code each)
+──────────────────────────────────
+   • 19:45 Huddersfield v Luton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — BTTS yes @1.56 (model 63%, fair 1.60) · TD07P2
+   • 19:45 QPR v Burnley (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.63 (model 61%, fair 1.63) · QRNNNE
+   • 19:45 Derby v Norwich (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.63 (model 59%, fair 1.68) · ZDD5FD
+   • 19:45 Charlton v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.65 (model 59%, fair 1.69) · VK1NC1
+   • 19:45 Watford v Lincoln City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.68 (model 57%, fair 1.75) · LYJYVL
+   • 19:45 Preston v Sheffield United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.69 (model 56%, fair 1.80) · YANQSF
+   • 20:00 West Brom v Southampton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.61 (model 55%, fair 1.80) · Z8GW3E
+   • 20:00 Birmingham v Millwall (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.70 (model 55%, fair 1.83) · ZGFRNW
+   • 18:00 IK Sirius v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — BTTS yes @1.71 (model 54%, fair 1.86) · GV1PJT
+   • 19:45 Wigan v Mansfield (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — BTTS yes @1.61 (model 52%, fair 1.91) · UFR232
+   • 19:45 Portsmouth v Swansea (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.91 (model 52%, fair 1.92) · X7Z2RD
+   • 19:45 Blackburn v Stoke (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.83 (model 50%, fair 1.98) · QS9FAC
+
+ALL CODES
+CLV acca A: ZYZVVY (4 legs · odds 2.42 · 43% · positive-CLV markets)
+CLV acca B: VDKAFE (4 legs · odds 2.83 · 38% · positive-CLV markets)
+ACCAS MEGA: X9TVND (9 legs · every Table 3 acca on one slip · odds 8.92 · stake 0.1%)
+BTTS 1: TD07P2 (single · both teams to score)
+BTTS 2: QRNNNE (single · both teams to score)
+BTTS 3: ZDD5FD (single · both teams to score)
+BTTS 4: VK1NC1 (single · both teams to score)
+BTTS 5: LYJYVL (single · both teams to score)
+BTTS 6: YANQSF (single · both teams to score)
+BTTS 7: Z8GW3E (single · both teams to score)
+BTTS 8: ZGFRNW (single · both teams to score)
+BTTS 9: GV1PJT (single · both teams to score)
+BTTS 10: UFR232 (single · both teams to score)
+BTTS 11: X7Z2RD (single · both teams to score)
+BTTS 12: QS9FAC (single · both teams to score)
+Mega 1: JFHZA6 (2 legs · odds 2 · stake 0.1%)
+Mega 2: YFL7J5 (10 legs · odds 13 · stake 0.1%)
+Acca A: XX8211 (3 legs · odds 2.11 · 50% · stake 0.25%)
+Acca B: JEACNP (3 legs · odds 2.06 · 50% · stake 0.25%)
+Acca C: Z4UU3G (3 legs · odds 2.05 · 50% · stake 0.25%)

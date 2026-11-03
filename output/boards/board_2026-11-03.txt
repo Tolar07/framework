@@ -2,7 +2,7 @@
 ==================================
 
 📅  Tue 03 Nov 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261103-0647-e8d563 | Phase 3 — live capital (Architect-deployed)
+Run ID: OLPXDV-20261103-0818-94ef47 | Phase 3 — live capital (Architect-deployed)
 Fixtures scanned: 22 · Verified: 20
 KO = kickoff, UK time
 
@@ -11,46 +11,92 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 ──────────────────────────────────
 
 ```
-KO     Fixture                           Country · League        AI PICK · win%           Odds  Alt market  O1.5/O2.5  DC/BTTS     Src
-19:45  QPR v Burnley                     England · Championship  Over 1.5 goals · 83%     —     —           O83/O62    1278 / Y62  ✓
-19:45  Blackburn v Stoke                 England · Championship  Under 3.5 goals · 81%    —     —           O65/U62    1270 / N55  ✓
-19:45  Derby v Norwich                   England · Championship  Over 1.5 goals · 79%     —     —           O79/O56    1275 / Y59  ✓
-19:45  Portsmouth v Swansea              England · Championship  Under 3.5 goals · 79%    —     —           O68/U59    1271 / N52  ✓
-19:45  Charlton v Bolton Wanderers       England · Championship  Over 1.5 goals · 79%     —     —           O79/O55    1274 / Y59  ✓
-19:45  Watford v Lincoln City            England · Championship  Over 1.5 goals · 78%     —     —           O78/O54    1276 / Y55  ✓
-20:00  Birmingham v Millwall             England · Championship  Under 3.5 goals · 75%    —     —           O72/U53    1273 / Y52  ✓
-19:45  Preston v Sheffield United        England · Championship  Over 1.5 goals · 74%     —     —           O74/U51    1273 / Y53  ✓
-20:00  West Brom v Southampton           England · Championship  Over 1.5 goals · 74%     —     —           O74/U52    1273 / Y53  ✓
+KO     Fixture                           Country · League        AI PICK · win%                           Odds   Alt market                                           O1.5/O2.5  DC/BTTS     Src
+19:45  QPR v Burnley                     England · Championship  ✓ QPR or Burnley · 79%                   @1.29  QPR or Burnley & Over 2.5 @1.90                      O83/O62    1278 / Y62  ✓
+19:45  Derby v Norwich                   England · Championship  ✓ Derby or Norwich · 78%                 @1.30  Derby or Norwich & Under 3.5 @1.90                   O79/O56    1275 / Y59  ✓
+19:45  Preston v Sheffield United        England · Championship  ✓ Preston or Sheffield United · 78%      @1.30  Preston or Sheffield United & Under 3.5 @1.85        O74/U51    1273 / Y53  ✓
+20:00  Birmingham v Millwall             England · Championship  ✓ Birmingham or Millwall · 78%           @1.30  Birmingham or Millwall & Under 3.5 @1.83             O72/U53    1273 / Y52  ✓
+20:00  West Brom v Southampton           England · Championship  ✓ West Brom or Southampton · 78%         @1.31  West Brom or Southampton & Under 4.5 @1.58           O74/U52    1273 / Y53  ✓
+19:45  Charlton v Bolton Wanderers       England · Championship  ✓ Charlton or Bolton Wanderers · 78%     @1.32  Charlton or Bolton Wanderers & Under 3.5 @1.87       O79/O55    1274 / Y59  ✓
+19:45  Watford v Lincoln City            England · Championship  ✓ Watford or Lincoln City · 78%          @1.33  Watford or Lincoln City & Under 3.5 @1.83            O78/O54    1276 / Y55  ✓
+19:45  Blackburn v Stoke                 England · Championship  ✓ Blackburn or Stoke · 76%               @1.33  —                                                    O65/U62    1270 / N55  ✓
+19:45  Portsmouth v Swansea              England · Championship  ✓ Portsmouth or Swansea · 75%            @1.35  —                                                    O68/U59    1271 / N52  ✓
 
-20:00  Barcelona v Aston Villa           UEFA Champions League   Over 1.5 goals · 92%     —     —           O92/O81    1X88 / Y67  ✓ᴹ
-17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1277 / Y71  ✓ᴹ
-20:00  LASK Linz v Slovan Bratislava     UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1X88 / Y60  ✓ᴹ
-20:00  Villarreal v PSG                  UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1279 / Y68  ✓ᴹ
-20:00  Feyenoord v Inter                 UEFA Champions League   Over 1.5 goals · 86%     —     —           O86/O68    1277 / Y67  ✓ᴹ
-20:00  Atletico Madrid v Bayern Munich   UEFA Champions League   Over 1.5 goals · 85%     —     —           O85/O66    1276 / Y67  ○ᴹ
-20:00  Bodoe/Glimt v Lille               UEFA Champions League   Over 1.5 goals · 85%     —     —           O85/O66    1X78 / Y63  ✓ᴹ
-20:00  Man Utd v Roma                    UEFA Champions League   Over 1.5 goals · 84%     —     —           O84/O64    1276 / Y65  ○ᴹ
-17:45  Shakhtar D v Sporting             UEFA Champions League   Over 1.5 goals · 80%     —     —           O80/O57    1275 / Y59  ✓ᴹ
+20:00  Villarreal v PSG                  UEFA Champions League   Villarreal or PSG · 83%                  @1.22  PSG & Over 1.5 @1.76                                 O88/O72    1279 / Y68  ✓ᴹ
+20:00  Bodoe/Glimt v Lille               UEFA Champions League   Bodoe/Glimt or Lille · 81%               @1.24  Bodoe or Glimt & Over 1.5 @1.88                      O84/O66    1X78 / Y63  ✓ᴹ
+17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Galatasaray Istanbul or Stuttgart · 81%  @1.25  Galatasaray Istanbul or Stuttgart & Under 4.5 @1.90  O88/O73    1277 / Y71  ✓ᴹ
+20:00  Feyenoord v Inter                 UEFA Champions League   Feyenoord or Inter · 81%                 @1.26  Feyenoord or Inter & Under 4.5 @1.76                 O86/O68    1277 / Y67  ✓ᴹ
+20:00  Atletico Madrid v Bayern Munich   UEFA Champions League   Atletico Madrid or Bayern Munich · 80%   @1.27  —                                                    O85/O66    1276 / Y67  ○ᴹ
+20:00  Man Utd v Roma                    UEFA Champions League   Man Utd or Roma · 80%                    @1.27  —                                                    O84/O64    1276 / Y65  ○ᴹ
+17:45  Shakhtar D v Sporting             UEFA Champions League   Shakhtar D or Sporting · 79%             @1.28  —                                                    O80/O57    1275 / Y59  ✓ᴹ
+20:00  Barcelona v Aston Villa           UEFA Champions League   Barcelona & Over 1.5 · 77%               @1.30  —                                                    O92/O81    1X88 / Y67  ✓ᴹ
+20:00  LASK Linz v Slovan Bratislava     UEFA Champions League   LASK Linz & Over 1.5 · 71%               @1.41  —                                                    O88/O72    1X88 / Y60  ✓ᴹ
 
-19:45  Huddersfield v Luton              England · League One    Over 1.5 goals · 84%     —     —           O84/O64    1277 / Y64  ✓
-19:45  Wigan v Mansfield                 England · League One    Under 3.5 goals · 78%    —     —           O69/U58    1271 / N52  ✓
+19:45  Huddersfield v Luton              England · League One    ✓ Huddersfield or Luton · 79%            @1.27  —                                                    O84/O64    1277 / Y64  ✓
+19:45  Wigan v Mansfield                 England · League One    ✓ Wigan or Mansfield · 78%               @1.30  Wigan or Mansfield & Under 4.5 @1.57                 O69/U58    1271 / N52  ✓
 
-19:45  Northampton v Oldham              England · League Two    Under 3.5 goals · 91%    —     —           O51/U76    1X70 / N67  ✓
+19:45  Northampton v Oldham              England · League Two    ᴮ Northampton Under 1.5 goals · 63%      @1.51  —                                                    O51/U76    1X70 / N67  ✓
 
-18:00  IK Sirius v Halmstads BK          Sweden · Allsvenskan    IK Sirius or draw · 90%  —     —           O84/O63    1X90 / Y50  ✓
+18:00  IK Sirius v Halmstads BK          Sweden · Allsvenskan    ✓ IK Sirius & Under 4.5 · 56%            @1.80  —                                                    O84/O63    1X90 / Y50  ✓
 ```
 ★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
 ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
 Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
 
-TABLE 1 mega code: PENDING (no deploy-eligible single resolved on SportyBet today)
+TABLE 1 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 1 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 (fixtures that clear the deploy threshold, one row each, own code)
 ──────────────────────────────────
 
-No deploy-eligible fixtures kicking off today.
+```
+KO     Fixture                           Country · League        Pick                               Chance  Odds   Certainty  Stake  Code
+19:45  Derby v Norwich                   England · Championship  ✓ Derby or Norwich                 78%     @1.30  HIGH       0.25%  JHZ6H4
+19:45  Preston v Sheffield United        England · Championship  ✓ Preston or Sheffield United      78%     @1.30  HIGH       0.25%  YGTU7B
+19:45  QPR v Burnley                     England · Championship  ✓ QPR or Burnley                   79%     @1.29  MEDIUM     0.25%  JD2S02
+20:00  Birmingham v Millwall             England · Championship  ✓ Birmingham or Millwall           78%     @1.30  HIGH       0.25%  TAKJZQ
+17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Galatasaray Istanbul or Stuttgart  81%     @1.25  LOW        0.12%  YKQUBR
+20:00  Bodoe/Glimt v Lille               UEFA Champions League   Bodoe/Glimt or Lille               81%     @1.24  LOW        0.12%  QUR605
+20:00  Feyenoord v Inter                 UEFA Champions League   Feyenoord or Inter                 81%     @1.26  LOW        0.12%  T33LZC
+20:00  Villarreal v PSG                  UEFA Champions League   Villarreal or PSG                  83%     @1.22  LOW        0.12%  NP5XL8
+19:45  Huddersfield v Luton              England · League One    ✓ Huddersfield or Luton            79%     @1.27  HIGH       0.25%  QFVCMF
+19:45  Wigan v Mansfield                 England · League One    ✓ Wigan or Mansfield               78%     @1.30  HIGH       0.25%  NK1CDT
+19:45  Northampton v Oldham              England · League Two    ᴮ Northampton Under 1.5 goals      63%     @1.51  LOW        0.12%  YKVV61
+18:00  IK Sirius v Halmstads BK          Sweden · Allsvenskan    ✓ IK Sirius & Under 4.5            56%     @1.80  LOW        0.12%  X8L8VM
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 12 of 12 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+
+⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • CAUTION: IK Sirius v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — Sirius missing 22% of value (Jesper Uneken, Otso Liimatta, Mohamed Soumah)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Derby v Norwich: tempo 3.1 goals/game · draw tendency 15% · open, high-scoring pairing | Derby 1.1-1.8 a game, draws 20%, BTTS 65%, clean sheets 15%, SoT 4.0-5.8 | Norwich 1.7-1.7 a game, draws 10%, BTTS 75%, clean sheets 0%, SoT 5.0-4.3
+   • Preston v Sheffield United: tempo 2.9 goals/game · draw tendency 22% | Preston 1.0-2.0 a game, draws 20%, BTTS 70%, clean sheets 0%, SoT 3.0-5.2 | Sheffield United 1.4-1.4 a game, draws 25%, BTTS 60%, clean sheets 30%, SoT 4.4-4.4
+   • QPR v Burnley: tempo 3.0 goals/game · draw tendency 41% · both draw-prone · a side often fails to score | QPR 1.4-1.4 a game, draws 35%, BTTS 60%, clean sheets 20%, SoT 5.0-4.5 | Burnley 1.3-1.9 a game, draws 46%, BTTS 85%, clean sheets 15%, SoT 4.2-4.9
+   • Birmingham v Millwall: tempo 2.8 goals/game · draw tendency 30% | Birmingham 1.6-1.0 a game, draws 35%, BTTS 65%, clean sheets 25%, SoT 5.0-3.6 | Millwall 1.7-1.3 a game, draws 25%, BTTS 55%, clean sheets 35%, SoT 4.4-3.2
+   • Huddersfield v Luton: tempo 3.4 goals/game · draw tendency 28% · open, high-scoring pairing | Huddersfield 2.1-1.2 a game, draws 40%, BTTS 75%, clean sheets 25%, SoT 5.9-2.8 | Luton 2.1-1.4 a game, draws 15%, BTTS 75%, clean sheets 20%, SoT 5.3-4.0
+   • Wigan v Mansfield: tempo 2.6 goals/game · draw tendency 25% · a side often fails to score | Wigan 0.9-1.3 a game, draws 15%, BTTS 35%, clean sheets 25%, SoT 3.0-4.1 | Mansfield 1.6-1.4 a game, draws 35%, BTTS 55%, clean sheets 30%, SoT 4.3-3.9
+   • Northampton v Oldham: tempo 2.1 goals/game · draw tendency 31% · a side often fails to score | Northampton 0.8-0.8 a game, draws 42%, BTTS 33%, clean sheets 33%, SoT 3.8-2.9 | Oldham 1.3-1.5 a game, draws 20%, BTTS 55%, clean sheets 20%, SoT 3.9-4.0
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Derby v Norwich: Derby County: high press v build-up side -> no strong goals lean · xG 1.31-1.58 · BTTS 58% · O2.5 55% · corners ~9.5 · pick 75% on the matchup
+   • Preston v Sheffield United: no tactical clash flagged -> no strong goals lean · xG 1.36-1.19 · BTTS 52% · O2.5 47% · corners ~10.8 · pick 73% on the matchup
+   • Birmingham v Millwall: Birmingham City: counter side v counter-exposed; Millwall: set-piece threat v weak set-piece defence; Millwall: aerial threat v weak in the air -> BTTS · xG 1.60-1.37 · BTTS 60% · O2.5 57% · corners ~10.4 · pick 76% on the matchup
+   • Galatasaray Istanbul v Stuttgart: Galatasaray: elite attack v leaky defence -> BTTS & goals · xG 2.31-1.43 · BTTS 68% · O2.5 72% · corners ~11.2 · pick 80% on the matchup
+   • Bodoe/Glimt v Lille: Lille: high press v build-up side; Lille: blunt attack v tight defence -> BTTS & goals · xG 2.94-1.05 · BTTS 61% · O2.5 76% · corners ~8.9 · pick 86% on the matchup
+   • Feyenoord v Inter: no tactical clash flagged -> BTTS & goals · xG 1.63-1.89 · BTTS 68% · O2.5 68% · corners ~9.4 · pick 78% on the matchup
+   • Huddersfield v Luton: Huddersfield Town: counter side v high line; Luton Town: possession side v low block -> BTTS & goals · xG 2.13-1.18 · BTTS 61% · O2.5 64% · corners ~10.5 · pick 80% on the matchup
+   • Wigan v Mansfield: Mansfield Town: elite attack v leaky defence -> BTTS & goals · xG 1.35-1.86 · BTTS 63% · O2.5 62% · corners ~10.5 · pick 77% on the matchup
+   • Northampton v Oldham: no tactical clash flagged -> no strong goals lean · xG 1.36-1.18 · BTTS 51% · O2.5 46% · corners ~10.3 · pick 61% on the matchup
+   • IK Sirius v Halmstads BK: Sirius: set-piece threat v weak set-piece defence; Sirius: aerial threat v weak in the air; Sirius: elite attack v leaky defence; Halmstads BK: blunt attack v tight defence -> Halmstads BK may not score · xG 2.58-0.79 · BTTS 51% · O2.5 66% · corners ~12.4 · pick 53% on the matchup
+
+TABLE 2 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 2 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
 
 ──────────────────────────────────
 TABLE 3A · 50%+ ACCAS
@@ -64,7 +110,25 @@ TABLE 3 · ACCA ROUTE
 (75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
 ──────────────────────────────────
 
-No capital-eligible accas generated.
+3 accas · 9 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+2 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code XX8211 · 3 legs · odds 2.11 · chance 50%
+   • 19:45 QPR v Burnley (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — QPR or Burnley @1.29 (79%)
+   • 20:00 Feyenoord v Inter (🏆 UEFA Champions League) — Feyenoord or Inter @1.26 (81%)
+   • 19:45 Derby v Norwich (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Derby or Norwich @1.30 (78%)
+Acca B · code JEACNP · 3 legs · odds 2.06 · chance 50%
+   • 19:45 Preston v Sheffield United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Preston or Sheffield United @1.30 (78%)
+   • 20:00 Birmingham v Millwall (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Birmingham or Millwall @1.30 (78%)
+   • 20:00 Villarreal v PSG (🏆 UEFA Champions League) — Villarreal or PSG @1.22 (83%)
+Acca C · code Z4UU3G · 3 legs · odds 2.05 · chance 50%
+   • 20:00 Bodoe/Glimt v Lille (🏆 UEFA Champions League) — Bodoe/Glimt or Lille @1.24 (81%)
+   • 19:45 Wigan v Mansfield (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Wigan or Mansfield @1.30 (78%)
+   • 19:45 Huddersfield v Luton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Huddersfield or Luton @1.27 (79%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (2 legs · odds 2 · chance 1 in 2): JFHZA6   load ↦ www.sportybet.com/ng/?shareCode=JFHZA6
+TABLE 3 Mega 2 (10 legs · odds 13 · chance 1 in 13): YFL7J5   load ↦ www.sportybet.com/ng/?shareCode=YFL7J5
 
 ──────────────────────────────────
 TABLE 3B · ALT-MARKET ACCAS
@@ -87,37 +151,58 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-No pick today — nothing cleared the deploy threshold.
+Primary single: Villarreal v PSG (🏆 UEFA Champions League) — Villarreal or PSG (83%) @1.22 · code NP5XL8
+Acca A: 3 legs, model 50% · code XX8211
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
 Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
 Calibration: 1169 legs logged, mean CLV +0.41%.
-Booking codes: PENDING — no deploy-eligible pick resolved on SportyBet today (HR35: shown, never fabricated).
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
 ==================================
+──────────────────────────────────
+TABLE 3D · BOTH TEAMS TO SCORE
+(12 BTTS-yes singles, 50%+ model chance, one code each)
+──────────────────────────────────
+   • 19:45 Huddersfield v Luton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — BTTS yes @1.56 (model 63%, fair 1.60) · TD07P2
+   • 19:45 QPR v Burnley (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.63 (model 61%, fair 1.63) · QRNNNE
+   • 19:45 Derby v Norwich (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.63 (model 59%, fair 1.68) · ZDD5FD
+   • 19:45 Charlton v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.65 (model 59%, fair 1.69) · VK1NC1
+   • 19:45 Watford v Lincoln City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.68 (model 57%, fair 1.75) · LYJYVL
+   • 19:45 Preston v Sheffield United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.69 (model 56%, fair 1.80) · YANQSF
+   • 20:00 West Brom v Southampton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.61 (model 55%, fair 1.80) · Z8GW3E
+   • 20:00 Birmingham v Millwall (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.70 (model 55%, fair 1.83) · ZGFRNW
+   • 18:00 IK Sirius v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — BTTS yes @1.71 (model 54%, fair 1.86) · GV1PJT
+   • 19:45 Wigan v Mansfield (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — BTTS yes @1.61 (model 52%, fair 1.91) · UFR232
+   • 19:45 Portsmouth v Swansea (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.91 (model 52%, fair 1.92) · X7Z2RD
+   • 19:45 Blackburn v Stoke (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.83 (model 50%, fair 1.98) · QS9FAC
+
+ALL CODES
+CLV acca A: ZYZVVY (4 legs · odds 2.42 · 43% · positive-CLV markets)
+CLV acca B: VDKAFE (4 legs · odds 2.83 · 38% · positive-CLV markets)
+ACCAS MEGA: X9TVND (9 legs · every Table 3 acca on one slip · odds 8.92 · stake 0.1%)
+BTTS 1: TD07P2 (single · both teams to score)
+BTTS 2: QRNNNE (single · both teams to score)
+BTTS 3: ZDD5FD (single · both teams to score)
+BTTS 4: VK1NC1 (single · both teams to score)
+BTTS 5: LYJYVL (single · both teams to score)
+BTTS 6: YANQSF (single · both teams to score)
+BTTS 7: Z8GW3E (single · both teams to score)
+BTTS 8: ZGFRNW (single · both teams to score)
+BTTS 9: GV1PJT (single · both teams to score)
+BTTS 10: UFR232 (single · both teams to score)
+BTTS 11: X7Z2RD (single · both teams to score)
+BTTS 12: QS9FAC (single · both teams to score)
+Mega 1: JFHZA6 (2 legs · odds 2 · stake 0.1%)
+Mega 2: YFL7J5 (10 legs · odds 13 · stake 0.1%)
+Acca A: XX8211 (3 legs · odds 2.11 · 50% · stake 0.25%)
+Acca B: JEACNP (3 legs · odds 2.06 · 50% · stake 0.25%)
+Acca C: Z4UU3G (3 legs · odds 2.05 · 50% · stake 0.25%)
 
 ============================================================
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Benfica v Alverca | 1-0 | 1X2_DRAW | entry 8.53 | CLV NO DATA (Flashscore has no prices) | MISS
-Benfica v Alverca | 1-0 | 1X2_AWAY | entry 15.63 | CLV NO DATA (Flashscore has no prices) | MISS
-Benfica v Alverca | 1-0 | UNDER_2_5 | entry 3.1 | CLV NO DATA (Flashscore has no prices) | HIT
-Benfica v Alverca | 1-0 | UNDER_1_5 | entry 6.8 | CLV NO DATA (Flashscore has no prices) | HIT
-Benfica v Alverca | 1-0 | BTTS_YES | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
-Gil Vicente v Guimaraes | 0-0 | 1X2_HOME | entry 2.93 | CLV NO DATA (Flashscore has no prices) | MISS
-Gil Vicente v Guimaraes | 0-0 | OVER_1_5 | entry 1.41 | CLV NO DATA (Flashscore has no prices) | MISS
-Gil Vicente v Guimaraes | 0-0 | BTTS_NO | entry 1.88 | CLV NO DATA (Flashscore has no prices) | HIT
-Gil Vicente v Guimaraes | 0-0 | OVER_3_5 | entry 4.1 | CLV NO DATA (Flashscore has no prices) | MISS
-Gil Vicente v Guimaraes | 0-0 | DC_1X | entry 1.5 | CLV NO DATA (Flashscore has no prices) | HIT
-Newcastle v Everton | 0-1 | 1X2_DRAW | entry 3.62 | CLV NO DATA (Flashscore has no prices) | MISS
-Newcastle v Everton | 0-1 | BTTS_NO | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
-Benfica v Alverca | 1-0 | SB:18|total=4.5|Under 4.5 | entry 1.38 | CLV NO DATA (Flashscore has no prices) | HIT
-Gil Vicente v Guimaraes | 0-0 | SB:10||Home or Away | entry 1.36 | CLV NO DATA (Flashscore has no prices) | MISS
-Newcastle v Everton | 0-1 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
-Gil Vicente v Guimaraes | 0-0 | OVER_2_5 | entry 2.25 | CLV NO DATA (Flashscore has no prices) | MISS
-Gil Vicente v Guimaraes | 0-0 | DC_12 | entry 1.36 | CLV NO DATA (Flashscore has no prices) | MISS
-Benfica v Alverca | 1-0 | SB:19|total=4.5|Under 4.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
 
 ============================================================
 
@@ -128,7 +213,7 @@ Date: 2026-11-03 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-dep
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
 Calibration: 1169 legs logged, mean CLV +0.41%
 SOURCE NOTES (where the data came from, not problems):
-  · graded 18 of 280 pending leg(s)
+  · graded 0 of 262 pending leg(s)
   · picks 2026-10-03: 73 graded, 3 pending (Flashscore)
   · picks 2026-10-04: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
   · picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
@@ -162,7 +247,6 @@ SOURCE NOTES (where the data came from, not problems):
   · picks 2026-11-02: 12 graded, 0 pending; 22/22 rated fixtures graded (Flashscore)
   · picks 2026-10-09: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
   · picks 2026-10-13: 16 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
-  · 2 result(s) Flashscore lacked were taken from FotMob
   · SportyBet events pulled live
   · Eredivisie: 18 fixture(s) priced from SportyBet
   · SportyBet events served from cache (<=60min)
@@ -302,26 +386,277 @@ SOURCE NOTES (where the data came from, not problems):
   · losing-market watch: 9 flag(s), 0 approved block(s) in force
   · value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
   · tactical matchup: 18 fixture(s) read from the tactical profiles; weight 0 (fitted on unseen matches; 0 = label only), 0 chance(s) moved (cap ±5%)
-  · No forced picks (plan point 3): 22 game(s) whose safest outcome is under 1.20; 22 got no single (no other market 5+ pts over break-even)
+  · No forced picks (plan point 3): 22 game(s) whose safest outcome is under 1.20; 0 got no single (no other market 0+ pts over break-even)
+  · one-day override for 2026-11-03 (config/day_overrides.json): forced-pick margin 0 pts, 0 single(s) struck off by the Architect
   · No Unders in a shootout (order 43): 22 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
-  · same-result price shopping: 147 outcome(s) dropped for the same bet at a better price under another market
+  · same-result price shopping: 148 outcome(s) dropped for the same bet at a better price under another market
   · full market ladder: 22 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   · team profiles: 12 deploy pick(s) profiled (last 20 games each side)
-  · deploy odds band 1.20–2.00: 22 fixture(s) dropped from THE CALL (price out of band)
-  · team news (FotMob): 0 pick(s) checked, 0 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
+  · team news (FotMob): 19 pick(s) checked, 3 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
   · price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
   · switched shaky picks: 0 moved to a steadier market (order 32)
   · sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
+  · value: 1/22 picks positive EV on our chance x price (avg EV -2.5%); the scorecard tracks whether +EV picks really return more
   · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.4%, live 907 @ -4.2% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -5.7%, live 25 @ -4.5% · MARKET est -3.9%, live 218 @ -3.4%
-  · logged 0 new paper leg(s) with a live entry price
+  · logged 76 new paper leg(s) with a live entry price
   · Phase 3 gate: 1169 of 30 legs with logged CLV; mean CLV 0.409
-  · experiment engine: singles by "S9 4 a league" — 0 pick(s) kept off (graded)
+  · experiment engine: singles by "S9 4 a league" — 10 pick(s) kept off (graded)
+  · positive-CLV accas: 2 built from Double chance +0.19% over 469, Home goals +0.24% over 71
+  · 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
+  · alt-market accas: 0/0 booked (a different market from each fixture's main pick)
+  · positive-value bets (order 37): 0 found, 0/0 slip(s) booked
+  · short 3-leg slips: 0 built, 0 booked (paper)
+  · SportyBet booking codes: 12/12 singles, 3/3 accas, 2/2 mega slips
   · AI Survivor: 16 alive, 0 holding a pick for 2026-11-03 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
-NO DEPLOY-ELIGIBLE CALL this session.
-That is a valid, honest result — the framework's value is disciplined filtering, and near-zero approvals is correct behaviour, not failure.
+12 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Derby v Norwich (Championship)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P23 7pts, last5 2/15 | away: P15 15pts, last5 6/15  (recent-form tilt +0.27)
+   Match result (model probabilities):
+      Derby to win .......... 33%
+      Draw ......................... 25%
+      Norwich to win .......... 42%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 56% (model)
+   Both teams to score YES 59% (model)
+   Likely scores (model, label only): 1-1 12% · 1-2 9% · 0-1 8% | goals 0-1 21% · 2-3 46% · 4+ 34% | clean sheet Derby 21% · Norwich 26%
+   Expected goals (model): Derby 1.447, Norwich 1.49
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Derby to win 35% · Draw 24% · Norwich to win 40%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Derby or Norwich
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.25 or longer
+      HR30 numerical MES ......... -1.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+2. Preston v Sheffield United (Championship)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P24 5pts, last5 1/15 | away: P10 19pts, last5 10/15  (recent-form tilt +0.60)
+   Match result (model probabilities):
+      Preston to win .......... 30%
+      Draw ......................... 27%
+      Sheffield United to win .......... 44%
+   Goals: Over 1.5 goals 74% (model) | Under 2.5 goals 51% (model)
+   Both teams to score YES 53% (model)
+   Likely scores (model, label only): 1-1 13% · 0-1 10% · 1-2 9% | goals 0-1 26% · 2-3 47% · 4+ 27% | clean sheet Preston 23% · Sheffield United 31%
+   Expected goals (model): Preston 1.17, Sheffield United 1.551
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Preston to win 25% · Draw 26% · Sheffield United to win 49%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Preston or Sheffield United
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.31 or longer
+      HR30 numerical MES ......... -1.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+3. QPR v Burnley (Championship)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P9 20pts, last5 7/15 | away: P22 9pts, last5 5/15  (recent-form tilt +0.13)
+   Match result (model probabilities):
+      QPR to win .......... 54%
+      Draw ......................... 22%
+      Burnley to win .......... 24%
+   Goals: Over 1.5 goals 83% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 62% (model)
+   Likely scores (model, label only): 1-1 10% · 2-1 10% · 2-0 8% | goals 0-1 17% · 2-3 43% · 4+ 40% | clean sheet QPR 29% · Burnley 14%
+   Expected goals (model): QPR 2.089, Burnley 1.277
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      QPR to win 62% · Draw 28% · Burnley to win 10%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -13pp on away win (Elo 62%/28%/10% vs Dixon-Coles 56%/22%/22%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Best available market: QPR or Burnley
+      Model probability .......... 79%
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.17 or longer
+      HR30 numerical MES ......... -0.88% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+4. Birmingham v Millwall (Championship)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P6 23pts, last5 12/15 | away: P12 18pts, last5 7/15  (recent-form tilt +0.33)
+   Match result (model probabilities):
+      Birmingham to win .......... 43%
+      Draw ......................... 27%
+      Millwall to win .......... 30%
+   Goals: Over 1.5 goals 72% (model) | Under 2.5 goals 53% (model)
+   Both teams to score YES 52% (model)
+   Likely scores (model, label only): 1-1 13% · 1-0 11% · 2-1 9% | goals 0-1 28% · 2-3 47% · 4+ 25% | clean sheet Birmingham 32% · Millwall 24%
+   Expected goals (model): Birmingham 1.426, Millwall 1.162
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Birmingham to win 45% · Draw 25% · Millwall to win 29%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Birmingham or Millwall
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.36 or longer
+      HR30 numerical MES ......... -1.88% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+5. Galatasaray Istanbul v Stuttgart (Champions League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Galatasaray Istanbul to win .......... 46%
+      Draw ......................... 23%
+      Stuttgart to win .......... 32%
+   Goals: Over 1.5 goals 88% (model) | Over 2.5 goals 73% (model)
+   Both teams to score YES 71% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Galatasaray Istanbul or Stuttgart
+      Model probability .......... 81%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.47% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+6. Bodoe/Glimt v Lille (Champions League)
+   Data confidence: VERIFIED — independent factors agree (source: espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Bodoe/Glimt to win .......... 55%
+      Draw ......................... 23%
+      Lille to win .......... 22%
+   Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 66% (model)
+   Both teams to score YES 63% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Bodoe/Glimt or Lille
+      Model probability .......... 81%
+      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -2.16% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+7. Feyenoord v Inter (Champions League)
+   Data confidence: VERIFIED — independent factors agree (source: espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Feyenoord to win .......... 26%
+      Draw ......................... 23%
+      Inter to win .......... 51%
+   Goals: Over 1.5 goals 86% (model) | Over 2.5 goals 68% (model)
+   Both teams to score YES 67% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Feyenoord or Inter
+      Model probability .......... 81%
+      Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.00% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+8. Villarreal v PSG (Champions League)
+   Data confidence: VERIFIED — independent factors agree (source: espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Villarreal to win .......... 22%
+      Draw ......................... 21%
+      PSG to win .......... 57%
+   Goals: Over 1.5 goals 88% (model) | Over 2.5 goals 72% (model)
+   Both teams to score YES 68% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Villarreal or PSG
+      Model probability .......... 83%
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -2.08% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+9. Huddersfield v Luton (League One)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P1 28pts, last5 13/15 | away: P4 23pts, last5 12/15  (recent-form tilt +0.07)
+   Match result (model probabilities):
+      Huddersfield to win .......... 50%
+      Draw ......................... 23%
+      Luton to win .......... 27%
+   Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 64% (model)
+   Both teams to score YES 64% (model)
+   Likely scores (model, label only): 1-1 10% · 2-1 9% · 2-0 7% | goals 0-1 16% · 2-3 43% · 4+ 41% | clean sheet Huddersfield 25% · Luton 15%
+   Expected goals (model): Huddersfield 1.902, Luton 1.373
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Huddersfield to win 47% · Draw 29% · Luton to win 23%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Huddersfield or Luton
+      Model probability .......... 79%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.19 or longer
+      HR30 numerical MES ......... -2.38% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+10. Wigan v Mansfield (League One)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P21 10pts, last5 6/15 | away: P12 18pts, last5 10/15  (recent-form tilt +0.27)
+   Match result (model probabilities):
+      Wigan to win .......... 29%
+      Draw ......................... 29%
+      Mansfield to win .......... 43%
+   Goals: Over 1.5 goals 69% (model) | Under 2.5 goals 58% (model)
+   Both teams to score NO 52% (model)
+   Likely scores (model, label only): 1-1 13% · 0-1 12% · 0-0 10% | goals 0-1 31% · 2-3 48% · 4+ 22% | clean sheet Wigan 26% · Mansfield 35%
+   Expected goals (model): Wigan 1.042, Mansfield 1.329
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Wigan to win 23% · Draw 29% · Mansfield to win 48%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Wigan or Mansfield
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.45 or longer
+      HR30 numerical MES ......... -2.38% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+11. Northampton v Oldham (League Two)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P20 14pts, last5 8/15 | away: P21 12pts, last5 5/15  (recent-form tilt +0.20)
+   Match result (model probabilities):
+      Northampton to win .......... 36%
+      Draw ......................... 35%
+      Oldham to win .......... 30%
+   Goals: Over 1.5 goals 51% (model) | Under 2.5 goals 76% (model)
+   Both teams to score NO 67% (model)
+   Likely scores (model, label only): 0-0 19% · 1-0 16% · 0-1 14% | goals 0-1 49% · 2-3 42% · 4+ 9% | clean sheet Northampton 45% · Oldham 41%
+   Expected goals (model): Northampton 0.903, Oldham 0.799
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Northampton to win 42% · Draw 28% · Oldham to win 30%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Northampton Under 1.5 goals
+      Model probability .......... 63%
+      Best quoted price .......... 1.51 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.96 or longer
+      HR30 numerical MES ......... +0.14% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+12. IK Sirius v Halmstads BK (Allsvenskan)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com, flashscore.co.uk)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Standings/form — home: NO DATA | away: NO DATA
+   Match result (model probabilities):
+      IK Sirius to win .......... 73%
+      Draw ......................... 17%
+      Halmstads BK to win .......... 10%
+   Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 63% (model)
+   Both teams to score YES 50% (model)
+   Likely scores (model, label only): 2-0 12% · 3-0 10% · 2-1 9% | goals 0-1 16% · 2-3 43% · 4+ 40% | clean sheet IK Sirius 45% · Halmstads BK 9%
+   Expected goals (model): IK Sirius 2.436, Halmstads BK 0.796
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      IK Sirius to win 85% · Draw 9% · Halmstads BK to win 6%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: IK Sirius & Under 4.5
+      Model probability .......... 56%
+      Best quoted price .......... 1.80 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.20 or longer
+      HR30 numerical MES ......... -8.95% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
@@ -334,43 +669,22 @@ QPR v Burnley (Championship) | QPR·54% | O83 / O62 | 1278 / Y62 | ✓
 Watford v Lincoln City (Championship) | Watford·50% | O78 / O54 | 1276 / Y55 | ✓
 Birmingham v Millwall (Championship) | Birmingham·43% | O72 / U53 | 1273 / Y52 | ✓
 West Brom v Southampton (Championship) | Southampto·40% | O74 / U52 | 1273 / Y53 | ✓
-Galatasaray Istanbul v Stuttgart (Champions League) | Galatasara·45% | O88 / O72 | 1277 / Y71 | ✓
+Galatasaray Istanbul v Stuttgart (Champions League) | Galatasara·46% | O88 / O73 | 1277 / Y71 | ✓
 Shakhtar D v Sporting (Champions League) | Sporting·49% | O80 / O57 | 1275 / Y59 | ✓
 Atletico Madrid v Bayern Munich (Champions League) | Bayern Mun·40% | O85 / O66 | 1276 / Y67 | ○
 Barcelona v Aston Villa (Champions League) | Barcelona·75% | O92 / O81 | 1X88 / Y67 | ✓
-Bodoe/Glimt v Lille (Champions League) | Bodoe/Glim·55% | O85 / O66 | 1X78 / Y63 | ✓
-Feyenoord v Inter (Champions League) | Inter·50% | O86 / O68 | 1277 / Y67 | ✓
-LASK Linz v Slovan Bratislava (Champions League) | LASK Linz·72% | O88 / O72 | 1X88 / Y60 | ✓
+Bodoe/Glimt v Lille (Champions League) | Bodoe/Glim·55% | O84 / O66 | 1X78 / Y63 | ✓
+Feyenoord v Inter (Champions League) | Inter·51% | O86 / O68 | 1277 / Y67 | ✓
+LASK Linz v Slovan Bratislava (Champions League) | LASK Linz·71% | O88 / O72 | 1X88 / Y60 | ✓
 Man Utd v Roma (Champions League) | Man Utd·44% | O84 / O64 | 1276 / Y65 | ○
-Villarreal v PSG (Champions League) | PSG·56% | O88 / O72 | 1279 / Y68 | ✓
+Villarreal v PSG (Champions League) | PSG·57% | O88 / O72 | 1279 / Y68 | ✓
 Huddersfield v Luton (League One) | Huddersfie·50% | O84 / O64 | 1277 / Y64 | ✓
 Wigan v Mansfield (League One) | Mansfield·43% | O69 / U58 | 1271 / N52 | ✓
 Northampton v Oldham (League Two) | Northampto·36% | O51 / U76 | 1X70 / N67 | ✓
 IK Sirius v Halmstads BK (Allsvenskan) | IK Sirius·73% | O84 / O63 | 1X90 / Y50 | ✓
 
 PART 3 — REJECTED / WATCHLIST
-Blackburn v Stoke (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Charlton v Bolton Wanderers (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Derby v Norwich (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Portsmouth v Swansea (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Preston v Sheffield United (Championship): no deploy: no live price in the 1.20–2.00 odds band
-QPR v Burnley (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Watford v Lincoln City (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Birmingham v Millwall (Championship): no deploy: no live price in the 1.20–2.00 odds band
-West Brom v Southampton (Championship): no deploy: no live price in the 1.20–2.00 odds band
-Galatasaray Istanbul v Stuttgart (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Shakhtar D v Sporting (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Atletico Madrid v Bayern Munich (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Barcelona v Aston Villa (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Bodoe/Glimt v Lille (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Feyenoord v Inter (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-LASK Linz v Slovan Bratislava (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Man Utd v Roma (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Villarreal v PSG (Champions League): no deploy: no live price in the 1.20–2.00 odds band
-Huddersfield v Luton (League One): no deploy: no live price in the 1.20–2.00 odds band
-Wigan v Mansfield (League One): no deploy: no live price in the 1.20–2.00 odds band
-Northampton v Oldham (League Two): no deploy: no live price in the 1.20–2.00 odds band
-IK Sirius v Halmstads BK (Allsvenskan): no deploy: no live price in the 1.20–2.00 odds band
+None.
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 20

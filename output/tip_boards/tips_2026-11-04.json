@@ -1,0 +1,34 @@
+{
+ "day": "2026-11-04",
+ "paper_only": true,
+ "games": [
+  {
+   "home": "Alianza Lima",
+   "away": "Cienciano",
+   "kickoff": "2026-11-04T01:00:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.59,
+      0.21,
+      0.2
+     ],
+     "key": "site:statarea:1756982"
+    }
+   },
+   "sites_agree": false
+  }
+ ],
+ "counts": {
+  "vitibet": 0,
+  "statarea": 1
+ },
+ "results": {
+  "statarea": {
+   "won": 0,
+   "lost": 0,
+   "open": 1
+  }
+ }
+}

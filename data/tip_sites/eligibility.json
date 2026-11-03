@@ -1,0 +1,31 @@
+{
+ "vitibet": {
+  "result": "collecting",
+  "why": "0/200 games vs our model, 0/300 vs the market",
+  "vs_market": {
+   "n": 0
+  },
+  "vs_model": {
+   "n": 0
+  },
+  "stage": "collecting",
+  "passes": [],
+  "checked_week": null,
+  "issue": null
+ },
+ "statarea": {
+  "result": "collecting",
+  "why": "0/200 games vs our model, 0/300 vs the market",
+  "vs_market": {
+   "n": 0
+  },
+  "vs_model": {
+   "n": 0
+  },
+  "stage": "collecting",
+  "passes": [],
+  "checked_week": null,
+  "issue": null
+ },
+ "_updated": "2026-11-03T19:13Z"
+}

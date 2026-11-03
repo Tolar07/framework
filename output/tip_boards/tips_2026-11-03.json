@@ -1,0 +1,1040 @@
+{
+ "day": "2026-11-03",
+ "paper_only": true,
+ "games": [
+  {
+   "home": "Blackburn",
+   "away": "Stoke City FC",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.41,
+      0.29,
+      0.3
+     ],
+     "key": "site:vitibet:1563240"
+    },
+    "statarea": {
+     "pick": "X2",
+     "p": [
+      0.32,
+      0.33,
+      0.35
+     ],
+     "key": "site:statarea:1760174"
+    }
+   },
+   "sites_agree": false,
+   "model": [
+    0.383,
+    0.296,
+    0.32
+   ],
+   "model_agrees": false
+  },
+  {
+   "home": "Derby",
+   "away": "Norwich",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.31,
+      0.29,
+      0.4
+     ],
+     "key": "site:vitibet:1563241"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.29,
+      0.27,
+      0.44
+     ],
+     "key": "site:statarea:1760176"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.333,
+    0.251,
+    0.416
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Portsmouth FC",
+   "away": "Swansea",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.38,
+      0.29,
+      0.33
+     ],
+     "key": "site:vitibet:1563242"
+    },
+    "statarea": {
+     "pick": "X2",
+     "p": [
+      0.32,
+      0.32,
+      0.36
+     ],
+     "key": "site:statarea:1760177"
+    }
+   },
+   "sites_agree": false,
+   "model": [
+    0.368,
+    0.288,
+    0.343
+   ],
+   "model_agrees": false
+  },
+  {
+   "home": "Preston",
+   "away": "Sheffield Utd",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.3,
+      0.29,
+      0.41
+     ],
+     "key": "site:vitibet:1563243"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.32,
+      0.25,
+      0.43
+     ],
+     "key": "site:statarea:1760178"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.298,
+    0.266,
+    0.436
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "QPR",
+   "away": "Burnley",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.5,
+      0.27,
+      0.23
+     ],
+     "key": "site:vitibet:1563244"
+    },
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.49,
+      0.31,
+      0.2
+     ],
+     "key": "site:statarea:1760179"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.537,
+    0.224,
+    0.239
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Watford",
+   "away": "Lincoln",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.37,
+      0.29,
+      0.34
+     ],
+     "key": "site:vitibet:1563245"
+    },
+    "statarea": {
+     "pick": "12",
+     "p": [
+      0.41,
+      0.26,
+      0.33
+     ],
+     "key": "site:statarea:1760180"
+    }
+   },
+   "sites_agree": false,
+   "model": [
+    0.5,
+    0.244,
+    0.256
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Charlton",
+   "away": "Bolton",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.41,
+      0.29,
+      0.3
+     ],
+     "key": "site:vitibet:1563249"
+    },
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.41,
+      0.32,
+      0.27
+     ],
+     "key": "site:statarea:1760175"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.388,
+    0.256,
+    0.357
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Huddersfield",
+   "away": "Luton",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.53,
+      0.26,
+      0.21
+     ],
+     "key": "site:vitibet:1564322"
+    },
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.46,
+      0.29,
+      0.25
+     ],
+     "key": "site:statarea:1734409"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.495,
+    0.231,
+    0.274
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Wigan",
+   "away": "Mansfield Town FC",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.26,
+      0.28,
+      0.46
+     ],
+     "key": "site:vitibet:1564342"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.4,
+      0.28,
+      0.32
+     ],
+     "key": "site:statarea:1738366"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.288,
+    0.286,
+    0.427
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Northampton",
+   "away": "Oldham",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.52,
+      0.27,
+      0.21
+     ],
+     "key": "site:vitibet:1563787"
+    },
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.43,
+      0.32,
+      0.25
+     ],
+     "key": "site:statarea:1738482"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.356,
+    0.347,
+    0.297
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Farnborough",
+   "away": "Ebbsfleet United",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "2",
+     "p": [
+      0.1,
+      0.16,
+      0.74
+     ],
+     "key": "site:vitibet:1588309"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Dorking Wanderers",
+   "away": "Hampton & Richmond",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.75,
+      0.15,
+      0.1
+     ],
+     "key": "site:vitibet:1588390"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Spartans",
+   "away": "Livingston",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.24,
+      0.25,
+      0.51
+     ],
+     "key": "site:statarea:1760252"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Inverness CT",
+   "away": "Montrose",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.6,
+      0.24,
+      0.16
+     ],
+     "key": "site:statarea:1760250"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Edinburgh City",
+   "away": "Partick",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.34,
+      0.24,
+      0.42
+     ],
+     "key": "site:statarea:1760246"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Ross County",
+   "away": "Celtic B",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.72,
+      0.16,
+      0.12
+     ],
+     "key": "site:statarea:1760251"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Bonnyrigg Rose",
+   "away": "Dunfermline",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.26,
+      0.2,
+      0.54
+     ],
+     "key": "site:statarea:1760243"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Hamilton Academical",
+   "away": "Raith Rovers",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.36,
+      0.26,
+      0.38
+     ],
+     "key": "site:statarea:1760249"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Airdrieonians",
+   "away": "Elgin City",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "12",
+     "p": [
+      0.49,
+      0.19,
+      0.32
+     ],
+     "key": "site:statarea:1760240"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Stenhousemuir",
+   "away": "Berwick Rangers",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.77,
+      0.14,
+      0.09
+     ],
+     "key": "site:statarea:1760254"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Morton",
+   "away": "Kelty Hearts",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.57,
+      0.17,
+      0.26
+     ],
+     "key": "site:statarea:1760248"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Formartine Utd",
+   "away": "Cove Rangers",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "12",
+     "p": [
+      0.5,
+      0.19,
+      0.31
+     ],
+     "key": "site:statarea:1760247"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "East Kilbride",
+   "away": "Stirling Albion",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.64,
+      0.22,
+      0.14
+     ],
+     "key": "site:statarea:1760245"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Clydebank",
+   "away": "Alloa Athletic",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.45,
+      0.32,
+      0.23
+     ],
+     "key": "site:statarea:1760244"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Arbroath",
+   "away": "Queen Of The South",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.55,
+      0.25,
+      0.2
+     ],
+     "key": "site:statarea:1760242"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Annan Athletic",
+   "away": "Ayr Utd",
+   "kickoff": "2026-11-03T19:45:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.34,
+      0.19,
+      0.47
+     ],
+     "key": "site:statarea:1760241"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Atletico Madrid",
+   "away": "Bayern München",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "2",
+     "p": [
+      0.24,
+      0.27,
+      0.49
+     ],
+     "key": "site:vitibet:1635622"
+    },
+    "statarea": {
+     "pick": "X2",
+     "p": [
+      0.32,
+      0.33,
+      0.35
+     ],
+     "key": "site:statarea:1760151"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.355,
+    0.241,
+    0.403
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Barcelona",
+   "away": "Aston Villa",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.68,
+      0.2,
+      0.12
+     ],
+     "key": "site:vitibet:1635627"
+    },
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.64,
+      0.18,
+      0.18
+     ],
+     "key": "site:statarea:1760152"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.748,
+    0.134,
+    0.118
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Bodo/Glimt",
+   "away": "Lille",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.56,
+      0.25,
+      0.19
+     ],
+     "key": "site:vitibet:1635640"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.36,
+      0.2,
+      0.44
+     ],
+     "key": "site:statarea:1760153"
+    }
+   },
+   "sites_agree": false,
+   "model": [
+    0.551,
+    0.227,
+    0.222
+   ],
+   "model_agrees": false
+  },
+  {
+   "home": "Feyenoord",
+   "away": "Inter Milan",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.29,
+      0.29,
+      0.42
+     ],
+     "key": "site:vitibet:1635662"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.3,
+      0.29,
+      0.41
+     ],
+     "key": "site:statarea:1760154"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.26,
+    0.234,
+    0.506
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "LASK Linz",
+   "away": "Slovan Bratislava",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.5,
+      0.27,
+      0.23
+     ],
+     "key": "site:vitibet:1635677"
+    },
+    "statarea": {
+     "pick": "1",
+     "p": [
+      0.56,
+      0.21,
+      0.23
+     ],
+     "key": "site:statarea:1760155"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.712,
+    0.163,
+    0.125
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "Manchester United FC",
+   "away": "AS Roma",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.53,
+      0.26,
+      0.21
+     ],
+     "key": "site:vitibet:1635695"
+    },
+    "statarea": {
+     "pick": "X",
+     "p": [
+      0.37,
+      0.35,
+      0.28
+     ],
+     "key": "site:statarea:1760156"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Villarreal",
+   "away": "Paris Saint Germain",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "2",
+     "p": [
+      0.17,
+      0.23,
+      0.6
+     ],
+     "key": "site:vitibet:1635746"
+    },
+    "statarea": {
+     "pick": "2",
+     "p": [
+      0.32,
+      0.22,
+      0.46
+     ],
+     "key": "site:statarea:1760157"
+    }
+   },
+   "sites_agree": true
+  },
+  {
+   "home": "Birmingham",
+   "away": "Millwall",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.44,
+      0.28,
+      0.28
+     ],
+     "key": "site:vitibet:1563239"
+    },
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.46,
+      0.34,
+      0.2
+     ],
+     "key": "site:statarea:1760181"
+    }
+   },
+   "sites_agree": true,
+   "model": [
+    0.431,
+    0.271,
+    0.298
+   ],
+   "model_agrees": true
+  },
+  {
+   "home": "West Brom",
+   "away": "Southampton",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.34,
+      0.29,
+      0.37
+     ],
+     "key": "site:vitibet:1563246"
+    },
+    "statarea": {
+     "pick": "X",
+     "p": [
+      0.38,
+      0.36,
+      0.26
+     ],
+     "key": "site:statarea:1760182"
+    }
+   },
+   "sites_agree": false,
+   "model": [
+    0.327,
+    0.268,
+    0.405
+   ],
+   "model_agrees": false
+  },
+  {
+   "home": "Club Deportivo Comerciantes Unidos",
+   "away": "ADT",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.48,
+      0.27,
+      0.25
+     ],
+     "key": "site:vitibet:1549539"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "2 De Mayo",
+   "away": "Sportivo Trinidense",
+   "kickoff": "2026-11-03T20:00:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "X2",
+     "p": [
+      0.31,
+      0.3,
+      0.39
+     ],
+     "key": "site:statarea:1766031"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Mushuc Runa SC",
+   "away": "Manta FC",
+   "kickoff": "2026-11-03T20:30:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.55,
+      0.26,
+      0.19
+     ],
+     "key": "site:vitibet:1639831"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Deportivo Pereira",
+   "away": "Deportes Tolima",
+   "kickoff": "2026-11-03T20:30:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "2",
+     "p": [
+      0.21,
+      0.28,
+      0.51
+     ],
+     "key": "site:vitibet:1549852"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Xelajú",
+   "away": "Marquense",
+   "kickoff": "2026-11-03T21:00:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1",
+     "p": [
+      0.72,
+      0.18,
+      0.1
+     ],
+     "key": "site:vitibet:1559696"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Monagas SC",
+   "away": "Caracas FC",
+   "kickoff": "2026-11-03T21:30:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "1X",
+     "p": [
+      0.39,
+      0.3,
+      0.31
+     ],
+     "key": "site:vitibet:1646928"
+    },
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.41,
+      0.3,
+      0.29
+     ],
+     "key": "site:statarea:1760374"
+    }
+   },
+   "sites_agree": true
+  },
+  {
+   "home": "Chapecoense-sc",
+   "away": "Mirassol",
+   "kickoff": "2026-11-03T22:30:00Z",
+   "tips": {
+    "vitibet": {
+     "pick": "X2",
+     "p": [
+      0.32,
+      0.29,
+      0.39
+     ],
+     "key": "site:vitibet:1492443"
+    }
+   },
+   "sites_agree": false
+  },
+  {
+   "home": "Deportivo Tachira FC",
+   "away": "Puerto Cabello",
+   "kickoff": "2026-11-03T23:30:00Z",
+   "tips": {
+    "statarea": {
+     "pick": "1X",
+     "p": [
+      0.49,
+      0.33,
+      0.18
+     ],
+     "key": "site:statarea:1760513"
+    }
+   },
+   "sites_agree": false
+  }
+ ],
+ "counts": {
+  "vitibet": 27,
+  "statarea": 36
+ },
+ "results": {
+  "vitibet": {
+   "won": 0,
+   "lost": 0,
+   "open": 27
+  },
+  "statarea": {
+   "won": 0,
+   "lost": 0,
+   "open": 36
+  },
+  "sites agree": {
+   "won": 0,
+   "lost": 0,
+   "open": 14
+  }
+ }
+}

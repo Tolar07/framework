@@ -1354,6 +1354,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     extra_codes: dict = {}     # per-table mega codes (Architect 2026-10-03)
     alt_codes: dict = {}       # alt-market accas (order 31)
     value_codes: dict = {}     # positive-value bets (order 37)
+    booked_accas = None        # the main accas exactly as booked (built from free games, #267)
     _sb_index_holder: dict = {"index": None}
     try:
         from output.produce_bet import (_build_accas, _build_alt_accas, _build_megas,
@@ -1418,6 +1419,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                     all_flags.append(f"positive-CLV accas not built ({str(_e)[:80]})")
                 accas = _build_accas(_free(safe3, _cslips))
                 acca_codes = _book(accas)
+                booked_accas = accas
                 acca_code = acca_codes.get("Acca A")
                 safe3_codes = _book(safe3)
                 from engine.cohorts import same_cohort as _one_window
@@ -1567,7 +1569,11 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         from output.produce_bet import _build_btts as _btts_l
         if frozen is not None:
             raise _KeepFrozen()
-        picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
+        # the accas that were booked, not a rebuild from every game: since #267 the main accas
+        # come from the games the 50%+ and CLV accas left free (03-11: a rebuild showed 2 PENDING accas)
+        picks_ledger.write_ledger(target, board,
+                                  booked_accas if booked_accas is not None else _build_accas(dep),
+                                  _build_safe3(dep),
                                   megas_l if len(megas_l) > 1 else [],
                                   acca_codes, safe3_codes, mega_codes,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
@@ -1626,7 +1632,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
         extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes,
-        value_codes=value_codes)
+        value_codes=value_codes, booked_accas=booked_accas)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

@@ -1247,7 +1247,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             extra_codes: Optional[dict] = None,
                             run_id: Optional[str] = None,
                             alt_codes: Optional[dict] = None,
-                            value_codes: Optional[dict] = None) -> str:
+                            value_codes: Optional[dict] = None,
+                            booked_accas: Optional[list] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
@@ -1449,7 +1450,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             "(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40;"
             " one Under-goals and one Over-goals leg at most — order 42)",
             _CANON_RULE, ""]
-    accas = _build_accas(shortlist)
+    # the accas as booked (run_daily builds them from the games the 50%+ and CLV accas left
+    # free, #267); a rebuild from every game showed accas that were never booked (03-11: PENDING)
+    accas = booked_accas if booked_accas is not None else _build_accas(shortlist)
     if not accas:
         out.append("No capital-eligible accas generated.")
     else:

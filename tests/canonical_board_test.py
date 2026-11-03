@@ -68,6 +68,16 @@ assert "Acca A" in full, "two deploy-eligible legs must route an Acca A"
 assert "never fabricated" in full, "HR35 booking-code honesty line must be present"
 print("Populated canonical board: real picks + NO DATA + PENDING codes + Acca A: OK")
 
+# 03-11: the board shows the accas that were BOOKED (built from free games, #267), not a rebuild.
+# When the 50%+ / CLV accas take every game, no main acca was booked, so none is listed as PENDING.
+none_booked = render_canonical_board("Mode A", "Phase 2", ["Eredivisie", "Ekstraklasa"],
+                                     11, 1.66, [], board, booked_accas=[])
+assert "No capital-eligible accas generated." in none_booked
+assert "Acca A:" not in none_booked.rsplit("ALL CODES", 1)[-1], "an unbooked acca must not appear as PENDING"
+assert "Acca A" in render_canonical_board("Mode A", "Phase 2", ["Eredivisie"], 11, 1.66, [], board,
+                                          booked_accas=None), "no booking run -> the old rebuild still shows"
+print("Board accas = booked accas: OK")
+
 # --- acca builder: product-of-probabilities, needs >=2 legs ---
 one = [BoardFixture("A v B (L)", _p(0.7, 0.2, 0.1), _ss(), on_deploy_shortlist=True)]
 assert _build_accas(one) == [], "fewer than two legs -> no acca"

@@ -938,6 +938,13 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         text = build_report(graded, due, tally)
         if learning:
             text += "\n\n" + learning
+        try:      # the prediction sites' paper tip board: the day's record and each site's stage
+            from engine import tip_board
+            tips = tip_board.report_lines(due)
+            if tips:
+                text += "\n\n" + "\n".join(tips)
+        except Exception:  # noqa: BLE001 — never blocks the report
+            pass
         if datetime.fromisoformat(due).weekday() == 6:
             text += "\n\n" + weekly_summary(graded, due)
         ok, _ = send(text)

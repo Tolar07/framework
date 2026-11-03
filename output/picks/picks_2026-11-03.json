@@ -161,7 +161,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Preston v Sheffield United",
@@ -322,7 +324,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.31,
+   "drift_pct": 0.8
   },
   {
    "fixture": "QPR v Burnley",
@@ -438,7 +442,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.3,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Birmingham v Millwall",
@@ -602,7 +608,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Galatasaray Istanbul v Stuttgart",
@@ -927,7 +935,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Feyenoord v Inter",
@@ -1088,7 +1098,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Villarreal v PSG",
@@ -1204,7 +1216,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Huddersfield v Luton",
@@ -1353,7 +1367,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Wigan v Mansfield",
@@ -1500,7 +1516,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Northampton v Oldham",
@@ -1646,7 +1664,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.52,
+   "drift_pct": 0.7
   },
   {
    "fixture": "IK Sirius v Halmstads BK",
@@ -1970,7 +1990,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.34,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Charlton v Bolton Wanderers",
@@ -2129,7 +2151,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.31,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Portsmouth v Swansea",
@@ -2285,7 +2309,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.35,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Watford v Lincoln City",
@@ -2443,7 +2469,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.34,
+   "drift_pct": 0.8
   },
   {
    "fixture": "West Brom v Southampton",
@@ -2600,7 +2628,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.33,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Shakhtar D v Sporting",
@@ -2866,7 +2896,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.29,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Barcelona v Aston Villa",
@@ -3036,7 +3068,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.27,
+   "drift_pct": -2.3
   },
   {
    "fixture": "LASK Linz v Slovan Bratislava",
@@ -3175,7 +3209,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.41,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Man Utd v Roma",
@@ -3332,7 +3368,9 @@
     "no": null,
     "signal": null
    },
-   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today"
+   "added": "2026-11-03 10:20Z, Architect: S9 lifted, the games it skipped are bet today",
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   }
  ],
  "accas": [

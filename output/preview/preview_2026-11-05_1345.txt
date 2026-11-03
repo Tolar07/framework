@@ -1,0 +1,658 @@
+##########OLP XDV#########
+==================================
+
+📅  Thu 05 Nov 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261103-1336-b4b0c2 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 35 · Verified: 30
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                           Country · League        AI PICK · win%                                           Odds   Alt market                                                   O1.5/O2.5  DC/BTTS     Src
+17:45  Sparta Prague v Bournemouth                       UEFA Europa League      Sparta Prague or Bournemouth · 83%                       @1.20  Bournemouth & Over 1.5 @1.66                                 O80/O59    X284 / Y54  ✓ᴹ
+20:00  Sturm Graz v NK Celje                             UEFA Europa League      Sturm Graz or NK Celje · 82%                             @1.21  Sturm Graz & Over 1.5 @1.70                                  O81/O60    1X83 / Y56  ✓ᴹ
+20:00  Benfica v KKS Lech Poznan                         UEFA Europa League      Benfica & Over 1.5 · 82%                                 @1.21  —                                                            O88/O73    1X94 / Y50  ✓ᴹ
+17:45  NEC Nijmegen v AC Omonia Nicosia                  UEFA Europa League      NEC Nijmegen or AC Omonia Nicosia · 80%                  @1.26  NEC Nijmegen & Over 1.5 @2.00                                O81/O60    1X77 / Y59  ✓ᴹ
+17:45  Real Sociedad v Lyon                              UEFA Europa League      Real Sociedad or Lyon · 80%                              @1.27  Real Sociedad & Over 1.5 @2.00                               O81/O60    1X76 / Y60  ✓ᴹ
+17:45  Crystal Palace v Hoffenheim                       UEFA Europa League      Crystal Palace or Hoffenheim · 80%                       @1.28  Crystal Palace or Hoffenheim & Under 4.5 @1.65               O82/O62    1275 / Y63  ✓ᴹ
+17:45  RSC Anderlecht v Salzburg                         UEFA Europa League      RSC Anderlecht or Salzburg · 79%                         @1.28  —                                                            O81/O60    1275 / Y61  ✓ᴹ
+20:00  Celtic v Besiktas Istanbul                        UEFA Europa League      Celtic or Besiktas Istanbul · 79%                        @1.29  Celtic or Besiktas Istanbul & Under 4.5 @1.64                O81/O60    1274 / Y62  ✓ᴹ
+17:45  Lillestroem SK v Viktoria Plzen                   UEFA Europa League      Lillestroem SK or Viktoria Plzen · 79%                   @1.29  Lillestroem SK or Viktoria Plzen & Under 4.5 @1.64           O81/O60    1274 / Y63  ○ᴹ
+20:00  Hapoel Be`er Sheva FC v OFI Crete                 UEFA Europa League      Hapoel Be`er Sheva FC or OFI Crete · 78%                 @1.30  Hapoel Be`er Sheva FC or OFI Crete & Under 3.5 @1.93         O79/O58    1274 / Y60  ○ᴹ
+20:00  Alkmaar v Juventus                                UEFA Europa League      Alkmaar or Juventus · 78%                                @1.30  —                                                            O76/O53    X274 / Y56  ✓ᴹ
+20:00  Celta v Union Gilloise                            UEFA Europa League      Celta or Union Gilloise · 78%                            @1.30  Celta or Union Gilloise & Under 3.5 @1.91                    O78/O57    1274 / Y59  ✓ᴹ
+20:00  SCU Torreense v FC Ararat-Armenia                 UEFA Europa League      SCU Torreense or FC Ararat-Armenia · 78%                 @1.28  SCU Torreense & Under 4.5 @2.00                              O72/U52    1X79 / N51  ✓ᴹ
+17:45  PFC Levski Sofia v Jagiellonia Bialystok          UEFA Europa League      PFC Levski Sofia or Jagiellonia Bialystok · 78%          @1.31  PFC Levski Sofia or Jagiellonia Bialystok & Under 3.5 @1.82  O76/O52    1X74 / Y56  ✓ᴹ
+17:45  AC Milan v Ferencvarosi Budapest                  UEFA Europa League      AC Milan & Over 1.5 · 69%                                @1.44  —                                                            O82/O62    1X89 / N50  ✓ᴹ
+20:00  Bayer Leverkusen v Marseille                      UEFA Europa League      Bayer Leverkusen & Over 1.5 · 67%                        @1.49  —                                                            O84/O66    1X86 / Y57  ✓ᴹ
+20:00  Sunderland AFC v GNK Dinamo Zagreb                UEFA Europa League      Sunderland AFC & Over 1.5 · 60%                          @1.66  —                                                            O79/O59    1X85 / Y52  ✓ᴹ
+
+20:00  CS Universitatea Craiova v KF Egnatia Rrogozhine  UEFA Conference League  CS Universitatea Craiova or KF Egnatia Rrogozhine · 82%  @1.22  CS Universitatea Craiova & Over 1.5 @1.74                    O77/O55    1X84 / Y51  ✓ᴹ
+20:00  St. Truidense VV v SK Brann                       UEFA Conference League  St. Truidense VV or SK Brann · 81%                       @1.24  St. Truidense VV & Over 1.5 @1.90                            O81/O60    1X79 / Y59  ○ᴹ
+20:00  Getafe v Brighton                                 UEFA Conference League  Getafe or Brighton · 80%                                 @1.24  Brighton & Under 4.5 @1.77                                   O73/U51    X284 / N54  ✓ᴹ
+17:45  FC Midtjylland v Ajax                             UEFA Conference League  FC Midtjylland or Ajax · 79%                             @1.29  FC Midtjylland or Ajax & Under 4.5 @1.70                     O83/O63    1275 / Y65  ✓ᴹ
+17:45  Kuopion Palloseura v Gent                         UEFA Conference League  Kuopion Palloseura or Gent · 79%                         @1.26  Gent & Under 4.5 @1.91                                       O74/O50    X281 / N51  ○ᴹ
+17:45  Trabzonspor v Freiburg                            UEFA Conference League  Trabzonspor or Freiburg · 79%                            @1.29  Trabzonspor or Freiburg & Under 4.5 @1.67                    O82/O62    1275 / Y64  ✓ᴹ
+17:45  FC Thun v Heart of Midlothian FC                  UEFA Conference League  FC Thun or Heart of Midlothian FC · 79%                  @1.30  FC Thun or Heart of Midlothian FC & Under 4.5 @1.67          O82/O61    1274 / Y64  ✓ᴹ
+20:00  Lugano v FK Kauno Zalgiris                        UEFA Conference League  Lugano & Over 1.5 · 78%                                  @1.27  —                                                            O86/O70    1X92 / Y51  ✓ᴹ
+20:00  Copenhagen v FC Iberia 1999                       UEFA Conference League  Copenhagen & Over 1.5 · 78%                              @1.28  —                                                            O84/O67    1X93 / N54  ○ᴹ
+17:45  AGF Aarhus v Braga                                UEFA Conference League  AGF Aarhus or Braga · 77%                                @1.32  —                                                            O73/U51    X274 / Y52  ✓ᴹ
+20:00  Riga FC v FK Jablonec                             UEFA Conference League  Riga FC or FK Jablonec · 77%                             @1.32  —                                                            O74/O50    1272 / Y55  ✓ᴹ
+17:45  Mjallby AIF v FK Borac Banja Luka                 UEFA Conference League  Mjallby AIF or FK Borac Banja Luka · 76%                 @1.34  —                                                            O71/U54    1272 / Y51  ✓ᴹ
+20:00  FC Twente Enschede v Pafos FC                     UEFA Conference League  FC Twente Enschede & Over 1.5 · 71%                      @1.40  —                                                            O84/O66    1X89 / Y53  ✓ᴹ
+20:00  Monaco v Nordsjaelland                            UEFA Conference League  Monaco & Over 1.5 · 64%                                  @1.56  —                                                            O84/O67    1X84 / Y59  ✓ᴹ
+17:45  Lincoln Red Imps v HNK Hajduk Split               UEFA Conference League  HNK Hajduk Split & Over 1.5 · 64%                        @1.57  —                                                            O77/O56    X288 / N54  ✓ᴹ
+17:45  Crvena Zvezda v Inter Club de Escaldes            UEFA Conference League  Crvena Zvezda & Under 4.5 · 63%                          @1.57  —                                                            O88/O73    1X97 / N64  ✓ᴹ
+17:45  Atalanta v FC Kairat Almaty                       UEFA Conference League  Atalanta & Under 4.5 · 61%                               @1.63  —                                                            O85/O68    1X94 / N54  ✓ᴹ
+20:00  Panathinaikos v PFC CSKA Sofia                    UEFA Conference League  Panathinaikos & Over 1.5 · 58%                           @1.73  —                                                            O78/O57    1X84 / Y52  ✓ᴹ
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 Mega 1 (8 legs · odds 8 · chance 1 in 7): VZRY71   load ↦ www.sportybet.com/ng/?shareCode=VZRY71
+TABLE 1 Mega 2 (4 legs · odds 3 · chance 1 in 3): Z8HQJC   load ↦ www.sportybet.com/ng/?shareCode=Z8HQJC
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                   Country · League        Pick                                       Chance  Odds   Certainty  Stake  Code
+17:45  Crystal Palace v Hoffenheim               UEFA Europa League      Crystal Palace or Hoffenheim               80%     @1.28  LOW        0.12%  VKJRCV
+17:45  Lillestroem SK v Viktoria Plzen           UEFA Europa League      Lillestroem SK or Viktoria Plzen           79%     @1.29  LOW        0.12%  NSV6BE
+17:45  PFC Levski Sofia v Jagiellonia Bialystok  UEFA Europa League      PFC Levski Sofia or Jagiellonia Bialystok  78%     @1.31  LOW        0.12%  QVUKAV
+17:45  Real Sociedad v Lyon                      UEFA Europa League      Real Sociedad or Lyon                      80%     @1.27  LOW        0.12%  X4SZL6
+17:45  RSC Anderlecht v Salzburg                 UEFA Europa League      RSC Anderlecht or Salzburg                 79%     @1.28  LOW        0.12%  RETPLE
+20:00  Alkmaar v Juventus                        UEFA Europa League      Alkmaar or Juventus                        78%     @1.30  LOW        0.12%  K74GYP
+20:00  Celta v Union Gilloise                    UEFA Europa League      Celta or Union Gilloise                    78%     @1.30  LOW        0.12%  RR7D4Y
+20:00  Celtic v Besiktas Istanbul                UEFA Europa League      Celtic or Besiktas Istanbul                79%     @1.29  LOW        0.12%  HYYM99
+20:00  Hapoel Be`er Sheva FC v OFI Crete         UEFA Europa League      Hapoel Be`er Sheva FC or OFI Crete         78%     @1.30  LOW        0.12%  Z37EWE
+17:45  FC Midtjylland v Ajax                     UEFA Conference League  FC Midtjylland or Ajax                     79%     @1.29  LOW        0.12%  M3BJ3P
+17:45  FC Thun v Heart of Midlothian FC          UEFA Conference League  FC Thun or Heart of Midlothian FC          79%     @1.30  LOW        0.12%  LUA4X3
+17:45  Trabzonspor v Freiburg                    UEFA Conference League  Trabzonspor or Freiburg                    79%     @1.29  LOW        0.12%  X0H67L
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 9 of 12 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 3 quoted by no second book.
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Crystal Palace v Hoffenheim: Crystal Palace: blunt attack v tight defence; Hoffenheim: possession side v low block -> BTTS · xG 1.48-1.47 · BTTS 60% · O2.5 56% · corners ~11.1 · pick 75% on the matchup
+   • Real Sociedad v Lyon: Lyon: counter side v high line -> no strong goals lean · xG 1.53-0.86 · BTTS 45% · O2.5 43% · corners ~10.6 · pick 74% on the matchup
+   • RSC Anderlecht v Salzburg: no tactical clash flagged -> Salzburg may not score · xG 2.43-0.58 · BTTS 40% · O2.5 58% · corners ~9.5 · pick 85% on the matchup
+   • Alkmaar v Juventus: Juventus: set-piece threat v weak set-piece defence; Juventus: aerial threat v weak in the air -> no strong goals lean · xG 1.12-1.53 · BTTS 53% · O2.5 50% · corners ~10.9 · pick 75% on the matchup
+   • Celtic v Besiktas Istanbul: Celtic: counter side v high line; Celtic: counter side v counter-exposed; Beşiktaş: high press v build-up side -> BTTS & goals · xG 1.31-1.88 · BTTS 62% · O2.5 62% · corners ~10.9 · pick 77% on the matchup
+   • FC Midtjylland v Ajax: FC Midtjylland: high press v build-up side; Ajax: possession side v low block -> BTTS & goals · xG 1.90-1.59 · BTTS 68% · O2.5 68% · corners ~9.7 · pick 78% on the matchup
+   • FC Thun v Heart of Midlothian FC: Heart of Midlothian: elite attack v leaky defence -> BTTS & goals · xG 2.38-1.02 · BTTS 58% · O2.5 66% · corners ~10.0 · pick 82% on the matchup
+   • Trabzonspor v Freiburg: Freiburg: set-piece threat v weak set-piece defence; Freiburg: aerial threat v weak in the air -> no strong goals lean · xG 1.81-1.16 · BTTS 57% · O2.5 57% · corners ~9.0 · pick 77% on the matchup
+
+TABLE 2 Mega 1 (8 legs · odds 8 · chance 1 in 7): VZRY71   load ↦ www.sportybet.com/ng/?shareCode=VZRY71
+TABLE 2 Mega 2 (4 legs · odds 3 · chance 1 in 3): Z8HQJC   load ↦ www.sportybet.com/ng/?shareCode=Z8HQJC
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+3 accas · 12 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+
+Acca A · code Z8HQJC · 4 legs · odds 2.73 · chance 40%
+   • 17:45 FC Thun v Heart of Midlothian FC (🏆 UEFA Conference League) — FC Thun or Heart of Midlothian FC @1.30 (79%)
+   • 17:45 FC Midtjylland v Ajax (🏆 UEFA Conference League) — FC Midtjylland or Ajax @1.29 (79%)
+   • 17:45 Crystal Palace v Hoffenheim (🏆 UEFA Europa League) — Crystal Palace or Hoffenheim @1.28 (80%)
+   • 17:45 Real Sociedad v Lyon (🏆 UEFA Europa League) — Real Sociedad or Lyon @1.27 (80%)
+Acca B · code PENDING · 4 legs · odds 2.83 · chance 38%
+   • 20:00 Hapoel Be`er Sheva FC v OFI Crete (🏆 UEFA Europa League) — Hapoel Be`er Sheva FC or OFI Crete @1.30 (78%)
+   • 20:00 Celtic v Besiktas Istanbul (🏆 UEFA Europa League) — Celtic or Besiktas Istanbul @1.29 (79%)
+   • 20:00 Alkmaar v Juventus (🏆 UEFA Europa League) — Alkmaar or Juventus @1.30 (78%)
+   • 20:00 Celta v Union Gilloise (🏆 UEFA Europa League) — Celta or Union Gilloise @1.30 (78%)
+Acca C · code PENDING · 4 legs · odds 2.79 · chance 38%
+   • 17:45 Trabzonspor v Freiburg (🏆 UEFA Conference League) — Trabzonspor or Freiburg @1.29 (79%)
+   • 17:45 PFC Levski Sofia v Jagiellonia Bialystok (🏆 UEFA Europa League) — PFC Levski Sofia or Jagiellonia Bialystok @1.31 (78%)
+   • 17:45 RSC Anderlecht v Salzburg (🏆 UEFA Europa League) — RSC Anderlecht or Salzburg @1.28 (79%)
+   • 17:45 Lillestroem SK v Viktoria Plzen (🏆 UEFA Europa League) — Lillestroem SK or Viktoria Plzen @1.29 (79%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (8 legs · odds 8 · chance 1 in 7): VZRY71   load ↦ www.sportybet.com/ng/?shareCode=VZRY71
+TABLE 3 Mega 2 (4 legs · odds 3 · chance 1 in 3): Z8HQJC   load ↦ www.sportybet.com/ng/?shareCode=Z8HQJC
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Real Sociedad v Lyon (🏆 UEFA Europa League) — Real Sociedad or Lyon (80%) @1.27 · code X4SZL6
+Acca A: 4 legs, model 40% · code Z8HQJC
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 1169 legs logged, mean CLV +0.41%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+CLV acca A: NX9HYQ (4 legs · odds 2.68 · 40% · positive-CLV markets)
+CLV acca B: YJ1H7K (4 legs · odds 2.83 · 38% · positive-CLV markets)
+Mega 1: VZRY71 (8 legs · odds 8 · stake 0.1%)
+Mega 2: Z8HQJC (4 legs · odds 3 · stake 0.1%)
+Acca A: Z8HQJC (4 legs · odds 2.73 · 40% · stake 0.25%)
+Acca B: PENDING (4 legs · odds 2.83 · 38% · stake 0.25%)
+Acca C: PENDING (4 legs · odds 2.79 · 38% · stake 0.25%)
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+
+============================================================
+
+DETAIL — HR53 full per-fixture audit (not sent to Telegram)
+
+PART 0 — HEADER
+Date: 2026-11-03 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
+Calibration: 1169 legs logged, mean CLV +0.41%
+SOURCE NOTES (where the data came from, not problems):
+  · graded 0 of 338 pending leg(s)
+  · picks 2026-10-03: 73 graded, 3 pending (Flashscore)
+  · picks 2026-10-04: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
+  · picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
+  · picks 2026-10-06: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
+  · picks 2026-10-07: 0 graded, 0 pending (Flashscore)
+  · picks 2026-10-08: 1 graded, 0 pending; 1/1 rated fixtures graded (Flashscore)
+  · picks 2026-10-09: 24 graded, 0 pending; 23/24 rated fixtures graded (Flashscore)
+  · picks 2026-10-10: 120 graded, 2 pending; 116/122 rated fixtures graded (Flashscore)
+  · picks 2026-10-11: 67 graded, 2 pending; 62/69 rated fixtures graded (Flashscore)
+  · picks 2026-10-12: 18 graded, 0 pending; 18/18 rated fixtures graded (Flashscore)
+  · picks 2026-10-13: 8 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
+  · picks 2026-10-14: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
+  · picks 2026-10-15: 35 graded, 1 pending; 35/36 rated fixtures graded (Flashscore)
+  · picks 2026-10-16: 21 graded, 1 pending; 21/22 rated fixtures graded (Flashscore)
+  · picks 2026-10-17: 126 graded, 2 pending; 126/128 rated fixtures graded (Flashscore)
+  · picks 2026-10-18: 64 graded, 1 pending; 64/65 rated fixtures graded (Flashscore)
+  · picks 2026-10-19: 11 graded, 0 pending; 11/11 rated fixtures graded (Flashscore)
+  · picks 2026-10-20: 44 graded, 0 pending; 44/44 rated fixtures graded (Flashscore)
+  · picks 2026-10-21: 11 graded, 0 pending; 11/11 rated fixtures graded (Flashscore)
+  · picks 2026-10-22: 35 graded, 1 pending; 35/36 rated fixtures graded (Flashscore)
+  · picks 2026-10-23: 25 graded, 1 pending; 25/26 rated fixtures graded (Flashscore)
+  · picks 2026-10-24: 119 graded, 1 pending; 119/120 rated fixtures graded (Flashscore)
+  · picks 2026-10-25: 73 graded, 0 pending; 73/73 rated fixtures graded (Flashscore)
+  · picks 2026-10-26: 11 graded, 1 pending; 11/12 rated fixtures graded (Flashscore)
+  · picks 2026-10-27: 27 graded, 0 pending; 27/27 rated fixtures graded (Flashscore)
+  · picks 2026-10-28: 26 graded, 3 pending; 26/29 rated fixtures graded (Flashscore)
+  · picks 2026-10-29: 5 graded, 0 pending; 5/5 rated fixtures graded (Flashscore)
+  · picks 2026-10-30: 22 graded, 1 pending; 23/24 rated fixtures graded (Flashscore)
+  · picks 2026-10-31: 73 graded, 1 pending; 109/110 rated fixtures graded (Flashscore)
+  · picks 2026-11-01: 67 graded, 1 pending; 71/72 rated fixtures graded (Flashscore)
+  · picks 2026-11-02: 12 graded, 0 pending; 22/22 rated fixtures graded (Flashscore)
+  · picks 2026-10-09: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
+  · picks 2026-10-13: 16 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
+  · SportyBet events served from cache (<=60min)
+  · Eredivisie: 18 fixture(s) priced from SportyBet
+  · Danish Superliga: 6 fixture(s) priced from SportyBet
+  · Belgian Pro League: 10 fixture(s) priced from SportyBet
+  · Scottish Premiership: 12 fixture(s) priced from SportyBet
+  · Ekstraklasa: 9 fixture(s) priced from SportyBet
+  · HNL: 5 fixture(s) priced from SportyBet
+  · Championship: 24 fixture(s) priced from SportyBet
+  · Serie A: 20 fixture(s) priced from SportyBet
+  · Bundesliga: 18 fixture(s) priced from SportyBet
+  · Ligue 1: 18 fixture(s) priced from SportyBet
+  · Europa League: 18 fixture(s) priced from SportyBet
+  · Europa League: price check — 15 agree with an independent book, 0 differ, 2 unchecked (margin-free, 5 pts)
+  · Primeira Liga: 9 fixture(s) priced from SportyBet
+  · Premier League: 20 fixture(s) priced from SportyBet
+  · La Liga: 20 fixture(s) priced from SportyBet
+  · Champions League: 18 fixture(s) priced from SportyBet
+  · Conference League: 18 fixture(s) priced from SportyBet
+  · Conference League: price check — 12 agree with an independent book, 0 differ, 6 unchecked (margin-free, 5 pts)
+  · La Liga 2: 11 fixture(s) priced from SportyBet
+  · Serie B: 10 fixture(s) priced from SportyBet
+  · 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  · Ligue 2: 9 fixture(s) priced from SportyBet
+  · League One: 15 fixture(s) priced from SportyBet
+  · League Two: 13 fixture(s) priced from SportyBet
+  · National League: 11 fixture(s) priced from SportyBet
+  · FA Cup: 40 fixture(s) priced from SportyBet
+  · UEFA Nations League: 25 fixture(s) priced from SportyBet
+  · Turkish Super Lig: 9 fixture(s) priced from SportyBet
+  · Greek Super League: 14 fixture(s) priced from SportyBet
+  · Austrian Bundesliga: 12 fixture(s) priced from SportyBet
+  · Swiss Super League: 6 fixture(s) priced from SportyBet
+  · Eliteserien: 8 fixture(s) priced from SportyBet
+  · Allsvenskan: 9 fixture(s) priced from SportyBet
+  · Turkish Cup: 0 fixture(s) priced from SportyBet
+  · Turkish Cup: no games on offer (SportyBet lists none)
+  · Eredivisie: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Eredivisie: model fitted on last season + 99 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Eredivisie: 9 fixture(s) blended with shots-on-target ratings
+  · Danish Superliga: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Danish Superliga: model fitted on last season + 78 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Belgian Pro League: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Belgian Pro League: model fitted on last season + 89 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Belgian Pro League: 10 fixture(s) blended with shots-on-target ratings
+  · Scottish Premiership: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Scottish Premiership: model fitted on last season + 69 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Scottish Premiership: 6 fixture(s) blended with shots-on-target ratings
+  · Ekstraklasa: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ekstraklasa: model fitted on last season + 115 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · HNL: 5 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · HNL: 5/5 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Championship: 24 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Championship: model fitted on last season + 156 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Championship: 3 feed name(s) matched to the model's spelling — Bolton Wanderers -> Bolton, Cardiff City -> Cardiff, Lincoln City -> Lincoln
+  · Championship: 24 fixture(s) blended with shots-on-target ratings
+  · Serie A: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Serie A: model fitted on last season + 100 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie A: 1 feed name(s) matched to the model's spelling — Venezia FC -> Venezia
+  · Serie A: 0 fixture(s) blended with xG ratings (Understat)
+  · Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Bundesliga: model fitted on last season + 72 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Bundesliga: 2 feed name(s) matched to the model's spelling — SV 07 Elversberg -> Elversberg, Schalke -> Schalke 04
+  · Bundesliga: 0 fixture(s) blended with xG ratings (Understat)
+  · Ligue 1: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ligue 1: model fitted on last season + 81 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Ligue 1: 1 feed name(s) matched to the model's spelling — Le Mans FC -> Le Mans
+  · Ligue 1: 0 fixture(s) blended with xG ratings (Understat)
+  · Europa League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Europa League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Primeira Liga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Primeira Liga: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Primeira Liga: 2 feed name(s) matched to the model's spelling — Academico de Viseu FC -> Academico Viseu, Maritimo Madeira -> Maritimo
+  · Premier League: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Premier League: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Premier League: 3 feed name(s) matched to the model's spelling — Coventry City -> Coventry, Hull City -> Hull, Ipswich Town -> Ipswich
+  · Premier League: 0 fixture(s) blended with xG ratings (Understat)
+  · La Liga: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · La Liga: model fitted on last season + 109 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · La Liga: 3 feed name(s) matched to the model's spelling — Malaga CF -> Malaga, RC Deportivo de A Coruna -> La Coruna, Racing Santander -> Santander
+  · La Liga: 0 fixture(s) blended with xG ratings (Understat)
+  · Champions League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Champions League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Conference League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Conference League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · La Liga 2: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · La Liga 2: model fitted on last season + 131 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Serie B: model fitted on last season + 100 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Serie B: 6 feed name(s) matched to the model's spelling — Ascoli Calcio 1898 -> Ascoli, Benevento Calcio -> Benevento, Hellas Verona -> Verona, L.R. Vicenza -> Vicenza, SC Pisa -> Pisa, SS Arezzo -> Arezzo
+  · 2. Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · 2. Bundesliga: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · 2. Bundesliga: 3 feed name(s) matched to the model's spelling — Energie Cottbus -> Cottbus, FC St. Pauli -> St Pauli, VfL 1899 Osnabruck -> Osnabruck
+  · Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Ligue 2: model fitted on last season + 99 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Ligue 2: 1 feed name(s) matched to the model's spelling — Sochaux-Montbeliard -> Sochaux
+  · League One: 15 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · League One: model fitted on last season + 155 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League One: 10 feed name(s) matched to the model's spelling — Blackpool FC -> Blackpool, Bromley FC -> Bromley, Cambridge United -> Cambridge, Doncaster Rovers -> Doncaster, Oxford United -> Oxford, Peterborough United -> Peterboro, Sheffield Wednesday -> Sheffield Weds, Stevenage FC -> Stevenage, Stockport County FC -> Stockport, Wycombe Wanderers -> Wycombe
+  · League Two: 13 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · League Two: model fitted on last season + 163 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League Two: 3 feed name(s) matched to the model's spelling — Barnet FC -> Barnet, Colchester United -> Colchester, York City FC -> York
+  · National League: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · National League: model fitted on last season + 189 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · National League: 1 feed name(s) matched to the model's spelling — Scunthorpe United -> Scunthorpe
+  · FA Cup: 40 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · FA Cup: 40/40 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
+  · UEFA Nations League: 25 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · UEFA Nations League: national-team history via martj42/international_results — 1105 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-10-06; no odds in this source, so a leg's CLV comes from its SportyBet closing capture
+  · UEFA Nations League: national Elo blended into 25 fixture(s)
+  · Turkish Super Lig: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Turkish Super Lig: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Turkish Super Lig: 12 feed name(s) matched to the model's spelling — Amed Sportif Faaliyetler -> Amedspor, Besiktas Istanbul -> Besiktas, Caykur Rizespor -> Rizespor, Corum FK -> Corum, Erzurumspor FK -> Erzurumspor, Fenerbahce Istanbul -> Fenerbahce, Galatasaray Istanbul -> Galatasaray, Gaziantep FK -> Gaziantep, Genclerbirligi SK -> Genclerbirligi, Goztepe Izmir -> Goztep, Istanbul BB -> Buyuksehyr, Kasimpasa Istanbul -> Kasimpasa
+  · Greek Super League: 7 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Greek Super League: model fitted on last season + 62 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Greek Super League: 10 feed name(s) matched to the model's spelling — AE Kifisia FC -> Kifisia, AEK Athens -> AEK, APO Levadiakos FC -> Levadeiakos, Aris Thessaloniki -> Aris, Atromitos Athinon -> Atromitos, Olympiacos -> Olympiakos, PAE PS Kalamata -> Kalamata, POT Iraklis -> Iraklis, Panaitolikos Agrinio -> Panetolikos, Volos NPS -> Volos NFC
+  · Austrian Bundesliga: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Austrian Bundesliga: model fitted on last season + 66 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Austrian Bundesliga: 8 feed name(s) matched to the model's spelling — Austria Lustenau -> A. Lustenau, FK Austria Wien -> Austria Vienna, Grazer AK 1902 -> Grazer AK, LASK Linz -> LASK, SCR Altach -> Altach, SV Ried -> Ried, TSV Hartberg -> Hartberg, WSG Tirol -> Tirol
+  · Swiss Super League: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Swiss Super League: model fitted on last season + 72 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Swiss Super League: 10 feed name(s) matched to the model's spelling — FC Luzern -> Luzern, FC Sion -> Sion, FC St. Gallen 1879 -> St. Gallen, FC Thun -> Thun, FC Vaduz -> Vaduz, FC Zurich -> Zurich, Grasshopper Club Zurich -> Grasshoppers, Lausanne-Sport -> Lausanne, Servette Geneva -> Servette, Young Boys Bern -> Young Boys
+  · Eliteserien: 8 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Eliteserien: model fitted on last season + 200 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Eliteserien: 12 feed name(s) matched to the model's spelling — Aalesunds FK -> Aalesund, Bodoe/Glimt -> Bodo/Glimt, Fredrikstad FK -> Fredrikstad, IK Start -> Start, Kristiansund BK -> Kristiansund, Lillestroem SK -> Lillestrom, Rosenborg BK -> Rosenborg, SK Brann -> Brann, Sandefjord Fotball -> Sandefjord, Tromsoe IL -> Tromso, Vaalerenga IF -> Valerenga, Viking FK -> Viking
+  · Allsvenskan: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Allsvenskan: model fitted on last season + 215 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Allsvenskan: 14 feed name(s) matched to the model's spelling — BK Hacken -> Hacken, Degerfors IF -> Degerfors, Djurgardens IF -> Djurgarden, Halmstads BK -> Halmstad, Hammarby IF -> Hammarby, IF Brommapojkarna -> Brommapojkarna, IF Elfsborg -> Elfsborg, IFK Goteborg -> Goteborg, IK Sirius -> Sirius, Kalmar FF -> Kalmar, Malmo -> Malmo FF, Mjallby AIF -> Mjallby, Orgryte IS -> Orgryte, Vasteraas SK -> Vasteras SK
+  · Turkish Cup: 0 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Turkish Cup: 0/0 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · TARGET DAY 2026-11-05: 35 fixture(s) kicking off that day (333 outside the target day excluded)
+  · Fixture check (TheSportsDB · ESPN · football-data · FotMob · Flashscore): 30/35 confirmed by two independent sources, 5 one source only, 0 conflict(s)
+  · Learning from 13689 graded singles: Result & total +6.7pp (191/299 won vs 169.0 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.4pp (747/950 won vs 714.1 expected) · DC & total +3.0pp (747/1097 won vs 713.5 expected) · Matchbook close (order 44): 1st Half Total -2.0pp (CLV -2.0% over 30), Double chance -0.1pp (CLV -0.1% over 83)
+  · losing-market watch: 9 flag(s), 0 approved block(s) in force
+  · value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
+  · tactical matchup: 15 fixture(s) read from the tactical profiles; weight 0 (fitted on unseen matches; 0 = label only), 0 chance(s) moved (cap ±5%)
+  · No forced picks (plan point 3): 35 game(s) whose safest outcome is under 1.20; 0 got no single (no other market 5+ pts over break-even)
+  · forced-pick mix (2026-11-03): 35 break-even fallback(s) found, 12 kept to reach 12 singles
+  · No Unders in a shootout (order 43): 16 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
+  · same-result price shopping: 224 outcome(s) dropped for the same bet at a better price under another market
+  · full market ladder: 35 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
+  · team profiles: 0 deploy pick(s) profiled (last 20 games each side)
+  · team news (FotMob): 11 pick(s) checked, 0 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
+  · switched shaky picks: 0 moved to a steadier market (order 32)
+  · sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
+  · value: 0/12 picks positive EV on our chance x price (avg EV -1.4%); the scorecard tracks whether +EV picks really return more
+  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.4%, live 907 @ -4.2% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -5.7%, live 25 @ -4.5% · MARKET est -3.9%, live 218 @ -3.4%
+  · logged 25 new paper leg(s) with a live entry price
+  · Phase 3 gate: 1169 of 30 legs with logged CLV; mean CLV 0.409
+  · positive-CLV accas: 2 built from Double chance +0.19% over 469, Home goals +0.24% over 71
+  · 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
+  · alt-market accas: 0/0 booked (a different market from each fixture's main pick)
+  · positive-value bets (order 37): 0 found, 0/0 slip(s) booked
+  · short 3-leg slips: 0 built, 0 booked (paper)
+  · SportyBet booking codes: 12/12 singles, 1/1 accas, 2/2 mega slips
+  · AI Survivor: 16 alive, 0 holding a pick for 2026-11-05 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+12 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Crystal Palace v Hoffenheim (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Crystal Palace to win .......... 49%
+      Draw ......................... 25%
+      Hoffenheim to win .......... 27%
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 63% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Crystal Palace or Hoffenheim
+      Model probability .......... 80%
+      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.19% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+2. Lillestroem SK v Viktoria Plzen (Europa League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
+   Price check: SINGLE-SOURCE — no independent book quotes this match
+   Match result (model probabilities):
+      Lillestroem SK to win .......... 33%
+      Draw ......................... 26%
+      Viktoria Plzen to win .......... 41%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 60% (model)
+   Both teams to score YES 63% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Lillestroem SK or Viktoria Plzen
+      Model probability .......... 79%
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.61% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+3. PFC Levski Sofia v Jagiellonia Bialystok (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Match result (model probabilities):
+      PFC Levski Sofia to win .......... 47%
+      Draw ......................... 27%
+      Jagiellonia Bialystok to win .......... 26%
+   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 52% (model)
+   Both teams to score YES 56% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: PFC Levski Sofia or Jagiellonia Bialystok
+      Model probability .......... 78%
+      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.52% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+4. Real Sociedad v Lyon (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Real Sociedad to win .......... 52%
+      Draw ......................... 24%
+      Lyon to win .......... 24%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 60% (model)
+   Both teams to score YES 60% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Real Sociedad or Lyon
+      Model probability .......... 80%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+5. RSC Anderlecht v Salzburg (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Match result (model probabilities):
+      RSC Anderlecht to win .......... 49%
+      Draw ......................... 25%
+      Salzburg to win .......... 26%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 60% (model)
+   Both teams to score YES 61% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: RSC Anderlecht or Salzburg
+      Model probability .......... 79%
+      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.51% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+6. Alkmaar v Juventus (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Match result (model probabilities):
+      Alkmaar to win .......... 26%
+      Draw ......................... 26%
+      Juventus to win .......... 48%
+   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 53% (model)
+   Both teams to score YES 56% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Alkmaar or Juventus
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.78% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+7. Celta v Union Gilloise (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Match result (model probabilities):
+      Celta to win .......... 42%
+      Draw ......................... 26%
+      Union Gilloise to win .......... 32%
+   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 57% (model)
+   Both teams to score YES 59% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Celta or Union Gilloise
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.79% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+8. Celtic v Besiktas Istanbul (Europa League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Match result (model probabilities):
+      Celtic to win .......... 30%
+      Draw ......................... 26%
+      Besiktas Istanbul to win .......... 44%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 60% (model)
+   Both teams to score YES 62% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Celtic or Besiktas Istanbul
+      Model probability .......... 79%
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.40% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+9. Hapoel Be`er Sheva FC v OFI Crete (Europa League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
+   Price check: SINGLE-SOURCE — no independent book quotes this match
+   Match result (model probabilities):
+      Hapoel Be`er Sheva FC to win .......... 45%
+      Draw ......................... 26%
+      OFI Crete to win .......... 29%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 58% (model)
+   Both teams to score YES 60% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Hapoel Be`er Sheva FC or OFI Crete
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.27% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+10. FC Midtjylland v Ajax (Conference League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: SINGLE-SOURCE — no independent book quotes this match
+   Match result (model probabilities):
+      FC Midtjylland to win .......... 34%
+      Draw ......................... 25%
+      Ajax to win .......... 40%
+   Goals: Over 1.5 goals 83% (model) | Over 2.5 goals 63% (model)
+   Both teams to score YES 65% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: FC Midtjylland or Ajax
+      Model probability .......... 79%
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -0.96% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+11. FC Thun v Heart of Midlothian FC (Conference League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      FC Thun to win .......... 40%
+      Draw ......................... 26%
+      Heart of Midlothian FC to win .......... 34%
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 61% (model)
+   Both teams to score YES 64% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: FC Thun or Heart of Midlothian FC
+      Model probability .......... 79%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -0.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+12. Trabzonspor v Freiburg (Conference League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, flashscore.co.uk, espn.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Match result (model probabilities):
+      Trabzonspor to win .......... 39%
+      Draw ......................... 25%
+      Freiburg to win .......... 35%
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 64% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Trabzonspor or Freiburg
+      Model probability .......... 79%
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -1.33% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+AC Milan v Ferencvarosi Budapest (Europa League) | AC Milan·73% | O82 / O62 | 1X89 / N50 | ✓
+Crystal Palace v Hoffenheim (Europa League) | Crystal Pa·49% | O82 / O62 | 1275 / Y63 | ✓
+Lillestroem SK v Viktoria Plzen (Europa League) | Viktoria P·41% | O81 / O60 | 1274 / Y63 | ○
+NEC Nijmegen v AC Omonia Nicosia (Europa League) | NEC Nijmeg·53% | O81 / O60 | 1X77 / Y59 | ✓
+PFC Levski Sofia v Jagiellonia Bialystok (Europa League) | PFC Levski·47% | O76 / O52 | 1X74 / Y56 | ✓
+Real Sociedad v Lyon (Europa League) | Real Socie·52% | O81 / O60 | 1X76 / Y60 | ✓
+RSC Anderlecht v Salzburg (Europa League) | RSC Anderl·49% | O81 / O60 | 1275 / Y61 | ✓
+Sparta Prague v Bournemouth (Europa League) | Bournemout·64% | O80 / O59 | X284 / Y54 | ✓
+Alkmaar v Juventus (Europa League) | Juventus·48% | O76 / O53 | X274 / Y56 | ✓
+Bayer Leverkusen v Marseille (Europa League) | Bayer Leve·69% | O84 / O66 | 1X86 / Y57 | ✓
+Benfica v KKS Lech Poznan (Europa League) | Benfica·83% | O88 / O73 | 1X94 / Y50 | ✓
+Celta v Union Gilloise (Europa League) | Celta·42% | O78 / O57 | 1274 / Y59 | ✓
+Celtic v Besiktas Istanbul (Europa League) | Besiktas I·44% | O81 / O60 | 1274 / Y62 | ✓
+Hapoel Be`er Sheva FC v OFI Crete (Europa League) | Hapoel Be`·45% | O79 / O58 | 1274 / Y60 | ○
+SCU Torreense v FC Ararat-Armenia (Europa League) | SCU Torree·53% | O72 / U52 | 1X79 / N51 | ✓
+Sturm Graz v NK Celje (Europa League) | Sturm Graz·62% | O81 / O60 | 1X83 / Y56 | ✓
+Sunderland AFC v GNK Dinamo Zagreb (Europa League) | Sunderland·64% | O79 / O59 | 1X85 / Y52 | ✓
+AGF Aarhus v Braga (Conference League) | Braga·46% | O73 / U51 | X274 / Y52 | ✓
+Atalanta v FC Kairat Almaty (Conference League) | Atalanta·82% | O85 / O68 | 1X94 / N54 | ✓
+Crvena Zvezda v Inter Club de Escaldes (Conference League) | Crvena Zve·89% | O88 / O73 | 1X97 / N64 | ✓
+FC Midtjylland v Ajax (Conference League) | Ajax·40% | O83 / O63 | 1275 / Y65 | ✓
+FC Thun v Heart of Midlothian FC (Conference League) | FC Thun·40% | O82 / O61 | 1274 / Y64 | ✓
+Kuopion Palloseura v Gent (Conference League) | Gent·57% | O74 / O50 | X281 / N51 | ○
+Lincoln Red Imps v HNK Hajduk Split (Conference League) | HNK Hajduk·69% | O77 / O56 | X288 / N54 | ✓
+Mjallby AIF v FK Borac Banja Luka (Conference League) | Mjallby AI·42% | O71 / U54 | 1272 / Y51 | ✓
+Trabzonspor v Freiburg (Conference League) | Trabzonspo·39% | O82 / O62 | 1275 / Y64 | ✓
+Copenhagen v FC Iberia 1999 (Conference League) | Copenhagen·80% | O84 / O67 | 1X93 / N54 | ○
+CS Universitatea Craiova v KF Egnatia Rrogozhine (Conference League) | CS Univers·63% | O77 / O55 | 1X84 / Y51 | ✓
+FC Twente Enschede v Pafos FC (Conference League) | FC Twente ·73% | O84 / O66 | 1X89 / Y53 | ✓
+Getafe v Brighton (Conference League) | Brighton·61% | O73 / U51 | X284 / N54 | ✓
+Lugano v FK Kauno Zalgiris (Conference League) | Lugano·80% | O86 / O70 | 1X92 / Y51 | ✓
+Monaco v Nordsjaelland (Conference League) | Monaco·65% | O84 / O67 | 1X84 / Y59 | ✓
+Panathinaikos v PFC CSKA Sofia (Conference League) | Panathinai·63% | O78 / O57 | 1X84 / Y52 | ✓
+Riga FC v FK Jablonec (Conference League) | Riga FC·40% | O74 / O50 | 1272 / Y55 | ✓
+St. Truidense VV v SK Brann (Conference League) | St. Truide·56% | O81 / O60 | 1X79 / Y59 | ○
+
+PART 3 — REJECTED / WATCHLIST
+AC Milan v Ferencvarosi Budapest (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+NEC Nijmegen v AC Omonia Nicosia (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Sparta Prague v Bournemouth (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Bayer Leverkusen v Marseille (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Benfica v KKS Lech Poznan (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+SCU Torreense v FC Ararat-Armenia (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Sturm Graz v NK Celje (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Sunderland AFC v GNK Dinamo Zagreb (Europa League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+AGF Aarhus v Braga (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Atalanta v FC Kairat Almaty (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Crvena Zvezda v Inter Club de Escaldes (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Kuopion Palloseura v Gent (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Lincoln Red Imps v HNK Hajduk Split (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Mjallby AIF v FK Borac Banja Luka (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Copenhagen v FC Iberia 1999 (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+CS Universitatea Craiova v KF Egnatia Rrogozhine (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+FC Twente Enschede v Pafos FC (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Getafe v Brighton (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Lugano v FK Kauno Zalgiris (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Monaco v Nordsjaelland (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Panathinaikos v PFC CSKA Sofia (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+Riga FC v FK Jablonec (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+St. Truidense VV v SK Brann (Conference League): no deploy: break-even fill not needed (board has 12+ singles; the 5-pt rule's own singles go first)
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 30
+SINGLE-SOURCE: 5
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): VERIFIED 27 · CONFLICT 0 · SINGLE-SOURCE 8
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

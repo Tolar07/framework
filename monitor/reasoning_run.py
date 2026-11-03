@@ -107,6 +107,16 @@ def main(argv: list[str] | None = None) -> int:
             print(FS.summary_line(frec))
         except Exception as e:  # noqa: BLE001
             print(f"fact sheet study failed: {e}")
+    # SCOUT (Architect 2026-11-03): web/X team news, line-ups and line moves per fixture, RECORDED ONLY;
+    # SCOUT_ENABLED=0 switches it off. Wrapped: it can never fail the verdict record or the save step.
+    try:
+        from engine import scout as SC
+        for line in SC.run(dates, force=a.force):
+            print(line)
+        if SC.enabled():
+            print(f"scout graded: {SC.grade()} new · {SC.summary_line()}")
+    except Exception as e:  # noqa: BLE001
+        print(f"scout failed (ignored): {type(e).__name__}: {e}")
     # step 3 (2026-11-01): one model, fitted on the graded picks, decides how much each member and
     # each fact counts; judged walk-forward against the market. Recorded only
     try:     # import inside: a missing dependency must never fail the run before its save step

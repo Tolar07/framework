@@ -2,7 +2,7 @@
 
 Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post-match stats of every fixture the board rated). A stat FotMob didn't publish is left out, never counted as 0. A study, not a selector.
 
-1033 matches, 2026-10-04 to 2026-11-01.
+1051 matches, 2026-10-04 to 2026-11-02.
 
 ## League styles (per match, both teams together)
 
@@ -12,31 +12,31 @@ Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post
 | League Two | 61 | 2.97 | 2.73 | 26.0 | 8.2 | 3.8 | 9.6 | 3.9 | 0.36 |
 | Championship | 56 | 2.86 | 2.99 | 28.0 | 8.6 | 4.8 | 10.5 | 1.5 | 0.33 |
 | Serie B | 50 | 2.66 | 2.79 | 27.9 | 8.4 | 4.2 | 9.3 | 3.9 | 0.32 |
-| Serie A | 48 | 3.42 | 3.21 | 29.0 | 10.1 | 5.5 | 9.7 | 3.1 | 0.34 |
+| Serie A | 50 | 3.46 | 3.22 | 28.8 | 10.0 | 5.4 | 9.7 | 3.1 | 0.35 |
 | National League | 46 | 3.41 | — | — | — | — | — | — | — |
+| La Liga 2 | 44 | 2.77 | 2.72 | 26.7 | 9.1 | 4.2 | 10.3 | 5.6 | 0.30 |
 | FA Cup | 42 | 3.14 | — | — | — | — | — | — | — |
-| La Liga 2 | 41 | 2.61 | 2.62 | 26.1 | 8.8 | 3.9 | 10.2 | 5.7 | 0.30 |
-| Premier League | 39 | 2.59 | 2.68 | 26.6 | 8.0 | 4.8 | 9.9 | 4.2 | 0.32 |
-| Allsvenskan | 37 | 2.59 | 2.59 | 28.2 | 9.2 | 3.0 | 11.2 | 1.8 | 0.28 |
-| La Liga | 35 | 2.97 | 2.79 | 28.0 | 9.5 | 4.0 | 9.6 | 4.9 | 0.31 |
+| Premier League | 40 | 2.55 | 2.71 | 26.8 | 8.0 | 4.8 | 9.9 | 4.2 | 0.32 |
+| Allsvenskan | 39 | 2.54 | 2.52 | 27.9 | 9.0 | 3.0 | 11.2 | 1.9 | 0.28 |
+| La Liga | 36 | 2.97 | 2.81 | 28.0 | 9.5 | 4.0 | 9.6 | 4.9 | 0.31 |
+| Ligue 2 | 35 | 2.83 | 2.63 | 24.9 | 8.6 | 3.5 | 10.3 | 3.9 | 0.33 |
 | 2. Bundesliga | 34 | 2.53 | 2.84 | 30.1 | 9.9 | 4.4 | 10.9 | 3.7 | 0.26 |
 | Europa League | 34 | 3.26 | 3.13 | 27.6 | 9.9 | 5.1 | 9.3 | 4.1 | 0.33 |
-| Ligue 2 | 33 | 2.79 | 2.61 | 24.9 | 8.7 | 3.5 | 10.0 | 3.9 | 0.32 |
 | Eredivisie | 32 | 4.03 | 3.37 | 30.3 | 10.6 | 6.0 | 9.9 | 3.3 | 0.38 |
-| Ligue 1 | 31 | 3.23 | 3.06 | 24.8 | 9.0 | 4.7 | 8.4 | 4.2 | 0.36 |
+| Ligue 1 | 32 | 3.19 | 3.06 | 24.9 | 8.8 | 4.7 | 8.4 | 4.1 | 0.36 |
 | Conference League | 31 | 2.84 | 3.03 | 29.1 | 9.4 | 4.8 | 9.8 | 3.8 | 0.30 |
-| Turkish Super Lig | 29 | 3.00 | 3.11 | 27.9 | 10.1 | 5.1 | 9.8 | 3.7 | 0.30 |
+| Turkish Super Lig | 30 | 3.07 | 3.09 | 27.6 | 10.1 | 5.1 | 9.6 | 3.7 | 0.30 |
+| Ekstraklasa | 29 | 3.28 | 3.22 | 30.0 | 9.7 | 5.1 | 10.6 | 4.0 | 0.34 |
 | Bundesliga | 28 | 3.29 | 3.48 | 30.0 | 9.9 | 5.7 | 10.2 | 3.4 | 0.33 |
-| Ekstraklasa | 27 | 3.22 | 3.17 | 30.0 | 9.7 | 5.0 | 10.3 | 3.9 | 0.33 |
+| Primeira Liga | 27 | 2.48 | 2.34 | 26.0 | 8.1 | 3.7 | 9.1 | 4.6 | 0.31 |
 | Champions League | 27 | 4.52 | 3.73 | 29.5 | 11.7 | 6.7 | 9.9 | 3.2 | 0.39 |
 | UEFA Nations League | 26 | 2.15 | 2.65 | 26.2 | 7.8 | 4.3 | 9.0 | 3.9 | 0.28 |
-| Primeira Liga | 25 | 2.64 | 2.40 | 26.4 | 8.3 | 3.9 | 9.2 | 4.6 | 0.32 |
 | Belgian Pro League | 23 | 4.04 | 3.07 | 27.5 | 10.3 | 5.0 | 10.4 | 4.0 | 0.39 |
 | Scottish Premiership | 23 | 3.00 | 3.21 | 29.3 | 10.1 | 4.7 | 11.0 | 3.8 | 0.30 |
 | Eliteserien | 20 | 4.10 | 3.76 | 32.3 | 10.4 | 4.3 | 10.9 | 4.0 | 0.39 |
 | Austrian Bundesliga | 20 | 3.35 | 3.34 | 30.6 | 10.2 | 5.8 | 10.4 | 3.1 | 0.33 |
+| Greek Super League | 19 | 3.37 | 2.64 | 25.2 | 8.7 | 4.2 | 9.1 | 4.2 | 0.39 |
 | HNL | 18 | 2.67 | — | 25.2 | 8.4 | 3.5 | 10.1 | 3.9 | 0.32 |
-| Greek Super League | 18 | 3.44 | 2.59 | 24.8 | 8.7 | 4.2 | 9.1 | 4.3 | 0.39 |
 | Swiss Super League | 18 | 3.44 | 3.28 | 31.1 | 10.2 | 5.1 | 10.8 | 4.6 | 0.34 |
 | Danish Superliga | 12 | 3.58 | 3.86 | 30.6 | 11.8 | 6.2 | 8.8 | 4.2 | 0.30 |
 | Turkish Cup | 4 | 2.50 | — | — | — | — | — | — | — |
@@ -47,10 +47,10 @@ Every match where the two sides differed on the measure (draws included).
 
 | The side with more … | matches | won | drew | lost |
 |---|---|---|---|---|
-| expected goals | 915 | 59% | 22% | 19% |
-| shots on target | 832 | 61% | 21% | 19% |
-| big chances | 785 | 63% | 20% | 17% |
-| possession | 902 | 39% | 22% | 39% |
+| expected goals | 933 | 59% | 22% | 20% |
+| shots on target | 847 | 61% | 20% | 19% |
+| big chances | 801 | 63% | 20% | 17% |
+| possession | 919 | 39% | 21% | 40% |
 
 ## Team profiles (3+ matches with xG), strongest xG balance first
 
@@ -66,10 +66,10 @@ Finishing = goals minus xG per match: a big positive number is usually luck that
 | Panathinaikos | Greek Super League | 5 | 2.62 | 0.73 | 5.6–1.8 | 58% | +0.18 |
 | Motor Lublin | Ekstraklasa | 3 | 2.81 | 1.00 | 10.0–3.7 | 56% | -0.15 |
 | Middlesbrough | Championship | 5 | 2.41 | 0.69 | 9.0–2.0 | 59% | +0.39 |
-| Benfica | Primeira Liga | 4 | 2.69 | 1.04 | 6.2–4.5 | 60% | +0.31 |
 | Molde | Eliteserien | 3 | 3.36 | 1.77 | 8.7–4.7 | 65% | +0.97 |
 | Barcelona | La Liga | 5 | 2.47 | 0.90 | 8.4–3.4 | 72% | +1.33 |
 | Stockport County FC | League One | 6 | 2.41 | 0.86 | 4.3–4.0 | 68% | -0.91 |
+| Benfica | Primeira Liga | 5 | 2.47 | 0.95 | 5.8–4.4 | 61% | +0.13 |
 | Inter | Serie A | 6 | 2.85 | 1.37 | 7.8–4.0 | 60% | -0.51 |
 | Gornik Zabrze | Ekstraklasa | 4 | 2.11 | 0.64 | 5.0–2.8 | 49% | -0.86 |
 | Genk | Belgian Pro League | 3 | 2.25 | 0.81 | 5.7–2.0 | 63% | -0.58 |
@@ -90,14 +90,14 @@ Finishing = goals minus xG per match: a big positive number is usually luck that
 | Man City | Premier League | 5 | 2.15 | 1.08 | 6.0–3.4 | 65% | +0.25 |
 | Laval | Ligue 2 | 3 | 1.81 | 0.74 | 4.3–2.3 | 58% | -0.48 |
 | Leicester | League One | 6 | 2.08 | 1.03 | 6.2–4.2 | 64% | +0.08 |
-| Brest | Ligue 1 | 3 | 2.36 | 1.33 | 6.0–3.3 | 46% | -0.03 |
 | Club Brugge | Belgian Pro League | 5 | 3.17 | 2.17 | 6.6–5.6 | 59% | +0.43 |
 | FC Sion | Swiss Super League | 3 | 2.08 | 1.10 | 2.3–3.0 | 58% | -1.41 |
 | Benevento Calcio | Serie B | 5 | 1.92 | 0.96 | 5.6–2.2 | 53% | -0.32 |
-| Nancy | Ligue 2 | 3 | 1.64 | 0.68 | 4.7–2.7 | 53% | -0.30 |
 | Sarpsborg 08 | Eliteserien | 4 | 2.45 | 1.51 | 6.5–5.2 | 60% | -0.45 |
 | Port Vale | League Two | 5 | 1.75 | 0.88 | 4.8–3.6 | 49% | -0.35 |
 | FC St. Pauli | 2. Bundesliga | 4 | 1.88 | 1.02 | 5.2–4.0 | 54% | -0.88 |
+| BK Hacken | Allsvenskan | 5 | 1.70 | 0.87 | 7.0–4.2 | 55% | +0.10 |
+| Como | Serie A | 5 | 1.78 | 0.97 | 5.4–3.0 | 63% | +0.02 |
 
 All 607 teams' profiles: `data/match_stats/team_profiles.json`.
 

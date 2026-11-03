@@ -1,7 +1,15 @@
 """
 SCOUT — a daily section of the reasoning step (Architect 2026-11-03).
-RECORDED ONLY. Nothing here selects, stakes, drops, re-prices or moves a chance, a verdict, a threshold
-or the CLV gate. If the scout fails or finds nothing, the reasoning step goes on exactly as before.
+Nothing here selects, stakes, drops, re-prices or moves a chance, a verdict, a threshold or the CLV gate.
+If the scout fails or finds nothing, the reasoning step goes on exactly as before.
+
+HOW IT CAN AFFECT PICKS (Architect 2026-11-03: "if the scout sees a news ... it should be able to affect the
+picks", e.g. a first-choice goalkeeper out -> more goals, both teams to score): each starter the scout reports
+OUT is checked against FotMob's team news; only a CONFIRMED absence counts. pick_effect() signs it on every
+pick (+1 helps, -1 hurts: a goalkeeper or defender out lifts goals and weakens his side, a forward out lowers
+goals and weakens his side). The experiment engine (order 45) scores "no pick / leg a confirmed scout absence
+hurts" in shadow (S10, A8, T8); it changes the board only if it beats the live rule on CLV AND return over
+100+ graded bets, like every other strategy. Unconfirmed findings never move anything.
 
 For every football fixture on the day's board (and the NBA board's games) Gemini, with Google Search,
 looks for what the model cannot see: confirmed team news and injuries, line-ups, late line moves and
@@ -14,7 +22,8 @@ confidence: the probability that the direction's outcome happens (0 < p < 1); no
 If Gemini is off (no key / 429 on every model) the panel's free NVIDIA then OpenRouter ":free" members
 answer from the framework's own data, with no search (via says which; sources stay empty).
 
-Saved to output/reasoning/scout_<date>.json (and scout_nba_<date>.json), beside the verdicts.
+Saved to output/reasoning/scout_<date>.json (and scout_nba_<date>.json), beside the verdicts. Re-searched once per
+board (evening + morning refresh); in between, absences are re-checked against FotMob without a search.
 grade() scores each directional call against the result into memory/scout_record.json; summary_line()
 is the one "Scout" line of the 23:02 bot report. Kill switch: SCOUT_ENABLED=0.
 """
@@ -54,14 +63,19 @@ PROMPT_BODY = """Search the web (Google, and X / Twitter posts) for each {sport}
 statistical model cannot see: confirmed team news and injuries, line-ups, late line moves, and notable chatter
 from credible accounts. Never guess; if you find nothing material say direction "none".
 Return JSON only: {{"fixtures": [{{"id": <id>, "finding": "1-2 short sentences", "direction": "{dirs}",
-"confidence": <probability 0-1 that the direction's outcome happens, null if none>, "sources": ["https://..."]}}]}}
+"confidence": <probability 0-1 that the direction's outcome happens, null if none>, "sources": ["https://..."]{absences}}}]}}
 {extra}
 FIXTURES:
 """
-PROMPT_FOOTBALL = PROMPT_BODY.format(sport="football", dirs="home|away|draw|over|under|none",
-                                     extra='"over"/"under" mean 2.5 goals in regular time.')
-PROMPT_NBA = PROMPT_BODY.format(sport="NBA", dirs="home|away|none",
+PROMPT_FOOTBALL = PROMPT_BODY.format(
+    sport="football", dirs="home|away|draw|over|under|none",
+    absences=', "absences": [{"player": "full name", "team": "home|away", '
+             '"role": "goalkeeper|defender|midfielder|forward", "status": "out|doubtful"}]',
+    extra='"over"/"under" mean 2.5 goals in regular time. "absences": only REGULAR STARTERS reported missing for this '
+          'match by a named source; [] if none.')
+PROMPT_NBA = PROMPT_BODY.format(sport="NBA", dirs="home|away|none", absences="",
                                 extra='Direction is the side to win the game (overtime counts).')
+ROLES = ("goalkeeper", "defender", "midfielder", "forward")
 
 
 # ---------------------------------------------------------------- inputs
@@ -97,9 +111,18 @@ def clean(row: dict, allowed: tuple = DIRECTIONS) -> Optional[dict]:
         conf = None
     elif conf is None or not 0.0 < conf < 1.0:
         return None                      # a call without a usable probability is not recorded as a call
+    absences = []
+    for x in (row.get("absences") or [])[:8] if isinstance(row.get("absences"), list) else []:
+        if not isinstance(x, dict):
+            continue
+        team, role = str(x.get("team") or "").lower(), str(x.get("role") or "").lower()
+        status, name = str(x.get("status") or "").lower(), str(x.get("player") or "").strip()
+        if team in ("home", "away") and role in ROLES and status in ("out", "doubtful") and len(name) > 2:
+            absences.append({"player": name[:60], "team": team, "role": role, "status": status,
+                             "confirmed_by": None})
     srcs = [str(u)[:300] for u in (row.get("sources") or []) if isinstance(u, str) and u.startswith("http")][:5]
     return {"finding": str(row.get("finding") or "")[:400], "direction": d,
-            "confidence": None if conf is None else round(conf, 3), "sources": srcs}
+            "confidence": None if conf is None else round(conf, 3), "sources": srcs, "absences": absences}
 
 
 # ---------------------------------------------------------------- the model calls
@@ -205,16 +228,16 @@ def scout(fxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] 
     return {"members": info, "fixtures": recs}
 
 
-def build(day: str, fxs: list[dict], **kw) -> dict:
+def build(day: str, fxs: list[dict], board_at: Optional[str] = None, **kw) -> dict:
     sport = fxs[0]["sport"] if fxs else "football"
     res = scout(fxs, **kw) if fxs else {"members": {}, "fixtures": []}
-    return {"tag": "scout", "recorded_only": True, "sport": sport, "date": day,
+    return {"tag": "scout", "recorded_only": True, "sport": sport, "date": day, "picks_generated_at": board_at,
             "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "asked": len(fxs), "members": res["members"], "fixtures": res["fixtures"]}
 
 
 def run(dates: list[str], force: bool = False, ledger_dir: Path = LEDGER_DIR, out_dir: Path = OUT_DIR,
-        **kw) -> list[str]:
+        news_folder: Optional[Path] = None, fm=None, **kw) -> list[str]:
     """Scout each date's football and NBA board. Never raises; returns the lines to print."""
     if not enabled():
         return ["scout: switched off (SCOUT_ENABLED=0)"]
@@ -228,19 +251,205 @@ def run(dates: list[str], force: bool = False, ledger_dir: Path = LEDGER_DIR, ou
                     continue
                 board = json.loads(path.read_text(encoding="utf-8"))
                 out = out_dir / dst
-                if out.exists() and not force:
-                    continue                         # one scout per board per day
-                fxs = football_fixtures(board) if sport == "football" else nba_fixtures(board)
-                if not fxs:
-                    continue
-                doc = build(d, fxs, **kw)
+                before = out.read_text(encoding="utf-8") if out.exists() else ""
+                old = json.loads(before) if before else None
+                fresh = old is None or force or old.get("picks_generated_at") != board.get("generated_at")
+                if fresh:                           # one web search per board (evening + morning refresh)
+                    fxs = football_fixtures(board) if sport == "football" else nba_fixtures(board)
+                    if not fxs:
+                        continue
+                    doc = build(d, fxs, board_at=board.get("generated_at"), **kw)
+                else:
+                    doc = dict(old or {})
+                if sport == "football":             # FotMob's team news, as it stands now, confirms absences
+                    from engine import fact_sheet as FS
+                    news = dict(FS.load_news(d, news_folder or FS.NEWS_DIR))
+                    for fx, fresh_news in fotmob_news(board, doc, fm).items():
+                        news[fx] = {**(news.get(fx) or {}), "absent": fresh_news["absent"]}
+                    n_conf = confirm_doc(doc, news)
+                else:
+                    n_conf = 0
+                if not fresh and json.dumps(doc, indent=1, ensure_ascii=False) == before:
+                    continue                        # nothing new: no write, no line
                 out_dir.mkdir(parents=True, exist_ok=True)
                 out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
                 calls = sum(1 for f in doc["fixtures"] if f["direction"] != "none")
-                lines.append(f"scout {sport} {d}: {len(doc['fixtures'])}/{doc['asked']} answered · {calls} calls")
+                lines.append(f"scout {sport} {d}: {len(doc['fixtures'])}/{doc['asked']} answered · {calls} calls"
+                             + (f" · {n_conf} absences confirmed by FotMob" if sport == "football" else "")
+                             + ("" if fresh else " (re-checked, no new search)"))
             except Exception as e:  # noqa: BLE001
                 lines.append(f"scout {sport} {d}: failed: {type(e).__name__}: {e}")
     return lines
+
+
+# ---------------------------------------------------------------- confirmation and effects
+# A scout absence moves anything only when a SECOND source agrees: FotMob's team news (captured by the
+# pre-kickoff loop into data/features/news_<date>.json) lists the same player out for the same side.
+# A web-only claim stays in the record and moves nothing (HR59: one model's claim is not evidence).
+def _norm(name: str) -> list[str]:
+    import unicodedata
+    t = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower()
+    return [w for w in re.split(r"[^a-z]+", t) if w]
+
+
+def same_player(a: str, b: str) -> bool:
+    """Same surname, and the first names (or initials) don't clash. 'T. Courtois' = 'Thibaut Courtois'."""
+    x, y = _norm(a), _norm(b)
+    if not x or not y or x[-1] != y[-1] or len(x[-1]) < 3:
+        return len(x) == 1 and len(y) == 1 and x == y and len(x[0]) >= 4   # one-name players (Vinicius)
+    if len(x) == 1 or len(y) == 1:
+        return True
+    return x[0][0] == y[0][0]
+
+
+def _stamp(now: Optional[datetime] = None) -> str:
+    return (now or datetime.now(UTC)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _t(iso: Optional[str]) -> Optional[datetime]:
+    try:
+        return datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+
+
+def confirm(rec: dict, news: dict, now: Optional[datetime] = None) -> int:
+    """Mark each scout absence FotMob also lists as out for that side, with the time it was first confirmed
+    (a board only counts confirmations made before it was built). Returns how many are confirmed now."""
+    fm = (news or {}).get(rec.get("fixture")) or {}
+    out = [(str(a.get("name") or ""), a.get("side")) for a in fm.get("absent") or []]
+    n = 0
+    for ab in rec.get("absences") or []:
+        hit = any(side == ab["team"] and same_player(name, ab["player"]) for name, side in out)
+        if hit and ab.get("status") == "out":
+            if not ab.get("confirmed_by"):
+                ab["confirmed_by"], ab["confirmed_at"] = "FotMob", _stamp(now)
+            n += 1
+        elif ab.get("confirmed_by") and not hit and fm:
+            ab["confirmed_by"] = ab["confirmed_at"] = None    # FotMob no longer lists him: he is back
+    return n
+
+
+def fotmob_news(board: dict, doc: dict, fm=None) -> dict:
+    """{fixture: {"absent": [...]}} straight from FotMob for each board single the scout reported a starter
+    missing in, with FotMob's FULL missing list (the pre-kickoff loop's file keeps only 3 a side and is
+    first written around midday, after the morning board). Only fixtures with absences: a few calls a run."""
+    want = {r["fixture"] for r in doc.get("fixtures") or [] if r.get("absences")}
+    ids = {s.get("fixture"): s.get("fotmob_id") for s in board.get("singles") or [] if s.get("fotmob_id")}
+    if not want or not ids:
+        return {}
+    if fm is None:
+        from data import fotmob as fm
+    got: dict = {}
+    for fx in sorted(want & set(ids)):
+        try:
+            tn = fm.team_news(ids[fx]) or {}
+        except Exception:  # noqa: BLE001 — FotMob down: the captured file still counts
+            continue
+        absent = [{"name": m.get("name"), "side": side, "type": m.get("type")}
+                  for side in ("home", "away") for m in (tn.get(side) or {}).get("missing") or []]
+        if tn:
+            got[fx] = {"absent": absent}
+    return got
+
+
+def confirm_doc(doc: dict, news: dict) -> int:
+    return sum(confirm(r, news) for r in doc.get("fixtures") or [])
+
+
+# What a confirmed absence does to the match, per side: (goals in the match, that side's result).
+# A goalkeeper or a defender out: more goals (both teams to score, overs) and his side weaker.
+# A forward out: fewer goals from his side and his side weaker. A midfielder: his side weaker.
+ROLE_EFFECT = {"goalkeeper": (+1, -1), "defender": (+1, -1), "forward": (-1, -1), "midfielder": (0, -1)}
+
+
+def _market_lean(key: str) -> tuple[int, int, int]:
+    """A pick key -> how it leans: (on more goals, on the home side, on the away side), each -1/0/+1."""
+    k = str(key or "")
+    if not k.startswith("SB:"):
+        up = k.upper()
+        return (+1 if up.startswith("OVER") else -1 if up.startswith("UNDER") else 0,
+                +1 if up.startswith("HOME") else 0, +1 if up.startswith("AWAY") else 0)
+    mid, _spec, out = (k[3:].split("|") + ["", ""])[:3]
+    o = out.lower()
+    goals = +1 if " over " in f" {o}" or o.startswith("over") else -1 if "under" in o else 0
+    home = away = 0
+    if mid in ("1", "11", "12", "13", "14", "16", "37"):          # result / handicap / result & total
+        side = o.split(" ")[0].split("/")[0]
+        home, away = (+1, -1) if side == "home" else (-1, +1) if side == "away" else (0, 0)
+    elif mid in ("10", "547", "546"):                             # double chance: X or Y
+        dc = o.split(" & ")[0]
+        if dc in ("home or draw", "home/draw"):
+            away = -1
+        elif dc in ("draw or away", "draw/away"):
+            home = -1
+    elif mid == "29":                                             # BTTS
+        goals = +1 if o == "yes" else -1 if o == "no" else 0
+    elif mid in ("33", "34"):                                     # win to nil: that side wins, the other blank
+        yes = +1 if o == "yes" else -1 if o == "no" else 0
+        goals = -yes
+        home, away = ((yes, -yes) if mid == "33" else (-yes, yes))
+    elif mid in ("31", "32"):                                     # clean sheet
+        yes = +1 if o == "yes" else -1 if o == "no" else 0
+        goals = -yes
+    elif mid == "19":                                             # home team goals: home attack v away defence
+        return (goals, 0, 0) if goals else (0, 0, 0)
+    elif mid == "20":
+        return (goals, 0, 0) if goals else (0, 0, 0)
+    return goals, home, away
+
+
+def pick_effect(market: str, absences: list[dict], before: Optional[str] = None) -> int:
+    """+1 a confirmed absence helps the pick, -1 it hurts it, 0 neither / mixed / nothing confirmed.
+    before: count only confirmations made by then (a board's generated_at), so the shadow is scored on what
+    the board could have known."""
+    cut = _t(before)
+    lean_g, lean_h, lean_a = _market_lean(market)
+    mid = str(market or "")[3:].split("|")[0] if str(market or "").startswith("SB:") else ""
+    score = 0
+    for ab in absences or []:
+        if not ab.get("confirmed_by"):
+            continue
+        at = _t(ab.get("confirmed_at"))
+        if cut is not None and (at is None or at > cut):
+            continue
+        g, side = ROLE_EFFECT.get(str(ab.get("role")), (0, 0))
+        if mid in ("19", "20"):                    # a team total: only that team's attack / the other's defence
+            mine = "home" if mid == "19" else "away"
+            if ab["team"] == mine:
+                g = -1 if ab["role"] == "forward" else 0
+            else:
+                g = +1 if ab["role"] in ("goalkeeper", "defender") else 0
+        on_home = side if ab["team"] == "home" else -side
+        score += g * lean_g + on_home * lean_h - on_home * lean_a
+    return (score > 0) - (score < 0)
+
+
+_EFFECTS: dict = {}
+
+
+def effects_for(day: Optional[str], out_dir: Optional[Path] = None) -> dict:
+    """{fixture: [absences]} from the day's saved scout (cached per run). {} when off or none yet."""
+    if not day or not enabled():
+        return {}
+    folder = out_dir or OUT_DIR
+    key = (str(folder), day)
+    if key not in _EFFECTS:
+        try:
+            doc = json.loads((folder / f"scout_{day}.json").read_text(encoding="utf-8"))
+            _EFFECTS[key] = {r["fixture"]: r.get("absences") or [] for r in doc.get("fixtures") or []}
+        except (OSError, ValueError, KeyError):
+            _EFFECTS[key] = {}
+    return _EFFECTS[key]
+
+
+def single_effect(s: dict, out_dir: Optional[Path] = None, before: Optional[str] = None) -> int:
+    """The scout's confirmed effect on one ledger single (fixture, market, kickoff date). Never raises."""
+    try:
+        return pick_effect(s.get("market") or "", effects_for(s.get("kickoff"), out_dir).get(s.get("fixture")) or [],
+                           before)
+    except Exception:  # noqa: BLE001
+        return 0
 
 
 # ---------------------------------------------------------------- grading

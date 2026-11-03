@@ -31,8 +31,8 @@
      "clv_se": 0.26
     },
     "with_feature": {
-     "bets": 920,
-     "clv": -0.66,
+     "bets": 921,
+     "clv": -0.67,
      "clv_se": 0.25
     }
    }
@@ -81,7 +81,7 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1048,
+     "bets": 1049,
      "clv": -0.69,
      "clv_se": 0.25
     }
@@ -106,8 +106,8 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1031,
-     "clv": -0.71,
+     "bets": 1032,
+     "clv": -0.72,
      "clv_se": 0.25
     }
    }
@@ -116,7 +116,7 @@
    "rows": 3783,
    "scored": 3738,
    "brier_model": 0.2226,
-   "brier_gain": -0.0002,
+   "brier_gain": -0.00019,
    "brier_se": 9e-05,
    "logloss_model": 0.6357,
    "logloss_gain": -0.00046,
@@ -156,9 +156,59 @@
      "clv_se": 0.25
     },
     "with_feature": {
-     "bets": 1054,
+     "bets": 1053,
      "clv": -0.78,
      "clv_se": 0.24
+    }
+   }
+  },
+  "home win | table_ppg_gap": {
+   "rows": 3320,
+   "scored": 3276,
+   "brier_model": 0.2226,
+   "brier_gain": -0.00049,
+   "brier_se": 0.00039,
+   "logloss_model": 0.6359,
+   "logloss_gain": -0.00118,
+   "logloss_se": 0.00088,
+   "last_coef": 0.012,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 922,
+     "clv": -0.94,
+     "clv_se": 0.26
+    },
+    "with_feature": {
+     "bets": 945,
+     "clv": -0.96,
+     "clv_se": 0.26
+    }
+   }
+  },
+  "home win | table_stakes": {
+   "rows": 1442,
+   "scored": 1401,
+   "brier_model": 0.2159,
+   "brier_gain": -0.00043,
+   "brier_se": 0.00045,
+   "logloss_model": 0.6223,
+   "logloss_gain": -0.00117,
+   "logloss_se": 0.00105,
+   "last_coef": 0.079,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 358,
+     "clv": -0.74,
+     "clv_se": 0.43
+    },
+    "with_feature": {
+     "bets": 345,
+     "clv": -0.55,
+     "clv_se": 0.43
     }
    }
   },
@@ -206,7 +256,7 @@
      "clv_se": 0.2
     },
     "with_feature": {
-     "bets": 701,
+     "bets": 703,
      "clv": 0.28,
      "clv_se": 0.19
     }
@@ -309,6 +359,56 @@
      "bets": 699,
      "clv": -0.05,
      "clv_se": 0.19
+    }
+   }
+  },
+  "over 2.5 | table_ppg_gap": {
+   "rows": 3320,
+   "scored": 3276,
+   "brier_model": 0.2505,
+   "brier_gain": -0.00035,
+   "brier_se": 0.00024,
+   "logloss_model": 0.6951,
+   "logloss_gain": -0.00084,
+   "logloss_se": 0.00054,
+   "last_coef": 0.044,
+   "verdict": "NO CLEAR EFFECT",
+   "verdict_logloss": "NO CLEAR EFFECT",
+   "clv": {
+    "model": {
+     "bets": 582,
+     "clv": 0.14,
+     "clv_se": 0.2
+    },
+    "with_feature": {
+     "bets": 600,
+     "clv": 0.24,
+     "clv_se": 0.2
+    }
+   }
+  },
+  "over 2.5 | table_stakes": {
+   "rows": 1442,
+   "scored": 1401,
+   "brier_model": 0.247,
+   "brier_gain": -0.0011,
+   "brier_se": 0.00054,
+   "logloss_model": 0.6872,
+   "logloss_gain": -0.00231,
+   "logloss_se": 0.00111,
+   "last_coef": -0.001,
+   "verdict": "HURTS",
+   "verdict_logloss": "HURTS",
+   "clv": {
+    "model": {
+     "bets": 209,
+     "clv": 0.73,
+     "clv_se": 0.34
+    },
+    "with_feature": {
+     "bets": 226,
+     "clv": 0.67,
+     "clv_se": 0.33
     }
    }
   }

@@ -13,6 +13,9 @@ Brier, log loss, and closing-line value of the bets each version would take
 (home win / over 2.5 when chance x opening price >= 1 + EDGE; CLV = opening /
 closing price - 1, Pinnacle where the file has it).
 
+Motivation / table (issue #218): table_ppg_gap and table_stakes (engine/inputs
+table_features, season-to-date table before the day) are tested in part A.
+
 PART C — lineups / injuries (issue #217): the share of each side's best XI
 that is out (data/features news block, captured before kick-off by
 monitor/news_check) against the model's chance on the board's rated fixtures.
@@ -119,7 +122,8 @@ def part_a() -> tuple[dict, dict]:
     from data.football_data_source import load_league
     from engine.dixon_coles import predict
     cfg = BacktestConfig(leagues=(), carry_in_season="", test_season="", refit_every_days=14)
-    feats = ("h2h_gd", "h2h_goals", "form_ppg", "form_gd", "form_venue_ppg", "form_goals")
+    feats = ("h2h_gd", "h2h_goals", "form_ppg", "form_gd", "form_venue_ppg", "form_goals",
+             "table_ppg_gap", "table_stakes")
     rows: dict[tuple, list] = {(o, f): [] for o in ("home win", "over 2.5") for f in feats}
     cover = {"matches": 0, "with_h2h": 0, "leagues": 0}
     for carry_s, test_s, leagues in GROUPS:

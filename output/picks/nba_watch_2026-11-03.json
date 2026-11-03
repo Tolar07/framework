@@ -30,9 +30,9 @@
     "total": 225.5
    },
    "code": "SX40SP",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "94-103",
+   "close_value": 0.1203,
    "matchbook": {
     "back": 1.93,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 219.5
    },
    "code": "LNSRXF",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "118-125",
+   "close_value": 0.2179,
    "matchbook": {
     "back": 1.95,
     "listed": true
@@ -104,9 +104,9 @@
     "total": 236.5
    },
    "code": "KYAL2C",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "138-117",
+   "close_value": 0.1516,
    "matchbook": {
     "back": 1.99,
     "listed": true
@@ -141,9 +141,9 @@
     "total": 209.5
    },
    "code": "XL7FP0",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "91-124",
+   "close_value": 0.0564,
    "matchbook": {
     "back": 1.99,
     "listed": true
@@ -178,9 +178,9 @@
     "total": 229.5
    },
    "code": "UBFP20",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "112-117",
+   "close_value": 0.1211,
    "matchbook": {
     "back": 1.85,
     "listed": true
@@ -215,9 +215,9 @@
     "total": 209.5
    },
    "code": "XL7FP0",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "91-124",
+   "close_value": 0.0509,
    "matchbook": {
     "back": 1.99,
     "listed": true

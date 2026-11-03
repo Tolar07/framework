@@ -2,7 +2,7 @@
 ==================================
 
 📅  Tue 03 Nov 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261102-2151-95582b | Phase 3 — live capital (Architect-deployed)
+Run ID: OLPXDV-20261103-0647-e8d563 | Phase 3 — live capital (Architect-deployed)
 Fixtures scanned: 22 · Verified: 20
 KO = kickoff, UK time
 
@@ -22,15 +22,15 @@ KO     Fixture                           Country · League        AI PICK · win
 19:45  Preston v Sheffield United        England · Championship  Over 1.5 goals · 74%     —     —           O74/U51    1273 / Y53  ✓
 20:00  West Brom v Southampton           England · Championship  Over 1.5 goals · 74%     —     —           O74/U52    1273 / Y53  ✓
 
-20:00  Barcelona v Aston Villa           UEFA Champions League   Over 1.5 goals · 92%     —     —           O92/O80    1X90 / Y63  ✓ᴹ
-20:00  Villarreal v PSG                  UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O71    X279 / Y67  ✓ᴹ
-17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Over 1.5 goals · 87%     —     —           O87/O70    1276 / Y69  ✓ᴹ
-20:00  LASK Linz v Slovan Bratislava     UEFA Champions League   Over 1.5 goals · 87%     —     —           O87/O70    1X86 / Y60  ✓ᴹ
-20:00  Feyenoord v Inter                 UEFA Champions League   Over 1.5 goals · 86%     —     —           O86/O68    1277 / Y66  ✓ᴹ
-20:00  Atletico Madrid v Bayern Munich   UEFA Champions League   Over 1.5 goals · 85%     —     —           O85/O67    1276 / Y67  ○ᴹ
-20:00  Bodoe/Glimt v Lille               UEFA Champions League   Over 1.5 goals · 84%     —     —           O84/O64    1276 / Y64  ✓ᴹ
-20:00  Man Utd v Roma                    UEFA Champions League   Over 1.5 goals · 84%     —     —           O84/O64    1275 / Y65  ○ᴹ
-17:45  Shakhtar D v Sporting             UEFA Champions League   Over 1.5 goals · 80%     —     —           O80/O57    1274 / Y59  ✓ᴹ
+20:00  Barcelona v Aston Villa           UEFA Champions League   Over 1.5 goals · 92%     —     —           O92/O81    1X88 / Y67  ✓ᴹ
+17:45  Galatasaray Istanbul v Stuttgart  UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1277 / Y71  ✓ᴹ
+20:00  LASK Linz v Slovan Bratislava     UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1X88 / Y60  ✓ᴹ
+20:00  Villarreal v PSG                  UEFA Champions League   Over 1.5 goals · 88%     —     —           O88/O72    1279 / Y68  ✓ᴹ
+20:00  Feyenoord v Inter                 UEFA Champions League   Over 1.5 goals · 86%     —     —           O86/O68    1277 / Y67  ✓ᴹ
+20:00  Atletico Madrid v Bayern Munich   UEFA Champions League   Over 1.5 goals · 85%     —     —           O85/O66    1276 / Y67  ○ᴹ
+20:00  Bodoe/Glimt v Lille               UEFA Champions League   Over 1.5 goals · 85%     —     —           O85/O66    1X78 / Y63  ✓ᴹ
+20:00  Man Utd v Roma                    UEFA Champions League   Over 1.5 goals · 84%     —     —           O84/O64    1276 / Y65  ○ᴹ
+17:45  Shakhtar D v Sporting             UEFA Champions League   Over 1.5 goals · 80%     —     —           O80/O57    1275 / Y59  ✓ᴹ
 
 19:45  Huddersfield v Luton              England · League One    Over 1.5 goals · 84%     —     —           O84/O64    1277 / Y64  ✓
 19:45  Wigan v Mansfield                 England · League One    Under 3.5 goals · 78%    —     —           O69/U58    1271 / N52  ✓
@@ -100,108 +100,35 @@ Booking codes: PENDING — no deploy-eligible pick resolved on SportyBet today (
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Le Havre v Paris SG | 1-5 | 1X2_HOME | entry 10.02 / close 8.82 | CLV +13.61% | MISS
-Le Havre v Paris SG | 1-5 | 1X2_DRAW | entry 6.97 / close 6.13 | CLV +13.70% | MISS
-Le Havre v Paris SG | 1-5 | UNDER_2_5 | entry 3.33 / close 2.82 | CLV +18.09% | MISS
-Le Havre v Paris SG | 1-5 | UNDER_1_5 | entry 7.6 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Le Havre v Paris SG | 1-5 | UNDER_3_5 | entry 1.96 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Le Havre v Paris SG | 1-5 | DC_1X | entry 3.4 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Le Havre v Paris SG | 1-5 | SB:16|hcp=3.5|Home (+3.5) | entry 1.2 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Le Havre v Paris SG | 1-5 | SB:548||2-5 | entry 1.2 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Cambuur v Go Ahead Eagles | 4-0 | 1X2_HOME | entry 2.87 / close 2.39 | CLV +20.08% | HIT
-Cambuur v Go Ahead Eagles | 4-0 | OVER_2_5 | entry 1.49 / close 1.41 | CLV +5.67% | HIT
-Cambuur v Go Ahead Eagles | 4-0 | OVER_1_5 | entry 1.15 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Cambuur v Go Ahead Eagles | 4-0 | BTTS_YES | entry 1.44 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Cambuur v Go Ahead Eagles | 4-0 | OVER_3_5 | entry 2.15 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Standard v Kortrijk | 1-1 | 1X2_HOME | entry 1.75 / close 1.61 | CLV +8.70% | MISS
-Standard v Kortrijk | 1-1 | UNDER_2_5 | entry 2.15 / close 2.18 | CLV -1.38% | HIT
-Standard v Kortrijk | 1-1 | UNDER_1_5 | entry 4.25 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Standard v Kortrijk | 1-1 | BTTS_NO | entry 2.1 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Standard v Kortrijk | 1-1 | UNDER_3_5 | entry 1.46 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Standard v Kortrijk | 1-1 | DC_1X | entry 1.21 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Beveren v St. Gilloise | 1-2 | 1X2_AWAY | entry 1.51 / close 1.43 | CLV +5.59% | HIT
-Beveren v St. Gilloise | 1-2 | BTTS_NO | entry 2.1 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Beveren v St. Gilloise | 1-2 | DC_X2 | entry 1.15 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | 1X2_HOME | entry 2.08 / close 2.11 | CLV -1.42% | MISS
-M'gladbach v Paderborn | 0-0 | 1X2_DRAW | entry 3.99 / close 3.74 | CLV +6.68% | HIT
-M'gladbach v Paderborn | 0-0 | UNDER_2_5 | entry 2.65 / close 2.39 | CLV +10.88% | HIT
-M'gladbach v Paderborn | 0-0 | UNDER_1_5 | entry 5.9 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | BTTS_NO | entry 2.65 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | UNDER_3_5 | entry 1.7 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Cambuur v Go Ahead Eagles | 4-0 | SB:18|total=4.5|Under 4.5 | entry 1.3 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Standard v Kortrijk | 1-1 | SB:10||Home or Away | entry 1.26 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Beveren v St. Gilloise | 1-2 | SB:10||Home or Away | entry 1.2 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | SB:33||No | entry 1.21 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | DC_1X | entry 1.39 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Cambuur v Go Ahead Eagles | 4-0 | SB:10||Home or Away | entry 1.28 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Beveren v St. Gilloise | 1-2 | SB:16|hcp=2.5|Home (+2.5) | entry 1.25 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-M'gladbach v Paderborn | 0-0 | SB:16|hcp=-1.5|Away (+1.5) | entry 1.26 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Ein Frankfurt v Hamburg | 3-1 | 1X2_DRAW | entry 4.89 / close 4.8 | CLV +1.88% | MISS
-Ein Frankfurt v Hamburg | 3-1 | 1X2_AWAY | entry 5.39 / close 5.5 | CLV -2.00% | MISS
-Ein Frankfurt v Hamburg | 3-1 | UNDER_2_5 | entry 3.0 / close 2.89 | CLV +3.81% | MISS
-Ein Frankfurt v Hamburg | 3-1 | UNDER_1_5 | entry 6.8 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Ein Frankfurt v Hamburg | 3-1 | BTTS_NO | entry 2.55 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Ein Frankfurt v Hamburg | 3-1 | UNDER_3_5 | entry 1.84 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Ein Frankfurt v Hamburg | 3-1 | SB:14|hcp=0:3|Away (0:3) | entry 1.24 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Sonderjyske v FC Copenhagen | 0-2 | 1X2_HOME | entry 6.3 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | 1X2_DRAW | entry 5.0 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | OVER_2_5 | entry 1.5 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | BTTS_YES | entry 1.67 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | OVER_3_5 | entry 2.25 | CLV NO DATA (Flashscore has no prices) | MISS
-Radomiak Radom v Slask Wroclaw | 3-1 | OVER_2_5 | entry 1.57 | CLV NO DATA (Flashscore has no prices) | HIT
-Radomiak Radom v Slask Wroclaw | 3-1 | OVER_1_5 | entry 1.18 | CLV NO DATA (Flashscore has no prices) | HIT
-Radomiak Radom v Slask Wroclaw | 3-1 | BTTS_YES | entry 1.49 | CLV NO DATA (Flashscore has no prices) | HIT
-Radomiak Radom v Slask Wroclaw | 3-1 | OVER_3_5 | entry 2.4 | CLV NO DATA (Flashscore has no prices) | HIT
-Sassuolo v Fiorentina | 2-4 | 1X2_HOME | entry 2.91 | CLV NO DATA (Flashscore has no prices) | MISS
-Sassuolo v Fiorentina | 2-4 | UNDER_1_5 | entry 5.4 | CLV NO DATA (Flashscore has no prices) | MISS
-Sassuolo v Fiorentina | 2-4 | BTTS_NO | entry 2.6 | CLV NO DATA (Flashscore has no prices) | MISS
-Sassuolo v Fiorentina | 2-4 | DC_1X | entry 1.57 | CLV NO DATA (Flashscore has no prices) | MISS
-Lorient v Brest | 0-2 | 1X2_HOME | entry 2.57 | CLV NO DATA (Flashscore has no prices) | MISS
-Lorient v Brest | 0-2 | OVER_2_5 | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
-Lorient v Brest | 0-2 | OVER_1_5 | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
-Lorient v Brest | 0-2 | OVER_3_5 | entry 3.7 | CLV NO DATA (Flashscore has no prices) | MISS
-Lorient v Brest | 0-2 | DC_1X | entry 1.4 | CLV NO DATA (Flashscore has no prices) | MISS
-Red Star v Nancy | 1-4 | 1X2_HOME | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
-Red Star v Nancy | 1-4 | BTTS_NO | entry 1.99 | CLV NO DATA (Flashscore has no prices) | MISS
-Red Star v Nancy | 1-4 | DC_1X | entry 1.37 | CLV NO DATA (Flashscore has no prices) | MISS
-Genclerbirligi SK v Alanyaspor | 5-0 | 1X2_DRAW | entry 3.37 | CLV NO DATA (Flashscore has no prices) | MISS
-Genclerbirligi SK v Alanyaspor | 5-0 | BTTS_NO | entry 2.0 | CLV NO DATA (Flashscore has no prices) | HIT
-GAIS v AIK | 2-1 | 1X2_DRAW | entry 3.8 | CLV NO DATA (Flashscore has no prices) | MISS
-GAIS v AIK | 2-1 | 1X2_AWAY | entry 4.0 | CLV NO DATA (Flashscore has no prices) | MISS
-GAIS v AIK | 2-1 | UNDER_2_5 | entry 2.25 | CLV NO DATA (Flashscore has no prices) | MISS
-GAIS v AIK | 2-1 | UNDER_1_5 | entry 4.6 | CLV NO DATA (Flashscore has no prices) | MISS
-GAIS v AIK | 2-1 | BTTS_NO | entry 2.3 | CLV NO DATA (Flashscore has no prices) | MISS
-Mjallby AIF v Kalmar FF | 0-0 | 1X2_HOME | entry 2.5 | CLV NO DATA (Flashscore has no prices) | MISS
-Mjallby AIF v Kalmar FF | 0-0 | BTTS_NO | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
-Mjallby AIF v Kalmar FF | 0-0 | DC_1X | entry 1.41 | CLV NO DATA (Flashscore has no prices) | HIT
-Sonderjyske v FC Copenhagen | 0-2 | SB:16|hcp=1.5|Home (+1.5) | entry 1.7 | CLV NO DATA (Flashscore has no prices) | MISS
-Radomiak Radom v Slask Wroclaw | 3-1 | SB:10||Home or Away | entry 1.28 | CLV NO DATA (Flashscore has no prices) | HIT
-Sassuolo v Fiorentina | 2-4 | SB:10||Home or Away | entry 1.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Lorient v Brest | 0-2 | SB:10||Home or Away | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
-Red Star v Nancy | 1-4 | SB:10||Home or Away | entry 1.32 | CLV NO DATA (Flashscore has no prices) | HIT
-Genclerbirligi SK v Alanyaspor | 5-0 | SB:10||Home or Away | entry 1.34 | CLV NO DATA (Flashscore has no prices) | HIT
-GAIS v AIK | 2-1 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
-Mjallby AIF v Kalmar FF | 0-0 | SB:10||Home or Away | entry 1.32 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | OVER_1_5 | entry 1.17 | CLV NO DATA (Flashscore has no prices) | HIT
-Sonderjyske v FC Copenhagen | 0-2 | DC_1X | entry 2.45 | CLV NO DATA (Flashscore has no prices) | MISS
-Radomiak Radom v Slask Wroclaw | 3-1 | 1X2_AWAY | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Sassuolo v Fiorentina | 2-4 | UNDER_2_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | MISS
-Sassuolo v Fiorentina | 2-4 | DC_12 | entry 1.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Lorient v Brest | 0-2 | BTTS_YES | entry 1.86 | CLV NO DATA (Flashscore has no prices) | MISS
-Lorient v Brest | 0-2 | DC_12 | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
-Mjallby AIF v Kalmar FF | 0-0 | DC_12 | entry 1.32 | CLV NO DATA (Flashscore has no prices) | MISS
-Sonderjyske v FC Copenhagen | 0-2 | SB:37|total=2.5|Away & Over 2.5 | entry 1.95 | CLV NO DATA (Flashscore has no prices) | MISS
+Benfica v Alverca | 1-0 | 1X2_DRAW | entry 8.53 | CLV NO DATA (Flashscore has no prices) | MISS
+Benfica v Alverca | 1-0 | 1X2_AWAY | entry 15.63 | CLV NO DATA (Flashscore has no prices) | MISS
+Benfica v Alverca | 1-0 | UNDER_2_5 | entry 3.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Benfica v Alverca | 1-0 | UNDER_1_5 | entry 6.8 | CLV NO DATA (Flashscore has no prices) | HIT
+Benfica v Alverca | 1-0 | BTTS_YES | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
+Gil Vicente v Guimaraes | 0-0 | 1X2_HOME | entry 2.93 | CLV NO DATA (Flashscore has no prices) | MISS
+Gil Vicente v Guimaraes | 0-0 | OVER_1_5 | entry 1.41 | CLV NO DATA (Flashscore has no prices) | MISS
+Gil Vicente v Guimaraes | 0-0 | BTTS_NO | entry 1.88 | CLV NO DATA (Flashscore has no prices) | HIT
+Gil Vicente v Guimaraes | 0-0 | OVER_3_5 | entry 4.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Gil Vicente v Guimaraes | 0-0 | DC_1X | entry 1.5 | CLV NO DATA (Flashscore has no prices) | HIT
+Newcastle v Everton | 0-1 | 1X2_DRAW | entry 3.62 | CLV NO DATA (Flashscore has no prices) | MISS
+Newcastle v Everton | 0-1 | BTTS_NO | entry 2.35 | CLV NO DATA (Flashscore has no prices) | HIT
+Benfica v Alverca | 1-0 | SB:18|total=4.5|Under 4.5 | entry 1.38 | CLV NO DATA (Flashscore has no prices) | HIT
+Gil Vicente v Guimaraes | 0-0 | SB:10||Home or Away | entry 1.36 | CLV NO DATA (Flashscore has no prices) | MISS
+Newcastle v Everton | 0-1 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | HIT
+Gil Vicente v Guimaraes | 0-0 | OVER_2_5 | entry 2.25 | CLV NO DATA (Flashscore has no prices) | MISS
+Gil Vicente v Guimaraes | 0-0 | DC_12 | entry 1.36 | CLV NO DATA (Flashscore has no prices) | MISS
+Benfica v Alverca | 1-0 | SB:19|total=4.5|Under 4.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
 
 ============================================================
 
 DETAIL — HR53 full per-fixture audit (not sent to Telegram)
 
 PART 0 — HEADER
-Date: 2026-11-02 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Date: 2026-11-03 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
 Calibration: 1169 legs logged, mean CLV +0.41%
 SOURCE NOTES (where the data came from, not problems):
-  · graded 91 of 371 pending leg(s)
+  · graded 18 of 280 pending leg(s)
   · picks 2026-10-03: 73 graded, 3 pending (Flashscore)
   · picks 2026-10-04: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
   · picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
@@ -232,9 +159,10 @@ SOURCE NOTES (where the data came from, not problems):
   · picks 2026-10-30: 22 graded, 1 pending; 23/24 rated fixtures graded (Flashscore)
   · picks 2026-10-31: 73 graded, 1 pending; 109/110 rated fixtures graded (Flashscore)
   · picks 2026-11-01: 67 graded, 1 pending; 71/72 rated fixtures graded (Flashscore)
+  · picks 2026-11-02: 12 graded, 0 pending; 22/22 rated fixtures graded (Flashscore)
   · picks 2026-10-09: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
   · picks 2026-10-13: 16 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
-  · 3 result(s) Flashscore lacked were taken from FotMob
+  · 2 result(s) Flashscore lacked were taken from FotMob
   · SportyBet events pulled live
   · Eredivisie: 18 fixture(s) priced from SportyBet
   · SportyBet events served from cache (<=60min)
@@ -344,7 +272,7 @@ SOURCE NOTES (where the data came from, not problems):
   · National League: model fitted on last season + 189 match(es) of this season, weighted to recent (half-life 240.0 days)
   · National League: 1 feed name(s) matched to the model's spelling — Scunthorpe United -> Scunthorpe
   · FA Cup: 40 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · FA Cup: 39/40 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
+  · FA Cup: 40/40 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
   · UEFA Nations League: 22 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · UEFA Nations League: national-team history via martj42/international_results — 1105 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-10-06; no odds in this source, so a leg's CLV comes from its SportyBet closing capture
   · UEFA Nations League: national Elo blended into 22 fixture(s)
@@ -370,25 +298,25 @@ SOURCE NOTES (where the data came from, not problems):
   · Turkish Cup: 0/0 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
   · TARGET DAY 2026-11-03: 22 fixture(s) kicking off that day (343 outside the target day excluded)
   · Fixture check (TheSportsDB · ESPN · football-data · FotMob · Flashscore): 20/22 confirmed by two independent sources, 2 one source only, 0 conflict(s)
-  · Learning from 13659 graded singles: Result & total +6.6pp (190/298 won vs 168.5 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.4pp (740/940 won vs 706.8 expected) · DC & total +3.1pp (744/1089 won vs 709.0 expected) · Matchbook close (order 44): Double chance -0.1pp (CLV -0.1% over 83)
-  · losing-market watch: 11 flag(s), 0 approved block(s) in force
+  · Learning from 13689 graded singles: Result & total +6.7pp (191/299 won vs 169.0 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.4pp (747/950 won vs 714.1 expected) · DC & total +3.0pp (747/1097 won vs 713.5 expected) · Matchbook close (order 44): 1st Half Total -2.0pp (CLV -2.0% over 30), Double chance -0.1pp (CLV -0.1% over 83)
+  · losing-market watch: 9 flag(s), 0 approved block(s) in force
   · value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
   · tactical matchup: 18 fixture(s) read from the tactical profiles; weight 0 (fitted on unseen matches; 0 = label only), 0 chance(s) moved (cap ±5%)
   · No forced picks (plan point 3): 22 game(s) whose safest outcome is under 1.20; 22 got no single (no other market 5+ pts over break-even)
-  · No Unders in a shootout (order 43): 24 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
-  · same-result price shopping: 149 outcome(s) dropped for the same bet at a better price under another market
+  · No Unders in a shootout (order 43): 22 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
+  · same-result price shopping: 147 outcome(s) dropped for the same bet at a better price under another market
   · full market ladder: 22 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   · team profiles: 12 deploy pick(s) profiled (last 20 games each side)
   · deploy odds band 1.20–2.00: 22 fixture(s) dropped from THE CALL (price out of band)
   · team news (FotMob): 0 pick(s) checked, 0 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
+  · price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
   · switched shaky picks: 0 moved to a steadier market (order 32)
   · sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
-  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.2%, live 896 @ -4.1% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -6.1%, live 24 @ -6.3% · MARKET est -3.9%, live 218 @ -3.4%
+  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.4%, live 907 @ -4.2% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -5.7%, live 25 @ -4.5% · MARKET est -3.9%, live 218 @ -3.4%
   · logged 0 new paper leg(s) with a live entry price
   · Phase 3 gate: 1169 of 30 legs with logged CLV; mean CLV 0.409
   · experiment engine: singles by "S9 4 a league" — 0 pick(s) kept off (graded)
   · AI Survivor: 16 alive, 0 holding a pick for 2026-11-03 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
-  · 29 graded leg(s) have no football-data closing price (SportyBet markets); their CLV comes from the picks' own SportyBet closing capture
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
@@ -406,15 +334,15 @@ QPR v Burnley (Championship) | QPR·54% | O83 / O62 | 1278 / Y62 | ✓
 Watford v Lincoln City (Championship) | Watford·50% | O78 / O54 | 1276 / Y55 | ✓
 Birmingham v Millwall (Championship) | Birmingham·43% | O72 / U53 | 1273 / Y52 | ✓
 West Brom v Southampton (Championship) | Southampto·40% | O74 / U52 | 1273 / Y53 | ✓
-Galatasaray Istanbul v Stuttgart (Champions League) | Galatasara·43% | O87 / O70 | 1276 / Y69 | ✓
-Shakhtar D v Sporting (Champions League) | Sporting·48% | O80 / O57 | 1274 / Y59 | ✓
-Atletico Madrid v Bayern Munich (Champions League) | Bayern Mun·39% | O85 / O67 | 1276 / Y67 | ○
-Barcelona v Aston Villa (Champions League) | Barcelona·77% | O92 / O80 | 1X90 / Y63 | ✓
-Bodoe/Glimt v Lille (Champions League) | Bodoe/Glim·51% | O84 / O64 | 1276 / Y64 | ✓
-Feyenoord v Inter (Champions League) | Inter·51% | O86 / O68 | 1277 / Y66 | ✓
-LASK Linz v Slovan Bratislava (Champions League) | LASK Linz·68% | O87 / O70 | 1X86 / Y60 | ✓
-Man Utd v Roma (Champions League) | Man Utd·40% | O84 / O64 | 1275 / Y65 | ○
-Villarreal v PSG (Champions League) | PSG·58% | O88 / O71 | X279 / Y67 | ✓
+Galatasaray Istanbul v Stuttgart (Champions League) | Galatasara·45% | O88 / O72 | 1277 / Y71 | ✓
+Shakhtar D v Sporting (Champions League) | Sporting·49% | O80 / O57 | 1275 / Y59 | ✓
+Atletico Madrid v Bayern Munich (Champions League) | Bayern Mun·40% | O85 / O66 | 1276 / Y67 | ○
+Barcelona v Aston Villa (Champions League) | Barcelona·75% | O92 / O81 | 1X88 / Y67 | ✓
+Bodoe/Glimt v Lille (Champions League) | Bodoe/Glim·55% | O85 / O66 | 1X78 / Y63 | ✓
+Feyenoord v Inter (Champions League) | Inter·50% | O86 / O68 | 1277 / Y67 | ✓
+LASK Linz v Slovan Bratislava (Champions League) | LASK Linz·72% | O88 / O72 | 1X88 / Y60 | ✓
+Man Utd v Roma (Champions League) | Man Utd·44% | O84 / O64 | 1276 / Y65 | ○
+Villarreal v PSG (Champions League) | PSG·56% | O88 / O72 | 1279 / Y68 | ✓
 Huddersfield v Luton (League One) | Huddersfie·50% | O84 / O64 | 1277 / Y64 | ✓
 Wigan v Mansfield (League One) | Mansfield·43% | O69 / U58 | 1271 / N52 | ✓
 Northampton v Oldham (League Two) | Northampto·36% | O51 / U76 | 1X70 / N67 | ✓

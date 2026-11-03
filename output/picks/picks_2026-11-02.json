@@ -709,8 +709,8 @@
    "sharp_ev": null,
    "first_price": 1.38,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "bias": {
     "yes": {
      "cell": "SB:18|1.30-1.50",
@@ -876,8 +876,8 @@
    "sharp_ev": -0.0497,
    "first_price": 1.36,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -1052,8 +1052,8 @@
    "sharp_ev": -0.0514,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -2086,7 +2086,7 @@
     "Newcastle v Everton",
     "Red Star v Nancy"
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T19:45:00Z",
@@ -2329,7 +2329,7 @@
     "Gil Vicente v Guimaraes",
     "Benfica v Alverca"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T19:45:00Z",
@@ -3059,7 +3059,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Gil Vicente v Guimaraes",
@@ -3149,7 +3149,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Newcastle v Everton",
@@ -3231,7 +3231,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "RC Deportivo de A Coruna v Osasuna",
@@ -3300,7 +3300,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Tenerife v Andorra",
@@ -3576,7 +3576,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Red Star v Nancy",
@@ -4406,11 +4406,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
      "chance": 0.5574770603808503,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-1"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_2000",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T20:00:00Z",
@@ -4706,11 +4706,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.96,
      "chance": 0.5001261015169955,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-1"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261102_2000",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T20:00:00Z",
@@ -4849,7 +4849,7 @@
     "Lorient v Brest",
     "Gil Vicente v Guimaraes"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261102_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-02T19:45:00Z",

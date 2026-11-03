@@ -1,0 +1,37 @@
+{
+ "date": "2026-11-04",
+ "run_id": "OLPXDV-20261103-0657-01aec8",
+ "generated_at": "2026-11-03T06:57:57Z",
+ "mega_code": null,
+ "accas": [],
+ "picks": [],
+ "picks_dropped": [],
+ "study": [],
+ "players": {
+  "games": [],
+  "notes": [
+   "394 player-game rows added"
+  ],
+  "calibration": {
+   "total": {
+    "share": 1.0,
+    "sd": 18.0
+   },
+   "margin": {
+    "share": 1.0,
+    "sd": 14.247
+   },
+   "h1": {
+    "share": 0.502,
+    "sd": 11.9
+   },
+   "q1": {
+    "share": 0.253,
+    "sd": 8.1
+   }
+  },
+  "projections": [],
+  "gate_open": false
+ },
+ "sent_at": "2026-11-03T06:58:10Z"
+}

@@ -27,14 +27,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-03T19:00Z",
+  "at": "2026-11-03T19:20Z",
   "away_missing_share": 0.29736734309121676,
   "away_unavailable": 5,
   "fotmob_id": 6106266,
   "home_missing_share": 0.12528986562306377,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Barcelona v Aston Villa": {
   "absent": [
@@ -81,12 +81,12 @@
  "Birmingham v Millwall": {
   "absent": [
    {
-    "name": "James Beadle",
+    "name": "August Priske",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "August Priske",
+    "name": "James Beadle",
     "side": "home",
     "type": "injury"
    },
@@ -101,9 +101,9 @@
     "type": "injury"
    },
    {
-    "name": "Ta\u00efryk Arconte",
+    "name": "Jenson Metcalfe",
     "side": "away",
-    "type": "injury"
+    "type": "suspension"
    },
    {
     "name": "Casper de Norre",
@@ -111,14 +111,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-03T19:00Z",
-  "away_missing_share": 0.3011300421516325,
-  "away_unavailable": 6,
+  "at": "2026-11-03T19:20Z",
+  "away_missing_share": 0.23897566100316966,
+  "away_unavailable": 5,
   "fotmob_id": 5836910,
-  "home_missing_share": 0.23347726922181458,
+  "home_missing_share": 0.27617852845690233,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-03T20:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Blackburn v Stoke": {
   "absent": [

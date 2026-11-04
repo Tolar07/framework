@@ -1,0 +1,43 @@
+{
+ "date": "2026-11-04",
+ "run_id": "SHARP-db3a0b19",
+ "fetched_utc": "2026-11-04T06:51:59Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 15,
+ "fixtures_priced_by_exchange": 2,
+ "picks": [
+  {
+   "league": "Championship",
+   "home": "Bristol City",
+   "away": "Wolves",
+   "fixture": "Bristol City v Wolves (Championship)",
+   "kickoff": "2026-11-04T20:00:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Away",
+   "key": "SB:1||Away",
+   "price": 2.2,
+   "outcome_id": "3",
+   "sharp_p": 0.4637,
+   "fair_price": 2.157,
+   "sharp_ev": 0.0201,
+   "code": "NJDNXN",
+   "url": "http://www.sportybet.com/ng/?shareCode=NJDNXN",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-db3a0b19"
+  }
+ ],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

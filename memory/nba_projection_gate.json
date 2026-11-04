@@ -1,27 +1,27 @@
 {
- "at": "2026-11-03T21:48:16Z",
+ "at": "2026-11-04T06:51:48Z",
  "clv": {
-  "mean_pts": 0.08333333333333333,
-  "mean_pts_split": 0.45454545454545453,
-  "n": 24,
-  "n_split": 11,
-  "positive": 0.4583333333333333
+  "mean_pts": 0.07692307692307693,
+  "mean_pts_split": 0.23529411764705882,
+  "n": 39,
+  "n_split": 17,
+  "positive": 0.4358974358974359
  },
- "games": 24,
+ "games": 39,
  "lines": {
-  "n": 158,
+  "n": 257,
   "projection": {
-   "brier": 0.26700596759493667,
-   "logloss": 0.7299533582202251
+   "brier": 0.25522439396887153,
+   "logloss": 0.7054890109363575
   },
   "sharp": {
-   "brier": 0.2375926937974685,
-   "logloss": 0.66802108588204
+   "brier": 0.2415884062645915,
+   "logloss": 0.6761197323915391
   }
  },
  "open": false,
  "why": [
-  "24 graded games < 150",
+  "39 graded games < 150",
   "does not beat the sharp line on both Brier and log loss"
  ]
 }

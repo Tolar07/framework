@@ -1,8 +1,8 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-11-03 08:28Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-11-04 06:52Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
-**All 1161 graded board singles**: stated 79.0%, landed 77.0% (calibration error -2.0 points) at an average price of 1.252, which needs 79.9% to break even. Return -3.7% ± 1.6.
+**All 1183 graded board singles**: stated 78.9%, landed 77.0% (calibration error -1.9 points) at an average price of 1.254, which needs 79.8% to break even. Return -3.6% ± 1.5.
 
 The prediction is not the problem. The price is.
 
@@ -10,10 +10,10 @@ The prediction is not the problem. The price is.
 
 | band | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
-| 1.00–1.25 | 631 | 77.5% | 79.9% | 82.2% | -5.7% ± 2.0 | LOSING |
-| 1.25–1.30 | 349 | 79.4% | 78.9% | 78.9% | +0.6% ± 2.8 | no edge either way |
-| 1.30–1.50 | 173 | 71.1% | 76.7% | 75.6% | -6.0% ± 4.6 | no edge either way |
-| 1.50–2.00 | 8 | 62.5% | 56.6% | 54.8% | +13.7% ± 33.5 | no edge either way |
+| 1.00–1.25 | 633 | 77.4% | 79.9% | 82.2% | -5.8% ± 2.0 | LOSING |
+| 1.25–1.30 | 356 | 79.2% | 78.9% | 78.9% | +0.4% ± 2.7 | no edge either way |
+| 1.30–1.50 | 184 | 71.7% | 76.7% | 75.6% | -5.1% ± 4.4 | no edge either way |
+| 1.50–2.00 | 10 | 70.0% | 57.2% | 55.8% | +24.1% ± 27.4 | no edge either way |
 | 2.00+ | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
 
 ## By tier
@@ -21,9 +21,9 @@ The prediction is not the problem. The price is.
 | tier | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
 | BANKER | 3 | 100.0% | 76.1% | 80.0% | +25.0% ± 2.1 | ahead |
-| BOOK | 25 | 76.0% | 77.5% | 79.0% | -4.5% ± 11.0 | no edge either way |
-| MARKET | 218 | 78.0% | 80.0% | 80.7% | -3.4% ± 3.5 | no edge either way |
-| SAFE | 907 | 76.7% | 79.0% | 80.0% | -4.2% ± 1.8 | LOSING |
+| BOOK | 26 | 76.9% | 76.9% | 78.4% | -2.4% ± 10.8 | no edge either way |
+| MARKET | 227 | 78.4% | 80.0% | 80.6% | -2.7% ± 3.4 | no edge either way |
+| SAFE | 919 | 76.6% | 78.9% | 79.9% | -4.3% ± 1.8 | LOSING |
 | VALUE | 8 | 75.0% | 55.9% | 55.7% | +32.1% ± 29.4 | no edge either way |
 
 ## The other two populations

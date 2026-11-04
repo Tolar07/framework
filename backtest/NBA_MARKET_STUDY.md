@@ -2,7 +2,7 @@
 
 Each game's last look before tip-off, every outcome settled from ESPN's final and quarter scores. *Landed* = how often it won; *fair* = SportyBet's own chance (its prices, margin removed); *return* = £1 flat on every outcome at SportyBet's price. Landed above fair on a side = SportyBet under-prices it. Written by `backtest/nba_market_study.py`. A study, not a selector.
 
-Games with a look: 160 · graded (ESPN final): 160
+Games with a look: 174 · graded (ESPN final): 160
 
 ## Regular
 

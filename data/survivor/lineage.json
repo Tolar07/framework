@@ -1329,7 +1329,12 @@
    "born_date": "2026-10-24",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-11-04",
+    "fixture": "Cardiff City v West Ham",
+    "pick": "Cardiff City or West Ham",
+    "price": 1.26
+   }
   },
   {
    "lineage_id": "ln_8f07e7d94d",
@@ -1360,6 +1365,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-11-03",
+ "last_bred_date": "2026-11-04",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

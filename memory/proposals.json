@@ -53,5 +53,16 @@
   "status": "open",
   "opened": "2026-10-25",
   "decided": null
+ },
+ {
+  "id": "P6",
+  "segment": "Double chance",
+  "league": "League One",
+  "action": "block",
+  "text": "stop picking Double chance in League One",
+  "evidence": "16/26 won (62%; its prices need 79%), -5.74 units over 6 match day(s)",
+  "status": "open",
+  "opened": "2026-11-04",
+  "decided": null
  }
 ]

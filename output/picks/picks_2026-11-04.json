@@ -4235,5 +4235,143 @@
     "chance_corr": 0.3812
    }
   ]
- }
+ },
+ "replaced": [
+  {
+   "kind": "megas",
+   "name": "Mega 2",
+   "old_code": "KU16ZU",
+   "new_code": "P300EM",
+   "notes": [
+    "Slavia Prague v Arsenal: Arsenal & Over 1.5 dropped (team news: Arsenal missing 18% of value (Bukayo Saka, Max Dowman))"
+   ],
+   "odds": 21.951,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Cardiff City v West Ham",
+     "home": "Cardiff City",
+     "away": "West Ham",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Cardiff City or West Ham",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "PSV Eindhoven v Club Brugge",
+     "home": "PSV Eindhoven",
+     "away": "Club Brugge",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "PSV Eindhoven or Club Brugge",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Borussia Dortmund v Betis",
+     "home": "Borussia Dortmund",
+     "away": "Betis",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Borussia Dortmund or Betis",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Wrexham v Middlesbrough",
+     "home": "Wrexham",
+     "away": "Middlesbrough",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Wrexham or Middlesbrough",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Lens v Como 1907",
+     "home": "Lens",
+     "away": "Como 1907",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Lens or Como 1907",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Porto v Napoli",
+     "home": "Porto",
+     "away": "Napoli",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Porto or Napoli",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Oxford United v Reading",
+     "home": "Oxford United",
+     "away": "Reading",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Oxford United or Reading",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Bristol City v Wolves",
+     "home": "Bristol City",
+     "away": "Wolves",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Bristol City or Wolves",
+     "price": 1.31,
+     "result": null
+    },
+    {
+     "fixture": "Kortrijk v Mechelen",
+     "home": "Kortrijk",
+     "away": "Mechelen",
+     "kickoff": "2026-11-04",
+     "market": "SB:10||Home or Away",
+     "pick": "Kortrijk or Mechelen",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Viking FK v Sabah Masazir",
+     "home": "Viking FK",
+     "away": "Sabah Masazir",
+     "kickoff": "2026-11-04",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "pick": "Viking FK & Over 1.5",
+     "price": 1.46,
+     "result": null
+    },
+    {
+     "fixture": "RB Leipzig v Man City",
+     "home": "RB Leipzig",
+     "away": "Man City",
+     "kickoff": "2026-11-04",
+     "market": "SB:37|total=1.5|Away & Over 1.5",
+     "pick": "Man City & Over 1.5",
+     "price": 1.62,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Cardiff City v West Ham",
+    "PSV Eindhoven v Club Brugge",
+    "Borussia Dortmund v Betis",
+    "Wrexham v Middlesbrough",
+    "Lens v Como 1907",
+    "Porto v Napoli",
+    "Oxford United v Reading",
+    "Bristol City v Wolves",
+    "Kortrijk v Mechelen",
+    "Viking FK v Sabah Masazir",
+    "RB Leipzig v Man City"
+   ]
+  }
+ ]
 }

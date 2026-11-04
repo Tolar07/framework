@@ -1,0 +1,185 @@
+##########OLP XDV#########
+==================================
+
+📅  Wed 04 Nov 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261103-2150-21efe4 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 15 · Verified: 15
+KO = kickoff, UK time
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League        AI PICK · win%                      Odds   Alt market                                      O1.5/O2.5  DC/BTTS     Src
+19:30  Kortrijk v Mechelen              Belgium · Pro League    ✓ Kortrijk or Mechelen · 75%        @1.32  Kortrijk or Mechelen & Under 4.5 @1.55          O68/U59    1272 / N53  ✓
+
+19:45  Cardiff City v West Ham          England · Championship  ✓ Cardiff City or West Ham · 81%    @1.27  Cardiff City or West Ham & Over 2.5 @1.61       O91/O76    1280 / Y74  ✓
+19:45  Wrexham v Middlesbrough          England · Championship  ✓ Wrexham or Middlesbrough · 80%    @1.26  Wrexham or Middlesbrough & Under 3.5 @1.92      O78/O55    1276 / Y56  ✓
+20:00  Bristol City v Wolves            England · Championship  ✓ Bristol City or Wolves · 77%      @1.31  Wolves Under 1.5 goals @1.72                    O73/U53    1273 / Y52  ✓
+
+15:30  Rennes v Olympiacos              UEFA Europa League      Rennes or Olympiacos · 78%          @1.31  Rennes or Olympiacos & Under 3.5 @1.88          O78/O55    1273 / Y59  ✓ᴹ
+
+20:00  PSV Eindhoven v Club Brugge      UEFA Champions League   PSV Eindhoven or Club Brugge · 81%  @1.25  PSV Eindhoven or Club Brugge & Under 4.5 @1.88  O88/O72    1277 / Y71  ✓ᴹ
+20:00  Borussia Dortmund v Betis        UEFA Champions League   Borussia Dortmund or Betis · 81%    @1.25  Borussia Dortmund & Over 1.5 @1.92              O83/O64    1X77 / Y62  ✓ᴹ
+20:00  Lens v Como 1907                 UEFA Champions League   Lens or Como 1907 · 79%             @1.28  —                                               O83/O62    1275 / Y63  ✓ᴹ
+20:00  Porto v Napoli                   UEFA Champions League   Porto or Napoli · 78%               @1.29  —                                               O78/O55    1274 / Y57  ✓ᴹ
+17:45  AEK Athens v Real Madrid         UEFA Champions League   Real Madrid & Over 1.5 · 77%        @1.29  —                                               O89/O74    X291 / Y57  ✓ᴹ
+20:00  Slavia Prague v Arsenal          UEFA Champions League   Arsenal & Over 1.5 · 73%            @1.38  —                                               O82/O63    X291 / N54  ✓ᴹ
+20:00  Viking FK v Sabah Masazir        UEFA Champions League   Viking FK & Over 1.5 · 69%          @1.46  —                                               O87/O71    1X86 / Y60  ✓ᴹ
+17:45  Fenerbahce Istanbul v Liverpool  UEFA Champions League   Liverpool & Over 1.5 · 64%          @1.59  —                                               O86/O69    X283 / Y62  ✓ᴹ
+20:00  RB Leipzig v Man City            UEFA Champions League   Man City & Over 1.5 · 62%           @1.62  —                                               O88/O73    X281 / Y67  ✓ᴹ
+
+19:45  Oxford United v Reading          England · League One    ✓ Oxford United or Reading · 78%    @1.30  Oxford United or Reading & Under 4.5 @1.59      O74/U51    1X75 / Y52  ✓
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 Mega 1 (2 legs · odds 2 · chance 1 in 2): WGWRKF   load ↦ www.sportybet.com/ng/?shareCode=WGWRKF
+TABLE 1 Mega 2 (12 legs · odds 30 · chance 1 in 27): KU16ZU   load ↦ www.sportybet.com/ng/?shareCode=KU16ZU
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League        Pick                          Chance  Odds   Certainty  Stake  Code
+19:30  Kortrijk v Mechelen              Belgium · Pro League    ✓ Kortrijk or Mechelen        75%     @1.32  HIGH       0.25%  P6FGVV
+19:45  Cardiff City v West Ham          England · Championship  ✓ Cardiff City or West Ham    81%     @1.27  MEDIUM     0.25%  S8G137
+19:45  Wrexham v Middlesbrough          England · Championship  ✓ Wrexham or Middlesbrough    80%     @1.26  HIGH       0.25%  GKWFTD
+20:00  Bristol City v Wolves            England · Championship  ✓ Bristol City or Wolves      77%     @1.31  HIGH       0.25%  XURWMD
+15:30  Rennes v Olympiacos              UEFA Europa League      Rennes or Olympiacos          78%     @1.31  LOW        0.12%  KYAC8X
+17:45  AEK Athens v Real Madrid         UEFA Champions League   Real Madrid & Over 1.5        77%     @1.29  LOW        0.12%  UYUH8H
+17:45  Fenerbahce Istanbul v Liverpool  UEFA Champions League   Liverpool & Over 1.5          64%     @1.59  LOW        0.12%  VTUYZ3
+20:00  Borussia Dortmund v Betis        UEFA Champions League   Borussia Dortmund or Betis    81%     @1.25  LOW        0.12%  VJXHXU
+20:00  Lens v Como 1907                 UEFA Champions League   Lens or Como 1907             79%     @1.28  LOW        0.12%  HCNRCM
+20:00  Porto v Napoli                   UEFA Champions League   Porto or Napoli               78%     @1.29  LOW        0.12%  JSDB20
+20:00  PSV Eindhoven v Club Brugge      UEFA Champions League   PSV Eindhoven or Club Brugge  81%     @1.25  LOW        0.12%  RWQ16A
+20:00  RB Leipzig v Man City            UEFA Champions League   Man City & Over 1.5           62%     @1.62  LOW        0.12%  XC97EQ
+20:00  Slavia Prague v Arsenal          UEFA Champions League   Arsenal & Over 1.5            73%     @1.38  LOW        0.12%  L9UQM6
+20:00  Viking FK v Sabah Masazir        UEFA Champions League   Viking FK & Over 1.5          69%     @1.46  LOW        0.12%  LKQW2M
+19:45  Oxford United v Reading          England · League One    ✓ Oxford United or Reading    78%     @1.30  HIGH       0.25%  LK42QK
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 14 of 15 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 1 quoted by no second book.
+Sharp check: 0 of 2 picks priced above the Betfair Exchange's fair odds (margin removed; average -4.0% vs fair). Above fair = real value; below = the bookmaker's margin.
+
+⚠ TEAM NEWS — 3 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • CAUTION: AEK Athens v Real Madrid (🏆 UEFA Champions League) — Real Madrid missing 16% of value (Aurélien Tchouaméni, Rodrygo, Raúl Asencio)
+   • RISK: Fenerbahce Istanbul v Liverpool (🏆 UEFA Champions League) — Liverpool missing 27% of value (Ryan Gravenberch, Hugo Ekitiké, Jeremie Frimpong); support: Fenerbahçe missing 34%
+   • RISK: Slavia Prague v Arsenal (🏆 UEFA Champions League) — Arsenal missing 28% of value (William Saliba, Bukayo Saka, Max Dowman)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Kortrijk v Mechelen: tempo 2.8 goals/game · draw tendency 21% · a side often fails to score | Kortrijk 0.3-2.1 a game, draws 11%, BTTS 22%, clean sheets 11%, SoT 3.0-5.4 | Mechelen 1.0-2.2 a game, draws 30%, BTTS 50%, clean sheets 15%, SoT 2.8-5.9
+   • Cardiff City v West Ham: tempo 3.5 goals/game · draw tendency 35% · both draw-prone · open, high-scoring pairing | Cardiff 1.5-1.5 a game, draws 38%, BTTS 69%, clean sheets 8%, SoT 6.2-5.4 | West Ham 2.5-1.4 a game, draws 31%, BTTS 69%, clean sheets 31%, SoT 6.5-3.5
+   • Wrexham v Middlesbrough: tempo 3.2 goals/game · draw tendency 35% · both draw-prone · open, high-scoring pairing | Wrexham 1.2-1.6 a game, draws 35%, BTTS 60%, clean sheets 20%, SoT 3.4-4.5 | Middlesbrough 2.1-1.4 a game, draws 35%, BTTS 75%, clean sheets 20%, SoT 6.6-3.5
+   • Bristol City v Wolves: tempo 2.8 goals/game · draw tendency 24% | Bristol City 1.2-1.3 a game, draws 25%, BTTS 55%, clean sheets 25%, SoT 4.5-3.5 | Wolves 1.8-1.2 a game, draws 23%, BTTS 62%, clean sheets 31%, SoT 4.2-3.9
+   • Oxford United v Reading: tempo 2.6 goals/game · draw tendency 36% · both draw-prone | Oxford 1.7-0.9 a game, draws 42%, BTTS 67%, clean sheets 33%, SoT 4.8-3.9 | Reading 1.6-1.1 a game, draws 30%, BTTS 55%, clean sheets 30%, SoT 4.2-4.2
+
+MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ = another market fits the matchup better):
+   • Kortrijk v Mechelen: Kortrijk: blunt attack v tight defence; Kortrijk: counter side v counter-exposed -> no strong goals lean · xG 1.41-1.01 · BTTS 48% · O2.5 44% · corners ~9.7 · pick 73% on the matchup
+   • Cardiff City v West Ham: Cardiff City: aerial threat v weak in the air; Cardiff City: high press v build-up side; West Ham United: elite attack v leaky defence -> BTTS & goals · xG 2.42-1.54 · BTTS 72% · O2.5 76% · corners ~11.4 · pick 81% on the matchup
+   • Wrexham v Middlesbrough: Wrexham: blunt attack v tight defence; Middlesbrough: counter side v counter-exposed -> no strong goals lean · xG 0.94-1.74 · BTTS 50% · O2.5 50% · corners ~10.4 · pick 76% on the matchup
+   • Bristol City v Wolves: Wolverhampton Wanderers: possession side v low block -> no strong goals lean · xG 1.15-1.16 · BTTS 47% · O2.5 41% · corners ~11.0 · pick 72% on the matchup
+   • Rennes v Olympiacos: Rennes: high press v build-up side; Olympiacos: elite attack v leaky defence -> no strong goals lean · xG 1.89-1.10 · BTTS 57% · O2.5 57% · corners ~11.5 · pick 78% on the matchup
+   • AEK Athens v Real Madrid: Real Madrid: counter side v high line -> BTTS & goals · xG 1.94-1.47 · BTTS 66% · O2.5 66% · corners ~10.0 · pick 24% on the matchup
+   • Fenerbahce Istanbul v Liverpool: Fenerbahçe: counter side v high line; Fenerbahçe: high press v build-up side; Liverpool: high press v build-up side -> BTTS & goals · xG 1.68-1.88 · BTTS 69% · O2.5 69% · corners ~10.2 · pick 38% on the matchup
+   • Borussia Dortmund v Betis: both high lines + an elite attack; Real Betis: counter side v high line -> BTTS & goals · xG 2.04-1.31 · BTTS 64% · O2.5 65% · corners ~10.5 · pick 79% on the matchup
+   • Lens v Como 1907: Lens: counter side v high line -> BTTS & goals · xG 1.67-1.37 · BTTS 61% · O2.5 59% · corners ~9.8 · pick 76% on the matchup
+   • Porto v Napoli: no tactical clash flagged -> BTTS & goals · xG 1.91-1.23 · BTTS 60% · O2.5 61% · corners ~9.4 · pick 78% on the matchup
+   • PSV Eindhoven v Club Brugge: PSV Eindhoven: high press v build-up side; PSV Eindhoven: elite attack v leaky defence -> BTTS & goals · xG 2.29-2.21 · BTTS 80% · O2.5 83% · corners ~10.1 · pick 81% on the matchup
+   • RB Leipzig v Man City: both high lines + an elite attack; RB Leipzig: set-piece threat v weak set-piece defence; RB Leipzig: aerial threat v weak in the air -> BTTS & goals · xG 1.64-1.80 · BTTS 67% · O2.5 67% · corners ~10.7 · pick 36% on the matchup
+   • Oxford United v Reading: Reading: counter side v high line -> BTTS · xG 1.31-1.62 · BTTS 58% · O2.5 56% · corners ~11.0 · pick 76% on the matchup
+
+TABLE 2 Mega 1 (2 legs · odds 2 · chance 1 in 2): WGWRKF   load ↦ www.sportybet.com/ng/?shareCode=WGWRKF
+TABLE 2 Mega 2 (12 legs · odds 30 · chance 1 in 27): KU16ZU   load ↦ www.sportybet.com/ng/?shareCode=KU16ZU
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+2 accas · 8 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+5 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code PENDING · 4 legs · odds 2.60 · chance 41%
+   • 19:45 Cardiff City v West Ham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Cardiff City or West Ham @1.27 (81%)
+   • 20:00 PSV Eindhoven v Club Brugge (🏆 UEFA Champions League) — PSV Eindhoven or Club Brugge @1.25 (81%)
+   • 19:45 Oxford United v Reading (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Oxford United or Reading @1.30 (78%)
+   • 19:45 Wrexham v Middlesbrough (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Wrexham or Middlesbrough @1.26 (80%)
+Acca B · code PENDING · 4 legs · odds 2.70 · chance 39%
+   • 20:00 Lens v Como 1907 (🏆 UEFA Champions League) — Lens or Como 1907 @1.28 (79%)
+   • 20:00 Borussia Dortmund v Betis (🏆 UEFA Champions League) — Borussia Dortmund or Betis @1.25 (81%)
+   • 20:00 Porto v Napoli (🏆 UEFA Champions League) — Porto or Napoli @1.29 (78%)
+   • 20:00 Bristol City v Wolves (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Bristol City or Wolves @1.31 (77%)
+
+Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
+TABLE 3 Mega 1 (2 legs · odds 2 · chance 1 in 2): WGWRKF   load ↦ www.sportybet.com/ng/?shareCode=WGWRKF
+TABLE 3 Mega 2 (12 legs · odds 30 · chance 1 in 27): KU16ZU   load ↦ www.sportybet.com/ng/?shareCode=KU16ZU
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code HUQQDJ · 19:45 Oxford United v Reading (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — Reading Under 1.5 goals @1.69 (60%, value +2.0% · model 71% vs SportyBet 57%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Cardiff City v West Ham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Cardiff City or West Ham (81%) @1.27 · code S8G137
+Acca A: 4 legs, model 41% · code PENDING
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
+Calibration: 1191 legs logged, mean CLV +0.41%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+──────────────────────────────────
+TABLE 3D · BOTH TEAMS TO SCORE
+(5 BTTS-yes singles, 50%+ model chance, one code each)
+──────────────────────────────────
+   • 19:45 Cardiff City v West Ham (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.41 (model 70%, fair 1.44) · HSVBGY
+   • 19:45 Wrexham v Middlesbrough (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.63 (model 58%, fair 1.73) · GQRY6T
+   • 19:45 Oxford United v Reading (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · League One) — BTTS yes @1.56 (model 55%, fair 1.81) · VHU1LG
+   • 20:00 Bristol City v Wolves (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.76 (model 55%, fair 1.83) · JHYTNU
+   • 19:30 Kortrijk v Mechelen (🇧🇪 Belgium · Pro League) — BTTS yes @1.64 (model 51%, fair 1.94) · HVXW03
+
+ALL CODES
+CLV acca A: Y3Z1HC (4 legs · odds 2.50 · 43% · positive-CLV markets)
+CLV acca B: JUCZGW (4 legs · odds 2.81 · 37% · positive-CLV markets)
+BTTS 1: HSVBGY (single · both teams to score)
+BTTS 2: GQRY6T (single · both teams to score)
+BTTS 3: VHU1LG (single · both teams to score)
+BTTS 4: JHYTNU (single · both teams to score)
+BTTS 5: HVXW03 (single · both teams to score)
+Mega 1: WGWRKF (2 legs · odds 2 · stake 0.1%)
+Mega 2: KU16ZU (12 legs · odds 30 · stake 0.1%)
+Acca A: PENDING (4 legs · odds 2.60 · 41% · stake 0.25%)
+Acca B: PENDING (4 legs · odds 2.70 · 39% · stake 0.25%)
+Value 1: HUQQDJ (1 leg · positive value · odds 1.69 · 60% · stake 0.25%)

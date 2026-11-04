@@ -1,0 +1,9811 @@
+{
+ "date": "2026-11-05",
+ "run_id": "OLPXDV-20261104-0651-02510d",
+ "generated_at": "2026-11-04T06:51:14Z",
+ "mega_code": null,
+ "accas": [
+  {
+   "name": "NBA acca A",
+   "code": "LR8HY8",
+   "legs": [
+    "sr:match:73719518",
+    "sr:match:73719524",
+    "sr:match:73719526",
+    "sr:match:73719528",
+    "sr:match:73719530",
+    "sr:match:73719532"
+   ],
+   "odds": 49.78,
+   "result": null
+  },
+  {
+   "name": "NBA acca B",
+   "code": "RK87EW",
+   "legs": [
+    "sr:match:73719534",
+    "sr:match:73719536",
+    "sr:match:73719538",
+    "sr:match:73719540",
+    "sr:match:73719542"
+   ],
+   "odds": 27.44,
+   "result": null
+  }
+ ],
+ "picks": [
+  {
+   "market_id": "68",
+   "specifier": "total=118.5",
+   "outcome": "Under 118.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5596,
+   "fair_price": 1.787,
+   "ev": 0.1192,
+   "stage": "regular",
+   "event_id": "sr:match:73719518",
+   "home_key": "WAS",
+   "away_key": "ATL",
+   "espn_id": "401909923",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:00:00+00:00",
+   "home": "Washington Wizards",
+   "away": "Atlanta Hawks",
+   "pick": "1st half Under 118.5 points",
+   "sharp": {
+    "ml_home": 2.2,
+    "ml_away": 1.7042,
+    "spread": 2.5,
+    "total": 232.5
+   },
+   "code": "YRDHQZ",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": true
+   },
+   "projection_chance": 0.6658
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=113.5",
+   "outcome": "Over 113.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6226,
+   "fair_price": 1.606,
+   "ev": 0.183,
+   "stage": "regular",
+   "event_id": "sr:match:73719524",
+   "home_key": "NYK",
+   "away_key": "CHI",
+   "espn_id": "401909926",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:30:00+00:00",
+   "home": "New York Knicks",
+   "away": "Chicago Bulls",
+   "pick": "1st half Over 113.5 points",
+   "sharp": {
+    "ml_home": 1.1675,
+    "ml_away": 5.43,
+    "spread": -11.5,
+    "total": 233.5
+   },
+   "code": "RG66KL",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.5671
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=111.5",
+   "outcome": "Over 111.5",
+   "outcome_id": "12",
+   "price": 1.91,
+   "chance": 0.6062,
+   "fair_price": 1.65,
+   "ev": 0.1579,
+   "stage": "regular",
+   "event_id": "sr:match:73719526",
+   "home_key": "MEM",
+   "away_key": "IND",
+   "espn_id": "401909927",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T01:00:00+00:00",
+   "home": "Memphis Grizzlies",
+   "away": "Indiana Pacers",
+   "pick": "1st half Over 111.5 points",
+   "sharp": {
+    "ml_home": 1.4016,
+    "ml_away": 3.05,
+    "spread": -6.5,
+    "total": 228.5
+   },
+   "code": "PYSKGT",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": true
+   },
+   "projection_chance": 0.6602
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=114.5",
+   "outcome": "Over 114.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6227,
+   "fair_price": 1.606,
+   "ev": 0.1832,
+   "stage": "regular",
+   "event_id": "sr:match:73719528",
+   "home_key": "NOP",
+   "away_key": "UTA",
+   "espn_id": "401909928",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T01:00:00+00:00",
+   "home": "New Orleans Pelicans",
+   "away": "Utah Jazz",
+   "pick": "1st half Over 114.5 points",
+   "sharp": {
+    "ml_home": 1.4608,
+    "ml_away": 2.8,
+    "spread": -5.5,
+    "total": 235.5
+   },
+   "code": "PYSKGU",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": true
+   },
+   "projection_chance": 0.5606
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=110.5",
+   "outcome": "Over 110.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6382,
+   "fair_price": 1.567,
+   "ev": 0.2125,
+   "stage": "regular",
+   "event_id": "sr:match:73719530",
+   "home_key": "OKC",
+   "away_key": "CLE",
+   "espn_id": "401909929",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T01:00:00+00:00",
+   "home": "Oklahoma City Thunder",
+   "away": "Cleveland Cavaliers",
+   "pick": "1st half Over 110.5 points",
+   "sharp": {
+    "ml_home": 1.7407,
+    "ml_away": 2.14,
+    "spread": -2.5,
+    "total": 228.5
+   },
+   "code": "Q7YMZ7",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.6934
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=106.5",
+   "outcome": "Over 106.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6377,
+   "fair_price": 1.568,
+   "ev": 0.2115,
+   "stage": "regular",
+   "event_id": "sr:match:73719532",
+   "home_key": "HOU",
+   "away_key": "MIN",
+   "espn_id": "401909930",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T01:30:00+00:00",
+   "home": "Houston Rockets",
+   "away": "Minnesota Timberwolves",
+   "pick": "1st half Over 106.5 points",
+   "sharp": {
+    "ml_home": 1.3226,
+    "ml_away": 3.51,
+    "spread": -8.5,
+    "total": 220.5
+   },
+   "code": "MYV82P",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.6281
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=111.5",
+   "outcome": "Over 111.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6383,
+   "fair_price": 1.567,
+   "ev": 0.2127,
+   "stage": "regular",
+   "event_id": "sr:match:73719534",
+   "home_key": "DEN",
+   "away_key": "TOR",
+   "espn_id": "401909931",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T02:00:00+00:00",
+   "home": "Denver Nuggets",
+   "away": "Toronto Raptors",
+   "pick": "1st half Over 111.5 points",
+   "sharp": {
+    "ml_home": 1.5208,
+    "ml_away": 2.6,
+    "spread": -4.5,
+    "total": 230.5
+   },
+   "code": "NR5UMX",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.643
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=116.5",
+   "outcome": "Under 116.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5765,
+   "fair_price": 1.735,
+   "ev": 0.1529,
+   "stage": "regular",
+   "event_id": "sr:match:73719536",
+   "home_key": "PHX",
+   "away_key": "POR",
+   "espn_id": "401909932",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T02:00:00+00:00",
+   "home": "Phoenix Suns",
+   "away": "Portland Trail Blazers",
+   "pick": "1st half Under 116.5 points",
+   "sharp": {
+    "ml_home": 2.3,
+    "ml_away": 1.6452,
+    "spread": 3.5,
+    "total": 227.5
+   },
+   "code": "ZMZSZM",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.4709
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=116.5",
+   "outcome": "Under 116.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5765,
+   "fair_price": 1.735,
+   "ev": 0.1529,
+   "stage": "regular",
+   "event_id": "sr:match:73719538",
+   "home_key": "SAS",
+   "away_key": "DAL",
+   "espn_id": "401909933",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T02:30:00+00:00",
+   "home": "San Antonio Spurs",
+   "away": "Dallas Mavericks",
+   "pick": "1st half Under 116.5 points",
+   "sharp": {
+    "ml_home": 1.1835,
+    "ml_away": 5.11,
+    "spread": -11.5,
+    "total": 227.5
+   },
+   "code": "QSAT15",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   },
+   "projection_chance": 0.5566
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=113.5",
+   "outcome": "Over 113.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6385,
+   "fair_price": 1.566,
+   "ev": 0.2132,
+   "stage": "regular",
+   "event_id": "sr:match:73719540",
+   "home_key": "SAC",
+   "away_key": "LAL",
+   "espn_id": "401909934",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T03:00:00+00:00",
+   "home": "Sacramento Kings",
+   "away": "Los Angeles Lakers",
+   "pick": "1st half Over 113.5 points",
+   "sharp": {
+    "ml_home": 5.29,
+    "ml_away": 1.1742,
+    "spread": 11.5,
+    "total": 234.5
+   },
+   "code": "HZ0QAS",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.67,
+    "listed": true
+   },
+   "projection_chance": 0.7647
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=113.5",
+   "outcome": "Over 113.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.6226,
+   "fair_price": 1.606,
+   "ev": 0.183,
+   "stage": "regular",
+   "event_id": "sr:match:73719542",
+   "home_key": "LAC",
+   "away_key": "MIA",
+   "espn_id": "401909935",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T03:30:00+00:00",
+   "home": "LA Clippers",
+   "away": "Miami Heat",
+   "pick": "1st half Over 113.5 points",
+   "sharp": {
+    "ml_home": 2.71,
+    "ml_away": 1.4878,
+    "spread": 5.5,
+    "total": 233.5
+   },
+   "code": "P9HZLB",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": true
+   },
+   "projection_chance": 0.572
+  }
+ ],
+ "picks_dropped": [],
+ "study": [
+  {
+   "tip": "2026-11-05T00:00:00+00:00",
+   "stage": "regular",
+   "home": "Detroit Pistons",
+   "away": "Philadelphia 76ers",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 2.13,
+     "chance": 0.4573,
+     "fair_price": 2.187,
+     "ev": -0.0261
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=1.5",
+     "outcome": "Home (+1.5)",
+     "price": 1.68,
+     "chance": 0.6106,
+     "fair_price": 1.638,
+     "ev": 0.0257
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=229.5",
+     "outcome": "Under 229.5",
+     "price": 1.3,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0282
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=109.5",
+     "outcome": "Over 109.5",
+     "price": 1.87,
+     "chance": 0.524,
+     "fair_price": 1.908,
+     "ev": -0.0201
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=105.5",
+     "outcome": "Under 105.5",
+     "price": 2.3,
+     "chance": 0.4294,
+     "fair_price": 2.329,
+     "ev": -0.0124
+    }
+   ],
+   "espn_id": "401909922",
+   "sb_main": {
+    "225": 217.5
+   },
+   "sharp": {
+    "total": 217.5,
+    "spread": -2.5,
+    "open_total": 219.5,
+    "open_spread": -1.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     110,
+     108
+    ],
+    "margin": {
+     "home 1-5": 0.1432,
+     "away 1-5": 0.1331,
+     "home 6-10": 0.1331,
+     "away 6-10": 0.1095,
+     "home 11+": 0.2954,
+     "away 11+": 0.1859
+    },
+    "total": {
+     "160-169": 0.0032,
+     "170-179": 0.0136,
+     "180-189": 0.0425,
+     "190-199": 0.0987,
+     "200-209": 0.1697,
+     "210-219": 0.2159,
+     "220-229": 0.2033,
+     "230-239": 0.1417,
+     "240-249": 0.0731,
+     "250-259": 0.0279,
+     "260-269": 0.0079,
+     "270-279": 0.0016,
+     "280-289": 0.0003
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T00:00:00+00:00",
+   "stage": "regular",
+   "home": "Washington Wizards",
+   "away": "Atlanta Hawks",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.74,
+     "chance": 0.5635,
+     "fair_price": 1.775,
+     "ev": -0.0195
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=7.5",
+     "outcome": "Away (-7.5)",
+     "price": 2.82,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0231
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=231.5",
+     "outcome": "Over 231.5",
+     "price": 1.87,
+     "chance": 0.5222,
+     "fair_price": 1.915,
+     "ev": -0.0236
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=114.5",
+     "outcome": "Under 114.5",
+     "price": 2.7,
+     "chance": 0.4262,
+     "fair_price": 2.346,
+     "ev": 0.1507
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=59.5|quarternr=1",
+     "outcome": "Under 59.5",
+     "price": 1.97,
+     "chance": 0.5333,
+     "fair_price": 1.875,
+     "ev": 0.0507
+    }
+   ],
+   "espn_id": "401909923",
+   "sb_main": {
+    "225": 231.5,
+    "68": 119.5,
+    "236": 59.5
+   },
+   "sharp": {
+    "total": 232.5,
+    "spread": 2.5,
+    "open_total": 234.5,
+    "open_spread": 1.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     115,
+     118
+    ],
+    "margin": {
+     "home 1-5": 0.1331,
+     "away 1-5": 0.1432,
+     "home 6-10": 0.1095,
+     "away 6-10": 0.1331,
+     "home 11+": 0.1859,
+     "away 11+": 0.2954
+    },
+    "total": {
+     "170-179": 0.0014,
+     "180-189": 0.0068,
+     "190-199": 0.0249,
+     "200-209": 0.0673,
+     "210-219": 0.1344,
+     "220-229": 0.1987,
+     "230-239": 0.2175,
+     "240-249": 0.1762,
+     "250-259": 0.1057,
+     "260-269": 0.0469,
+     "270-279": 0.0154,
+     "280-289": 0.0037,
+     "290-299": 0.0007
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T00:30:00+00:00",
+   "stage": "regular",
+   "home": "Boston Celtics",
+   "away": "Milwaukee Bucks",
+   "lines": [
+    {
+     "market_id": "223",
+     "specifier": "hcp=-14.5",
+     "outcome": "Home (-14.5)",
+     "price": 2.43,
+     "chance": 0.4166,
+     "fair_price": 2.4,
+     "ev": 0.0124
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=235.5",
+     "outcome": "Under 235.5",
+     "price": 1.29,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0357
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=107.5",
+     "outcome": "Over 107.5",
+     "price": 1.48,
+     "chance": 0.6535,
+     "fair_price": 1.53,
+     "ev": -0.0329
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=56.5|quarternr=1",
+     "outcome": "Over 56.5",
+     "price": 1.94,
+     "chance": 0.5022,
+     "fair_price": 1.991,
+     "ev": -0.0257
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=117.5",
+     "outcome": "Over 117.5",
+     "price": 1.92,
+     "chance": 0.5064,
+     "fair_price": 1.975,
+     "ev": -0.0278
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=104.5",
+     "outcome": "Under 104.5",
+     "price": 2.15,
+     "chance": 0.4468,
+     "fair_price": 2.238,
+     "ev": -0.0393
+    }
+   ],
+   "espn_id": "401909924",
+   "sb_main": {
+    "225": 223.5,
+    "68": 112.5,
+    "236": 56.5
+   },
+   "sharp": {
+    "total": 223.5,
+    "spread": -11.5,
+    "open_total": 225.5,
+    "open_spread": -14.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     118,
+     106
+    ],
+    "margin": {
+     "home 1-5": 0.1192,
+     "away 1-5": 0.0851,
+     "home 6-10": 0.138,
+     "away 6-10": 0.0563,
+     "home 11+": 0.5389,
+     "away 11+": 0.0625
+    },
+    "total": {
+     "160-169": 0.0012,
+     "170-179": 0.0059,
+     "180-189": 0.0222,
+     "190-199": 0.0618,
+     "200-209": 0.1271,
+     "210-219": 0.1937,
+     "220-229": 0.2185,
+     "230-239": 0.1824,
+     "240-249": 0.1127,
+     "250-259": 0.0516,
+     "260-269": 0.0174,
+     "270-279": 0.0044,
+     "280-289": 0.0008
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T00:30:00+00:00",
+   "stage": "regular",
+   "home": "Brooklyn Nets",
+   "away": "Charlotte Hornets",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.63,
+     "chance": 0.5934,
+     "fair_price": 1.685,
+     "ev": -0.0328
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=9.5",
+     "outcome": "Away (-9.5)",
+     "price": 3.0,
+     "chance": 0.3368,
+     "fair_price": 2.969,
+     "ev": 0.0105
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=226.5",
+     "outcome": "Under 226.5",
+     "price": 1.27,
+     "chance": 0.7649,
+     "fair_price": 1.307,
+     "ev": -0.0286
+    }
+   ],
+   "espn_id": "401909925",
+   "sb_main": {
+    "225": 213.5
+   },
+   "sharp": {
+    "total": 213.5,
+    "spread": 3.5,
+    "open_total": 214.5,
+    "open_spread": 2.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     105,
+     108
+    ],
+    "margin": {
+     "home 1-5": 0.1292,
+     "away 1-5": 0.1431,
+     "home 6-10": 0.1037,
+     "away 6-10": 0.1363,
+     "home 11+": 0.1674,
+     "away 11+": 0.3203
+    },
+    "total": {
+     "150-159": 0.0012,
+     "160-169": 0.0059,
+     "170-179": 0.0222,
+     "180-189": 0.0618,
+     "190-199": 0.1271,
+     "200-209": 0.1937,
+     "210-219": 0.2185,
+     "220-229": 0.1824,
+     "230-239": 0.1127,
+     "240-249": 0.0516,
+     "250-259": 0.0174,
+     "260-269": 0.0044,
+     "270-279": 0.0008
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T00:30:00+00:00",
+   "stage": "regular",
+   "home": "New York Knicks",
+   "away": "Chicago Bulls",
+   "lines": [
+    {
+     "market_id": "223",
+     "specifier": "hcp=-6.5",
+     "outcome": "Away (+6.5)",
+     "price": 2.94,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0667
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=245.5",
+     "outcome": "Under 245.5",
+     "price": 1.3,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0282
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=116.5",
+     "outcome": "Over 116.5",
+     "price": 2.35,
+     "chance": 0.524,
+     "fair_price": 1.908,
+     "ev": 0.2315
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=57.5|quarternr=1",
+     "outcome": "Over 57.5",
+     "price": 1.95,
+     "chance": 0.5771,
+     "fair_price": 1.733,
+     "ev": 0.1254
+    }
+   ],
+   "espn_id": "401909926",
+   "sb_main": {
+    "225": 233.5,
+    "68": 113.5,
+    "236": 57.5
+   },
+   "sharp": {
+    "total": 233.5,
+    "spread": -11.5,
+    "open_total": 232.5,
+    "open_spread": -12.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     122,
+     111
+    ],
+    "margin": {
+     "home 1-5": 0.1192,
+     "away 1-5": 0.0851,
+     "home 6-10": 0.138,
+     "away 6-10": 0.0563,
+     "home 11+": 0.5389,
+     "away 11+": 0.0625
+    },
+    "total": {
+     "170-179": 0.0012,
+     "180-189": 0.0059,
+     "190-199": 0.0222,
+     "200-209": 0.0618,
+     "210-219": 0.1271,
+     "220-229": 0.1937,
+     "230-239": 0.2185,
+     "240-249": 0.1824,
+     "250-259": 0.1127,
+     "260-269": 0.0516,
+     "270-279": 0.0174,
+     "280-289": 0.0044,
+     "290-299": 0.0008
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T01:00:00+00:00",
+   "stage": "regular",
+   "home": "Memphis Grizzlies",
+   "away": "Indiana Pacers",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.42,
+     "chance": 0.6851,
+     "fair_price": 1.46,
+     "ev": -0.0271
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-11.5",
+     "outcome": "Home (-11.5)",
+     "price": 2.89,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0485
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=221.5",
+     "outcome": "Under 221.5",
+     "price": 2.88,
+     "chance": 0.3487,
+     "fair_price": 2.868,
+     "ev": 0.0042
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=116.5",
+     "outcome": "Over 116.5",
+     "price": 2.75,
+     "chance": 0.4401,
+     "fair_price": 2.272,
+     "ev": 0.2103
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=56.5|quarternr=1",
+     "outcome": "Over 56.5",
+     "price": 1.97,
+     "chance": 0.5643,
+     "fair_price": 1.772,
+     "ev": 0.1116
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=116.5",
+     "outcome": "Under 116.5",
+     "price": 2.1,
+     "chance": 0.4584,
+     "fair_price": 2.181,
+     "ev": -0.0373
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=110.5",
+     "outcome": "Under 110.5",
+     "price": 2.1,
+     "chance": 0.482,
+     "fair_price": 2.075,
+     "ev": 0.0122
+    },
+    {
+     "market_id": "18",
+     "specifier": "total=230.5",
+     "outcome": "Under 230.5",
+     "price": 1.77,
+     "chance": 0.5692,
+     "fair_price": 1.757,
+     "ev": 0.0075
+    },
+    {
+     "market_id": "66",
+     "specifier": "hcp=-4.5",
+     "outcome": "Home (-4.5)",
+     "price": 2.1,
+     "chance": 0.4874,
+     "fair_price": 2.052,
+     "ev": 0.0236
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-2.5|quarternr=1",
+     "outcome": "Home (-2.5)",
+     "price": 2.0,
+     "chance": 0.4833,
+     "fair_price": 2.069,
+     "ev": -0.0335
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-3.5|quarternr=2",
+     "outcome": "Home (-3.5)",
+     "price": 2.35,
+     "chance": 0.4275,
+     "fair_price": 2.339,
+     "ev": 0.0047
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-3.5|quarternr=3",
+     "outcome": "Home (-3.5)",
+     "price": 2.25,
+     "chance": 0.4337,
+     "fair_price": 2.306,
+     "ev": -0.0243
+    }
+   ],
+   "espn_id": "401909927",
+   "sb_main": {
+    "225": 229.5,
+    "68": 111.5,
+    "236": 56.5
+   },
+   "sharp": {
+    "total": 228.5,
+    "spread": -6.5,
+    "open_total": 230.5,
+    "open_spread": -6.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     118,
+     111
+    ],
+    "margin": {
+     "home 1-5": 0.1387,
+     "away 1-5": 0.1147,
+     "home 6-10": 0.1421,
+     "away 6-10": 0.0856,
+     "home 11+": 0.3995,
+     "away 11+": 0.1194
+    },
+    "total": {
+     "170-179": 0.0027,
+     "180-189": 0.0119,
+     "190-199": 0.0384,
+     "200-209": 0.092,
+     "210-219": 0.163,
+     "220-229": 0.2136,
+     "230-239": 0.2073,
+     "240-249": 0.1489,
+     "250-259": 0.0792,
+     "260-269": 0.0311,
+     "270-279": 0.0091,
+     "280-289": 0.002,
+     "290-299": 0.0003
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T01:00:00+00:00",
+   "stage": "regular",
+   "home": "New Orleans Pelicans",
+   "away": "Utah Jazz",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.49,
+     "chance": 0.6572,
+     "fair_price": 1.522,
+     "ev": -0.0208
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-10.5",
+     "outcome": "Home (-10.5)",
+     "price": 2.92,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0594
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=232.5",
+     "outcome": "Over 232.5",
+     "price": 1.71,
+     "chance": 0.5662,
+     "fair_price": 1.766,
+     "ev": -0.0318
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=117.5",
+     "outcome": "Over 117.5",
+     "price": 2.35,
+     "chance": 0.5242,
+     "fair_price": 1.908,
+     "ev": 0.2318
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=57.5|quarternr=1",
+     "outcome": "Over 57.5",
+     "price": 1.86,
+     "chance": 0.6014,
+     "fair_price": 1.663,
+     "ev": 0.1186
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=122.5",
+     "outcome": "Over 122.5",
+     "price": 2.3,
+     "chance": 0.436,
+     "fair_price": 2.293,
+     "ev": 0.0029
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=117.5",
+     "outcome": "Under 117.5",
+     "price": 1.65,
+     "chance": 0.5872,
+     "fair_price": 1.703,
+     "ev": -0.0311
+    },
+    {
+     "market_id": "18",
+     "specifier": "total=235.5",
+     "outcome": "Over 235.5",
+     "price": 2.05,
+     "chance": 0.4768,
+     "fair_price": 2.097,
+     "ev": -0.0225
+    },
+    {
+     "market_id": "66",
+     "specifier": "hcp=-5.5",
+     "outcome": "Home (-5.5)",
+     "price": 2.4,
+     "chance": 0.4284,
+     "fair_price": 2.334,
+     "ev": 0.0281
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-3.5|quarternr=1",
+     "outcome": "Home (-3.5)",
+     "price": 2.3,
+     "chance": 0.4198,
+     "fair_price": 2.382,
+     "ev": -0.0344
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-3.5|quarternr=2",
+     "outcome": "Home (-3.5)",
+     "price": 2.45,
+     "chance": 0.4128,
+     "fair_price": 2.422,
+     "ev": 0.0115
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=-3.5|quarternr=3",
+     "outcome": "Home (-3.5)",
+     "price": 2.35,
+     "chance": 0.4189,
+     "fair_price": 2.387,
+     "ev": -0.0156
+    }
+   ],
+   "espn_id": "401909928",
+   "sb_main": {
+    "225": 235.5,
+    "68": 114.5,
+    "236": 57.5
+   },
+   "sharp": {
+    "total": 235.5,
+    "spread": -5.5,
+    "open_total": 235.5,
+    "open_spread": -5.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     120,
+     115
+    ],
+    "margin": {
+     "home 1-5": 0.1408,
+     "away 1-5": 0.1199,
+     "home 6-10": 0.1408,
+     "away 6-10": 0.0917,
+     "home 11+": 0.3725,
+     "away 11+": 0.1342
+    },
+    "total": {
+     "180-189": 0.0044,
+     "190-199": 0.0174,
+     "200-209": 0.0516,
+     "210-219": 0.1127,
+     "220-229": 0.1824,
+     "230-239": 0.2185,
+     "240-249": 0.1937,
+     "250-259": 0.1271,
+     "260-269": 0.0618,
+     "270-279": 0.0222,
+     "280-289": 0.0059,
+     "290-299": 0.0012
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T01:00:00+00:00",
+   "stage": "regular",
+   "home": "Oklahoma City Thunder",
+   "away": "Cleveland Cavaliers",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 2.15,
+     "chance": 0.4486,
+     "fair_price": 2.229,
+     "ev": -0.0356
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=1.5",
+     "outcome": "Home (+1.5)",
+     "price": 1.66,
+     "chance": 0.6106,
+     "fair_price": 1.638,
+     "ev": 0.0135
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=227.5",
+     "outcome": "Over 227.5",
+     "price": 1.88,
+     "chance": 0.5222,
+     "fair_price": 1.915,
+     "ev": -0.0184
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=111.5",
+     "outcome": "Over 111.5",
+     "price": 2.05,
+     "chance": 0.6062,
+     "fair_price": 1.65,
+     "ev": 0.2428
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=55.5|quarternr=1",
+     "outcome": "Over 55.5",
+     "price": 1.87,
+     "chance": 0.6123,
+     "fair_price": 1.633,
+     "ev": 0.1449
+    }
+   ],
+   "espn_id": "401909929",
+   "sb_main": {
+    "225": 227.5,
+    "68": 110.5,
+    "236": 55.5
+   },
+   "sharp": {
+    "total": 228.5,
+    "spread": -2.5,
+    "open_total": 227.5,
+    "open_spread": -2.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     116,
+     113
+    ],
+    "margin": {
+     "home 1-5": 0.1432,
+     "away 1-5": 0.1331,
+     "home 6-10": 0.1331,
+     "away 6-10": 0.1095,
+     "home 11+": 0.2954,
+     "away 11+": 0.1859
+    },
+    "total": {
+     "170-179": 0.0027,
+     "180-189": 0.0119,
+     "190-199": 0.0384,
+     "200-209": 0.092,
+     "210-219": 0.163,
+     "220-229": 0.2136,
+     "230-239": 0.2073,
+     "240-249": 0.1489,
+     "250-259": 0.0792,
+     "260-269": 0.0311,
+     "270-279": 0.0091,
+     "280-289": 0.002,
+     "290-299": 0.0003
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T01:30:00+00:00",
+   "stage": "regular",
+   "home": "Houston Rockets",
+   "away": "Minnesota Timberwolves",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.32,
+     "chance": 0.7263,
+     "fair_price": 1.377,
+     "ev": -0.0413
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-13.5",
+     "outcome": "Home (-13.5)",
+     "price": 2.86,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0376
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=223.5",
+     "outcome": "Over 223.5",
+     "price": 2.24,
+     "chance": 0.4338,
+     "fair_price": 2.305,
+     "ev": -0.0283
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=107.5",
+     "outcome": "Over 107.5",
+     "price": 2.05,
+     "chance": 0.6057,
+     "fair_price": 1.651,
+     "ev": 0.2417
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=53.5|quarternr=1",
+     "outcome": "Over 53.5",
+     "price": 1.91,
+     "chance": 0.6111,
+     "fair_price": 1.636,
+     "ev": 0.1673
+    }
+   ],
+   "espn_id": "401909930",
+   "sb_main": {
+    "225": 220.5,
+    "68": 106.5,
+    "236": 53.5
+   },
+   "sharp": {
+    "total": 220.5,
+    "spread": -8.5,
+    "open_total": 223.5,
+    "open_spread": -8.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     114,
+     106
+    ],
+    "margin": {
+     "home 1-5": 0.1325,
+     "away 1-5": 0.1033,
+     "home 6-10": 0.1425,
+     "away 6-10": 0.0734,
+     "home 11+": 0.4548,
+     "away 11+": 0.0934
+    },
+    "total": {
+     "160-169": 0.002,
+     "170-179": 0.0091,
+     "180-189": 0.0311,
+     "190-199": 0.0792,
+     "200-209": 0.1489,
+     "210-219": 0.2073,
+     "220-229": 0.2136,
+     "230-239": 0.163,
+     "240-249": 0.092,
+     "250-259": 0.0384,
+     "260-269": 0.0119,
+     "270-279": 0.0027,
+     "280-289": 0.0005
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T02:00:00+00:00",
+   "stage": "regular",
+   "home": "Denver Nuggets",
+   "away": "Toronto Raptors",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.55,
+     "chance": 0.6309,
+     "fair_price": 1.585,
+     "ev": -0.022
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-9.5",
+     "outcome": "Home (-9.5)",
+     "price": 2.84,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0304
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=222.5",
+     "outcome": "Under 222.5",
+     "price": 3.0,
+     "chance": 0.3284,
+     "fair_price": 3.045,
+     "ev": -0.0149
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=112.5",
+     "outcome": "Over 112.5",
+     "price": 2.05,
+     "chance": 0.6064,
+     "fair_price": 1.649,
+     "ev": 0.243
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=56.5|quarternr=1",
+     "outcome": "Over 56.5",
+     "price": 1.96,
+     "chance": 0.5887,
+     "fair_price": 1.699,
+     "ev": 0.1539
+    }
+   ],
+   "espn_id": "401909931",
+   "sb_main": {
+    "225": 231.5,
+    "68": 111.5,
+    "236": 56.5
+   },
+   "sharp": {
+    "total": 230.5,
+    "spread": -4.5,
+    "open_total": 231.5,
+    "open_spread": -5.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     118,
+     113
+    ],
+    "margin": {
+     "home 1-5": 0.1423,
+     "away 1-5": 0.1248,
+     "home 6-10": 0.1389,
+     "away 6-10": 0.0978,
+     "home 11+": 0.346,
+     "away 11+": 0.1502
+    },
+    "total": {
+     "170-179": 0.002,
+     "180-189": 0.0091,
+     "190-199": 0.0311,
+     "200-209": 0.0792,
+     "210-219": 0.1489,
+     "220-229": 0.2073,
+     "230-239": 0.2136,
+     "240-249": 0.163,
+     "250-259": 0.092,
+     "260-269": 0.0384,
+     "270-279": 0.0119,
+     "280-289": 0.0027,
+     "290-299": 0.0005
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T02:00:00+00:00",
+   "stage": "regular",
+   "home": "Phoenix Suns",
+   "away": "Portland Trail Blazers",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.66,
+     "chance": 0.583,
+     "fair_price": 1.715,
+     "ev": -0.0322
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=8.5",
+     "outcome": "Away (-8.5)",
+     "price": 2.8,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0159
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=239.5",
+     "outcome": "Under 239.5",
+     "price": 1.3,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0282
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=112.5",
+     "outcome": "Under 112.5",
+     "price": 2.7,
+     "chance": 0.443,
+     "fair_price": 2.257,
+     "ev": 0.1962
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=58.5|quarternr=1",
+     "outcome": "Under 58.5",
+     "price": 1.95,
+     "chance": 0.5463,
+     "fair_price": 1.83,
+     "ev": 0.0653
+    }
+   ],
+   "espn_id": "401909932",
+   "sb_main": {
+    "225": 227.5,
+    "68": 117.5,
+    "236": 58.5
+   },
+   "sharp": {
+    "total": 227.5,
+    "spread": 3.5,
+    "open_total": 228.5,
+    "open_spread": 3.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     112,
+     116
+    ],
+    "margin": {
+     "home 1-5": 0.1292,
+     "away 1-5": 0.1431,
+     "home 6-10": 0.1037,
+     "away 6-10": 0.1363,
+     "home 11+": 0.1674,
+     "away 11+": 0.3203
+    },
+    "total": {
+     "170-179": 0.0032,
+     "180-189": 0.0136,
+     "190-199": 0.0425,
+     "200-209": 0.0987,
+     "210-219": 0.1697,
+     "220-229": 0.2159,
+     "230-239": 0.2033,
+     "240-249": 0.1417,
+     "250-259": 0.0731,
+     "260-269": 0.0279,
+     "270-279": 0.0079,
+     "280-289": 0.0016,
+     "290-299": 0.0003
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T02:30:00+00:00",
+   "stage": "regular",
+   "home": "San Antonio Spurs",
+   "away": "Dallas Mavericks",
+   "lines": [
+    {
+     "market_id": "223",
+     "specifier": "hcp=-6.5",
+     "outcome": "Away (+6.5)",
+     "price": 2.82,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0231
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=237.5",
+     "outcome": "Under 237.5",
+     "price": 1.36,
+     "chance": 0.7107,
+     "fair_price": 1.407,
+     "ev": -0.0334
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=112.5",
+     "outcome": "Under 112.5",
+     "price": 2.7,
+     "chance": 0.443,
+     "fair_price": 2.257,
+     "ev": 0.1962
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=58.5|quarternr=1",
+     "outcome": "Under 58.5",
+     "price": 1.95,
+     "chance": 0.5463,
+     "fair_price": 1.83,
+     "ev": 0.0653
+    }
+   ],
+   "espn_id": "401909933",
+   "sb_main": {
+    "225": 227.5,
+    "68": 117.5,
+    "236": 58.5
+   },
+   "sharp": {
+    "total": 227.5,
+    "spread": -11.5,
+    "open_total": 229.5,
+    "open_spread": 12.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     120,
+     108
+    ],
+    "margin": {
+     "home 1-5": 0.1192,
+     "away 1-5": 0.0851,
+     "home 6-10": 0.138,
+     "away 6-10": 0.0563,
+     "home 11+": 0.5389,
+     "away 11+": 0.0625
+    },
+    "total": {
+     "170-179": 0.0032,
+     "180-189": 0.0136,
+     "190-199": 0.0425,
+     "200-209": 0.0987,
+     "210-219": 0.1697,
+     "220-229": 0.2159,
+     "230-239": 0.2033,
+     "240-249": 0.1417,
+     "250-259": 0.0731,
+     "260-269": 0.0279,
+     "270-279": 0.0079,
+     "280-289": 0.0016,
+     "290-299": 0.0003
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T03:00:00+00:00",
+   "stage": "regular",
+   "home": "Sacramento Kings",
+   "away": "Los Angeles Lakers",
+   "lines": [
+    {
+     "market_id": "223",
+     "specifier": "hcp=6.5",
+     "outcome": "Home (+6.5)",
+     "price": 2.86,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.0376
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=246.5",
+     "outcome": "Under 246.5",
+     "price": 1.3,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0282
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=114.5",
+     "outcome": "Over 114.5",
+     "price": 2.05,
+     "chance": 0.6066,
+     "fair_price": 1.648,
+     "ev": 0.2436
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=57.5|quarternr=1",
+     "outcome": "Over 57.5",
+     "price": 1.95,
+     "chance": 0.5893,
+     "fair_price": 1.697,
+     "ev": 0.1491
+    }
+   ],
+   "espn_id": "401909934",
+   "sb_main": {
+    "225": 234.5,
+    "68": 113.5,
+    "236": 57.5
+   },
+   "sharp": {
+    "total": 234.5,
+    "spread": 11.5,
+    "open_total": 238.5,
+    "open_spread": 11.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     112,
+     123
+    ],
+    "margin": {
+     "home 1-5": 0.0851,
+     "away 1-5": 0.1192,
+     "home 6-10": 0.0563,
+     "away 6-10": 0.138,
+     "home 11+": 0.0625,
+     "away 11+": 0.5389
+    },
+    "total": {
+     "180-189": 0.0051,
+     "190-199": 0.0197,
+     "200-209": 0.0565,
+     "210-219": 0.1199,
+     "220-229": 0.1883,
+     "230-239": 0.2188,
+     "240-249": 0.1883,
+     "250-259": 0.1199,
+     "260-269": 0.0565,
+     "270-279": 0.0197,
+     "280-289": 0.0051,
+     "290-299": 0.001
+    }
+   },
+   "score": null
+  },
+  {
+   "tip": "2026-11-05T03:30:00+00:00",
+   "stage": "regular",
+   "home": "LA Clippers",
+   "away": "Miami Heat",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.49,
+     "chance": 0.6456,
+     "fair_price": 1.549,
+     "ev": -0.0381
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=10.5",
+     "outcome": "Away (-10.5)",
+     "price": 2.93,
+     "chance": 0.3628,
+     "fair_price": 2.756,
+     "ev": 0.063
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=245.5",
+     "outcome": "Under 245.5",
+     "price": 1.3,
+     "chance": 0.7475,
+     "fair_price": 1.338,
+     "ev": -0.0282
+    },
+    {
+     "market_id": "68",
+     "specifier": "total=116.5",
+     "outcome": "Over 116.5",
+     "price": 2.35,
+     "chance": 0.524,
+     "fair_price": 1.908,
+     "ev": 0.2315
+    },
+    {
+     "market_id": "236",
+     "specifier": "total=57.5|quarternr=1",
+     "outcome": "Over 57.5",
+     "price": 1.95,
+     "chance": 0.5771,
+     "fair_price": 1.733,
+     "ev": 0.1254
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=113.5",
+     "outcome": "Under 113.5",
+     "price": 2.05,
+     "chance": 0.476,
+     "fair_price": 2.101,
+     "ev": -0.0242
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=120.5",
+     "outcome": "Over 120.5",
+     "price": 2.1,
+     "chance": 0.4651,
+     "fair_price": 2.15,
+     "ev": -0.0233
+    },
+    {
+     "market_id": "18",
+     "specifier": "total=230.5",
+     "outcome": "Under 230.5",
+     "price": 2.15,
+     "chance": 0.4537,
+     "fair_price": 2.204,
+     "ev": -0.0245
+    },
+    {
+     "market_id": "66",
+     "specifier": "hcp=5.5",
+     "outcome": "Away (-5.5)",
+     "price": 2.4,
+     "chance": 0.4284,
+     "fair_price": 2.334,
+     "ev": 0.0281
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=2.5|quarternr=1",
+     "outcome": "Away (-2.5)",
+     "price": 2.1,
+     "chance": 0.4674,
+     "fair_price": 2.14,
+     "ev": -0.0185
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=2.5|quarternr=2",
+     "outcome": "Away (-2.5)",
+     "price": 2.2,
+     "chance": 0.4608,
+     "fair_price": 2.17,
+     "ev": 0.0139
+    },
+    {
+     "market_id": "303",
+     "specifier": "hcp=3.5|quarternr=3",
+     "outcome": "Away (-3.5)",
+     "price": 2.35,
+     "chance": 0.4189,
+     "fair_price": 2.387,
+     "ev": -0.0156
+    }
+   ],
+   "espn_id": "401909935",
+   "sb_main": {
+    "225": 233.5,
+    "68": 113.5,
+    "236": 57.5
+   },
+   "sharp": {
+    "total": 233.5,
+    "spread": 5.5,
+    "open_total": 233.5,
+    "open_spread": 4.5
+   },
+   "espn_date": "2026-11-05",
+   "shape": {
+    "score": [
+     114,
+     120
+    ],
+    "margin": {
+     "home 1-5": 0.1199,
+     "away 1-5": 0.1408,
+     "home 6-10": 0.0917,
+     "away 6-10": 0.1408,
+     "home 11+": 0.1342,
+     "away 11+": 0.3725
+    },
+    "total": {
+     "170-179": 0.0012,
+     "180-189": 0.0059,
+     "190-199": 0.0222,
+     "200-209": 0.0618,
+     "210-219": 0.1271,
+     "220-229": 0.1937,
+     "230-239": 0.2185,
+     "240-249": 0.1824,
+     "250-259": 0.1127,
+     "260-269": 0.0516,
+     "270-279": 0.0174,
+     "280-289": 0.0044,
+     "290-299": 0.0008
+    }
+   },
+   "score": null
+  }
+ ],
+ "players": {
+  "games": [
+   {
+    "espn_id": "401909922",
+    "tip": "2026-11-05T00:00Z",
+    "home": "DET",
+    "away": "PHI",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "DET",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4395702",
+       "name": "Isaiah Joe",
+       "status": "Out"
+      },
+      {
+       "id": "4433621",
+       "name": "Jalen Duren",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "4432166",
+      "3157465",
+      "4278562"
+     ],
+     "starters": [
+      "Cade Cunningham",
+      "Duncan Robinson",
+      "Paul Reed",
+      "John Collins",
+      "Ausar Thompson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4432166",
+       "name": "Cade Cunningham",
+       "gp": 7,
+       "min": 32.57,
+       "pts": 23.71,
+       "min10": 32.57,
+       "pts10": 23.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3157465",
+       "name": "Duncan Robinson",
+       "gp": 7,
+       "min": 30.14,
+       "pts": 17.86,
+       "min10": 30.14,
+       "pts10": 17.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4278562",
+       "name": "Paul Reed",
+       "gp": 7,
+       "min": 27.0,
+       "pts": 13.43,
+       "min10": 27.0,
+       "pts10": 13.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5107199",
+       "name": "Daniss Jenkins",
+       "gp": 7,
+       "min": 24.29,
+       "pts": 9.86,
+       "min10": 24.29,
+       "pts10": 9.86,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4684742",
+       "name": "Ausar Thompson",
+       "gp": 6,
+       "min": 26.33,
+       "pts": 9.67,
+       "min10": 26.33,
+       "pts10": 9.67,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "3908845",
+       "name": "John Collins",
+       "gp": 7,
+       "min": 25.43,
+       "pts": 8.43,
+       "min10": 25.43,
+       "pts10": 8.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "2596112",
+       "name": "Javonte Green",
+       "gp": 7,
+       "min": 19.0,
+       "pts": 6.71,
+       "min10": 19.0,
+       "pts10": 6.71,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4066372",
+       "name": "Kevin Huerter",
+       "gp": 7,
+       "min": 20.43,
+       "pts": 6.29,
+       "min10": 20.43,
+       "pts10": 6.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683771",
+       "name": "Ronald Holland II",
+       "gp": 7,
+       "min": 16.29,
+       "pts": 6.14,
+       "min10": 16.29,
+       "pts10": 6.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4700852",
+       "name": "Chaz Lanier",
+       "gp": 3,
+       "min": 4.0,
+       "pts": 4.33,
+       "min10": 4.0,
+       "pts10": 4.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2990962",
+       "name": "Taurean Prince",
+       "gp": 2,
+       "min": 6.5,
+       "pts": 2.0,
+       "min10": 6.5,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5258459",
+       "name": "Ebuka Okorie",
+       "gp": 4,
+       "min": 3.75,
+       "pts": 1.5,
+       "min10": 3.75,
+       "pts10": 1.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397882",
+       "name": "Tolu Smith",
+       "gp": 6,
+       "min": 3.83,
+       "pts": 0.83,
+       "min10": 3.83,
+       "pts10": 0.83,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5107818",
+       "name": "Isaac Jones",
+       "gp": 3,
+       "min": 4.0,
+       "pts": 0.67,
+       "min10": 4.0,
+       "pts10": 0.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397449",
+       "name": "Elijah Harkless",
+       "gp": 1,
+       "min": 3.0,
+       "pts": 0.0,
+       "min10": 3.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "PHI",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "4870562",
+       "name": "Dominick Barlow",
+       "status": "Out"
+      },
+      {
+       "id": "4871141",
+       "name": "Ariel Hukporti",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "4431678",
+      "3917376",
+      "3059318"
+     ],
+     "starters": [
+      "Tyrese Maxey",
+      "Jaylen Brown",
+      "VJ Edgecombe",
+      "LeBron James",
+      "Joel Embiid"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4431678",
+       "name": "Tyrese Maxey",
+       "gp": 8,
+       "min": 37.5,
+       "pts": 29.12,
+       "min10": 37.5,
+       "pts10": 29.12,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3917376",
+       "name": "Jaylen Brown",
+       "gp": 7,
+       "min": 36.14,
+       "pts": 20.57,
+       "min10": 36.14,
+       "pts10": 20.57,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "3059318",
+       "name": "Joel Embiid",
+       "gp": 6,
+       "min": 33.33,
+       "pts": 18.5,
+       "min10": 33.33,
+       "pts10": 18.5,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "1966",
+       "name": "LeBron James",
+       "gp": 6,
+       "min": 33.0,
+       "pts": 16.17,
+       "min10": 33.0,
+       "pts10": 16.17,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "5124612",
+       "name": "VJ Edgecombe",
+       "gp": 7,
+       "min": 33.29,
+       "pts": 12.71,
+       "min10": 33.29,
+       "pts10": 12.71,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4351851",
+       "name": "Anfernee Simons",
+       "gp": 8,
+       "min": 24.5,
+       "pts": 11.25,
+       "min10": 24.5,
+       "pts10": 11.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2581018",
+       "name": "Kentavious Caldwell-Pope",
+       "gp": 8,
+       "min": 22.88,
+       "pts": 5.88,
+       "min10": 22.88,
+       "pts10": 5.88,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3912848",
+       "name": "Dean Wade",
+       "gp": 6,
+       "min": 27.0,
+       "pts": 4.33,
+       "min10": 27.0,
+       "pts10": 4.33,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4432446",
+       "name": "Jabari Walker",
+       "gp": 5,
+       "min": 8.0,
+       "pts": 4.0,
+       "min10": 8.0,
+       "pts10": 4.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4873090",
+       "name": "Labaron Philon Jr.",
+       "gp": 5,
+       "min": 7.0,
+       "pts": 2.4,
+       "min10": 7.0,
+       "pts10": 2.4,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5099752",
+       "name": "Rayan Rupert",
+       "gp": 1,
+       "min": 2.0,
+       "pts": 2.0,
+       "min10": 2.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105637",
+       "name": "Adem Bona",
+       "gp": 8,
+       "min": 14.12,
+       "pts": 1.75,
+       "min10": 14.12,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4711297",
+       "name": "Justin Edwards",
+       "gp": 3,
+       "min": 1.67,
+       "pts": 0.67,
+       "min10": 1.67,
+       "pts10": 0.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433144",
+       "name": "Caleb Love",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3904625",
+       "name": "Tacko Fall",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909923",
+    "tip": "2026-11-05T00:00Z",
+    "home": "WSH",
+    "away": "ATL",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "WSH",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4432187",
+       "name": "Reece Beekman",
+       "status": "Out"
+      },
+      {
+       "id": "4997537",
+       "name": "Tristan Vukcevic",
+       "status": "Out"
+      },
+      {
+       "id": "4432907",
+       "name": "Justin Champagnie",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "2581184",
+       "name": "Anthony Gill",
+       "status": "Day-To-Day"
+      },
+      {
+       "id": "5160992",
+       "name": "Alex Sarr",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "6583",
+      "4277905",
+      "5142718"
+     ],
+     "starters": [
+      "Trae Young",
+      "Anthony Davis",
+      "Kyshawn George",
+      "Alex Sarr",
+      "AJ Dybantsa"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "6583",
+       "name": "Anthony Davis",
+       "gp": 7,
+       "min": 33.57,
+       "pts": 23.0,
+       "min10": 33.57,
+       "pts10": 23.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4277905",
+       "name": "Trae Young",
+       "gp": 7,
+       "min": 36.14,
+       "pts": 19.86,
+       "min10": 36.14,
+       "pts10": 19.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5142718",
+       "name": "AJ Dybantsa",
+       "gp": 3,
+       "min": 30.0,
+       "pts": 19.0,
+       "min10": 30.0,
+       "pts10": 19.0,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "5174563",
+       "name": "Kyshawn George",
+       "gp": 7,
+       "min": 32.43,
+       "pts": 16.14,
+       "min10": 32.43,
+       "pts10": 16.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5160992",
+       "name": "Alex Sarr",
+       "gp": 6,
+       "min": 25.5,
+       "pts": 9.33,
+       "min10": 25.5,
+       "pts10": 9.33,
+       "status": "Day-To-Day",
+       "starts5": 4
+      },
+      {
+       "id": "5238230",
+       "name": "Tre Johnson",
+       "gp": 6,
+       "min": 21.0,
+       "pts": 9.33,
+       "min10": 21.0,
+       "pts10": 9.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5104155",
+       "name": "Bilal Coulibaly",
+       "gp": 7,
+       "min": 27.29,
+       "pts": 8.14,
+       "min10": 27.29,
+       "pts10": 8.14,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4845374",
+       "name": "Bub Carrington",
+       "gp": 7,
+       "min": 19.71,
+       "pts": 6.14,
+       "min10": 19.71,
+       "pts10": 6.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4278129",
+       "name": "Deandre Ayton",
+       "gp": 7,
+       "min": 15.71,
+       "pts": 5.43,
+       "min10": 15.71,
+       "pts10": 5.43,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "6609",
+       "name": "Khris Middleton",
+       "gp": 5,
+       "min": 13.8,
+       "pts": 2.4,
+       "min10": 13.8,
+       "pts10": 2.4,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105841",
+       "name": "Felix Okpara",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 1.0,
+       "min10": 1.0,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5144126",
+       "name": "Will Riley",
+       "gp": 5,
+       "min": 3.0,
+       "pts": 0.8,
+       "min10": 3.0,
+       "pts10": 0.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2581184",
+       "name": "Anthony Gill",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4432819",
+       "name": "Tre Mann",
+       "gp": 2,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "ATL",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "3146557",
+       "name": "Jock Landale",
+       "status": "Out"
+      },
+      {
+       "id": "4712863",
+       "name": "Mouhamed Gueye",
+       "status": "Out"
+      },
+      {
+       "id": "5105571",
+       "name": "Henri Veesaar",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4701230",
+       "name": "Jalen Johnson",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4278039",
+      "4701230",
+      "2490149"
+     ],
+     "starters": [
+      "Nickeil Alexander-Walker",
+      "Dyson Daniels",
+      "Onyeka Okongwu",
+      "CJ McCollum",
+      "Jalen Johnson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4278039",
+       "name": "Nickeil Alexander-Walker",
+       "gp": 8,
+       "min": 30.12,
+       "pts": 21.12,
+       "min10": 30.12,
+       "pts10": 21.12,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4701230",
+       "name": "Jalen Johnson",
+       "gp": 7,
+       "min": 32.71,
+       "pts": 18.29,
+       "min10": 32.71,
+       "pts10": 18.29,
+       "status": "Day-To-Day",
+       "starts5": 4
+      },
+      {
+       "id": "2490149",
+       "name": "CJ McCollum",
+       "gp": 8,
+       "min": 26.75,
+       "pts": 14.25,
+       "min10": 26.75,
+       "pts10": 14.25,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397183",
+       "name": "Aaron Wiggins",
+       "gp": 8,
+       "min": 25.62,
+       "pts": 13.75,
+       "min10": 25.62,
+       "pts10": 13.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431680",
+       "name": "Onyeka Okongwu",
+       "gp": 8,
+       "min": 28.88,
+       "pts": 12.0,
+       "min10": 28.88,
+       "pts10": 12.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4869342",
+       "name": "Dyson Daniels",
+       "gp": 8,
+       "min": 29.12,
+       "pts": 9.75,
+       "min10": 29.12,
+       "pts10": 9.75,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397020",
+       "name": "Luguentz Dort",
+       "gp": 8,
+       "min": 24.62,
+       "pts": 9.25,
+       "min10": 24.62,
+       "pts10": 9.25,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4280151",
+       "name": "Corey Kispert",
+       "gp": 4,
+       "min": 8.5,
+       "pts": 7.5,
+       "min10": 8.5,
+       "pts10": 7.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5149077",
+       "name": "Kingston Flemings",
+       "gp": 7,
+       "min": 20.29,
+       "pts": 7.14,
+       "min10": 20.29,
+       "pts10": 7.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4873201",
+       "name": "Asa Newell",
+       "gp": 4,
+       "min": 11.25,
+       "pts": 4.0,
+       "min10": 11.25,
+       "pts10": 4.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431941",
+       "name": "RayJ Dennis",
+       "gp": 1,
+       "min": 8.0,
+       "pts": 4.0,
+       "min10": 8.0,
+       "pts10": 4.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106262",
+       "name": "Zuby Ejiofor",
+       "gp": 3,
+       "min": 8.0,
+       "pts": 2.0,
+       "min10": 8.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2578185",
+       "name": "Dorian Finney-Smith",
+       "gp": 3,
+       "min": 4.0,
+       "pts": 1.0,
+       "min10": 4.0,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909924",
+    "tip": "2026-11-05T00:30Z",
+    "home": "BOS",
+    "away": "MIL",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "BOS",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4433188",
+       "name": "Devin Carter",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4066354",
+       "name": "Payton Pritchard",
+       "status": "Day-To-Day"
+      },
+      {
+       "id": "4065648",
+       "name": "Jayson Tatum",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4065648",
+      "4251",
+      "4066354"
+     ],
+     "starters": [
+      "Jayson Tatum",
+      "Derrick White",
+      "Paul George",
+      "Mitchell Robinson",
+      "Jordan Walsh"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4065648",
+       "name": "Jayson Tatum",
+       "gp": 7,
+       "min": 35.14,
+       "pts": 27.0,
+       "min10": 35.14,
+       "pts10": 27.0,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "4251",
+       "name": "Paul George",
+       "gp": 6,
+       "min": 31.0,
+       "pts": 20.67,
+       "min10": 31.0,
+       "pts10": 20.67,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4066354",
+       "name": "Payton Pritchard",
+       "gp": 7,
+       "min": 28.0,
+       "pts": 13.43,
+       "min10": 28.0,
+       "pts10": 13.43,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "3078576",
+       "name": "Derrick White",
+       "gp": 7,
+       "min": 30.0,
+       "pts": 11.14,
+       "min10": 30.0,
+       "pts10": 11.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397424",
+       "name": "Neemias Queta",
+       "gp": 7,
+       "min": 21.57,
+       "pts": 9.86,
+       "min10": 21.57,
+       "pts10": 9.86,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4065804",
+       "name": "Sam Hauser",
+       "gp": 7,
+       "min": 20.0,
+       "pts": 7.14,
+       "min10": 20.0,
+       "pts10": 7.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277951",
+       "name": "Luka Garza",
+       "gp": 7,
+       "min": 12.0,
+       "pts": 7.0,
+       "min10": 12.0,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4351852",
+       "name": "Mitchell Robinson",
+       "gp": 6,
+       "min": 19.17,
+       "pts": 6.17,
+       "min10": 19.17,
+       "pts10": 6.17,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4593841",
+       "name": "Baylor Scheierman",
+       "gp": 7,
+       "min": 19.71,
+       "pts": 5.43,
+       "min10": 19.71,
+       "pts10": 5.43,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3195",
+       "name": "Mike Conley",
+       "gp": 2,
+       "min": 5.5,
+       "pts": 4.5,
+       "min10": 5.5,
+       "pts10": 4.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683689",
+       "name": "Jordan Walsh",
+       "gp": 7,
+       "min": 15.86,
+       "pts": 4.43,
+       "min10": 15.86,
+       "pts10": 4.43,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "5175647",
+       "name": "Hugo Gonzalez",
+       "gp": 7,
+       "min": 12.71,
+       "pts": 3.71,
+       "min10": 12.71,
+       "pts10": 3.71,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "5142621",
+       "name": "Chris Cenac Jr.",
+       "gp": 3,
+       "min": 3.0,
+       "pts": 2.67,
+       "min10": 3.0,
+       "pts10": 2.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397251",
+       "name": "Ron Harper Jr.",
+       "gp": 3,
+       "min": 5.67,
+       "pts": 1.0,
+       "min10": 5.67,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4702745",
+       "name": "Amari Williams",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106283",
+       "name": "Dillon Mitchell",
+       "gp": 1,
+       "min": 2.0,
+       "pts": 0.0,
+       "min10": 2.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "MIL",
+     "games": 7,
+     "stale": [],
+     "out": [],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "4395725",
+      "4432848",
+      "5105623"
+     ],
+     "starters": [
+      "Tyler Herro",
+      "Jaime Jaquez Jr.",
+      "Myles Turner",
+      "Kyle Kuzma",
+      "Ryan Rollins"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4395725",
+       "name": "Tyler Herro",
+       "gp": 7,
+       "min": 30.29,
+       "pts": 21.86,
+       "min10": 30.29,
+       "pts10": 21.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4432848",
+       "name": "Jaime Jaquez Jr.",
+       "gp": 7,
+       "min": 28.0,
+       "pts": 16.57,
+       "min10": 28.0,
+       "pts10": 16.57,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5105623",
+       "name": "Kel'el Ware",
+       "gp": 7,
+       "min": 19.29,
+       "pts": 11.43,
+       "min10": 19.29,
+       "pts10": 11.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4591725",
+       "name": "Ryan Rollins",
+       "gp": 7,
+       "min": 25.0,
+       "pts": 11.0,
+       "min10": 25.0,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "3134907",
+       "name": "Kyle Kuzma",
+       "gp": 7,
+       "min": 26.29,
+       "pts": 10.0,
+       "min10": 26.29,
+       "pts10": 10.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5082206",
+       "name": "Brayden Burries",
+       "gp": 7,
+       "min": 17.29,
+       "pts": 8.86,
+       "min10": 17.29,
+       "pts10": 8.86,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5214640",
+       "name": "Kasparas Jakucionis",
+       "gp": 7,
+       "min": 22.43,
+       "pts": 8.14,
+       "min10": 22.43,
+       "pts10": 8.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3133628",
+       "name": "Myles Turner",
+       "gp": 7,
+       "min": 26.71,
+       "pts": 8.0,
+       "min10": 26.71,
+       "pts10": 8.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397475",
+       "name": "AJ Green",
+       "gp": 7,
+       "min": 19.86,
+       "pts": 7.57,
+       "min10": 19.86,
+       "pts10": 7.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5164559",
+       "name": "Nate Ament",
+       "gp": 5,
+       "min": 14.4,
+       "pts": 6.8,
+       "min10": 14.4,
+       "pts10": 6.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277843",
+       "name": "Gary Trent Jr.",
+       "gp": 2,
+       "min": 6.5,
+       "pts": 3.0,
+       "min10": 6.5,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4997526",
+       "name": "Ousmane Dieng",
+       "gp": 5,
+       "min": 11.8,
+       "pts": 2.4,
+       "min10": 11.8,
+       "pts10": 2.4,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5214989",
+       "name": "Bogoljub Markovic",
+       "gp": 1,
+       "min": 5.0,
+       "pts": 2.0,
+       "min10": 5.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277922",
+       "name": "Jericho Sims",
+       "gp": 3,
+       "min": 8.0,
+       "pts": 0.0,
+       "min10": 8.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2991043",
+       "name": "Caris LeVert",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397140",
+       "name": "Kevin Porter Jr.",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909925",
+    "tip": "2026-11-05T00:30Z",
+    "home": "BKN",
+    "away": "CHA",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "BKN",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "5175643",
+       "name": "Egor Demin",
+       "status": "Out"
+      },
+      {
+       "id": "5105626",
+       "name": "Tyler Bilodeau",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "3064514",
+      "4278104",
+      "5279130"
+     ],
+     "starters": [
+      "Julius Randle",
+      "Michael Porter Jr.",
+      "Day'Ron Sharpe",
+      "Nolan Traore",
+      "Chaney Johnson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3064514",
+       "name": "Julius Randle",
+       "gp": 7,
+       "min": 34.14,
+       "pts": 20.86,
+       "min10": 34.14,
+       "pts10": 20.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4278104",
+       "name": "Michael Porter Jr.",
+       "gp": 7,
+       "min": 32.43,
+       "pts": 20.71,
+       "min10": 32.43,
+       "pts10": 20.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5279130",
+       "name": "Nolan Traore",
+       "gp": 7,
+       "min": 21.43,
+       "pts": 11.43,
+       "min10": 21.43,
+       "pts10": 11.43,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "3150844",
+       "name": "Moritz Wagner",
+       "gp": 7,
+       "min": 18.71,
+       "pts": 11.0,
+       "min10": 18.71,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5101761",
+       "name": "Mikel Brown Jr.",
+       "gp": 5,
+       "min": 23.6,
+       "pts": 10.8,
+       "min10": 23.6,
+       "pts10": 10.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5107173",
+       "name": "Danny Wolf",
+       "gp": 2,
+       "min": 13.5,
+       "pts": 7.5,
+       "min10": 13.5,
+       "pts10": 7.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432194",
+       "name": "Day'Ron Sharpe",
+       "gp": 7,
+       "min": 22.57,
+       "pts": 7.43,
+       "min10": 22.57,
+       "pts10": 7.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4687718",
+       "name": "Josh Minott",
+       "gp": 3,
+       "min": 11.0,
+       "pts": 7.0,
+       "min10": 11.0,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5174655",
+       "name": "Chaney Johnson",
+       "gp": 7,
+       "min": 22.86,
+       "pts": 5.86,
+       "min10": 22.86,
+       "pts10": 5.86,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4712896",
+       "name": "Noah Clowney",
+       "gp": 7,
+       "min": 21.71,
+       "pts": 5.43,
+       "min10": 21.71,
+       "pts10": 5.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4702177",
+       "name": "Keon Ellis",
+       "gp": 7,
+       "min": 24.29,
+       "pts": 5.0,
+       "min10": 24.29,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5242502",
+       "name": "Ben Saraf",
+       "gp": 1,
+       "min": 4.0,
+       "pts": 2.0,
+       "min10": 4.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3907823",
+       "name": "Terance Mann",
+       "gp": 2,
+       "min": 13.5,
+       "pts": 1.0,
+       "min10": 13.5,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5037873",
+       "name": "Drake Powell",
+       "gp": 2,
+       "min": 9.0,
+       "pts": 0.0,
+       "min10": 9.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4870564",
+       "name": "Joshua Jefferson",
+       "gp": 1,
+       "min": 4.0,
+       "pts": 0.0,
+       "min10": 4.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "CHA",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "5061575",
+       "name": "Kon Knueppel",
+       "status": "Out"
+      },
+      {
+       "id": "4066218",
+       "name": "Grant Williams",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4395651",
+       "name": "Coby White",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4433287",
+      "4396971",
+      "3135045"
+     ],
+     "starters": [
+      "Brandon Miller",
+      "Naz Reid",
+      "Moussa Diabate",
+      "Sion James",
+      "Dennis Schroder"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4433287",
+       "name": "Brandon Miller",
+       "gp": 8,
+       "min": 33.75,
+       "pts": 23.5,
+       "min10": 33.75,
+       "pts10": 23.5,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4396971",
+       "name": "Naz Reid",
+       "gp": 8,
+       "min": 28.88,
+       "pts": 15.5,
+       "min10": 28.88,
+       "pts10": 15.5,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3135045",
+       "name": "Grayson Allen",
+       "gp": 8,
+       "min": 26.38,
+       "pts": 14.88,
+       "min10": 26.38,
+       "pts10": 14.88,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3032979",
+       "name": "Dennis Schroder",
+       "gp": 8,
+       "min": 31.25,
+       "pts": 10.88,
+       "min10": 31.25,
+       "pts10": 10.88,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4433249",
+       "name": "Moussa Diabate",
+       "gp": 8,
+       "min": 28.75,
+       "pts": 9.12,
+       "min10": 28.75,
+       "pts10": 9.12,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4395651",
+       "name": "Coby White",
+       "gp": 1,
+       "min": 16.0,
+       "pts": 7.0,
+       "min10": 16.0,
+       "pts10": 7.0,
+       "status": "Day-To-Day",
+       "starts5": 1
+      },
+      {
+       "id": "2583632",
+       "name": "Royce O'Neale",
+       "gp": 8,
+       "min": 18.0,
+       "pts": 5.0,
+       "min10": 18.0,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5211176",
+       "name": "Tidjane Salaun",
+       "gp": 7,
+       "min": 14.43,
+       "pts": 4.71,
+       "min10": 14.43,
+       "pts10": 4.71,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4602025",
+       "name": "Sion James",
+       "gp": 8,
+       "min": 24.62,
+       "pts": 4.62,
+       "min10": 24.62,
+       "pts10": 4.62,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4576060",
+       "name": "Ryan Kalkbrenner",
+       "gp": 8,
+       "min": 16.5,
+       "pts": 4.38,
+       "min10": 16.5,
+       "pts10": 4.38,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5281370",
+       "name": "Hannes Steinbach",
+       "gp": 3,
+       "min": 7.67,
+       "pts": 2.67,
+       "min10": 7.67,
+       "pts10": 2.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5060701",
+       "name": "Christian Anderson",
+       "gp": 8,
+       "min": 10.38,
+       "pts": 2.62,
+       "min10": 10.38,
+       "pts10": 2.62,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5239590",
+       "name": "Liam McNeeley",
+       "gp": 4,
+       "min": 6.75,
+       "pts": 1.75,
+       "min10": 6.75,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4701225",
+       "name": "PJ Hall",
+       "gp": 2,
+       "min": 6.0,
+       "pts": 0.0,
+       "min10": 6.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5176517",
+       "name": "Michael Ajayi",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909926",
+    "tip": "2026-11-05T00:30Z",
+    "home": "NY",
+    "away": "CHI",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "NY",
+     "games": 7,
+     "stale": [],
+     "out": [],
+     "doubtful": [
+      {
+       "id": "3062679",
+       "name": "Josh Hart",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "3934672",
+      "3136195",
+      "3934719"
+     ],
+     "starters": [
+      "Jalen Brunson",
+      "OG Anunoby",
+      "Karl-Anthony Towns",
+      "Josh Hart",
+      "Mikal Bridges"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3934672",
+       "name": "Jalen Brunson",
+       "gp": 7,
+       "min": 34.71,
+       "pts": 24.57,
+       "min10": 34.71,
+       "pts10": 24.57,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3136195",
+       "name": "Karl-Anthony Towns",
+       "gp": 7,
+       "min": 32.14,
+       "pts": 20.29,
+       "min10": 32.14,
+       "pts10": 20.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3934719",
+       "name": "OG Anunoby",
+       "gp": 7,
+       "min": 34.29,
+       "pts": 16.43,
+       "min10": 34.29,
+       "pts10": 16.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3914044",
+       "name": "Landry Shamet",
+       "gp": 7,
+       "min": 24.86,
+       "pts": 9.71,
+       "min10": 24.86,
+       "pts10": 9.71,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3062679",
+       "name": "Josh Hart",
+       "gp": 7,
+       "min": 31.71,
+       "pts": 8.57,
+       "min10": 31.71,
+       "pts10": 8.57,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "4431823",
+       "name": "Miles McBride",
+       "gp": 7,
+       "min": 18.43,
+       "pts": 6.86,
+       "min10": 18.43,
+       "pts10": 6.86,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3147657",
+       "name": "Mikal Bridges",
+       "gp": 7,
+       "min": 25.86,
+       "pts": 6.14,
+       "min10": 25.86,
+       "pts10": 6.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "6585",
+       "name": "Andre Drummond",
+       "gp": 7,
+       "min": 13.14,
+       "pts": 5.57,
+       "min10": 13.14,
+       "pts10": 5.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2528426",
+       "name": "Jordan Clarkson",
+       "gp": 6,
+       "min": 8.83,
+       "pts": 5.5,
+       "min10": 8.83,
+       "pts10": 5.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277869",
+       "name": "Jose Alvarado",
+       "gp": 3,
+       "min": 12.0,
+       "pts": 3.33,
+       "min10": 12.0,
+       "pts10": 3.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433225",
+       "name": "Tyler Kolek",
+       "gp": 5,
+       "min": 12.4,
+       "pts": 3.0,
+       "min10": 12.4,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5211983",
+       "name": "Pacome Dadiet",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5289900",
+       "name": "Mohamed Diawara",
+       "gp": 2,
+       "min": 3.5,
+       "pts": 0.0,
+       "min10": 3.5,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432808",
+       "name": "James Wiseman",
+       "gp": 3,
+       "min": 3.33,
+       "pts": 0.0,
+       "min10": 3.33,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4411057",
+       "name": "Kevin McCullar Jr.",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4897943",
+       "name": "Dalton Knecht",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683730",
+       "name": "Jaden Akins",
+       "gp": 1,
+       "min": 2.0,
+       "pts": 0.0,
+       "min10": 2.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4838721",
+       "name": "Tyler Nickel",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "CHI",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4278067",
+       "name": "Nic Claxton",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4397189",
+       "name": "Jalen Smith",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "5095151",
+      "2595516",
+      "4711294"
+     ],
+     "starters": [
+      "Caleb Wilson",
+      "Norman Powell",
+      "Josh Giddey",
+      "Matas Buzelis",
+      "Jalen Smith"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "5095151",
+       "name": "Caleb Wilson",
+       "gp": 7,
+       "min": 34.0,
+       "pts": 21.57,
+       "min10": 34.0,
+       "pts10": 21.57,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "2595516",
+       "name": "Norman Powell",
+       "gp": 7,
+       "min": 29.86,
+       "pts": 20.29,
+       "min10": 29.86,
+       "pts10": 20.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4711294",
+       "name": "Matas Buzelis",
+       "gp": 7,
+       "min": 25.0,
+       "pts": 13.0,
+       "min10": 25.0,
+       "pts10": 13.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397189",
+       "name": "Jalen Smith",
+       "gp": 7,
+       "min": 24.57,
+       "pts": 12.14,
+       "min10": 24.57,
+       "pts10": 12.14,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "4395626",
+       "name": "Tre Jones",
+       "gp": 7,
+       "min": 18.14,
+       "pts": 10.43,
+       "min10": 18.14,
+       "pts10": 10.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4871145",
+       "name": "Josh Giddey",
+       "gp": 7,
+       "min": 27.29,
+       "pts": 9.14,
+       "min10": 27.29,
+       "pts10": 9.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5044385",
+       "name": "Leonard Miller",
+       "gp": 7,
+       "min": 17.43,
+       "pts": 7.57,
+       "min10": 17.43,
+       "pts10": 7.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2990984",
+       "name": "Buddy Hield",
+       "gp": 7,
+       "min": 13.71,
+       "pts": 5.43,
+       "min10": 13.71,
+       "pts10": 5.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432822",
+       "name": "Isaac Okoro",
+       "gp": 7,
+       "min": 18.29,
+       "pts": 4.86,
+       "min10": 18.29,
+       "pts10": 4.86,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5242496",
+       "name": "Noa Essengue",
+       "gp": 6,
+       "min": 13.83,
+       "pts": 4.33,
+       "min10": 13.83,
+       "pts10": 4.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4898010",
+       "name": "Jaylin Sellers",
+       "gp": 4,
+       "min": 7.75,
+       "pts": 2.25,
+       "min10": 7.75,
+       "pts10": 2.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105555",
+       "name": "Tobe Awaka",
+       "gp": 4,
+       "min": 10.0,
+       "pts": 2.0,
+       "min10": 10.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4848625",
+       "name": "Dailyn Swain",
+       "gp": 1,
+       "min": 12.0,
+       "pts": 2.0,
+       "min10": 12.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683750",
+       "name": "Jordan Hawkins",
+       "gp": 3,
+       "min": 5.0,
+       "pts": 2.0,
+       "min10": 5.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4066650",
+       "name": "Zach Collins",
+       "gp": 5,
+       "min": 7.6,
+       "pts": 1.2,
+       "min10": 7.6,
+       "pts10": 1.2,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431687",
+       "name": "Patrick Williams",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909927",
+    "tip": "2026-11-05T01:00Z",
+    "home": "MEM",
+    "away": "IND",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "MEM",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4431785",
+       "name": "Scotty Pippen Jr.",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4593016",
+       "name": "Quinten Post",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4065733",
+      "5041935",
+      "4903027"
+     ],
+     "starters": [
+      "Cameron Boozer",
+      "Cedric Coward",
+      "Jaylen Wells",
+      "Ty Jerome",
+      "Zach Edey"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4065733",
+       "name": "Ty Jerome",
+       "gp": 6,
+       "min": 31.17,
+       "pts": 28.17,
+       "min10": 31.17,
+       "pts10": 28.17,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "5041935",
+       "name": "Cameron Boozer",
+       "gp": 7,
+       "min": 32.0,
+       "pts": 17.43,
+       "min10": 32.0,
+       "pts10": 17.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4903027",
+       "name": "Cedric Coward",
+       "gp": 6,
+       "min": 28.67,
+       "pts": 12.83,
+       "min10": 28.67,
+       "pts10": 12.83,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4432810",
+       "name": "Isaiah Stewart",
+       "gp": 6,
+       "min": 19.67,
+       "pts": 12.83,
+       "min10": 19.67,
+       "pts10": 12.83,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5112087",
+       "name": "Jaylen Wells",
+       "gp": 7,
+       "min": 28.14,
+       "pts": 12.71,
+       "min10": 28.14,
+       "pts10": 12.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "2991070",
+       "name": "Jerami Grant",
+       "gp": 7,
+       "min": 24.29,
+       "pts": 9.43,
+       "min10": 24.29,
+       "pts10": 9.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433083",
+       "name": "Cam Spencer",
+       "gp": 7,
+       "min": 19.14,
+       "pts": 9.43,
+       "min10": 19.14,
+       "pts10": 9.43,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5105550",
+       "name": "GG Jackson",
+       "gp": 7,
+       "min": 16.86,
+       "pts": 8.29,
+       "min10": 16.86,
+       "pts10": 8.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4593016",
+       "name": "Quinten Post",
+       "gp": 5,
+       "min": 15.0,
+       "pts": 7.6,
+       "min10": 15.0,
+       "pts10": 7.6,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4781746",
+       "name": "Javon Small",
+       "gp": 1,
+       "min": 20.0,
+       "pts": 7.0,
+       "min10": 20.0,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4600663",
+       "name": "Zach Edey",
+       "gp": 6,
+       "min": 20.0,
+       "pts": 6.83,
+       "min10": 20.0,
+       "pts10": 6.83,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4595400",
+       "name": "Olivier-Maxence Prosper",
+       "gp": 2,
+       "min": 3.5,
+       "pts": 3.0,
+       "min10": 3.5,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4684806",
+       "name": "Taylor Hendricks",
+       "gp": 3,
+       "min": 4.67,
+       "pts": 2.0,
+       "min10": 4.67,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683934",
+       "name": "Jahmai Mashack",
+       "gp": 1,
+       "min": 4.0,
+       "pts": 2.0,
+       "min10": 4.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5231919",
+       "name": "Karim Lopez",
+       "gp": 2,
+       "min": 3.5,
+       "pts": 1.0,
+       "min10": 3.5,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105817",
+       "name": "Carson Cooper",
+       "gp": 1,
+       "min": 3.0,
+       "pts": 1.0,
+       "min10": 3.0,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4594326",
+       "name": "Kris Murray",
+       "gp": 4,
+       "min": 14.0,
+       "pts": 0.5,
+       "min10": 14.0,
+       "pts10": 0.5,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "IND",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "4017837",
+       "name": "Ivica Zubac",
+       "status": "Out"
+      },
+      {
+       "id": "4278355",
+       "name": "Obi Toppin",
+       "status": "Out"
+      },
+      {
+       "id": "2530530",
+       "name": "T.J. McConnell",
+       "status": "Out"
+      },
+      {
+       "id": "5157066",
+       "name": "Johnny Furphy",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "3133603",
+       "name": "Kelly Oubre Jr.",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4396993",
+      "3149673",
+      "4395712"
+     ],
+     "starters": [
+      "Jay Huff",
+      "Pascal Siakam",
+      "Kelly Oubre Jr.",
+      "Aaron Nesmith",
+      "Andrew Nembhard"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4396993",
+       "name": "Tyrese Haliburton",
+       "gp": 4,
+       "min": 33.0,
+       "pts": 21.75,
+       "min10": 33.0,
+       "pts10": 21.75,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3149673",
+       "name": "Pascal Siakam",
+       "gp": 7,
+       "min": 32.29,
+       "pts": 21.43,
+       "min10": 32.29,
+       "pts10": 21.43,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4395712",
+       "name": "Andrew Nembhard",
+       "gp": 6,
+       "min": 32.67,
+       "pts": 18.5,
+       "min10": 32.67,
+       "pts10": 18.5,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4396909",
+       "name": "Aaron Nesmith",
+       "gp": 6,
+       "min": 23.0,
+       "pts": 12.17,
+       "min10": 23.0,
+       "pts10": 12.17,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4592829",
+       "name": "Quenton Jackson",
+       "gp": 8,
+       "min": 21.88,
+       "pts": 10.12,
+       "min10": 21.88,
+       "pts10": 10.12,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3133603",
+       "name": "Kelly Oubre Jr.",
+       "gp": 7,
+       "min": 23.29,
+       "pts": 9.43,
+       "min10": 23.29,
+       "pts10": 9.43,
+       "status": "Day-To-Day",
+       "starts5": 4
+      },
+      {
+       "id": "4065731",
+       "name": "Jay Huff",
+       "gp": 7,
+       "min": 20.14,
+       "pts": 8.29,
+       "min10": 20.14,
+       "pts10": 8.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5106060",
+       "name": "Jarace Walker",
+       "gp": 8,
+       "min": 24.88,
+       "pts": 7.88,
+       "min10": 24.88,
+       "pts10": 7.88,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4431752",
+       "name": "Kobe Brown",
+       "gp": 4,
+       "min": 18.5,
+       "pts": 7.0,
+       "min10": 18.5,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105854",
+       "name": "Braden Smith",
+       "gp": 4,
+       "min": 15.0,
+       "pts": 5.0,
+       "min10": 15.0,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4398207",
+       "name": "Jalen Slawson",
+       "gp": 7,
+       "min": 16.57,
+       "pts": 4.0,
+       "min10": 16.57,
+       "pts10": 4.0,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "2580365",
+       "name": "Larry Nance Jr.",
+       "gp": 7,
+       "min": 16.29,
+       "pts": 3.29,
+       "min10": 16.29,
+       "pts10": 3.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433076",
+       "name": "Ben Sheppard",
+       "gp": 1,
+       "min": 12.0,
+       "pts": 3.0,
+       "min10": 12.0,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909928",
+    "tip": "2026-11-05T01:00Z",
+    "home": "NO",
+    "away": "UTAH",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "NO",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4277956",
+       "name": "Jordan Poole",
+       "status": "Out"
+      },
+      {
+       "id": "5061589",
+       "name": "Yves Missi",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4397688",
+       "name": "Trey Murphy III",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4395628",
+      "3907497",
+      "4397136"
+     ],
+     "starters": [
+      "Trey Murphy III",
+      "Zion Williamson",
+      "Jeremiah Fears",
+      "Herbert Jones",
+      "Karlo Matkovic"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4395628",
+       "name": "Zion Williamson",
+       "gp": 7,
+       "min": 32.29,
+       "pts": 21.29,
+       "min10": 32.29,
+       "pts10": 21.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3907497",
+       "name": "Dejounte Murray",
+       "gp": 4,
+       "min": 32.25,
+       "pts": 17.75,
+       "min10": 32.25,
+       "pts10": 17.75,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4397136",
+       "name": "Saddiq Bey",
+       "gp": 7,
+       "min": 26.14,
+       "pts": 15.57,
+       "min10": 26.14,
+       "pts10": 15.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397688",
+       "name": "Trey Murphy III",
+       "gp": 7,
+       "min": 33.0,
+       "pts": 14.86,
+       "min10": 33.0,
+       "pts10": 14.86,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "5144091",
+       "name": "Jeremiah Fears",
+       "gp": 7,
+       "min": 27.14,
+       "pts": 12.86,
+       "min10": 27.14,
+       "pts10": 12.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4869780",
+       "name": "Derik Queen",
+       "gp": 7,
+       "min": 23.71,
+       "pts": 12.43,
+       "min10": 23.71,
+       "pts10": 12.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4997538",
+       "name": "Karlo Matkovic",
+       "gp": 6,
+       "min": 18.33,
+       "pts": 10.0,
+       "min10": 18.33,
+       "pts10": 10.0,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4277813",
+       "name": "Herbert Jones",
+       "gp": 7,
+       "min": 22.14,
+       "pts": 7.14,
+       "min10": 22.14,
+       "pts10": 7.14,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4683634",
+       "name": "Bennedict Mathurin",
+       "gp": 7,
+       "min": 16.86,
+       "pts": 7.14,
+       "min10": 16.86,
+       "pts10": 7.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431675",
+       "name": "Trendon Watford",
+       "gp": 3,
+       "min": 17.0,
+       "pts": 6.33,
+       "min10": 17.0,
+       "pts10": 6.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3442",
+       "name": "DeAndre Jordan",
+       "gp": 2,
+       "min": 16.5,
+       "pts": 6.0,
+       "min10": 16.5,
+       "pts10": 6.0,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4683742",
+       "name": "Julian Reese",
+       "gp": 1,
+       "min": 3.0,
+       "pts": 2.0,
+       "min10": 3.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4576086",
+       "name": "Bryce McGowens",
+       "gp": 4,
+       "min": 7.5,
+       "pts": 1.75,
+       "min10": 7.5,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5170947",
+       "name": "AJ Johnson",
+       "gp": 1,
+       "min": 3.0,
+       "pts": 0.0,
+       "min10": 3.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "UTAH",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "3102530",
+       "name": "Jusuf Nurkic",
+       "status": "Out"
+      },
+      {
+       "id": "4277961",
+       "name": "Jaren Jackson Jr.",
+       "status": "Out"
+      },
+      {
+       "id": "4433268",
+       "name": "Trey Alexander",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4277919",
+       "name": "Mo Bamba",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [
+      "Jaren Jackson Jr."
+     ],
+     "top3": [
+      "4433627",
+      "4066336",
+      "4277961"
+     ],
+     "starters": [
+      "Keyonte George",
+      "Darryn Peterson",
+      "Ace Bailey",
+      "Lauri Markkanen",
+      "Jaxson Hayes"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4433627",
+       "name": "Keyonte George",
+       "gp": 7,
+       "min": 30.71,
+       "pts": 19.57,
+       "min10": 30.71,
+       "pts10": 19.57,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4066336",
+       "name": "Lauri Markkanen",
+       "gp": 6,
+       "min": 29.0,
+       "pts": 16.5,
+       "min10": 29.0,
+       "pts10": 16.5,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "5041955",
+       "name": "Darryn Peterson",
+       "gp": 7,
+       "min": 30.29,
+       "pts": 13.43,
+       "min10": 30.29,
+       "pts10": 13.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4873138",
+       "name": "Ace Bailey",
+       "gp": 7,
+       "min": 30.0,
+       "pts": 12.14,
+       "min10": 30.0,
+       "pts10": 12.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5105839",
+       "name": "Brice Sensabaugh",
+       "gp": 7,
+       "min": 15.29,
+       "pts": 9.29,
+       "min10": 15.29,
+       "pts10": 9.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277919",
+       "name": "Mo Bamba",
+       "gp": 4,
+       "min": 18.5,
+       "pts": 9.0,
+       "min10": 18.5,
+       "pts10": 9.0,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4397077",
+       "name": "Jaxson Hayes",
+       "gp": 6,
+       "min": 25.0,
+       "pts": 8.17,
+       "min10": 25.0,
+       "pts10": 8.17,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4683766",
+       "name": "Isaiah Collier",
+       "gp": 7,
+       "min": 17.71,
+       "pts": 7.43,
+       "min10": 17.71,
+       "pts10": 7.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3133602",
+       "name": "Svi Mykhailiuk",
+       "gp": 7,
+       "min": 16.29,
+       "pts": 3.86,
+       "min10": 16.29,
+       "pts10": 3.86,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4065663",
+       "name": "Josh Okogie",
+       "gp": 6,
+       "min": 16.67,
+       "pts": 2.67,
+       "min10": 16.67,
+       "pts10": 2.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432811",
+       "name": "Josh Green",
+       "gp": 5,
+       "min": 13.8,
+       "pts": 2.2,
+       "min10": 13.8,
+       "pts10": 2.2,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4065673",
+       "name": "Tony Bradley",
+       "gp": 2,
+       "min": 6.5,
+       "pts": 2.0,
+       "min10": 6.5,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4684793",
+       "name": "Kyle Filipowski",
+       "gp": 5,
+       "min": 7.8,
+       "pts": 1.8,
+       "min10": 7.8,
+       "pts10": 1.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433618",
+       "name": "Harrison Ingram",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4396963",
+       "name": "Blake Hinson",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683736",
+       "name": "Kobe Bufkin",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909929",
+    "tip": "2026-11-05T01:00Z",
+    "home": "OKC",
+    "away": "CLE",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "OKC",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "5159925",
+       "name": "Nikola Topic",
+       "status": "Out"
+      },
+      {
+       "id": "5061603",
+       "name": "Thomas Sorber",
+       "status": "Out"
+      },
+      {
+       "id": "4683692",
+       "name": "Cason Wallace",
+       "status": "Out"
+      },
+      {
+       "id": "4433255",
+       "name": "Chet Holmgren",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4432823",
+       "name": "Jaylin Williams",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4278073",
+      "4900671",
+      "4593803"
+     ],
+     "starters": [
+      "Shai Gilgeous-Alexander",
+      "Isaiah Hartenstein",
+      "Ajay Mitchell",
+      "Kenrich Williams",
+      "Jared McCain"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4278073",
+       "name": "Shai Gilgeous-Alexander",
+       "gp": 7,
+       "min": 33.57,
+       "pts": 28.43,
+       "min10": 33.57,
+       "pts10": 28.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4900671",
+       "name": "Ajay Mitchell",
+       "gp": 7,
+       "min": 26.86,
+       "pts": 17.0,
+       "min10": 26.86,
+       "pts10": 17.0,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4593803",
+       "name": "Jalen Williams",
+       "gp": 3,
+       "min": 31.67,
+       "pts": 13.67,
+       "min10": 31.67,
+       "pts10": 13.67,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4683778",
+       "name": "Jared McCain",
+       "gp": 7,
+       "min": 25.0,
+       "pts": 10.29,
+       "min10": 25.0,
+       "pts10": 10.29,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "2991350",
+       "name": "Alex Caruso",
+       "gp": 4,
+       "min": 19.0,
+       "pts": 9.25,
+       "min10": 19.0,
+       "pts10": 9.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4222252",
+       "name": "Isaiah Hartenstein",
+       "gp": 7,
+       "min": 24.57,
+       "pts": 8.86,
+       "min10": 24.57,
+       "pts10": 8.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5174983",
+       "name": "Aday Mara",
+       "gp": 7,
+       "min": 18.29,
+       "pts": 6.43,
+       "min10": 18.29,
+       "pts10": 6.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3133626",
+       "name": "Kenrich Williams",
+       "gp": 7,
+       "min": 16.14,
+       "pts": 6.0,
+       "min10": 16.14,
+       "pts10": 6.0,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "5241364",
+       "name": "Bennett Stirtz",
+       "gp": 7,
+       "min": 15.0,
+       "pts": 5.29,
+       "min10": 15.0,
+       "pts10": 5.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432185",
+       "name": "Micah Peavy",
+       "gp": 3,
+       "min": 11.67,
+       "pts": 3.33,
+       "min10": 11.67,
+       "pts10": 3.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432823",
+       "name": "Jaylin Williams",
+       "gp": 7,
+       "min": 18.43,
+       "pts": 2.86,
+       "min10": 18.43,
+       "pts10": 2.86,
+       "status": "Day-To-Day",
+       "starts5": 1
+      },
+      {
+       "id": "5105800",
+       "name": "Josh Dix",
+       "gp": 4,
+       "min": 16.75,
+       "pts": 2.25,
+       "min10": 16.75,
+       "pts10": 2.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4684208",
+       "name": "Brooks Barnhizer",
+       "gp": 5,
+       "min": 5.2,
+       "pts": 1.6,
+       "min10": 5.2,
+       "pts10": 1.6,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106270",
+       "name": "Otega Oweh",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "CLE",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4683747",
+       "name": "Jaylon Tyson",
+       "status": "Out"
+      },
+      {
+       "id": "4576087",
+       "name": "Peyton Watson",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "3908809",
+      "4432158",
+      "3992"
+     ],
+     "starters": [
+      "James Harden",
+      "Donovan Mitchell",
+      "Evan Mobley",
+      "Jarrett Allen",
+      "Meleek Thomas"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3908809",
+       "name": "Donovan Mitchell",
+       "gp": 7,
+       "min": 33.14,
+       "pts": 21.86,
+       "min10": 33.14,
+       "pts10": 21.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4432158",
+       "name": "Evan Mobley",
+       "gp": 7,
+       "min": 32.86,
+       "pts": 19.14,
+       "min10": 32.86,
+       "pts10": 19.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3992",
+       "name": "James Harden",
+       "gp": 7,
+       "min": 33.43,
+       "pts": 16.29,
+       "min10": 33.43,
+       "pts10": 16.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4066328",
+       "name": "Jarrett Allen",
+       "gp": 7,
+       "min": 27.71,
+       "pts": 15.14,
+       "min10": 27.71,
+       "pts10": 15.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5041951",
+       "name": "Meleek Thomas",
+       "gp": 4,
+       "min": 22.0,
+       "pts": 14.0,
+       "min10": 22.0,
+       "pts10": 14.0,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4066757",
+       "name": "Sam Merrill",
+       "gp": 7,
+       "min": 24.0,
+       "pts": 8.43,
+       "min10": 24.0,
+       "pts10": 8.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2995706",
+       "name": "Mario Hezonja",
+       "gp": 7,
+       "min": 19.29,
+       "pts": 8.14,
+       "min10": 19.29,
+       "pts10": 8.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3934723",
+       "name": "Thomas Bryant",
+       "gp": 2,
+       "min": 8.0,
+       "pts": 7.5,
+       "min10": 8.0,
+       "pts10": 7.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5023693",
+       "name": "Tyrese Proctor",
+       "gp": 6,
+       "min": 13.17,
+       "pts": 5.5,
+       "min10": 13.17,
+       "pts10": 5.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431734",
+       "name": "Tristan Enaruna",
+       "gp": 1,
+       "min": 6.0,
+       "pts": 2.0,
+       "min10": 6.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4701233",
+       "name": "Craig Porter Jr.",
+       "gp": 5,
+       "min": 8.2,
+       "pts": 1.0,
+       "min10": 8.2,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5177362",
+       "name": "Riley Minix",
+       "gp": 1,
+       "min": 6.0,
+       "pts": 0.0,
+       "min10": 6.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106261",
+       "name": "Ernest Udeh Jr.",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909930",
+    "tip": "2026-11-05T01:30Z",
+    "home": "HOU",
+    "away": "MIN",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "HOU",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "2991235",
+       "name": "Steven Adams",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "3102529",
+       "name": "Clint Capela",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "4871144",
+      "3202",
+      "4432639"
+     ],
+     "starters": [
+      "Jabari Smith Jr.",
+      "Kevin Durant",
+      "Amen Thompson",
+      "Fred VanVleet",
+      "Alperen Sengun"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4871144",
+       "name": "Alperen Sengun",
+       "gp": 6,
+       "min": 34.5,
+       "pts": 23.33,
+       "min10": 34.5,
+       "pts10": 23.33,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "3202",
+       "name": "Kevin Durant",
+       "gp": 8,
+       "min": 33.62,
+       "pts": 20.75,
+       "min10": 33.62,
+       "pts10": 20.75,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4432639",
+       "name": "Jabari Smith Jr.",
+       "gp": 8,
+       "min": 34.5,
+       "pts": 18.38,
+       "min10": 34.5,
+       "pts10": 18.38,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4684740",
+       "name": "Amen Thompson",
+       "gp": 8,
+       "min": 32.62,
+       "pts": 16.0,
+       "min10": 32.62,
+       "pts10": 16.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "2991230",
+       "name": "Fred VanVleet",
+       "gp": 6,
+       "min": 30.0,
+       "pts": 12.17,
+       "min10": 30.0,
+       "pts10": 12.17,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "2990992",
+       "name": "Marcus Smart",
+       "gp": 5,
+       "min": 24.0,
+       "pts": 11.0,
+       "min10": 24.0,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4433192",
+       "name": "Tari Eason",
+       "gp": 8,
+       "min": 24.62,
+       "pts": 10.38,
+       "min10": 24.62,
+       "pts10": 10.38,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4711272",
+       "name": "Reed Sheppard",
+       "gp": 5,
+       "min": 22.0,
+       "pts": 10.0,
+       "min10": 22.0,
+       "pts10": 10.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3037789",
+       "name": "Bogdan Bogdanovic",
+       "gp": 8,
+       "min": 13.12,
+       "pts": 6.25,
+       "min10": 13.12,
+       "pts10": 6.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432827",
+       "name": "Oscar Tshiebwe",
+       "gp": 4,
+       "min": 9.0,
+       "pts": 3.25,
+       "min10": 9.0,
+       "pts10": 3.25,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3102529",
+       "name": "Clint Capela",
+       "gp": 6,
+       "min": 14.17,
+       "pts": 3.17,
+       "min10": 14.17,
+       "pts10": 3.17,
+       "status": "Day-To-Day",
+       "starts5": 1
+      },
+      {
+       "id": "4592857",
+       "name": "Isaiah Crawford",
+       "gp": 6,
+       "min": 5.17,
+       "pts": 2.33,
+       "min10": 5.17,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105837",
+       "name": "Bruce Thornton",
+       "gp": 6,
+       "min": 3.17,
+       "pts": 2.0,
+       "min10": 3.17,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3136777",
+       "name": "Jae'Sean Tate",
+       "gp": 6,
+       "min": 2.67,
+       "pts": 0.0,
+       "min10": 2.67,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4709131",
+       "name": "Sean Pedulla",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "MIN",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "4594268",
+       "name": "Anthony Edwards",
+       "status": "Out"
+      },
+      {
+       "id": "3934673",
+       "name": "Donte DiVincenzo",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4432847",
+       "name": "Terrence Shannon Jr.",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [
+      "Anthony Edwards"
+     ],
+     "top3": [
+      "4594268",
+      "4432816",
+      "4431671"
+     ],
+     "starters": [
+      "Jaden McDaniels",
+      "Jonathan Kuminga",
+      "LaMelo Ball",
+      "Ayo Dosunmu",
+      "Rudy Gobert"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4432816",
+       "name": "LaMelo Ball",
+       "gp": 8,
+       "min": 26.25,
+       "pts": 16.88,
+       "min10": 26.25,
+       "pts10": 16.88,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4431671",
+       "name": "Jaden McDaniels",
+       "gp": 8,
+       "min": 32.88,
+       "pts": 16.75,
+       "min10": 32.88,
+       "pts10": 16.75,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397002",
+       "name": "Ayo Dosunmu",
+       "gp": 8,
+       "min": 30.25,
+       "pts": 15.75,
+       "min10": 30.25,
+       "pts10": 15.75,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4433247",
+       "name": "Jonathan Kuminga",
+       "gp": 8,
+       "min": 30.75,
+       "pts": 12.25,
+       "min10": 30.75,
+       "pts10": 12.25,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4432847",
+       "name": "Terrence Shannon Jr.",
+       "gp": 7,
+       "min": 22.0,
+       "pts": 12.0,
+       "min10": 22.0,
+       "pts10": 12.0,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "3032976",
+       "name": "Rudy Gobert",
+       "gp": 7,
+       "min": 30.14,
+       "pts": 7.43,
+       "min10": 30.14,
+       "pts10": 7.43,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4592492",
+       "name": "Bones Hyland",
+       "gp": 8,
+       "min": 12.0,
+       "pts": 7.12,
+       "min10": 12.0,
+       "pts10": 7.12,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5279133",
+       "name": "Joan Beringer",
+       "gp": 8,
+       "min": 18.12,
+       "pts": 6.5,
+       "min10": 18.12,
+       "pts10": 6.5,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3136196",
+       "name": "Trey Lyles",
+       "gp": 8,
+       "min": 16.62,
+       "pts": 6.38,
+       "min10": 16.62,
+       "pts10": 6.38,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432247",
+       "name": "Jaylen Clark",
+       "gp": 7,
+       "min": 10.86,
+       "pts": 3.71,
+       "min10": 10.86,
+       "pts10": 3.71,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4592979",
+       "name": "Zyon Pullin",
+       "gp": 2,
+       "min": 3.5,
+       "pts": 2.0,
+       "min10": 3.5,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4895758",
+       "name": "Cody Williams",
+       "gp": 5,
+       "min": 4.0,
+       "pts": 0.0,
+       "min10": 4.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5061585",
+       "name": "Isaiah Evans",
+       "gp": 4,
+       "min": 2.5,
+       "pts": 0.0,
+       "min10": 2.5,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5157587",
+       "name": "Rocco Zikarsky",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909931",
+    "tip": "2026-11-05T02:00Z",
+    "home": "DEN",
+    "away": "TOR",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "DEN",
+     "games": 6,
+     "stale": [],
+     "out": [
+      {
+       "id": "4592427",
+       "name": "Spencer Jones",
+       "status": "Out"
+      },
+      {
+       "id": "4432181",
+       "name": "Julian Strawther",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "3138196",
+       "name": "Cameron Johnson",
+       "status": "Day-To-Day"
+      },
+      {
+       "id": "4065813",
+       "name": "Alpha Diallo",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "3936299",
+      "3112335",
+      "4431767"
+     ],
+     "starters": [
+      "Jamal Murray",
+      "Nikola Jokic",
+      "Christian Braun",
+      "Aaron Gordon",
+      "Cameron Johnson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3936299",
+       "name": "Jamal Murray",
+       "gp": 6,
+       "min": 38.33,
+       "pts": 27.33,
+       "min10": 38.33,
+       "pts10": 27.33,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3112335",
+       "name": "Nikola Jokic",
+       "gp": 6,
+       "min": 36.83,
+       "pts": 22.0,
+       "min10": 36.83,
+       "pts10": 22.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4431767",
+       "name": "Christian Braun",
+       "gp": 6,
+       "min": 36.17,
+       "pts": 15.17,
+       "min10": 36.17,
+       "pts10": 15.17,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3064290",
+       "name": "Aaron Gordon",
+       "gp": 6,
+       "min": 30.17,
+       "pts": 11.5,
+       "min10": 30.17,
+       "pts10": 11.5,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3978",
+       "name": "DeMar DeRozan",
+       "gp": 6,
+       "min": 25.17,
+       "pts": 10.67,
+       "min10": 25.17,
+       "pts10": 10.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4698719",
+       "name": "Trevon Brazile",
+       "gp": 6,
+       "min": 22.0,
+       "pts": 8.33,
+       "min10": 22.0,
+       "pts10": 8.33,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3138196",
+       "name": "Cameron Johnson",
+       "gp": 3,
+       "min": 26.33,
+       "pts": 8.0,
+       "min10": 26.33,
+       "pts10": 8.0,
+       "status": "Day-To-Day",
+       "starts5": 2
+      },
+      {
+       "id": "4431690",
+       "name": "Zeke Nnaji",
+       "gp": 1,
+       "min": 4.0,
+       "pts": 5.0,
+       "min10": 4.0,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277848",
+       "name": "Marvin Bagley III",
+       "gp": 6,
+       "min": 12.17,
+       "pts": 4.67,
+       "min10": 12.17,
+       "pts10": 4.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433629",
+       "name": "Ryan Nembhard",
+       "gp": 2,
+       "min": 3.0,
+       "pts": 4.5,
+       "min10": 3.0,
+       "pts10": 4.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105592",
+       "name": "Cam Whitmore",
+       "gp": 2,
+       "min": 7.5,
+       "pts": 4.0,
+       "min10": 7.5,
+       "pts10": 4.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4565698",
+       "name": "Bryce Hopkins",
+       "gp": 4,
+       "min": 16.5,
+       "pts": 3.75,
+       "min10": 16.5,
+       "pts10": 3.75,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "3135046",
+       "name": "Tyus Jones",
+       "gp": 6,
+       "min": 9.83,
+       "pts": 2.33,
+       "min10": 9.83,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4065813",
+       "name": "Alpha Diallo",
+       "gp": 2,
+       "min": 14.0,
+       "pts": 2.0,
+       "min10": 14.0,
+       "pts10": 2.0,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4433607",
+       "name": "DaRon Holmes II",
+       "gp": 2,
+       "min": 3.0,
+       "pts": 1.5,
+       "min10": 3.0,
+       "pts10": 1.5,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "TOR",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "6450",
+       "name": "Kawhi Leonard",
+       "status": "Out"
+      },
+      {
+       "id": "4432586",
+       "name": "Nate Bittle",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "3134908",
+       "name": "Jakob Poeltl",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [
+      "Kawhi Leonard"
+     ],
+     "top3": [
+      "4433134",
+      "4395625",
+      "6450"
+     ],
+     "starters": [
+      "Scottie Barnes",
+      "RJ Barrett",
+      "Immanuel Quickley",
+      "Ja'Kobe Walter",
+      "Jakob Poeltl"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4433134",
+       "name": "Scottie Barnes",
+       "gp": 7,
+       "min": 33.57,
+       "pts": 24.43,
+       "min10": 33.57,
+       "pts10": 24.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4395625",
+       "name": "RJ Barrett",
+       "gp": 7,
+       "min": 32.43,
+       "pts": 20.71,
+       "min10": 32.43,
+       "pts10": 20.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4395724",
+       "name": "Immanuel Quickley",
+       "gp": 7,
+       "min": 31.71,
+       "pts": 18.0,
+       "min10": 31.71,
+       "pts10": 18.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4684272",
+       "name": "Ja'Kobe Walter",
+       "gp": 7,
+       "min": 29.43,
+       "pts": 11.86,
+       "min10": 29.43,
+       "pts10": 11.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5093267",
+       "name": "Collin Murray-Boyles",
+       "gp": 7,
+       "min": 20.43,
+       "pts": 9.14,
+       "min10": 20.43,
+       "pts10": 9.14,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4431893",
+       "name": "Jamison Battle",
+       "gp": 7,
+       "min": 16.14,
+       "pts": 8.29,
+       "min10": 16.14,
+       "pts10": 8.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432241",
+       "name": "Jamal Shead",
+       "gp": 7,
+       "min": 21.71,
+       "pts": 5.86,
+       "min10": 21.71,
+       "pts10": 5.86,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3134908",
+       "name": "Jakob Poeltl",
+       "gp": 5,
+       "min": 20.2,
+       "pts": 4.6,
+       "min10": 20.2,
+       "pts10": 4.6,
+       "status": "Day-To-Day",
+       "starts5": 3
+      },
+      {
+       "id": "5149115",
+       "name": "Allen Graves",
+       "gp": 7,
+       "min": 12.71,
+       "pts": 4.43,
+       "min10": 12.71,
+       "pts10": 4.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431684",
+       "name": "Trayce Jackson-Davis",
+       "gp": 7,
+       "min": 7.0,
+       "pts": 3.29,
+       "min10": 7.0,
+       "pts10": 3.29,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4702656",
+       "name": "Alijah Martin",
+       "gp": 6,
+       "min": 6.67,
+       "pts": 2.83,
+       "min10": 6.67,
+       "pts10": 2.83,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432737",
+       "name": "Jaden Bradley",
+       "gp": 5,
+       "min": 4.0,
+       "pts": 1.8,
+       "min10": 4.0,
+       "pts10": 1.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2993874",
+       "name": "Kyle Anderson",
+       "gp": 5,
+       "min": 6.6,
+       "pts": 0.8,
+       "min10": 6.6,
+       "pts10": 0.8,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909932",
+    "tip": "2026-11-05T02:00Z",
+    "home": "PHX",
+    "away": "POR",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "PHX",
+     "games": 5,
+     "stale": [],
+     "out": [
+      {
+       "id": "4701232",
+       "name": "Mark Williams",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4278402",
+       "name": "Jordan Goodwin",
+       "status": "Day-To-Day"
+      },
+      {
+       "id": "5105977",
+       "name": "Rasheer Fleming",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "3136193",
+      "4066383",
+      "3155526"
+     ],
+     "starters": [
+      "Devin Booker",
+      "Miles Bridges",
+      "Dillon Brooks",
+      "Jalen Green",
+      "Khaman Maluach"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3136193",
+       "name": "Devin Booker",
+       "gp": 5,
+       "min": 34.6,
+       "pts": 23.0,
+       "min10": 34.6,
+       "pts10": 23.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4066383",
+       "name": "Miles Bridges",
+       "gp": 5,
+       "min": 33.2,
+       "pts": 17.2,
+       "min10": 33.2,
+       "pts10": 17.2,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3155526",
+       "name": "Dillon Brooks",
+       "gp": 5,
+       "min": 29.8,
+       "pts": 16.8,
+       "min10": 29.8,
+       "pts10": 16.8,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4437244",
+       "name": "Jalen Green",
+       "gp": 5,
+       "min": 28.6,
+       "pts": 11.0,
+       "min10": 28.6,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3913174",
+       "name": "Luke Kennard",
+       "gp": 4,
+       "min": 16.0,
+       "pts": 8.75,
+       "min10": 16.0,
+       "pts10": 8.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4601023",
+       "name": "Oso Ighodaro",
+       "gp": 3,
+       "min": 20.0,
+       "pts": 8.0,
+       "min10": 20.0,
+       "pts10": 8.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4278402",
+       "name": "Jordan Goodwin",
+       "gp": 5,
+       "min": 18.8,
+       "pts": 7.8,
+       "min10": 18.8,
+       "pts10": 7.8,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4278585",
+       "name": "Collin Gillespie",
+       "gp": 5,
+       "min": 25.8,
+       "pts": 7.8,
+       "min10": 25.8,
+       "pts10": 7.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5203685",
+       "name": "Khaman Maluach",
+       "gp": 5,
+       "min": 20.2,
+       "pts": 7.4,
+       "min10": 20.2,
+       "pts10": 7.4,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4888725",
+       "name": "Ryan Dunn",
+       "gp": 5,
+       "min": 12.4,
+       "pts": 4.8,
+       "min10": 12.4,
+       "pts10": 4.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4066268",
+       "name": "Duop Reath",
+       "gp": 3,
+       "min": 6.33,
+       "pts": 3.33,
+       "min10": 6.33,
+       "pts10": 3.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4592714",
+       "name": "Pat Spencer",
+       "gp": 1,
+       "min": 7.0,
+       "pts": 3.0,
+       "min10": 7.0,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4280245",
+       "name": "Jamaree Bouyea",
+       "gp": 2,
+       "min": 5.0,
+       "pts": 2.5,
+       "min10": 5.0,
+       "pts10": 2.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5041953",
+       "name": "Koa Peat",
+       "gp": 2,
+       "min": 5.0,
+       "pts": 2.0,
+       "min10": 5.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105977",
+       "name": "Rasheer Fleming",
+       "gp": 2,
+       "min": 7.5,
+       "pts": 0.5,
+       "min10": 7.5,
+       "pts10": 0.5,
+       "status": "Day-To-Day",
+       "starts5": 0
+      },
+      {
+       "id": "4702602",
+       "name": "CJ Huntley",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4591259",
+       "name": "Koby Brea",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "POR",
+     "games": 6,
+     "stale": [],
+     "out": [
+      {
+       "id": "4279888",
+       "name": "Ja Morant",
+       "status": "Out"
+      },
+      {
+       "id": "4914336",
+       "name": "Shaedon Sharpe",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [
+      "Ja Morant"
+     ],
+     "top3": [
+      "4683021",
+      "6606",
+      "4279888"
+     ],
+     "starters": [
+      "Deni Avdija",
+      "Damian Lillard",
+      "Toumani Camara",
+      "Donovan Clingan",
+      "Scoot Henderson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4683021",
+       "name": "Deni Avdija",
+       "gp": 6,
+       "min": 31.83,
+       "pts": 23.83,
+       "min10": 31.83,
+       "pts10": 23.83,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "6606",
+       "name": "Damian Lillard",
+       "gp": 6,
+       "min": 29.17,
+       "pts": 19.33,
+       "min10": 29.17,
+       "pts10": 19.33,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4431736",
+       "name": "Toumani Camara",
+       "gp": 6,
+       "min": 27.0,
+       "pts": 14.17,
+       "min10": 27.0,
+       "pts10": 14.17,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3995",
+       "name": "Jrue Holiday",
+       "gp": 6,
+       "min": 25.67,
+       "pts": 13.17,
+       "min10": 25.67,
+       "pts10": 13.17,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105565",
+       "name": "Donovan Clingan",
+       "gp": 6,
+       "min": 24.0,
+       "pts": 10.0,
+       "min10": 24.0,
+       "pts10": 10.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4683678",
+       "name": "Scoot Henderson",
+       "gp": 6,
+       "min": 22.17,
+       "pts": 8.67,
+       "min10": 22.17,
+       "pts10": 8.67,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4066211",
+       "name": "Robert Williams III",
+       "gp": 5,
+       "min": 16.6,
+       "pts": 6.8,
+       "min10": 16.6,
+       "pts10": 6.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5081727",
+       "name": "Sidy Cissoko",
+       "gp": 6,
+       "min": 21.83,
+       "pts": 6.17,
+       "min10": 21.83,
+       "pts10": 6.17,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4593043",
+       "name": "John Tonje",
+       "gp": 1,
+       "min": 5.0,
+       "pts": 5.0,
+       "min10": 5.0,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4706557",
+       "name": "Chris Youngblood",
+       "gp": 2,
+       "min": 11.0,
+       "pts": 5.0,
+       "min10": 11.0,
+       "pts10": 5.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5217746",
+       "name": "Yang Hansen",
+       "gp": 3,
+       "min": 10.0,
+       "pts": 4.67,
+       "min10": 10.0,
+       "pts10": 4.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4066399",
+       "name": "Micah Potter",
+       "gp": 3,
+       "min": 8.33,
+       "pts": 2.33,
+       "min10": 8.33,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4578893",
+       "name": "Vit Krejci",
+       "gp": 6,
+       "min": 9.83,
+       "pts": 2.33,
+       "min10": 9.83,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4592435",
+       "name": "Branden Carlson",
+       "gp": 2,
+       "min": 8.0,
+       "pts": 1.0,
+       "min10": 8.0,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4703889",
+       "name": "Jayson Kent",
+       "gp": 1,
+       "min": 7.0,
+       "pts": 0.0,
+       "min10": 7.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909933",
+    "tip": "2026-11-05T02:30Z",
+    "home": "SA",
+    "away": "DAL",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "SA",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "6440",
+       "name": "Tobias Harris",
+       "status": "Out"
+      },
+      {
+       "id": "5101845",
+       "name": "Jayden Quaintance",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "5104157",
+      "5037871",
+      "4066259"
+     ],
+     "starters": [
+      "Dylan Harper",
+      "Devin Vassell",
+      "Victor Wembanyama",
+      "De'Aaron Fox",
+      "Stephon Castle"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "5104157",
+       "name": "Victor Wembanyama",
+       "gp": 7,
+       "min": 31.29,
+       "pts": 25.71,
+       "min10": 31.29,
+       "pts10": 25.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5037871",
+       "name": "Dylan Harper",
+       "gp": 7,
+       "min": 32.71,
+       "pts": 18.29,
+       "min10": 32.71,
+       "pts10": 18.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4066259",
+       "name": "De'Aaron Fox",
+       "gp": 7,
+       "min": 30.86,
+       "pts": 15.86,
+       "min10": 30.86,
+       "pts10": 15.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4845367",
+       "name": "Stephon Castle",
+       "gp": 7,
+       "min": 28.86,
+       "pts": 14.71,
+       "min10": 28.86,
+       "pts10": 14.71,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4395630",
+       "name": "Devin Vassell",
+       "gp": 7,
+       "min": 31.43,
+       "pts": 11.86,
+       "min10": 31.43,
+       "pts10": 11.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4592479",
+       "name": "Julian Champagnie",
+       "gp": 7,
+       "min": 26.86,
+       "pts": 11.14,
+       "min10": 26.86,
+       "pts10": 11.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4395723",
+       "name": "Keldon Johnson",
+       "gp": 7,
+       "min": 23.0,
+       "pts": 9.29,
+       "min10": 23.0,
+       "pts10": 9.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "6578",
+       "name": "Harrison Barnes",
+       "gp": 5,
+       "min": 10.6,
+       "pts": 3.8,
+       "min10": 10.6,
+       "pts10": 3.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3064560",
+       "name": "Luke Kornet",
+       "gp": 7,
+       "min": 15.0,
+       "pts": 3.14,
+       "min10": 15.0,
+       "pts10": 3.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105809",
+       "name": "Tarris Reed Jr.",
+       "gp": 4,
+       "min": 5.0,
+       "pts": 2.5,
+       "min10": 5.0,
+       "pts10": 2.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5107968",
+       "name": "Ja'Kobi Gillespie",
+       "gp": 2,
+       "min": 2.0,
+       "pts": 2.5,
+       "min10": 2.0,
+       "pts10": 2.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5061568",
+       "name": "Carter Bryant",
+       "gp": 7,
+       "min": 9.57,
+       "pts": 2.43,
+       "min10": 9.57,
+       "pts10": 2.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4713010",
+       "name": "David Jones Garcia",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 2.0,
+       "min10": 1.0,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105337",
+       "name": "Maliq Brown",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3134916",
+       "name": "Jordan McLaughlin",
+       "gp": 3,
+       "min": 6.0,
+       "pts": 0.0,
+       "min10": 6.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "DAL",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4432582",
+       "name": "Max Christie",
+       "status": "Out"
+      },
+      {
+       "id": "4593125",
+       "name": "Santi Aldama",
+       "status": "Out"
+      },
+      {
+       "id": "5148538",
+       "name": "Tarik Biberovic",
+       "status": "Out"
+      },
+      {
+       "id": "4683688",
+       "name": "Dereck Lively II",
+       "status": "Out"
+      },
+      {
+       "id": "5279129",
+       "name": "Sergio de Larrea",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "5041939",
+      "6442",
+      "4278078"
+     ],
+     "starters": [
+      "P.J. Washington",
+      "Daniel Gafford",
+      "Cooper Flagg",
+      "Kyrie Irving",
+      "Zaccharie Risacher"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "5041939",
+       "name": "Cooper Flagg",
+       "gp": 6,
+       "min": 33.67,
+       "pts": 25.17,
+       "min10": 33.67,
+       "pts10": 25.17,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "6442",
+       "name": "Kyrie Irving",
+       "gp": 5,
+       "min": 28.8,
+       "pts": 21.4,
+       "min10": 28.8,
+       "pts10": 21.4,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "4278078",
+       "name": "P.J. Washington",
+       "gp": 7,
+       "min": 34.29,
+       "pts": 13.57,
+       "min10": 34.29,
+       "pts10": 13.57,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4278594",
+       "name": "Naji Marshall",
+       "gp": 4,
+       "min": 26.75,
+       "pts": 11.5,
+       "min10": 26.75,
+       "pts10": 11.5,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4278049",
+       "name": "Daniel Gafford",
+       "gp": 7,
+       "min": 24.0,
+       "pts": 10.14,
+       "min10": 24.0,
+       "pts10": 10.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5211175",
+       "name": "Zaccharie Risacher",
+       "gp": 7,
+       "min": 28.14,
+       "pts": 8.14,
+       "min10": 28.14,
+       "pts10": 8.14,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "3138160",
+       "name": "Caleb Martin",
+       "gp": 3,
+       "min": 20.0,
+       "pts": 7.67,
+       "min10": 20.0,
+       "pts10": 7.67,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4873153",
+       "name": "Morez Johnson Jr.",
+       "gp": 7,
+       "min": 15.71,
+       "pts": 7.29,
+       "min10": 15.71,
+       "pts10": 7.29,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432107",
+       "name": "Marcus Sasser",
+       "gp": 7,
+       "min": 19.14,
+       "pts": 7.0,
+       "min10": 19.14,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4896372",
+       "name": "Walter Clayton Jr.",
+       "gp": 6,
+       "min": 13.5,
+       "pts": 6.83,
+       "min10": 13.5,
+       "pts10": 6.83,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5105806",
+       "name": "Jett Howard",
+       "gp": 3,
+       "min": 3.0,
+       "pts": 2.33,
+       "min10": 3.0,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4701208",
+       "name": "Moussa Cisse",
+       "gp": 5,
+       "min": 3.2,
+       "pts": 2.0,
+       "min10": 3.2,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106040",
+       "name": "Tobi Lawal",
+       "gp": 4,
+       "min": 2.5,
+       "pts": 1.75,
+       "min10": 2.5,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909934",
+    "tip": "2026-11-05T03:00Z",
+    "home": "SAC",
+    "away": "LAL",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "SAC",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "4898371",
+       "name": "Maxime Raynaud",
+       "status": "Out"
+      },
+      {
+       "id": "4594327",
+       "name": "Keegan Murray",
+       "status": "Out"
+      },
+      {
+       "id": "3907387",
+       "name": "Ben Simmons",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [
+      {
+       "id": "4431679",
+       "name": "Precious Achiuwa",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "5142620",
+      "3064440",
+      "3155942"
+     ],
+     "starters": [
+      "Darius Acuff Jr.",
+      "Domantas Sabonis",
+      "Zach LaVine",
+      "De'Andre Hunter",
+      "Precious Achiuwa"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "5142620",
+       "name": "Darius Acuff Jr.",
+       "gp": 7,
+       "min": 36.57,
+       "pts": 26.14,
+       "min10": 36.57,
+       "pts10": 26.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3064440",
+       "name": "Zach LaVine",
+       "gp": 7,
+       "min": 33.14,
+       "pts": 23.43,
+       "min10": 33.14,
+       "pts10": 23.43,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3155942",
+       "name": "Domantas Sabonis",
+       "gp": 7,
+       "min": 36.29,
+       "pts": 15.0,
+       "min10": 36.29,
+       "pts10": 15.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4065732",
+       "name": "De'Andre Hunter",
+       "gp": 7,
+       "min": 30.29,
+       "pts": 12.86,
+       "min10": 30.29,
+       "pts10": 12.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4431679",
+       "name": "Precious Achiuwa",
+       "gp": 7,
+       "min": 28.71,
+       "pts": 11.57,
+       "min10": 28.71,
+       "pts10": 11.57,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "4066262",
+       "name": "Malik Monk",
+       "gp": 6,
+       "min": 14.83,
+       "pts": 7.17,
+       "min10": 14.83,
+       "pts10": 7.17,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4395650",
+       "name": "Leaky Black",
+       "gp": 2,
+       "min": 16.5,
+       "pts": 7.0,
+       "min10": 16.5,
+       "pts10": 7.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5106058",
+       "name": "Emanuel Sharp",
+       "gp": 7,
+       "min": 18.14,
+       "pts": 4.57,
+       "min10": 18.14,
+       "pts10": 4.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5107897",
+       "name": "Jonathan Mogbo",
+       "gp": 4,
+       "min": 17.25,
+       "pts": 3.75,
+       "min10": 17.25,
+       "pts10": 3.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4279318",
+       "name": "Daeqwon Plowden",
+       "gp": 6,
+       "min": 12.17,
+       "pts": 2.5,
+       "min10": 12.17,
+       "pts10": 2.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4917149",
+       "name": "Alex Karaban",
+       "gp": 4,
+       "min": 9.5,
+       "pts": 1.75,
+       "min10": 9.5,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4702384",
+       "name": "Nique Clifford",
+       "gp": 6,
+       "min": 7.0,
+       "pts": 1.33,
+       "min10": 7.0,
+       "pts10": 1.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4397654",
+       "name": "Adam Flagler",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "LAL",
+     "games": 8,
+     "stale": [],
+     "out": [
+      {
+       "id": "5060631",
+       "name": "Adou Thiero",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "3945274",
+      "4066457",
+      "4433136"
+     ],
+     "starters": [
+      "Austin Reaves",
+      "Walker Kessler",
+      "Matisse Thybulle",
+      "Luka Doncic",
+      "Jake LaRavia"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3945274",
+       "name": "Luka Doncic",
+       "gp": 7,
+       "min": 35.71,
+       "pts": 38.29,
+       "min10": 35.71,
+       "pts10": 38.29,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4066457",
+       "name": "Austin Reaves",
+       "gp": 8,
+       "min": 35.75,
+       "pts": 23.62,
+       "min10": 35.75,
+       "pts10": 23.62,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4433136",
+       "name": "Walker Kessler",
+       "gp": 8,
+       "min": 30.75,
+       "pts": 14.38,
+       "min10": 30.75,
+       "pts10": 14.38,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4433137",
+       "name": "Ziaire Williams",
+       "gp": 5,
+       "min": 25.8,
+       "pts": 10.8,
+       "min10": 25.8,
+       "pts10": 10.8,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4278580",
+       "name": "Sandro Mamukelashvili",
+       "gp": 8,
+       "min": 24.12,
+       "pts": 9.88,
+       "min10": 24.12,
+       "pts10": 9.88,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4277811",
+       "name": "Collin Sexton",
+       "gp": 7,
+       "min": 17.43,
+       "pts": 9.71,
+       "min10": 17.43,
+       "pts10": 9.71,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3907498",
+       "name": "Matisse Thybulle",
+       "gp": 8,
+       "min": 24.38,
+       "pts": 8.62,
+       "min10": 24.38,
+       "pts10": 8.62,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4397014",
+       "name": "Quentin Grimes",
+       "gp": 8,
+       "min": 26.25,
+       "pts": 8.5,
+       "min10": 26.25,
+       "pts10": 8.5,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "4592691",
+       "name": "Jake LaRavia",
+       "gp": 7,
+       "min": 23.71,
+       "pts": 6.0,
+       "min10": 23.71,
+       "pts10": 6.0,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "3155535",
+       "name": "Kevon Looney",
+       "gp": 4,
+       "min": 7.5,
+       "pts": 2.0,
+       "min10": 7.5,
+       "pts10": 2.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4868423",
+       "name": "Jaden Hardy",
+       "gp": 5,
+       "min": 3.8,
+       "pts": 1.6,
+       "min10": 3.8,
+       "pts10": 1.6,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4278077",
+       "name": "Jarred Vanderbilt",
+       "gp": 4,
+       "min": 13.0,
+       "pts": 1.5,
+       "min10": 13.0,
+       "pts10": 1.5,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683774",
+       "name": "Bronny James",
+       "gp": 4,
+       "min": 2.75,
+       "pts": 1.0,
+       "min10": 2.75,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4702972",
+       "name": "Chris Manon",
+       "gp": 2,
+       "min": 3.5,
+       "pts": 1.0,
+       "min10": 3.5,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4433599",
+       "name": "Arthur Kaluma",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5114350",
+       "name": "AK Okereke",
+       "gp": 0,
+       "min": null,
+       "pts": null,
+       "min10": null,
+       "pts10": null,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5113969",
+       "name": "Cameron Carr",
+       "gp": 2,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4596528",
+       "name": "Lawson Lovering",
+       "gp": 1,
+       "min": 1.0,
+       "pts": 0.0,
+       "min10": 1.0,
+       "pts10": 0.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    }
+   },
+   {
+    "espn_id": "401909935",
+    "tip": "2026-11-05T03:30Z",
+    "home": "LAC",
+    "away": "MIA",
+    "fetched_at": "2026-11-04T06:51:14Z",
+    "home_sheet": {
+     "team": "LAC",
+     "games": 7,
+     "stale": [],
+     "out": [
+      {
+       "id": "5108024",
+       "name": "Yanic Konan Niederhauser",
+       "status": "Out"
+      },
+      {
+       "id": "3913176",
+       "name": "Brandon Ingram",
+       "status": "Out"
+      },
+      {
+       "id": "6580",
+       "name": "Bradley Beal",
+       "status": "Out"
+      },
+      {
+       "id": "4396818",
+       "name": "Jordan Miller",
+       "status": "Out"
+      }
+     ],
+     "doubtful": [],
+     "top3_out": [],
+     "top3": [
+      "4396907",
+      "4066648",
+      "3448"
+     ],
+     "starters": [
+      "Darius Garland",
+      "Kris Dunn",
+      "Derrick Jones Jr.",
+      "Isaiah Jackson",
+      "Rui Hachimura"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "4396907",
+       "name": "Darius Garland",
+       "gp": 7,
+       "min": 33.0,
+       "pts": 20.14,
+       "min10": 33.0,
+       "pts10": 20.14,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4066648",
+       "name": "Rui Hachimura",
+       "gp": 5,
+       "min": 30.0,
+       "pts": 13.4,
+       "min10": 30.0,
+       "pts10": 13.4,
+       "status": "",
+       "starts5": 3
+      },
+      {
+       "id": "3448",
+       "name": "Brook Lopez",
+       "gp": 7,
+       "min": 22.0,
+       "pts": 12.57,
+       "min10": 22.0,
+       "pts10": 12.57,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5254165",
+       "name": "Keaton Wagler",
+       "gp": 7,
+       "min": 25.0,
+       "pts": 12.14,
+       "min10": 25.0,
+       "pts10": 12.14,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3936099",
+       "name": "Derrick Jones Jr.",
+       "gp": 6,
+       "min": 28.83,
+       "pts": 11.5,
+       "min10": 28.83,
+       "pts10": 11.5,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "4702352",
+       "name": "Kobe Sanders",
+       "gp": 7,
+       "min": 25.29,
+       "pts": 11.0,
+       "min10": 25.29,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 2
+      },
+      {
+       "id": "4065778",
+       "name": "Max Strus",
+       "gp": 1,
+       "min": 23.0,
+       "pts": 11.0,
+       "min10": 23.0,
+       "pts10": 11.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4432170",
+       "name": "Isaiah Jackson",
+       "gp": 7,
+       "min": 22.29,
+       "pts": 9.57,
+       "min10": 22.29,
+       "pts10": 9.57,
+       "status": "",
+       "starts5": 4
+      },
+      {
+       "id": "2991139",
+       "name": "Kris Dunn",
+       "gp": 7,
+       "min": 29.86,
+       "pts": 9.0,
+       "min10": 29.86,
+       "pts10": 9.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "5106258",
+       "name": "Gradey Dick",
+       "gp": 7,
+       "min": 16.0,
+       "pts": 6.29,
+       "min10": 16.0,
+       "pts10": 6.29,
+       "status": "",
+       "starts5": 1
+      },
+      {
+       "id": "5105832",
+       "name": "Nick Martinelli",
+       "gp": 4,
+       "min": 4.75,
+       "pts": 3.75,
+       "min10": 4.75,
+       "pts10": 3.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5075626",
+       "name": "Baba Miller",
+       "gp": 6,
+       "min": 8.5,
+       "pts": 2.33,
+       "min10": 8.5,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4398390",
+       "name": "Jalen Pickett",
+       "gp": 3,
+       "min": 5.33,
+       "pts": 2.33,
+       "min10": 5.33,
+       "pts10": 2.33,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4845363",
+       "name": "Cam Christie",
+       "gp": 4,
+       "min": 6.75,
+       "pts": 1.75,
+       "min10": 6.75,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4683935",
+       "name": "Blake Wesley",
+       "gp": 2,
+       "min": 4.5,
+       "pts": 1.0,
+       "min10": 4.5,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      }
+     ]
+    },
+    "away_sheet": {
+     "team": "MIA",
+     "games": 7,
+     "stale": [],
+     "out": [],
+     "doubtful": [
+      {
+       "id": "4431772",
+       "name": "Myron Gardner",
+       "status": "Day-To-Day"
+      },
+      {
+       "id": "3032977",
+       "name": "Giannis Antetokounmpo",
+       "status": "Day-To-Day"
+      }
+     ],
+     "top3_out": [],
+     "top3": [
+      "3032977",
+      "4066261",
+      "4278053"
+     ],
+     "starters": [
+      "Davion Mitchell",
+      "Giannis Antetokounmpo",
+      "Bam Adebayo",
+      "Andrew Wiggins",
+      "Klay Thompson"
+     ],
+     "starters_source": "expected",
+     "players": [
+      {
+       "id": "3032977",
+       "name": "Giannis Antetokounmpo",
+       "gp": 7,
+       "min": 31.86,
+       "pts": 28.43,
+       "min10": 31.86,
+       "pts10": 28.43,
+       "status": "Day-To-Day",
+       "starts5": 5
+      },
+      {
+       "id": "4066261",
+       "name": "Bam Adebayo",
+       "gp": 7,
+       "min": 31.43,
+       "pts": 16.29,
+       "min10": 31.43,
+       "pts10": 16.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4278053",
+       "name": "Davion Mitchell",
+       "gp": 7,
+       "min": 33.43,
+       "pts": 16.0,
+       "min10": 33.43,
+       "pts10": 16.0,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "6475",
+       "name": "Klay Thompson",
+       "gp": 7,
+       "min": 21.71,
+       "pts": 11.86,
+       "min10": 21.71,
+       "pts10": 11.86,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "4601025",
+       "name": "Pelle Larsson",
+       "gp": 7,
+       "min": 29.71,
+       "pts": 11.43,
+       "min10": 29.71,
+       "pts10": 11.43,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3059319",
+       "name": "Andrew Wiggins",
+       "gp": 7,
+       "min": 26.86,
+       "pts": 10.29,
+       "min10": 26.86,
+       "pts10": 10.29,
+       "status": "",
+       "starts5": 5
+      },
+      {
+       "id": "3064482",
+       "name": "Bobby Portis",
+       "gp": 7,
+       "min": 22.14,
+       "pts": 8.86,
+       "min10": 22.14,
+       "pts10": 8.86,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "2528210",
+       "name": "Tim Hardaway Jr.",
+       "gp": 7,
+       "min": 18.43,
+       "pts": 6.57,
+       "min10": 18.43,
+       "pts10": 6.57,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4066993",
+       "name": "Dru Smith",
+       "gp": 5,
+       "min": 10.0,
+       "pts": 3.0,
+       "min10": 10.0,
+       "pts10": 3.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "5107157",
+       "name": "Ryan Conwell",
+       "gp": 5,
+       "min": 5.0,
+       "pts": 2.8,
+       "min10": 5.0,
+       "pts10": 2.8,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4997528",
+       "name": "Nikola Jovic",
+       "gp": 6,
+       "min": 12.17,
+       "pts": 2.67,
+       "min10": 12.17,
+       "pts10": 2.67,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4278076",
+       "name": "Nick Richards",
+       "gp": 4,
+       "min": 2.25,
+       "pts": 1.75,
+       "min10": 2.25,
+       "pts10": 1.75,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "3899664",
+       "name": "Simone Fontecchio",
+       "gp": 3,
+       "min": 2.67,
+       "pts": 1.0,
+       "min10": 2.67,
+       "pts10": 1.0,
+       "status": "",
+       "starts5": 0
+      },
+      {
+       "id": "4431772",
+       "name": "Myron Gardner",
+       "gp": 4,
+       "min": 2.25,
+       "pts": 1.0,
+       "min10": 2.25,
+       "pts10": 1.0,
+       "status": "Day-To-Day",
+       "starts5": 0
+      }
+     ]
+    }
+   }
+  ],
+  "notes": [],
+  "calibration": {
+   "total": {
+    "share": 1.0,
+    "sd": 18.0
+   },
+   "margin": {
+    "share": 1.0,
+    "sd": 14.247
+   },
+   "h1": {
+    "share": 0.502,
+    "sd": 11.9
+   },
+   "q1": {
+    "share": 0.253,
+    "sd": 8.1
+   }
+  },
+  "projections": [
+   {
+    "espn_id": "401909922",
+    "home": "DET",
+    "away": "PHI",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 109.1,
+     "away_pts": 103.3,
+     "total": 212.4,
+     "spread": -5.9,
+     "h1_total": 106.6,
+     "q1_total": 53.7,
+     "pace": 101.4,
+     "lineup": {
+      "home": 0.9981,
+      "away": 1.0086
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 217.5,
+        "over": 0.3885,
+        "under": 0.6115
+       },
+       "sharp": {
+        "line": 217.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 217.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 217.5,
+        "over": 0.3885,
+        "under": 0.6115
+       },
+       "sharp": {
+        "line": 217.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 217.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sharp": {
+       "projection": {
+        "line": 109.5,
+        "over": 0.4037,
+        "under": 0.5963
+       },
+       "sharp": {
+        "line": 109.5,
+        "over": 0.4894,
+        "under": 0.5106
+       },
+       "sharp_recal": {
+        "line": 109.5,
+        "over": 0.4894,
+        "under": 0.5106
+       }
+      }
+     },
+     "q1_total": {
+      "sharp": {
+       "projection": {
+        "line": 55.5,
+        "over": 0.4121,
+        "under": 0.5879
+       },
+       "sharp": {
+        "line": 55.5,
+        "over": 0.4767,
+        "under": 0.5233
+       },
+       "sharp_recal": {
+        "line": 55.5,
+        "over": 0.4767,
+        "under": 0.5233
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -2.5,
+        "home": 0.5943,
+        "away": 0.4057
+       },
+       "sharp": {
+        "line": -2.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -2.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909923",
+    "home": "WSH",
+    "away": "ATL",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 116.5,
+     "away_pts": 109.3,
+     "total": 225.9,
+     "spread": -7.2,
+     "h1_total": 113.4,
+     "q1_total": 57.1,
+     "pace": 103.4,
+     "lineup": {
+      "home": 1.0296,
+      "away": 1.0008
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 231.5,
+        "over": 0.3779,
+        "under": 0.6221
+       },
+       "sharp": {
+        "line": 231.5,
+        "over": 0.5222,
+        "under": 0.4778
+       },
+       "sharp_recal": {
+        "line": 231.5,
+        "over": 0.5222,
+        "under": 0.4778
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 232.5,
+        "over": 0.3569,
+        "under": 0.6431
+       },
+       "sharp": {
+        "line": 232.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 232.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 119.5,
+        "over": 0.3041,
+        "under": 0.6959
+       },
+       "sharp": {
+        "line": 119.5,
+        "over": 0.4075,
+        "under": 0.5925
+       },
+       "sharp_recal": {
+        "line": 119.5,
+        "over": 0.4075,
+        "under": 0.5925
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 116.5,
+        "over": 0.3972,
+        "under": 0.6028
+       },
+       "sharp": {
+        "line": 116.5,
+        "over": 0.5072,
+        "under": 0.4928
+       },
+       "sharp_recal": {
+        "line": 116.5,
+        "over": 0.5072,
+        "under": 0.4928
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 59.5,
+        "over": 0.3835,
+        "under": 0.6165
+       },
+       "sharp": {
+        "line": 59.5,
+        "over": 0.4667,
+        "under": 0.5333
+       },
+       "sharp_recal": {
+        "line": 59.5,
+        "over": 0.4667,
+        "under": 0.5333
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 58.5,
+        "over": 0.4314,
+        "under": 0.5686
+       },
+       "sharp": {
+        "line": 58.5,
+        "over": 0.5159,
+        "under": 0.4841
+       },
+       "sharp_recal": {
+        "line": 58.5,
+        "over": 0.5159,
+        "under": 0.4841
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": 2.5,
+        "home": 0.752,
+        "away": 0.248
+       },
+       "sharp": {
+        "line": 2.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": 2.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909924",
+    "home": "BOS",
+    "away": "MIL",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 118.5,
+     "away_pts": 109.3,
+     "total": 227.7,
+     "spread": -9.2,
+     "h1_total": 114.3,
+     "q1_total": 57.6,
+     "pace": 103.5,
+     "lineup": {
+      "home": 0.9757,
+      "away": 1.0041
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 223.5,
+        "over": 0.5922,
+        "under": 0.4078
+       },
+       "sharp": {
+        "line": 223.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 223.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 223.5,
+        "over": 0.5922,
+        "under": 0.4078
+       },
+       "sharp": {
+        "line": 223.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 223.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 112.5,
+        "over": 0.5601,
+        "under": 0.4399
+       },
+       "sharp": {
+        "line": 112.5,
+        "over": 0.4898,
+        "under": 0.5102
+       },
+       "sharp_recal": {
+        "line": 112.5,
+        "over": 0.4898,
+        "under": 0.5102
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 112.5,
+        "over": 0.5601,
+        "under": 0.4399
+       },
+       "sharp": {
+        "line": 112.5,
+        "over": 0.4898,
+        "under": 0.5102
+       },
+       "sharp_recal": {
+        "line": 112.5,
+        "over": 0.4898,
+        "under": 0.5102
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 56.5,
+        "over": 0.554,
+        "under": 0.446
+       },
+       "sharp": {
+        "line": 56.5,
+        "over": 0.5022,
+        "under": 0.4978
+       },
+       "sharp_recal": {
+        "line": 56.5,
+        "over": 0.5022,
+        "under": 0.4978
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 56.5,
+        "over": 0.554,
+        "under": 0.446
+       },
+       "sharp": {
+        "line": 56.5,
+        "over": 0.5022,
+        "under": 0.4978
+       },
+       "sharp_recal": {
+        "line": 56.5,
+        "over": 0.5022,
+        "under": 0.4978
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -11.5,
+        "home": 0.4359,
+        "away": 0.5641
+       },
+       "sharp": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909925",
+    "home": "BKN",
+    "away": "CHA",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 107.8,
+     "away_pts": 103.1,
+     "total": 211.0,
+     "spread": -4.7,
+     "h1_total": 105.9,
+     "q1_total": 53.4,
+     "pace": 100.3,
+     "lineup": {
+      "home": 1.0006,
+      "away": 1.01
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 213.5,
+        "over": 0.4448,
+        "under": 0.5552
+       },
+       "sharp": {
+        "line": 213.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 213.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 213.5,
+        "over": 0.4448,
+        "under": 0.5552
+       },
+       "sharp": {
+        "line": 213.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 213.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sharp": {
+       "projection": {
+        "line": 107.5,
+        "over": 0.4465,
+        "under": 0.5535
+       },
+       "sharp": {
+        "line": 107.5,
+        "over": 0.4892,
+        "under": 0.5108
+       },
+       "sharp_recal": {
+        "line": 107.5,
+        "over": 0.4892,
+        "under": 0.5108
+       }
+      }
+     },
+     "q1_total": {
+      "sharp": {
+       "projection": {
+        "line": 54.5,
+        "over": 0.446,
+        "under": 0.554
+       },
+       "sharp": {
+        "line": 54.5,
+        "over": 0.4762,
+        "under": 0.5238
+       },
+       "sharp_recal": {
+        "line": 54.5,
+        "over": 0.4762,
+        "under": 0.5238
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": 3.5,
+        "home": 0.7175,
+        "away": 0.2825
+       },
+       "sharp": {
+        "line": 3.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": 3.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909926",
+    "home": "NY",
+    "away": "CHI",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 121.3,
+     "away_pts": 108.8,
+     "total": 230.1,
+     "spread": -12.6,
+     "h1_total": 115.5,
+     "q1_total": 58.2,
+     "pace": 104.5,
+     "lineup": {
+      "home": 1.0257,
+      "away": 1.0098
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 233.5,
+        "over": 0.4251,
+        "under": 0.5749
+       },
+       "sharp": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 233.5,
+        "over": 0.4251,
+        "under": 0.5749
+       },
+       "sharp": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 113.5,
+        "over": 0.5667,
+        "under": 0.4333
+       },
+       "sharp": {
+        "line": 113.5,
+        "over": 0.6226,
+        "under": 0.3774
+       },
+       "sharp_recal": {
+        "line": 113.5,
+        "over": 0.6226,
+        "under": 0.3774
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 117.5,
+        "over": 0.4333,
+        "under": 0.5667
+       },
+       "sharp": {
+        "line": 117.5,
+        "over": 0.4905,
+        "under": 0.5095
+       },
+       "sharp_recal": {
+        "line": 117.5,
+        "over": 0.4905,
+        "under": 0.5095
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5344,
+        "under": 0.4656
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5771,
+        "under": 0.4229
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5771,
+        "under": 0.4229
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 59.5,
+        "over": 0.4362,
+        "under": 0.5638
+       },
+       "sharp": {
+        "line": 59.5,
+        "over": 0.4791,
+        "under": 0.5209
+       },
+       "sharp_recal": {
+        "line": 59.5,
+        "over": 0.4791,
+        "under": 0.5209
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -11.5,
+        "home": 0.5308,
+        "away": 0.4692
+       },
+       "sharp": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909927",
+    "home": "MEM",
+    "away": "IND",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 121.2,
+     "away_pts": 110.7,
+     "total": 231.9,
+     "spread": -10.5,
+     "h1_total": 116.4,
+     "q1_total": 58.7,
+     "pace": 103.8,
+     "lineup": {
+      "home": 1.0003,
+      "away": 1.0086
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 229.5,
+        "over": 0.553,
+        "under": 0.447
+       },
+       "sharp": {
+        "line": 229.5,
+        "over": 0.4778,
+        "under": 0.5222
+       },
+       "sharp_recal": {
+        "line": 229.5,
+        "over": 0.4778,
+        "under": 0.5222
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 228.5,
+        "over": 0.5749,
+        "under": 0.4251
+       },
+       "sharp": {
+        "line": 228.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 228.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 111.5,
+        "over": 0.6597,
+        "under": 0.3403
+       },
+       "sharp": {
+        "line": 111.5,
+        "over": 0.6062,
+        "under": 0.3938
+       },
+       "sharp_recal": {
+        "line": 111.5,
+        "over": 0.6062,
+        "under": 0.3938
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 114.5,
+        "over": 0.5634,
+        "under": 0.4366
+       },
+       "sharp": {
+        "line": 114.5,
+        "over": 0.5069,
+        "under": 0.4931
+       },
+       "sharp_recal": {
+        "line": 114.5,
+        "over": 0.5069,
+        "under": 0.4931
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 56.5,
+        "over": 0.607,
+        "under": 0.393
+       },
+       "sharp": {
+        "line": 56.5,
+        "over": 0.5643,
+        "under": 0.4357
+       },
+       "sharp_recal": {
+        "line": 56.5,
+        "over": 0.5643,
+        "under": 0.4357
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5589,
+        "under": 0.4411
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5153,
+        "under": 0.4847
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5153,
+        "under": 0.4847
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -6.5,
+        "home": 0.6106,
+        "away": 0.3894
+       },
+       "sharp": {
+        "line": -6.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -6.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909928",
+    "home": "NO",
+    "away": "UTAH",
+    "lineup_shock": {
+     "out": [
+      "Jaren Jackson Jr."
+     ],
+     "sharp_unmoved": true,
+     "sportybet_unmoved": true,
+     "flag": true
+    },
+    "projection": {
+     "home_pts": 121.3,
+     "away_pts": 110.4,
+     "total": 231.7,
+     "spread": -10.9,
+     "h1_total": 116.3,
+     "q1_total": 58.6,
+     "pace": 106.4,
+     "lineup": {
+      "home": 0.9936,
+      "away": 0.9775
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 235.5,
+        "over": 0.4164,
+        "under": 0.5836
+       },
+       "sharp": {
+        "line": 235.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 235.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 235.5,
+        "over": 0.4164,
+        "under": 0.5836
+       },
+       "sharp": {
+        "line": 235.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 235.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 114.5,
+        "over": 0.5601,
+        "under": 0.4399
+       },
+       "sharp": {
+        "line": 114.5,
+        "over": 0.6227,
+        "under": 0.3773
+       },
+       "sharp_recal": {
+        "line": 114.5,
+        "over": 0.6227,
+        "under": 0.3773
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 118.5,
+        "over": 0.4267,
+        "under": 0.5733
+       },
+       "sharp": {
+        "line": 118.5,
+        "over": 0.4906,
+        "under": 0.5094
+       },
+       "sharp_recal": {
+        "line": 118.5,
+        "over": 0.4906,
+        "under": 0.5094
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.554,
+        "under": 0.446
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.6014,
+        "under": 0.3986
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.6014,
+        "under": 0.3986
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 59.5,
+        "over": 0.4558,
+        "under": 0.5442
+       },
+       "sharp": {
+        "line": 59.5,
+        "over": 0.504,
+        "under": 0.496
+       },
+       "sharp_recal": {
+        "line": 59.5,
+        "over": 0.504,
+        "under": 0.496
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -5.5,
+        "home": 0.6477,
+        "away": 0.3523
+       },
+       "sharp": {
+        "line": -5.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -5.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909929",
+    "home": "OKC",
+    "away": "CLE",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 115.6,
+     "away_pts": 116.6,
+     "total": 232.1,
+     "spread": 1.0,
+     "h1_total": 116.5,
+     "q1_total": 58.7,
+     "pace": 102.9,
+     "lineup": {
+      "home": 1.0271,
+      "away": 1.0325
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 227.5,
+        "over": 0.6009,
+        "under": 0.3991
+       },
+       "sharp": {
+        "line": 227.5,
+        "over": 0.5222,
+        "under": 0.4778
+       },
+       "sharp_recal": {
+        "line": 227.5,
+        "over": 0.5222,
+        "under": 0.4778
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 228.5,
+        "over": 0.5793,
+        "under": 0.4207
+       },
+       "sharp": {
+        "line": 228.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 228.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 110.5,
+        "over": 0.6929,
+        "under": 0.3071
+       },
+       "sharp": {
+        "line": 110.5,
+        "over": 0.6382,
+        "under": 0.3618
+       },
+       "sharp_recal": {
+        "line": 110.5,
+        "over": 0.6382,
+        "under": 0.3618
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 114.5,
+        "over": 0.5667,
+        "under": 0.4333
+       },
+       "sharp": {
+        "line": 114.5,
+        "over": 0.5069,
+        "under": 0.4931
+       },
+       "sharp_recal": {
+        "line": 114.5,
+        "over": 0.5069,
+        "under": 0.4931
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 55.5,
+        "over": 0.6536,
+        "under": 0.3464
+       },
+       "sharp": {
+        "line": 55.5,
+        "over": 0.6123,
+        "under": 0.3877
+       },
+       "sharp_recal": {
+        "line": 55.5,
+        "over": 0.6123,
+        "under": 0.3877
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5589,
+        "under": 0.4411
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5153,
+        "under": 0.4847
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5153,
+        "under": 0.4847
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -2.5,
+        "home": 0.403,
+        "away": 0.597
+       },
+       "sharp": {
+        "line": -2.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -2.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909930",
+    "home": "HOU",
+    "away": "MIN",
+    "lineup_shock": {
+     "out": [
+      "Anthony Edwards"
+     ],
+     "sharp_unmoved": false,
+     "sportybet_unmoved": false,
+     "flag": false
+    },
+    "projection": {
+     "home_pts": 117.0,
+     "away_pts": 102.9,
+     "total": 219.9,
+     "spread": -14.1,
+     "h1_total": 110.4,
+     "q1_total": 55.6,
+     "pace": 102.5,
+     "lineup": {
+      "home": 1.0146,
+      "away": 0.9326
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 220.5,
+        "over": 0.4867,
+        "under": 0.5133
+       },
+       "sharp": {
+        "line": 220.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 220.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 220.5,
+        "over": 0.4867,
+        "under": 0.5133
+       },
+       "sharp": {
+        "line": 220.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 220.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 106.5,
+        "over": 0.6284,
+        "under": 0.3716
+       },
+       "sharp": {
+        "line": 106.5,
+        "over": 0.6377,
+        "under": 0.3623
+       },
+       "sharp_recal": {
+        "line": 106.5,
+        "over": 0.6377,
+        "under": 0.3623
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 110.5,
+        "over": 0.4966,
+        "under": 0.5034
+       },
+       "sharp": {
+        "line": 110.5,
+        "over": 0.5064,
+        "under": 0.4936
+       },
+       "sharp_recal": {
+        "line": 110.5,
+        "over": 0.5064,
+        "under": 0.4936
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 53.5,
+        "over": 0.6023,
+        "under": 0.3977
+       },
+       "sharp": {
+        "line": 53.5,
+        "over": 0.6111,
+        "under": 0.3889
+       },
+       "sharp_recal": {
+        "line": 53.5,
+        "over": 0.6111,
+        "under": 0.3889
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 55.5,
+        "over": 0.5049,
+        "under": 0.4951
+       },
+       "sharp": {
+        "line": 55.5,
+        "over": 0.5141,
+        "under": 0.4859
+       },
+       "sharp_recal": {
+        "line": 55.5,
+        "over": 0.5141,
+        "under": 0.4859
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -8.5,
+        "home": 0.6529,
+        "away": 0.3471
+       },
+       "sharp": {
+        "line": -8.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -8.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909931",
+    "home": "DEN",
+    "away": "TOR",
+    "lineup_shock": {
+     "out": [
+      "Kawhi Leonard"
+     ],
+     "sharp_unmoved": false,
+     "sportybet_unmoved": true,
+     "flag": true
+    },
+    "projection": {
+     "home_pts": 113.5,
+     "away_pts": 117.3,
+     "total": 230.8,
+     "spread": 3.8,
+     "h1_total": 115.9,
+     "q1_total": 58.4,
+     "pace": 103.4,
+     "lineup": {
+      "home": 0.9955,
+      "away": 1.0091
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 231.5,
+        "over": 0.4845,
+        "under": 0.5155
+       },
+       "sharp": {
+        "line": 231.5,
+        "over": 0.4778,
+        "under": 0.5222
+       },
+       "sharp_recal": {
+        "line": 231.5,
+        "over": 0.4778,
+        "under": 0.5222
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 230.5,
+        "over": 0.5066,
+        "under": 0.4934
+       },
+       "sharp": {
+        "line": 230.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 230.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 111.5,
+        "over": 0.6442,
+        "under": 0.3558
+       },
+       "sharp": {
+        "line": 111.5,
+        "over": 0.6383,
+        "under": 0.3617
+       },
+       "sharp_recal": {
+        "line": 111.5,
+        "over": 0.6383,
+        "under": 0.3617
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 115.5,
+        "over": 0.5134,
+        "under": 0.4866
+       },
+       "sharp": {
+        "line": 115.5,
+        "over": 0.5071,
+        "under": 0.4929
+       },
+       "sharp_recal": {
+        "line": 115.5,
+        "over": 0.5071,
+        "under": 0.4929
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 56.5,
+        "over": 0.5927,
+        "under": 0.4073
+       },
+       "sharp": {
+        "line": 56.5,
+        "over": 0.5887,
+        "under": 0.4113
+       },
+       "sharp_recal": {
+        "line": 56.5,
+        "over": 0.5887,
+        "under": 0.4113
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 58.5,
+        "over": 0.4951,
+        "under": 0.5049
+       },
+       "sharp": {
+        "line": 58.5,
+        "over": 0.491,
+        "under": 0.509
+       },
+       "sharp_recal": {
+        "line": 58.5,
+        "over": 0.491,
+        "under": 0.509
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -4.5,
+        "home": 0.2801,
+        "away": 0.7199
+       },
+       "sharp": {
+        "line": -4.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -4.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909932",
+    "home": "PHX",
+    "away": "POR",
+    "lineup_shock": {
+     "out": [
+      "Ja Morant"
+     ],
+     "sharp_unmoved": true,
+     "sportybet_unmoved": true,
+     "flag": true
+    },
+    "projection": {
+     "home_pts": 113.8,
+     "away_pts": 120.0,
+     "total": 233.8,
+     "spread": 6.2,
+     "h1_total": 117.3,
+     "q1_total": 59.1,
+     "pace": 101.8,
+     "lineup": {
+      "home": 1.0105,
+      "away": 1.0008
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 227.5,
+        "over": 0.6368,
+        "under": 0.3632
+       },
+       "sharp": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 227.5,
+        "over": 0.6368,
+        "under": 0.3632
+       },
+       "sharp": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 117.5,
+        "over": 0.4933,
+        "under": 0.5067
+       },
+       "sharp": {
+        "line": 117.5,
+        "over": 0.3909,
+        "under": 0.6091
+       },
+       "sharp_recal": {
+        "line": 117.5,
+        "over": 0.3909,
+        "under": 0.6091
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 114.5,
+        "over": 0.593,
+        "under": 0.407
+       },
+       "sharp": {
+        "line": 114.5,
+        "over": 0.4901,
+        "under": 0.5099
+       },
+       "sharp_recal": {
+        "line": 114.5,
+        "over": 0.4901,
+        "under": 0.5099
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 58.5,
+        "over": 0.5295,
+        "under": 0.4705
+       },
+       "sharp": {
+        "line": 58.5,
+        "over": 0.4537,
+        "under": 0.5463
+       },
+       "sharp_recal": {
+        "line": 58.5,
+        "over": 0.4537,
+        "under": 0.5463
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5783,
+        "under": 0.4217
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5028,
+        "under": 0.4972
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5028,
+        "under": 0.4972
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": 3.5,
+        "home": 0.4248,
+        "away": 0.5752
+       },
+       "sharp": {
+        "line": 3.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": 3.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909933",
+    "home": "SA",
+    "away": "DAL",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 115.7,
+     "away_pts": 113.0,
+     "total": 228.7,
+     "spread": -2.7,
+     "h1_total": 114.8,
+     "q1_total": 57.9,
+     "pace": 103.3,
+     "lineup": {
+      "home": 1.0011,
+      "away": 1.0334
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 227.5,
+        "over": 0.5266,
+        "under": 0.4734
+       },
+       "sharp": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 227.5,
+        "over": 0.5266,
+        "under": 0.4734
+       },
+       "sharp": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 227.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 117.5,
+        "over": 0.4103,
+        "under": 0.5897
+       },
+       "sharp": {
+        "line": 117.5,
+        "over": 0.3909,
+        "under": 0.6091
+       },
+       "sharp_recal": {
+        "line": 117.5,
+        "over": 0.3909,
+        "under": 0.6091
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 114.5,
+        "over": 0.5101,
+        "under": 0.4899
+       },
+       "sharp": {
+        "line": 114.5,
+        "over": 0.4901,
+        "under": 0.5099
+       },
+       "sharp_recal": {
+        "line": 114.5,
+        "over": 0.4901,
+        "under": 0.5099
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 58.5,
+        "over": 0.4705,
+        "under": 0.5295
+       },
+       "sharp": {
+        "line": 58.5,
+        "over": 0.4537,
+        "under": 0.5463
+       },
+       "sharp_recal": {
+        "line": 58.5,
+        "over": 0.4537,
+        "under": 0.5463
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5197,
+        "under": 0.4803
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5028,
+        "under": 0.4972
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5028,
+        "under": 0.4972
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": -11.5,
+        "home": 0.2684,
+        "away": 0.7316
+       },
+       "sharp": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": -11.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909934",
+    "home": "SAC",
+    "away": "LAL",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 116.4,
+     "away_pts": 126.8,
+     "total": 243.2,
+     "spread": 10.4,
+     "h1_total": 122.1,
+     "q1_total": 61.5,
+     "pace": 104.2,
+     "lineup": {
+      "home": 1.026,
+      "away": 1.0154
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 234.5,
+        "over": 0.6856,
+        "under": 0.3144
+       },
+       "sharp": {
+        "line": 234.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 234.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 234.5,
+        "over": 0.6856,
+        "under": 0.3144
+       },
+       "sharp": {
+        "line": 234.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 234.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 113.5,
+        "over": 0.7651,
+        "under": 0.2349
+       },
+       "sharp": {
+        "line": 113.5,
+        "over": 0.6385,
+        "under": 0.3615
+       },
+       "sharp_recal": {
+        "line": 113.5,
+        "over": 0.6385,
+        "under": 0.3615
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 117.5,
+        "over": 0.6505,
+        "under": 0.3495
+       },
+       "sharp": {
+        "line": 117.5,
+        "over": 0.5073,
+        "under": 0.4927
+       },
+       "sharp_recal": {
+        "line": 117.5,
+        "over": 0.5073,
+        "under": 0.4927
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.6893,
+        "under": 0.3107
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5893,
+        "under": 0.4107
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5893,
+        "under": 0.4107
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 59.5,
+        "over": 0.5975,
+        "under": 0.4025
+       },
+       "sharp": {
+        "line": 59.5,
+        "over": 0.4916,
+        "under": 0.5084
+       },
+       "sharp_recal": {
+        "line": 59.5,
+        "over": 0.4916,
+        "under": 0.5084
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": 11.5,
+        "home": 0.5308,
+        "away": 0.4692
+       },
+       "sharp": {
+        "line": 11.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": 11.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   },
+   {
+    "espn_id": "401909935",
+    "home": "LAC",
+    "away": "MIA",
+    "lineup_shock": null,
+    "projection": {
+     "home_pts": 116.8,
+     "away_pts": 113.7,
+     "total": 230.4,
+     "spread": -3.1,
+     "h1_total": 115.7,
+     "q1_total": 58.3,
+     "pace": 104.3,
+     "lineup": {
+      "home": 1.0014,
+      "away": 0.9717
+     },
+     "b2b": {
+      "home": false,
+      "away": false
+     }
+    },
+    "sides": {
+     "total": {
+      "sportybet": {
+       "projection": {
+        "line": 233.5,
+        "over": 0.4316,
+        "under": 0.5684
+       },
+       "sharp": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 233.5,
+        "over": 0.4316,
+        "under": 0.5684
+       },
+       "sharp": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       },
+       "sharp_recal": {
+        "line": 233.5,
+        "over": 0.5,
+        "under": 0.5
+       }
+      }
+     },
+     "h1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 113.5,
+        "over": 0.5733,
+        "under": 0.4267
+       },
+       "sharp": {
+        "line": 113.5,
+        "over": 0.6226,
+        "under": 0.3774
+       },
+       "sharp_recal": {
+        "line": 113.5,
+        "over": 0.6226,
+        "under": 0.3774
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 117.5,
+        "over": 0.4399,
+        "under": 0.5601
+       },
+       "sharp": {
+        "line": 117.5,
+        "over": 0.4905,
+        "under": 0.5095
+       },
+       "sharp_recal": {
+        "line": 117.5,
+        "over": 0.4905,
+        "under": 0.5095
+       }
+      }
+     },
+     "q1_total": {
+      "sportybet": {
+       "projection": {
+        "line": 57.5,
+        "over": 0.5393,
+        "under": 0.4607
+       },
+       "sharp": {
+        "line": 57.5,
+        "over": 0.5771,
+        "under": 0.4229
+       },
+       "sharp_recal": {
+        "line": 57.5,
+        "over": 0.5771,
+        "under": 0.4229
+       }
+      },
+      "sharp": {
+       "projection": {
+        "line": 59.5,
+        "over": 0.4411,
+        "under": 0.5589
+       },
+       "sharp": {
+        "line": 59.5,
+        "over": 0.4791,
+        "under": 0.5209
+       },
+       "sharp_recal": {
+        "line": 59.5,
+        "over": 0.4791,
+        "under": 0.5209
+       }
+      }
+     },
+     "spread": {
+      "sharp": {
+       "projection": {
+        "line": 5.5,
+        "home": 0.727,
+        "away": 0.273
+       },
+       "sharp": {
+        "line": 5.5,
+        "home": 0.5,
+        "away": 0.5
+       },
+       "sharp_recal": {
+        "line": 5.5,
+        "home": 0.5,
+        "away": 0.5
+       }
+      }
+     }
+    }
+   }
+  ],
+  "gate_open": false
+ },
+ "sent_at": "2026-11-04T06:51:38Z"
+}

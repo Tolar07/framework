@@ -331,7 +331,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Wrexham v Middlesbrough",
@@ -501,7 +503,9 @@
     "yes": -0.0302,
     "no": 0.0302,
     "signal": null
-   }
+   },
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Bristol City v Wolves",
@@ -670,7 +674,9 @@
     "yes": -0.0316,
     "no": 0.0316,
     "signal": null
-   }
+   },
+   "drift_price": 1.32,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Rennes v Olympiacos",
@@ -1346,7 +1352,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Lens v Como 1907",
@@ -1507,7 +1515,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Porto v Napoli",
@@ -1667,7 +1677,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "PSV Eindhoven v Club Brugge",
@@ -1831,7 +1843,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "RB Leipzig v Man City",
@@ -1995,7 +2009,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.56,
+   "drift_pct": -3.7
   },
   {
    "fixture": "Slavia Prague v Arsenal",
@@ -2140,7 +2156,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.4,
+   "drift_pct": 1.4
   },
   {
    "fixture": "Viking FK v Sabah Masazir",
@@ -2270,7 +2288,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.5,
+   "drift_pct": 2.7
   },
   {
    "fixture": "Oxford United v Reading",
@@ -2417,7 +2437,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.32,
+   "drift_pct": 1.5
   }
  ],
  "accas": [

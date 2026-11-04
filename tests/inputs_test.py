@@ -48,6 +48,15 @@ assert len(nr["home win | missing edge"]) == 300, "PENDING news or result is ski
 s, _ = st.wf_preds(nr["home win | missing edge"])
 assert s["verdict"] == "ADDS INFORMATION", s   # an absence edge that decides the result is picked up
 print("lineup / injury missing-share input: skipped when PENDING, walk-forward verdict: OK")
+vc = st.vs_close(st.wf_preds(nr["home win | missing edge"])[1])
+assert vc["n"] == 0 and vc["clv"] == "PENDING", "no sharp close in the rows: PENDING, not invented"
+for d_, doc in docs[:300]:
+    for r_ in doc.values():
+        r_["close"] = {"sharp": {"home": 0.5, "away": 0.3, "over25": 0.5, "btts": 0.5}}
+nr2 = st.news_rows(docs)
+vc = st.vs_close(st.wf_preds(nr2["home win | missing edge"])[1])
+assert vc["n"] > 0 and vc["sharp_close"] is not None and vc["clv"] == "PENDING", vc
+print("lineup / injury vs the sharp close: Brier compared, CLV PENDING (no opening price stored): OK")
 
 # motivation / table (issue #218): season-to-date table before the day, stakes only late in the season
 tm = []

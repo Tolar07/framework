@@ -31,6 +31,70 @@
   "kickoff_utc": "2026-11-04T17:45:00.000Z",
   "lineup_type": "predicted"
  },
+ "Bristol City v Wolves": {
+  "absent": [
+   {
+    "name": "Noah Eile",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jordan James",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Boubacar Traor\u00e9",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Raul Jim\u00e9nez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.12508173943670678,
+  "away_unavailable": 4,
+  "fotmob_id": 5836918,
+  "home_missing_share": 0.10489732144491765,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Cardiff City v West Ham": {
+  "absent": [
+   {
+    "name": "Dylan Lawlor",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Calum Chambers",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kyle Walker-Peters",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Keiber Lamadrid",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.049894947720810635,
+  "away_unavailable": 2,
+  "fotmob_id": 5836919,
+  "home_missing_share": 0.1284116020941669,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-04T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Fenerbahce Istanbul v Liverpool": {
   "absent": [
    {
@@ -115,6 +179,165 @@
   "kickoff_utc": "2026-11-04T19:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Lens v Como 1907": {
+  "absent": [
+   {
+    "name": "Isma\u00eblo Ganiou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Odsonne \u00c9douard",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Abdallah Sima",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Trevoh Chalobah",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jes\u00fas Rodr\u00edguez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Assane Diao",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.3468142042940062,
+  "away_unavailable": 5,
+  "fotmob_id": 6106416,
+  "home_missing_share": 0.32317328089005654,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Oxford United v Reading": {
+  "absent": [],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5837118,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-04T19:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "PSV Eindhoven v Club Brugge": {
+  "absent": [
+   {
+    "name": "Paul Wanner",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jerdy Schouten",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sami Ouaissa",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Joel Ord\u00f3\u00f1ez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.21239542419000745,
+  "away_unavailable": 1,
+  "fotmob_id": 6106303,
+  "home_missing_share": 0.27366140970118535,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Porto v Napoli": {
+  "absent": [
+   {
+    "name": "William Gomes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Oskar Pietuszewski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Vasco Sousa",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alisson Santos",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Alessandro Buongiorno",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Beno\u00eet Badiashile",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.42970882057219945,
+  "away_unavailable": 10,
+  "fotmob_id": 6106288,
+  "home_missing_share": 0.1854506036354315,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "RB Leipzig v Man City": {
+  "absent": [
+   {
+    "name": "Assan Ou\u00e9draogo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Maxime Est\u00e8ve",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marc Guiu",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Antoine Semenyo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.07356744070171142,
+  "away_unavailable": 1,
+  "fotmob_id": 6106322,
+  "home_missing_share": 0.222584707520665,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Rennes v Olympiacos": {
   "absent": [
    {
@@ -143,13 +366,109 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T09:40Z",
+  "at": "2026-11-04T14:00Z",
   "away_missing_share": 0.05086278887284974,
   "away_unavailable": 2,
   "fotmob_id": 6112306,
   "home_missing_share": 0.39448601044247467,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-04T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Slavia Prague v Arsenal": {
+  "absent": [
+   {
+    "name": "Igoh Ogbu",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Eli\u00e1s Pit\u00e1k",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ivan Schranz",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bukayo Saka",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.14050198513693887,
+  "away_unavailable": 1,
+  "fotmob_id": 6106389,
+  "home_missing_share": 0.0989841845611615,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Viking FK v Sabah Masazir": {
+  "absent": [
+   {
+    "name": "Martin Roseth",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Anders B\u00e6rtelsen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nicholas D'Agostino",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6106420,
+  "home_missing_share": 0.06733707714686173,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-04T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Wrexham v Middlesbrough": {
+  "absent": [
+   {
+    "name": "Nathan Broadhead",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Liberato Cacace",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sam Smith",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rokas Puk\u0161tas",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Alfie Jones",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T14:00Z",
+  "away_missing_share": 0.10147957043602512,
+  "away_unavailable": 2,
+  "fotmob_id": 5836921,
+  "home_missing_share": 0.1565353012704026,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-04T19:45:00.000Z",
   "lineup_type": "lastStarting11"
  }
 }

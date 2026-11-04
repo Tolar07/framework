@@ -54,14 +54,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T19:00Z",
-  "away_missing_share": 0.12508173943670678,
+  "at": "2026-11-04T19:20Z",
+  "away_missing_share": 0.12527608280901967,
   "away_unavailable": 4,
   "fotmob_id": 5836918,
-  "home_missing_share": 0.10489732144491765,
+  "home_missing_share": 0.09500636887817691,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Cardiff City v West Ham": {
   "absent": [

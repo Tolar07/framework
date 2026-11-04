@@ -1,0 +1,46 @@
+name: OLP XDV edge book
+
+# The edge plan (Architect 2026-11-04: "how can the training turn to an edge? ... do 1 to 7"):
+# about every 30 minutes, every SportyBet football + basketball side beside the Matchbook
+# exchange's fair chance (public prices, no login): first and last look per side, the gap
+# board, timing; then the edge scoreboard (CLV vs the exchange close, promotion on proof) and
+# the residual model. monitor/edge_run.py, engine/edge_book.py, monitor/edge_scoreboard.py.
+# RECORDED ONLY: nothing here picks, stakes or blocks.
+#
+# Days still being watched live in the Actions cache (data/cache/edge, not git); a day reaches
+# git once, in data/edge/, when all its games have kicked off.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # save finished days and the scoreboard
+
+concurrency:
+  group: edge
+  cancel-in-progress: false
+
+jobs:
+  look:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Restore the days still being watched
+        uses: actions/cache@v4
+        with:
+          path: data/cache/edge
+          key: olp-xdv-edge-${{ github.run_id }}
+          restore-keys: olp-xdv-edge-
+      - name: Look, score, save
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python monitor/edge_run.py

@@ -29,6 +29,7 @@ from engine import reasoning as R
 ROOT = Path(__file__).parent.parent
 REVIEW = ROOT / "memory" / "claude_review.json"
 WEIGHTS = ROOT / "memory" / "learned_weights.json"
+EDGE = ROOT / "memory" / "edge_scoreboard.json"
 MAX_LESSONS = 8
 MAX_ROWS = 120                # newest graded verdicts shown per sport
 STALE_DAYS = 4                # older than this, the reasoning step stops reading the review
@@ -46,6 +47,10 @@ Work out, from the numbers, not from general betting wisdom:
    record ("vetoes on team news alone won 11 of 14: only veto on a confirmed starter out"). A sample
    under 15 graded picks is a hypothesis: say so in the lesson. Never tell it to stake more.
 4. FACTS: which fact-sheet facts are earning attention and which fields keep coming back empty.
+5. EDGE (judge this first): winning is not the test, beating the price is. The EDGE SCOREBOARD
+   compares every price taken with the Matchbook exchange's fair chance (no margin) at entry and at
+   the exchange close (CLV). A pick that wins at a price below the fair chance still loses money over
+   time. Say where the price beat the exchange and where it did not, and shape lessons around that.
 
 Return JSON only, no prose before or after:
 {{"right": ["..."], "wrong": ["..."], "lessons": ["..."], "facts": ["..."], "summary": "<one sentence>"}}
@@ -102,6 +107,12 @@ def prompt() -> str:
     try:
         parts.append("LEARNED WEIGHTS:\n" + WEIGHTS.read_text(encoding="utf-8")[:2000] + "\n")
     except OSError:
+        pass
+    try:
+        edge = json.loads(EDGE.read_text(encoding="utf-8"))
+        parts.append("EDGE SCOREBOARD (monitor/edge_scoreboard.py):\n" + json.dumps(
+            {k: edge.get(k) for k in ("summary", "groups", "promotion")}, ensure_ascii=False)[:5000] + "\n")
+    except (OSError, ValueError):
         pass
     old = load()
     if old.get("lessons"):

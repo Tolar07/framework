@@ -957,6 +957,12 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
             text += "\n\n" + learning
         if scorecard_line:
             text += "\n\n" + scorecard_line
+        try:      # the edge scoreboard (monitor/edge_scoreboard.py): CLV vs the exchange close, promotion
+            edge = _read(ROOT / "memory" / "edge_scoreboard.json") or {}
+            if edge.get("summary"):
+                text += "\n\n" + edge["summary"]
+        except Exception:  # noqa: BLE001 — never blocks the report
+            pass
         try:      # the prediction sites' paper tip board: the day's record and each site's stage
             from engine import tip_board
             tips = tip_board.report_lines(due)

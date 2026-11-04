@@ -1,0 +1,30 @@
+{
+ "built_at": "2026-11-04T02:11:39+00:00",
+ "recorded_only": true,
+ "hypothesis": "H003",
+ "outcome": "over 2.5",
+ "feature": "soft close gap",
+ "clv": "PENDING \u2014 no pre-close SportyBet price archived beside the close yet",
+ "walk_forward": {
+  "rows": 867,
+  "scored": 740,
+  "brier_model": 0.2439,
+  "gain": 0.00393,
+  "se": 0.00163,
+  "last_coef": 0.255,
+  "verdict": "ADDS INFORMATION"
+ },
+ "verdict": "PROMOTION CANDIDATE (Architect decides)",
+ "fit": {
+  "mu": 0.0302,
+  "sd": 0.0756,
+  "coef": 0.2636,
+  "rows": 867
+ },
+ "tagged": {
+  "gap_over": 0.03,
+  "n": 427,
+  "hit_rate": 0.5691,
+  "model_mean": 0.4815
+ }
+}

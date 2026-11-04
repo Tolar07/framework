@@ -7,7 +7,10 @@ team; the mirror for away; a total-goals pick depends on neither. Then:
 
   * the side's MISSING SHARE = value of injured/suspended players divided by
     (value of the XI + value missing). Weighted by market value, so a missing
-    star counts and a missing reserve barely does.
+    star counts and a missing reserve barely does. Since 2026-11-04 the level reads
+    the SQUAD-DEPTH share when there is one (engine/squad_depth.py): a player with no
+    start in the last 5 is already priced in, a rotation player counts by his share
+    of starts, and good cover outside the XI takes most of the loss away.
   * ROTATION (confirmed XI only): the confirmed XI is worth much less than the
     XI predicted when the board was built.
 
@@ -72,11 +75,18 @@ def assess(market: str, news: Optional[dict],
                 "note": "pick does not depend on one team's lineup"}
     mine, theirs = news[side], news["away" if side == "home" else "home"]
     level, notes = "OK", []
-    share = mine.get("missing_share")
+    raw = mine.get("missing_share")
+    adj = mine.get("adjusted_share")
+    share = adj if adj is not None else raw
     if share is not None and share >= CAUTION_SHARE:
         level = "RISK" if share >= RISK_SHARE else "CAUTION"
         names = ", ".join(m["name"] for m in mine["missing"][:3])
-        notes.append(f"{mine['name']} missing {share:.0%} of value ({names})")
+        notes.append(f"{mine['name']} missing {share:.0%} of value"
+                     + (f" after squad depth ({raw:.0%} raw)" if adj is not None and raw is not None else "")
+                     + f" ({names})")
+    elif adj is not None and raw is not None and raw >= CAUTION_SHARE:
+        why = "; ".join(f"{r['name']}: {r['reason']}" for r in (mine.get("depth") or {}).get("players", [])[:4])
+        notes.append(f"{mine['name']} missing {raw:.0%} of value raw, {adj:.0%} after squad depth ({why})")
     if (news.get("lineup_type") == "confirmed" and predicted_xi_value
             and predicted_xi_value.get(side) and mine.get("xi_value")):
         ratio = mine["xi_value"] / predicted_xi_value[side]

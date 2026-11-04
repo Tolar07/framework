@@ -460,7 +460,7 @@ def matchbook_bets(repo: Path, since: str) -> list[dict]:
             "bot": "matchbook", "cur": "GBP", "date": day, "id": r["pos_id"],
             "kind": r.get("source") or "?", "stake": float(r.get("cost_gbp") or r.get("stake_asked_gbp") or 0),
             "odds": float(r.get("avg_odds") or r.get("odds_asked") or 0), "paper": False,
-            "clv": r.get("clv"), "own_pnl": r.get("pnl_gbp"), "own_settled": own is not None and r.get("pnl_gbp") is not None,
+            "clv": r.get("clv"), "placed_at": r.get("opened_at"), "own_pnl": r.get("pnl_gbp"), "own_settled": own is not None and r.get("pnl_gbp") is not None,
             "legs": [{"home": home.strip(), "away": away.strip(), "ko": ko, "sport": sport,
                       "key": key, "own": own}],
         })
@@ -522,7 +522,7 @@ def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
                 "kind": f"{b.get('section') or '?'} {b.get('rule') or ''}".strip(),
                 "stake": float(b.get("size_matched") or b.get("stake") or 0),
                 "odds": float(b.get("avg_price") or b.get("price") or 0), "paper": False,
-                "own_pnl": b.get("pnl"), "own_settled": st in ("WON", "LOST", "GREEN", "VOIDED", "VOID")
+                "placed_at": b.get("placed_at"), "own_pnl": b.get("pnl"), "own_settled": st in ("WON", "LOST", "GREEN", "VOIDED", "VOID")
                 and b.get("pnl") is not None, "legs": legs})
     return out
 
@@ -941,6 +941,15 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"challengers not read: {type(e).__name__}")
     scorecard_line = ""
+    timing_line = ""
+    try:      # Matchbook (early) v Betfair (3 h before) on the same picks, by CLV (#259): record-only
+        from monitor import timing_experiment
+        tx = timing_experiment.build(real, today)
+        timing_experiment.save(tx)
+        timing_line = tx["report_line"]
+        notes.append(f"timing: {tx['pairs']} same-pick pairs")
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"timing experiment not built: {type(e).__name__}")
     try:      # per-rule CLV scorecard across all bots (#258): record-only, proposals never applied
         from monitor import rule_scorecard
         card = rule_scorecard.build(real, today, hypotheses=_jsonl(ROOT / "memory" / "hypotheses.jsonl"),
@@ -957,6 +966,8 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
             text += "\n\n" + learning
         if scorecard_line:
             text += "\n\n" + scorecard_line
+        if timing_line:
+            text += "\n\n" + timing_line
         try:      # the edge scoreboard (monitor/edge_scoreboard.py): CLV vs the exchange close, promotion
             edge = _read(ROOT / "memory" / "edge_scoreboard.json") or {}
             if edge.get("summary"):

@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
+  "at": "2026-11-04T19:00Z",
   "away_missing_share": 0.12508173943670678,
   "away_unavailable": 4,
   "fotmob_id": 5836918,
@@ -66,14 +66,19 @@
  "Cardiff City v West Ham": {
   "absent": [
    {
+    "name": "Krystian Bielik",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Dylan Lawlor",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Calum Chambers",
+    "name": "Gabriel Osho",
     "side": "home",
-    "type": "injury"
+    "type": "suspension"
    },
    {
     "name": "Kyle Walker-Peters",
@@ -86,14 +91,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
-  "away_missing_share": 0.049894947720810635,
+  "at": "2026-11-04T19:00Z",
+  "away_missing_share": 0.04500071600184569,
   "away_unavailable": 2,
   "fotmob_id": 5836919,
-  "home_missing_share": 0.1284116020941669,
-  "home_unavailable": 2,
+  "home_missing_share": 0.24663902688859218,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-11-04T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Fenerbahce Istanbul v Liverpool": {
   "absent": [
@@ -207,25 +212,25 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
-  "away_missing_share": 0.3468142042940062,
+  "at": "2026-11-04T19:00Z",
+  "away_missing_share": 0.37906628235024753,
   "away_unavailable": 5,
   "fotmob_id": 6106416,
-  "home_missing_share": 0.32317328089005654,
+  "home_missing_share": 0.3307741125114229,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Oxford United v Reading": {
   "absent": [],
-  "at": "2026-11-04T18:40Z",
+  "at": "2026-11-04T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837118,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-11-04T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "PSV Eindhoven v Club Brugge": {
   "absent": [
@@ -250,14 +255,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
+  "at": "2026-11-04T19:00Z",
   "away_missing_share": 0.21239542419000745,
   "away_unavailable": 1,
   "fotmob_id": 6106303,
   "home_missing_share": 0.27366140970118535,
   "home_unavailable": 6,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Porto v Napoli": {
   "absent": [
@@ -267,12 +272,12 @@
     "type": "injury"
    },
    {
-    "name": "Oskar Pietuszewski",
+    "name": "Vasco Sousa",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Vasco Sousa",
+    "name": "Chris Smalling",
     "side": "home",
     "type": "injury"
    },
@@ -292,14 +297,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
-  "away_missing_share": 0.42970882057219945,
-  "away_unavailable": 10,
+  "at": "2026-11-04T19:00Z",
+  "away_missing_share": 0.3889997383987314,
+  "away_unavailable": 9,
   "fotmob_id": 6106288,
-  "home_missing_share": 0.1854506036354315,
-  "home_unavailable": 4,
+  "home_missing_share": 0.11834899372411532,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "RB Leipzig v Man City": {
   "absent": [
@@ -309,12 +314,12 @@
     "type": "injury"
    },
    {
-    "name": "Maxime Est\u00e8ve",
+    "name": "Marc Guiu",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Marc Guiu",
+    "name": "Max Finkgr\u00e4fe",
     "side": "home",
     "type": "injury"
    },
@@ -324,14 +329,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
-  "away_missing_share": 0.07356744070171142,
+  "at": "2026-11-04T19:00Z",
+  "away_missing_share": 0.07450698385269677,
   "away_unavailable": 1,
   "fotmob_id": 6106322,
-  "home_missing_share": 0.222584707520665,
-  "home_unavailable": 4,
+  "home_missing_share": 0.1535458139941134,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Rennes v Olympiacos": {
   "absent": [
@@ -383,14 +388,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
-  "away_missing_share": 0.14050198513693887,
+  "at": "2026-11-04T19:00Z",
+  "away_missing_share": 0.13340510068788194,
   "away_unavailable": 1,
   "fotmob_id": 6106389,
-  "home_missing_share": 0.0989841845611615,
+  "home_missing_share": 0.11651184261860982,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Viking FK v Sabah Masazir": {
   "absent": [
@@ -410,14 +415,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:40Z",
+  "at": "2026-11-04T19:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6106420,
-  "home_missing_share": 0.06733707714686173,
+  "home_missing_share": 0.07655416164188945,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-04T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Wrexham v Middlesbrough": {
   "absent": [

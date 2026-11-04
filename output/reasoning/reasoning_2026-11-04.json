@@ -792,7 +792,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.792
+   "panel_prob": 0.792,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7921,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7721,
+     "nvidia": 0.7921
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7721,
+    "edge": -0.0117,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Porto v Napoli",
@@ -867,7 +895,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7841
+   "panel_prob": 0.7841,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7841,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.777,
+     "nvidia": 0.7841
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.777,
+    "edge": 0.0023,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "PSV Eindhoven v Club Brugge",
@@ -942,7 +998,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.8123
+   "panel_prob": 0.8123,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.8123,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.806,
+     "nvidia": 0.8123
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.806,
+    "edge": 0.0075,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "RB Leipzig v Man City",
@@ -1008,7 +1092,29 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.615
+   "panel_prob": 0.615,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.623,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.58,
+     "nvidia": 0.673
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.58,
+    "edge": -0.0604,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Slavia Prague v Arsenal",
@@ -1077,7 +1183,29 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.71
+   "panel_prob": 0.71,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7301,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.6901,
+     "nvidia": 0.6801
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.6901,
+    "edge": -0.0477,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Viking FK v Sabah Masazir",
@@ -1144,7 +1272,29 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.685
+   "panel_prob": 0.685,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.6857,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.6857,
+     "nvidia": 0.6857
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.6857,
+    "edge": 0.0011,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Oxford United v Reading",
@@ -1425,6 +1575,27 @@
      "model": "gemini-3.5-flash-lite",
      "status": "ok",
      "answered": 2
+    }
+   }
+  },
+  {
+   "at": "2026-11-04T19:00+00:00",
+   "picks": 6,
+   "members": {
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 6
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    },
+    "gemini": {
+     "model": "gemini-3.5-flash-lite",
+     "status": "ok",
+     "answered": 6
     }
    }
   }

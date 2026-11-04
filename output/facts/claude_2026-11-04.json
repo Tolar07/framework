@@ -1,12 +1,12 @@
 {
  "date": "2026-11-04",
  "picks_generated_at": "2026-11-03T21:54:01Z",
- "run_at": "2026-11-03T22:19:55+00:00",
+ "run_at": "2026-11-04T10:19:32+00:00",
  "model": "claude-sonnet-5-5",
  "recorded_only": true,
  "answered": 15,
  "asked": 15,
- "reads": 1,
+ "reads": 2,
  "fixtures": {
   "Kortrijk v Mechelen": {
    "rest_days_home": null,
@@ -254,7 +254,7 @@
   "Cardiff City v West Ham": "An odds listing names Andrew Kitchen as a possible referee, which I could not confirm, so referee stays null. No 2026 team news found.",
   "Wrexham v Middlesbrough": "Web search found no current team news for this match. Only stable facts filled.",
   "Bristol City v Wolves": "Web search found no current team news for this match. Only stable facts filled.",
-  "Rennes v Olympiacos": "Web search found no current team news for this match. Only stable facts filled.",
+  "Rennes v Olympiacos": "A standard web search (Starting11, UEFA.com) found no confirmed injury list, rest days, referee or weather for Rennes v Olympiacos. UEFA.com reports the match date was changed to Wednesday 4 November, while Starting11 lists 5 November. Starting11 also notes Olympiacos have a league game two days after this one, which I could not confirm, so rotation stays null.",
   "AEK Athens v Real Madrid": "Web search found no current team news for this match. Only stable facts filled.",
   "Fenerbahce Istanbul v Liverpool": "Web search returned only 2025 pages for Liverpool and nothing on Fenerbahce, so I used none of it. Only stable facts filled.",
   "Borussia Dortmund v Betis": "Web search found no current team news for this match. Only stable facts filled.",

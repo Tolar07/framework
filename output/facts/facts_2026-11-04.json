@@ -1,7 +1,7 @@
 {
  "date": "2026-11-04",
  "picks_generated_at": "2026-11-03T21:54:01Z",
- "run_at": "2026-11-04T07:03:13+00:00",
+ "run_at": "2026-11-04T10:19:32+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -27,10 +27,10 @@
   "claude": {
    "answered": 15,
    "model": "claude-sonnet-5-5",
-   "run_at": "2026-11-03T22:19:55+00:00"
+   "run_at": "2026-11-04T10:19:32+00:00"
   }
  },
- "fields_agreed": 28,
+ "fields_agreed": 30,
  "fields_asked": 210,
  "fixtures": [
   {
@@ -286,11 +286,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 2
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -822,6 +826,20 @@
    "market": "SB:10||Home or Away",
    "pick": "Rennes or Olympiacos",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "away_long_travel",
      "side": "away",

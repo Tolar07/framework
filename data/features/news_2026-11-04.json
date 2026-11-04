@@ -73,6 +73,48 @@
   "kickoff_utc": "2026-11-04T17:45:00.000Z",
   "lineup_type": "predicted"
  },
+ "Kortrijk v Mechelen": {
+  "absent": [
+   {
+    "name": "Jamie Roche",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nayel Mehssatou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Basile Vroninks",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bouke Boersma",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Leo Hjelde",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Tommy St. Jago",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T13:40Z",
+  "away_missing_share": 0.3244948952405145,
+  "away_unavailable": 8,
+  "fotmob_id": 5811786,
+  "home_missing_share": 0.29772756344815543,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-04T19:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Rennes v Olympiacos": {
   "absent": [
    {

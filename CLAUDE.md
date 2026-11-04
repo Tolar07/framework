@@ -168,6 +168,9 @@ task — goes into `MAP.md` in the same session.
 watches the whole loop; `olp-xdv-specialist` is the generalist. Every file
 path an agent names must exist — `tests/agent_refs_test.py` checks it.
 Agents and skills unrelated to the framework are parked in `.claude/legacy/`.
+The `watch` skill (`.claude/skills/watch/`, read its `OLP_XDV.md`) watches
+YouTube videos (team news, press conferences, tipster previews, highlights).
+This is shadow only: a video never moves a pick, and its figures still need a fetch (HR59).
 
 ## RULE CHANGES
 

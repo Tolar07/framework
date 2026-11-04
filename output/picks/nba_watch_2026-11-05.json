@@ -185,6 +185,43 @@
     "back": 2.02,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=104.5",
+   "outcome": "Over 104.5",
+   "outcome_id": "12",
+   "price": 1.91,
+   "chance": 0.589,
+   "fair_price": 1.698,
+   "ev": 0.125,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-04T23:45:00.000126+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719522",
+   "home_key": "BKN",
+   "away_key": "CHA",
+   "espn_id": "401909925",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:30:00+00:00",
+   "home": "Brooklyn Nets",
+   "away": "Charlotte Hornets",
+   "pick": "1st half Over 104.5 points",
+   "sharp": {
+    "ml_home": 2.43,
+    "ml_away": 1.5882,
+    "spread": 3.5,
+    "total": 213.5
+   },
+   "code": "ZUB8H5",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.96,
+    "listed": true
+   }
   }
  ]
 }

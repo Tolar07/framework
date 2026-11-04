@@ -855,7 +855,7 @@
    "tier": "MARKET",
    "certainty": "LOW",
    "code": "UYUH8H",
-   "news_level": "CAUTION",
+   "news_level": "OK",
    "news_note": "Real Madrid missing 16% of value (Aur\u00e9lien Tchouam\u00e9ni, Rodrygo, Ra\u00fal Asencio)",
    "switched_from": null,
    "orig_market": null,
@@ -866,9 +866,9 @@
     "away": 624699090
    },
    "lineup_check": {
-    "level": "RISK",
-    "note": "Real Madrid missing 25% of value (Arda G\u00fcler, Aur\u00e9lien Tchouam\u00e9ni, Rodrygo)",
-    "at": "16:40Z"
+    "level": "OK",
+    "note": "Real Madrid missing 25% of value raw, 6% after squad depth (Arda G\u00fcler: regular (4/5 starts), cover Endrick (51% of his value); Aur\u00e9lien Tchouam\u00e9ni: regular (4/5 starts), cover Federico Valverde (100% of his value); Rodrygo: already out: no start in the last 5, priced in; Ra\u00fal Asencio: already out: no start in the last 5, priced in) \u2014 re-checked with squad depth (Architect 2026-11-04)",
+    "at": "16:58Z"
    },
    "matchup": {
     "say": "Real Madrid: counter side v high line -> BTTS & goals",
@@ -1015,7 +1015,13 @@
     "signal": null
    },
    "drift_price": 1.29,
-   "drift_pct": 0.0
+   "drift_pct": 0.0,
+   "lineup_check_raw": {
+    "level": "RISK",
+    "note": "Real Madrid missing 25% of value (Arda G\u00fcler, Aur\u00e9lien Tchouam\u00e9ni, Rodrygo)",
+    "at": "16:40Z"
+   },
+   "news_level_raw": "CAUTION"
   },
   {
    "fixture": "Fenerbahce Istanbul v Liverpool",
@@ -1031,7 +1037,7 @@
    "tier": "MARKET",
    "certainty": "LOW",
    "code": "VTUYZ3",
-   "news_level": "RISK",
+   "news_level": "OK",
    "news_note": "Liverpool missing 27% of value (Ryan Gravenberch, Hugo Ekitik\u00e9, Jeremie Frimpong); support: Fenerbah\u00e7e missing 34%",
    "switched_from": null,
    "orig_market": null,
@@ -1042,9 +1048,9 @@
     "away": 649158527
    },
    "lineup_check": {
-    "level": "RISK",
-    "note": "Liverpool missing 31% of value (Ryan Gravenberch, Hugo Ekitik\u00e9, Jeremie Frimpong); support: Fenerbah\u00e7e missing 20%",
-    "at": "16:40Z"
+    "level": "OK",
+    "note": "Liverpool missing 31% of value raw, 0% after squad depth (Ryan Gravenberch: rotation (3/5 starts), cover Florian Wirtz (100% of his value); Hugo Ekitik\u00e9: already out: no start in the last 5, priced in; Jeremie Frimpong: already out: no start in the last 5, priced in; Giovanni Leoni: already out: no start in the last 5, priced in); support: Fenerbah\u00e7e missing 20% \u2014 re-checked with squad depth (Architect 2026-11-04)",
+    "at": "16:58Z"
    },
    "matchup": {
     "say": "Fenerbah\u00e7e: counter side v high line; Fenerbah\u00e7e: high press v build-up side; Liverpool: high press v build-up side -> BTTS & goals",
@@ -1193,7 +1199,13 @@
     "signal": null
    },
    "drift_price": 1.52,
-   "drift_pct": -4.4
+   "drift_pct": -4.4,
+   "lineup_check_raw": {
+    "level": "RISK",
+    "note": "Liverpool missing 31% of value (Ryan Gravenberch, Hugo Ekitik\u00e9, Jeremie Frimpong); support: Fenerbah\u00e7e missing 20%",
+    "at": "16:40Z"
+   },
+   "news_level_raw": "RISK"
   },
   {
    "fixture": "Borussia Dortmund v Betis",

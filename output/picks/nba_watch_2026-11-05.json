@@ -148,6 +148,43 @@
     "back": 2.0,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=118.5",
+   "outcome": "Under 118.5",
+   "outcome_id": "13",
+   "price": 2.0,
+   "chance": 0.5429,
+   "fair_price": 1.842,
+   "ev": 0.0859,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-04T21:30:00.000135+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719542",
+   "home_key": "LAC",
+   "away_key": "MIA",
+   "espn_id": "401909935",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T03:30:00+00:00",
+   "home": "LA Clippers",
+   "away": "Miami Heat",
+   "pick": "1st half Under 118.5 points",
+   "sharp": {
+    "ml_home": 2.8,
+    "ml_away": 1.463,
+    "spread": 5.5,
+    "total": 233.5
+   },
+   "code": "R1H7EF",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 2.02,
+    "listed": true
+   }
   }
  ]
 }

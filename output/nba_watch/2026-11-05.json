@@ -1,10 +1,12 @@
 {
  "date": "2026-11-05",
  "gone": [
-  "sr:match:73719540|68|total=113.5|Over 113.5"
+  "sr:match:73719540|68|total=113.5|Over 113.5",
+  "sr:match:73719542|68|total=113.5|Over 113.5"
  ],
  "reopen": [
-  "sr:match:73719540"
+  "sr:match:73719540",
+  "sr:match:73719542"
  ],
  "first": {
   "sr:match:73719516": {
@@ -97,6 +99,13 @@
    "total": 233.5,
    "ml_home": 5.54,
    "ml_away": 1.1613
+  },
+  "sr:match:73719542": {
+   "at": "21:30Z",
+   "spread": 5.5,
+   "total": 233.5,
+   "ml_home": 2.8,
+   "ml_away": 1.463
   }
  }
 }

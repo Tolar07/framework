@@ -111,6 +111,43 @@
     "back": null,
     "listed": false
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=119.5",
+   "outcome": "Under 119.5",
+   "outcome_id": "13",
+   "price": 1.97,
+   "chance": 0.5761,
+   "fair_price": 1.736,
+   "ev": 0.1349,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-11-04T21:00:00.000140+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719540",
+   "home_key": "SAC",
+   "away_key": "LAL",
+   "espn_id": "401909934",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T03:00:00+00:00",
+   "home": "Sacramento Kings",
+   "away": "Los Angeles Lakers",
+   "pick": "1st half Under 119.5 points",
+   "sharp": {
+    "ml_home": 5.54,
+    "ml_away": 1.1613,
+    "spread": 12.5,
+    "total": 233.5
+   },
+   "code": "QN1GWH",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 2.0,
+    "listed": true
+   }
   }
  ]
 }

@@ -473,7 +473,29 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.753
+   "panel_prob": 0.753,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7736,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.74,
+     "nvidia": 0.7236
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.74,
+    "edge": -0.0454,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Fenerbahce Istanbul v Liverpool",
@@ -541,7 +563,29 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.615
+   "panel_prob": 0.615,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.6354,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.61,
+     "nvidia": 0.5854
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.61,
+    "edge": -0.0301,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Borussia Dortmund v Betis",
@@ -1283,6 +1327,27 @@
      "model": "gemini-3.5-flash-lite",
      "status": "ok",
      "answered": 1
+    }
+   }
+  },
+  {
+   "at": "2026-11-04T16:40+00:00",
+   "picks": 2,
+   "members": {
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 2
+    },
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    },
+    "gemini": {
+     "model": "gemini-3.5-flash-lite",
+     "status": "ok",
+     "answered": 2
     }
    }
   }

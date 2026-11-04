@@ -22,14 +22,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T16:20Z",
-  "away_missing_share": 0.2668121655298606,
+  "at": "2026-11-04T16:40Z",
+  "away_missing_share": 0.25219158303125616,
   "away_unavailable": 5,
   "fotmob_id": 6106401,
-  "home_missing_share": 0.023936401425183388,
+  "home_missing_share": 0.023062781828224608,
   "home_unavailable": 1,
   "kickoff_utc": "2026-11-04T17:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Bristol City v Wolves": {
   "absent": [
@@ -128,14 +128,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T16:20Z",
-  "away_missing_share": 0.27018261214492395,
+  "at": "2026-11-04T16:40Z",
+  "away_missing_share": 0.3068129203729256,
   "away_unavailable": 5,
   "fotmob_id": 6106330,
-  "home_missing_share": 0.2006009401139635,
+  "home_missing_share": 0.19565675606720387,
   "home_unavailable": 4,
   "kickoff_utc": "2026-11-04T17:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Kortrijk v Mechelen": {
   "absent": [

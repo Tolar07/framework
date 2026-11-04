@@ -164,7 +164,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.32,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Cardiff City v West Ham",
@@ -863,7 +865,11 @@
     "home": 33176961,
     "away": 624699090
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Real Madrid missing 25% of value (Arda G\u00fcler, Aur\u00e9lien Tchouam\u00e9ni, Rodrygo)",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Real Madrid: counter side v high line -> BTTS & goals",
     "xg": [
@@ -1035,7 +1041,11 @@
     "home": 124465356,
     "away": 649158527
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Liverpool missing 31% of value (Ryan Gravenberch, Hugo Ekitik\u00e9, Jeremie Frimpong); support: Fenerbah\u00e7e missing 20%",
+    "at": "16:40Z"
+   },
    "matchup": {
     "say": "Fenerbah\u00e7e: counter side v high line; Fenerbah\u00e7e: high press v build-up side; Liverpool: high press v build-up side -> BTTS & goals",
     "xg": [

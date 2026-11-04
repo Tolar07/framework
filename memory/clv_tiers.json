@@ -1,0 +1,50 @@
+{
+ "built_at": "2026-11-04T21:46:27+00:00",
+ "recorded_only": true,
+ "issue": 295,
+ "tiers": {
+  "A": {
+   "bets": 332,
+   "clv_n": 328,
+   "mean_clv_pct": 0.096,
+   "beat_close": 0.433,
+   "flat_return": -0.0088
+  },
+  "B": {
+   "bets": 623,
+   "clv_n": 565,
+   "mean_clv_pct": 0.055,
+   "beat_close": 0.4,
+   "flat_return": -0.0275
+  },
+  "C": {
+   "bets": 224,
+   "clv_n": 208,
+   "mean_clv_pct": 0.054,
+   "beat_close": 0.457,
+   "flat_return": -0.0884
+  },
+  "PENDING": {
+   "bets": 4,
+   "clv_n": 0,
+   "mean_clv_pct": null,
+   "beat_close": null,
+   "flat_return": -0.65
+  }
+ },
+ "walk_forward": {
+  "A": {
+   "cells": 3,
+   "corr": null
+  },
+  "B": {
+   "cells": 4,
+   "corr": null
+  },
+  "C": {
+   "cells": 3,
+   "corr": null
+  }
+ },
+ "weak_evidence_rules": []
+}

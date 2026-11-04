@@ -44,6 +44,7 @@ jobs:
              backtest/features_study.py tests/features_test.py
              research/runner.py tests/research_test.py
              engine/soft_close_shadow.py tests/soft_close_shadow_test.py
+             backtest/clv_tiers_study.py backtest/permutation_study.py tests/clv_tiers_permutation_test.py
              engine/experiments.py monitor/experiment_run.py tests/experiment_engine_test.py
              engine/leg_postmortem.py tests/leg_postmortem_test.py
 

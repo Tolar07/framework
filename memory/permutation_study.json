@@ -1,0 +1,22 @@
+{
+ "built_at": "2026-11-04T21:48:30+00:00",
+ "recorded_only": true,
+ "issue": 297,
+ "test": {
+  "fixtures": 879,
+  "strata": 25,
+  "shuffles": 1000,
+  "fixed": {
+   "edge": 0.05,
+   "bets": 606,
+   "flat_return": 0.002,
+   "p": 0.1419
+  },
+  "tuned": {
+   "best_edge": 0.08,
+   "flat_return": 0.0328,
+   "p": 0.2577
+  },
+  "verdict": "WEAK"
+ }
+}

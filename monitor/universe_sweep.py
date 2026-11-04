@@ -149,7 +149,9 @@ def _persist_framework(now: datetime) -> str:
          "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md", "data/teams",
          "backtest/PROFILE_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md",
          "data/features", "backtest/FEATURES_STUDY.md",
-         "backtest/BOTH_SIDES_STUDY.md", "backtest/MODEL_SIDES_STUDY.md")
+         "backtest/BOTH_SIDES_STUDY.md", "backtest/MODEL_SIDES_STUDY.md",
+         "backtest/CLV_TIERS_STUDY.md", "memory/clv_tiers.json",
+         "backtest/PERMUTATION_STUDY.md", "memory/permutation_study.json")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -228,6 +230,11 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{now:%H:%M}Z] {soft_close_shadow.run()}")
         except Exception as e:  # noqa: BLE001 — never stops the sweep
             print(f"[{now:%H:%M}Z] soft-close shadow skipped ({str(e)[:60]})")
+        for study in ("clv_tiers_study", "permutation_study"):     # issues #295 / #297, recorded only
+            try:
+                importlib.import_module(study).main()
+            except Exception as e:  # noqa: BLE001 — never stops the sweep
+                print(f"[{now:%H:%M}Z] {study} skipped ({str(e)[:60]})")
         importlib.import_module("profile_study").main()
         if morning_due:
             print(f"[{now:%H:%M}Z] {send_daily_note(now)}")

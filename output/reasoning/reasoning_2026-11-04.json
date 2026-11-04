@@ -1,0 +1,1238 @@
+{
+ "date": "2026-11-04",
+ "picks_generated_at": "2026-11-03T21:54:01Z",
+ "run_at": "2026-11-03T22:14:35+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Kortrijk v Mechelen",
+   "market": "SB:10||Home or Away",
+   "pick": "Kortrijk or Mechelen",
+   "price": 1.32,
+   "model_chance": 0.7488,
+   "code": "P6FGVV",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.74,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.74,
+   "anchored_edge": -0.0176,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7488,
+    "market_prob": null,
+    "cognitive_prob": 0.7488,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7488,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7488,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.748,
+     "nvidia": 0.7488
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.748,
+    "edge": -0.0126,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.748
+  },
+  {
+   "fixture": "Cardiff City v West Ham",
+   "market": "SB:10||Home or Away",
+   "pick": "Cardiff City or West Ham",
+   "price": 1.27,
+   "model_chance": 0.8125,
+   "code": "S8G137",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.8,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower.",
+   "market_chance": null,
+   "anchored_chance": 0.8,
+   "anchored_edge": 0.0126,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8125,
+    "market_prob": null,
+    "cognitive_prob": 0.8125,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8125,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8125,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8125,
+     "nvidia": 0.8125
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8125,
+    "edge": 0.0319,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8125
+  },
+  {
+   "fixture": "Wrexham v Middlesbrough",
+   "market": "SB:10||Home or Away",
+   "pick": "Wrexham or Middlesbrough",
+   "price": 1.26,
+   "model_chance": 0.7995,
+   "code": "GKWFTD",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower.",
+   "market_chance": 0.7635,
+   "anchored_chance": 0.78,
+   "anchored_edge": -0.0137,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7995,
+    "market_prob": 0.7635,
+    "cognitive_prob": 0.7995,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7995,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7635,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.7635,
+     "nvidia": 0.7635
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7635,
+    "edge": -0.038,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7635
+  },
+  {
+   "fixture": "Bristol City v Wolves",
+   "market": "SB:10||Home or Away",
+   "pick": "Bristol City or Wolves",
+   "price": 1.31,
+   "model_chance": 0.7712,
+   "code": "XURWMD",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower.",
+   "market_chance": 0.7318,
+   "anchored_chance": 0.76,
+   "anchored_edge": -0.0034,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7712,
+    "market_prob": 0.7318,
+    "cognitive_prob": 0.7712,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7712,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7318,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.7318,
+     "nvidia": 0.7318
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7318,
+    "edge": -0.0413,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7318
+  },
+  {
+   "fixture": "Rennes v Olympiacos",
+   "market": "SB:10||Home or Away",
+   "pick": "Rennes or Olympiacos",
+   "price": 1.31,
+   "model_chance": 0.7778,
+   "code": "KYAC8X",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower.",
+   "market_chance": null,
+   "anchored_chance": 0.76,
+   "anchored_edge": -0.0034,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7778,
+    "market_prob": null,
+    "cognitive_prob": 0.7778,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7778,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7778,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.777,
+     "nvidia": 0.7778
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.777,
+    "edge": 0.0179,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.777
+  },
+  {
+   "fixture": "AEK Athens v Real Madrid",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Real Madrid & Over 1.5",
+   "price": 1.29,
+   "model_chance": 0.7736,
+   "code": "UYUH8H",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "Real Madrid missing 16% of value (Aurélien Tchouaméni, Rodrygo, Raúl Asencio) and framework record in this family is TOO FEW: no graded framework picks in this family yet.",
+   "market_chance": null,
+   "anchored_chance": 0.76,
+   "anchored_edge": -0.0152,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_CAUTION"
+    ],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.7736,
+    "market_prob": null,
+    "cognitive_prob": 0.7736,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7736,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7736,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.753,
+     "nvidia": 0.7336
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.753,
+    "edge": -0.0286,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.753
+  },
+  {
+   "fixture": "Fenerbahce Istanbul v Liverpool",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Liverpool & Over 1.5",
+   "price": 1.59,
+   "model_chance": 0.6354,
+   "code": "VTUYZ3",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.63,
+   "confidence": 0.4,
+   "reasons": "Liverpool missing 27% of value and Fenerbahçe missing 34%, with framework record in this family being TOO FEW: no graded framework picks in this family yet.",
+   "market_chance": null,
+   "anchored_chance": 0.63,
+   "anchored_edge": 0.0011,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_RISK"
+    ],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6354,
+    "market_prob": null,
+    "cognitive_prob": 0.6154,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6354,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6354,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.615,
+     "nvidia": 0.5854
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.615,
+    "edge": -0.0222,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.615
+  },
+  {
+   "fixture": "Borussia Dortmund v Betis",
+   "market": "SB:10||Home or Away",
+   "pick": "Borussia Dortmund or Betis",
+   "price": 1.25,
+   "model_chance": 0.81,
+   "code": "VJXHXU",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.79,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units, keeping confidence lower.",
+   "market_chance": null,
+   "anchored_chance": 0.79,
+   "anchored_edge": -0.01,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "news_level"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.81,
+    "market_prob": null,
+    "cognitive_prob": 0.81,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.81,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.81,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.81,
+     "nvidia": 0.81
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.81,
+    "edge": 0.0125,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.81
+  },
+  {
+   "fixture": "Lens v Como 1907",
+   "market": "SB:10||Home or Away",
+   "pick": "Lens or Como 1907",
+   "price": 1.28,
+   "model_chance": 0.7921,
+   "code": "HCNRCM",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Lens missing 32% and Como missing 35% of squad value, combined with a LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units record.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": -0.0112,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7921,
+    "market_prob": null,
+    "cognitive_prob": 0.7921,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7921,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7921,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.792,
+     "nvidia": 0.7921
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.792,
+    "edge": 0.0138,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.792
+  },
+  {
+   "fixture": "Porto v Napoli",
+   "market": "SB:10||Home or Away",
+   "pick": "Porto or Napoli",
+   "price": 1.29,
+   "model_chance": 0.7841,
+   "code": "JSDB20",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Napoli missing 43% of squad value and framework record in Double chance is LOSING: framework graded 421 picks in this family, won 77%, needs 79% to break even at its prices, profit -7.37 units.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": -0.0052,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7841,
+    "market_prob": null,
+    "cognitive_prob": 0.7841,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7841,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7841,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7841,
+     "nvidia": 0.7841
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7841,
+    "edge": 0.0115,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7841
+  },
+  {
+   "fixture": "PSV Eindhoven v Club Brugge",
+   "market": "SB:10||Home or Away",
+   "pick": "PSV Eindhoven or Club Brugge",
+   "price": 1.25,
+   "model_chance": 0.8123,
+   "code": "RWQ16A",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.795,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING (won 77% vs 79% needed), and 'PSV Eindhoven or Club Brugge' is a 12 pick that loses on a draw.",
+   "market_chance": null,
+   "anchored_chance": 0.795,
+   "anchored_edge": -0.005,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8123,
+    "market_prob": null,
+    "cognitive_prob": 0.8123,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8123,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8123,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8123,
+     "nvidia": 0.8123
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8123,
+    "edge": 0.0154,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8123
+  },
+  {
+   "fixture": "RB Leipzig v Man City",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Man City & Over 1.5",
+   "price": 1.62,
+   "model_chance": 0.623,
+   "code": "XC97EQ",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.615,
+   "confidence": 0.4,
+   "reasons": "RB Leipzig missing 22% squad value creates disruption under the combined result and total market with TOO FEW historical framework data.",
+   "market_chance": null,
+   "anchored_chance": 0.615,
+   "anchored_edge": -0.0023,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.623,
+    "market_prob": null,
+    "cognitive_prob": 0.623,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.623,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.623,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.615,
+     "nvidia": 0.67
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.615,
+    "edge": -0.0037,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.615
+  },
+  {
+   "fixture": "Slavia Prague v Arsenal",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Arsenal & Over 1.5",
+   "price": 1.38,
+   "model_chance": 0.7301,
+   "code": "L9UQM6",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.71,
+   "confidence": 0.4,
+   "reasons": "Arsenal missing 28% of squad value (William Saliba, Bukayo Saka, Max Dowman) pulls down the model edge for Arsenal & Over 1.5.",
+   "market_chance": null,
+   "anchored_chance": 0.71,
+   "anchored_edge": -0.0146,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_RISK"
+    ],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.7301,
+    "market_prob": null,
+    "cognitive_prob": 0.7101,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7301,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7301,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.71,
+     "nvidia": 0.6801
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.71,
+    "edge": -0.0202,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.71
+  },
+  {
+   "fixture": "Viking FK v Sabah Masazir",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Viking FK & Over 1.5",
+   "price": 1.46,
+   "model_chance": 0.6857,
+   "code": "LKQW2M",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 1.0,
+   "ai_chance": 0.686,
+   "confidence": 0.4,
+   "reasons": "Viking FK is at full strength with 0% missing value share, supporting the Viking FK & Over 1.5 pick.",
+   "market_chance": null,
+   "anchored_chance": 0.686,
+   "anchored_edge": 0.0011,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6857,
+    "market_prob": null,
+    "cognitive_prob": 0.6857,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6857,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6857,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.685,
+     "nvidia": 0.6857
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.685,
+    "edge": 0.0001,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.685
+  },
+  {
+   "fixture": "Oxford United v Reading",
+   "market": "SB:10||Home or Away",
+   "pick": "Oxford United or Reading",
+   "price": 1.3,
+   "model_chance": 0.7806,
+   "code": "LK42QK",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.765,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING (won 77% vs 79% needed), and 'Oxford United or Reading' is a 12 pick that loses on a draw.",
+   "market_chance": null,
+   "anchored_chance": 0.765,
+   "anchored_edge": -0.0042,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7806,
+    "market_prob": null,
+    "cognitive_prob": 0.7806,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7806,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7806,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.78,
+     "nvidia": 0.7806
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.78,
+    "edge": 0.014,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.78
+  },
+  {
+   "fixture": "Oxford United v Reading",
+   "market": "SB:20|total=1.5|Under 1.5",
+   "pick": "Reading Under 1.5 goals",
+   "price": 1.69,
+   "model_chance": 0.6038,
+   "code": "HUQQDJ",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.595,
+   "confidence": 0.4,
+   "reasons": "Framework record in Away goals family is LOSING (won 72% vs 81% needed), warranting lower confidence despite the positive model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.595,
+   "anchored_edge": 0.0033,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "news_level",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Away goals",
+    "base_prob": 0.6038,
+    "market_prob": null,
+    "cognitive_prob": 0.6038,
+    "authority": {
+     "n": 7,
+     "earned": false,
+     "cog_brier": 0.2047,
+     "base_brier": 0.2024,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6038,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6038,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.603,
+     "nvidia": 0.6038
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Away goals",
+    "panel_prob": 0.603,
+    "edge": 0.0191,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 7,
+     "earned": false,
+     "panel_brier": 0.2005,
+     "live_brier": 0.2159,
+     "panel_brier_on_live": 0.2005,
+     "clv_n": 7,
+     "panel_clv_hit": 0.571,
+     "live_clv_hit": 0.429
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.603
+  }
+ ],
+ "prompt_version": "2bd3c30e1b",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-3.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 14,
+   "LOWER": 2,
+   "VETO": 0
+  },
+  "fallback": 16,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "openrouter": {
+    "model": "google/gemma-4-26b-a4b-it:free",
+    "status": "off for this run: openrouter: 429",
+    "answered": 0
+   },
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
+    "status": "ok",
+    "answered": 16
+   },
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "ok",
+    "answered": 16
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 5.234,
+    "n": 44,
+    "brier": 0.1911,
+    "anchor_brier": 0.1907,
+    "wins": 36,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 0.0,
+    "n": 117,
+    "brier": 0.1795,
+    "anchor_brier": 0.1764,
+    "wins": 109,
+    "dropped": "worse than the market anchor"
+   },
+   "openrouter": {
+    "weight": 0.0,
+    "n": 0,
+    "dropped": "rate-limited or refused this run"
+   }
+  },
+  "authority": 0,
+  "missing": []
+ }
+}

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-03T07:19:04+00:00",
+ "built_at": "2026-11-04T07:05:19+00:00",
  "recorded_only": true,
  "rows": 237,
  "ridge": 4.0,
@@ -31,5 +31,22 @@
   "market_brier": 0.1763,
   "panel_brier": 0.1777,
   "beats_market": false
+ },
+ "bias_only_walk_forward": {
+  "n": 184,
+  "learned_brier": 0.1746,
+  "market_brier": 0.1763,
+  "panel_brier": 0.1777,
+  "beats_market": false
+ },
+ "attribution": {
+  "status": "OK",
+  "n": 184,
+  "total_gain": 0.0018,
+  "bias_gain": 0.0017,
+  "panel_gain": 0.0001,
+  "mostly_bias": true,
+  "recheck_at": 300,
+  "recheck_ready": false
  }
 }

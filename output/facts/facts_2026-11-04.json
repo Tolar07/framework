@@ -1,0 +1,968 @@
+{
+ "date": "2026-11-04",
+ "picks_generated_at": "2026-11-03T21:54:01Z",
+ "run_at": "2026-11-04T07:03:13+00:00",
+ "recorded_only": true,
+ "members": {
+  "gemini": {
+   "model": "gemini-3.5-flash",
+   "status": "off for this run: 429 on every Gemini model",
+   "answered": 0
+  },
+  "openrouter": {
+   "model": "google/gemma-4-26b-a4b-it:free",
+   "status": "off for this run: openrouter: 429",
+   "answered": 0
+  },
+  "nvidia_alt": {
+   "model": "openai/gpt-oss-20b",
+   "status": "partly failed: ReadTimeout: HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=120)",
+   "answered": 0
+  },
+  "nvidia": {
+   "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+   "status": "ok",
+   "answered": 14
+  },
+  "claude": {
+   "answered": 15,
+   "model": "claude-sonnet-5-5",
+   "run_at": "2026-11-03T22:19:55+00:00"
+  }
+ },
+ "fields_agreed": 28,
+ "fields_asked": 210,
+ "fixtures": [
+  {
+   "id": 0,
+   "fixture": "Kortrijk v Mechelen",
+   "home": "Kortrijk",
+   "away": "Mechelen",
+   "league": "Belgian Pro League",
+   "kickoff_utc": "2026-11-04T19:30:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.289677775369981, 'away': 0.2589430849182078}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": false,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 1,
+   "fixture": "Cardiff City v West Ham",
+   "home": "Cardiff City",
+   "away": "West Ham",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-04T19:45:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.1284116020941669, 'away': 0.049894947720810635}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": false,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 2,
+   "fixture": "Wrexham v Middlesbrough",
+   "home": "Wrexham",
+   "away": "Middlesbrough",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-04T19:45:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.14236187050916657, 'away': 0.10147957043602512}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": false,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 3,
+   "fixture": "Bristol City v Wolves",
+   "home": "Bristol City",
+   "away": "Wolves",
+   "league": "Championship",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.10489732144491765, 'away': 0.12508173943670678}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": false,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 4,
+   "fixture": "Rennes v Olympiacos",
+   "home": "Rennes",
+   "away": "Olympiacos",
+   "league": "Europa League",
+   "kickoff_utc": "2026-11-04T15:30:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.39448601044247467, 'away': 0.05086278887284974}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 5,
+   "fixture": "AEK Athens v Real Madrid",
+   "home": "AEK Athens",
+   "away": "Real Madrid",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T17:45:00.000Z",
+   "evidence": "framework data (no web search): team news: Real Madrid missing 16% of value (Aurélien Tchouaméni, Rodrygo, Raúl Asencio); news level: CAUTION; share of squad value missing: {'home': 0.05221315501805259, 'away': 0.1647642619704945}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 6,
+   "fixture": "Fenerbahce Istanbul v Liverpool",
+   "home": "Fenerbahce Istanbul",
+   "away": "Liverpool",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T17:45:00.000Z",
+   "evidence": "framework data (no web search): team news: Liverpool missing 27% of value (Ryan Gravenberch, Hugo Ekitiké, Jeremie Frimpong); support: Fenerbahçe missing 34%; news level: RISK; share of squad value missing: {'home': 0.34451121998038897, 'away': 0.27018261214492395}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 7,
+   "fixture": "Borussia Dortmund v Betis",
+   "home": "Borussia Dortmund",
+   "away": "Betis",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00Z",
+   "evidence": "Web search found no current team news for this match. Only stable facts filled.",
+   "evidence_source": "claude",
+   "answers": {
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {},
+   "support": {}
+  },
+  {
+   "id": 8,
+   "fixture": "Lens v Como 1907",
+   "home": "Lens",
+   "away": "Como 1907",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.32317328089005654, 'away': 0.3468142042940062}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 9,
+   "fixture": "Porto v Napoli",
+   "home": "Porto",
+   "away": "Napoli",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.1854506036354315, 'away': 0.42970882057219945}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 10,
+   "fixture": "PSV Eindhoven v Club Brugge",
+   "home": "PSV Eindhoven",
+   "away": "Club Brugge",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.28018897570411744, 'away': 0.21239542419000745}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 11,
+   "fixture": "RB Leipzig v Man City",
+   "home": "RB Leipzig",
+   "away": "Man City",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: support: RB Leipzig missing 22%; news level: OK; share of squad value missing: {'home': 0.222584707520665, 'away': 0.07398730853253054}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 12,
+   "fixture": "Slavia Prague v Arsenal",
+   "home": "Slavia Prague",
+   "away": "Arsenal",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: Arsenal missing 28% of value (William Saliba, Bukayo Saka, Max Dowman); news level: RISK; share of squad value missing: {'home': 0.0989841845611615, 'away': 0.27772022259549634}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 13,
+   "fixture": "Viking FK v Sabah Masazir",
+   "home": "Viking FK",
+   "away": "Sabah Masazir",
+   "league": "Champions League",
+   "kickoff_utc": "2026-11-04T20:00:00.000Z",
+   "evidence": "framework data (no web search): team news: Viking at full strength; news level: OK; share of squad value missing: {'home': 0.06733707714686173, 'away': 0.0}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": 0,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": true,
+     "derby": false,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": true,
+    "derby": false
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  },
+  {
+   "id": 14,
+   "fixture": "Oxford United v Reading",
+   "home": "Oxford United",
+   "away": "Reading",
+   "league": "League One",
+   "kickoff_utc": "2026-11-04T19:45:00.000Z",
+   "evidence": "framework data (no web search): team news: pick does not depend on one team's lineup; news level: OK; share of squad value missing: {'home': 0.0, 'away': 0.0}",
+   "evidence_source": "framework",
+   "answers": {
+    "nvidia": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": true,
+     "weather_severe": null,
+     "referee": null
+    },
+    "claude": {
+     "rest_days_home": null,
+     "rest_days_away": null,
+     "key_absences_home": null,
+     "key_absences_away": null,
+     "rotation_home": null,
+     "rotation_away": null,
+     "motivation_home": null,
+     "motivation_away": null,
+     "new_manager_home": null,
+     "new_manager_away": null,
+     "away_long_travel": false,
+     "derby": true,
+     "weather_severe": null,
+     "referee": null
+    }
+   },
+   "agreed": {
+    "away_long_travel": false,
+    "derby": true
+   },
+   "support": {
+    "away_long_travel": 2,
+    "derby": 2
+   }
+  }
+ ],
+ "picks": [
+  {
+   "fixture": "Kortrijk v Mechelen",
+   "market": "SB:10||Home or Away",
+   "pick": "Kortrijk or Mechelen",
+   "facts": []
+  },
+  {
+   "fixture": "Cardiff City v West Ham",
+   "market": "SB:10||Home or Away",
+   "pick": "Cardiff City or West Ham",
+   "facts": []
+  },
+  {
+   "fixture": "Wrexham v Middlesbrough",
+   "market": "SB:10||Home or Away",
+   "pick": "Wrexham or Middlesbrough",
+   "facts": []
+  },
+  {
+   "fixture": "Bristol City v Wolves",
+   "market": "SB:10||Home or Away",
+   "pick": "Bristol City or Wolves",
+   "facts": []
+  },
+  {
+   "fixture": "Rennes v Olympiacos",
+   "market": "SB:10||Home or Away",
+   "pick": "Rennes or Olympiacos",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "AEK Athens v Real Madrid",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Real Madrid & Over 1.5",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": -1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Fenerbahce Istanbul v Liverpool",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Liverpool & Over 1.5",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": -1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Borussia Dortmund v Betis",
+   "market": "SB:10||Home or Away",
+   "pick": "Borussia Dortmund or Betis",
+   "facts": []
+  },
+  {
+   "fixture": "Lens v Como 1907",
+   "market": "SB:10||Home or Away",
+   "pick": "Lens or Como 1907",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Porto v Napoli",
+   "market": "SB:10||Home or Away",
+   "pick": "Porto or Napoli",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "PSV Eindhoven v Club Brugge",
+   "market": "SB:10||Home or Away",
+   "pick": "PSV Eindhoven or Club Brugge",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "RB Leipzig v Man City",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Man City & Over 1.5",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": -1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Slavia Prague v Arsenal",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Arsenal & Over 1.5",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": -1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Viking FK v Sabah Masazir",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Viking FK & Over 1.5",
+   "facts": [
+    {
+     "fact": "away_long_travel",
+     "side": "away",
+     "direction": 1,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  },
+  {
+   "fixture": "Oxford United v Reading",
+   "market": "SB:10||Home or Away",
+   "pick": "Oxford United or Reading",
+   "facts": [
+    {
+     "fact": "derby",
+     "side": null,
+     "direction": 0,
+     "size": 1.0,
+     "source": "ai_fact_sheet"
+    }
+   ]
+  }
+ ],
+ "rated": []
+}

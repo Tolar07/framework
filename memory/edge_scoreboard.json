@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-04T15:17Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles: exchange close PENDING",
+ "built_at": "2026-11-04T15:31Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.0% over 11",
  "groups": [
   {
    "name": "board family: Asian handicap",
@@ -65,12 +65,12 @@
    "hit": 0.8,
    "roi": 0.0189,
    "roi_se": 0.0575,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 9,
+   "gap_entry": -0.0391,
+   "n_clv": 9,
+   "clv": -0.0391,
+   "clv_se": 0.0049,
+   "beat": 0.0
   },
   {
    "name": "board family: European handicap",
@@ -149,12 +149,12 @@
    "hit": 1.0,
    "roi": 0.5033,
    "roi_se": 0.1517,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 2,
+   "gap_entry": -0.0431,
+   "n_clv": 2,
+   "clv": -0.0431,
+   "clv_se": 0.0045,
+   "beat": 0.0
   },
   {
    "name": "board family: SB:1",
@@ -345,12 +345,12 @@
    "hit": 0.5652,
    "roi": -0.0452,
    "roi_se": 0.1805,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 5,
+   "gap_entry": -0.0569,
+   "n_clv": 5,
+   "clv": -0.0569,
+   "clv_se": 0.0169,
+   "beat": 0.0
   },
   {
    "name": "board: football singles",
@@ -359,12 +359,12 @@
    "hit": 0.7701,
    "roi": -0.0359,
    "roi_se": 0.0154,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 11,
+   "gap_entry": -0.0398,
+   "n_clv": 11,
+   "clv": -0.0398,
+   "clv_se": 0.004,
+   "beat": 0.0
   },
   {
    "name": "nba market: 223",
@@ -401,12 +401,12 @@
    "hit": 0.6216,
    "roi": 0.2058,
    "roi_se": 0.1102,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 7,
+   "gap_entry": -0.0439,
+   "n_clv": 7,
+   "clv": -0.0439,
+   "clv_se": 0.0108,
+   "beat": 0.0
   },
   {
    "name": "nba: board picks",
@@ -415,12 +415,54 @@
    "hit": 0.6173,
    "roi": 0.1851,
    "roi_se": 0.1046,
-   "n_entry": 0,
-   "gap_entry": null,
-   "n_clv": 0,
-   "clv": null,
-   "clv_se": null,
-   "beat": null
+   "n_entry": 7,
+   "gap_entry": -0.0439,
+   "n_clv": 7,
+   "clv": -0.0439,
+   "clv_se": 0.0108,
+   "beat": 0.0
+  },
+  {
+   "name": "venue: board singles at Matchbook (after 2%)",
+   "kind": "baseline",
+   "n": 0,
+   "hit": null,
+   "roi": null,
+   "roi_se": null,
+   "n_entry": 11,
+   "gap_entry": -0.0155,
+   "n_clv": 11,
+   "clv": -0.0155,
+   "clv_se": 0.0023,
+   "beat": 0.0
+  },
+  {
+   "name": "venue: board singles at the better book",
+   "kind": "baseline",
+   "n": 0,
+   "hit": null,
+   "roi": null,
+   "roi_se": null,
+   "n_entry": 11,
+   "gap_entry": -0.0155,
+   "n_clv": 11,
+   "clv": -0.0155,
+   "clv_se": 0.0023,
+   "beat": 0.0
+  },
+  {
+   "name": "venue: same singles at SportyBet",
+   "kind": "baseline",
+   "n": 0,
+   "hit": null,
+   "roi": null,
+   "roi_se": null,
+   "n_entry": 11,
+   "gap_entry": -0.0398,
+   "n_clv": 11,
+   "clv": -0.0398,
+   "clv_se": 0.004,
+   "beat": 0.0
   }
  ],
  "promotion": [
@@ -464,7 +506,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": null,
+   "clv": -0.0391,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -518,7 +560,7 @@
    "name": "board family: Result & total",
    "status": "COLLECTING (3 of 200)",
    "n": 3,
-   "clv": null,
+   "clv": -0.0431,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.5033
@@ -644,7 +686,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (23 of 200)",
    "n": 23,
-   "clv": null,
+   "clv": -0.0569,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0452
@@ -653,7 +695,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": null,
+   "clv": -0.0398,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0359
@@ -680,7 +722,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (74 of 200)",
    "n": 74,
-   "clv": null,
+   "clv": -0.0439,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2058
@@ -689,7 +731,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (81 of 200)",
    "n": 81,
-   "clv": null,
+   "clv": -0.0439,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1851

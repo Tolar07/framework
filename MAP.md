@@ -191,6 +191,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | TheSportsDB, API-Football, The Odds API | see §3 | secrets |
 | Telegram, GitHub API | notify, commands, watchdog, supervisor | secrets |
 | YouTube / any yt-dlp video — frames + transcript for team news, previews, highlights (shadow only, session use, not in any workflow) | `.claude/skills/watch/` (`OLP_XDV.md`); PC settings `~/.config/watch/.env` | none locally (optional `GEMINI_API_KEY`) |
+| Learned from YouTube (2026-11-04): betting edge + CLV tests, bot validation gate | `.claude/skills/sports-betting-edge/`, `.claude/skills/trading-bot-training/` (also `~/.claude/skills/` on the PC) | none |
 
 ## 6. Documents — which to trust
 

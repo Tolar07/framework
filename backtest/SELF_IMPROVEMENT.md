@@ -1,4 +1,4 @@
-# SELF-IMPROVEMENT REVIEW — 2026-11-03
+# SELF-IMPROVEMENT REVIEW — 2026-11-04
 
 Written weekly by `scripts/self_improve.py` (`self_improve.yml`): what the model uses, which learning loops produced tested evidence this week, and what to do better, ranked by expected value. The top open proposal is built record-only / shadow by the workflow's build job.
 
@@ -8,7 +8,7 @@ Written weekly by `scripts/self_improve.py` (`self_improve.yml`): what the model
 |---|---|---|---|
 | team strength | 5 | LIVE | engine/dixon_coles.py; engine/elo.py; engine/calibration.py |
 | xG for / against | 5 | TESTED | home win | xG edge: NO CLEAR EFFECT (Brier +0.00147); over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00025); BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00022) |
-| recent form | 3 | TESTED | home win | form_ppg: HURTS (Brier -0.00038); home win | form_gd: HURTS (Brier -0.00042); home win | form_venue_ppg: HURTS (Brier -0.00020) |
+| recent form | 3 | TESTED | home win | form_ppg: HURTS (Brier -0.00038); home win | form_gd: HURTS (Brier -0.00042); home win | form_venue_ppg: HURTS (Brier -0.00019) |
 | head-to-head | 1 | TESTED | home win | h2h_gd: NO CLEAR EFFECT (Brier -0.00019); home win | h2h_goals: HURTS (Brier -0.00022); over 2.5 | h2h_gd: NO CLEAR EFFECT (Brier -0.00029) |
 | rest days / congestion | 2 | TESTED | backtest/REST_STUDY.md |
 | travel distance | 1 | CONTEXT | engine/reasoning.py; engine/records/context_facts.py |
@@ -22,26 +22,26 @@ Written weekly by `scripts/self_improve.py` (`self_improve.yml`): what the model
 
 | loop | produced tested evidence | evidence |
 |---|---|---|
-| results learning | yes | newest evidence 2026-11-02 (1 d old) |
-| match study | yes | newest evidence 2026-11-02 (1 d old) |
-| why record | yes | newest evidence 2026-11-02 (1 d old) |
-| tactics lessons | yes | 0 -> 106 tested over 7 d |
-| slip post-mortem | yes | 306 -> 431 tested over 7 d |
+| results learning | yes | newest evidence 2026-11-02 (2 d old) |
+| match study | yes | newest evidence 2026-11-03 (1 d old) |
+| why record | yes | newest evidence 2026-11-02 (2 d old) |
+| tactics lessons | yes | 0 -> 112 tested over 7 d |
+| slip post-mortem | yes | 342 -> 431 tested over 7 d |
 | why-weighted shadow | yes | 1161 tested (no history 7 d back) |
-| reasoning lessons | yes | newest evidence 2026-11-03 (0 d old) |
-| experiment engine | yes | newest evidence 2026-11-03 (0 d old) |
-| nightly refit | yes | newest evidence 2026-11-03 (0 d old) |
-| AI fact sheet | yes | newest evidence 2026-11-02 (1 d old) |
-| verdict panel | yes | 127 tested (no history 7 d back) |
-| learned weights | yes | newest evidence 2026-11-03 (0 d old) |
-| prompt contest | yes | newest evidence 2026-11-01 (2 d old) |
-| AI weekly review | yes | newest evidence 2026-11-02 (1 d old) |
-| universe sweep | yes | newest evidence 2026-11-03 (0 d old) |
-| paper book | yes | newest evidence 2026-11-03 (0 d old) |
-| sharp list | yes | newest evidence 2026-11-03 (0 d old) |
-| research runner | yes | newest evidence 2026-11-02 (1 d old) |
-| matchbook ledger | yes | newest evidence 2026-11-03 (0 d old) |
-| bot challengers | yes | newest evidence 2026-11-01 (2 d old) |
+| reasoning lessons | yes | newest evidence 2026-11-03 (1 d old) |
+| experiment engine | yes | newest evidence 2026-11-03 (1 d old) |
+| nightly refit | yes | newest evidence 2026-11-04 (0 d old) |
+| AI fact sheet | yes | newest evidence 2026-11-03 (1 d old) |
+| verdict panel | yes | 0 -> 127 tested over 7 d |
+| learned weights | yes | newest evidence 2026-11-03 (1 d old) |
+| prompt contest | yes | newest evidence 2026-11-01 (3 d old) |
+| AI weekly review | yes | newest evidence 2026-11-02 (2 d old) |
+| universe sweep | yes | newest evidence 2026-11-04 (0 d old) |
+| paper book | yes | newest evidence 2026-11-04 (0 d old) |
+| sharp list | yes | newest evidence 2026-11-04 (0 d old) |
+| research runner | yes | newest evidence 2026-11-02 (2 d old) |
+| matchbook ledger | yes | newest evidence 2026-11-03 (1 d old) |
+| bot challengers | yes | newest evidence 2026-11-04 (0 d old) |
 
 ## (c) What to do better (by expected value)
 

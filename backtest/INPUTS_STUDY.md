@@ -6,19 +6,19 @@ Written by `backtest/inputs_study.py` (Architect 2026-10-28). Walk-forward: each
 
 | outcome / feature | scored | Brier model | Brier gain ± se | log-loss gain ± se | verdict (Brier / log loss) | CLV model (bets) | CLV with feature (bets) |
 |---|---|---|---|---|---|---|---|
-| home win | h2h_gd | 3504 | 0.2214 | -0.00019 ± 0.00022 | -0.00061 ± 0.00053 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.81% (941) | -0.67% (921) |
+| home win | h2h_gd | 3504 | 0.2214 | -0.00019 ± 0.00022 | -0.00061 ± 0.00053 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.81% (941) | -0.66% (920) |
 | home win | h2h_goals | 3504 | 0.2214 | -0.00022 ± 0.00010 | -0.00056 ± 0.00023 | HURTS / HURTS | -0.81% (941) | -0.83% (942) |
 | home win | form_ppg | 3738 | 0.2226 | -0.00038 ± 0.00018 | -0.00074 ± 0.00042 | HURTS / NO CLEAR EFFECT | -0.75% (1024) | -0.69% (1049) |
-| home win | form_gd | 3738 | 0.2226 | -0.00042 ± 0.00014 | -0.00089 ± 0.00034 | HURTS / HURTS | -0.75% (1024) | -0.72% (1032) |
+| home win | form_gd | 3738 | 0.2226 | -0.00042 ± 0.00014 | -0.00089 ± 0.00034 | HURTS / HURTS | -0.75% (1024) | -0.71% (1031) |
 | home win | form_venue_ppg | 3738 | 0.2226 | -0.00019 ± 0.00009 | -0.00046 ± 0.00022 | HURTS / HURTS | -0.75% (1024) | -0.76% (1026) |
 | home win | form_goals | 3738 | 0.2226 | -0.00034 ± 0.00030 | -0.00072 ± 0.00067 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.75% (1024) | -0.78% (1053) |
-| home win | table_ppg_gap | 3276 | 0.2226 | -0.00049 ± 0.00039 | -0.00118 ± 0.00088 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.94% (922) | -0.96% (945) |
+| home win | table_ppg_gap | 3276 | 0.2226 | -0.00049 ± 0.00039 | -0.00118 ± 0.00088 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.94% (922) | -0.96% (946) |
 | home win | table_stakes | 1401 | 0.2159 | -0.00043 ± 0.00045 | -0.00117 ± 0.00105 | NO CLEAR EFFECT / NO CLEAR EFFECT | -0.74% (358) | -0.55% (345) |
 | over 2.5 | h2h_gd | 3504 | 0.2509 | -0.00029 ± 0.00028 | -0.00066 ± 0.00061 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.14% (633) | +0.13% (640) |
-| over 2.5 | h2h_goals | 3504 | 0.2509 | +0.00074 ± 0.00083 | +0.00171 ± 0.00176 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.14% (633) | +0.28% (703) |
+| over 2.5 | h2h_goals | 3504 | 0.2509 | +0.00074 ± 0.00083 | +0.00171 ± 0.00176 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.14% (633) | +0.28% (702) |
 | over 2.5 | form_ppg | 3738 | 0.251 | -0.00012 ± 0.00039 | -0.00046 ± 0.00085 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.13% (685) | +0.19% (757) |
 | over 2.5 | form_gd | 3738 | 0.251 | -0.00019 ± 0.00027 | -0.00047 ± 0.00059 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.13% (685) | +0.25% (732) |
-| over 2.5 | form_venue_ppg | 3738 | 0.251 | -0.00028 ± 0.00020 | -0.00069 ± 0.00044 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.13% (685) | +0.16% (714) |
+| over 2.5 | form_venue_ppg | 3738 | 0.251 | -0.00028 ± 0.00020 | -0.00069 ± 0.00044 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.13% (685) | +0.15% (713) |
 | over 2.5 | form_goals | 3738 | 0.251 | +0.00029 ± 0.00060 | +0.00082 ± 0.00128 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.13% (685) | -0.05% (699) |
 | over 2.5 | table_ppg_gap | 3276 | 0.2505 | -0.00035 ± 0.00024 | -0.00084 ± 0.00054 | NO CLEAR EFFECT / NO CLEAR EFFECT | +0.14% (582) | +0.24% (600) |
 | over 2.5 | table_stakes | 1401 | 0.247 | -0.00110 ± 0.00054 | -0.00231 ± 0.00111 | HURTS / HURTS | +0.73% (209) | +0.67% (226) |

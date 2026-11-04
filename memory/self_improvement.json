@@ -1,5 +1,5 @@
 {
- "reviewed": "2026-11-03",
+ "reviewed": "2026-11-04",
  "inputs": [
   {
    "input": "team strength",
@@ -38,7 +38,7 @@
    "evidence": [
     "home win | form_ppg: HURTS (Brier -0.00038)",
     "home win | form_gd: HURTS (Brier -0.00042)",
-    "home win | form_venue_ppg: HURTS (Brier -0.00020)"
+    "home win | form_venue_ppg: HURTS (Brier -0.00019)"
    ]
   },
   {
@@ -141,19 +141,19 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 1,
+   "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-02 (2 d old)"
   },
   {
    "loop": "match study",
    "what": "monitor/match_study_run.py per-match expected v happened v why",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-02",
+   "newest": "2026-11-03",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "why record",
@@ -161,19 +161,19 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 1,
+   "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-02 (2 d old)"
   },
   {
    "loop": "tactics lessons",
    "what": "engine/tactics_study.py lessons tested on unseen matches",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 106,
+   "now": 112,
    "then": 0,
    "ok": true,
-   "note": "0 -> 106 tested over 7 d"
+   "note": "0 -> 112 tested over 7 d"
   },
   {
    "loop": "slip post-mortem",
@@ -181,9 +181,9 @@
    "kind": "grew",
    "allowance_days": 7,
    "now": 431,
-   "then": 306,
+   "then": 342,
    "ok": true,
-   "note": "306 -> 431 tested over 7 d"
+   "note": "342 -> 431 tested over 7 d"
   },
   {
    "loop": "why-weighted shadow",
@@ -201,9 +201,9 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-03",
-   "age_days": 0,
+   "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "experiment engine",
@@ -211,29 +211,29 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-03",
-   "age_days": 0,
+   "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "nightly refit",
    "what": "engine/retrain.py out-of-sample refit",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-04 (0 d old)"
   },
   {
    "loop": "AI fact sheet",
    "what": "engine/fact_sheet.py facts 2 of 3 models agree on",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-02",
+   "newest": "2026-11-03",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "verdict panel",
@@ -241,9 +241,9 @@
    "kind": "grew",
    "allowance_days": 7,
    "now": 127,
-   "then": null,
+   "then": 0,
    "ok": true,
-   "note": "127 tested (no history 7 d back)"
+   "note": "0 -> 127 tested over 7 d"
   },
   {
    "loop": "learned weights",
@@ -251,9 +251,9 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-03",
-   "age_days": 0,
+   "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "prompt contest",
@@ -261,9 +261,9 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-01",
-   "age_days": 2,
+   "age_days": 3,
    "ok": true,
-   "note": "newest evidence 2026-11-01 (2 d old)"
+   "note": "newest evidence 2026-11-01 (3 d old)"
   },
   {
    "loop": "AI weekly review",
@@ -271,39 +271,39 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 1,
+   "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-02 (2 d old)"
   },
   {
    "loop": "universe sweep",
    "what": "engine/universe.py every SportyBet game graded, bet on or not",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-04 (0 d old)"
   },
   {
    "loop": "paper book",
    "what": "engine/paper_book.py fixed-rule paper bets on every game",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-04 (0 d old)"
   },
   {
    "loop": "sharp list",
    "what": "monitor/sharp_list.py parallel sharp-value picks",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-04 (0 d old)"
   },
   {
    "loop": "research runner",
@@ -311,9 +311,9 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 1,
+   "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (1 d old)"
+   "note": "newest evidence 2026-11-02 (2 d old)"
   },
   {
    "loop": "matchbook ledger",
@@ -321,19 +321,19 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-03",
-   "age_days": 0,
+   "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (0 d old)"
+   "note": "newest evidence 2026-11-03 (1 d old)"
   },
   {
    "loop": "bot challengers",
    "what": "monitor/bot_learning.py the bots' paper challengers v live",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-01",
-   "age_days": 2,
+   "newest": "2026-11-04",
+   "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-01 (2 d old)"
+   "note": "newest evidence 2026-11-04 (0 d old)"
   }
  ],
  "proposals": [
@@ -393,6 +393,7 @@
   }
  ],
  "issues_opened": [
-  "https://github.com/Tolar07/framework/issues/266"
+  "https://github.com/Tolar07/framework/issues/287",
+  "https://github.com/Tolar07/framework/issues/288"
  ]
 }

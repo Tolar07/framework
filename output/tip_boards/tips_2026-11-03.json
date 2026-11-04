@@ -1022,19 +1022,19 @@
  },
  "results": {
   "vitibet": {
-   "won": 0,
-   "lost": 0,
-   "open": 27
+   "won": 16,
+   "lost": 8,
+   "open": 3
   },
   "statarea": {
-   "won": 0,
-   "lost": 0,
-   "open": 36
+   "won": 24,
+   "lost": 9,
+   "open": 3
   },
   "sites agree": {
-   "won": 0,
-   "lost": 0,
-   "open": 14
+   "won": 7,
+   "lost": 6,
+   "open": 1
   }
  }
 }

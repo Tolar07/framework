@@ -10,8 +10,9 @@ market value. Here each one is weighed by what his absence actually changes:
   ALREADY OUT   he started none of the team's last RECENT matches (all competitions): the
                 team's recent results AND the price already carry his absence -> weight 0.
   ROTATION      he started k of the last RECENT: weight k / RECENT (a regular starter = 1).
-  DEPTH         the best fit cover in the squad (same or next position group, not unavailable,
-                not in this match's XI, one cover per absence) worth
+  DEPTH         the best cover in the squad (not unavailable, not in this match's XI, one cover
+                per absence): his own position group first (full-backs and centre-backs apart);
+                failing that a neighbouring group's player at MAKESHIFT of his value; worth
                 v_cover against his v: weight x max(0, 1 - v_cover / v). Cover as good as
                 him -> 0; no cover -> full value.
 
@@ -29,10 +30,15 @@ from collections.abc import Callable
 RECENT = 5
 _TEAM = "https://www.fotmob.com/api/data/teams?id={tid}"
 _DETAILS = "https://www.fotmob.com/api/data/matchDetails?matchId={mid}"
-GROUPS = {"GK": "GK", "CB": "DEF", "LB": "DEF", "RB": "DEF", "LWB": "DEF", "RWB": "DEF",
+GROUPS = {"GK": "GK", "CB": "CB", "LB": "FB", "RB": "FB", "LWB": "FB", "RWB": "FB",
           "DM": "MID", "CDM": "MID", "CM": "MID", "LM": "MID", "RM": "MID", "AM": "AM",
           "CAM": "AM", "LW": "ATT", "RW": "ATT", "ST": "ATT", "CF": "ATT"}
-NEAR = {"MID": ("MID", "AM"), "AM": ("AM", "MID", "ATT"), "ATT": ("ATT", "AM")}
+# cover from the player's own group first; a NEIGHBOUR group's cover is a makeshift fit and
+# counts at MAKESHIFT of its value (Pinnacle FC ep. 121 @ 12:05: a makeshift left-back against a
+# winger in form is the real worry; Mourinho, presser @ 22:39: structural change worries, a
+# like-for-like swap "is not dramatic")
+NEAR = {"CB": ("FB",), "FB": ("CB", "MID"), "MID": ("AM",), "AM": ("MID", "ATT"), "ATT": ("AM",)}
+MAKESHIFT = 0.5
 
 
 def group(desc: str | None) -> str | None:
@@ -87,17 +93,23 @@ def assess(missing: list[dict], xi_value: float, players: list[dict], recent_xis
             continue
         share = starts / n if n else 1.0
         g = me["group"] if me else None
-        pool = [p for p in players if p["id"] not in out_ids and p["id"] not in used and not p["injured"]
-                and g and p["group"] in NEAR.get(g, (g,)) and p["id"] != m.get("id")]
-        cover = max(pool, key=lambda p: p["value"], default=None)
+        free = [p for p in players if p["id"] not in out_ids and p["id"] not in used and not p["injured"]
+                and p["id"] != m.get("id")]
+        own = [p for p in free if g and p["group"] == g]
+        near = [p for p in free if g and p["group"] in NEAR.get(g, ())]
+        cover = max(own, key=lambda p: p["value"], default=None)
+        fit = 1.0
+        if cover is None:
+            cover, fit = max(near, key=lambda p: p["value"], default=None), MAKESHIFT
         if cover:
             used.add(cover["id"])
-        ratio = min(1.0, cover["value"] / v) if cover and v else 0.0
+        ratio = min(1.0, fit * cover["value"] / v) if cover and v else 0.0
         weight = share * (1 - ratio)
         eff = v * weight
         eff_total += eff
         why = (f"{'regular' if share >= 0.8 else 'rotation'} ({starts}/{n} starts)" if n else "starts unknown")
-        why += f", cover {cover['name']} ({ratio:.0%} of his value)" if cover else ", no fit cover"
+        why += (f", {'makeshift ' if fit < 1 else ''}cover {cover['name']} ({ratio:.0%} of his value)"
+                if cover else ", no fit cover")
         rows.append({"name": m.get("name"), "value": v, "starts": f"{starts}/{n}" if n else None,
                      "cover": cover["name"] if cover else None, "weight": round(weight, 3),
                      "effective": round(eff), "reason": why})

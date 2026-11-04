@@ -3,12 +3,12 @@
   "away": "Parma",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1182,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1874,
+    "home": 0.6944,
+    "over25": 0.634
    },
    "sharp": {
     "at": "2026-11-02T18:20Z",
@@ -158,33 +158,33 @@
   "away": "Alverca",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.047,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.079,
+    "home": 0.874,
+    "over25": 0.7799
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-11-02T18:20Z",
+    "away": 0.0472,
+    "btts": 0.4949,
+    "draw": 0.0902,
+    "home": 0.8626,
+    "over25": 0.7636
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-11-02T18:20Z",
+    "away": 0.0543,
+    "btts": 0.4908,
+    "draw": 0.0942,
+    "home": 0.8515,
+    "over25": 0.7529
    }
   },
   "date": "2026-11-02",
   "fixture": "Benfica v Alverca",
-  "ft": "PENDING",
+  "ft": "1-0",
   "home": "Benfica",
   "league": "Primeira Liga",
   "model_p": [
@@ -447,33 +447,33 @@
   "away": "Guimaraes",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3845,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3006,
+    "home": 0.3149,
+    "over25": 0.4586
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-11-02T18:20Z",
+    "away": 0.3682,
+    "btts": 0.529,
+    "draw": 0.3059,
+    "home": 0.3259,
+    "over25": 0.4541
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-11-02T18:20Z",
+    "away": 0.3817,
+    "btts": 0.5066,
+    "draw": 0.2929,
+    "home": 0.3254,
+    "over25": 0.4459
    }
   },
   "date": "2026-11-02",
   "fixture": "Gil Vicente v Guimaraes",
-  "ft": "PENDING",
+  "ft": "0-0",
   "home": "Gil Vicente",
   "league": "Primeira Liga",
   "model_p": [
@@ -545,12 +545,12 @@
   "away": "Brest",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3063,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3017,
+    "home": 0.392,
+    "over25": 0.4356
    },
    "sharp": {
     "at": "PENDING",
@@ -643,12 +643,12 @@
   "away": "Cadiz",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1152,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2064,
+    "home": 0.6785,
+    "over25": 0.515
    },
    "sharp": {
     "at": "2026-11-02T18:20Z",
@@ -669,7 +669,7 @@
   },
   "date": "2026-11-02",
   "fixture": "Mallorca v Cadiz",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "Mallorca",
   "league": "La Liga 2",
   "model_p": [
@@ -829,12 +829,12 @@
   "away": "Everton",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2829,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.275,
+    "home": 0.442,
+    "over25": 0.54
    },
    "sharp": {
     "at": "2026-11-02T18:20Z",
@@ -855,7 +855,7 @@
   },
   "date": "2026-11-02",
   "fixture": "Newcastle v Everton",
-  "ft": "PENDING",
+  "ft": "0-1",
   "home": "Newcastle",
   "league": "Premier League",
   "model_p": [
@@ -912,12 +912,12 @@
   "away": "Las Palmas",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.184,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2515,
+    "home": 0.5645,
+    "over25": 0.5013
    },
    "sharp": {
     "at": "2026-11-02T12:20Z",
@@ -1129,7 +1129,7 @@
   },
   "date": "2026-11-02",
   "fixture": "RC Deportivo de A Coruna v Osasuna",
-  "ft": "PENDING",
+  "ft": "2-1",
   "home": "RC Deportivo de A Coruna",
   "league": "La Liga",
   "model_p": [
@@ -1382,12 +1382,12 @@
   "away": "Nancy",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3367,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2911,
+    "home": 0.3721,
+    "over25": 0.4785
    },
    "sharp": {
     "at": "PENDING",
@@ -1516,12 +1516,12 @@
   "away": "Fiorentina",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4246,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2649,
+    "home": 0.3105,
+    "over25": 0.599
    },
    "sharp": {
     "at": "2026-11-02T15:20Z",
@@ -1759,12 +1759,12 @@
   "away": "Leganes",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2163,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2654,
+    "home": 0.5183,
+    "over25": 0.4811
    },
    "sharp": {
     "at": "2026-11-02T15:20Z",

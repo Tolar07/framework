@@ -135,3 +135,11 @@ many bets the edge is ground out, sized by a fraction of Kelly (Unabated "Why mo
 | NBA: one market, 8–12 players, on/off, CLV ≥ 60% | Billy Collins 04:42–13:06 | said only (captions auto-translated) |
 | Exchange liquidity + sharp-book move | OddsJam 09:40–10:11 | confirmed (Sharp Money tool frame: Wiggins o12.5, $800) |
 | **Contradiction:** CLV on props | Unabated says largely meaningless; Billy Collins says track it, beat ≥ 60% | Reconciled: track it against the sharpest prop books, but treat it as a weak signal and require outcome grading too |
+
+## Timing is testable on the same picks
+
+Placement time is an A/B test when two bots hold one selection: `monitor/timing_experiment.py` pairs Matchbook (early)
+with Betfair (about 3 h before kick-off) and reports early-minus-late CLV with a 90% band against one shared close.
+Record-only; a `timing` proposal opens only at 100+ pairs with a band that excludes 0. Re-watched Unabated "CLV wrong"
+(https://www.youtube.com/watch?v=MIkpsiJzbcA @ 00:28 "CLV is more guidepost than gospel") on 2026-11-04: it adds nothing
+beyond the three tests above, so the table is unchanged.

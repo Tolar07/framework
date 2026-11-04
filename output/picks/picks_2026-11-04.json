@@ -694,7 +694,11 @@
     "home": 115269964,
     "away": 69465738
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "matchup": {
     "say": "Rennes: high press v build-up side; Olympiacos: elite attack v leaky defence -> no strong goals lean",
     "xg": [

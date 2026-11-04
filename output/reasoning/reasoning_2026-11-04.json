@@ -376,7 +376,36 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.777
+   "panel_prob": 0.777,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7778,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.775,
+     "nvidia": 0.7778,
+     "openrouter": 0.7778
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7754,
+    "edge": 0.0158,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "AEK Athens v Real Madrid",
@@ -1234,5 +1263,28 @@
   },
   "authority": 0,
   "missing": []
- }
+ },
+ "lineup_passes": [
+  {
+   "at": "2026-11-04T14:40+00:00",
+   "picks": 1,
+   "members": {
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
+    },
+    "openrouter": {
+     "model": "google/gemma-4-31b-it:free",
+     "status": "ok",
+     "answered": 1
+    },
+    "gemini": {
+     "model": "gemini-3.5-flash-lite",
+     "status": "ok",
+     "answered": 1
+    }
+   }
+  }
+ ]
 }

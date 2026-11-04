@@ -346,16 +346,6 @@
     "type": "injury"
    },
    {
-    "name": "Abdelhamid A\u00eft Boudlal",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Valentin Rongier",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Ayoub El Kaabi",
     "side": "away",
     "type": "injury"
@@ -366,14 +356,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:20Z",
-  "away_missing_share": 0.05086278887284974,
+  "at": "2026-11-04T14:40Z",
+  "away_missing_share": 0.036936232715428646,
   "away_unavailable": 2,
   "fotmob_id": 6112306,
-  "home_missing_share": 0.39448601044247467,
-  "home_unavailable": 4,
+  "home_missing_share": 0.2765080383708555,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-11-04T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Slavia Prague v Arsenal": {
   "absent": [

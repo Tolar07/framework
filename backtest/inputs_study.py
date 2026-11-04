@@ -248,14 +248,29 @@ def news_rows(feature_docs: list[tuple[str, dict]]) -> dict[str, list]:
                 hg, ag = (int(x) for x in ft.split("-"))
             except ValueError:
                 continue
-            for name, pk, y, f in (("home win | missing edge", 0, int(hg > ag), am - hm),
-                                   ("away win | missing edge", 2, int(ag > hg), am - hm),
-                                   ("over 2.5 | missing total", 4, int(hg + ag > 2), am + hm),
-                                   ("BTTS yes | missing total", 6, int(hg > 0 and ag > 0), am + hm)):
+            sharp = (r.get("close") or {}).get("sharp") or {}
+            for name, pk, y, f, ck in (("home win | missing edge", 0, int(hg > ag), am - hm, "home"),
+                                       ("away win | missing edge", 2, int(ag > hg), am - hm, "away"),
+                                       ("over 2.5 | missing total", 4, int(hg + ag > 2), am + hm, "over25"),
+                                       ("BTTS yes | missing total", 6, int(hg > 0 and ag > 0), am + hm, "btts")):
                 p = pr[pk]
                 if isinstance(p, (int, float)) and 0 < p < 1:
-                    rows[name].append((day, float(p), y, f, None))
+                    rows[name].append((day, float(p), y, f, {"sharp": sharp.get(ck)}))
     return rows
+
+
+def vs_close(scored: list[tuple]) -> dict:
+    """Brier of the model, model + feature and the sharp book's closing chance on the
+    scored rows that have all three. The feature files hold the CLOSING chance only,
+    no opening price, so a CLV (opening / closing - 1) cannot be built from them:
+    it reads PENDING (HR35), never a made-up number."""
+    rows = [(p, q, y, e["sharp"]) for _d, p, q, y, e in scored
+            if isinstance((e or {}).get("sharp"), (int, float)) and 0 < e["sharp"] < 1]
+    n = len(rows)
+    if not n:
+        return {"n": 0, "model": None, "with_feature": None, "sharp_close": None, "clv": "PENDING"}
+    br = [round(sum((x[i] - x[2]) ** 2 for x in rows) / n, 4) for i in (0, 1, 3)]
+    return {"n": n, "model": br[0], "with_feature": br[1], "sharp_close": br[2], "clv": "PENDING"}
 
 
 def part_c() -> tuple[dict, dict]:
@@ -264,7 +279,10 @@ def part_c() -> tuple[dict, dict]:
         docs.append((path.stem.split("_", 1)[1], json.loads(path.read_text(encoding="utf-8"))))
     rows = news_rows(docs)
     total = sum(len(d) for _day, d in docs)
-    res = {k: wf_preds(v)[0] for k, v in rows.items()}
+    res = {}
+    for k, v in rows.items():
+        res[k], scored = wf_preds(v)
+        res[k]["vs_close"] = vs_close(scored)
     return res, {"fixtures": total, "with_news_and_result": len(rows["home win | missing edge"]),
                  "days": len(docs)}
 
@@ -295,12 +313,16 @@ def report(a: dict, ca: dict, b: dict, cb: dict, news: dict, cc: dict) -> str:
                  f"{s['logloss_gain']:+.5f} ± {s['logloss_se']:.5f} | {s['verdict']} / {s['verdict_logloss']} |")
     L += ["", f"## C. Lineups / injuries — share of the best XI unavailable ({cc['with_news_and_result']} graded "
           f"fixtures with news, of {cc['fixtures']} on {cc['days']} days)", "",
-          "| outcome / feature | scored | Brier model | Brier gain ± se | log-loss gain ± se | verdict |",
-          "|---|---|---|---|---|---|"]
+          "| outcome / feature | scored | Brier model | Brier gain ± se | log-loss gain ± se | verdict | "
+          "Brier on rows with a sharp close: model / with feature / sharp close (rows) | CLV |",
+          "|---|---|---|---|---|---|---|---|"]
     for k, s in news.items():
         brier = "PENDING" if s["brier_model"] is None else s["brier_model"]
+        v = s["vs_close"]
+        vc = ("PENDING" if not v["n"] else f"{v['model']} / {v['with_feature']} / {v['sharp_close']} ({v['n']})")
         L.append(f"| {k} | {s['scored']} | {brier} | {s['brier_gain']:+.5f} ± {s['brier_se']:.5f} | "
-                 f"{s['logloss_gain']:+.5f} ± {s['logloss_se']:.5f} | {s['verdict']} / {s['verdict_logloss']} |")
+                 f"{s['logloss_gain']:+.5f} ± {s['logloss_se']:.5f} | {s['verdict']} / {s['verdict_logloss']} | "
+                 f"{vc} | {v['clv']} (features hold the close only) |")
     live = [k for k, s in {**a, **b, **news}.items()
             if s["verdict"] == "ADDS INFORMATION" and s["verdict_logloss"] == "ADDS INFORMATION"]
     L += ["", "## Verdict", "",

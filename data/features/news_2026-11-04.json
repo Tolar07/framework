@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.12508173943670678,
   "away_unavailable": 4,
   "fotmob_id": 5836918,
@@ -86,7 +86,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:20Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.049894947720810635,
   "away_unavailable": 2,
   "fotmob_id": 5836919,
@@ -145,11 +145,6 @@
     "type": "injury"
    },
    {
-    "name": "Nayel Mehssatou",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Basile Vroninks",
     "side": "home",
     "type": "injury"
@@ -170,14 +165,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:20Z",
-  "away_missing_share": 0.3244948952405145,
+  "at": "2026-11-04T18:40Z",
+  "away_missing_share": 0.3265022638653918,
   "away_unavailable": 8,
   "fotmob_id": 5811786,
-  "home_missing_share": 0.29772756344815543,
-  "home_unavailable": 4,
+  "home_missing_share": 0.2257382063501181,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-11-04T19:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lens v Como 1907": {
   "absent": [
@@ -212,7 +207,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.3468142042940062,
   "away_unavailable": 5,
   "fotmob_id": 6106416,
@@ -223,7 +218,7 @@
  },
  "Oxford United v Reading": {
   "absent": [],
-  "at": "2026-11-04T18:20Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837118,
@@ -255,7 +250,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.21239542419000745,
   "away_unavailable": 1,
   "fotmob_id": 6106303,
@@ -297,7 +292,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.42970882057219945,
   "away_unavailable": 10,
   "fotmob_id": 6106288,
@@ -329,7 +324,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.07356744070171142,
   "away_unavailable": 1,
   "fotmob_id": 6106322,
@@ -388,7 +383,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.14050198513693887,
   "away_unavailable": 1,
   "fotmob_id": 6106389,
@@ -415,7 +410,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T14:00Z",
+  "at": "2026-11-04T18:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6106420,
@@ -452,13 +447,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-04T18:20Z",
-  "away_missing_share": 0.10147957043602512,
+  "at": "2026-11-04T18:40Z",
+  "away_missing_share": 0.11679574754339134,
   "away_unavailable": 2,
   "fotmob_id": 5836921,
-  "home_missing_share": 0.1565353012704026,
+  "home_missing_share": 0.13450916681195005,
   "home_unavailable": 5,
   "kickoff_utc": "2026-11-04T19:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

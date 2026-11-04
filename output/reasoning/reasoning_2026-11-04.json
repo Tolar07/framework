@@ -80,7 +80,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.748
+   "panel_prob": 0.748,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7488,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.74,
+     "nvidia": 0.7488
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.74,
+    "edge": -0.0232,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Cardiff City v West Ham",
@@ -228,7 +256,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.7635
+   "panel_prob": 0.7635,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.7635,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.77,
+     "nvidia": 0.7635
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.77,
+    "edge": -0.0298,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 17,
+     "earned": false,
+     "panel_brier": 0.1428,
+     "live_brier": 0.145,
+     "panel_brier_on_live": 0.1428,
+     "clv_n": 17,
+     "panel_clv_hit": 0.647,
+     "live_clv_hit": 0.647
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Bristol City v Wolves",
@@ -1343,6 +1399,27 @@
      "model": "google/gemma-4-26b-a4b-it:free",
      "status": "off for this run: openrouter: 429",
      "answered": 0
+    },
+    "gemini": {
+     "model": "gemini-3.5-flash-lite",
+     "status": "ok",
+     "answered": 2
+    }
+   }
+  },
+  {
+   "at": "2026-11-04T18:40+00:00",
+   "picks": 2,
+   "members": {
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 2
     },
     "gemini": {
      "model": "gemini-3.5-flash-lite",

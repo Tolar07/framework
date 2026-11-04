@@ -1,8 +1,8 @@
 {
- "slips_graded": 58,
+ "slips_graded": 64,
  "classes": {
   "middle": {
-   "legs": 58,
+   "legs": 64,
    "graded": 0,
    "landed": 0,
    "implied_avg": null

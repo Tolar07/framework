@@ -1,11 +1,11 @@
 # Tip sites study (paper only)
 
-Updated 2026-11-04 06:17 UTC by monitor/tip_sites_run.py. Tips read before kick-off, graded on Flashscore 90-minute results. No prices, so no profit figure. A uniform 1/3-1/3-1/3 guess scores a Brier of 0.667; lower is better.
+Updated 2026-11-04 16:17 UTC by monitor/tip_sites_run.py. Tips read before kick-off, graded on Flashscore 90-minute results. No prices, so no profit figure. A uniform 1/3-1/3-1/3 guess scores a Brier of 0.667; lower is better.
 
 | Site | Graded | Tip hit rate | Brier (1X2 %) | Most-likely outcome right | Exact score |
 |---|---|---|---|---|---|
 | statarea | 34 | 74% | 0.526 | 65% | 0% |
-| vitibet | 24 | 67% | 0.563 | 58% | 8% |
+| vitibet | 30 | 63% | 0.574 | 57% | 7% |
 
 | Site / tip | Graded | Hit rate |
 |---|---|---|
@@ -16,6 +16,6 @@ Updated 2026-11-04 06:17 UTC by monitor/tip_sites_run.py. Tips read before kick-
 | statarea | dc 1x | 6 | 50% |
 | statarea | dc x2 | 4 | 75% |
 | vitibet | 1x2 away | 3 | 100% |
-| vitibet | 1x2 home | 9 | 56% |
-| vitibet | dc 1x | 7 | 43% |
+| vitibet | 1x2 home | 13 | 62% |
+| vitibet | dc 1x | 9 | 33% |
 | vitibet | dc x2 | 5 | 100% |

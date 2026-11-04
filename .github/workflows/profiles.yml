@@ -54,6 +54,13 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python data/team_profiles.py
 
+      - name: Every player's role and each manager's rotation (FotMob, squad profiles)
+        # Architect 2026-11-04: "gather a profile on all the players" -> data/players/
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/squad_profiles.py
+
       - name: Refit the cross-league strength ratings
         continue-on-error: true
         env:
@@ -65,7 +72,7 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "team profiles + league strength $(date -u +%Y-%m-%d) [skip ci]" data/teams
-          git add data/teams || true
+          git add data/teams data/players || true
           if git diff --staged --quiet; then
             echo "::warning::profiles: NOTHING CHANGED — both rebuilds produced no new data; order 43 is still reading last week's profiles"
             exit 0

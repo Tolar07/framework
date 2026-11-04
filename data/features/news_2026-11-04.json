@@ -1,0 +1,39 @@
+{
+ "Rennes v Olympiacos": {
+  "absent": [
+   {
+    "name": "Est\u00e9ban Lepaul",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Abdelhamid A\u00eft Boudlal",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Valentin Rongier",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ayoub El Kaabi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Yusuf Yaz\u0131c\u0131",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-04T09:40Z",
+  "away_missing_share": 0.05086278887284974,
+  "away_unavailable": 2,
+  "fotmob_id": 6112306,
+  "home_missing_share": 0.39448601044247467,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-04T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

@@ -1,44 +1,46 @@
 {
- "date": "2026-11-03",
- "run_at": "2026-11-03T22:22:04+00:00",
+ "date": "2026-11-04",
+ "run_at": "2026-11-04T22:21:47+00:00",
  "model": "claude-opus-5-5",
  "recorded_only": false,
  "lowers_only": true,
  "right": [
-  "Football 'lower' is the only verdict with a profit: 103/127 won (81%) against a stated 78%, flat return +2.4%. Backs returned -5.7% and vetoes -2.9%.",
-  "Football 'Team A or Team B' (12) picks that were lowered won 15/17 (88%, about +14% flat). The 'lower is the default for a 12 pick' rule took hold on 2026-11-02, when 7 of 8 lowered 12 picks won (Radomiak, Sassuolo, Lorient, Newcastle, Red Star, Genclerbirligi, GAIS; Gil Vicente lost).",
-  "Football team-goal picks with a WINNING family record won 9/10 when backed (about +11% at 1.20-1.31). The only loss was Kaiserslautern Over 0.5. The Aarhus Over 0.5 veto was right: Aarhus did not score.",
-  "Football Over 1.5 at 1.20-1.31 won 22/26 (85%; lowered 15/18, backed 7/8), about +4% flat, once it stopped being vetoed on record alone.",
-  "Football vetoes are rarer and sharper: only 8 of the newest 120 football picks were vetoes, and 3 of those 8 picks lost (Odense Under 4.5, Aarhus Over 0.5, Mjallby or Kalmar). Across the full record, 30 of 136 vetoed picks lost.",
-  "NBA: 48/69 non-veto picks won (70%) at about 1.93, flat +34%. First-half Unders on lines of 119.5 or lower won 22/28, and first-half Overs won 19/28. Both vetoed NBA picks lost (0/2), so those two vetoes were right, but n=2.",
-  "NBA +1.5 handicaps won 3/4, and totals priced under 1.90 won 3/4. Both are too small to mean anything yet."
+  "NBA is the only part of the record that clearly makes money: 48/69 non-veto picks won (back 27/39, +34.8%; lower 21/30, +33.0%) at prices of about 1.90-2.00, where break-even is about 51-53%. The edge is NOT proven: no NBA pick has a Matchbook entry or close price, so this may be variance or soft ea",
+  "NBA first-half Unders at lines of 119.5 or lower won 22/28 (79%). Backed Unders won 17/23.",
+  "NBA first-half Overs that were lowered won 9/12. Backed Overs won 10/16. Overs as a whole won 19/28, about level with Unders (26/37).",
+  "NBA vetoes were right twice: both vetoed Overs at 114.5 (Phi v Cle, OKC v Den) lost. The veto stake (0.5) still lost money, and n=2 proves nothing.",
+  "NBA +1.5 handicaps won 3/4, all lowered (n=4, hypothesis).",
+  "Football 'lower' is the only verdict with a positive flat return: 103/127 won (81%) against a stated 78%, +2.4%. Lower was calibrated slightly cautious.",
+  "Football Over 1.5 at 1.20-1.31 won 22/26 (lower 15/18, back 7/8), about +4%. It was never vetoed, as the lesson said.",
+  "Football team-goal picks: backed ones won 9/10, and the board's Home goals family won 11/12 (+16%). The Aarhus away Over 0.5 veto was right (the pick lost). Hypothesis (n=10-12)."
  ],
  "wrong": [
-  "Football backs are overconfident: 77/102 won (75%) against a stated 79%, flat -5.7%.",
-  "Positive Asian handicaps are still being backed despite last review's veto rule: 6/11 won in the newest 120 (about -32% flat). Losses: Alaves +4.5, Annecy +1.5, Oldham +0.5, Excelsior +2.5, Sonderjyske +1.5. Sonderjyske was backed at 1.70 with ai_chance 0.59, citing the retired 'back cushions' lesso",
-  "About 16 backed 12 picks claimed 1X/X2 'draw protection' they do not have (for example Grasshopper, Wolfsberger, Lugano, Brann, Malmo). Backed 12 picks won 18/24 (75%, about -5%), and 5/8 at prices of 1.30 or longer. Losses: Grasshopper, Burgos, Arezzo, Sheffield Wednesday, Wolfsberger, Kalamata.",
-  "'Win to Nil - no' at 1.20-1.25 won 4/8 (about -39% flat). It was lowered or backed every time, never vetoed. Losses: Sampdoria, Marseille, OFI, Panathinaikos.",
-  "Missing squad-value % does not beat the price. Backs whose 'why' rested on an opponent or side missing 20% or more won 11/15 (73%) against roughly 78% needed. Losses: Kaiserslautern, Excelsior, Burgos, Kalamata.",
-  "Football vetoes overall: 106/136 vetoed picks won (78%), as often as backs at 77/102 (75%). Vetoes are still not separating losers.",
-  "Match Under 4.5/5.5 at about 1.24 won 10/13 (about -3%): roughly break-even, losing slightly.",
-  "NBA first-half Unders on lines of 120.5 or higher won 4/9 (121.5 lines: 1/4), below the ~52% break-even."
+  "EDGE: no price taken has beaten the exchange. All 11 board singles with Matchbook data came in under the fair chance: 0/11 beat it, CLV -4.0%. That is 9 Double chance picks (-3.9%, SE 0.5%) and 2 Result & total picks (-4.3%). The other families have no entry or close data, so none of them has shown ",
+  "Football vetoes win as often as backs: vetoes won 106/136 (78%) and backs 77/102 (75%). Backs are overconfident (stated 79%, actual 75%, -5.7%). Vetoed picks still lost money (-2.9%). The verdict is not separating winners from losers.",
+  "Positive Asian handicaps: 6/11 won in the newest 120, all backed, about -32%. The board's Asian handicap family is 14/19, -9.2%. The Sonderjyske +1.5 loss at 1.70 on 2026-11-02 quoted the retired 'back positive cushions' lesson, which is still printed under YOUR LESSONS.",
+  "'Win to Nil - no' at 1.20-1.25: 4/8 won, about -39%, never vetoed. The board's Home win to nil family is 2/6, -59%, and Away win to nil is 2/3.",
+  "Backed 12 picks won 18/24, about -5% flat (5/8 at 1.30 or longer). 18 of those 24 'why' fields wrongly claimed '1X/X2' or 'true draw protection', and 3 of those 18 lost to a draw (Grasshopper, Arezzo, Wolfsberger).",
+  "Under 4.5/5.5 totals won 10/13, about -3%. Break-even at an average price near 1.25 is about 80%. Hypothesis (n=13).",
+  "The board's Away goals family is 5/7, -13%. Board families SB:33 (15/25, -26.6%) and SB:547 (15/24, -23.6%) are the largest losers. SB:13 is 0/3 and SB:37 is 0/2. The big SB:10 (n=426, -3.0%) and SB:18 (n=265, -4.5%) are slow bleeders.",
+  "Many football 'why' fields give 'LOSING framework record' or a bare missing-squad-value % as the reason. Neither is a checkable fact about the match."
  ],
  "lessons": [
-  "Football: veto every positive Asian handicap unless ai_chance clears break-even by at least 3 points AND 'why' names a concrete fact. The old 'back positive cushions' lesson is retired. Record: 6/11 won in the newest 120, about -32%. Hypothesis (n=11), but still the clearest loser.",
-  "Football: 'Team A or Team B' is a 12 pick, loses on a draw, and has no draw protection; never write '1X/X2' for it. Lower is the default verdict for a 12 pick: lowered 12 picks won 15/17, backed ones 18/24 (5/8 at prices of 1.30 or longer).",
-  "Football: veto 'Win to Nil - no' at 1.25 or shorter unless a confirmed fact points to the opponent scoring. It won 4/8 (about -39%) and was never vetoed. Hypothesis (n=8).",
-  "Football: missing squad-value % on its own is not a reason to back, lower or veto. Name the player and their role. Backs resting on 20%+ missing won 11/15 (73%, below ~78% break-even), and key_absences picks ran 8-12 points below the market rate.",
-  "Football: veto only on a named, checkable fact (confirmed starter out, confirmed rotation) and state it in 'why'. 'LOSING record' is never the reason. Vetoed picks won 106/136, level with backs at 77/102.",
-  "Football: for Over 1.5 at 1.20-1.31, 'lower' is the default; never veto it on record alone. It won 22/26, about break-even at +4%. For team-goal picks with a WINNING family record, keep the verdict at back: 9/10. Hypothesis (n=10).",
-  "NBA first-half Unders: keep backing lines of 119.5 or lower (22/28). Lower or veto lines of 120.5 or higher (4/9; 121.5 lines 1/4). Hypothesis (n=9). Check the actual line before quoting the rule: a 118.5 line is not 120.5.",
-  "NBA and both sports: a 'lower' must name a fact. First-half Overs won 19/28, as often as Unders, so 'Over volatility' is not a fact. Never cite a statistic that is not in the record. The 'no totals below 1.90' rule (3/4) and the 'identical matchup' veto (2/2 vetoed picks lost, but the matchups were "
+  "Edge first: if the Matchbook fair chance is known and the price is below fair (0/11 beat it, CLV -4.0%), never back. Lower at most, and write the gap in 'why'. Hypothesis (n=11), but no pick has yet beaten the exchange.",
+  "Football: veto every positive Asian handicap unless ai_chance clears break-even by 3+ points AND 'why' names a concrete fact. The newest 120 went 6/11 (about -32%) and the board is 14/19 (-9%). Remove the retired 'back positive cushions' lesson from the prompt. Hypothesis (n=11).",
+  "Football: veto 'Win to Nil - no' at 1.25 or shorter unless a confirmed fact points to the opponent scoring. It went 4/8 (about -39%) and the board's Home win to nil is 2/6. Hypothesis (n=8).",
+  "Football 12 picks ('Team A or Team B') lose on a draw. Never write '1X/X2' or 'draw protection' for them: 18 of 24 backs did. Lower is the default (lowered 15/17, backed 18/24), and Double chance CLV is -3.9%, so winning here is not edge. Hypothesis (n=17 lowered).",
+  "Football: a back needs a named, checkable fact (player and role, or confirmed rotation) and an ai_chance above break-even. Otherwise lower. Backs were stated at 79% and won 75% (-5.7%); lowers won 81% (+2.4%). A missing-squad-value % or a 'LOSING record' is never the reason.",
+  "Football: veto only on a named, checkable fact, and state it in 'why'. Vetoes won 106/136, the same as backs at 77/102, so vetoes on record or general caution find no losers.",
+  "Football: Over 1.5 at 1.20-1.31 defaults to lower and is never vetoed on record alone (22/26, about +4%). Home team goals stay at back (board 11/12). Away team goals need a named fact (board 5/7, -13%). Hypothesis (n=7-12).",
+  "NBA: back first-half Unders only at lines of 119.5 or lower (22/28), and lower or veto 120.5+ (4/9). Read the actual line first: 118.5 is not 120.5. 'Over volatility' is not a fact; lowered Overs won 9/12. The +34% has no exchange CLV, so do not raise stakes until the prices are checked."
  ],
  "facts": [
-  "key_absences is the only fact with volume, and it is earning nothing. Absences favouring the pick (+) won 5/8 against a 74.5% market rate (residual -12 points). Absences against the pick (-) won 6/9 against 74.2% (residual -7.6 points). Absences neutral (0): 2/2. None of these are trusted.",
-  "derby fired once in 91 graded picks (n=1). The fact sheet produced only 20 fact observations across 91 graded picks, so about 70% of picks carry no fact at all, and no NBA picks carry any (no injury, rest or back-to-back fields).",
-  "Learned weights: fact:key_absences w=-0.007 on 9 rows, effectively zero. member:openrouter has 0 rows (empty). member:gemini has only 28 rows (w=+0.006). member:nvidia has a negative weight (-0.169 over 94 rows), so its signal is being discounted.",
-  "Walk-forward Brier: learned 0.1745, market 0.1763, panel 0.1777. The panel is worse than the de-margined market, and the learned layer does not reliably beat it (beats_market=false).",
-  "Many 'why' fields lean on inputs the study does not grade: missing squad-value %, 'tactical matchup', pick_matchup_chance, 'paper study'. These need to become graded fact fields before they can be trusted."
+  "The fact-sheet study covers 111 graded picks, but only two fields ever fire: key_absences (n=19) and derby (n=1). None is trusted.",
+  "key_absences runs below the market rate in both directions: (+) won 5/8 against a market rate of 74.5% (-12 pts), and (-) won 6/9 against 74.2% (-7.6 pts). (0) is 2/2. The learned weight for key_absences is about zero (-0.007 on 9 rows). It is getting a lot of attention and not paying back.",
+  "derby has fired once (1/1). That is no evidence either way.",
+  "The 'why' fields keep citing tactical matchup, xG and pick_matchup_chance, but none of these appears in the fact study. They are either missing from the sheet or not being recorded, so they cannot be graded.",
+  "Entry and close prices are empty for nearly every family (Asian handicap, Over/Under, team goals, win to nil, all NBA). Only 11 picks have CLV. This is the field most worth filling.",
+  "Learned weights: the panel (Brier 0.1777) is worse than the market (0.1763). The learned model's small gain (0.1745) comes almost entirely from the bias term (0.0017 of 0.0018). nvidia carries a negative weight (-0.17 on 94 rows), gemini about zero (28 rows), and openrouter has no rows."
  ],
- "summary": "Lowering pays (football 'lower' 103/127, +2.4%; lowered 12 picks 15/17) and NBA totals run hot (48/69, +34%), while backed positive Asian handicaps (6/11), 'Win to Nil - no' (4/8), backed 12 picks mislabelled as draw-protected (18/24) and squad-value-% reasoning (11/15) are what lose money, and the "
+ "summary": "No price has yet beaten the Matchbook exchange (0/11, CLV -4.0%): football is flat at best (vetoes win as often as backs, positive Asian handicaps and short 'Win to Nil - no' picks lose), and the NBA's +34% is unverified against the exchange."
 }

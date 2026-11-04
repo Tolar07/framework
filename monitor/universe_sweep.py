@@ -223,6 +223,11 @@ def main(argv: list[str] | None = None) -> int:
             importlib.import_module("features_study").main()
         except Exception as e:  # noqa: BLE001 — never stops the sweep
             print(f"[{now:%H:%M}Z] features skipped ({str(e)[:60]})")
+        try:                        # H003 shadow: soft-close lean on Over 2.5, recorded only (issue #251)
+            from engine import soft_close_shadow
+            print(f"[{now:%H:%M}Z] {soft_close_shadow.run()}")
+        except Exception as e:  # noqa: BLE001 — never stops the sweep
+            print(f"[{now:%H:%M}Z] soft-close shadow skipped ({str(e)[:60]})")
         importlib.import_module("profile_study").main()
         if morning_due:
             print(f"[{now:%H:%M}Z] {send_daily_note(now)}")

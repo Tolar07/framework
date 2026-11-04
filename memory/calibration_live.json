@@ -12,15 +12,15 @@
    "n_holdout": 197
   },
   "btts": {
-   "a": 0.1437,
-   "adopted": "2026-11-03T03:31:39Z",
-   "b": 0.6564,
-   "brier_after": 0.24631,
-   "brier_before": 0.24648,
+   "a": 0.1446,
+   "adopted": "2026-11-04T03:31:34Z",
+   "b": 0.6522,
+   "brier_after": 0.24709,
+   "brier_before": 0.24712,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 191
+   "n_holdout": 196
   },
   "dc_12": {
    "a": 0.2799,
@@ -45,15 +45,15 @@
    "n_holdout": 197
   },
   "dc_x2": {
-   "a": -0.1649,
-   "adopted": "2026-11-03T03:31:39Z",
-   "b": 1.3041,
-   "brier_after": 0.23441,
-   "brier_before": 0.23508,
+   "a": -0.1648,
+   "adopted": "2026-11-04T03:31:34Z",
+   "b": 1.3026,
+   "brier_after": 0.23213,
+   "brier_before": 0.23215,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 191
+   "n_holdout": 196
   },
   "draw": {
    "a": -0.2846,
@@ -67,15 +67,15 @@
    "n_holdout": 191
   },
   "home": {
-   "a": 0.1652,
-   "adopted": "2026-11-03T03:31:39Z",
-   "b": 1.3049,
-   "brier_after": 0.23442,
-   "brier_before": 0.23509,
+   "a": 0.1651,
+   "adopted": "2026-11-04T03:31:34Z",
+   "b": 1.3033,
+   "brier_after": 0.23214,
+   "brier_before": 0.23216,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 191
+   "n_holdout": 196
   },
   "over_1.5": {
    "a": 0.5482,
@@ -100,17 +100,17 @@
    "n_holdout": 197
   },
   "over_3.5": {
-   "a": -0.1733,
-   "adopted": "2026-11-03T03:31:39Z",
-   "b": 0.587,
-   "brier_after": 0.22698,
-   "brier_before": 0.22729,
+   "a": -0.1836,
+   "adopted": "2026-11-04T03:31:34Z",
+   "b": 0.5754,
+   "brier_after": 0.22371,
+   "brier_before": 0.22374,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 191
+   "n_holdout": 196
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-11-03T03:31:39Z"
+ "updated": "2026-11-04T03:31:34Z"
 }

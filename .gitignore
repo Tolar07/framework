@@ -142,3 +142,6 @@ c:/
 
 # bot repos checked out by universe.yml for monitor/bot_grader.py (private ledgers; never committed here)
 .bots/
+
+# bot challenger readout lives in framework-data (monitor/fdata.py); a tracked stub shadowed it in the learning watch
+data/bots/

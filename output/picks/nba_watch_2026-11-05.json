@@ -1,0 +1,116 @@
+{
+ "date": "2026-11-05",
+ "picks": [
+  {
+   "market_id": "68",
+   "specifier": "total=112.5",
+   "outcome": "Under 112.5",
+   "outcome_id": "13",
+   "price": 1.9,
+   "chance": 0.577,
+   "fair_price": 1.733,
+   "ev": 0.0963,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-11-04T19:05:35.175387+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719516",
+   "home_key": "DET",
+   "away_key": "PHI",
+   "espn_id": "401909922",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:00:00+00:00",
+   "home": "Detroit Pistons",
+   "away": "Philadelphia 76ers",
+   "pick": "1st half Under 112.5 points",
+   "sharp": {
+    "ml_home": 1.7407,
+    "ml_away": 2.14,
+    "spread": -2.5,
+    "total": 219.5
+   },
+   "code": "W7R1AV",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.92,
+    "listed": true
+   }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=108.5",
+   "outcome": "Over 108.5",
+   "outcome_id": "12",
+   "price": 1.97,
+   "chance": 0.5895,
+   "fair_price": 1.696,
+   "ev": 0.1613,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-11-04T19:05:35.175387+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719520",
+   "home_key": "BOS",
+   "away_key": "MIL",
+   "espn_id": "401909924",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:30:00+00:00",
+   "home": "Boston Celtics",
+   "away": "Milwaukee Bucks",
+   "pick": "1st half Over 108.5 points",
+   "sharp": {
+    "ml_home": 1.2028,
+    "ml_away": 4.78,
+    "spread": -11.5,
+    "total": 221.5
+   },
+   "code": "LKRK14",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.97,
+    "listed": true
+   }
+  },
+  {
+   "market_id": "236",
+   "specifier": "total=52.5|quarternr=1",
+   "outcome": "Over 52.5",
+   "outcome_id": "12",
+   "price": 1.9,
+   "chance": 0.5619,
+   "fair_price": 1.78,
+   "ev": 0.0677,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-11-04T19:05:35.175387+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719522",
+   "home_key": "BKN",
+   "away_key": "CHA",
+   "espn_id": "401909925",
+   "espn_date": "2026-11-05",
+   "tip": "2026-11-05T00:30:00+00:00",
+   "home": "Brooklyn Nets",
+   "away": "Charlotte Hornets",
+   "pick": "1st quarter Over 52.5 points",
+   "sharp": {
+    "ml_home": 2.43,
+    "ml_away": 1.5882,
+    "spread": 3.5,
+    "total": 212.5
+   },
+   "code": "MS4N8B",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null,
+    "listed": false
+   }
+  }
+ ]
+}

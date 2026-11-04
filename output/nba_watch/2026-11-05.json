@@ -1,0 +1,63 @@
+{
+ "date": "2026-11-05",
+ "gone": [],
+ "reopen": [],
+ "first": {
+  "sr:match:73719516": {
+   "at": "19:05Z",
+   "spread": -2.5,
+   "total": 219.5,
+   "ml_home": 1.7407,
+   "ml_away": 2.14
+  },
+  "sr:match:73719518": {
+   "at": "19:05Z",
+   "spread": 3.5,
+   "total": 230.5,
+   "ml_home": 2.3,
+   "ml_away": 1.6494
+  },
+  "sr:match:73719520": {
+   "at": "19:05Z",
+   "spread": -11.5,
+   "total": 221.5,
+   "ml_home": 1.2028,
+   "ml_away": 4.78
+  },
+  "sr:match:73719522": {
+   "at": "19:05Z",
+   "spread": 3.5,
+   "total": 212.5,
+   "ml_home": 2.43,
+   "ml_away": 1.5882
+  },
+  "sr:match:73719524": {
+   "at": "19:05Z",
+   "spread": -12.5,
+   "total": 233.5,
+   "ml_home": 1.1675,
+   "ml_away": 5.43
+  },
+  "sr:match:73719526": {
+   "at": "19:05Z",
+   "spread": -6.5,
+   "total": 228.5,
+   "ml_home": 1.4505,
+   "ml_away": 2.84
+  },
+  "sr:match:73719528": {
+   "at": "19:05Z",
+   "spread": -4.5,
+   "total": 231.5,
+   "ml_home": 1.4926,
+   "ml_away": 2.69
+  },
+  "sr:match:73719530": {
+   "at": "19:05Z",
+   "spread": -3.5,
+   "total": 226.5,
+   "ml_home": 1.6211,
+   "ml_away": 2.36
+  }
+ }
+}

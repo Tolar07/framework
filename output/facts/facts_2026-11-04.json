@@ -1,7 +1,7 @@
 {
  "date": "2026-11-04",
  "picks_generated_at": "2026-11-03T21:54:01Z",
- "run_at": "2026-11-04T10:19:32+00:00",
+ "run_at": "2026-11-04T15:19:47+00:00",
  "recorded_only": true,
  "members": {
   "gemini": {
@@ -27,10 +27,10 @@
   "claude": {
    "answered": 15,
    "model": "claude-sonnet-5-5",
-   "run_at": "2026-11-04T10:19:32+00:00"
+   "run_at": "2026-11-04T15:19:47+00:00"
   }
  },
- "fields_agreed": 30,
+ "fields_agreed": 56,
  "fields_asked": 210,
  "fixtures": [
   {
@@ -78,11 +78,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -130,11 +134,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 2,
+    "key_absences_away": 2
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -182,11 +190,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 2
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -234,11 +246,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 1,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -287,7 +303,7 @@
    "agreed": {
     "away_long_travel": true,
     "derby": false,
-    "key_absences_home": 3,
+    "key_absences_home": 1,
     "key_absences_away": 2
    },
    "support": {
@@ -342,11 +358,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 1,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -394,11 +414,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -476,11 +500,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -528,11 +556,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 3
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -580,11 +612,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 1
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -632,11 +668,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 1
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -684,11 +724,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 1
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -736,11 +780,15 @@
    },
    "agreed": {
     "away_long_travel": true,
-    "derby": false
+    "derby": false,
+    "key_absences_home": 3,
+    "key_absences_away": 0
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   },
   {
@@ -788,11 +836,15 @@
    },
    "agreed": {
     "away_long_travel": false,
-    "derby": true
+    "derby": true,
+    "key_absences_home": 0,
+    "key_absences_away": 0
    },
    "support": {
     "away_long_travel": 2,
-    "derby": 2
+    "derby": 2,
+    "key_absences_home": "fotmob",
+    "key_absences_away": "fotmob"
    }
   }
  ],
@@ -801,25 +853,85 @@
    "fixture": "Kortrijk v Mechelen",
    "market": "SB:10||Home or Away",
    "pick": "Kortrijk or Mechelen",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Cardiff City v West Ham",
    "market": "SB:10||Home or Away",
    "pick": "Cardiff City or West Ham",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Wrexham v Middlesbrough",
    "market": "SB:10||Home or Away",
    "pick": "Wrexham or Middlesbrough",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.4,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Bristol City v Wolves",
    "market": "SB:10||Home or Away",
    "pick": "Bristol City or Wolves",
-   "facts": []
+   "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.2,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    }
+   ]
   },
   {
    "fixture": "Rennes v Olympiacos",
@@ -830,7 +942,7 @@
      "fact": "key_absences",
      "side": "home",
      "direction": -1,
-     "size": 0.6,
+     "size": 0.2,
      "source": "ai_fact_sheet"
     },
     {
@@ -855,6 +967,20 @@
    "pick": "Real Madrid & Over 1.5",
    "facts": [
     {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": 1,
+     "size": 0.2,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
      "fact": "away_long_travel",
      "side": "away",
      "direction": -1,
@@ -868,6 +994,20 @@
    "market": "SB:37|total=1.5|Away & Over 1.5",
    "pick": "Liverpool & Over 1.5",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "away_long_travel",
      "side": "away",
@@ -889,6 +1029,20 @@
    "pick": "Lens or Como 1907",
    "facts": [
     {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
      "fact": "away_long_travel",
      "side": "away",
      "direction": 1,
@@ -902,6 +1056,20 @@
    "market": "SB:10||Home or Away",
    "pick": "Porto or Napoli",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "away_long_travel",
      "side": "away",
@@ -917,6 +1085,20 @@
    "pick": "PSV Eindhoven or Club Brugge",
    "facts": [
     {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": 1,
+     "size": 0.2,
+     "source": "ai_fact_sheet"
+    },
+    {
      "fact": "away_long_travel",
      "side": "away",
      "direction": 1,
@@ -930,6 +1112,20 @@
    "market": "SB:37|total=1.5|Away & Over 1.5",
    "pick": "Man City & Over 1.5",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": -1,
+     "size": 0.2,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "away_long_travel",
      "side": "away",
@@ -945,6 +1141,20 @@
    "pick": "Arsenal & Over 1.5",
    "facts": [
     {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": 1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
+    {
+     "fact": "key_absences",
+     "side": "away",
+     "direction": -1,
+     "size": 0.2,
+     "source": "ai_fact_sheet"
+    },
+    {
      "fact": "away_long_travel",
      "side": "away",
      "direction": -1,
@@ -958,6 +1168,13 @@
    "market": "SB:37|total=1.5|Home & Over 1.5",
    "pick": "Viking FK & Over 1.5",
    "facts": [
+    {
+     "fact": "key_absences",
+     "side": "home",
+     "direction": -1,
+     "size": 0.6,
+     "source": "ai_fact_sheet"
+    },
     {
      "fact": "away_long_travel",
      "side": "away",

@@ -910,8 +910,8 @@
     "spec": "total=1.5",
     "outcome": "Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 3.2,
    "stake_pct": 0.12,
    "ev": -0.07803974723483464,
    "missing": {
@@ -1094,8 +1094,8 @@
     "spec": "total=1.5",
     "outcome": "Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.7,
+   "clv": -6.47,
    "stake_pct": 0.12,
    "ev": -0.08341868884446701,
    "missing": {

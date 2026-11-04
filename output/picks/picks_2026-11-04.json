@@ -734,8 +734,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.77,
    "stake_pct": 0.12,
    "ev": -0.013579037558760332,
    "missing": {
@@ -1007,7 +1007,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Fenerbahce Istanbul v Liverpool",
@@ -1179,7 +1181,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.52,
+   "drift_pct": -4.4
   },
   {
    "fixture": "Borussia Dortmund v Betis",

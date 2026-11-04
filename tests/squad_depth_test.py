@@ -62,6 +62,15 @@ def test_fotmob_parsers():
     assert sd.starters_of(det, 7) == {1} and sd.starters_of(det, 8) == set()
 
 
+def test_makeshift_cover_counts_half():
+    players = [{"id": 1, "name": "Left Back", "value": 40e6, "group": "FB", "injured": False},
+               {"id": 2, "name": "Spare CB", "value": 40e6, "group": "CB", "injured": False}]
+    r = sd.assess([{"id": 1, "name": "Left Back", "value": 40e6}], 400e6, players, [{1}, {1}, {1}, {1}, {1}])
+    row = r["players"][0]
+    assert row["cover"] == "Spare CB" and "makeshift" in row["reason"] and row["weight"] == 0.5
+    assert sd.group("LB") == "FB" and sd.group("CB") == "CB"
+
+
 def main() -> None:
     for name, fn in sorted(globals().items()):
         if name.startswith("test_") and callable(fn):

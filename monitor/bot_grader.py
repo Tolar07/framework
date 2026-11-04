@@ -334,6 +334,13 @@ def _read(p: Path):
         return None
 
 
+def _jsonl(path: Path) -> list[dict]:
+    try:
+        return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+    except (OSError, ValueError):
+        return []
+
+
 def _rows(d) -> list[dict]:
     b = (d or {}).get("bets") if isinstance(d, dict) else d
     return list(b.values()) if isinstance(b, dict) else list(b or [])
@@ -453,7 +460,7 @@ def matchbook_bets(repo: Path, since: str) -> list[dict]:
             "bot": "matchbook", "cur": "GBP", "date": day, "id": r["pos_id"],
             "kind": r.get("source") or "?", "stake": float(r.get("cost_gbp") or r.get("stake_asked_gbp") or 0),
             "odds": float(r.get("avg_odds") or r.get("odds_asked") or 0), "paper": False,
-            "own_pnl": r.get("pnl_gbp"), "own_settled": own is not None and r.get("pnl_gbp") is not None,
+            "clv": r.get("clv"), "own_pnl": r.get("pnl_gbp"), "own_settled": own is not None and r.get("pnl_gbp") is not None,
             "legs": [{"home": home.strip(), "away": away.strip(), "ko": ko, "sport": sport,
                       "key": key, "own": own}],
         })
@@ -933,11 +940,23 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append(f"challengers read for {len(rows)} bot ledger(s)")
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"challengers not read: {type(e).__name__}")
+    scorecard_line = ""
+    try:      # per-rule CLV scorecard across all bots (#258): record-only, proposals never applied
+        from monitor import rule_scorecard
+        card = rule_scorecard.build(real, today, hypotheses=_jsonl(ROOT / "memory" / "hypotheses.jsonl"),
+                                    lessons=(_read(ROOT / "memory" / "tactics_lessons.json") or {}).get("lessons"))
+        rule_scorecard.save(card)
+        scorecard_line = card["report_line"]
+        notes.append(f"scorecard: {len(card['rows'])} rule/market rows, {len(card['proposals'])} proposals")
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"scorecard not built: {type(e).__name__}")
     due = today if force_report else report_day(now)
     if due:
         text = build_report(graded, due, tally)
         if learning:
             text += "\n\n" + learning
+        if scorecard_line:
+            text += "\n\n" + scorecard_line
         try:      # the prediction sites' paper tip board: the day's record and each site's stage
             from engine import tip_board
             tips = tip_board.report_lines(due)

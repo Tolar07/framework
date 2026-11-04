@@ -218,7 +218,20 @@ def proposals(inputs: list[dict], loops: list[dict]) -> list[dict]:
     return sorted(out, key=lambda x: -x["ev"])
 
 
-def render(inputs, loops, props, when) -> str:
+def position(loops: list[dict], card: dict | None = None) -> dict:
+    """Where am I: the bots' per-rule CLV scorecard (monitor/rule_scorecard.py, written nightly by
+    bot_grader) plus the loops with no new evidence. Missing scorecard reads PENDING (HR35)."""
+    from monitor import rule_scorecard
+    card = rule_scorecard.load() if card is None else card
+    stalled = [r["loop"] for r in loops if not r["ok"]]
+    if not card:
+        return {"status": "PENDING", "why": "data/bots/scorecard.json not written yet (bot grader has not run)",
+                "stalled_loops": stalled}
+    return {**card.get("position", {}), "stalled_loops": stalled, "proposals": card.get("proposals", []),
+            "multiplicity": card.get("multiplicity"), "built_at": card.get("built_at")}
+
+
+def render(inputs, loops, props, when, pos: dict | None = None) -> str:
     L = [f"# SELF-IMPROVEMENT REVIEW — {when}", "",
          "Written weekly by `scripts/self_improve.py` (`self_improve.yml`): what the model uses, which "
          "learning loops produced tested evidence this week, and what to do better, ranked by expected "
@@ -234,6 +247,20 @@ def render(inputs, loops, props, when) -> str:
         L.append(f"| {r['loop']} | {'yes' if r['ok'] else '**NO — stalled**'} | {r['note']} |")
     L += ["", "## (c) What to do better (by expected value)", ""]
     L += [f"{i}. **{p['title']}** (EV {p['ev']}) — {p['body']}" for i, p in enumerate(props, 1)] or ["Nothing open."]
+    if pos is not None:
+        L += ["", "## (d) Where am I (bot rules scored on CLV)", ""]
+        if pos.get("status") == "PENDING":
+            L.append(f"PENDING — {pos['why']}")
+        else:
+            L.append(f"Working (CLV band above 0): {', '.join(pos.get('working') or []) or 'none yet'}")
+            L.append(f"Not working (band below 0): {', '.join(pos.get('not_working') or []) or 'none yet'}")
+            L.append(f"Rules with no CLV recorded yet: {pos.get('no_clv_yet', 'PENDING')}")
+            m = pos.get("multiplicity") or {}
+            L.append(f"False-discovery cut (BH, q={m.get('q')}): {len(m.get('pass') or [])} of {m.get('tested')} "
+                     "tested ideas survive; the shadow queue is unchanged (record-only).")
+            L += [f"- {p['kind']}: {p['line']} (EV {p['ev']})" for p in pos.get("proposals") or []]
+        if pos.get("stalled_loops"):
+            L.append("Loops with no new evidence: " + ", ".join(pos["stalled_loops"]))
     return "\n".join(L) + "\n"
 
 
@@ -302,10 +329,11 @@ def main(argv: list[str] | None = None) -> int:
     when = datetime.now(UTC).strftime("%Y-%m-%d")
     inputs, loops = audit_inputs(), audit_loops()
     props = proposals(inputs, loops)
-    OUT_MD.write_text(render(inputs, loops, props, when), encoding="utf-8")
+    pos = position(loops)
+    OUT_MD.write_text(render(inputs, loops, props, when, pos), encoding="utf-8")
     made = open_issues(props) if a.issues else []
     OUT_JSON.write_text(json.dumps({"reviewed": when, "inputs": inputs, "loops": loops,
-                                    "proposals": props, "issues_opened": made}, indent=1), encoding="utf-8")
+                                    "proposals": props, "position": pos, "issues_opened": made}, indent=1), encoding="utf-8")
     print(OUT_MD.read_text(encoding="utf-8"))
     if made:
         print("issues opened:", *made, sep="\n  ")

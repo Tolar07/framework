@@ -116,15 +116,28 @@ def _side(team: dict) -> dict:
     starters = team.get("starters") or []
     unavailable = team.get("unavailable") or []
     xi_value = sum(p.get("marketValue") or 0 for p in starters)
-    missing = [{"name": p.get("name"), "value": p.get("marketValue") or 0,
+    missing = [{"id": p.get("id"), "name": p.get("name"), "value": p.get("marketValue") or 0,
                 "type": (p.get("unavailability") or {}).get("type"),
                 "back": (p.get("unavailability") or {}).get("expectedReturn")}
                for p in unavailable]
     miss_value = sum(m["value"] for m in missing)
     pool = xi_value + miss_value
-    return {"name": team.get("name"), "xi_value": xi_value, "starters": len(starters),
-            "missing": sorted(missing, key=lambda m: -m["value"]),
-            "missing_share": (miss_value / pool) if pool else None}
+    out = {"name": team.get("name"), "xi_value": xi_value, "starters": len(starters),
+           "missing": sorted(missing, key=lambda m: -m["value"]),
+           "missing_share": (miss_value / pool) if pool else None}
+    if missing and team.get("id"):
+        # squad depth (Architect 2026-11-04): an absence already priced in, a rotation, or one
+        # with good cover does not weaken the team the way the raw share says
+        try:
+            from engine import squad_depth
+            d = squad_depth.for_team(team.get("id"), missing, xi_value, _get,
+                                     {p.get("id") for p in starters})
+            if d:
+                out["depth"] = d
+                out["adjusted_share"] = d["adjusted_share"]
+        except Exception:  # noqa: BLE001 — no depth read leaves the raw share in charge
+            pass
+    return out
 
 
 def team_news(match_id) -> Optional[dict]:

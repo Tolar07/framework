@@ -103,6 +103,7 @@ When the Architect corrects a false flag shortly before kick-off:
 
 Correcting a record is not changing a rule: House rules below still apply.
 
+## House rules (OLP XDV)
 
 - RECORDED ONLY beyond the level itself. Stake sizes, thresholds (12% / 25%) and whether bots
   cash out on news are the Architect's decisions.

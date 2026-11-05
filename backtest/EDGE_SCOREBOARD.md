@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T08:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
+Built 2026-11-05T08:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -17,7 +17,7 @@ Built 2026-11-05T08:13Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: Home win to nil | 6 | 33% | -59.2% ± 25.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Multigoals | 2 | 100% | +20.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Over/Under | 66 | 82% | +2.4% ± 6.1% | PENDING (0) | PENDING (0) | PENDING |
-| board family: Result & total | 8 | 88% | +28.2% ± 19.3% | -5.9% (6) | -5.5% ± 0.6% (6) | 0% |
+| board family: Result & total | 8 | 88% | +28.2% ± 19.3% | -5.9% (6) | -5.4% ± 0.6% (6) | 0% |
 | board family: SB:1 | 4 | 100% | +27.5% ± 2.9% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:10 | 426 | 77% | -2.9% ± 2.6% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:13 | 3 | 0% | -100.0% | PENDING (0) | PENDING (0) | PENDING |
@@ -65,7 +65,7 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: Home win to nil | COLLECTING (6 of 200) | 6 | PENDING | — | — |
 | board family: Multigoals | COLLECTING (2 of 200) | 2 | PENDING | — | — |
 | board family: Over/Under | COLLECTING (66 of 200) | 66 | PENDING | — | — |
-| board family: Result & total | COLLECTING (8 of 200) | 8 | -5.5% | — | — |
+| board family: Result & total | COLLECTING (8 of 200) | 8 | -5.4% | — | — |
 | board family: SB:1 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | board family: SB:10 | NO EDGE YET | 426 | PENDING | — | — |
 | board family: SB:13 | COLLECTING (3 of 200) | 3 | PENDING | — | — |

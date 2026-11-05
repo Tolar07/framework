@@ -1,0 +1,2642 @@
+{
+ "date": "2026-11-05",
+ "picks_generated_at": "2026-11-04T21:55:51Z",
+ "run_at": "2026-11-04T21:58:28+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "AC Milan v Ferencvarosi Budapest",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "AC Milan & Over 1.5",
+   "price": 1.5,
+   "model_chance": 0.6749,
+   "code": "H0KQWU",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.67,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is TOO FEW (won 60% vs 74% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.67,
+   "anchored_edge": 0.0033,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_CAUTION"
+    ],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6749,
+    "market_prob": null,
+    "cognitive_prob": 0.6749,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6749,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6749,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.65,
+     "nvidia": 0.6249
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.65,
+    "edge": -0.025,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.65
+  },
+  {
+   "fixture": "Crystal Palace v Hoffenheim",
+   "market": "SB:10||Home or Away",
+   "pick": "Crystal Palace or Hoffenheim",
+   "price": 1.27,
+   "model_chance": 0.7992,
+   "code": "VKJRCV",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": -0.0174,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7992,
+    "market_prob": null,
+    "cognitive_prob": 0.7992,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7992,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7992,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.77,
+     "nvidia": 0.7992
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.77,
+    "edge": -0.0221,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.77
+  },
+  {
+   "fixture": "Lillestroem SK v Viktoria Plzen",
+   "market": "SB:10||Home or Away",
+   "pick": "Lillestroem SK or Viktoria Plzen",
+   "price": 1.29,
+   "model_chance": 0.7891,
+   "code": "NSV6BE",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": -0.0052,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "news_level",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7891,
+    "market_prob": null,
+    "cognitive_prob": 0.7891,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7891,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7891,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7891,
+     "nvidia": 0.7891
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7891,
+    "edge": 0.0179,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7891
+  },
+  {
+   "fixture": "NEC Nijmegen v AC Omonia Nicosia",
+   "market": "SB:10||Home or Away",
+   "pick": "NEC Nijmegen or AC Omonia Nicosia",
+   "price": 1.25,
+   "model_chance": 0.8012,
+   "code": "UBXZJM",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": -0.02,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8012,
+    "market_prob": null,
+    "cognitive_prob": 0.8012,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8012,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8012,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8012,
+     "nvidia": 0.8012
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8012,
+    "edge": 0.0015,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8012
+  },
+  {
+   "fixture": "PFC Levski Sofia v Jagiellonia Bialystok",
+   "market": "SB:10||Home or Away",
+   "pick": "PFC Levski Sofia or Jagiellonia Bialystok",
+   "price": 1.3,
+   "model_chance": 0.7774,
+   "code": "QVUKAV",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": 0.0008,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7774,
+    "market_prob": null,
+    "cognitive_prob": 0.7774,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7774,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7774,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7774,
+     "nvidia": 0.7774
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7774,
+    "edge": 0.0106,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7774
+  },
+  {
+   "fixture": "Real Sociedad v Lyon",
+   "market": "SB:10||Home or Away",
+   "pick": "Real Sociedad or Lyon",
+   "price": 1.25,
+   "model_chance": 0.807,
+   "code": "X4SZL6",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": -0.02,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.807,
+    "market_prob": null,
+    "cognitive_prob": 0.807,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.807,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.807,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.78,
+     "nvidia": 0.807
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.78,
+    "edge": -0.025,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.78
+  },
+  {
+   "fixture": "RSC Anderlecht v Salzburg",
+   "market": "SB:10||Home or Away",
+   "pick": "RSC Anderlecht or Salzburg",
+   "price": 1.29,
+   "model_chance": 0.7929,
+   "code": "RETPLE",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": 0.0048,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7929,
+    "market_prob": null,
+    "cognitive_prob": 0.7929,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7929,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7929,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7929,
+     "nvidia": 0.7929
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7929,
+    "edge": 0.0228,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7929
+  },
+  {
+   "fixture": "Sparta Prague v Bournemouth",
+   "market": "SB:10||Home or Away",
+   "pick": "Sparta Prague or Bournemouth",
+   "price": 1.21,
+   "model_chance": 0.8247,
+   "code": "HJTA1S",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.8,
+   "confidence": 0.5,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed) and ai_chance falls below break_even_chance (0.8264).",
+   "market_chance": null,
+   "anchored_chance": 0.8,
+   "anchored_edge": -0.0264,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8247,
+    "market_prob": null,
+    "cognitive_prob": 0.8247,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8247,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8247,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8247,
+     "nvidia": 0.8247
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8247,
+    "edge": -0.0021,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8247
+  },
+  {
+   "fixture": "Alkmaar v Juventus",
+   "market": "SB:10||Home or Away",
+   "pick": "Alkmaar or Juventus",
+   "price": 1.3,
+   "model_chance": 0.7776,
+   "code": "K74GYP",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": 0.0008,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7776,
+    "market_prob": null,
+    "cognitive_prob": 0.7776,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7776,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7776,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.75,
+     "nvidia": 0.7776
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.75,
+    "edge": -0.025,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.75
+  },
+  {
+   "fixture": "Bayer Leverkusen v Marseille",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Bayer Leverkusen & Over 1.5",
+   "price": 1.47,
+   "model_chance": 0.6885,
+   "code": "Z8HP92",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.68,
+   "confidence": 0.4,
+   "reasons": "Framework record in family is TOO FEW (won 60% vs 74% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.68,
+   "anchored_edge": -0.0003,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6885,
+    "market_prob": null,
+    "cognitive_prob": 0.6885,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6885,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6885,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.6885,
+     "nvidia": 0.6885
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.6885,
+    "edge": 0.0121,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6885
+  },
+  {
+   "fixture": "Benfica v KKS Lech Poznan",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Benfica & Over 1.5",
+   "price": 1.2,
+   "model_chance": 0.8385,
+   "code": "V1WJ5L",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.83,
+   "confidence": 0.4,
+   "reasons": "Model-to-breakeven edge is narrow at 0.5 points, and the family record is TOO FEW.",
+   "market_chance": null,
+   "anchored_chance": 0.83,
+   "anchored_edge": -0.0033,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.8385,
+    "market_prob": null,
+    "cognitive_prob": 0.8385,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8385,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8385,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.81,
+     "nvidia": 0.8385
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.81,
+    "edge": -0.028,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.81
+  },
+  {
+   "fixture": "Celta v Union Gilloise",
+   "market": "SB:10||Home or Away",
+   "pick": "Celta or Union Gilloise",
+   "price": 1.31,
+   "model_chance": 0.7735,
+   "code": "RR7D4Y",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.77,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed), keeping confidence lower despite positive model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.77,
+   "anchored_edge": 0.0066,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7735,
+    "market_prob": null,
+    "cognitive_prob": 0.7735,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7735,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7735,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.75,
+     "nvidia": 0.7735
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.75,
+    "edge": -0.0175,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.75
+  },
+  {
+   "fixture": "Celtic v Besiktas Istanbul",
+   "market": "SB:10||Home or Away",
+   "pick": "Celtic or Besiktas Istanbul",
+   "price": 1.29,
+   "model_chance": 0.7913,
+   "code": "HYYM99",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed), keeping confidence lower despite positive model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": 0.0048,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7913,
+    "market_prob": null,
+    "cognitive_prob": 0.7913,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7913,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7913,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7913,
+     "nvidia": 0.7913
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7913,
+    "edge": 0.0208,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7913
+  },
+  {
+   "fixture": "Hapoel Be`er Sheva FC v OFI Crete",
+   "market": "SB:10||Home or Away",
+   "pick": "Hapoel Be`er Sheva FC or OFI Crete",
+   "price": 1.29,
+   "model_chance": 0.7851,
+   "code": "Z37EWE",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed), keeping confidence lower despite positive model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": 0.0048,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7851,
+    "market_prob": null,
+    "cognitive_prob": 0.7851,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7851,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7851,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.77,
+     "nvidia": 0.7851
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.77,
+    "edge": -0.0067,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.77
+  },
+  {
+   "fixture": "SCU Torreense v FC Ararat-Armenia",
+   "market": "SB:10||Home or Away",
+   "pick": "SCU Torreense or FC Ararat-Armenia",
+   "price": 1.28,
+   "model_chance": 0.7785,
+   "code": "WA5LEC",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.775,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed) and model edge is negative (-0.3 pts).",
+   "market_chance": null,
+   "anchored_chance": 0.775,
+   "anchored_edge": -0.0062,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7785,
+    "market_prob": null,
+    "cognitive_prob": 0.7785,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7785,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7785,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7785,
+     "nvidia": 0.7785
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7785,
+    "edge": -0.0035,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7785
+  },
+  {
+   "fixture": "Sturm Graz v NK Celje",
+   "market": "SB:10||Home or Away",
+   "pick": "Sturm Graz or NK Celje",
+   "price": 1.21,
+   "model_chance": 0.8235,
+   "code": "Y6WSXV",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.82,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed) and model edge is negative (-0.3 pts).",
+   "market_chance": null,
+   "anchored_chance": 0.82,
+   "anchored_edge": -0.0064,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8235,
+    "market_prob": null,
+    "cognitive_prob": 0.8235,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8235,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8235,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8235,
+     "nvidia": 0.8235
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8235,
+    "edge": -0.0036,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8235
+  },
+  {
+   "fixture": "Sunderland AFC v GNK Dinamo Zagreb",
+   "market": "SB:10||Home or Away",
+   "pick": "Sunderland AFC or GNK Dinamo Zagreb",
+   "price": 1.2,
+   "model_chance": 0.8256,
+   "code": "GYTCUC",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.82,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed) and model edge is negative (-0.8 pts).",
+   "market_chance": null,
+   "anchored_chance": 0.82,
+   "anchored_edge": -0.0133,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8256,
+    "market_prob": null,
+    "cognitive_prob": 0.8256,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8256,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8256,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8256,
+     "nvidia": 0.8256
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8256,
+    "edge": -0.0093,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8256
+  },
+  {
+   "fixture": "AGF Aarhus v Braga",
+   "market": "SB:10||Home or Away",
+   "pick": "AGF Aarhus or Braga",
+   "price": 1.32,
+   "model_chance": 0.7686,
+   "code": "NB548J",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "The framework record in Double chance is LOSING (won 77% vs 79% needed), requiring caution despite positive edge.",
+   "market_chance": null,
+   "anchored_chance": 0.76,
+   "anchored_edge": 0.0024,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7686,
+    "market_prob": null,
+    "cognitive_prob": 0.7686,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7686,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7686,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.75,
+     "nvidia": 0.7686
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.75,
+    "edge": -0.01,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.75
+  },
+  {
+   "fixture": "Atalanta v FC Kairat Almaty",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Atalanta & Over 1.5",
+   "price": 1.26,
+   "model_chance": 0.8002,
+   "code": "W8W0KK",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.78,
+   "confidence": 0.5,
+   "reasons": "Atalanta missing 100% of value after squad depth (including Giacomo Raspadori, Gianluca Scamacca) creates massive disruption.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": -0.0137,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_RISK"
+    ],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.8002,
+    "market_prob": null,
+    "cognitive_prob": 0.7802,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8002,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8002,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7502,
+     "nvidia": 0.7202
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.7502,
+    "edge": -0.0547,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7502
+  },
+  {
+   "fixture": "Crvena Zvezda v Inter Club de Escaldes",
+   "market": "SB:37|total=2.5|Home & Over 2.5",
+   "pick": "Crvena Zvezda & Over 2.5",
+   "price": 1.3,
+   "model_chance": 0.7701,
+   "code": "X9U2W6",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.765,
+   "confidence": 0.4,
+   "reasons": "Model edge is negligible (0.1 pts) and the framework record in this family is TOO FEW.",
+   "market_chance": null,
+   "anchored_chance": 0.765,
+   "anchored_edge": -0.0042,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.7701,
+    "market_prob": null,
+    "cognitive_prob": 0.7701,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7701,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7701,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7701,
+     "nvidia": 0.7701
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.7701,
+    "edge": 0.0011,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7701
+  },
+  {
+   "fixture": "FC Midtjylland v Ajax",
+   "market": "SB:10||Home or Away",
+   "pick": "FC Midtjylland or Ajax",
+   "price": 1.29,
+   "model_chance": 0.7931,
+   "code": "M3BJ3P",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.781,
+   "confidence": 0.4,
+   "reasons": "Faced with a LOSING framework record in Double chance, ai_chance is adjusted to 0.781 matching the tactical matchup.",
+   "market_chance": null,
+   "anchored_chance": 0.781,
+   "anchored_edge": 0.0058,
+   "cognitive": {
+    "blue_team_thesis": "FC Midtjylland or Ajax double chance carries a strong base probability of 0.7931 with news marked OK, supported by a profile lean of 0.781.",
+    "red_team_attack": "Market probability is missing, representing epistemic risk. Per past lessons, double chance picks are vulnerable to draw variance, and the profile lean sits below base probability.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.03,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7931,
+    "market_prob": null,
+    "cognitive_prob": 0.7631,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7931,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7931,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7931,
+     "nvidia": 0.7931
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7931,
+    "edge": 0.0231,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7931
+  },
+  {
+   "fixture": "FC Thun v Heart of Midlothian FC",
+   "market": "SB:10||Home or Away",
+   "pick": "FC Thun or Heart of Midlothian FC",
+   "price": 1.29,
+   "model_chance": 0.7902,
+   "code": "LUA4X3",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.782,
+   "confidence": 0.4,
+   "reasons": "Due to the LOSING framework record in Double chance and away side absences, confidence is lowered despite the model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.782,
+   "anchored_edge": 0.0068,
+   "cognitive": {
+    "blue_team_thesis": "FC Thun vs Heart of Midlothian offer a solid 0.7902 base probability for non-draw outcomes with news level confirmed OK and a favorable profile lean of 0.82.",
+    "red_team_attack": "Missing market_prob introduces epistemic risk, while inherent draw variance remains a key threat to 12 double chance bets.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7902,
+    "market_prob": null,
+    "cognitive_prob": 0.7702,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7902,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7902,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.79,
+     "nvidia": 0.7902
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.79,
+    "edge": 0.0191,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.79
+  },
+  {
+   "fixture": "Kuopion Palloseura v Gent",
+   "market": "SB:10||Home or Away",
+   "pick": "Kuopion Palloseura or Gent",
+   "price": 1.26,
+   "model_chance": 0.7907,
+   "code": "WAP5LG",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "The model edge is negative (-0.3 pts) and the framework record in Double chance is LOSING, requiring a lowered verdict.",
+   "market_chance": null,
+   "anchored_chance": 0.78,
+   "anchored_edge": -0.0137,
+   "cognitive": {
+    "blue_team_thesis": "Base probability for KuPS or Gent is strong at 0.7907 at a price of 1.26.",
+    "red_team_attack": "Multiple essential inputs are missing: market_prob, news_level, and profile_lean are absent. Epistemic risk is high, alongside standard draw risk.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.05,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "news_level",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7907,
+    "market_prob": null,
+    "cognitive_prob": 0.7407,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7907,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7907,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7907,
+     "nvidia": 0.7907
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7907,
+    "edge": -0.0037,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7907
+  },
+  {
+   "fixture": "Lincoln Red Imps v HNK Hajduk Split",
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "HNK Hajduk Split & Over 1.5",
+   "price": 1.58,
+   "model_chance": 0.6442,
+   "code": "LNSWU5",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.635,
+   "confidence": 0.4,
+   "reasons": "Away team Hajduk Split has key absences (Dali, Marešić), and the framework record in Result & total is TOO FEW, prompting lower confidence.",
+   "market_chance": null,
+   "anchored_chance": 0.635,
+   "anchored_edge": 0.0021,
+   "cognitive": {
+    "blue_team_thesis": "HNK Hajduk Split & Over 1.5 offers a 0.6442 base probability against lower-tier opposition Lincoln Red Imps with news level OK.",
+    "red_team_attack": "Hajduk Split is missing key regular starters Dario Maresic and Dali. Market_prob and profile_lean are missing, adding epistemic risk.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.04,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6442,
+    "market_prob": null,
+    "cognitive_prob": 0.6042,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6442,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6442,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.63,
+     "nvidia": 0.6142
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.63,
+    "edge": -0.0046,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.63
+  },
+  {
+   "fixture": "Mjallby AIF v FK Borac Banja Luka",
+   "market": "SB:10||Home or Away",
+   "pick": "Mjallby AIF or FK Borac Banja Luka",
+   "price": 1.33,
+   "model_chance": 0.7622,
+   "code": "WP71DT",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.755,
+   "confidence": 0.4,
+   "reasons": "Given the LOSING framework record in Double chance and extreme squad value missing for the home side, confidence is lowered.",
+   "market_chance": null,
+   "anchored_chance": 0.755,
+   "anchored_edge": 0.0031,
+   "cognitive": {
+    "blue_team_thesis": "Mjallby AIF or FK Borac Banja Luka has a solid base probability of 0.7622 with team news marked OK.",
+    "red_team_attack": "Missing market_prob and profile_lean create epistemic risk, combined with draw risk on the double chance pick.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.03,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7622,
+    "market_prob": null,
+    "cognitive_prob": 0.7322,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7622,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7622,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7622,
+     "nvidia": 0.7622
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7622,
+    "edge": 0.0137,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7622
+  },
+  {
+   "fixture": "Trabzonspor v Freiburg",
+   "market": "SB:10||Home or Away",
+   "pick": "Trabzonspor or Freiburg",
+   "price": 1.29,
+   "model_chance": 0.7904,
+   "code": "X0H67L",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.772,
+   "confidence": 0.4,
+   "reasons": "Home side Trabzonspor misses 42% of squad value, and the framework record in Double chance is LOSING.",
+   "market_chance": null,
+   "anchored_chance": 0.772,
+   "anchored_edge": -0.0032,
+   "cognitive": {
+    "blue_team_thesis": "Trabzonspor or Freiburg 12 double chance holds a strong 0.7904 base probability with clean news status.",
+    "red_team_attack": "Profile lean (0.772) is lower than base probability, market_prob is missing, and draw variance poses a constant risk.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.03,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7904,
+    "market_prob": null,
+    "cognitive_prob": 0.7604,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7904,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7904,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7904,
+     "nvidia": 0.772
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7904,
+    "edge": 0.0196,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7904
+  },
+  {
+   "fixture": "Copenhagen v FC Iberia 1999",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Copenhagen & Over 1.5",
+   "price": 1.26,
+   "model_chance": 0.7994,
+   "code": "GQSW0N",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.79,
+   "confidence": 0.4,
+   "reasons": "The framework record in Result & total is TOO FEW, so confidence is lowered despite the short odds.",
+   "market_chance": null,
+   "anchored_chance": 0.79,
+   "anchored_edge": -0.0037,
+   "cognitive": {
+    "blue_team_thesis": "Copenhagen & Over 1.5 boasts a high base probability of 0.7994 playing at home against FC Iberia 1999.",
+    "red_team_attack": "Severe epistemic risk due to missing market_prob, news_level, and profile_lean.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.05,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "news_level",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.7994,
+    "market_prob": null,
+    "cognitive_prob": 0.7494,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7994,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7994,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7994,
+     "nvidia": 0.7994
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.7994,
+    "edge": 0.0072,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7994
+  },
+  {
+   "fixture": "CS Universitatea Craiova v KF Egnatia Rrogozhine",
+   "market": "SB:10||Home or Away",
+   "pick": "CS Universitatea Craiova or KF Egnatia Rrogozhine",
+   "price": 1.2,
+   "model_chance": 0.826,
+   "code": "SYAGG5",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.81,
+   "confidence": 0.4,
+   "reasons": "Model chance falls below the break_even_chance (0.8333) at price 1.20, creating negative expected value.",
+   "market_chance": null,
+   "anchored_chance": 0.81,
+   "anchored_edge": -0.0233,
+   "cognitive": {
+    "blue_team_thesis": "CS Universitatea Craiova or KF Egnatia has a high base probability of 0.826 at 1.20 odds.",
+    "red_team_attack": "Missing market_prob and profile_lean raise epistemic risk, while draw vulnerability threatens the 12 double chance selection.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.04,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.826,
+    "market_prob": null,
+    "cognitive_prob": 0.786,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.826,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.826,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.826,
+     "nvidia": 0.826
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.826,
+    "edge": -0.0088,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.826
+  },
+  {
+   "fixture": "FC Twente Enschede v Pafos FC",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "FC Twente Enschede & Over 1.5",
+   "price": 1.39,
+   "model_chance": 0.7262,
+   "code": "P6FK53",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.7,
+   "confidence": 0.4,
+   "reasons": "FC Twente is missing 100% of squad value, invalidating the selection under the severe absence risk.",
+   "market_chance": null,
+   "anchored_chance": 0.7,
+   "anchored_edge": -0.0194,
+   "cognitive": {
+    "blue_team_thesis": "FC Twente Enschede & Over 1.5 shows strong base probability of 0.7262 at 1.39 price.",
+    "red_team_attack": "Flagged with TEAM_NEWS_RISK: FC Twente is missing 100% of listed player value (Filip Thorvaldsen, Stav Lemkin, Max Bruns). Market_prob and profile_lean are also missing.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.08,
+    "source": "gemini",
+    "flags": [
+     "TEAM_NEWS_RISK"
+    ],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.7262,
+    "market_prob": null,
+    "cognitive_prob": 0.6462,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7262,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7262,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7062,
+     "nvidia": 0.6462
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.7062,
+    "edge": -0.0184,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7062
+  },
+  {
+   "fixture": "Getafe v Brighton",
+   "market": "SB:10||Home or Away",
+   "pick": "Getafe or Brighton",
+   "price": 1.25,
+   "model_chance": 0.7988,
+   "code": "LTT3CA",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.755,
+   "confidence": 0.4,
+   "reasons": "Model chance is below break_even_chance (0.80) at price 1.25, with a pick_matchup_chance pointing to lower probability.",
+   "market_chance": null,
+   "anchored_chance": 0.755,
+   "anchored_edge": -0.045,
+   "cognitive": {
+    "blue_team_thesis": "Getafe or Brighton offers a high base probability of 0.7988 with news status OK.",
+    "red_team_attack": "Profile lean of 0.755 is noticeably lower than base probability. Missing market_prob adds epistemic risk alongside draw variance.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.04,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.7988,
+    "market_prob": null,
+    "cognitive_prob": 0.7588,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.7988,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.7988,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7788,
+     "nvidia": 0.7988
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.7788,
+    "edge": -0.0265,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7788
+  },
+  {
+   "fixture": "Lugano v FK Kauno Zalgiris",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Lugano & Over 1.5",
+   "price": 1.26,
+   "model_chance": 0.8008,
+   "code": "VU75GM",
+   "pool": false,
+   "verdict": "veto",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.5,
+   "ai_chance": 0.74,
+   "confidence": 0.5,
+   "reasons": "Lugano is missing 100% of squad value including key players Dereck Moncada, Claudio Cassano, and Renato Steffen, pushing the true chance well below the break-even requirement of 0.7937.",
+   "market_chance": null,
+   "anchored_chance": 0.74,
+   "anchored_edge": -0.0537,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "fallback",
+    "flags": [
+     "TEAM_NEWS_RISK"
+    ],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.8008,
+    "market_prob": null,
+    "cognitive_prob": 0.7808,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8008,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8008,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.7508,
+     "nvidia": 0.7208
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.7508,
+    "edge": -0.054,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.7508
+  },
+  {
+   "fixture": "Monaco v Nordsjaelland",
+   "market": "SB:37|total=1.5|Home & Over 1.5",
+   "pick": "Monaco & Over 1.5",
+   "price": 1.53,
+   "model_chance": 0.6592,
+   "code": "KF67FB",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.65,
+   "confidence": 0.4,
+   "reasons": "Framework record in Result & total is TOO FEW (won 60% vs 74% needed), requiring caution despite a positive model edge and an expected over 1.5 probability of 0.814.",
+   "market_chance": null,
+   "anchored_chance": 0.65,
+   "anchored_edge": -0.0036,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Result & total",
+    "base_prob": 0.6592,
+    "market_prob": null,
+    "cognitive_prob": 0.6592,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "effective_prob": 0.6592,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.6592,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.6392,
+     "nvidia": 0.6592
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.6392,
+    "edge": -0.022,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 0,
+     "earned": false
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.6392
+  },
+  {
+   "fixture": "Panathinaikos v PFC CSKA Sofia",
+   "market": "SB:10||Home or Away",
+   "pick": "Panathinaikos or PFC CSKA Sofia",
+   "price": 1.2,
+   "model_chance": 0.8273,
+   "code": "NGH5XP",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.81,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge, and Panathinaikos is missing 42% of squad value.",
+   "market_chance": null,
+   "anchored_chance": 0.81,
+   "anchored_edge": -0.0233,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8273,
+    "market_prob": null,
+    "cognitive_prob": 0.8273,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8273,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8273,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8273,
+     "nvidia": 0.8273
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8273,
+    "edge": -0.0072,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8273
+  },
+  {
+   "fixture": "Riga FC v FK Jablonec",
+   "market": "SB:10||Home or Away",
+   "pick": "Riga FC or FK Jablonec",
+   "price": 1.32,
+   "model_chance": 0.766,
+   "code": "G5U0YP",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "Framework record in Double chance is LOSING (won 77% vs 79% needed), keeping confidence lower despite model edge.",
+   "market_chance": null,
+   "anchored_chance": 0.76,
+   "anchored_edge": 0.0024,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob",
+     "profile_lean"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.766,
+    "market_prob": null,
+    "cognitive_prob": 0.766,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.766,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.766,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.766,
+     "nvidia": 0.766
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.766,
+    "edge": 0.0111,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.766
+  },
+  {
+   "fixture": "St. Truidense VV v SK Brann",
+   "market": "SB:10||Home or Away",
+   "pick": "St. Truidense VV or SK Brann",
+   "price": 1.24,
+   "model_chance": 0.8072,
+   "code": "SV9HZY",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 1.0,
+   "ai_chance": 0.82,
+   "confidence": 0.6,
+   "reasons": "Away side SK Brann is missing 35% of squad value, supporting the double chance pick for St. Truidense with positive model edge and high tactical matchup chance of 0.883.",
+   "market_chance": null,
+   "anchored_chance": 0.82,
+   "anchored_edge": 0.0135,
+   "cognitive": {
+    "blue_team_thesis": "",
+    "red_team_attack": "",
+    "cio_verdict": "BACK",
+    "prob_adjustment": 0.0,
+    "source": "fallback",
+    "flags": [],
+    "missing": [
+     "market_prob"
+    ],
+    "domain": "football",
+    "family": "Double chance",
+    "base_prob": 0.8072,
+    "market_prob": null,
+    "cognitive_prob": 0.8072,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "cog_brier": 0.1614,
+     "base_brier": 0.1602,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.8072,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.8072,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.8072,
+     "nvidia": 0.883
+    },
+    "prompt": "p0",
+    "domain": "football",
+    "family": "Double chance",
+    "panel_prob": 0.8072,
+    "edge": 0.0009,
+    "advised_stake_factor": 1.0,
+    "authority": {
+     "n": 70,
+     "earned": false,
+     "panel_brier": 0.1639,
+     "live_brier": 0.1623,
+     "panel_brier_on_live": 0.1639,
+     "clv_n": 70,
+     "panel_clv_hit": 0.629,
+     "live_clv_hit": 0.514
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.8072
+  }
+ ],
+ "prompt_version": "2bd3c30e1b",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-3.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 23,
+   "LOWER": 12,
+   "VETO": 0
+  },
+  "fallback": 25,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "openrouter": {
+    "model": "google/gemma-4-26b-a4b-it:free",
+    "status": "off for this run: openrouter: 429",
+    "answered": 0
+   },
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "ok",
+    "answered": 35
+   },
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
+    "status": "ok",
+    "answered": 35
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 5.234,
+    "n": 44,
+    "brier": 0.1911,
+    "anchor_brier": 0.1907,
+    "wins": 36,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 0.0,
+    "n": 117,
+    "brier": 0.1795,
+    "anchor_brier": 0.1764,
+    "wins": 109,
+    "dropped": "worse than the market anchor"
+   },
+   "openrouter": {
+    "weight": 0.0,
+    "n": 0,
+    "dropped": "rate-limited or refused this run"
+   }
+  },
+  "authority": 0,
+  "missing": []
+ }
+}

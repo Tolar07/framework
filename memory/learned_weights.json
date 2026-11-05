@@ -1,50 +1,54 @@
 {
- "built_at": "2026-11-04T21:48:57+00:00",
+ "built_at": "2026-11-05T07:17:30+00:00",
  "recorded_only": true,
- "rows": 237,
+ "rows": 263,
  "ridge": 4.0,
  "weights": {
   "bias": {
-   "w": 0.1878,
-   "rows": 237
+   "w": 0.147,
+   "rows": 263
   },
   "member:gemini": {
-   "w": 0.0058,
-   "rows": 28
+   "w": 0.0064,
+   "rows": 54
   },
   "member:nvidia": {
-   "w": -0.1692,
-   "rows": 94
+   "w": -0.1412,
+   "rows": 120
   },
   "member:openrouter": {
    "w": 0.0,
    "rows": 0
   },
-  "fact:key_absences": {
-   "w": -0.0072,
+  "fact:away_long_travel": {
+   "w": -0.0172,
    "rows": 9
+  },
+  "fact:key_absences": {
+   "w": -0.053,
+   "rows": 22
   }
  },
  "walk_forward": {
-  "n": 184,
-  "learned_brier": 0.1745,
-  "market_brier": 0.1763,
-  "panel_brier": 0.1777,
+  "n": 210,
+  "learned_brier": 0.1787,
+  "market_brier": 0.1795,
+  "panel_brier": 0.1807,
   "beats_market": false
  },
  "bias_only_walk_forward": {
-  "n": 184,
-  "learned_brier": 0.1746,
-  "market_brier": 0.1763,
-  "panel_brier": 0.1777,
+  "n": 210,
+  "learned_brier": 0.1787,
+  "market_brier": 0.1795,
+  "panel_brier": 0.1807,
   "beats_market": false
  },
  "attribution": {
   "status": "OK",
-  "n": 184,
-  "total_gain": 0.0018,
-  "bias_gain": 0.0017,
-  "panel_gain": 0.0001,
+  "n": 210,
+  "total_gain": 0.0008,
+  "bias_gain": 0.0008,
+  "panel_gain": 0.0,
   "mostly_bias": true,
   "recheck_at": 300,
   "recheck_ready": false

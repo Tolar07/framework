@@ -1,0 +1,46 @@
+{
+ "tag": "scout",
+ "recorded_only": true,
+ "sport": "nba",
+ "date": "2026-11-06",
+ "picks_generated_at": "2026-11-05T06:53:50Z",
+ "run_at": "2026-11-05T07:11:12+00:00",
+ "asked": 2,
+ "members": {
+  "gemini": {
+   "model": "gemini-3.5-flash",
+   "status": "off for this run: 429 on every Gemini model",
+   "answered": 0
+  }
+ },
+ "fixtures": [
+  {
+   "tag": "scout",
+   "sport": "nba",
+   "id": 0,
+   "fixture": "Phoenix Suns v Orlando Magic",
+   "home": "Phoenix Suns",
+   "away": "Orlando Magic",
+   "finding": "No team news, injuries, or line-ups available; game date is November 2026 and no web search is possible.",
+   "direction": "none",
+   "confidence": null,
+   "sources": [],
+   "absences": [],
+   "via": "nvidia (no search)"
+  },
+  {
+   "tag": "scout",
+   "sport": "nba",
+   "id": 1,
+   "fixture": "Golden State Warriors v Miami Heat",
+   "home": "Golden State Warriors",
+   "away": "Miami Heat",
+   "finding": "No team news, injuries, or line-ups available; game date is November 2026 and no web search is possible.",
+   "direction": "none",
+   "confidence": null,
+   "sources": [],
+   "absences": [],
+   "via": "nvidia (no search)"
+  }
+ ]
+}

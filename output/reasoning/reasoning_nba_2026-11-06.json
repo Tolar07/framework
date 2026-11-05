@@ -1,0 +1,222 @@
+{
+ "date": "2026-11-06",
+ "picks_generated_at": "2026-11-05T06:53:50Z",
+ "run_at": "2026-11-05T06:55:12+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Phoenix Suns v Orlando Magic",
+   "market": "NBA:68|total=114.5|Under 114.5",
+   "pick": "1st half Under 114.5 points",
+   "price": 2.0,
+   "model_chance": 0.5767,
+   "code": "QN1LXG",
+   "pool": false,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 1.0,
+   "ai_chance": 0.57,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, and the line of 114.5 is well below 119.5 points at acceptable odds of 2.0.",
+   "market_chance": null,
+   "anchored_chance": 0.57,
+   "anchored_edge": 0.07,
+   "cognitive": {
+    "blue_team_thesis": "Base model probability is 0.5767 for the 1st half Under 114.5 points in Phoenix Suns v Orlando Magic at odds 2.0, perfectly matching the de-margined market probability of 0.5767.",
+    "red_team_attack": "Profile lean data is missing, introducing epistemic risk. Without a positive edge over market probability, taking on unquantified risk is unwarranted.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5767,
+    "market_prob": 0.5767,
+    "cognitive_prob": 0.5567,
+    "authority": {
+     "n": 32,
+     "earned": false,
+     "cog_brier": 0.2108,
+     "base_brier": 0.2087,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5767,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5767,
+    "anchor_source": "market",
+    "members": {
+     "nvidia": 0.5767
+    },
+    "prompt": "p0",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5767,
+    "edge": 0.1534,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 32,
+     "earned": false,
+     "panel_brier": 0.2087,
+     "live_brier": 0.2119,
+     "panel_brier_on_live": 0.2087,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5767
+  },
+  {
+   "fixture": "Golden State Warriors v Miami Heat",
+   "market": "NBA:68|total=120.5|Under 120.5",
+   "pick": "1st half Under 120.5 points",
+   "price": 2.0,
+   "model_chance": 0.5594,
+   "code": "PJQHL2",
+   "pool": false,
+   "verdict": "lower",
+   "stake_factor": 1.0,
+   "advised_stake_factor": 0.75,
+   "ai_chance": 0.54,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in NBA 1st half totals, but we apply a reduced stake on Unders at 120.5 or higher according to our tactical rules.",
+   "market_chance": null,
+   "anchored_chance": 0.54,
+   "anchored_edge": 0.04,
+   "cognitive": {
+    "blue_team_thesis": "Base model assigns a 0.5594 probability to 1st half Under 120.5 points in Golden State Warriors v Miami Heat at odds 2.0, aligned with market probability of 0.5594.",
+    "red_team_attack": "Missing profile_lean introduces epistemic uncertainty. There is no baseline edge over market_prob to justify holding position without full data.",
+    "cio_verdict": "LOWER",
+    "prob_adjustment": -0.02,
+    "source": "gemini",
+    "flags": [],
+    "missing": [
+     "profile_lean"
+    ],
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "base_prob": 0.5594,
+    "market_prob": 0.5594,
+    "cognitive_prob": 0.5394,
+    "authority": {
+     "n": 32,
+     "earned": false,
+     "cog_brier": 0.2108,
+     "base_brier": 0.2087,
+     "veto_loss_rate": null
+    },
+    "mode": "shadow",
+    "effective_prob": 0.5594,
+    "advised_stake_multiplier": 1.0,
+    "stakes_on": true,
+    "stake_multiplier": 1.0
+   },
+   "panel": {
+    "stage": "board",
+    "anchor": 0.5594,
+    "anchor_source": "market",
+    "members": {
+     "gemini": 0.5594,
+     "nvidia": 0.5594
+    },
+    "prompt": "p1",
+    "domain": "nba",
+    "family": "NBA 1st half total",
+    "panel_prob": 0.5594,
+    "edge": 0.1188,
+    "advised_stake_factor": 1.15,
+    "authority": {
+     "n": 32,
+     "earned": false,
+     "panel_brier": 0.2087,
+     "live_brier": 0.2119,
+     "panel_brier_on_live": 0.2087,
+     "clv_n": 0
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   },
+   "panel_prob": 0.5594
+  }
+ ],
+ "prompt_version": "975031f938",
+ "search": {
+  "batches_searched": 0,
+  "queries": 0,
+  "errors": [
+   "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+   "HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+  ]
+ },
+ "cognitive": {
+  "model": "gemini-3.5-flash",
+  "stakes_on": true,
+  "verdicts": {
+   "BACK": 0,
+   "LOWER": 2,
+   "VETO": 0
+  },
+  "fallback": 0,
+  "authority": 0
+ },
+ "panel": {
+  "members": {
+   "gemini": {
+    "model": "gemini-3.5-flash-lite",
+    "status": "partly failed: HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+    "answered": 1
+   },
+   "nvidia": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "ok",
+    "answered": 2
+   },
+   "openrouter": {
+    "model": "google/gemma-4-26b-a4b-it:free",
+    "status": "off for this run: openrouter: 429",
+    "answered": 0
+   }
+  },
+  "weights": {
+   "gemini": {
+    "weight": 5.234,
+    "n": 44,
+    "brier": 0.1911,
+    "anchor_brier": 0.1907,
+    "wins": 36,
+    "dropped": null
+   },
+   "nvidia": {
+    "weight": 0.0,
+    "n": 117,
+    "brier": 0.1795,
+    "anchor_brier": 0.1764,
+    "wins": 109,
+    "dropped": "worse than the market anchor"
+   },
+   "openrouter": {
+    "weight": 0.0,
+    "n": 0,
+    "dropped": "rate-limited or refused this run"
+   }
+  },
+  "authority": 0,
+  "missing": []
+ },
+ "sport": "nba"
+}

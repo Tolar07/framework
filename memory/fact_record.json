@@ -1,25 +1,39 @@
 {
- "graded_picks": 111,
+ "graded_picks": 126,
  "facts": {
+  "away_long_travel (+)": {
+   "n": 5,
+   "won_rate": 0.8,
+   "market_rate": 0.761,
+   "residual": 0.039,
+   "trusted": false
+  },
+  "away_long_travel (-)": {
+   "n": 4,
+   "won_rate": 0.75,
+   "market_rate": 0.687,
+   "residual": 0.063,
+   "trusted": false
+  },
   "derby (0)": {
-   "n": 1,
+   "n": 2,
    "won_rate": 1.0,
-   "market_rate": 0.706,
-   "residual": 0.294,
+   "market_rate": 0.738,
+   "residual": 0.262,
    "trusted": false
   },
   "key_absences (+)": {
-   "n": 8,
-   "won_rate": 0.625,
-   "market_rate": 0.745,
-   "residual": -0.12,
+   "n": 20,
+   "won_rate": 0.7,
+   "market_rate": 0.743,
+   "residual": -0.043,
    "trusted": false
   },
   "key_absences (-)": {
-   "n": 9,
-   "won_rate": 0.667,
-   "market_rate": 0.742,
-   "residual": -0.076,
+   "n": 22,
+   "won_rate": 0.727,
+   "market_rate": 0.74,
+   "residual": -0.012,
    "trusted": false
   },
   "key_absences (0)": {
@@ -30,5 +44,5 @@
    "trusted": false
   }
  },
- "built_at": "2026-11-04T21:48:57+00:00"
+ "built_at": "2026-11-05T07:17:30+00:00"
 }

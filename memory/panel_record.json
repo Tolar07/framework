@@ -4832,9 +4832,750 @@
    "clv": null,
    "won": true,
    "graded_at": "2026-11-03T06:59:07+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Kortrijk v Mechelen|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7488,
+   "members": {
+    "gemini": 0.748,
+    "nvidia": 0.7488
+   },
+   "panel_prob": 0.748,
+   "edge": -0.0126,
+   "live_prob": 0.74,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Kortrijk v Mechelen|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.7488,
+   "members": {
+    "gemini": 0.74,
+    "nvidia": 0.7488
+   },
+   "panel_prob": 0.74,
+   "edge": -0.0232,
+   "live_prob": 0.74,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Cardiff City v West Ham|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.8125,
+   "members": {
+    "gemini": 0.8125,
+    "nvidia": 0.8125
+   },
+   "panel_prob": 0.8125,
+   "edge": 0.0319,
+   "live_prob": 0.8,
+   "live_back": false,
+   "clv": 0.79,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Wrexham v Middlesbrough|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7635,
+   "members": {
+    "gemini": 0.7635,
+    "nvidia": 0.7635
+   },
+   "panel_prob": 0.7635,
+   "edge": -0.038,
+   "live_prob": 0.78,
+   "live_back": false,
+   "clv": -1.56,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Wrexham v Middlesbrough|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p1",
+   "anchor": 0.7635,
+   "members": {
+    "gemini": 0.77,
+    "nvidia": 0.7635
+   },
+   "panel_prob": 0.77,
+   "edge": -0.0298,
+   "live_prob": 0.78,
+   "live_back": false,
+   "clv": -1.56,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Bristol City v Wolves|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7318,
+   "members": {
+    "gemini": 0.7318,
+    "nvidia": 0.7318
+   },
+   "panel_prob": 0.7318,
+   "edge": -0.0413,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Rennes v Olympiacos|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7778,
+   "members": {
+    "gemini": 0.777,
+    "nvidia": 0.7778
+   },
+   "panel_prob": 0.777,
+   "edge": 0.0179,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 0.77,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Rennes v Olympiacos|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.7778,
+   "members": {
+    "gemini": 0.775,
+    "nvidia": 0.7778,
+    "openrouter": 0.7778
+   },
+   "panel_prob": 0.7754,
+   "edge": 0.0158,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 0.77,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|AEK Athens v Real Madrid|SB:37|total=1.5|Away & Over 1.5|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7736,
+   "members": {
+    "gemini": 0.753,
+    "nvidia": 0.7336
+   },
+   "panel_prob": 0.753,
+   "edge": -0.0286,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 3.2,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|AEK Athens v Real Madrid|SB:37|total=1.5|Away & Over 1.5|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.7736,
+   "members": {
+    "gemini": 0.74,
+    "nvidia": 0.7236
+   },
+   "panel_prob": 0.74,
+   "edge": -0.0454,
+   "live_prob": 0.76,
+   "live_back": false,
+   "clv": 3.2,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Fenerbahce Istanbul v Liverpool|SB:37|total=1.5|Away & Over 1.5|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6354,
+   "members": {
+    "gemini": 0.615,
+    "nvidia": 0.5854
+   },
+   "panel_prob": 0.615,
+   "edge": -0.0222,
+   "live_prob": 0.63,
+   "live_back": false,
+   "clv": -6.47,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Fenerbahce Istanbul v Liverpool|SB:37|total=1.5|Away & Over 1.5|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.6354,
+   "members": {
+    "gemini": 0.61,
+    "nvidia": 0.5854
+   },
+   "panel_prob": 0.61,
+   "edge": -0.0301,
+   "live_prob": 0.63,
+   "live_back": false,
+   "clv": -6.47,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Borussia Dortmund v Betis|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.81,
+   "members": {
+    "gemini": 0.81,
+    "nvidia": 0.81
+   },
+   "panel_prob": 0.81,
+   "edge": 0.0125,
+   "live_prob": 0.79,
+   "live_back": false,
+   "clv": 2.46,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Lens v Como 1907|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7921,
+   "members": {
+    "gemini": 0.792,
+    "nvidia": 0.7921
+   },
+   "panel_prob": 0.792,
+   "edge": 0.0138,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Lens v Como 1907|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.7921,
+   "members": {
+    "gemini": 0.7721,
+    "nvidia": 0.7921
+   },
+   "panel_prob": 0.7721,
+   "edge": -0.0117,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": 0.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Porto v Napoli|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.7841,
+   "members": {
+    "gemini": 0.7841,
+    "nvidia": 0.7841
+   },
+   "panel_prob": 0.7841,
+   "edge": 0.0115,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": -0.77,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Porto v Napoli|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p1",
+   "anchor": 0.7841,
+   "members": {
+    "gemini": 0.777,
+    "nvidia": 0.7841
+   },
+   "panel_prob": 0.777,
+   "edge": 0.0023,
+   "live_prob": 0.77,
+   "live_back": false,
+   "clv": -0.77,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|PSV Eindhoven v Club Brugge|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.8123,
+   "members": {
+    "gemini": 0.8123,
+    "nvidia": 0.8123
+   },
+   "panel_prob": 0.8123,
+   "edge": 0.0154,
+   "live_prob": 0.795,
+   "live_back": false,
+   "clv": 0.81,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|PSV Eindhoven v Club Brugge|SB:10||Home or Away|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "lineup",
+   "prompt": "p1",
+   "anchor": 0.8123,
+   "members": {
+    "gemini": 0.806,
+    "nvidia": 0.8123
+   },
+   "panel_prob": 0.806,
+   "edge": 0.0075,
+   "live_prob": 0.795,
+   "live_back": false,
+   "clv": 0.81,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|RB Leipzig v Man City|SB:37|total=1.5|Away & Over 1.5|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.623,
+   "members": {
+    "gemini": 0.615,
+    "nvidia": 0.67
+   },
+   "panel_prob": 0.615,
+   "edge": -0.0037,
+   "live_prob": 0.615,
+   "live_back": false,
+   "clv": -1.22,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|RB Leipzig v Man City|SB:37|total=1.5|Away & Over 1.5|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "lineup",
+   "prompt": "p1",
+   "anchor": 0.623,
+   "members": {
+    "gemini": 0.58,
+    "nvidia": 0.673
+   },
+   "panel_prob": 0.58,
+   "edge": -0.0604,
+   "live_prob": 0.615,
+   "live_back": false,
+   "clv": -1.22,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Slavia Prague v Arsenal|SB:37|total=1.5|Away & Over 1.5|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7301,
+   "members": {
+    "gemini": 0.71,
+    "nvidia": 0.6801
+   },
+   "panel_prob": 0.71,
+   "edge": -0.0202,
+   "live_prob": 0.71,
+   "live_back": false,
+   "clv": -8.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Slavia Prague v Arsenal|SB:37|total=1.5|Away & Over 1.5|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.7301,
+   "members": {
+    "gemini": 0.6901,
+    "nvidia": 0.6801
+   },
+   "panel_prob": 0.6901,
+   "edge": -0.0477,
+   "live_prob": 0.71,
+   "live_back": false,
+   "clv": -8.0,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Viking FK v Sabah Masazir|SB:37|total=1.5|Home & Over 1.5|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6857,
+   "members": {
+    "gemini": 0.685,
+    "nvidia": 0.6857
+   },
+   "panel_prob": 0.685,
+   "edge": 0.0001,
+   "live_prob": 0.686,
+   "live_back": true,
+   "clv": -7.01,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Viking FK v Sabah Masazir|SB:37|total=1.5|Home & Over 1.5|lineup",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Result & total",
+   "stage": "lineup",
+   "prompt": "p0",
+   "anchor": 0.6857,
+   "members": {
+    "gemini": 0.6857,
+    "nvidia": 0.6857
+   },
+   "panel_prob": 0.6857,
+   "edge": 0.0011,
+   "live_prob": 0.686,
+   "live_back": true,
+   "clv": -7.01,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "football|2026-11-04|Oxford United v Reading|SB:10||Home or Away|board",
+   "date": "2026-11-04",
+   "domain": "football",
+   "family": "Double chance",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.7806,
+   "members": {
+    "gemini": 0.78,
+    "nvidia": 0.7806
+   },
+   "panel_prob": 0.78,
+   "edge": 0.014,
+   "live_prob": 0.765,
+   "live_back": false,
+   "clv": -1.52,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Washington Wizards v Atlanta Hawks|NBA:68|total=118.5|Under 118.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.5596,
+   "members": {
+    "gemini": 0.5596,
+    "nvidia": 0.5596
+   },
+   "panel_prob": 0.5596,
+   "edge": 0.1192,
+   "live_prob": 0.5596,
+   "live_back": true,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|New York Knicks v Chicago Bulls|NBA:68|total=113.5|Over 113.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.6226,
+   "members": {
+    "gemini": 0.6226,
+    "nvidia": 0.6226
+   },
+   "panel_prob": 0.6226,
+   "edge": 0.1829,
+   "live_prob": 0.6226,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Memphis Grizzlies v Indiana Pacers|NBA:68|total=111.5|Over 111.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6062,
+   "members": {
+    "gemini": 0.6062,
+    "nvidia": 0.6062
+   },
+   "panel_prob": 0.6062,
+   "edge": 0.1578,
+   "live_prob": 0.6062,
+   "live_back": false,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|New Orleans Pelicans v Utah Jazz|NBA:68|total=114.5|Over 114.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6227,
+   "members": {
+    "gemini": 0.6227,
+    "nvidia": 0.6227
+   },
+   "panel_prob": 0.6227,
+   "edge": 0.1831,
+   "live_prob": 0.6227,
+   "live_back": false,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Oklahoma City Thunder v Cleveland Cavaliers|NBA:68|total=110.5|Over 110.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.6382,
+   "members": {
+    "gemini": 0.6382,
+    "nvidia": 0.6382
+   },
+   "panel_prob": 0.6382,
+   "edge": 0.2126,
+   "live_prob": 0.6382,
+   "live_back": false,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Houston Rockets v Minnesota Timberwolves|NBA:68|total=106.5|Over 106.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6377,
+   "members": {
+    "gemini": 0.6377,
+    "nvidia": 0.6377
+   },
+   "panel_prob": 0.6377,
+   "edge": 0.2116,
+   "live_prob": 0.6377,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Denver Nuggets v Toronto Raptors|NBA:68|total=111.5|Over 111.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6383,
+   "members": {
+    "gemini": 0.6383,
+    "nvidia": 0.6383
+   },
+   "panel_prob": 0.6383,
+   "edge": 0.2128,
+   "live_prob": 0.6383,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Phoenix Suns v Portland Trail Blazers|NBA:68|total=116.5|Under 116.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.5765,
+   "members": {
+    "gemini": 0.5765,
+    "nvidia": 0.5765
+   },
+   "panel_prob": 0.5765,
+   "edge": 0.153,
+   "live_prob": 0.5765,
+   "live_back": true,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|San Antonio Spurs v Dallas Mavericks|NBA:68|total=116.5|Under 116.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.5765,
+   "members": {
+    "gemini": 0.5765,
+    "nvidia": 0.5765
+   },
+   "panel_prob": 0.5765,
+   "edge": 0.153,
+   "live_prob": 0.5765,
+   "live_back": true,
+   "clv": null,
+   "won": false,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|Sacramento Kings v Los Angeles Lakers|NBA:68|total=113.5|Over 113.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p1",
+   "anchor": 0.6385,
+   "members": {
+    "gemini": 0.6385,
+    "nvidia": 0.6385
+   },
+   "panel_prob": 0.6385,
+   "edge": 0.2131,
+   "live_prob": 0.6385,
+   "live_back": false,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
+  },
+  {
+   "id": "nba|2026-11-05|LA Clippers v Miami Heat|NBA:68|total=113.5|Over 113.5|board",
+   "date": "2026-11-05",
+   "domain": "nba",
+   "family": "NBA 1st half total",
+   "stage": "board",
+   "prompt": "p0",
+   "anchor": 0.6226,
+   "members": {
+    "gemini": 0.6226,
+    "nvidia": 0.6226
+   },
+   "panel_prob": 0.6226,
+   "edge": 0.1829,
+   "live_prob": 0.6226,
+   "live_back": null,
+   "clv": null,
+   "won": true,
+   "graded_at": "2026-11-05T07:17:29+00:00"
   }
  ],
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "authority": {
   "football | Asian handicap | board": {
    "n": 20,
@@ -4897,24 +5638,24 @@
    "live_clv_hit": 1.0
   },
   "football | Double chance | board": {
-   "n": 70,
+   "n": 80,
    "earned": false,
-   "panel_brier": 0.1639,
-   "live_brier": 0.1623,
-   "panel_brier_on_live": 0.1639,
-   "clv_n": 70,
-   "panel_clv_hit": 0.629,
-   "live_clv_hit": 0.514
+   "panel_brier": 0.1642,
+   "live_brier": 0.1625,
+   "panel_brier_on_live": 0.1642,
+   "clv_n": 80,
+   "panel_clv_hit": 0.637,
+   "live_clv_hit": 0.525
   },
   "football | Double chance | lineup": {
-   "n": 17,
+   "n": 23,
    "earned": false,
-   "panel_brier": 0.1428,
-   "live_brier": 0.145,
-   "panel_brier_on_live": 0.1428,
-   "clv_n": 17,
-   "panel_clv_hit": 0.647,
-   "live_clv_hit": 0.647
+   "panel_brier": 0.143,
+   "live_brier": 0.1438,
+   "panel_brier_on_live": 0.143,
+   "clv_n": 23,
+   "panel_clv_hit": 0.696,
+   "live_clv_hit": 0.652
   },
   "football | European handicap | board": {
    "n": 1,
@@ -4996,12 +5737,32 @@
    "panel_clv_hit": 0.636,
    "live_clv_hit": 0.636
   },
-  "nba | NBA 1st half total | board": {
-   "n": 32,
+  "football | Result & total | board": {
+   "n": 5,
    "earned": false,
-   "panel_brier": 0.2087,
-   "live_brier": 0.2119,
-   "panel_brier_on_live": 0.2087,
+   "panel_brier": 0.1542,
+   "live_brier": 0.1571,
+   "panel_brier_on_live": 0.1542,
+   "clv_n": 5,
+   "panel_clv_hit": 0.6,
+   "live_clv_hit": 0.6
+  },
+  "football | Result & total | lineup": {
+   "n": 5,
+   "earned": false,
+   "panel_brier": 0.1622,
+   "live_brier": 0.1571,
+   "panel_brier_on_live": 0.1622,
+   "clv_n": 5,
+   "panel_clv_hit": 0.6,
+   "live_clv_hit": 0.6
+  },
+  "nba | NBA 1st half total | board": {
+   "n": 43,
+   "earned": false,
+   "panel_brier": 0.2208,
+   "live_brier": 0.2232,
+   "panel_brier_on_live": 0.2208,
    "clv_n": 0
   },
   "nba | NBA handicap | board": {
@@ -5015,24 +5776,24 @@
  },
  "members": {
   "gemini": {
-   "weight": 5.234,
-   "n": 44,
-   "brier": 0.1911,
-   "anchor_brier": 0.1907,
-   "wins": 36,
+   "weight": 5.283,
+   "n": 81,
+   "brier": 0.1893,
+   "anchor_brier": 0.1884,
+   "wins": 61,
    "dropped": null
   },
   "nvidia": {
-   "weight": 0.0,
-   "n": 117,
-   "brier": 0.1795,
-   "anchor_brier": 0.1764,
-   "wins": 109,
-   "dropped": "worse than the market anchor"
+   "weight": 5.542,
+   "n": 154,
+   "brier": 0.1804,
+   "anchor_brier": 0.1786,
+   "wins": 139,
+   "dropped": null
   },
   "openrouter": {
    "weight": 1.0,
-   "n": 0,
+   "n": 1,
    "dropped": null
   }
  }

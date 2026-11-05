@@ -1,21 +1,21 @@
 {
  "football": {
-  "date": "2026-11-03",
-  "graded": 365,
+  "date": "2026-11-05",
+  "graded": 380,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
-   "Do not confuse Double Chance '12' ('Team A or Team B') with 'Team or Draw' (1X/X2): '12' loses on a draw and provides zero draw protection, losing 6 times when treated as safe.",
+   "Do not confuse Double Chance '12' ('Team A or Team B') with 'Team or Draw' (1X/X2): '12' loses on a draw and provides zero draw protection, losing multiple times when treated as safe.",
    "Never apply Double Chance '12' lay-the-draw veto rules to 'Team or Draw' (1X/X2); 1X/X2 provides true draw protection and hits reliably when backed.",
    "Do not routinely back Double Chance '12' at short odds (<1.35) under LOSING framework records: draws occur frequently even with squad absences.",
    "Veto or severely downgrade 'Win to Nil — no' at <=1.25 when framework record is LOSING or TOO FEW: selections lost 4 of 7 times despite opposition absences.",
    "Do not veto Over 1.5 goals at short odds (1.20–1.31) solely due to a LOSING framework record; use 'lower' instead (won consistently).",
-   "Stop backing positive Asian Handicap cushions (+0.5 to +4.5) with negative model-to-breakeven margins: cushions frequently fail (Alaves, Excelsior, Oldham, Annecy lost).",
+   "Stop backing positive Asian Handicap cushions (+0.5 to +4.5) with negative model-to-breakeven margins: cushions frequently fail (Annecy, Excelsior, Sonderjyske lost).",
    "Do not treat Under 4.5 or Under 5.5 totals as automatic safe cushions at short odds: high-variance shootouts caused multiple losses.",
    "Exercise strict caution or veto away/underdog Team Over 0.5 goals when framework record is LOSING or edge is negative (e.g. Aarhus shutout confirmed veto).",
    "Back Team Under 3.5 or Under totals only when verified offensive suppression or heavily rotated attacks are confirmed.",
    "Never override negative EV on short-priced selections (<=1.25) purely on high nominal handicap or goals cushion: odds-on picks require genuine positive edge."
   ],
-  "summary": "Refined lessons to maintain the clear distinction that Team or Draw (1X/X2) provides true draw protection, reinforced the Over 1.5 short odds rule, and retained strict caution on positive handicaps and Under totals following recent losses.",
+  "summary": "Refined the Asian Handicap cushion lesson after multiple positive handicap failures (Annecy, Excelsior, Sonderjyske) while retaining validated rules on Over 1.5 goals and Double Chance distinctions.",
   "history": [
    {
     "date": "2026-10-23",
@@ -66,22 +66,27 @@
     "date": "2026-11-03",
     "graded": 365,
     "n": 10
+   },
+   {
+    "date": "2026-11-05",
+    "graded": 380,
+    "n": 10
    }
   ]
  },
  "nba": {
-  "date": "2026-11-03",
-  "graded": 71,
+  "date": "2026-11-05",
+  "graded": 81,
   "model": "gemini-3.5-flash-lite",
   "lessons": [
    "Veto 1st half totals when the identical matchup is documented in recent mistakes, regardless of an overall winning family record.",
-   "Back 1st half Unders when the total line is below 120.0 points at odds 1.90 or higher; reduce stake on Unders at 120.5 or higher.",
+   "Back 1st half Unders when the total line is strictly below 120.0 points at odds 1.90 or higher; reduce stake on Unders at 120.5 or higher.",
    "When the framework record for a betting family is LOSING, apply a downward adjustment to the model probability and back with lower confidence at odds of 1.90 or higher.",
    "Do not back 1st half totals at odds below 1.90 unless the model probability exceeds 0.65.",
    "Back NBA underdog handicaps (+1.5) with lower confidence when model probability exceeds 0.58, accepting odds between 1.70 and 1.85.",
    "Apply reduced stake and lower confidence on 1st half Over bets in NBA totals due to recent volatility and mixed results."
   ],
-  "summary": "Refined the lessons by retaining valid rules regarding 1st half total lines, odds thresholds, and market family records.",
+  "summary": "Retained core rules on total thresholds, odds minimums, and family record adjustments while maintaining reduced confidence on 1st half overs due to ongoing volatility.",
   "history": [
    {
     "date": "2026-10-23",
@@ -131,6 +136,11 @@
    {
     "date": "2026-11-03",
     "graded": 71,
+    "n": 6
+   },
+   {
+    "date": "2026-11-05",
+    "graded": 81,
     "n": 6
    }
   ]

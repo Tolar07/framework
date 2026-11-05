@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T22:13Z",
+ "built_at": "2026-11-05T22:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 48,
    "gap_entry": -0.0432,
    "n_clv": 48,
-   "clv": -0.0423,
+   "clv": -0.0425,
    "clv_se": 0.0026,
    "beat": 0.0208
   },
@@ -362,8 +362,8 @@
    "n_entry": 21,
    "gap_entry": -0.0545,
    "n_clv": 21,
-   "clv": -0.051,
-   "clv_se": 0.0048,
+   "clv": -0.0506,
+   "clv_se": 0.0049,
    "beat": 0.0
   },
   {
@@ -376,7 +376,7 @@
    "n_entry": 54,
    "gap_entry": -0.045,
    "n_clv": 54,
-   "clv": -0.0436,
+   "clv": -0.0438,
    "clv_se": 0.0028,
    "beat": 0.0185
   },
@@ -600,9 +600,9 @@
    "n_entry": 10,
    "gap_entry": -0.0375,
    "n_clv": 10,
-   "clv": -0.0302,
-   "clv_se": 0.0184,
-   "beat": 0.3
+   "clv": -0.0284,
+   "clv_se": 0.0181,
+   "beat": 0.4
   },
   {
    "name": "nba: board picks",
@@ -614,9 +614,9 @@
    "n_entry": 10,
    "gap_entry": -0.0375,
    "n_clv": 10,
-   "clv": -0.0302,
-   "clv_se": 0.0184,
-   "beat": 0.3
+   "clv": -0.0284,
+   "clv_se": 0.0181,
+   "beat": 0.4
   },
   {
    "name": "venue: board singles at Matchbook (after 2%)",
@@ -628,7 +628,7 @@
    "n_entry": 54,
    "gap_entry": -0.0204,
    "n_clv": 54,
-   "clv": -0.019,
+   "clv": -0.0191,
    "clv_se": 0.0026,
    "beat": 0.1111
   },
@@ -642,8 +642,8 @@
    "n_entry": 54,
    "gap_entry": -0.0199,
    "n_clv": 54,
-   "clv": -0.0185,
-   "clv_se": 0.0024,
+   "clv": -0.0186,
+   "clv_se": 0.0025,
    "beat": 0.1111
   },
   {
@@ -656,7 +656,7 @@
    "n_entry": 54,
    "gap_entry": -0.045,
    "n_clv": 54,
-   "clv": -0.0436,
+   "clv": -0.0438,
    "clv_se": 0.0028,
    "beat": 0.0185
   },
@@ -667,12 +667,12 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 10,
-   "gap_entry": 0.0832,
+   "n_entry": 11,
+   "gap_entry": 0.083,
    "n_clv": 6,
-   "clv": -0.0491,
-   "clv_se": 0.0251,
-   "beat": 0.1667
+   "clv": -0.0469,
+   "clv_se": 0.026,
+   "beat": 0.3333
   },
   {
    "name": "world basketball: all leagues",
@@ -681,12 +681,12 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 10,
-   "gap_entry": 0.0832,
+   "n_entry": 11,
+   "gap_entry": 0.083,
    "n_clv": 6,
-   "clv": -0.0491,
-   "clv_se": 0.0251,
-   "beat": 0.1667
+   "clv": -0.0469,
+   "clv_se": 0.026,
+   "beat": 0.3333
   }
  ],
  "promotion": [
@@ -730,7 +730,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (90 of 200)",
    "n": 90,
-   "clv": -0.0423,
+   "clv": -0.0425,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": 0.0197
@@ -910,7 +910,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.051,
+   "clv": -0.0506,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -919,7 +919,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1198,
-   "clv": -0.0436,
+   "clv": -0.0438,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0346
@@ -1063,7 +1063,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (85 of 200)",
    "n": 85,
-   "clv": -0.0302,
+   "clv": -0.0284,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1615
@@ -1072,7 +1072,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (92 of 200)",
    "n": 92,
-   "clv": -0.0302,
+   "clv": -0.0284,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1466
@@ -1081,7 +1081,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0491,
+   "clv": -0.0469,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -1090,7 +1090,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0491,
+   "clv": -0.0469,
    "p_value": null,
    "bh_pass": false,
    "roi": null

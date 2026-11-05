@@ -197,6 +197,37 @@
    "event_id": "sr:match:73905004",
    "at": "2026-11-05T20:13Z",
    "result": null
+  },
+  {
+   "sb_event_id": "sr:match:73935504",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Illinois Fighting Illini",
+   "away": "Penn Quakers",
+   "ko": "2026-11-06T01:30:00Z",
+   "pick": "1st half Under 83.5 points",
+   "key": "B:68|total=83.5|Under 83.5",
+   "price": 1.9,
+   "fair": 0.5694,
+   "value": 0.0819,
+   "source": "espn Draft Kings",
+   "line_total": 172.5,
+   "line_spread": -29.5,
+   "market_id": "68",
+   "specifier": "total=83.5",
+   "outcome": "Under 83.5",
+   "outcome_id": "13",
+   "code": "H8KESQ",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": false
+   },
+   "chance": 0.5694,
+   "tip": "2026-11-06T01:30:00Z",
+   "event_id": "sr:match:73935504",
+   "at": "2026-11-05T22:43Z",
+   "result": null
   }
  ]
 }

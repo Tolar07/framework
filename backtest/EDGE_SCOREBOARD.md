@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T22:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54
+Built 2026-11-05T22:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -48,13 +48,13 @@ Built 2026-11-05T22:13Z. Edge: 0 strategies ready for the Architect; board singl
 | gap board: not covered leagues | 6 | 33% | +6.7% ± 72.0% | +4.3% (6) | +2.2% ± 3.2% (6) | 67% |
 | nba market: 223 | 4 | 75% | +28.7% ± 43.1% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
-| nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -3.8% (10) | -3.0% ± 1.8% (10) | 30% |
-| nba: board picks | 92 | 60% | +14.7% ± 9.9% | -3.8% (10) | -3.0% ± 1.8% (10) | 30% |
+| nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -3.8% (10) | -2.8% ± 1.8% (10) | 40% |
+| nba: board picks | 92 | 60% | +14.7% ± 9.9% | -3.8% (10) | -2.8% ± 1.8% (10) | 40% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.0% (54) | -1.9% ± 0.3% (54) | 11% |
-| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.0% (54) | -1.8% ± 0.2% (54) | 11% |
+| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.0% (54) | -1.9% ± 0.2% (54) | 11% |
 | venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.5% (54) | -4.4% ± 0.3% (54) | 2% |
-| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.3% (10) | -4.9% ± 2.5% (6) | 17% |
-| world basketball: all leagues | 0 | PENDING | PENDING | +8.3% (10) | -4.9% ± 2.5% (6) | 17% |
+| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.3% (11) | -4.7% ± 2.6% (6) | 33% |
+| world basketball: all leagues | 0 | PENDING | PENDING | +8.3% (11) | -4.7% ± 2.6% (6) | 33% |
 
 ## Promotion (step 7)
 
@@ -103,10 +103,10 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | gap board: not covered leagues | COLLECTING (6 of 200) | 6 | +2.2% | — | — |
 | nba market: 223 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
-| nba market: 68 | COLLECTING (85 of 200) | 85 | -3.0% | — | — |
-| nba: board picks | COLLECTING (92 of 200) | 92 | -3.0% | — | — |
-| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -4.9% | — | — |
-| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -4.9% | — | — |
+| nba market: 68 | COLLECTING (85 of 200) | 85 | -2.8% | — | — |
+| nba: board picks | COLLECTING (92 of 200) | 92 | -2.8% | — | — |
+| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -4.7% | — | — |
+| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -4.7% | — | — |
 
 ## Residual model (step 6)
 

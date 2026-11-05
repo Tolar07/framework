@@ -2,11 +2,11 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T21:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
+Built 2026-11-05T21:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
-| baseline: every SportyBet side at its last price *(baseline)* | 2098 | 47% | -10.9% ± 2.8% | PENDING (0) | -8.6% ± 0.2% (2098) | 1% |
+| baseline: every SportyBet side at its last price *(baseline)* | 3129 | 46% | -8.7% ± 2.6% | PENDING (0) | -8.6% ± 0.1% (3129) | 2% |
 | board family: Asian handicap | 19 | 74% | -9.2% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away goals | 7 | 71% | -12.9% ± 22.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away win to nil | 3 | 67% | -19.0% ± 40.5% | PENDING (0) | PENDING (0) | PENDING |
@@ -33,18 +33,23 @@ Built 2026-11-05T21:13Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: SB:548 | 13 | 85% | +4.0% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
 | board: BTTS singles | 28 | 57% | -4.4% ± 16.1% | -5.7% (5) | -5.7% ± 1.7% (5) | 0% |
 | board: football singles | 1198 | 77% | -3.5% ± 1.5% | -4.4% (37) | -4.2% ± 0.4% (37) | 3% |
-| gap board timing: 1-6h before kick-off | 1 | 100% | +318.0% | +7.0% (1) | +7.0% (1) | 100% |
-| gap board timing: <1h before kick-off | 1 | 100% | +122.0% | +3.0% (1) | +3.0% (1) | 100% |
-| gap board timing: exchange flat | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
-| gap board: basketball | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
-| gap board: gap 2%+ | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
-| gap board: gap 3%+ | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
-| gap board: gap 5%+ | 1 | 100% | +318.0% | +7.0% (1) | +7.0% (1) | 100% |
-| gap board: not covered leagues | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
+| gap board timing: 1-6h before kick-off | 5 | 40% | +19.0% ± 82.2% | +4.4% (5) | +2.5% ± 2.1% (5) | 80% |
+| gap board timing: 24h+ before kick-off | 1 | 100% | +310.0% | +2.1% (1) | -14.0% (1) | 0% |
+| gap board timing: 6-24h before kick-off | 6 | 17% | -25.0% ± 75.0% | +2.4% (6) | +4.0% ± 4.1% (6) | 67% |
+| gap board timing: <1h before kick-off | 3 | 33% | -26.0% ± 74.0% | +3.1% (3) | +3.1% ± 0.0% (3) | 100% |
+| gap board timing: exchange flat | 10 | 50% | +67.7% ± 61.9% | +3.1% (10) | +0.5% ± 2.9% (10) | 60% |
+| gap board timing: exchange moved FOR it (2+ pts) | 5 | 0% | -100.0% | +3.4% (5) | +5.4% ± 1.2% (5) | 100% |
+| gap board: basketball | 4 | 50% | +60.0% ± 100.7% | +3.7% (4) | -1.1% ± 3.7% (4) | 50% |
+| gap board: covered leagues | 11 | 27% | -5.7% ± 52.6% | +3.0% (11) | +3.3% ± 2.4% (11) | 82% |
+| gap board: football | 11 | 27% | -5.7% ± 52.6% | +3.0% (11) | +3.3% ± 2.4% (11) | 82% |
+| gap board: gap 2%+ | 15 | 33% | +11.8% ± 45.7% | +3.2% (15) | +2.1% ± 2.1% (15) | 73% |
+| gap board: gap 3%+ | 7 | 29% | -8.6% ± 62.8% | +4.2% (7) | +2.9% ± 1.4% (7) | 86% |
+| gap board: gap 5%+ | 2 | 50% | +109.0% ± 209.0% | +6.6% (2) | +6.1% ± 0.9% (2) | 100% |
+| gap board: not covered leagues | 4 | 50% | +60.0% ± 100.7% | +3.7% (4) | -1.1% ± 3.7% (4) | 50% |
 | nba market: 223 | 4 | 75% | +28.7% ± 43.1% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
-| nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -3.8% (10) | -2.4% ± 2.0% (10) | 40% |
-| nba: board picks | 92 | 60% | +14.7% ± 9.9% | -3.8% (10) | -2.4% ± 2.0% (10) | 40% |
+| nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -3.8% (10) | -3.0% ± 1.8% (10) | 30% |
+| nba: board picks | 92 | 60% | +14.7% ± 9.9% | -3.8% (10) | -3.0% ± 1.8% (10) | 30% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.9% (37) | -1.6% ± 0.4% (37) | 16% |
 | venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.8% (37) | -1.6% ± 0.3% (37) | 16% |
 | venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.4% (37) | -4.2% ± 0.4% (37) | 3% |
@@ -83,18 +88,23 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: SB:548 | COLLECTING (13 of 200) | 13 | PENDING | — | — |
 | board: BTTS singles | COLLECTING (28 of 200) | 28 | -5.7% | — | — |
 | board: football singles | NO EDGE YET | 1198 | -4.2% | 1.0 | — |
-| gap board timing: 1-6h before kick-off | COLLECTING (1 of 200) | 1 | +7.0% | — | — |
-| gap board timing: <1h before kick-off | COLLECTING (1 of 200) | 1 | +3.0% | — | — |
-| gap board timing: exchange flat | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
-| gap board: basketball | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
-| gap board: gap 2%+ | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
-| gap board: gap 3%+ | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
-| gap board: gap 5%+ | COLLECTING (1 of 200) | 1 | +7.0% | — | — |
-| gap board: not covered leagues | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
+| gap board timing: 1-6h before kick-off | COLLECTING (5 of 200) | 5 | +2.5% | — | — |
+| gap board timing: 24h+ before kick-off | COLLECTING (1 of 200) | 1 | -14.0% | — | — |
+| gap board timing: 6-24h before kick-off | COLLECTING (6 of 200) | 6 | +4.0% | — | — |
+| gap board timing: <1h before kick-off | COLLECTING (3 of 200) | 3 | +3.1% | — | — |
+| gap board timing: exchange flat | COLLECTING (10 of 200) | 10 | +0.5% | — | — |
+| gap board timing: exchange moved FOR it (2+ pts) | COLLECTING (5 of 200) | 5 | +5.4% | — | — |
+| gap board: basketball | COLLECTING (4 of 200) | 4 | -1.1% | — | — |
+| gap board: covered leagues | COLLECTING (11 of 200) | 11 | +3.3% | — | — |
+| gap board: football | COLLECTING (11 of 200) | 11 | +3.3% | — | — |
+| gap board: gap 2%+ | COLLECTING (15 of 200) | 15 | +2.1% | — | — |
+| gap board: gap 3%+ | COLLECTING (7 of 200) | 7 | +2.9% | — | — |
+| gap board: gap 5%+ | COLLECTING (2 of 200) | 2 | +6.1% | — | — |
+| gap board: not covered leagues | COLLECTING (4 of 200) | 4 | -1.1% | — | — |
 | nba market: 223 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
-| nba market: 68 | COLLECTING (85 of 200) | 85 | -2.4% | — | — |
-| nba: board picks | COLLECTING (92 of 200) | 92 | -2.4% | — | — |
+| nba market: 68 | COLLECTING (85 of 200) | 85 | -3.0% | — | — |
+| nba: board picks | COLLECTING (92 of 200) | 92 | -3.0% | — | — |
 | world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -5.1% | — | — |
 | world basketball: all leagues | COLLECTING (0 of 200) | 0 | -5.1% | — | — |
 
@@ -102,5 +112,5 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 
 Starts from the exchange's fair chance and learns only what it misses (`engine/residual_model.py`), walk-forward by day.
 
-- **every SportyBet side, exchange at first look**: no information beyond the exchange yet; 2109 rows; out-of-sample log-loss gain -0.00055 ± 0.00107 over 902
+- **every SportyBet side, exchange at first look**: no information beyond the exchange yet; 3140 rows; out-of-sample log-loss gain -0.00160 ± 0.00085 over 1933
 - **board picks: our model vs the exchange**: COLLECTING (11 of 200 graded rows); 11 rows

@@ -633,14 +633,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T16:40Z",
-  "away_missing_share": null,
+  "at": "2026-11-05T17:00Z",
+  "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6112548,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.030692285766386527,
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Monaco v Nordsjaelland": {
   "absent": [
@@ -682,17 +682,17 @@
  "NEC Nijmegen v AC Omonia Nicosia": {
   "absent": [
    {
-    "name": "Philippe Sandler",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Du\u0161an Tadi\u0107",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Dennis Geiger",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Emre Mor",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bram Nuytinck",
     "side": "home",
     "type": "injury"
    },
@@ -712,14 +712,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T16:40Z",
-  "away_missing_share": 1.0,
+  "at": "2026-11-05T17:00Z",
+  "away_missing_share": 0.18099408384299384,
   "away_unavailable": 3,
   "fotmob_id": 6112368,
-  "home_missing_share": 1.0,
-  "home_unavailable": 5,
+  "home_missing_share": 0.05499988167872406,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "PFC Levski Sofia v Jagiellonia Bialystok": {
   "absent": [
@@ -946,14 +946,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T16:40Z",
-  "away_missing_share": 0.2498609806145845,
+  "at": "2026-11-05T17:00Z",
+  "away_missing_share": 0.4018570166491171,
   "away_unavailable": 4,
   "fotmob_id": 6112304,
-  "home_missing_share": 0.42496713619659016,
+  "home_missing_share": 0.4733146560434261,
   "home_unavailable": 7,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "St. Truidense VV v SK Brann": {
   "absent": [
@@ -1074,11 +1074,6 @@
     "type": "injury"
    },
    {
-    "name": "Philipp Treu",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Patrick Osterhage",
     "side": "away",
     "type": "injury"
@@ -1089,13 +1084,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T16:40Z",
-  "away_missing_share": 0.16904749623248874,
-  "away_unavailable": 3,
+  "at": "2026-11-05T17:00Z",
+  "away_missing_share": 0.07112050594344031,
+  "away_unavailable": 2,
   "fotmob_id": 6112501,
-  "home_missing_share": 0.41508528582464793,
+  "home_missing_share": 0.43473786693191774,
   "home_unavailable": 8,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

@@ -186,7 +186,11 @@
     "home": 345167721,
     "away": 163746921
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "Crystal Palace: blunt attack v tight defence; Hoffenheim: possession side v low block -> BTTS",
     "xg": [
@@ -488,7 +492,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173030",
    "sb_tid": "sr:tournament:679",
@@ -636,7 +644,11 @@
     "home": 15222549,
     "away": 13987405
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173032",
    "sb_tid": "sr:tournament:679",
@@ -784,7 +796,11 @@
     "home": 187511625,
     "away": 132179856
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "Lyon: counter side v high line -> no strong goals lean",
     "xg": [
@@ -949,7 +965,11 @@
     "home": 43904483,
     "away": 61604845
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "no tactical clash flagged -> Salzburg may not score",
     "xg": [
@@ -1120,7 +1140,11 @@
     "home": 33662038,
     "away": 372709099
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173024",
    "sb_tid": "sr:tournament:679",
@@ -1415,7 +1439,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": -1.5
   },
   {
    "fixture": "Bayer Leverkusen v Marseille",
@@ -1588,7 +1614,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.37,
+   "drift_pct": -6.8
   },
   {
    "fixture": "Benfica v KKS Lech Poznan",
@@ -1761,7 +1789,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.15,
+   "drift_pct": -4.2
   },
   {
    "fixture": "Celta v Union Gilloise",
@@ -1907,7 +1937,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.33,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Celtic v Besiktas Istanbul",
@@ -2081,7 +2113,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.28,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Hapoel Be`er Sheva FC v OFI Crete",
@@ -2227,7 +2261,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.31,
+   "drift_pct": 1.6
   },
   {
    "fixture": "SCU Torreense v FC Ararat-Armenia",
@@ -2388,7 +2424,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Sturm Graz v NK Celje",
@@ -2534,7 +2572,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sunderland AFC v GNK Dinamo Zagreb",
@@ -2680,7 +2720,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "AGF Aarhus v Braga",
@@ -2706,7 +2748,11 @@
     "home": 18208971,
     "away": 73748564
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "AGF: blunt attack v tight defence; Braga: set-piece threat v weak set-piece defence -> no strong goals lean",
     "xg": [
@@ -2881,7 +2927,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Atalanta missing 36% of value raw, 9% after squad depth (Giacomo Raspadori: already out: no start in the last 5, priced in; Odilon Kossounou: already out: no start in the last 5, priced in; Isak Hien: already out: no start in the last 5, priced in; Raoul Bellanova: rotation (3/5 starts), cover Davide Zappacosta (16% of his value)); support: Kairat Almaty missing 15%",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173278",
    "sb_tid": "sr:tournament:34480",
@@ -3021,7 +3071,11 @@
     "home": 46022305,
     "away": 555350
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "FK Crvena Zvezda missing 25% of value raw, 0% after squad depth (Adem Avdi\u0107: already out: no start in the last 5, priced in); FK Crvena Zvezda rotated: confirmed XI worth 79% of predicted",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173284",
    "sb_tid": "sr:tournament:34480",
@@ -3154,7 +3208,11 @@
     "home": 35562238,
     "away": 115289064
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "FC Midtjylland: high press v build-up side; Ajax: possession side v low block -> BTTS & goals",
     "xg": [
@@ -3329,7 +3387,11 @@
     "home": 9073137,
     "away": 13540985
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "Heart of Midlothian: elite attack v leaky defence -> BTTS & goals",
     "xg": [
@@ -3612,7 +3674,11 @@
     "home": 1328233,
     "away": 10374185
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Hajduk Split missing 17% of value raw, 1% after squad depth (Adrion Pajaziti: already out: no start in the last 5, priced in; Leander Dendoncker: rotation (1/5 starts), makeshift cover Etnik Brruti (24% of his value); Ivica Ivu\u0161i\u0107: already out: no start in the last 5, priced in; Roko Brajkovi\u0107: already out: no start in the last 5, priced in)",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173288",
    "sb_tid": "sr:tournament:34480",
@@ -3744,7 +3810,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": null,
    "sb_event_id": "sr:match:74173290",
    "sb_tid": "sr:tournament:34480",
@@ -3885,7 +3955,11 @@
     "home": 88177621,
     "away": 107641938
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "matchup": {
     "say": "Freiburg: set-piece threat v weak set-piece defence; Freiburg: aerial threat v weak in the air -> no strong goals lean",
     "xg": [
@@ -4149,7 +4223,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": -2.4
   },
   {
    "fixture": "CS Universitatea Craiova v KF Egnatia Rrogozhine",
@@ -4288,7 +4364,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.16,
+   "drift_pct": -3.3
   },
   {
    "fixture": "FC Twente Enschede v Pafos FC",
@@ -4426,7 +4504,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.29,
+   "drift_pct": -7.2
   },
   {
    "fixture": "Getafe v Brighton",
@@ -4599,7 +4679,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.23,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Lugano v FK Kauno Zalgiris",
@@ -4737,7 +4819,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Monaco v Nordsjaelland",
@@ -4901,7 +4985,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.59,
+   "drift_pct": 3.9
   },
   {
    "fixture": "Panathinaikos v PFC CSKA Sofia",
@@ -5040,7 +5126,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.16,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Riga FC v FK Jablonec",
@@ -5179,7 +5267,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.32,
+   "drift_pct": 0.0
   },
   {
    "fixture": "St. Truidense VV v SK Brann",
@@ -5345,7 +5435,9 @@
     "yes": null,
     "no": null,
     "signal": null
-   }
+   },
+   "drift_price": 1.21,
+   "drift_pct": -2.4
   }
  ],
  "accas": [

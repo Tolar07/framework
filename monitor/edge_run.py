@@ -25,7 +25,7 @@ from engine import exchange as ex  # noqa: E402
 from engine import universe as uv  # noqa: E402
 
 BASKETBALL_MARKETS = ("219", "223", "225", "68")     # winner, handicap, total, 1st-half total
-SAVE_PATHS = ("data/edge", "memory/edge_scoreboard.json", "memory/residual_model.json",
+SAVE_PATHS = ("data/edge", "output/world_basketball", "memory/edge_scoreboard.json", "memory/residual_model.json",
               "backtest/EDGE_SCOREBOARD.md")
 
 
@@ -97,6 +97,11 @@ def look(now: datetime) -> str:
         if doc["events"]:
             eb.save(doc)
     notes.append(f"matched {stats['matched']} games, {stats['sides']} sides, {stats['new_gaps']} new gaps")
+    try:      # the paper world-basketball board (engine/world_basketball.py, Architect 2026-11-05)
+        from engine import world_basketball as wb
+        notes.append(f"world basketball: {wb.update(rows, events, now)} new picks")
+    except Exception as e:  # noqa: BLE001 — the edge book is saved either way
+        notes.append(f"world basketball skipped ({str(e)[:60]})")
     moved = eb.finalize(now)
     if moved:
         notes.append(f"finished days to git: {', '.join(moved)}")

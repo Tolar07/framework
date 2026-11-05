@@ -8,14 +8,14 @@ Games with a look: 176 · graded (ESPN final): 174
 
 | Market | outcomes | landed | fair | return | short side (<2.00): n · landed · fair · return | long side (≥2.00): n · landed · fair · return |
 |---|---:|---:|---:|---:|---|---|
-| Player points N+ | 27871 | 21.1% | 5.9% | -44.8% | 5827 · 54.0% · 12.6% · -16.7% | 22044 · 12.4% · 4.2% · -52.2% |
-| Player rebounds N+ | 13141 | 23.0% | 11.9% | -37.8% | 2898 · 57.9% · 24.8% · -12.4% | 10243 · 13.1% · 8.2% · -45.0% |
-| Player assists N+ | 8405 | 30.7% | 15.5% | -33.9% | 2826 · 62.7% · 26.3% · -15.3% | 5579 · 14.4% · 10.0% · -43.4% |
-| Player 3-pointers N+ | 7158 | 18.8% | 19.2% | -47.8% | 1128 · 55.4% · 37.9% · -16.2% | 6030 · 11.9% · 15.7% · -53.7% |
+| Player points N+ | 27871 | 21.1% | 30.3% | -44.8% | 5827 · 54.0% · 64.8% · -16.7% | 22044 · 12.4% · 21.2% · -52.2% |
+| Player rebounds N+ | 13141 | 23.0% | 30.5% | -37.7% | 2898 · 57.9% · 66.1% · -12.4% | 10243 · 13.2% · 20.4% · -44.9% |
+| Player assists N+ | 8405 | 30.7% | 40.7% | -33.9% | 2826 · 62.7% · 73.6% · -15.3% | 5579 · 14.4% · 24.1% · -43.4% |
+| Player 3-pointers N+ | 7158 | 18.8% | 27.0% | -47.8% | 1128 · 55.4% · 65.8% · -16.2% | 6030 · 11.9% · 19.8% · -53.7% |
 | Total points (incl. OT) | 6534 | 50.0% | 50.0% | -3.5% | 3468 · 63.7% · 63.3% · -3.1% | 3066 · 34.5% · 35.0% · -4.0% |
 | Handicap (incl. OT) | 6306 | 50.0% | 50.0% | -5.9% | 3298 · 69.1% · 67.7% · -2.0% | 3008 · 29.0% · 30.6% · -10.2% |
 | Player points O/U | 3302 | 50.0% | 50.0% | -7.4% | 3208 · 50.1% · 50.1% · -7.4% | 94 · 46.8% · 45.7% · -4.9% |
-| Player rebounds O/U | 3124 | 50.0% | 50.0% | -7.7% | 2219 · 53.0% · 52.3% · -6.3% | 905 · 42.5% · 44.3% · -11.1% |
+| Player rebounds O/U | 3124 | 50.0% | 50.0% | -7.7% | 2219 · 53.0% · 52.3% · -6.4% | 905 · 42.7% · 44.3% · -10.9% |
 | Player 3-pointers O/U | 2744 | 50.0% | 50.0% | -7.6% | 1708 · 55.5% · 55.1% · -6.8% | 1036 · 40.9% · 41.5% · -8.9% |
 | 1st half total | 2658 | 50.0% | 50.0% | -4.3% | 1468 · 56.5% · 57.8% · -6.9% | 1190 · 42.0% · 40.4% · -1.0% |
 | 1st half handicap | 2658 | 50.0% | 50.0% | -4.4% | 1467 · 57.6% · 58.3% · -5.9% | 1191 · 40.6% · 39.8% · -2.7% |
@@ -92,20 +92,20 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 | Market | board / shadow | picks | won | stated chance | return ± se |
 |---|---|---:|---:|---:|---|
 | 1st half total | board | 727 | 62% | 68% | +2.3% ± 3.0% |
-| 2nd half total (reg.) | shadow | 697 | 52% | 66% | -12.7% ± 3.2% |
-| Home team 1st half points | shadow | 306 | 56% | 62% | -1.5% ± 5.0% |
-| Away team 1st half points | shadow | 295 | 65% | 63% | +13.9% ± 4.9% |
-| Home team quarter points Q1 | shadow | 121 | 61% | 62% | +5.3% ± 7.8% |
-| Away team quarter points Q1 | shadow | 115 | 63% | 62% | +10.7% ± 8.0% |
-| Quarter total Q3 | shadow | 97 | 51% | 59% | -4.1% ± 9.7% |
+| 2nd half total (reg.) | board | 697 | 52% | 66% | -12.7% ± 3.2% |
+| Home team 1st half points | board | 306 | 56% | 62% | -1.5% ± 5.0% |
+| Away team 1st half points | board | 295 | 65% | 63% | +13.9% ± 4.9% |
+| Home team quarter points Q1 | board | 121 | 61% | 62% | +5.3% ± 7.8% |
+| Away team quarter points Q1 | board | 115 | 63% | 62% | +10.7% ± 8.0% |
+| Quarter total Q3 | board | 97 | 51% | 59% | -4.1% ± 9.7% |
 | Quarter total Q1 | board | 94 | 56% | 58% | +6.7% ± 9.7% |
-| Quarter total Q2 | shadow | 67 | 51% | 60% | -3.3% ± 11.7% |
-| Quarter total Q4 | shadow | 57 | 49% | 58% | -6.4% ± 12.7% |
+| Quarter total Q2 | board | 67 | 51% | 60% | -3.3% ± 11.7% |
+| Quarter total Q4 | board | 57 | 49% | 58% | -6.4% ± 12.7% |
 | Quarter handicap Q2 | board | 17 | 59% | 60% | +3.5% ± 21.8% |
 | Handicap (incl. OT) | board | 13 | 38% | 62% | -36.2% ± 23.4% |
 | Quarter handicap Q3 | board | 6 | 50% | 62% | -11.5% ± 39.8% |
 | 1st half handicap | board | 6 | 83% | 60% | +45.8% ± 29.9% |
-| Quarter handicap Q4 | shadow | 5 | 100% | 59% | +82.2% ± 6.2% |
+| Quarter handicap Q4 | board | 5 | 100% | 59% | +82.2% ± 6.2% |
 
 ## Player props and team stat totals — Over vs Under (regular season)
 
@@ -125,8 +125,8 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 | Player assists O/U | under | 1295 | 53.5% | 51.5% | -4.2% |
 | Player points O/U | over | 1651 | 48.1% | 49.7% | -10.4% |
 | Player points O/U | under | 1651 | 51.9% | 50.3% | -4.3% |
-| Player rebounds O/U | over | 1562 | 49.1% | 48.7% | -6.9% |
-| Player rebounds O/U | under | 1562 | 50.9% | 51.3% | -8.5% |
+| Player rebounds O/U | over | 1562 | 49.0% | 48.7% | -7.0% |
+| Player rebounds O/U | under | 1562 | 51.0% | 51.3% | -8.4% |
 | Team 2-pointers made total | over | 55 | 38.2% | 50.0% | -30.2% |
 | Team 2-pointers made total | under | 55 | 61.8% | 50.0% | +13.0% |
 | Team 3-pointers made total | over | 69 | 43.5% | 49.9% | -20.2% |

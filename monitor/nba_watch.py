@@ -267,10 +267,18 @@ def run_round(now: datetime, send: bool = True) -> str:
         all_picks += picks
         all_lags += lags
     nl.save(snaps, now)
-    nm.save([nm.snapshot(now, st, e.get("eventId"), ht.key, at.key, g)    # every market, every look
-             for st, e, _tip, ht, at, g in games], now)
+    looks = [nm.snapshot(now, st, e.get("eventId"), ht.key, at.key, g)    # every market, every look
+             for st, e, _tip, ht, at, g in games]
+    nm.save(looks, now)
+    shadow = 0
+    try:        # the SHADOW markets side by side with the board (engine/nba_shadow.py, paper)
+        from engine import nba_shadow as nsh
+        for k, v in nsh.by_night(looks, night_key).items():
+            shadow += nsh.update(v, k)
+    except Exception as e:  # noqa: BLE001 — the shadow board never stops the watch
+        print(f"  shadow board skipped: {e}")
     summary = (f"{len(games)} games watched · {len(all_picks)} new picks · {len(all_lags)} lags · "
-               f"{len(all_gone)} value gone")
+               f"{len(all_gone)} value gone · {shadow} shadow picks")
     if all_picks or all_lags or all_gone:
         text = render(now, run_nba._run_id(now), all_picks, all_lags, all_gone)
         print(text)
@@ -330,7 +338,7 @@ def sync() -> None:
 def persist(now: datetime) -> str:
     """Save to framework and to the private framework-data (monitor/fdata.py)."""
     # framework-data first: framework's pull below may drop files
-    fd = fdata.save(["output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets"],
+    fd = fdata.save(["output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow"],
                     f"nba watch {now:%H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)
     return f"{fw} · {fd}" if fd else fw
@@ -339,7 +347,7 @@ def persist(now: datetime) -> str:
 def _persist_framework(now: datetime) -> str:
     if not in_actions():
         return "not saved (outside GitHub Actions)"
-    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets")
+    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"nba watch {now:%H:%M} [skip ci]")

@@ -202,6 +202,7 @@ def _bucket_move(pm: float | None) -> str:
 # ---------------------------------------------------------------- build
 def collect(obs: dict[str, dict], results: dict[str, dict], picks_dir: Path = PICKS_DIR) -> dict:
     """Every row group, plus the residual model's rows."""
+    from engine import world_basketball as wbb      # the world-basketball board's bars (2026-11-05)
     G: dict[str, list[dict]] = {}
     kinds: dict[str, str] = {}
     model_rows: list[dict] = []
@@ -235,6 +236,13 @@ def collect(obs: dict[str, dict], results: dict[str, dict], picks_dir: Path = PI
                 add(f"gap board: {'covered' if ev.get('covered') else 'not covered'} leagues", row)
                 add(f"gap board timing: {_bucket_h(x.get('h'))} before kick-off", row)
                 add(f"gap board timing: {_bucket_move(x.get('pm'))}", row)
+                # the wider basketball coverage (Architect 2026-11-05: "grade the wider coverage of
+                # basketball to get your graded game"): EVERY side of every non-NBA game that clears
+                # the world board's bars at its first gap, not just the board's one pick per game
+                if sport == "basketball" and not ev.get("covered") and key.startswith("B:") \
+                        and wbb._qualifies(key, x["s"], x["p"]) is not None:
+                    add("world basketball: every side over the bars", row)
+                    add(f"world basketball every side: market {key[2:].split('|')[0]}", row)
 
     # the board's own picks (football singles, BTTS singles, NBA)
     for day, doc in _picks("picks", picks_dir):
@@ -285,7 +293,6 @@ def collect(obs: dict[str, dict], results: dict[str, dict], picks_dir: Path = PI
                    "p_entry": rec.get("p0"), "p_close": rec.get("p1")}
             add("nba: board picks", row)
             add(f"nba market: {p.get('market_id')}", row)
-    from engine import world_basketball as wbb      # the paper world-basketball board (2026-11-05)
     for _day, doc in wbb.load_all():
         for p in doc.get("picks") or []:
             rec = (eb.find(obs, p.get("sb_event_id"), "", "", None) or {}).get("k", {}).get(p["key"]) or {}

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T01:43Z",
+ "built_at": "2026-11-05T02:13Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 27,
    "gap_entry": -0.0412,
    "n_clv": 27,
-   "clv": -0.0428,
+   "clv": -0.0427,
    "clv_se": 0.002,
    "beat": 0.0
   },
@@ -166,7 +166,7 @@
    "n_entry": 6,
    "gap_entry": -0.0595,
    "n_clv": 6,
-   "clv": -0.0567,
+   "clv": -0.0561,
    "clv_se": 0.0056,
    "beat": 0.0
   },
@@ -376,7 +376,7 @@
    "n_entry": 33,
    "gap_entry": -0.0445,
    "n_clv": 33,
-   "clv": -0.0453,
+   "clv": -0.0451,
    "clv_se": 0.0021,
    "beat": 0.0
   },
@@ -530,8 +530,8 @@
    "n_entry": 8,
    "gap_entry": -0.0401,
    "n_clv": 8,
-   "clv": -0.0397,
-   "clv_se": 0.0203,
+   "clv": -0.0414,
+   "clv_se": 0.0201,
    "beat": 0.25
   },
   {
@@ -544,8 +544,8 @@
    "n_entry": 8,
    "gap_entry": -0.0401,
    "n_clv": 8,
-   "clv": -0.0397,
-   "clv_se": 0.0203,
+   "clv": -0.0414,
+   "clv_se": 0.0201,
    "beat": 0.25
   },
   {
@@ -558,7 +558,7 @@
    "n_entry": 33,
    "gap_entry": -0.0174,
    "n_clv": 33,
-   "clv": -0.0182,
+   "clv": -0.018,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -572,7 +572,7 @@
    "n_entry": 33,
    "gap_entry": -0.0174,
    "n_clv": 33,
-   "clv": -0.0182,
+   "clv": -0.018,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -586,7 +586,7 @@
    "n_entry": 33,
    "gap_entry": -0.0445,
    "n_clv": 33,
-   "clv": -0.0453,
+   "clv": -0.0451,
    "clv_se": 0.0021,
    "beat": 0.0
   }
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0428,
+   "clv": -0.0427,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -686,7 +686,7 @@
    "name": "board family: Result & total",
    "status": "COLLECTING (3 of 200)",
    "n": 3,
-   "clv": -0.0567,
+   "clv": -0.0561,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.5033
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0453,
+   "clv": -0.0451,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359
@@ -920,7 +920,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (74 of 200)",
    "n": 74,
-   "clv": -0.0397,
+   "clv": -0.0414,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2058
@@ -929,7 +929,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (81 of 200)",
    "n": 81,
-   "clv": -0.0397,
+   "clv": -0.0414,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1851

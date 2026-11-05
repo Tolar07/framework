@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T01:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33
+Built 2026-11-05T02:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -17,7 +17,7 @@ Built 2026-11-05T01:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: Home win to nil | 6 | 33% | -59.2% ± 25.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Multigoals | 2 | 100% | +20.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Over/Under | 66 | 82% | +2.4% ± 6.1% | PENDING (0) | PENDING (0) | PENDING |
-| board family: Result & total | 3 | 100% | +50.3% ± 15.2% | -5.9% (6) | -5.7% ± 0.6% (6) | 0% |
+| board family: Result & total | 3 | 100% | +50.3% ± 15.2% | -5.9% (6) | -5.6% ± 0.6% (6) | 0% |
 | board family: SB:1 | 4 | 100% | +27.5% ± 2.9% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:10 | 426 | 77% | -2.9% ± 2.6% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:13 | 3 | 0% | -100.0% | PENDING (0) | PENDING (0) | PENDING |
@@ -43,8 +43,8 @@ Built 2026-11-05T01:43Z. Edge: 0 strategies ready for the Architect; board singl
 | gap board: not covered leagues | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
 | nba market: 223 | 4 | 75% | +28.7% ± 43.1% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
-| nba market: 68 | 74 | 62% | +20.6% ± 11.0% | -4.0% (8) | -4.0% ± 2.0% (8) | 25% |
-| nba: board picks | 81 | 62% | +18.5% ± 10.5% | -4.0% (8) | -4.0% ± 2.0% (8) | 25% |
+| nba market: 68 | 74 | 62% | +20.6% ± 11.0% | -4.0% (8) | -4.1% ± 2.0% (8) | 25% |
+| nba: board picks | 81 | 62% | +18.5% ± 10.5% | -4.0% (8) | -4.1% ± 2.0% (8) | 25% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
 | venue: board singles at the better book *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
 | venue: same singles at SportyBet *(baseline)* | 0 | PENDING | PENDING | -4.5% (33) | -4.5% ± 0.2% (33) | 0% |
@@ -65,7 +65,7 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: Home win to nil | COLLECTING (6 of 200) | 6 | PENDING | — | — |
 | board family: Multigoals | COLLECTING (2 of 200) | 2 | PENDING | — | — |
 | board family: Over/Under | COLLECTING (66 of 200) | 66 | PENDING | — | — |
-| board family: Result & total | COLLECTING (3 of 200) | 3 | -5.7% | — | — |
+| board family: Result & total | COLLECTING (3 of 200) | 3 | -5.6% | — | — |
 | board family: SB:1 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | board family: SB:10 | NO EDGE YET | 426 | PENDING | — | — |
 | board family: SB:13 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
@@ -91,8 +91,8 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | gap board: not covered leagues | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
 | nba market: 223 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
-| nba market: 68 | COLLECTING (74 of 200) | 74 | -4.0% | — | — |
-| nba: board picks | COLLECTING (81 of 200) | 81 | -4.0% | — | — |
+| nba market: 68 | COLLECTING (74 of 200) | 74 | -4.1% | — | — |
+| nba: board picks | COLLECTING (81 of 200) | 81 | -4.1% | — | — |
 
 ## Residual model (step 6)
 

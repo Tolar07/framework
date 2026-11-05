@@ -49,9 +49,10 @@ def feed_sign() -> str:
     return _FALLBACK_SIGN
 
 
-def parse_feed(text: str) -> list[dict]:
+def parse_feed(text: str, sport: int = 1) -> list[dict]:
     """Every event in a Flashscore day feed:
-    {league, home, away, fthg, ftag, finished_regular, stage, kickoff_utc}."""
+    {league, home, away, fthg, ftag, finished_regular, stage, kickoff_utc}; basketball
+    (sport 3) also h1_home / h1_away, the 1st-half points."""
     out, league = [], None
     for block in text.split("~"):
         kv = {}
@@ -73,7 +74,7 @@ def parse_feed(text: str) -> list[dict]:
             hg, ag = int(kv["AG"]), int(kv["AH"])
         except (KeyError, ValueError):
             hg = ag = None
-        out.append({
+        ev = {
             "league": league or "",
             "home": kv.get("AE", ""), "away": kv.get("AF", ""),
             "fthg": hg, "ftag": ag,
@@ -86,8 +87,23 @@ def parse_feed(text: str) -> list[dict]:
             "finished_other": finished and kv.get("AC") != FINISHED_REGULAR,
             "stage": kv.get("AC"),
             "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        })
+        }
+        if sport == 3:
+            ev["h1_home"] = _basketball_half(kv.get("BA"), kv.get("BC"))
+            ev["h1_away"] = _basketball_half(kv.get("BB"), kv.get("BD"))
+        out.append(ev)
     return out
+
+
+def _basketball_half(p1: Optional[str], p2: Optional[str]) -> Optional[int]:
+    """1st-half points = period 1 + period 2. Quarter leagues fill BA/BB (Q1) and BC/BD (Q2);
+    men's NCAA plays halves and sends BA/BB = 0 with the 1st half in BC/BD, so the same sum holds
+    (checked 2026-11-05 on NBA, EuroLeague, LNB, LNBP and NCAA finals: periods add up to the
+    final). None when either period is missing."""
+    try:
+        return int(p1) + int(p2) if p1 is not None and p2 is not None else None
+    except ValueError:
+        return None
 
 
 def _first_half(ft: Optional[int], second: Optional[str]) -> Optional[int]:
@@ -110,7 +126,7 @@ def results_for_offset(offset: int, sign: Optional[str] = None, sport: int = 1) 
         return json.loads(cache.read_text(encoding="utf-8"))
     text = _get(_FEED.replace("f_1_", f"f_{sport}_").format(offset=offset),
                 {"x-fsign": sign or feed_sign(), "Referer": "https://www.flashscore.co.uk/"})
-    events = parse_feed(text)
+    events = parse_feed(text, sport)
     if offset < 0:
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(events), encoding="utf-8")

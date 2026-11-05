@@ -1,0 +1,70 @@
+name: OLP XDV ice hockey board
+
+# Multi-sport rollout, sport 1 (standing order 50, Architect 2026-11-05: "start building ...
+# the shadow, the bots and everything ... start from today"). Every look records every side of
+# every SportyBet ice hockey game in the next 24 h beside the Matchbook exchange's fair chance
+# and the NHL goals model, and freezes value picks with SportyBet codes into
+# output/ice_hockey/ih_<date>.json (PAPER until config/sport_rollout.json live_from; the bots
+# read the same file). mode=grade settles finished games from Flashscore and writes the
+# scoreboard; mode=report also sends it to the Architect. No steam.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "look | grade | report"
+        required: false
+        default: "look"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ice-hockey
+  cancel-in-progress: false
+
+jobs:
+  hockey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Restore the NHL history cache
+        uses: actions/cache@v4
+        with:
+          path: data/cache/nhl
+          key: olp-xdv-nhl-${{ github.run_id }}
+          restore-keys: olp-xdv-nhl-
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+          MODE: ${{ github.event.inputs.mode || 'look' }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          case "$MODE" in
+            look)   python run_hockey.py ;;
+            grade)  python run_hockey.py --grade ;;
+            report) python run_hockey.py --report --telegram ;;
+            *) echo "unknown mode $MODE"; exit 1 ;;
+          esac
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "ice hockey ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/ice_hockey data/ice_hockey || true

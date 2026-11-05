@@ -28,7 +28,7 @@ def main() -> int:
     git("init", "-q", cwd=ws)                                  # the framework checkout, with its .gitignore
     (ws / ".gitignore").write_bytes(
         b"# >>> data lives in framework-data\noutput/\nmemory/\ndata/\n# <<< data lives in framework-data\n"
-        b"*.jsonl\ndata/cache/\n.fdata/\n")
+        b"*.jsonl\ndata/cache/\n*.log\n!data/logs/keep.log\n.fdata/\n")
     use(ws)
     fdata.pull()
     (ws / "output/world_basketball").mkdir(parents=True)
@@ -38,8 +38,11 @@ def main() -> int:
     (ws / "output/picks/p.json").write_bytes(b"2\n")                # in the paths
     (ws / "data/study").mkdir()
     (ws / "data/study/live.jsonl").write_bytes(b"x\n")              # *.jsonl guard does not apply to data
+    (ws / "data/logs").mkdir()
+    (ws / "data/logs/keep.log").write_bytes(b"k\n")                 # re-included by a "!" rule
+    (ws / "data/logs/other.log").write_bytes(b"o\n")                # ignored by *.log
     (ws / "data/keep.txt").unlink()                                   # outside the paths: never deleted
-    assert "saved 3 file(s)" in fdata.save(["output/picks"], "t"), "expected picks + wb + study log"
+    assert "saved 4 file(s)" in fdata.save(["output/picks"], "t"), "expected picks + wb + study log + keep.log"
 
     check = tmp / "check"
     git("clone", "-q", (tmp / "remote.git").as_uri(), str(check), cwd=tmp)
@@ -49,6 +52,8 @@ def main() -> int:
     assert (check / "data/keep.txt").exists(), "a deletion outside the named paths was saved"
     assert (check / "memory/m.json").read_bytes() == b"1\n"
     assert (check / "data/study/live.jsonl").exists(), "a data .jsonl was dropped by the *.jsonl guard"
+    assert (check / "data/logs/keep.log").exists(), 'a "!" re-included file was dropped'
+    assert not (check / "data/logs/other.log").exists(), "an ignored log reached framework-data"
     print("fdata scope: OK")
     return 0
 

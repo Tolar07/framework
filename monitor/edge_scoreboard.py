@@ -14,6 +14,7 @@ Groups:
     board       the football singles, all and by market family; the BTTS singles
     venue       the same singles at Matchbook's back after commission, and at the better book
     nba         the NBA board's picks, all and by SportyBet market (68 = 1st-half total) (step 5)
+    world basketball  the paper board for every other league (engine/world_basketball.py), by league
     gap board   every SportyBet side, any game, the first time its price beat the exchange's fair
                 chance by 2%+ (step 3); by gap size, sport, covered or not; by hours to kick-off
                 and by how the exchange had moved since the first look (step 4, timing)
@@ -278,6 +279,14 @@ def collect(obs: dict[str, dict], results: dict[str, dict], picks_dir: Path = PI
                    "p_entry": rec.get("p0"), "p_close": rec.get("p1")}
             add("nba: board picks", row)
             add(f"nba market: {p.get('market_id')}", row)
+    from engine import world_basketball as wbb      # the paper world-basketball board (2026-11-05)
+    for _day, doc in wbb.load_all():
+        for p in doc.get("picks") or []:
+            rec = (eb.find(obs, p.get("sb_event_id"), "", "", None) or {}).get("k", {}).get(p["key"]) or {}
+            row = {"price": p["price"], "won": _won(results, p["sb_event_id"], p["key"]),
+                   "p_entry": p.get("fair"), "p_close": rec.get("p1")}
+            add("world basketball: all leagues", row)
+            add(f"world basketball: {p.get('comp')}", row)
     return {"groups": [summarize(n, rows, kinds[n]) for n, rows in sorted(G.items())], "model_rows": model_rows}
 
 

@@ -73,6 +73,27 @@ def test_pick_is_bot_ready():
         assert wb._book({"eventId": "x"}) is None                                   # never calls SportyBet here
 
 
+def test_staked_fields_backfill_and_retry():
+    """Architect 2026-11-05: staked like NBA. The bots read chance / tip / event_id; a pick frozen
+    before the bot fields gets them, and a PENDING code is retried every look."""
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        row = {**_row(), "oids": {"B:219||Home": "4", "B:219||Away": "5"}}
+        assert wb.update([row], [_event()], NOW, folder=d, book=lambda s: None) == 1     # booking down
+        f = d / f"wb_{KO:%Y-%m-%d}.json"
+        p = json.loads(f.read_text(encoding="utf-8"))["picks"][0]
+        assert p["code"] is None and p["chance"] == p["fair"] and p["tip"] == p["ko"] and p["event_id"] == "sr:match:1"
+        assert wb.update([row], [_event()], NOW, folder=d, book=lambda s: "RETRY1") == 0      # retried, not re-picked
+        assert json.loads(f.read_text(encoding="utf-8"))["picks"][0]["code"] == "RETRY1"
+        old = json.loads(f.read_text(encoding="utf-8"))
+        for k in ("market_id", "specifier", "outcome", "outcome_id", "code", "chance", "tip", "event_id", "venues"):
+            old["picks"][0].pop(k, None)                                                  # frozen this morning
+        f.write_text(json.dumps(old), encoding="utf-8")
+        wb.update([row], [_event()], NOW, folder=d, book=lambda s: "BACK1")
+        p = json.loads(f.read_text(encoding="utf-8"))["picks"][0]
+        assert (p["market_id"], p["outcome_id"], p["code"], p["chance"]) == ("219", "4", "BACK1", p["fair"])
+
+
 def test_describe():
     assert wb.describe("B:223|hcp=-6.5|Home (-6.5)", "A", "B") == "A -6.5"
     assert wb.describe("B:225|total=160.5|Over 160.5", "A", "B") == "Over 160.5 points"
@@ -83,6 +104,7 @@ def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
     test_pick_is_bot_ready()
+    test_staked_fields_backfill_and_retry()
     test_describe()
     print("world_basketball_test OK")
 

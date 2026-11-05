@@ -1,6 +1,6 @@
 {
  "date": "2026-11-06",
- "generated_at": "2026-11-04T15:31:14Z",
+ "generated_at": "2026-11-05T15:31:33Z",
  "singles": [
   {
    "fixture": "Willem II v Zwolle",
@@ -10,11 +10,11 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Willem II or Zwolle",
-   "price": 1.28,
-   "chance": 0.7727,
-   "chance_raw": 0.7409,
+   "price": 1.29,
+   "chance": 0.7726,
+   "chance_raw": 0.7406,
    "tier": "SAFE",
-   "certainty": "HIGH",
+   "certainty": "MEDIUM",
    "code": "THUMFW",
    "news_level": "OK",
    "news_note": "pick does not depend on one team's lineup",
@@ -23,7 +23,7 @@
    "fotmob_id": 5781802,
    "kickoff_utc": "2026-11-06T19:00:00.000Z",
    "predicted_xi": {
-    "home": 11408069,
+    "home": 11907230,
     "away": 8021757
    },
    "lineup_check": null,
@@ -63,37 +63,37 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.013190240334434056,
+   "ev": -0.00587815258986113,
    "missing": {
-    "home": 0.1510781532459865,
+    "home": 0.07220847829390016,
     "away": 0.23133347176521443
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.28,
+   "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -104,7 +104,7 @@
       "source": "fotmob",
       "side": "home",
       "direction": -1,
-      "size": 0.151
+      "size": 0.072
      },
      {
       "fact": "squad_value_missing",
@@ -127,14 +127,14 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -154,7 +154,7 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -172,8 +172,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Silkeborg or Lyngby",
    "price": 1.27,
-   "chance": 0.7902,
-   "chance_raw": 0.7584,
+   "chance": 0.789,
+   "chance_raw": 0.757,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "GLH82Y",
@@ -185,7 +185,7 @@
    "kickoff_utc": "2026-11-06T18:00:00.000Z",
    "predicted_xi": {
     "home": 9032167,
-    "away": 7647666
+    "away": 10333304
    },
    "lineup_check": null,
    "matchup": {
@@ -225,10 +225,10 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.026702372006742414,
+   "ev": -0.0284181963584883,
    "missing": {
     "home": 0.22234194728106257,
-    "away": 0.13989922840597854
+    "away": 0.10744598600477091
    },
    "sharp_p": null,
    "sharp_ev": null,
@@ -239,23 +239,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -273,7 +273,7 @@
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.14
+      "size": 0.107
      }
     ],
     "backs": "home",
@@ -289,14 +289,14 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -309,14 +309,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0132,
+    "full": 0.0075,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0016,
+    "shrunk": 0.0009,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 50.48,
+    "hours_to_ko": 26.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -334,7 +334,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Standard or Beveren",
    "price": 1.27,
-   "chance": 0.7716,
+   "chance": 0.7718,
    "chance_raw": 0.7398,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -353,12 +353,12 @@
    "matchup": {
     "say": "both high lines + an elite attack; Standard Li\u00e8ge: counter side v high line -> BTTS & goals",
     "xg": [
-     2.822,
-     1.01
+     2.821,
+     1.014
     ],
-    "btts": 0.598,
-    "over25": 0.736,
-    "over15": 0.895,
+    "btts": 0.599,
+    "over25": 0.737,
+    "over15": 0.896,
     "corners": 11.1,
     "pick_matchup_chance": 0.856,
     "weight": 0.0,
@@ -388,7 +388,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.022307951651447944,
+   "ev": -0.022384048924036892,
    "missing": {
     "home": 0.341050123238584,
     "away": 0.12096091209639707
@@ -402,23 +402,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -452,16 +452,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.26,
+    "lay": 1.37,
+    "liq": 14.33,
+    "gap": null,
+    "mb_net": 1.255,
+    "best": "sportybet"
    },
    "exposure": {
     "league": "Belgian Pro League",
@@ -479,7 +488,7 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.23,
+    "hours_to_ko": 28.22,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -497,7 +506,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Motor Lublin or Wisla Plock",
    "price": 1.27,
-   "chance": 0.78,
+   "chance": 0.7802,
    "chance_raw": 0.7482,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -552,10 +561,10 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.039619469885914804,
+   "ev": -0.039617562264484985,
    "missing": {
     "home": 0.021381895843239757,
-    "away": 0.21723803698367922
+    "away": 0.23662262809881754
    },
    "sharp_p": null,
    "sharp_ev": null,
@@ -566,23 +575,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -600,7 +609,7 @@
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.217
+      "size": 0.237
      }
     ],
     "backs": "home",
@@ -616,14 +625,14 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -643,7 +652,144 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 49.48,
+    "hours_to_ko": 25.47,
+    "after_lineups": false,
+    "sb_move": 0.0,
+    "sharp_gap": null,
+    "yes": null,
+    "no": null,
+    "signal": null
+   }
+  },
+  {
+   "fixture": "NK Lokomotiva Zagreb v NK Rudes Zagreb",
+   "league": "HNL",
+   "home": "NK Lokomotiva Zagreb",
+   "away": "NK Rudes Zagreb",
+   "kickoff": "2026-11-06",
+   "market": "SB:10||Home or Away",
+   "pick": "NK Lokomotiva Zagreb or NK Rudes Zagreb",
+   "price": 1.27,
+   "chance": 0.7811,
+   "chance_raw": 0.7491,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "XZQ69C",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5765956,
+   "kickoff_utc": "2026-11-06T17:00:00.000Z",
+   "predicted_xi": {
+    "home": 3963024,
+    "away": 1742089
+   },
+   "lineup_check": null,
+   "matchup": null,
+   "sb_event_id": "sr:match:71913122",
+   "sb_tid": "sr:tournament:170",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.038428569977238314,
+   "missing": {
+    "home": 0.05084453488071322,
+    "away": 0.1117713851018734
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null,
+   "bias": {
+    "yes": {
+     "cell": "SB:10|1.20-1.30",
+     "n": 6965,
+     "landed": 0.7657,
+     "fair": 0.7391,
+     "bias": 0.0265,
+     "se": 0.0053,
+     "ret": -0.0442,
+     "shrunk": 0.0258
+    },
+    "no": {
+     "cell": "SB:10|4.00+",
+     "n": 109,
+     "landed": 0.1468,
+     "fair": 0.2039,
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
+    },
+    "short_leg": true
+   },
+   "context": {
+    "facts": [
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "home",
+      "direction": -1,
+      "size": 0.051
+     },
+     {
+      "fact": "squad_value_missing",
+      "source": "fotmob",
+      "side": "away",
+      "direction": 1,
+      "size": 0.112
+     }
+    ],
+    "backs": "home",
+    "unknown": [
+     "rest",
+     "travel",
+     "motivation",
+     "weather",
+     "referee",
+     "new_manager",
+     "derby"
+    ]
+   },
+   "drift": {
+    "family": "Double chance",
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
+    "alarm": "down"
+   },
+   "blend": {
+    "w": 0.9,
+    "n_fit": 201,
+    "yes": null,
+    "no": null
+   },
+   "exposure": {
+    "league": "HNL",
+    "league_n": 1,
+    "league_rank": 1,
+    "over_cap": false,
+    "same_match": 0
+   },
+   "shop": null,
+   "kelly": {
+    "full": 0.0,
+    "market": null,
+    "disagree": null,
+    "shrunk": 0.0,
+    "no_edge": null
+   },
+   "timing": {
+    "hours_to_ko": 25.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -660,11 +806,11 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Derby or Bolton Wanderers",
-   "price": 1.28,
-   "chance": 0.787,
-   "chance_raw": 0.7552,
+   "price": 1.3,
+   "chance": 0.7847,
+   "chance_raw": 0.7527,
    "tier": "SAFE",
-   "certainty": "MEDIUM",
+   "certainty": "HIGH",
    "code": "ZUQ90G",
    "news_level": "OK",
    "news_note": "pick does not depend on one team's lineup",
@@ -680,8 +826,8 @@
    "matchup": {
     "say": "no tactical clash flagged -> no strong goals lean",
     "xg": [
-     1.487,
-     1.363
+     1.477,
+     1.373
     ],
     "btts": 0.576,
     "over25": 0.542,
@@ -713,39 +859,39 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.023073745303937798,
+   "ev": -0.01114775414389746,
    "missing": {
-    "home": 0.5348319521569598,
-    "away": 0.1250498606626869
+    "home": 0.5501160180191804,
+    "away": 0.15370190778071322
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.28,
+   "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
-     "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
-     "fair": 0.7391,
-     "bias": 0.0259,
-     "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "cell": "SB:10|1.30-1.50",
+     "n": 6148,
+     "landed": 0.6768,
+     "fair": 0.6746,
+     "bias": 0.0022,
+     "se": 0.006,
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
-    "short_leg": true
+    "short_leg": false
    },
    "context": {
     "facts": [
@@ -754,14 +900,14 @@
       "source": "fotmob",
       "side": "home",
       "direction": -1,
-      "size": 0.535
+      "size": 0.55
      },
      {
       "fact": "squad_value_missing",
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.125
+      "size": 0.154
      }
     ],
     "backs": "home",
@@ -777,16 +923,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7353,
+    "back": 1.35,
+    "lay": 1.37,
+    "liq": 792.99,
+    "gap": -0.0441,
+    "mb_net": 1.343,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Championship",
@@ -797,14 +952,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0263,
+    "full": 0.067,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0033,
+    "shrunk": 0.0084,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.48,
+    "hours_to_ko": 28.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -821,20 +976,20 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Venezia FC or Udinese",
-   "price": 1.31,
-   "chance": 0.7812,
-   "chance_raw": 0.7494,
-   "tier": "BOOK",
-   "certainty": "LOW",
+   "price": 1.32,
+   "chance": 0.7781,
+   "chance_raw": 0.7461,
+   "tier": "SAFE",
+   "certainty": "HIGH",
    "code": "T063SW",
    "news_level": "OK",
-   "news_note": "swapped from Udinese (0:2) handicap (Udinese missing 26% of value (Oumar Solet, Idrissa Gueye, Alessandro Zanoli))",
+   "news_note": "pick does not depend on one team's lineup",
    "switched_from": null,
    "orig_market": null,
    "fotmob_id": 5749749,
    "kickoff_utc": "2026-11-06T19:45:00.000Z",
    "predicted_xi": {
-    "home": 69338604,
+    "home": 73346612,
     "away": 93575361
    },
    "lineup_check": null,
@@ -848,7 +1003,7 @@
     "over25": 0.663,
     "over15": 0.855,
     "corners": 9.6,
-    "pick_matchup_chance": 0.746,
+    "pick_matchup_chance": 0.777,
     "weight": 0.0,
     "better_market": null,
     "formations": [
@@ -876,38 +1031,38 @@
    },
    "closing_price": null,
    "clv": null,
-   "stake_pct": 0.12,
-   "ev": -0.007787658061814584,
+   "stake_pct": 0.25,
+   "ev": -0.004619330455034154,
    "missing": {
-    "home": 0.08142857186385034,
-    "away": 0.26431531716174
+    "home": 0.0773229869311325,
+    "away": 0.15733643661660415
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.31,
+   "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -918,14 +1073,14 @@
       "source": "fotmob",
       "side": "home",
       "direction": -1,
-      "size": 0.081
+      "size": 0.077
      },
      {
       "fact": "squad_value_missing",
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.264
+      "size": 0.157
      }
     ],
     "backs": "home",
@@ -941,16 +1096,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7247,
+    "back": 1.37,
+    "lay": 1.39,
+    "liq": 378.08,
+    "gap": -0.0434,
+    "mb_net": 1.363,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Serie A",
@@ -961,14 +1125,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0754,
+    "full": 0.0847,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0094,
+    "shrunk": 0.0106,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.23,
+    "hours_to_ko": 28.22,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -986,8 +1150,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Hamburg or M'gladbach",
    "price": 1.3,
-   "chance": 0.7841,
-   "chance_raw": 0.7523,
+   "chance": 0.7851,
+   "chance_raw": 0.7531,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "GSLTGR",
@@ -1011,7 +1175,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.011574783317409354,
+   "ev": -0.010625763373113717,
    "missing": null,
    "sharp_p": null,
    "sharp_ev": null,
@@ -1022,23 +1186,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -1057,16 +1221,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7353,
+    "back": 1.35,
+    "lay": 1.37,
+    "liq": 397.08,
+    "gap": -0.0441,
+    "mb_net": 1.343,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Bundesliga",
@@ -1077,14 +1250,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0644,
+    "full": 0.0688,
     "market": null,
     "disagree": null,
-    "shrunk": 0.008,
+    "shrunk": 0.0086,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.98,
+    "hours_to_ko": 27.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1102,8 +1275,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Toulouse or Strasbourg",
    "price": 1.29,
-   "chance": 0.7923,
-   "chance_raw": 0.7605,
+   "chance": 0.7929,
+   "chance_raw": 0.7609,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "GZYWLR",
@@ -1115,11 +1288,11 @@
    "kickoff_utc": "2026-11-06T19:45:00.000Z",
    "predicted_xi": {
     "home": 69102794,
-    "away": 167860941
+    "away": 221131368
    },
    "lineup_check": null,
    "matchup": {
-    "say": "no tactical clash flagged -> no strong goals lean",
+    "say": "Strasbourg: high press v build-up side -> no strong goals lean",
     "xg": [
      2.094,
      0.907
@@ -1141,7 +1314,9 @@
       "4-3-3 x1"
      ]
     ],
-    "tags": []
+    "tags": [
+     "high press v build-up side"
+    ]
    },
    "sb_event_id": "sr:match:72036290",
    "sb_tid": "sr:tournament:34",
@@ -1154,10 +1329,10 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.008619380725845893,
+   "ev": -0.008113431662881254,
    "missing": {
     "home": 0.05087369518608593,
-    "away": 0.23754377972411714
+    "away": 0.19126456736977926
    },
    "sharp_p": null,
    "sharp_ev": null,
@@ -1168,23 +1343,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -1202,7 +1377,7 @@
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.238
+      "size": 0.191
      }
     ],
     "backs": "home",
@@ -1218,16 +1393,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7491,
+    "back": 1.33,
+    "lay": 1.34,
+    "liq": 268.16,
+    "gap": -0.0337,
+    "mb_net": 1.323,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 1",
@@ -1238,14 +1422,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0761,
+    "full": 0.0788,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0095,
+    "shrunk": 0.0098,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.23,
+    "hours_to_ko": 28.22,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1262,9 +1446,9 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Famalicao or Arouca",
-   "price": 1.31,
-   "chance": 0.775,
-   "chance_raw": 0.7432,
+   "price": 1.33,
+   "chance": 0.768,
+   "chance_raw": 0.736,
    "tier": "SAFE",
    "certainty": "MEDIUM",
    "code": "SQYWYC",
@@ -1275,7 +1459,7 @@
    "fotmob_id": 5887675,
    "kickoff_utc": "2026-11-06T20:45:00.000Z",
    "predicted_xi": {
-    "home": 44857697,
+    "home": 41569780,
     "away": 18479709
    },
    "lineup_check": null,
@@ -1314,37 +1498,37 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.015941172214237853,
+   "ev": -0.010458847535801619,
    "missing": {
-    "home": 0.1031723438378649,
+    "home": 0.1104314945810076,
     "away": 0.02611738189669156
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.31,
+   "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -1355,7 +1539,7 @@
       "source": "fotmob",
       "side": "home",
       "direction": -1,
-      "size": 0.103
+      "size": 0.11
      },
      {
       "fact": "squad_value_missing",
@@ -1378,16 +1562,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.36,
+    "lay": 1.46,
+    "liq": 17.32,
+    "gap": null,
+    "mb_net": 1.353,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Primeira Liga",
@@ -1398,14 +1591,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0492,
+    "full": 0.065,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0062,
+    "shrunk": 0.0081,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 53.23,
+    "hours_to_ko": 29.22,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1423,8 +1616,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Everton or Coventry City",
    "price": 1.26,
-   "chance": 0.7915,
-   "chance_raw": 0.7597,
+   "chance": 0.7928,
+   "chance_raw": 0.7608,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "ZH1M8U",
@@ -1435,7 +1628,7 @@
    "fotmob_id": 5795508,
    "kickoff_utc": "2026-11-06T20:00:00.000Z",
    "predicted_xi": {
-    "home": 362550096,
+    "home": 363898915,
     "away": 136305402
    },
    "lineup_check": null,
@@ -1475,7 +1668,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.03269950960784207,
+   "ev": -0.031357050000119235,
    "missing": {
     "home": 0.0,
     "away": 0.3377787653859767
@@ -1489,23 +1682,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -1532,16 +1725,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7576,
+    "back": 1.31,
+    "lay": 1.33,
+    "liq": 983.1,
+    "gap": -0.0454,
+    "mb_net": 1.304,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Premier League",
@@ -1559,7 +1761,7 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.48,
+    "hours_to_ko": 28.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1577,8 +1779,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Sevilla or Alaves",
    "price": 1.32,
-   "chance": 0.7683,
-   "chance_raw": 0.7365,
+   "chance": 0.7695,
+   "chance_raw": 0.7375,
    "tier": "SAFE",
    "certainty": "MEDIUM",
    "code": "K2AUZD",
@@ -1589,8 +1791,8 @@
    "fotmob_id": 5868128,
    "kickoff_utc": "2026-11-06T20:00:00.000Z",
    "predicted_xi": {
-    "home": 92060218,
-    "away": 29203983
+    "home": 99448046,
+    "away": 47375012
    },
    "lineup_check": null,
    "matchup": {
@@ -1629,10 +1831,10 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.01730443777288182,
+   "ev": -0.01592804740063325,
    "missing": {
-    "home": 0.14554108315711667,
-    "away": 0.07433329231794444
+    "home": 0.13620169399691637,
+    "away": 0.04716700144365979
    },
    "sharp_p": null,
    "sharp_ev": null,
@@ -1643,23 +1845,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -1670,14 +1872,14 @@
       "source": "fotmob",
       "side": "home",
       "direction": -1,
-      "size": 0.146
+      "size": 0.136
      },
      {
       "fact": "squad_value_missing",
       "source": "fotmob",
       "side": "away",
       "direction": 1,
-      "size": 0.074
+      "size": 0.047
      }
     ],
     "backs": "home",
@@ -1693,16 +1895,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7195,
+    "back": 1.38,
+    "lay": 1.4,
+    "liq": 954.03,
+    "gap": -0.0503,
+    "mb_net": 1.372,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "La Liga",
@@ -1713,14 +1924,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0442,
+    "full": 0.0492,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0055,
+    "shrunk": 0.0062,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.48,
+    "hours_to_ko": 28.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1737,14 +1948,14 @@
    "kickoff": "2026-11-06",
    "market": "SB:19|total=2.5|Under 2.5",
    "pick": "Castellon Under 2.5 goals",
-   "price": 1.42,
-   "chance": 0.7119,
-   "chance_raw": 0.7119,
+   "price": 1.43,
+   "chance": 0.7072,
+   "chance_raw": 0.7072,
    "tier": "SAFE",
    "certainty": "LOW",
    "code": "KZJFC1",
    "news_level": "OK",
-   "news_note": "swapped from Castellon & Under 4.5 (Castell\u00f3n missing 42% of value (Mat\u00edas Orozco, Ousmane Nana Camara, Fabrizio Brignani))",
+   "news_note": "swapped from Castellon & Under 4.5 (Castell\u00f3n missing 28% of value after squad depth (42% raw) (Mat\u00edas Orozco, Ousmane Nana Camara, Fabrizio Brignani))",
    "switched_from": null,
    "orig_market": null,
    "fotmob_id": 5868528,
@@ -1757,12 +1968,12 @@
    "matchup": {
     "say": "Castell\u00f3n: possession side v low block; Castell\u00f3n: elite attack v leaky defence -> BTTS & goals",
     "xg": [
-     2.591,
-     1.027
+     2.583,
+     1.029
     ],
     "btts": 0.594,
-    "over25": 0.7,
-    "over15": 0.876,
+    "over25": 0.699,
+    "over15": 0.875,
     "corners": 9.1,
     "pick_matchup_chance": 0.46,
     "weight": 0.0,
@@ -1792,37 +2003,37 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.12,
-   "ev": 0.010967019733241434,
+   "ev": 0.011323614235850599,
    "missing": {
     "home": 0.42412889094600825,
     "away": 0.07838493191852934
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.42,
+   "first_price": 1.43,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:19|1.30-1.50",
-     "n": 794,
-     "landed": 0.694,
-     "fair": 0.6583,
-     "bias": 0.0357,
-     "se": 0.0168,
-     "ret": -0.0276,
-     "shrunk": 0.0285
+     "n": 824,
+     "landed": 0.6954,
+     "fair": 0.6585,
+     "bias": 0.0369,
+     "se": 0.0165,
+     "ret": -0.0253,
+     "shrunk": 0.0297
     },
     "no": {
      "cell": "SB:19|2.50-4.00",
-     "n": 977,
-     "landed": 0.2764,
+     "n": 1016,
+     "landed": 0.2776,
      "fair": 0.3065,
-     "bias": -0.0301,
-     "se": 0.0147,
-     "ret": -0.1533,
-     "shrunk": -0.025
+     "bias": -0.029,
+     "se": 0.0145,
+     "ret": -0.1495,
+     "shrunk": -0.0242
     },
     "short_leg": false
    },
@@ -1863,9 +2074,18 @@
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.6603,
+    "back": 1.43,
+    "lay": 1.57,
+    "liq": 913.2,
+    "gap": -0.0558,
+    "mb_net": 1.421,
+    "best": "sportybet"
    },
    "exposure": {
     "league": "La Liga 2",
@@ -1876,14 +2096,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0259,
+    "full": 0.0263,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0032,
+    "shrunk": 0.0033,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.98,
+    "hours_to_ko": 27.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -1901,8 +2121,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Ascoli Calcio 1898 or Palermo",
    "price": 1.29,
-   "chance": 0.7754,
-   "chance_raw": 0.7436,
+   "chance": 0.7752,
+   "chance_raw": 0.7432,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "HJAZTX",
@@ -1960,7 +2180,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.030457680589765168,
+   "ev": -0.03094761861615447,
    "missing": {
     "home": 0.08792477023426762,
     "away": 0.15049661265540004
@@ -1974,23 +2194,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -2024,16 +2244,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.725,
+    "back": 1.35,
+    "lay": 1.41,
+    "liq": 1152.29,
+    "gap": -0.0647,
+    "mb_net": 1.343,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Serie B",
@@ -2044,14 +2273,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0009,
+    "full": 0.0,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0001,
+    "shrunk": 0.0,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.98,
+    "hours_to_ko": 27.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2069,8 +2298,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Dresden or Greuther Furth",
    "price": 1.26,
-   "chance": 0.8014,
-   "chance_raw": 0.7696,
+   "chance": 0.8005,
+   "chance_raw": 0.7685,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "JG4SJ0",
@@ -2121,7 +2350,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.020262859053754467,
+   "ev": -0.02166437124843601,
    "missing": {
     "home": 0.19865233230430757,
     "away": 0.042666401826977875
@@ -2135,23 +2364,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -2185,16 +2414,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7635,
+    "back": 1.29,
+    "lay": 1.33,
+    "liq": 16.01,
+    "gap": -0.038,
+    "mb_net": 1.284,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "2. Bundesliga",
@@ -2205,14 +2443,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0376,
+    "full": 0.0332,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0047,
+    "shrunk": 0.0042,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 49.98,
+    "hours_to_ko": 25.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2229,9 +2467,9 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Braunschweig or Energie Cottbus",
-   "price": 1.24,
-   "chance": 0.8061,
-   "chance_raw": 0.7743,
+   "price": 1.25,
+   "chance": 0.8047,
+   "chance_raw": 0.7727,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "MWZ2L1",
@@ -2284,37 +2522,37 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.02995297657020457,
+   "ev": -0.024064179938655395,
    "missing": {
     "home": 0.1412476548009861,
     "away": 0.07743783136137333
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.24,
+   "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -2348,16 +2586,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.28,
+    "lay": 1.35,
+    "liq": 773.51,
+    "gap": null,
+    "mb_net": 1.274,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "2. Bundesliga",
@@ -2368,14 +2615,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0,
+    "full": 0.0235,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0,
+    "shrunk": 0.0029,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 49.98,
+    "hours_to_ko": 25.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2393,8 +2640,8 @@
    "market": "SB:10||Home or Away",
    "pick": "Dijon or Red Star",
    "price": 1.3,
-   "chance": 0.7866,
-   "chance_raw": 0.7548,
+   "chance": 0.7855,
+   "chance_raw": 0.7535,
    "tier": "SAFE",
    "certainty": "MEDIUM",
    "code": "L51JTQ",
@@ -2450,7 +2697,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.008362882120350301,
+   "ev": -0.010036421861241984,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -2464,23 +2711,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -2499,16 +2746,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.31,
+    "lay": 1.42,
+    "liq": 11.32,
+    "gap": null,
+    "mb_net": 1.304,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 2",
@@ -2519,14 +2775,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0753,
+    "full": 0.0705,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0094,
+    "shrunk": 0.0088,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2544,7 +2800,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Grenoble or Reims",
    "price": 1.28,
-   "chance": 0.7775,
+   "chance": 0.7777,
    "chance_raw": 0.7457,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -2596,7 +2852,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.035308542654581276,
+   "ev": -0.03531427514169616,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -2610,23 +2866,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -2645,16 +2901,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.31,
+    "lay": 1.42,
+    "liq": 11.44,
+    "gap": null,
+    "mb_net": 1.304,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 2",
@@ -2672,7 +2937,7 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2690,7 +2955,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Montpellier or Metz",
    "price": 1.29,
-   "chance": 0.7822,
+   "chance": 0.7824,
    "chance_raw": 0.7504,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -2745,7 +3010,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.02164405696573468,
+   "ev": -0.021649361443389692,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -2759,23 +3024,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -2794,16 +3059,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.34,
+    "lay": 1.42,
+    "liq": 10.53,
+    "gap": null,
+    "mb_net": 1.333,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 2",
@@ -2814,14 +3088,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0312,
+    "full": 0.0321,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0039,
+    "shrunk": 0.004,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2839,7 +3113,7 @@
    "market": "SB:37|total=4.5|Home & Under 4.5",
    "pick": "Nancy & Under 4.5",
    "price": 1.92,
-   "chance": 0.5142,
+   "chance": 0.5171,
    "chance_raw": 0.4433,
    "tier": "SAFE",
    "certainty": "MEDIUM",
@@ -2894,7 +3168,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.13352857875006519,
+   "ev": -0.13357623112105244,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -2908,23 +3182,23 @@
    "bias": {
     "yes": {
      "cell": "SB:37|1.75-2.00",
-     "n": 481,
-     "landed": 0.5135,
+     "n": 517,
+     "landed": 0.5203,
      "fair": 0.4513,
-     "bias": 0.0622,
-     "se": 0.0227,
-     "ret": -0.0363,
-     "shrunk": 0.0439
+     "bias": 0.069,
+     "se": 0.0219,
+     "ret": -0.0235,
+     "shrunk": 0.0497
     },
     "no": {
      "cell": "SB:37|2.00-2.50",
-     "n": 1354,
-     "landed": 0.4284,
-     "fair": 0.3781,
-     "bias": 0.0503,
-     "se": 0.0132,
-     "ret": -0.0412,
-     "shrunk": 0.0438
+     "n": 1417,
+     "landed": 0.4277,
+     "fair": 0.3783,
+     "bias": 0.0494,
+     "se": 0.0129,
+     "ret": -0.0425,
+     "shrunk": 0.0433
     },
     "short_leg": false
    },
@@ -2943,14 +3217,14 @@
    },
    "drift": {
     "family": "Result & total",
-    "n": 5,
-    "down": 0.49,
-    "up": 0.9008,
+    "n": 10,
+    "down": 0.0,
+    "up": 1.353,
     "alarm": null
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -2970,7 +3244,7 @@
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -2988,7 +3262,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Boulogne or Annecy",
    "price": 1.35,
-   "chance": 0.7454,
+   "chance": 0.7456,
    "chance_raw": 0.7136,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -3044,7 +3318,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.025782962631433648,
+   "ev": -0.025780502338010103,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -3058,23 +3332,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|2.50-4.00",
-     "n": 784,
-     "landed": 0.2066,
-     "fair": 0.3194,
-     "bias": -0.1128,
-     "se": 0.0167,
-     "ret": -0.4058,
-     "shrunk": -0.0898
+     "n": 802,
+     "landed": 0.2045,
+     "fair": 0.3193,
+     "bias": -0.1148,
+     "se": 0.0165,
+     "ret": -0.4123,
+     "shrunk": -0.0919
     },
     "short_leg": false
    },
@@ -3093,16 +3367,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.42,
+    "lay": 1.53,
+    "liq": 10.43,
+    "gap": null,
+    "mb_net": 1.412,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 2",
@@ -3113,14 +3396,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.018,
+    "full": 0.0187,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0022,
+    "shrunk": 0.0023,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3138,7 +3421,7 @@
    "market": "SB:10||Home or Away",
    "pick": "Dunkerque or Guingamp",
    "price": 1.29,
-   "chance": 0.7794,
+   "chance": 0.7796,
    "chance_raw": 0.7476,
    "tier": "SAFE",
    "certainty": "HIGH",
@@ -3191,7 +3474,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.025227998316783573,
+   "ev": -0.02523019772859958,
    "missing": {
     "home": 0.0,
     "away": 0.0
@@ -3205,23 +3488,23 @@
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -3240,16 +3523,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": null,
+    "back": 1.31,
+    "lay": 1.42,
+    "liq": 10.99,
+    "gap": null,
+    "mb_net": 1.304,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "Ligue 2",
@@ -3260,14 +3552,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0187,
+    "full": 0.0196,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0023,
+    "shrunk": 0.0024,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.48,
+    "hours_to_ko": 27.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3284,9 +3576,9 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Bristol Rovers or Cambridge United",
-   "price": 1.27,
-   "chance": 0.7851,
-   "chance_raw": 0.7533,
+   "price": 1.28,
+   "chance": 0.7826,
+   "chance_raw": 0.7506,
    "tier": "MARKET",
    "certainty": "LOW",
    "code": "X3PUNX",
@@ -3304,11 +3596,11 @@
    "matchup": {
     "say": "no tactical clash flagged -> BTTS & goals",
     "xg": [
-     1.9,
-     1.372
+     1.902,
+     1.374
     ],
     "btts": 0.635,
-    "over25": 0.635,
+    "over25": 0.636,
     "over15": 0.838,
     "corners": 11.6,
     "pick_matchup_chance": 0.777,
@@ -3337,37 +3629,37 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.12,
-   "ev": -0.03321215036992553,
+   "ev": -0.028947086529538035,
    "missing": {
     "home": 0.0,
     "away": 0.0
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.27,
+   "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
-     "n": 6880,
-     "landed": 0.765,
+     "n": 6965,
+     "landed": 0.7657,
      "fair": 0.7391,
-     "bias": 0.0259,
+     "bias": 0.0265,
      "se": 0.0053,
-     "ret": -0.0451,
-     "shrunk": 0.0251
+     "ret": -0.0442,
+     "shrunk": 0.0258
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": true
    },
@@ -3394,16 +3686,25 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
+   },
+   "exchange": {
+    "p": 0.7381,
+    "back": 1.34,
+    "lay": 1.37,
+    "liq": 67.82,
+    "gap": -0.0552,
+    "mb_net": 1.333,
+    "best": "matchbook"
    },
    "exposure": {
     "league": "FA Cup",
@@ -3414,14 +3715,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0,
+    "full": 0.0062,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0,
+    "shrunk": 0.0008,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 51.98,
+    "hours_to_ko": 27.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3436,14 +3737,14 @@
    "home": "Oxford City",
    "away": "Leicester",
    "kickoff": "2026-11-06",
-   "market": "SB:37|total=4.5|Away & Under 4.5",
-   "pick": "Leicester & Under 4.5",
-   "price": 1.73,
-   "chance": 0.5798,
-   "chance_raw": 0.5089,
+   "market": "SB:37|total=1.5|Away & Over 1.5",
+   "pick": "Leicester & Over 1.5",
+   "price": 1.45,
+   "chance": 0.6828,
+   "chance_raw": 0.609,
    "tier": "MARKET",
    "certainty": "LOW",
-   "code": "WNE08C",
+   "code": "NLWLVZ",
    "news_level": "NO NEWS",
    "news_note": "no team news published",
    "switched_from": null,
@@ -3458,40 +3759,40 @@
    "sb_market": {
     "id": 37,
     "desc": null,
-    "spec": "total=4.5",
-    "outcome": "Away & Under 4.5"
+    "spec": "total=1.5",
+    "outcome": "Away & Over 1.5"
    },
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.12,
-   "ev": -0.1058190058842381,
+   "ev": -0.1053068948318081,
    "missing": null,
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.73,
+   "first_price": 1.45,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
-     "cell": "SB:37|1.50-1.75",
-     "n": 288,
-     "landed": 0.5729,
-     "fair": 0.5182,
-     "bias": 0.0547,
-     "se": 0.0294,
-     "ret": -0.0669,
-     "shrunk": 0.0323
+     "cell": "SB:37|1.30-1.50",
+     "n": 104,
+     "landed": 0.7019,
+     "fair": 0.6048,
+     "bias": 0.0971,
+     "se": 0.0479,
+     "ret": -0.0157,
+     "shrunk": 0.0332
     },
     "no": {
-     "cell": "SB:37|2.00-2.50",
-     "n": 1354,
-     "landed": 0.4284,
-     "fair": 0.3781,
-     "bias": 0.0503,
-     "se": 0.0132,
-     "ret": -0.0412,
-     "shrunk": 0.0438
+     "cell": "SB:37|2.50-4.00",
+     "n": 5779,
+     "landed": 0.2824,
+     "fair": 0.2661,
+     "bias": 0.0163,
+     "se": 0.0058,
+     "ret": -0.1146,
+     "shrunk": 0.0158
     },
     "short_leg": false
    },
@@ -3518,14 +3819,14 @@
    },
    "drift": {
     "family": "Result & total",
-    "n": 5,
-    "down": 0.49,
-    "up": 0.9008,
+    "n": 10,
+    "down": 0.0,
+    "up": 1.353,
     "alarm": null
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -3538,14 +3839,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0042,
+    "full": 0.0,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0005,
+    "shrunk": 0.0,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 52.23,
+    "hours_to_ko": 28.22,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3562,9 +3863,9 @@
    "kickoff": "2026-11-06",
    "market": "SB:10||Home or Away",
    "pick": "Gaziantep FK or Kasimpasa Istanbul",
-   "price": 1.32,
-   "chance": 0.7628,
-   "chance_raw": 0.731,
+   "price": 1.33,
+   "chance": 0.7633,
+   "chance_raw": 0.7313,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "NL8FJN",
@@ -3588,34 +3889,34 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.024486539206981295,
+   "ev": -0.016728428330117673,
    "missing": null,
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.32,
+   "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
-     "n": 6087,
-     "landed": 0.6773,
+     "n": 6148,
+     "landed": 0.6768,
      "fair": 0.6746,
-     "bias": 0.0028,
+     "bias": 0.0022,
      "se": 0.006,
-     "ret": -0.0732,
-     "shrunk": 0.0027
+     "ret": -0.074,
+     "shrunk": 0.0021
     },
     "no": {
      "cell": "SB:10|4.00+",
-     "n": 108,
-     "landed": 0.1481,
+     "n": 109,
+     "landed": 0.1468,
      "fair": 0.2039,
-     "bias": -0.0557,
-     "se": 0.0388,
-     "ret": -0.3051,
-     "shrunk": -0.0195
+     "bias": -0.0571,
+     "se": 0.0386,
+     "ret": -0.3115,
+     "shrunk": -0.0201
     },
     "short_leg": false
    },
@@ -3634,14 +3935,14 @@
    },
    "drift": {
     "family": "Double chance",
-    "n": 506,
-    "down": 10.1205,
-    "up": 1.3047,
+    "n": 516,
+    "down": 9.8094,
+    "up": 1.2158,
     "alarm": "down"
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -3654,14 +3955,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0216,
+    "full": 0.046,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0027,
+    "shrunk": 0.0057,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 49.48,
+    "hours_to_ko": 25.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3678,9 +3979,9 @@
    "kickoff": "2026-11-06",
    "market": "SB:37|total=4.5|Home & Under 4.5",
    "pick": "SK Rapid & Under 4.5",
-   "price": 1.83,
-   "chance": 0.5617,
-   "chance_raw": 0.4908,
+   "price": 1.81,
+   "chance": 0.5698,
+   "chance_raw": 0.496,
    "tier": "SAFE",
    "certainty": "MEDIUM",
    "code": "T3V2MM",
@@ -3704,34 +4005,34 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.08721442863093809,
+   "ev": -0.0877468119654855,
    "missing": null,
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.83,
+   "first_price": 1.81,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
      "cell": "SB:37|1.75-2.00",
-     "n": 481,
-     "landed": 0.5135,
+     "n": 517,
+     "landed": 0.5203,
      "fair": 0.4513,
-     "bias": 0.0622,
-     "se": 0.0227,
-     "ret": -0.0363,
-     "shrunk": 0.0439
+     "bias": 0.069,
+     "se": 0.0219,
+     "ret": -0.0235,
+     "shrunk": 0.0497
     },
     "no": {
      "cell": "SB:37|2.00-2.50",
-     "n": 1354,
-     "landed": 0.4284,
-     "fair": 0.3781,
-     "bias": 0.0503,
-     "se": 0.0132,
-     "ret": -0.0412,
-     "shrunk": 0.0438
+     "n": 1417,
+     "landed": 0.4277,
+     "fair": 0.3783,
+     "bias": 0.0494,
+     "se": 0.0129,
+     "ret": -0.0425,
+     "shrunk": 0.0433
     },
     "short_leg": false
    },
@@ -3750,14 +4051,14 @@
    },
    "drift": {
     "family": "Result & total",
-    "n": 5,
-    "down": 0.49,
-    "up": 0.9008,
+    "n": 10,
+    "down": 0.0,
+    "up": 1.353,
     "alarm": null
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -3770,14 +4071,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0336,
+    "full": 0.0387,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0042,
+    "shrunk": 0.0048,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 50.98,
+    "hours_to_ko": 26.97,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3792,16 +4093,16 @@
    "home": "Hammarby IF",
    "away": "IF Elfsborg",
    "kickoff": "2026-11-06",
-   "market": "SB:19|total=2.5|Under 2.5",
-   "pick": "Hammarby IF Under 2.5 goals",
-   "price": 1.55,
-   "chance": 0.6496,
-   "chance_raw": 0.6496,
+   "market": "SB:37|total=4.5|Home & Under 4.5",
+   "pick": "Hammarby IF & Under 4.5",
+   "price": 1.78,
+   "chance": 0.5625,
+   "chance_raw": 0.4887,
    "tier": "SAFE",
-   "certainty": "LOW",
-   "code": "HUAZ04",
+   "certainty": "MEDIUM",
+   "code": "PCKUPP",
    "news_level": "OK",
-   "news_note": "swapped from Hammarby IF & Under 4.5 (Hammarby missing 12% of value (Amin Boudri, Oliver Hagen))",
+   "news_note": "Hammarby missing 12% of value raw, 2% after squad depth (Amin Boudri: rotation (1/5 starts), cover Oscar Johansson Schellhas (7% of his value); Oliver Hagen: already out: no start in the last 5, priced in)",
    "switched_from": null,
    "orig_market": null,
    "fotmob_id": 5107654,
@@ -3838,45 +4139,45 @@
    "sb_event_id": "sr:match:67126872",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
-    "id": 19,
+    "id": 37,
     "desc": null,
-    "spec": "total=2.5",
-    "outcome": "Under 2.5"
+    "spec": "total=4.5",
+    "outcome": "Home & Under 4.5"
    },
    "closing_price": null,
    "clv": null,
-   "stake_pct": 0.12,
-   "ev": 0.006818816818544793,
+   "stake_pct": 0.25,
+   "ev": -0.11579544199834524,
    "missing": {
     "home": 0.1200880465327268,
     "away": 0.018052016839269908
    },
    "sharp_p": null,
    "sharp_ev": null,
-   "first_price": 1.55,
+   "first_price": 1.78,
    "drift_since_board": null,
    "result": null,
    "ft": null,
    "bias": {
     "yes": {
-     "cell": "SB:19|1.50-1.75",
-     "n": 965,
-     "landed": 0.5741,
-     "fair": 0.5721,
-     "bias": 0.002,
-     "se": 0.0159,
-     "ret": -0.0776,
-     "shrunk": 0.0017
+     "cell": "SB:37|1.75-2.00",
+     "n": 517,
+     "landed": 0.5203,
+     "fair": 0.4513,
+     "bias": 0.069,
+     "se": 0.0219,
+     "ret": -0.0235,
+     "shrunk": 0.0497
     },
     "no": {
-     "cell": "SB:19|2.50-4.00",
-     "n": 977,
-     "landed": 0.2764,
-     "fair": 0.3065,
-     "bias": -0.0301,
-     "se": 0.0147,
-     "ret": -0.1533,
-     "shrunk": -0.025
+     "cell": "SB:37|2.00-2.50",
+     "n": 1417,
+     "landed": 0.4277,
+     "fair": 0.3783,
+     "bias": 0.0494,
+     "se": 0.0129,
+     "ret": -0.0425,
+     "shrunk": 0.0433
     },
     "short_leg": false
    },
@@ -3909,15 +4210,15 @@
     ]
    },
    "drift": {
-    "family": "Home goals",
-    "n": 74,
-    "down": 1.142,
-    "up": 3.0965,
-    "alarm": "up"
+    "family": "Result & total",
+    "n": 10,
+    "down": 0.0,
+    "up": 1.353,
+    "alarm": null
    },
    "blend": {
     "w": 0.9,
-    "n_fit": 199,
+    "n_fit": 201,
     "yes": null,
     "no": null
    },
@@ -3930,14 +4231,14 @@
    },
    "shop": null,
    "kelly": {
-    "full": 0.0125,
+    "full": 0.0016,
     "market": null,
     "disagree": null,
-    "shrunk": 0.0016,
+    "shrunk": 0.0002,
     "no_edge": null
    },
    "timing": {
-    "hours_to_ko": 50.48,
+    "hours_to_ko": 26.47,
     "after_lineups": false,
     "sb_move": 0.0,
     "sharp_gap": null,
@@ -3950,101 +4251,9 @@
  "accas": [
   {
    "name": "Acca A",
-   "code": "S61ELS",
-   "odds": 2.791,
-   "chance": 0.37278130109597646,
-   "legs": [
-    "Dijon v Red Star",
-    "Hamburg v M'gladbach",
-    "Montpellier v Metz",
-    "Willem II v Zwolle"
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_1900",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T19:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T19:30:00Z",
-   "spread_minutes": 30,
-   "leg_detail": [
-    {
-     "fixture": "Dijon v Red Star",
-     "home": "Dijon",
-     "away": "Red Star",
-     "kickoff_utc": "2026-11-06T19:00:00.000Z",
-     "sb_event_id": "sr:match:72037438",
-     "sb_tid": "sr:tournament:182",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Dijon or Red Star",
-     "price": 1.3,
-     "chance": 0.7866
-    },
-    {
-     "fixture": "Hamburg v M'gladbach",
-     "home": "Hamburg",
-     "away": "M'gladbach",
-     "kickoff_utc": "2026-11-06T19:30:00Z",
-     "sb_event_id": "sr:match:72513304",
-     "sb_tid": "sr:tournament:35",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Hamburg or M'gladbach",
-     "price": 1.3,
-     "chance": 0.7841
-    },
-    {
-     "fixture": "Montpellier v Metz",
-     "home": "Montpellier",
-     "away": "Metz",
-     "kickoff_utc": "2026-11-06T19:00:00.000Z",
-     "sb_event_id": "sr:match:72037444",
-     "sb_tid": "sr:tournament:182",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Montpellier or Metz",
-     "price": 1.29,
-     "chance": 0.7822
-    },
-    {
-     "fixture": "Willem II v Zwolle",
-     "home": "Willem II",
-     "away": "Zwolle",
-     "kickoff_utc": "2026-11-06T19:00:00.000Z",
-     "sb_event_id": "sr:match:72041230",
-     "sb_tid": "sr:tournament:37",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Willem II or Zwolle",
-     "price": 1.28,
-     "chance": 0.7727
-    }
-   ]
-  },
-  {
-   "name": "Acca B",
    "code": "Z0KAYB",
-   "odds": 2.196,
-   "chance": 0.459435717,
+   "odds": 2.23,
+   "chance": 0.45611527679999997,
    "legs": [
     "Famalicao v Arouca",
     "Sevilla v Alaves",
@@ -4072,8 +4281,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Famalicao or Arouca",
-     "price": 1.31,
-     "chance": 0.775
+     "price": 1.33,
+     "chance": 0.768
     },
     {
      "fixture": "Sevilla v Alaves",
@@ -4091,7 +4300,7 @@
      },
      "pick": "Sevilla or Alaves",
      "price": 1.32,
-     "chance": 0.7683
+     "chance": 0.7695
     },
     {
      "fixture": "Standard v Beveren",
@@ -4109,20 +4318,112 @@
      },
      "pick": "Standard or Beveren",
      "price": 1.27,
-     "chance": 0.7716
+     "chance": 0.7718
+    }
+   ]
+  },
+  {
+   "name": "Acca B",
+   "code": "Q3WHT8",
+   "odds": 2.791,
+   "chance": 0.375242574949704,
+   "legs": [
+    "Dijon v Red Star",
+    "Hamburg v M'gladbach",
+    "Montpellier v Metz",
+    "Grenoble v Reims"
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1900",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T19:00:00Z",
+   "latest_kickoff_utc": "2026-11-06T19:30:00Z",
+   "spread_minutes": 30,
+   "leg_detail": [
+    {
+     "fixture": "Dijon v Red Star",
+     "home": "Dijon",
+     "away": "Red Star",
+     "kickoff_utc": "2026-11-06T19:00:00.000Z",
+     "sb_event_id": "sr:match:72037438",
+     "sb_tid": "sr:tournament:182",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Dijon or Red Star",
+     "price": 1.3,
+     "chance": 0.7855
+    },
+    {
+     "fixture": "Hamburg v M'gladbach",
+     "home": "Hamburg",
+     "away": "M'gladbach",
+     "kickoff_utc": "2026-11-06T19:30:00Z",
+     "sb_event_id": "sr:match:72513304",
+     "sb_tid": "sr:tournament:35",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Hamburg or M'gladbach",
+     "price": 1.3,
+     "chance": 0.7851
+    },
+    {
+     "fixture": "Montpellier v Metz",
+     "home": "Montpellier",
+     "away": "Metz",
+     "kickoff_utc": "2026-11-06T19:00:00.000Z",
+     "sb_event_id": "sr:match:72037444",
+     "sb_tid": "sr:tournament:182",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Montpellier or Metz",
+     "price": 1.29,
+     "chance": 0.7824
+    },
+    {
+     "fixture": "Grenoble v Reims",
+     "home": "Grenoble",
+     "away": "Reims",
+     "kickoff_utc": "2026-11-06T19:00:00.000Z",
+     "sb_event_id": "sr:match:72037442",
+     "sb_tid": "sr:tournament:182",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Grenoble or Reims",
+     "price": 1.28,
+     "chance": 0.7777
     }
    ]
   },
   {
    "name": "Acca C",
-   "code": "MEGZVM",
-   "odds": 2.705,
-   "chance": 0.36890247859208997,
+   "code": "RVNHS8",
+   "odds": 2.748,
+   "chance": 0.3654097589880192,
    "legs": [
     "Dunkerque v Guingamp",
-    "Ascoli Calcio 1898 v Palermo",
     "Bristol Rovers v Cambridge United",
-    "Grenoble v Reims"
+    "Ascoli Calcio 1898 v Palermo",
+    "Willem II v Zwolle"
    ],
    "result": null,
    "cohort_id": "COHORT_20261106_1900",
@@ -4147,7 +4448,25 @@
      },
      "pick": "Dunkerque or Guingamp",
      "price": 1.29,
-     "chance": 0.7794
+     "chance": 0.7796
+    },
+    {
+     "fixture": "Bristol Rovers v Cambridge United",
+     "home": "Bristol Rovers",
+     "away": "Cambridge United",
+     "kickoff_utc": "2026-11-06T19:30:00.000Z",
+     "sb_event_id": "sr:match:75802928",
+     "sb_tid": "sr:tournament:19",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Bristol Rovers or Cambridge United",
+     "price": 1.28,
+     "chance": 0.7826
     },
     {
      "fixture": "Ascoli Calcio 1898 v Palermo",
@@ -4165,33 +4484,15 @@
      },
      "pick": "Ascoli Calcio 1898 or Palermo",
      "price": 1.29,
-     "chance": 0.7754
+     "chance": 0.7752
     },
     {
-     "fixture": "Bristol Rovers v Cambridge United",
-     "home": "Bristol Rovers",
-     "away": "Cambridge United",
-     "kickoff_utc": "2026-11-06T19:30:00.000Z",
-     "sb_event_id": "sr:match:75802928",
-     "sb_tid": "sr:tournament:19",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Bristol Rovers or Cambridge United",
-     "price": 1.27,
-     "chance": 0.7851
-    },
-    {
-     "fixture": "Grenoble v Reims",
-     "home": "Grenoble",
-     "away": "Reims",
+     "fixture": "Willem II v Zwolle",
+     "home": "Willem II",
+     "away": "Zwolle",
      "kickoff_utc": "2026-11-06T19:00:00.000Z",
-     "sb_event_id": "sr:match:72037442",
-     "sb_tid": "sr:tournament:182",
+     "sb_event_id": "sr:match:72041230",
+     "sb_tid": "sr:tournament:37",
      "market": "SB:10||Home or Away",
      "sb_market": {
       "id": 10,
@@ -4199,9 +4500,9 @@
       "spec": "",
       "outcome": "Home or Away"
      },
-     "pick": "Grenoble or Reims",
-     "price": 1.28,
-     "chance": 0.7775
+     "pick": "Willem II or Zwolle",
+     "price": 1.29,
+     "chance": 0.7726
     }
    ]
   }
@@ -4210,8 +4511,8 @@
   {
    "name": "50+ #1",
    "code": "MAU5RU",
-   "odds": 1.984,
-   "chance": 0.5038866612,
+   "odds": 2.0,
+   "chance": 0.50257546547,
    "legs": [
     "Braunschweig v Energie Cottbus",
     "Dresden v Greuther Furth",
@@ -4239,8 +4540,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Braunschweig or Energie Cottbus",
-     "price": 1.24,
-     "chance": 0.8061
+     "price": 1.25,
+     "chance": 0.8047
     },
     {
      "fixture": "Dresden v Greuther Furth",
@@ -4258,7 +4559,7 @@
      },
      "pick": "Dresden or Greuther Furth",
      "price": 1.26,
-     "chance": 0.8014
+     "chance": 0.8005
     },
     {
      "fixture": "Motor Lublin v Wisla Plock",
@@ -4276,7 +4577,7 @@
      },
      "pick": "Motor Lublin or Wisla Plock",
      "price": 1.27,
-     "chance": 0.78
+     "chance": 0.7802
     }
    ]
   }
@@ -4284,12 +4585,13 @@
  "megas": [
   {
    "name": "Mega 1",
-   "code": "J1FU6F",
-   "odds": 2.619,
-   "chance": 0.38436474516336006,
+   "code": "QSY7E0",
+   "odds": 3.379,
+   "chance": 0.2996423426168084,
    "legs": [
     "Braunschweig v Energie Cottbus",
     "Dresden v Greuther Furth",
+    "NK Lokomotiva Zagreb v NK Rudes Zagreb",
     "Motor Lublin v Wisla Plock",
     "Gaziantep FK v Kasimpasa Istanbul"
    ],
@@ -4315,8 +4617,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Braunschweig or Energie Cottbus",
-     "price": 1.24,
-     "chance": 0.8061
+     "price": 1.25,
+     "chance": 0.8047
     },
     {
      "fixture": "Dresden v Greuther Furth",
@@ -4334,7 +4636,25 @@
      },
      "pick": "Dresden or Greuther Furth",
      "price": 1.26,
-     "chance": 0.8014
+     "chance": 0.8005
+    },
+    {
+     "fixture": "NK Lokomotiva Zagreb v NK Rudes Zagreb",
+     "home": "NK Lokomotiva Zagreb",
+     "away": "NK Rudes Zagreb",
+     "kickoff_utc": "2026-11-06T17:00:00.000Z",
+     "sb_event_id": "sr:match:71913122",
+     "sb_tid": "sr:tournament:170",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "NK Lokomotiva Zagreb or NK Rudes Zagreb",
+     "price": 1.27,
+     "chance": 0.7811
     },
     {
      "fixture": "Motor Lublin v Wisla Plock",
@@ -4352,7 +4672,7 @@
      },
      "pick": "Motor Lublin or Wisla Plock",
      "price": 1.27,
-     "chance": 0.78
+     "chance": 0.7802
     },
     {
      "fixture": "Gaziantep FK v Kasimpasa Istanbul",
@@ -4369,26 +4689,27 @@
       "outcome": "Home or Away"
      },
      "pick": "Gaziantep FK or Kasimpasa Istanbul",
-     "price": 1.32,
-     "chance": 0.7628
+     "price": 1.33,
+     "chance": 0.7633
     }
    ],
    "overlap": [
     "Braunschweig v Energie Cottbus: SB:10||Home or Away",
     "Dresden v Greuther Furth: SB:10||Home or Away",
     "Gaziantep FK v Kasimpasa Istanbul: SB:10||Home or Away",
-    "Motor Lublin v Wisla Plock: SB:10||Home or Away"
+    "Motor Lublin v Wisla Plock: SB:10||Home or Away",
+    "NK Lokomotiva Zagreb v NK Rudes Zagreb: SB:10||Home or Away"
    ]
   },
   {
    "name": "Mega 2",
-   "code": "ZP7AQ7",
-   "odds": 3.602,
-   "chance": 0.28832842886399995,
+   "code": "HACYPV",
+   "odds": 4.092,
+   "chance": 0.2528843625,
    "legs": [
     "Silkeborg v Lyngby",
-    "Hammarby IF v IF Elfsborg",
-    "SK Rapid v Wolfsberger AC"
+    "SK Rapid v Wolfsberger AC",
+    "Hammarby IF v IF Elfsborg"
    ],
    "result": null,
    "cohort_id": "COHORT_20261106_1800",
@@ -4413,25 +4734,7 @@
      },
      "pick": "Silkeborg or Lyngby",
      "price": 1.27,
-     "chance": 0.7902
-    },
-    {
-     "fixture": "Hammarby IF v IF Elfsborg",
-     "home": "Hammarby IF",
-     "away": "IF Elfsborg",
-     "kickoff_utc": "2026-11-06T18:00:00.000Z",
-     "sb_event_id": "sr:match:67126872",
-     "sb_tid": "sr:tournament:40",
-     "market": "SB:19|total=2.5|Under 2.5",
-     "sb_market": {
-      "id": 19,
-      "desc": null,
-      "spec": "total=2.5",
-      "outcome": "Under 2.5"
-     },
-     "pick": "Hammarby IF Under 2.5 goals",
-     "price": 1.55,
-     "chance": 0.6496
+     "chance": 0.789
     },
     {
      "fixture": "SK Rapid v Wolfsberger AC",
@@ -4448,24 +4751,41 @@
       "outcome": "Home & Under 4.5"
      },
      "pick": "SK Rapid & Under 4.5",
-     "price": 1.83,
-     "chance": 0.5617
+     "price": 1.81,
+     "chance": 0.5698
+    },
+    {
+     "fixture": "Hammarby IF v IF Elfsborg",
+     "home": "Hammarby IF",
+     "away": "IF Elfsborg",
+     "kickoff_utc": "2026-11-06T18:00:00.000Z",
+     "sb_event_id": "sr:match:67126872",
+     "sb_tid": "sr:tournament:40",
+     "market": "SB:37|total=4.5|Home & Under 4.5",
+     "sb_market": {
+      "id": 37,
+      "desc": null,
+      "spec": "total=4.5",
+      "outcome": "Home & Under 4.5"
+     },
+     "pick": "Hammarby IF & Under 4.5",
+     "price": 1.78,
+     "chance": 0.5625
     }
    ],
    "overlap": [
-    "Hammarby IF v IF Elfsborg: SB:19|total=2.5|Under 2.5",
     "Silkeborg v Lyngby: SB:10||Home or Away"
    ]
   },
   {
    "name": "Mega 3",
    "code": "GZCHCP",
-   "odds": 27.785,
-   "chance": 0.037523742466027125,
+   "odds": 28.421,
+   "chance": 0.03738651107106002,
    "legs": [
     "Dijon v Red Star",
-    "Bristol Rovers v Cambridge United",
     "Hamburg v M'gladbach",
+    "Bristol Rovers v Cambridge United",
     "Montpellier v Metz",
     "Dunkerque v Guingamp",
     "Grenoble v Reims",
@@ -4498,25 +4818,7 @@
      },
      "pick": "Dijon or Red Star",
      "price": 1.3,
-     "chance": 0.7866
-    },
-    {
-     "fixture": "Bristol Rovers v Cambridge United",
-     "home": "Bristol Rovers",
-     "away": "Cambridge United",
-     "kickoff_utc": "2026-11-06T19:30:00.000Z",
-     "sb_event_id": "sr:match:75802928",
-     "sb_tid": "sr:tournament:19",
-     "market": "SB:10||Home or Away",
-     "sb_market": {
-      "id": 10,
-      "desc": null,
-      "spec": "",
-      "outcome": "Home or Away"
-     },
-     "pick": "Bristol Rovers or Cambridge United",
-     "price": 1.27,
-     "chance": 0.7851
+     "chance": 0.7855
     },
     {
      "fixture": "Hamburg v M'gladbach",
@@ -4534,7 +4836,25 @@
      },
      "pick": "Hamburg or M'gladbach",
      "price": 1.3,
-     "chance": 0.7841
+     "chance": 0.7851
+    },
+    {
+     "fixture": "Bristol Rovers v Cambridge United",
+     "home": "Bristol Rovers",
+     "away": "Cambridge United",
+     "kickoff_utc": "2026-11-06T19:30:00.000Z",
+     "sb_event_id": "sr:match:75802928",
+     "sb_tid": "sr:tournament:19",
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "Bristol Rovers or Cambridge United",
+     "price": 1.28,
+     "chance": 0.7826
     },
     {
      "fixture": "Montpellier v Metz",
@@ -4552,7 +4872,7 @@
      },
      "pick": "Montpellier or Metz",
      "price": 1.29,
-     "chance": 0.7822
+     "chance": 0.7824
     },
     {
      "fixture": "Dunkerque v Guingamp",
@@ -4570,7 +4890,7 @@
      },
      "pick": "Dunkerque or Guingamp",
      "price": 1.29,
-     "chance": 0.7794
+     "chance": 0.7796
     },
     {
      "fixture": "Grenoble v Reims",
@@ -4588,7 +4908,7 @@
      },
      "pick": "Grenoble or Reims",
      "price": 1.28,
-     "chance": 0.7775
+     "chance": 0.7777
     },
     {
      "fixture": "Ascoli Calcio 1898 v Palermo",
@@ -4606,7 +4926,7 @@
      },
      "pick": "Ascoli Calcio 1898 or Palermo",
      "price": 1.29,
-     "chance": 0.7754
+     "chance": 0.7752
     },
     {
      "fixture": "Willem II v Zwolle",
@@ -4623,8 +4943,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Willem II or Zwolle",
-     "price": 1.28,
-     "chance": 0.7727
+     "price": 1.29,
+     "chance": 0.7726
     },
     {
      "fixture": "Boulogne v Annecy",
@@ -4642,7 +4962,7 @@
      },
      "pick": "Boulogne or Annecy",
      "price": 1.35,
-     "chance": 0.7454
+     "chance": 0.7456
     },
     {
      "fixture": "Castellon v Eibar",
@@ -4659,8 +4979,8 @@
       "outcome": "Under 2.5"
      },
      "pick": "Castellon Under 2.5 goals",
-     "price": 1.42,
-     "chance": 0.7119
+     "price": 1.43,
+     "chance": 0.7072
     },
     {
      "fixture": "Nancy v Sochaux-Montbeliard",
@@ -4678,7 +4998,7 @@
      },
      "pick": "Nancy & Under 4.5",
      "price": 1.92,
-     "chance": 0.5142
+     "chance": 0.5171
     }
    ],
    "overlap": [
@@ -4694,9 +5014,9 @@
   },
   {
    "name": "Mega 4",
-   "code": "WPMM0L",
-   "odds": 7.904,
-   "chance": 0.13251919995007244,
+   "code": "X19FHF",
+   "odds": 6.78,
+   "chance": 0.15564244268686925,
    "legs": [
     "Toulouse v Strasbourg",
     "Everton v Coventry City",
@@ -4729,7 +5049,7 @@
      },
      "pick": "Toulouse or Strasbourg",
      "price": 1.29,
-     "chance": 0.7923
+     "chance": 0.7929
     },
     {
      "fixture": "Everton v Coventry City",
@@ -4747,7 +5067,7 @@
      },
      "pick": "Everton or Coventry City",
      "price": 1.26,
-     "chance": 0.7915
+     "chance": 0.7928
     },
     {
      "fixture": "Derby v Bolton Wanderers",
@@ -4764,8 +5084,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Derby or Bolton Wanderers",
-     "price": 1.28,
-     "chance": 0.787
+     "price": 1.3,
+     "chance": 0.7847
     },
     {
      "fixture": "Venezia FC v Udinese",
@@ -4782,8 +5102,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Venezia FC or Udinese",
-     "price": 1.31,
-     "chance": 0.7812
+     "price": 1.32,
+     "chance": 0.7781
     },
     {
      "fixture": "Standard v Beveren",
@@ -4801,7 +5121,7 @@
      },
      "pick": "Standard or Beveren",
      "price": 1.27,
-     "chance": 0.7716
+     "chance": 0.7718
     },
     {
      "fixture": "Sevilla v Alaves",
@@ -4819,7 +5139,7 @@
      },
      "pick": "Sevilla or Alaves",
      "price": 1.32,
-     "chance": 0.7683
+     "chance": 0.7695
     },
     {
      "fixture": "Oxford City v Leicester",
@@ -4828,16 +5148,16 @@
      "kickoff_utc": "2026-11-06T19:45:00.000Z",
      "sb_event_id": "sr:match:75802970",
      "sb_tid": "sr:tournament:19",
-     "market": "SB:37|total=4.5|Away & Under 4.5",
+     "market": "SB:37|total=1.5|Away & Over 1.5",
      "sb_market": {
       "id": 37,
       "desc": null,
-      "spec": "total=4.5",
-      "outcome": "Away & Under 4.5"
+      "spec": "total=1.5",
+      "outcome": "Away & Over 1.5"
      },
-     "pick": "Leicester & Under 4.5",
-     "price": 1.73,
-     "chance": 0.5798
+     "pick": "Leicester & Over 1.5",
+     "price": 1.45,
+     "chance": 0.6828
     }
    ],
    "overlap": [
@@ -4855,8 +5175,8 @@
   {
    "name": "Value 1",
    "code": "NSD0RB",
-   "odds": 1.85,
-   "chance": 0.5633,
+   "odds": 1.84,
+   "chance": 0.566,
    "legs": [
     "Ascoli Calcio 1898 v Palermo"
    ],
@@ -4869,8 +5189,8 @@
      "kickoff": "2026-11-06",
      "market": "SB:20|total=1.5|Under 1.5",
      "pick": "Palermo Under 1.5 goals",
-     "price": 1.85,
-     "chance": 0.5633,
+     "price": 1.84,
+     "chance": 0.566,
      "result": null,
      "ft": null
     }
@@ -4897,16 +5217,16 @@
       "outcome": "Under 1.5"
      },
      "pick": "Palermo Under 1.5 goals",
-     "price": 1.85,
-     "chance": 0.5633
+     "price": 1.84,
+     "chance": 0.566
     }
    ]
   },
   {
    "name": "Value 2",
    "code": "ZSG378",
-   "odds": 1.94,
-   "chance": 0.5349,
+   "odds": 1.92,
+   "chance": 0.54,
    "legs": [
     "SK Rapid v Wolfsberger AC"
    ],
@@ -4919,8 +5239,8 @@
      "kickoff": "2026-11-06",
      "market": "SB:19|total=2.5|Under 2.5",
      "pick": "SK Rapid Under 2.5 goals",
-     "price": 1.94,
-     "chance": 0.5349,
+     "price": 1.92,
+     "chance": 0.54,
      "result": null,
      "ft": null
     }
@@ -4947,8 +5267,58 @@
       "outcome": "Under 2.5"
      },
      "pick": "SK Rapid Under 2.5 goals",
-     "price": 1.94,
-     "chance": 0.5349
+     "price": 1.92,
+     "chance": 0.54
+    }
+   ]
+  },
+  {
+   "name": "Value 3",
+   "code": "H5GJ9C",
+   "odds": 1.75,
+   "chance": 0.5886,
+   "legs": [
+    "Venezia FC v Udinese"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Venezia FC v Udinese",
+     "league": "Serie A",
+     "home": "Venezia FC",
+     "away": "Udinese",
+     "kickoff": "2026-11-06",
+     "market": "SB:19|total=1.5|Under 1.5",
+     "pick": "Venezia FC Under 1.5 goals",
+     "price": 1.75,
+     "chance": 0.5886,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1945",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T19:45:00Z",
+   "latest_kickoff_utc": "2026-11-06T19:45:00Z",
+   "spread_minutes": 0,
+   "leg_detail": [
+    {
+     "fixture": "Venezia FC v Udinese",
+     "home": "Venezia FC",
+     "away": "Udinese",
+     "kickoff_utc": "2026-11-06T19:45:00.000Z",
+     "sb_event_id": "sr:match:71945404",
+     "sb_tid": "sr:tournament:23",
+     "market": "SB:19|total=1.5|Under 1.5",
+     "sb_market": {
+      "id": 19,
+      "desc": null,
+      "spec": "total=1.5",
+      "outcome": "Under 1.5"
+     },
+     "pick": "Venezia FC Under 1.5 goals",
+     "price": 1.75,
+     "chance": 0.5886
     }
    ]
   }
@@ -4964,7 +5334,7 @@
    "p": [
     0.224,
     0.226,
-    0.551,
+    0.55,
     0.825,
     0.612,
     0.394,
@@ -4973,15 +5343,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7409
+     0.7406
     ],
     [
      "SB:19|total=1.5|Under 1.5",
-     0.586
+     0.5938
     ],
     [
      "SB:63||Draw or Away",
-     0.729
+     0.7347
     ]
    ],
    "scores": [
@@ -4989,7 +5359,7 @@
      0.048,
      0.0808,
      0.0817,
-     0.0531,
+     0.053,
      0.0261,
      0.0104
     ],
@@ -5055,15 +5425,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7584
+     0.757
     ],
     [
      "SB:547|total=2.5|Home/Away & Over 2.5",
-     0.5275
+     0.5226
     ],
     [
      "SB:63||Home or Draw",
-     0.7065
+     0.7029
     ]
    ],
    "scores": [
@@ -5089,7 +5459,7 @@
      0.0723,
      0.0432,
      0.0194,
-     0.007
+     0.0069
     ],
     [
      0.0288,
@@ -5126,9 +5496,9 @@
    "kickoff": "2026-11-06",
    "src": "model",
    "p": [
-    0.497,
+    0.495,
     0.245,
-    0.258,
+    0.26,
     0.764,
     0.524,
     0.303,
@@ -5145,53 +5515,53 @@
     ],
     [
      "SB:63||Home or Draw",
-     0.7881
+     0.788
     ]
    ],
    "scores": [
     [
      0.0637,
-     0.07,
-     0.0396,
-     0.0148,
-     0.0041,
+     0.0703,
+     0.0399,
+     0.0149,
+     0.0042,
      0.0009
     ],
     [
-     0.1021,
-     0.1158,
-     0.0645,
-     0.0241,
+     0.102,
+     0.116,
+     0.0648,
+     0.0243,
      0.0068,
      0.0015
     ],
     [
-     0.0845,
-     0.0948,
-     0.0531,
-     0.0199,
+     0.0842,
+     0.0947,
+     0.0532,
+     0.02,
      0.0056,
-     0.0012
+     0.0013
     ],
     [
-     0.0468,
-     0.0525,
-     0.0295,
+     0.0465,
+     0.0523,
+     0.0294,
      0.011,
      0.0031,
      0.0007
     ],
     [
-     0.0196,
-     0.022,
-     0.0124,
+     0.0194,
+     0.0219,
+     0.0123,
      0.0046,
      0.0013,
      0.0003
     ],
     [
      0.0066,
-     0.0075,
+     0.0074,
      0.0042,
      0.0016,
      0.0004,
@@ -5232,7 +5602,7 @@
    ],
    "scores": [
     [
-     0.0957,
+     0.0956,
      0.0601,
      0.0392,
      0.0131,
@@ -5248,7 +5618,7 @@
      0.001
     ],
     [
-     0.0935,
+     0.0934,
      0.0938,
      0.0471,
      0.0158,
@@ -5290,7 +5660,7 @@
    "kickoff": "2026-11-06",
    "src": "model",
    "p": [
-    0.542,
+    0.541,
     0.267,
     0.191,
     0.774,
@@ -5309,8 +5679,8 @@
      0.0005
     ],
     [
-     0.0979,
-     0.1279,
+     0.0978,
+     0.128,
      0.0543,
      0.0176,
      0.0043,
@@ -5359,15 +5729,20 @@
    "kickoff": "2026-11-06",
    "src": "market",
    "p": [
-    0.522,
-    0.251,
-    0.227,
+    0.483,
+    0.259,
+    0.259,
     0.76,
     0.542,
-    0.335,
-    0.551
+    0.339,
+    0.563
    ],
-   "pool": [],
+   "pool": [
+    [
+     "SB:10||Home or Away",
+     0.7491
+    ]
+   ],
    "scores": null,
    "ft": null
   },
@@ -5379,72 +5754,72 @@
    "kickoff": "2026-11-06",
    "src": "model",
    "p": [
-    0.455,
-    0.232,
-    0.313,
-    0.846,
-    0.644,
-    0.425,
-    0.652
+    0.421,
+    0.238,
+    0.34,
+    0.831,
+    0.62,
+    0.399,
+    0.638
    ],
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7552
+     0.7527
     ],
     [
      "SB:63||Home or Draw",
-     0.724
+     0.7168
     ]
    ],
    "scores": [
     [
-     0.0398,
-     0.0508,
-     0.0398,
-     0.0198,
-     0.0075,
-     0.0023
+     0.0439,
+     0.0586,
+     0.0458,
+     0.023,
+     0.0087,
+     0.0027
     ],
     [
-     0.0638,
-     0.1013,
-     0.0729,
-     0.0363,
-     0.0137,
-     0.0042
+     0.0668,
+     0.1062,
+     0.0777,
+     0.0391,
+     0.0149,
+     0.0045
     ],
     [
-     0.0608,
-     0.0897,
-     0.0667,
-     0.0334,
-     0.0126,
+     0.0586,
+     0.0877,
+     0.066,
+     0.0333,
+     0.0127,
      0.0039
     ],
     [
-     0.0369,
-     0.0546,
-     0.0408,
-     0.0205,
-     0.0078,
-     0.0024
+     0.033,
+     0.0496,
+     0.0374,
+     0.019,
+     0.0073,
+     0.0022
     ],
     [
-     0.0168,
-     0.025,
-     0.0187,
-     0.0094,
-     0.0036,
-     0.0011
+     0.014,
+     0.021,
+     0.0159,
+     0.0081,
+     0.0031,
+     0.001
     ],
     [
-     0.0061,
-     0.0092,
-     0.0069,
-     0.0035,
-     0.0013,
-     0.0004
+     0.0047,
+     0.0072,
+     0.0054,
+     0.0028,
+     0.0011,
+     0.0003
     ]
    ],
    "ft": null
@@ -5468,30 +5843,26 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7494
-    ],
-    [
-     "SB:14|hcp=0:2|Away (0:2)",
-     0.8037
+     0.7461
     ],
     [
      "SB:19|total=2.5|Under 2.5",
-     0.8167
+     0.8276
     ],
     [
      "SB:547|total=4.5|Home/Away & Under 4.5",
-     0.6072
+     0.6119
     ],
     [
      "SB:63||Home or Draw",
-     0.7282
+     0.7276
     ]
    ],
    "scores": [
     [
      0.0814,
-     0.125,
-     0.0829,
+     0.1249,
+     0.0828,
      0.0382,
      0.0132,
      0.0037
@@ -5505,7 +5876,7 @@
      0.0039
     ],
     [
-     0.0489,
+     0.049,
      0.0677,
      0.0468,
      0.0216,
@@ -5513,7 +5884,7 @@
      0.0021
     ],
     [
-     0.0173,
+     0.0174,
      0.024,
      0.0166,
      0.0077,
@@ -5558,15 +5929,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7523
+     0.7531
     ],
     [
      "SB:20|total=1.5|Under 1.5",
-     0.5905
+     0.5864
     ],
     [
      "SB:547|total=4.5|Home/Away & Under 4.5",
-     0.5864
+     0.5846
     ],
     [
      "SB:63||Home or Draw",
@@ -5575,7 +5946,7 @@
    ],
    "scores": [
     [
-     0.0668,
+     0.0667,
      0.0758,
      0.0482,
      0.0197,
@@ -5644,11 +6015,11 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7605
+     0.7609
     ],
     [
      "SB:63||Home or Draw",
-     0.741
+     0.7391
     ]
    ],
    "scores": [
@@ -5714,7 +6085,7 @@
     0.454,
     0.249,
     0.297,
-    0.692,
+    0.693,
     0.444,
     0.232,
     0.481
@@ -5722,15 +6093,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7432
+     0.736
     ],
     [
      "SB:547|total=3.5|Home/Away & Under 3.5",
-     0.5391
+     0.5488
     ],
     [
      "SB:63||Home or Draw",
-     0.7744
+     0.7698
     ]
    ],
    "scores": [
@@ -5804,19 +6175,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7597
-    ],
-    [
-     "SB:19|total=2.5|Under 2.5",
-     0.7376
+     0.7608
     ],
     [
      "SB:37|total=1.5|Home & Over 1.5",
-     0.4314
+     0.4341
     ],
     [
      "SB:63||Home or Away",
-     0.5969
+     0.5957
     ]
    ],
    "scores": [
@@ -5831,7 +6198,7 @@
     [
      0.1135,
      0.132,
-     0.0583,
+     0.0584,
      0.0188,
      0.0045,
      0.0009
@@ -5890,19 +6257,19 @@
    "pool": [
     [
      "SB:18|total=1.5|Over 1.5",
-     0.7203
+     0.7237
     ],
     [
      "SB:10||Home or Away",
-     0.7365
+     0.7375
     ],
     [
      "SB:20|total=0.5|Over 0.5",
-     0.629
+     0.6316
     ],
     [
      "SB:547|total=1.5|Home/Away & Over 1.5",
-     0.5296
+     0.5326
     ],
     [
      "SB:63||Home or Draw",
@@ -5980,24 +6347,24 @@
    "pool": [
     [
      "SB:19|total=2.5|Under 2.5",
-     0.7119
+     0.7072
     ],
     [
      "SB:37|total=4.5|Home & Under 4.5",
-     0.4348
+     0.4406
     ],
     [
      "SB:547|total=3.5|Home/Away & Under 3.5",
-     0.498
+     0.4987
     ],
     [
      "SB:63||Home or Away",
-     0.6122
+     0.6132
     ]
    ],
    "scores": [
     [
-     0.0889,
+     0.0888,
      0.081,
      0.0371,
      0.0113,
@@ -6015,7 +6382,7 @@
     [
      0.1009,
      0.0922,
-     0.0421,
+     0.0422,
      0.0128,
      0.0029,
      0.0005
@@ -6066,19 +6433,19 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7436
+     0.7432
     ],
     [
      "SB:20|total=2.5|Under 2.5",
-     0.808
+     0.8102
     ],
     [
-     "SB:547|total=4.5|Home/Draw & Under 4.5",
-     0.52
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.5902
     ],
     [
      "SB:63||Draw or Away",
-     0.727
+     0.7217
     ]
    ],
    "scores": [
@@ -6086,12 +6453,12 @@
      0.1018,
      0.0759,
      0.05,
-     0.018,
+     0.0181,
      0.0049,
      0.0011
     ],
     [
-     0.1012,
+     0.1011,
      0.1438,
      0.0689,
      0.0249,
@@ -6102,7 +6469,7 @@
      0.0811,
      0.0878,
      0.0475,
-     0.0171,
+     0.0172,
      0.0046,
      0.001
     ],
@@ -6151,12 +6518,16 @@
    ],
    "pool": [
     [
+     "SB:1||Home",
+     0.5117
+    ],
+    [
      "SB:10||Home or Away",
-     0.7696
+     0.7685
     ],
     [
      "SB:63||Home or Draw",
-     0.7714
+     0.7681
     ]
    ],
    "scores": [
@@ -6230,15 +6601,15 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7743
+     0.7727
     ],
     [
      "SB:547|total=4.5|Home/Away & Under 4.5",
-     0.5459
+     0.5489
     ],
     [
      "SB:63||Home or Draw",
-     0.7445
+     0.7424
     ]
    ],
    "scores": [
@@ -6246,7 +6617,7 @@
      0.0375,
      0.0532,
      0.0428,
-     0.0222,
+     0.0221,
      0.0086,
      0.0027
     ],
@@ -6302,7 +6673,7 @@
    "src": "model",
    "p": [
     0.408,
-    0.235,
+    0.236,
     0.356,
     0.856,
     0.657,
@@ -6312,7 +6683,7 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7548
+     0.7535
     ],
     [
      "SB:63||Home or Draw",
@@ -6356,7 +6727,7 @@
      0.0134,
      0.0218,
      0.0178,
-     0.0097,
+     0.0096,
      0.0039,
      0.0013
     ],
@@ -6390,7 +6761,7 @@
    "pool": [
     [
      "SB:10||Draw or Away",
-     0.7733
+     0.7732
     ],
     [
      "SB:63||Draw or Away",
@@ -6400,7 +6771,7 @@
    "scores": [
     [
      0.0819,
-     0.1244,
+     0.1243,
      0.1095,
      0.0617,
      0.0261,
@@ -6415,15 +6786,15 @@
      0.0077
     ],
     [
-     0.0295,
-     0.0499,
+     0.0296,
+     0.05,
      0.0422,
      0.0238,
      0.0101,
      0.0034
     ],
     [
-     0.0086,
+     0.0087,
      0.0146,
      0.0124,
      0.007,
@@ -6483,7 +6854,7 @@
     [
      0.0934,
      0.0719,
-     0.034,
+     0.0341,
      0.01,
      0.0022,
      0.0004
@@ -6563,7 +6934,7 @@
    ],
    "scores": [
     [
-     0.119,
+     0.1189,
      0.0942,
      0.0444,
      0.0131,
@@ -6579,7 +6950,7 @@
      0.0007
     ],
     [
-     0.0947,
+     0.0946,
      0.0839,
      0.0372,
      0.011,
@@ -6659,7 +7030,7 @@
     [
      0.0486,
      0.0606,
-     0.0377,
+     0.0378,
      0.0157,
      0.0049,
      0.0012
@@ -6699,7 +7070,7 @@
    "kickoff": "2026-11-06",
    "src": "model",
    "p": [
-    0.402,
+    0.401,
     0.262,
     0.336,
     0.777,
@@ -6748,7 +7119,7 @@
      0.0289,
      0.0129,
      0.0043,
-     0.0012
+     0.0011
     ],
     [
      0.012,
@@ -6777,22 +7148,22 @@
    "kickoff": "2026-11-06",
    "src": "market",
    "p": [
-    0.297,
-    0.25,
-    0.453,
+    0.322,
+    0.256,
+    0.422,
     0.791,
     0.581,
     0.377,
-    0.603
+    0.609
    ],
    "pool": [
     [
      "SB:10||Home or Away",
-     0.7533
+     0.7506
     ],
     [
      "SB:547|total=3.5|Home/Away & Under 3.5",
-     0.4783
+     0.4781
     ]
    ],
    "scores": null,
@@ -6806,18 +7177,18 @@
    "kickoff": "2026-11-06",
    "src": "market",
    "p": [
-    0.118,
-    0.166,
-    0.717,
-    0.819,
-    0.631,
-    0.427,
+    0.12,
+    0.17,
+    0.71,
+    0.815,
+    0.63,
+    0.419,
     0.52
    ],
    "pool": [
     [
-     "SB:37|total=4.5|Away & Under 4.5",
-     0.5089
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.609
     ]
    ],
    "scores": null,
@@ -6842,7 +7213,11 @@
    "pool": [
     [
      "SB:10||Home or Away",
-     0.731
+     0.7313
+    ],
+    [
+     "SB:547|total=3.5|Home/Away & Under 3.5",
+     0.5187
     ],
     [
      "SB:63||Home or Draw",
@@ -6852,9 +7227,9 @@
    "scores": [
     [
      0.0962,
-     0.0938,
+     0.0937,
      0.0687,
-     0.0295,
+     0.0294,
      0.0095,
      0.0024
     ],
@@ -6915,43 +7290,43 @@
     0.793,
     0.548,
     0.324,
-    0.476
+    0.477
    ],
    "pool": [
     [
      "SB:18|total=4.5|Under 4.5",
-     0.7299
+     0.7365
     ],
     [
      "SB:14|hcp=0:3|Away (0:3)",
-     0.6954
+     0.6975
     ],
     [
      "SB:19|total=3.5|Under 3.5",
-     0.7476
+     0.7521
     ],
     [
      "SB:37|total=4.5|Home & Under 4.5",
-     0.4908
+     0.496
     ],
     [
      "SB:547|total=4.5|Home/Draw & Under 4.5",
-     0.6526
+     0.6591
     ],
     [
      "SB:60||Home",
-     0.5553
+     0.5511
     ],
     [
      "SB:63||Home or Away",
-     0.6816
+     0.6764
     ]
    ],
    "scores": [
     [
      0.0682,
      0.0308,
-     0.0159,
+     0.016,
      0.004,
      0.0007,
      0.0001
@@ -6981,7 +7356,7 @@
      0.0002
     ],
     [
-     0.0478,
+     0.0477,
      0.0359,
      0.0135,
      0.0034,
@@ -7026,7 +7401,7 @@
     ],
     [
      "SB:37|total=4.5|Home & Under 4.5",
-     0.4888
+     0.4887
     ],
     [
      "SB:63||Home or Away",
@@ -7091,8 +7466,8 @@
   {
    "name": "BTTS 1",
    "code": "W8AHYG",
-   "odds": 1.5,
-   "chance": 0.6842141261803257,
+   "odds": 1.51,
+   "chance": 0.6840568887190261,
    "legs": [
     "Silkeborg v Lyngby"
    ],
@@ -7105,8 +7480,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6842141261803257,
+     "price": 1.51,
+     "chance": 0.6840568887190261,
      "result": null,
      "ft": null
     }
@@ -7133,16 +7508,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6842141261803257
+     "price": 1.51,
+     "chance": 0.6840568887190261
     }
    ]
   },
   {
    "name": "BTTS 2",
    "code": "XWLVWB",
-   "odds": 1.51,
-   "chance": 0.6466924846241264,
+   "odds": 1.53,
+   "chance": 0.646539080658727,
    "legs": [
     "Dijon v Red Star"
    ],
@@ -7155,8 +7530,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.51,
-     "chance": 0.6466924846241264,
+     "price": 1.53,
+     "chance": 0.646539080658727,
      "result": null,
      "ft": null
     }
@@ -7183,16 +7558,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.51,
-     "chance": 0.6466924846241264
+     "price": 1.53,
+     "chance": 0.646539080658727
     }
    ]
   },
   {
    "name": "BTTS 3",
    "code": "TMKH03",
-   "odds": 1.43,
-   "chance": 0.6389940788028388,
+   "odds": 1.44,
+   "chance": 0.6388813684818108,
    "legs": [
     "Braunschweig v Energie Cottbus"
    ],
@@ -7205,8 +7580,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.43,
-     "chance": 0.6389940788028388,
+     "price": 1.44,
+     "chance": 0.6388813684818108,
      "result": null,
      "ft": null
     }
@@ -7233,66 +7608,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.43,
-     "chance": 0.6389940788028388
+     "price": 1.44,
+     "chance": 0.6388813684818108
     }
    ]
   },
   {
    "name": "BTTS 4",
-   "code": "WJPYE9",
-   "odds": 1.58,
-   "chance": 0.6353350892834315,
-   "legs": [
-    "Derby v Bolton Wanderers"
-   ],
-   "alt_legs": [
-    {
-     "fixture": "Derby v Bolton Wanderers",
-     "league": "Championship",
-     "home": "Derby",
-     "away": "Bolton Wanderers",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.58,
-     "chance": 0.6353350892834315,
-     "result": null,
-     "ft": null
-    }
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_2000",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T20:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
-   "spread_minutes": 0,
-   "leg_detail": [
-    {
-     "fixture": "Derby v Bolton Wanderers",
-     "home": "Derby",
-     "away": "Bolton Wanderers",
-     "kickoff_utc": "2026-11-06T20:00:00.000Z",
-     "sb_event_id": "sr:match:72340018",
-     "sb_tid": "sr:tournament:18",
-     "market": "BTTS_YES",
-     "sb_market": {
-      "id": null,
-      "desc": "GG/NG",
-      "spec": "",
-      "outcome": "Yes"
-     },
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.58,
-     "chance": 0.6353350892834315
-    }
-   ]
-  },
-  {
-   "name": "BTTS 5",
    "code": "YAMFZZ",
-   "odds": 1.54,
-   "chance": 0.6287325060577227,
+   "odds": 1.53,
+   "chance": 0.6286524931586925,
    "legs": [
     "Toulouse v Strasbourg"
    ],
@@ -7305,8 +7630,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6287325060577227,
+     "price": 1.53,
+     "chance": 0.6286524931586925,
      "result": null,
      "ft": null
     }
@@ -7333,16 +7658,66 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6287325060577227
+     "price": 1.53,
+     "chance": 0.6286524931586925
+    }
+   ]
+  },
+  {
+   "name": "BTTS 5",
+   "code": "WJPYE9",
+   "odds": 1.59,
+   "chance": 0.625478931499868,
+   "legs": [
+    "Derby v Bolton Wanderers"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Derby v Bolton Wanderers",
+     "league": "Championship",
+     "home": "Derby",
+     "away": "Bolton Wanderers",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.59,
+     "chance": 0.625478931499868,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_2000",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "spread_minutes": 0,
+   "leg_detail": [
+    {
+     "fixture": "Derby v Bolton Wanderers",
+     "home": "Derby",
+     "away": "Bolton Wanderers",
+     "kickoff_utc": "2026-11-06T20:00:00.000Z",
+     "sb_event_id": "sr:match:72340018",
+     "sb_tid": "sr:tournament:18",
+     "market": "BTTS_YES",
+     "sb_market": {
+      "id": null,
+      "desc": "GG/NG",
+      "spec": "",
+      "outcome": "Yes"
+     },
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.59,
+     "chance": 0.625478931499868
     }
    ]
   },
   {
    "name": "BTTS 6",
    "code": "LW3MAQ",
-   "odds": 1.54,
-   "chance": 0.6243049834838341,
+   "odds": 1.53,
+   "chance": 0.6242299019464412,
    "legs": [
     "Dresden v Greuther Furth"
    ],
@@ -7355,8 +7730,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6243049834838341,
+     "price": 1.53,
+     "chance": 0.6242299019464412,
      "result": null,
      "ft": null
     }
@@ -7383,16 +7758,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6243049834838341
+     "price": 1.53,
+     "chance": 0.6242299019464412
     }
    ]
   },
   {
    "name": "BTTS 7",
    "code": "UDW46V",
-   "odds": 1.5,
-   "chance": 0.6028769308333867,
+   "odds": 1.52,
+   "chance": 0.6028707446515346,
    "legs": [
     "Willem II v Zwolle"
    ],
@@ -7405,8 +7780,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6028769308333867,
+     "price": 1.52,
+     "chance": 0.6028707446515346,
      "result": null,
      "ft": null
     }
@@ -7433,16 +7808,66 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6028769308333867
+     "price": 1.52,
+     "chance": 0.6028707446515346
     }
    ]
   },
   {
    "name": "BTTS 8",
+   "code": "XGNYWE",
+   "odds": 2.0,
+   "chance": 0.5866229513057696,
+   "legs": [
+    "Sevilla v Alaves"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Sevilla v Alaves",
+     "league": "La Liga",
+     "home": "Sevilla",
+     "away": "Alaves",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 2.0,
+     "chance": 0.5866229513057696,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_2000",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "spread_minutes": 0,
+   "leg_detail": [
+    {
+     "fixture": "Sevilla v Alaves",
+     "home": "Sevilla",
+     "away": "Alaves",
+     "kickoff_utc": "2026-11-06T20:00:00.000Z",
+     "sb_event_id": "sr:match:72478700",
+     "sb_tid": "sr:tournament:8",
+     "market": "BTTS_YES",
+     "sb_market": {
+      "id": null,
+      "desc": "GG/NG",
+      "spec": "",
+      "outcome": "Yes"
+     },
+     "pick": "Both teams to score \u2014 yes",
+     "price": 2.0,
+     "chance": 0.5866229513057696
+    }
+   ]
+  },
+  {
+   "name": "BTTS 9",
    "code": "PBXVXE",
    "odds": 1.55,
-   "chance": 0.584618737554394,
+   "chance": 0.584595395629363,
    "legs": [
     "Dunkerque v Guingamp"
    ],
@@ -7456,7 +7881,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.584618737554394,
+     "chance": 0.584595395629363,
      "result": null,
      "ft": null
     }
@@ -7484,15 +7909,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.584618737554394
+     "chance": 0.584595395629363
     }
    ]
   },
   {
-   "name": "BTTS 9",
+   "name": "BTTS 10",
    "code": "V8MYYY",
    "odds": 1.55,
-   "chance": 0.571917384366464,
+   "chance": 0.5719521550905526,
    "legs": [
     "Hamburg v M'gladbach"
    ],
@@ -7506,7 +7931,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.571917384366464,
+     "chance": 0.5719521550905526,
      "result": null,
      "ft": null
     }
@@ -7534,15 +7959,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.571917384366464
+     "chance": 0.5719521550905526
     }
    ]
   },
   {
-   "name": "BTTS 10",
+   "name": "BTTS 11",
    "code": "YTTEWN",
    "odds": 1.62,
-   "chance": 0.5648845128590103,
+   "chance": 0.5650118056737378,
    "legs": [
     "Standard v Beveren"
    ],
@@ -7556,7 +7981,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.62,
-     "chance": 0.5648845128590103,
+     "chance": 0.5650118056737378,
      "result": null,
      "ft": null
     }
@@ -7584,15 +8009,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.62,
-     "chance": 0.5648845128590103
+     "chance": 0.5650118056737378
     }
    ]
   },
   {
-   "name": "BTTS 11",
+   "name": "BTTS 12",
    "code": "UKLF15",
    "odds": 1.6,
-   "chance": 0.5566666583689897,
+   "chance": 0.5567096877075273,
    "legs": [
     "Wisla v Cracovia"
    ],
@@ -7606,7 +8031,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.5566666583689897,
+     "chance": 0.5567096877075273,
      "result": null,
      "ft": null
     }
@@ -7634,15 +8059,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.5566666583689897
+     "chance": 0.5567096877075273
     }
    ]
   },
   {
-   "name": "BTTS 12",
+   "name": "BTTS 13",
    "code": "G8V7PM",
    "odds": 1.72,
-   "chance": 0.548497280310896,
+   "chance": 0.548551124021394,
    "legs": [
     "Gaziantep FK v Kasimpasa Istanbul"
    ],
@@ -7656,7 +8081,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.72,
-     "chance": 0.548497280310896,
+     "chance": 0.548551124021394,
      "result": null,
      "ft": null
     }
@@ -7684,15 +8109,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.72,
-     "chance": 0.548497280310896
+     "chance": 0.548551124021394
     }
    ]
   },
   {
-   "name": "BTTS 13",
+   "name": "BTTS 14",
    "code": "GM38QN",
    "odds": 1.58,
-   "chance": 0.5471467808130829,
+   "chance": 0.5472086640795182,
    "legs": [
     "Motor Lublin v Wisla Plock"
    ],
@@ -7706,7 +8131,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.58,
-     "chance": 0.5471467808130829,
+     "chance": 0.5472086640795182,
      "result": null,
      "ft": null
     }
@@ -7734,15 +8159,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.58,
-     "chance": 0.5471467808130829
+     "chance": 0.5472086640795182
     }
    ]
   },
   {
-   "name": "BTTS 14",
+   "name": "BTTS 15",
    "code": "NXVRW4",
-   "odds": 1.53,
-   "chance": 0.5433121456437235,
+   "odds": 1.52,
+   "chance": 0.5434179565055067,
    "legs": [
     "Ascoli Calcio 1898 v Palermo"
    ],
@@ -7755,8 +8180,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.53,
-     "chance": 0.5433121456437235,
+     "price": 1.52,
+     "chance": 0.5434179565055067,
      "result": null,
      "ft": null
     }
@@ -7783,16 +8208,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.53,
-     "chance": 0.5433121456437235
+     "price": 1.52,
+     "chance": 0.5434179565055067
     }
    ]
   },
   {
-   "name": "BTTS 15",
+   "name": "BTTS 16",
    "code": "VL9KZT",
    "odds": 1.79,
-   "chance": 0.5380444902141187,
+   "chance": 0.5381280079186858,
    "legs": [
     "Hammarby IF v IF Elfsborg"
    ],
@@ -7806,7 +8231,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.79,
-     "chance": 0.5380444902141187,
+     "chance": 0.5381280079186858,
      "result": null,
      "ft": null
     }
@@ -7834,15 +8259,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.79,
-     "chance": 0.5380444902141187
+     "chance": 0.5381280079186858
     }
    ]
   },
   {
-   "name": "BTTS 16",
+   "name": "BTTS 17",
    "code": "GZWPBZ",
    "odds": 1.73,
-   "chance": 0.5362666787288359,
+   "chance": 0.5363346197173197,
    "legs": [
     "Everton v Coventry City"
    ],
@@ -7856,7 +8281,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.73,
-     "chance": 0.5362666787288359,
+     "chance": 0.5363346197173197,
      "result": null,
      "ft": null
     }
@@ -7884,15 +8309,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.73,
-     "chance": 0.5362666787288359
+     "chance": 0.5363346197173197
     }
    ]
   },
   {
-   "name": "BTTS 17",
+   "name": "BTTS 18",
    "code": "T3U9ZN",
-   "odds": 1.62,
-   "chance": 0.526548956202311,
+   "odds": 1.67,
+   "chance": 0.5266808130251843,
    "legs": [
     "Venezia FC v Udinese"
    ],
@@ -7905,8 +8330,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.62,
-     "chance": 0.526548956202311,
+     "price": 1.67,
+     "chance": 0.5266808130251843,
      "result": null,
      "ft": null
     }
@@ -7933,16 +8358,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.62,
-     "chance": 0.526548956202311
+     "price": 1.67,
+     "chance": 0.5266808130251843
     }
    ]
   },
   {
-   "name": "BTTS 18",
+   "name": "BTTS 19",
    "code": "JK6EAQ",
    "odds": 1.78,
-   "chance": 0.5242870616278756,
+   "chance": 0.5243846597612429,
    "legs": [
     "Grenoble v Reims"
    ],
@@ -7956,7 +8381,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.78,
-     "chance": 0.5242870616278756,
+     "chance": 0.5243846597612429,
      "result": null,
      "ft": null
     }
@@ -7984,15 +8409,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.78,
-     "chance": 0.5242870616278756
+     "chance": 0.5243846597612429
     }
    ]
   },
   {
-   "name": "BTTS 19",
+   "name": "BTTS 20",
    "code": "UD9UL1",
-   "odds": 1.8,
-   "chance": 0.5237655918316853,
+   "odds": 1.87,
+   "chance": 0.5238419793432134,
    "legs": [
     "Famalicao v Arouca"
    ],
@@ -8005,8 +8430,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.8,
-     "chance": 0.5237655918316853,
+     "price": 1.87,
+     "chance": 0.5238419793432134,
      "result": null,
      "ft": null
     }
@@ -8033,16 +8458,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.8,
-     "chance": 0.5237655918316853
+     "price": 1.87,
+     "chance": 0.5238419793432134
     }
    ]
   },
   {
-   "name": "BTTS 20",
+   "name": "BTTS 21",
    "code": "YV1K7F",
-   "odds": 1.66,
-   "chance": 0.5207802067762801,
+   "odds": 1.68,
+   "chance": 0.5209024132474317,
    "legs": [
     "SK Rapid v Wolfsberger AC"
    ],
@@ -8055,8 +8480,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.66,
-     "chance": 0.5207802067762801,
+     "price": 1.68,
+     "chance": 0.5209024132474317,
      "result": null,
      "ft": null
     }
@@ -8083,16 +8508,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.66,
-     "chance": 0.5207802067762801
+     "price": 1.68,
+     "chance": 0.5209024132474317
     }
    ]
   },
   {
-   "name": "BTTS 21",
+   "name": "BTTS 22",
    "code": "U75STB",
    "odds": 1.6,
-   "chance": 0.514372143035795,
+   "chance": 0.5144844047239899,
    "legs": [
     "Montpellier v Metz"
    ],
@@ -8106,7 +8531,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.514372143035795,
+     "chance": 0.5144844047239899,
      "result": null,
      "ft": null
     }
@@ -8134,15 +8559,15 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.514372143035795
+     "chance": 0.5144844047239899
     }
    ]
   },
   {
-   "name": "BTTS 22",
+   "name": "BTTS 23",
    "code": "XBMX1R",
-   "odds": 1.64,
-   "chance": 0.5143302330387882,
+   "odds": 1.65,
+   "chance": 0.5144357527048169,
    "legs": [
     "Castellon v Eibar"
    ],
@@ -8155,8 +8580,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.64,
-     "chance": 0.5143302330387882,
+     "price": 1.65,
+     "chance": 0.5144357527048169,
      "result": null,
      "ft": null
     }
@@ -8183,16 +8608,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.64,
-     "chance": 0.5143302330387882
+     "price": 1.65,
+     "chance": 0.5144357527048169
     }
    ]
   },
   {
    "name": "BTTS acca 1",
    "code": "ZPUCJN",
-   "odds": 3.239,
-   "chance": 0.2827396291739687,
+   "odds": 3.327,
+   "chance": 0.2825577510328255,
    "legs": [
     "Silkeborg v Lyngby",
     "Dijon v Red Star",
@@ -8207,8 +8632,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6842141261803257,
+     "price": 1.51,
+     "chance": 0.6840568887190261,
      "result": null,
      "ft": null
     },
@@ -8220,8 +8645,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.51,
-     "chance": 0.6466924846241264,
+     "price": 1.53,
+     "chance": 0.646539080658727,
      "result": null,
      "ft": null
     },
@@ -8233,8 +8658,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.43,
-     "chance": 0.6389940788028388,
+     "price": 1.44,
+     "chance": 0.6388813684818108,
      "result": null,
      "ft": null
     }
@@ -8261,8 +8686,8 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6842141261803257
+     "price": 1.51,
+     "chance": 0.6840568887190261
     },
     {
      "fixture": "Dijon v Red Star",
@@ -8279,8 +8704,8 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.51,
-     "chance": 0.6466924846241264
+     "price": 1.53,
+     "chance": 0.646539080658727
     },
     {
      "fixture": "Braunschweig v Energie Cottbus",
@@ -8297,35 +8722,22 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.43,
-     "chance": 0.6389940788028388
+     "price": 1.44,
+     "chance": 0.6388813684818108
     }
    ]
   },
   {
    "name": "BTTS acca 2",
    "code": "WEFSU6",
-   "odds": 3.747,
-   "chance": 0.24938226090036242,
+   "odds": 3.722,
+   "chance": 0.2454527466654126,
    "legs": [
-    "Derby v Bolton Wanderers",
     "Toulouse v Strasbourg",
+    "Derby v Bolton Wanderers",
     "Dresden v Greuther Furth"
    ],
    "alt_legs": [
-    {
-     "fixture": "Derby v Bolton Wanderers",
-     "league": "Championship",
-     "home": "Derby",
-     "away": "Bolton Wanderers",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.58,
-     "chance": 0.6353350892834315,
-     "result": null,
-     "ft": null
-    },
     {
      "fixture": "Toulouse v Strasbourg",
      "league": "Ligue 1",
@@ -8334,8 +8746,21 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6287325060577227,
+     "price": 1.53,
+     "chance": 0.6286524931586925,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Derby v Bolton Wanderers",
+     "league": "Championship",
+     "home": "Derby",
+     "away": "Bolton Wanderers",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.59,
+     "chance": 0.625478931499868,
      "result": null,
      "ft": null
     },
@@ -8347,8 +8772,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6243049834838341,
+     "price": 1.53,
+     "chance": 0.6242299019464412,
      "result": null,
      "ft": null
     }
@@ -8360,24 +8785,6 @@
    "latest_kickoff_utc": "2026-11-06T20:00:00Z",
    "spread_minutes": 150,
    "leg_detail": [
-    {
-     "fixture": "Derby v Bolton Wanderers",
-     "home": "Derby",
-     "away": "Bolton Wanderers",
-     "kickoff_utc": "2026-11-06T20:00:00.000Z",
-     "sb_event_id": "sr:match:72340018",
-     "sb_tid": "sr:tournament:18",
-     "market": "BTTS_YES",
-     "sb_market": {
-      "id": null,
-      "desc": "GG/NG",
-      "spec": "",
-      "outcome": "Yes"
-     },
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.58,
-     "chance": 0.6353350892834315
-    },
     {
      "fixture": "Toulouse v Strasbourg",
      "home": "Toulouse",
@@ -8393,8 +8800,26 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6287325060577227
+     "price": 1.53,
+     "chance": 0.6286524931586925
+    },
+    {
+     "fixture": "Derby v Bolton Wanderers",
+     "home": "Derby",
+     "away": "Bolton Wanderers",
+     "kickoff_utc": "2026-11-06T20:00:00.000Z",
+     "sb_event_id": "sr:match:72340018",
+     "sb_tid": "sr:tournament:18",
+     "market": "BTTS_YES",
+     "sb_market": {
+      "id": null,
+      "desc": "GG/NG",
+      "spec": "",
+      "outcome": "Yes"
+     },
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.59,
+     "chance": 0.625478931499868
     },
     {
      "fixture": "Dresden v Greuther Furth",
@@ -8411,20 +8836,20 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.54,
-     "chance": 0.6243049834838341
+     "price": 1.53,
+     "chance": 0.6242299019464412
     }
    ]
   },
   {
    "name": "BTTS acca 3",
-   "code": "Z48L74",
-   "odds": 3.604,
-   "chance": 0.2015740837766679,
+   "code": "R249YU",
+   "odds": 4.712,
+   "chance": 0.20674673055992876,
    "legs": [
     "Willem II v Zwolle",
-    "Dunkerque v Guingamp",
-    "Hamburg v M'gladbach"
+    "Sevilla v Alaves",
+    "Dunkerque v Guingamp"
    ],
    "alt_legs": [
     {
@@ -8435,8 +8860,21 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6028769308333867,
+     "price": 1.52,
+     "chance": 0.6028707446515346,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Sevilla v Alaves",
+     "league": "La Liga",
+     "home": "Sevilla",
+     "away": "Alaves",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 2.0,
+     "chance": 0.5866229513057696,
      "result": null,
      "ft": null
     },
@@ -8449,20 +8887,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.584618737554394,
-     "result": null,
-     "ft": null
-    },
-    {
-     "fixture": "Hamburg v M'gladbach",
-     "league": "Bundesliga",
-     "home": "Hamburg",
-     "away": "M'gladbach",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.55,
-     "chance": 0.571917384366464,
+     "chance": 0.584595395629363,
      "result": null,
      "ft": null
     }
@@ -8471,8 +8896,8 @@
    "cohort_id": "COHORT_20261106_1900",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-06T19:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T19:30:00Z",
-   "spread_minutes": 30,
+   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "spread_minutes": 60,
    "leg_detail": [
     {
      "fixture": "Willem II v Zwolle",
@@ -8489,8 +8914,26 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.5,
-     "chance": 0.6028769308333867
+     "price": 1.52,
+     "chance": 0.6028707446515346
+    },
+    {
+     "fixture": "Sevilla v Alaves",
+     "home": "Sevilla",
+     "away": "Alaves",
+     "kickoff_utc": "2026-11-06T20:00:00.000Z",
+     "sb_event_id": "sr:match:72478700",
+     "sb_tid": "sr:tournament:8",
+     "market": "BTTS_YES",
+     "sb_market": {
+      "id": null,
+      "desc": "GG/NG",
+      "spec": "",
+      "outcome": "Yes"
+     },
+     "pick": "Both teams to score \u2014 yes",
+     "price": 2.0,
+     "chance": 0.5866229513057696
     },
     {
      "fixture": "Dunkerque v Guingamp",
@@ -8508,8 +8951,68 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.584618737554394
+     "chance": 0.584595395629363
+    }
+   ]
+  },
+  {
+   "name": "BTTS acca 4",
+   "code": "UA97HT",
+   "odds": 4.018,
+   "chance": 0.17990614674891028,
+   "legs": [
+    "Hamburg v M'gladbach",
+    "Standard v Beveren",
+    "Wisla v Cracovia"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Hamburg v M'gladbach",
+     "league": "Bundesliga",
+     "home": "Hamburg",
+     "away": "M'gladbach",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.55,
+     "chance": 0.5719521550905526,
+     "result": null,
+     "ft": null
     },
+    {
+     "fixture": "Standard v Beveren",
+     "league": "Belgian Pro League",
+     "home": "Standard",
+     "away": "Beveren",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.62,
+     "chance": 0.5650118056737378,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Wisla v Cracovia",
+     "league": "Ekstraklasa",
+     "home": "Wisla",
+     "away": "Cracovia",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.6,
+     "chance": 0.5567096877075273,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1930",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T19:30:00Z",
+   "latest_kickoff_utc": "2026-11-06T19:45:00Z",
+   "spread_minutes": 15,
+   "leg_detail": [
     {
      "fixture": "Hamburg v M'gladbach",
      "home": "Hamburg",
@@ -8526,68 +9029,8 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.55,
-     "chance": 0.571917384366464
-    }
-   ]
-  },
-  {
-   "name": "BTTS acca 4",
-   "code": "G8WM0E",
-   "odds": 4.458,
-   "chance": 0.1724762720017888,
-   "legs": [
-    "Standard v Beveren",
-    "Wisla v Cracovia",
-    "Gaziantep FK v Kasimpasa Istanbul"
-   ],
-   "alt_legs": [
-    {
-     "fixture": "Standard v Beveren",
-     "league": "Belgian Pro League",
-     "home": "Standard",
-     "away": "Beveren",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.62,
-     "chance": 0.5648845128590103,
-     "result": null,
-     "ft": null
+     "chance": 0.5719521550905526
     },
-    {
-     "fixture": "Wisla v Cracovia",
-     "league": "Ekstraklasa",
-     "home": "Wisla",
-     "away": "Cracovia",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.6,
-     "chance": 0.5566666583689897,
-     "result": null,
-     "ft": null
-    },
-    {
-     "fixture": "Gaziantep FK v Kasimpasa Istanbul",
-     "league": "Turkish Super Lig",
-     "home": "Gaziantep FK",
-     "away": "Kasimpasa Istanbul",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.72,
-     "chance": 0.548497280310896,
-     "result": null,
-     "ft": null
-    }
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_1700",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T17:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T19:45:00Z",
-   "spread_minutes": 165,
-   "leg_detail": [
     {
      "fixture": "Standard v Beveren",
      "home": "Standard",
@@ -8604,7 +9047,7 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.62,
-     "chance": 0.5648845128590103
+     "chance": 0.5650118056737378
     },
     {
      "fixture": "Wisla v Cracovia",
@@ -8622,8 +9065,68 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.5566666583689897
+     "chance": 0.5567096877075273
+    }
+   ]
+  },
+  {
+   "name": "BTTS acca 5",
+   "code": "REZ6UG",
+   "odds": 4.131,
+   "chance": 0.1631188155809761,
+   "legs": [
+    "Gaziantep FK v Kasimpasa Istanbul",
+    "Motor Lublin v Wisla Plock",
+    "Ascoli Calcio 1898 v Palermo"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Gaziantep FK v Kasimpasa Istanbul",
+     "league": "Turkish Super Lig",
+     "home": "Gaziantep FK",
+     "away": "Kasimpasa Istanbul",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.72,
+     "chance": 0.548551124021394,
+     "result": null,
+     "ft": null
     },
+    {
+     "fixture": "Motor Lublin v Wisla Plock",
+     "league": "Ekstraklasa",
+     "home": "Motor Lublin",
+     "away": "Wisla Plock",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.58,
+     "chance": 0.5472086640795182,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Ascoli Calcio 1898 v Palermo",
+     "league": "Serie B",
+     "home": "Ascoli Calcio 1898",
+     "away": "Palermo",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.52,
+     "chance": 0.5434179565055067,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1700",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T17:00:00Z",
+   "latest_kickoff_utc": "2026-11-06T19:30:00Z",
+   "spread_minutes": 150,
+   "leg_detail": [
     {
      "fixture": "Gaziantep FK v Kasimpasa Istanbul",
      "home": "Gaziantep FK",
@@ -8640,68 +9143,8 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.72,
-     "chance": 0.548497280310896
-    }
-   ]
-  },
-  {
-   "name": "BTTS acca 5",
-   "code": "G89TRD",
-   "odds": 4.327,
-   "chance": 0.15994528808080605,
-   "legs": [
-    "Motor Lublin v Wisla Plock",
-    "Ascoli Calcio 1898 v Palermo",
-    "Hammarby IF v IF Elfsborg"
-   ],
-   "alt_legs": [
-    {
-     "fixture": "Motor Lublin v Wisla Plock",
-     "league": "Ekstraklasa",
-     "home": "Motor Lublin",
-     "away": "Wisla Plock",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.58,
-     "chance": 0.5471467808130829,
-     "result": null,
-     "ft": null
+     "chance": 0.548551124021394
     },
-    {
-     "fixture": "Ascoli Calcio 1898 v Palermo",
-     "league": "Serie B",
-     "home": "Ascoli Calcio 1898",
-     "away": "Palermo",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.53,
-     "chance": 0.5433121456437235,
-     "result": null,
-     "ft": null
-    },
-    {
-     "fixture": "Hammarby IF v IF Elfsborg",
-     "league": "Allsvenskan",
-     "home": "Hammarby IF",
-     "away": "IF Elfsborg",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.79,
-     "chance": 0.5380444902141187,
-     "result": null,
-     "ft": null
-    }
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_1700",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T17:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T19:30:00Z",
-   "spread_minutes": 150,
-   "leg_detail": [
     {
      "fixture": "Motor Lublin v Wisla Plock",
      "home": "Motor Lublin",
@@ -8718,7 +9161,7 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.58,
-     "chance": 0.5471467808130829
+     "chance": 0.5472086640795182
     },
     {
      "fixture": "Ascoli Calcio 1898 v Palermo",
@@ -8735,9 +9178,69 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.53,
-     "chance": 0.5433121456437235
+     "price": 1.52,
+     "chance": 0.5434179565055067
+    }
+   ]
+  },
+  {
+   "name": "BTTS acca 6",
+   "code": "U134VM",
+   "odds": 5.171,
+   "chance": 0.1520088679311581,
+   "legs": [
+    "Hammarby IF v IF Elfsborg",
+    "Everton v Coventry City",
+    "Venezia FC v Udinese"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Hammarby IF v IF Elfsborg",
+     "league": "Allsvenskan",
+     "home": "Hammarby IF",
+     "away": "IF Elfsborg",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.79,
+     "chance": 0.5381280079186858,
+     "result": null,
+     "ft": null
     },
+    {
+     "fixture": "Everton v Coventry City",
+     "league": "Premier League",
+     "home": "Everton",
+     "away": "Coventry City",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.73,
+     "chance": 0.5363346197173197,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Venezia FC v Udinese",
+     "league": "Serie A",
+     "home": "Venezia FC",
+     "away": "Udinese",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.67,
+     "chance": 0.5266808130251843,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1800",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T18:00:00Z",
+   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
+   "spread_minutes": 120,
+   "leg_detail": [
     {
      "fixture": "Hammarby IF v IF Elfsborg",
      "home": "Hammarby IF",
@@ -8754,68 +9257,8 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.79,
-     "chance": 0.5380444902141187
-    }
-   ]
-  },
-  {
-   "name": "BTTS acca 6",
-   "code": "LN6NNN",
-   "odds": 4.989,
-   "chance": 0.1480432835850163,
-   "legs": [
-    "Everton v Coventry City",
-    "Venezia FC v Udinese",
-    "Grenoble v Reims"
-   ],
-   "alt_legs": [
-    {
-     "fixture": "Everton v Coventry City",
-     "league": "Premier League",
-     "home": "Everton",
-     "away": "Coventry City",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.73,
-     "chance": 0.5362666787288359,
-     "result": null,
-     "ft": null
+     "chance": 0.5381280079186858
     },
-    {
-     "fixture": "Venezia FC v Udinese",
-     "league": "Serie A",
-     "home": "Venezia FC",
-     "away": "Udinese",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.62,
-     "chance": 0.526548956202311,
-     "result": null,
-     "ft": null
-    },
-    {
-     "fixture": "Grenoble v Reims",
-     "league": "Ligue 2",
-     "home": "Grenoble",
-     "away": "Reims",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.78,
-     "chance": 0.5242870616278756,
-     "result": null,
-     "ft": null
-    }
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_1900",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T19:00:00Z",
-   "latest_kickoff_utc": "2026-11-06T20:00:00Z",
-   "spread_minutes": 60,
-   "leg_detail": [
     {
      "fixture": "Everton v Coventry City",
      "home": "Everton",
@@ -8832,7 +9275,7 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.73,
-     "chance": 0.5362666787288359
+     "chance": 0.5363346197173197
     },
     {
      "fixture": "Venezia FC v Udinese",
@@ -8849,9 +9292,69 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.62,
-     "chance": 0.526548956202311
+     "price": 1.67,
+     "chance": 0.5266808130251843
+    }
+   ]
+  },
+  {
+   "name": "BTTS acca 7",
+   "code": "R8V530",
+   "odds": 5.592,
+   "chance": 0.14308913114997504,
+   "legs": [
+    "Grenoble v Reims",
+    "Famalicao v Arouca",
+    "SK Rapid v Wolfsberger AC"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Grenoble v Reims",
+     "league": "Ligue 2",
+     "home": "Grenoble",
+     "away": "Reims",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.78,
+     "chance": 0.5243846597612429,
+     "result": null,
+     "ft": null
     },
+    {
+     "fixture": "Famalicao v Arouca",
+     "league": "Primeira Liga",
+     "home": "Famalicao",
+     "away": "Arouca",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.87,
+     "chance": 0.5238419793432134,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "SK Rapid v Wolfsberger AC",
+     "league": "Austrian Bundesliga",
+     "home": "SK Rapid",
+     "away": "Wolfsberger AC",
+     "kickoff": "2026-11-06",
+     "market": "BTTS_YES",
+     "pick": "Both teams to score \u2014 yes",
+     "price": 1.68,
+     "chance": 0.5209024132474317,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null,
+   "cohort_id": "COHORT_20261106_1830",
+   "cohort_merged": false,
+   "earliest_kickoff_utc": "2026-11-06T18:30:00Z",
+   "latest_kickoff_utc": "2026-11-06T20:45:00Z",
+   "spread_minutes": 135,
+   "leg_detail": [
     {
      "fixture": "Grenoble v Reims",
      "home": "Grenoble",
@@ -8868,54 +9371,8 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.78,
-     "chance": 0.5242870616278756
-    }
-   ]
-  },
-  {
-   "name": "BTTS acca 7",
-   "code": "ZSWDFQ",
-   "odds": 2.988,
-   "chance": 0.27276675321640576,
-   "legs": [
-    "Famalicao v Arouca",
-    "SK Rapid v Wolfsberger AC"
-   ],
-   "alt_legs": [
-    {
-     "fixture": "Famalicao v Arouca",
-     "league": "Primeira Liga",
-     "home": "Famalicao",
-     "away": "Arouca",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.8,
-     "chance": 0.5237655918316853,
-     "result": null,
-     "ft": null
+     "chance": 0.5243846597612429
     },
-    {
-     "fixture": "SK Rapid v Wolfsberger AC",
-     "league": "Austrian Bundesliga",
-     "home": "SK Rapid",
-     "away": "Wolfsberger AC",
-     "kickoff": "2026-11-06",
-     "market": "BTTS_YES",
-     "pick": "Both teams to score \u2014 yes",
-     "price": 1.66,
-     "chance": 0.5207802067762801,
-     "result": null,
-     "ft": null
-    }
-   ],
-   "result": null,
-   "cohort_id": "COHORT_20261106_1830",
-   "cohort_merged": false,
-   "earliest_kickoff_utc": "2026-11-06T18:30:00Z",
-   "latest_kickoff_utc": "2026-11-06T20:45:00Z",
-   "spread_minutes": 135,
-   "leg_detail": [
     {
      "fixture": "Famalicao v Arouca",
      "home": "Famalicao",
@@ -8931,8 +9388,8 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.8,
-     "chance": 0.5237655918316853
+     "price": 1.87,
+     "chance": 0.5238419793432134
     },
     {
      "fixture": "SK Rapid v Wolfsberger AC",
@@ -8949,16 +9406,16 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.66,
-     "chance": 0.5207802067762801
+     "price": 1.68,
+     "chance": 0.5209024132474317
     }
    ]
   },
   {
    "name": "BTTS acca 8",
    "code": "NCXWUC",
-   "odds": 2.624,
-   "chance": 0.26455714419626136,
+   "odds": 2.64,
+   "chance": 0.2646691719990754,
    "legs": [
     "Montpellier v Metz",
     "Castellon v Eibar"
@@ -8973,7 +9430,7 @@
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.514372143035795,
+     "chance": 0.5144844047239899,
      "result": null,
      "ft": null
     },
@@ -8985,8 +9442,8 @@
      "kickoff": "2026-11-06",
      "market": "BTTS_YES",
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.64,
-     "chance": 0.5143302330387882,
+     "price": 1.65,
+     "chance": 0.5144357527048169,
      "result": null,
      "ft": null
     }
@@ -9014,7 +9471,7 @@
      },
      "pick": "Both teams to score \u2014 yes",
      "price": 1.6,
-     "chance": 0.514372143035795
+     "chance": 0.5144844047239899
     },
     {
      "fixture": "Castellon v Eibar",
@@ -9031,8 +9488,8 @@
       "outcome": "Yes"
      },
      "pick": "Both teams to score \u2014 yes",
-     "price": 1.64,
-     "chance": 0.5143302330387882
+     "price": 1.65,
+     "chance": 0.5144357527048169
     }
    ]
   }
@@ -9044,8 +9501,8 @@
   {
    "name": "CLV acca A",
    "code": "WV4NYU",
-   "odds": 2.725,
-   "chance": 0.38554718992397996,
+   "odds": 2.789,
+   "chance": 0.38381427859677836,
    "legs": [
     "Toulouse v Strasbourg",
     "Everton v Coventry City",
@@ -9075,7 +9532,7 @@
      },
      "pick": "Toulouse or Strasbourg",
      "price": 1.29,
-     "chance": 0.7923
+     "chance": 0.7929
     },
     {
      "fixture": "Everton v Coventry City",
@@ -9093,7 +9550,7 @@
      },
      "pick": "Everton or Coventry City",
      "price": 1.26,
-     "chance": 0.7915
+     "chance": 0.7928
     },
     {
      "fixture": "Derby v Bolton Wanderers",
@@ -9110,8 +9567,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Derby or Bolton Wanderers",
-     "price": 1.28,
-     "chance": 0.787
+     "price": 1.3,
+     "chance": 0.7847
     },
     {
      "fixture": "Venezia FC v Udinese",
@@ -9128,8 +9585,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Venezia FC or Udinese",
-     "price": 1.31,
-     "chance": 0.7812
+     "price": 1.32,
+     "chance": 0.7781
     }
    ],
    "families": [
@@ -9139,13 +9596,13 @@
   },
   {
    "name": "CLV acca B",
-   "code": "KAWWF0",
-   "odds": 2.598,
-   "chance": 0.39155585817599997,
+   "code": "S3068K",
+   "odds": 2.145,
+   "chance": 0.47041255407,
    "legs": [
     "Silkeborg v Lyngby",
-    "Gaziantep FK v Kasimpasa Istanbul",
-    "Hammarby IF v IF Elfsborg"
+    "NK Lokomotiva Zagreb v NK Rudes Zagreb",
+    "Gaziantep FK v Kasimpasa Istanbul"
    ],
    "result": null,
    "cohort_id": "COHORT_20261106_1700",
@@ -9170,7 +9627,25 @@
      },
      "pick": "Silkeborg or Lyngby",
      "price": 1.27,
-     "chance": 0.7902
+     "chance": 0.789
+    },
+    {
+     "fixture": "NK Lokomotiva Zagreb v NK Rudes Zagreb",
+     "home": "NK Lokomotiva Zagreb",
+     "away": "NK Rudes Zagreb",
+     "kickoff_utc": "2026-11-06T17:00:00.000Z",
+     "sb_event_id": null,
+     "sb_tid": null,
+     "market": "SB:10||Home or Away",
+     "sb_market": {
+      "id": 10,
+      "desc": null,
+      "spec": "",
+      "outcome": "Home or Away"
+     },
+     "pick": "NK Lokomotiva Zagreb or NK Rudes Zagreb",
+     "price": 1.27,
+     "chance": 0.7811
     },
     {
      "fixture": "Gaziantep FK v Kasimpasa Istanbul",
@@ -9187,26 +9662,8 @@
       "outcome": "Home or Away"
      },
      "pick": "Gaziantep FK or Kasimpasa Istanbul",
-     "price": 1.32,
-     "chance": 0.7628
-    },
-    {
-     "fixture": "Hammarby IF v IF Elfsborg",
-     "home": "Hammarby IF",
-     "away": "IF Elfsborg",
-     "kickoff_utc": "2026-11-06T18:00:00.000Z",
-     "sb_event_id": null,
-     "sb_tid": null,
-     "market": "SB:19|total=2.5|Under 2.5",
-     "sb_market": {
-      "id": 19,
-      "desc": null,
-      "spec": "total=2.5",
-      "outcome": "Under 2.5"
-     },
-     "pick": "Hammarby IF Under 2.5 goals",
-     "price": 1.55,
-     "chance": 0.6496
+     "price": 1.33,
+     "chance": 0.7633
     }
    ],
    "families": [
@@ -9220,9 +9677,9 @@
  "overlap_note": "one outcome, one slip: 4 megas slip(s) repeat a match + outcome already on a stronger slip, so they are graded on paper, not staked",
  "drift": {
   "Double chance": {
-   "n": 506,
-   "down": 10.1205,
-   "up": 1.3047,
+   "n": 516,
+   "down": 9.8094,
+   "up": 1.2158,
    "alarm": "down"
   },
   "Over/Under": {
@@ -9292,17 +9749,17 @@
    "alarm": null
   },
   "Result & total": {
-   "n": 5,
-   "down": 0.49,
-   "up": 0.9008,
+   "n": 10,
+   "down": 0.0,
+   "up": 1.353,
    "alarm": null
   }
  },
  "exposure": {
-  "singles": 26,
+  "singles": 27,
   "league_cap": 4,
   "over_cap": 2,
-  "stake_pct": 5.85,
+  "stake_pct": 6.23,
   "leagues": {
    "Ligue 2": 6,
    "2. Bundesliga": 2,
@@ -9311,6 +9768,7 @@
    "Danish Superliga": 1,
    "Belgian Pro League": 1,
    "Ekstraklasa": 1,
+   "HNL": 1,
    "Championship": 1,
    "Serie A": 1,
    "Bundesliga": 1,
@@ -9328,32 +9786,32 @@
    {
     "slot": "accas",
     "name": "Acca A",
-    "legs": 4,
-    "same_league_pairs": 1,
-    "same_match_pairs": 0,
-    "unknown_league_legs": 0,
-    "chance_indep": 0.37278130109597646,
-    "chance_corr": 0.3801
-   },
-   {
-    "slot": "accas",
-    "name": "Acca B",
     "legs": 3,
     "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.459435717,
-    "chance_corr": 0.4594
+    "chance_indep": 0.45611527679999997,
+    "chance_corr": 0.4561
+   },
+   {
+    "slot": "accas",
+    "name": "Acca B",
+    "legs": 4,
+    "same_league_pairs": 3,
+    "same_match_pairs": 0,
+    "unknown_league_legs": 0,
+    "chance_indep": 0.375242574949704,
+    "chance_corr": 0.3971
    },
    {
     "slot": "accas",
     "name": "Acca C",
     "legs": 4,
-    "same_league_pairs": 1,
+    "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.36890247859208997,
-    "chance_corr": 0.3762
+    "chance_indep": 0.3654097589880192,
+    "chance_corr": 0.3654
    },
    {
     "slot": "safe3",
@@ -9362,18 +9820,18 @@
     "same_league_pairs": 1,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.5038866612,
-    "chance_corr": 0.5112
+    "chance_indep": 0.50257546547,
+    "chance_corr": 0.5099
    },
    {
     "slot": "megas",
     "name": "Mega 1",
-    "legs": 4,
+    "legs": 5,
     "same_league_pairs": 1,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.38436474516336006,
-    "chance_corr": 0.3917
+    "chance_indep": 0.2996423426168084,
+    "chance_corr": 0.3069
    },
    {
     "slot": "megas",
@@ -9382,8 +9840,8 @@
     "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.28832842886399995,
-    "chance_corr": 0.2883
+    "chance_indep": 0.2528843625,
+    "chance_corr": 0.2529
    },
    {
     "slot": "megas",
@@ -9392,8 +9850,8 @@
     "same_league_pairs": 15,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.037523742466027125,
-    "chance_corr": 0.147
+    "chance_indep": 0.03738651107106002,
+    "chance_corr": 0.1469
    },
    {
     "slot": "megas",
@@ -9402,8 +9860,8 @@
     "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.13251919995007244,
-    "chance_corr": 0.1325
+    "chance_indep": 0.15564244268686925,
+    "chance_corr": 0.1556
    },
    {
     "slot": "clv_accas",
@@ -9412,8 +9870,8 @@
     "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.38554718992397996,
-    "chance_corr": 0.3855
+    "chance_indep": 0.38381427859677836,
+    "chance_corr": 0.3838
    },
    {
     "slot": "clv_accas",
@@ -9422,8 +9880,8 @@
     "same_league_pairs": 0,
     "same_match_pairs": 0,
     "unknown_league_legs": 0,
-    "chance_indep": 0.39155585817599997,
-    "chance_corr": 0.3916
+    "chance_indep": 0.47041255407,
+    "chance_corr": 0.4704
    }
   ]
  }

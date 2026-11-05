@@ -21,12 +21,18 @@
   "file": "preview_2026-11-07_2138.json",
   "singles": 95,
   "accas": 20,
-  "looks": 6
+  "looks": 7
  },
  "2026-11-08": {
-  "file": "preview_2026-11-08_1542.json",
-  "singles": 82,
-  "accas": 7,
+  "file": "preview_2026-11-08_1549.json",
+  "singles": 84,
+  "accas": 9,
+  "looks": 2
+ },
+ "2026-11-09": {
+  "file": "preview_2026-11-09_1552.json",
+  "singles": 1,
+  "accas": 0,
   "looks": 1
  }
 }

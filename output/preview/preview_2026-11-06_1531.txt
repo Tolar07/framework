@@ -2,7 +2,7 @@
 ==================================
 
 📅  Fri 06 Nov 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261104-1528-5af86c | Phase 3 — live capital (Architect-deployed)
+Run ID: OLPXDV-20261105-1525-dff7fe | Phase 3 — live capital (Architect-deployed)
 Fixtures scanned: 28 · Verified: 27
 KO = kickoff, UK time
 
@@ -11,63 +11,63 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 ──────────────────────────────────
 
 ```
-KO     Fixture                                 Country · League                          AI PICK · win%                              Odds   Alt market                                            O1.5/O2.5  DC/BTTS     Src
-19:00  Willem II v Zwolle                      Netherlands · Eredivisie                  ✓ Willem II or Zwolle · 77%                 @1.28  —                                                     O82/O61    X278 / Y60  ✓
+KO     Fixture                                 Country · League                          AI PICK · win%                                 Odds   Alt market                                            O1.5/O2.5  DC/BTTS     Src
+19:00  Willem II v Zwolle                      Netherlands · Eredivisie                  ✓ Willem II or Zwolle · 77%                    @1.29  Willem II Under 1.5 goals @1.70                       O82/O61    X278 / Y60  ✓
 
-18:00  Silkeborg v Lyngby                      Denmark · Superliga                       ✓ Silkeborg or Lyngby · 79%                 @1.27  Silkeborg or Lyngby & Over 2.5 @1.79                  O90/O72    1276 / Y72  ✓
+18:00  Silkeborg v Lyngby                      Denmark · Superliga                       ✓ Silkeborg or Lyngby · 79%                    @1.27  Silkeborg or Lyngby & Over 2.5 @1.81                  O90/O72    1276 / Y72  ✓
 
-19:45  Standard v Beveren                      Belgium · Pro League                      ✓ Standard or Beveren · 77%                 @1.27  Standard or Beveren & Under 3.5 @1.90                 O76/O52    1275 / Y54  ✓
+19:45  Standard v Beveren                      Belgium · Pro League                      ✓ Standard or Beveren · 77%                    @1.27  Standard or Beveren & Under 3.5 @1.90                 O76/O52    1275 / Y54  ✓
 
-19:30  Wisla v Cracovia                        Poland · Ekstraklasa                      Wisla or draw · 81%                         —      —                                                     O77/O51    1X81 / Y53  ✓
-17:00  Motor Lublin v Wisla Plock              Poland · Ekstraklasa                      ✓ Motor Lublin or Wisla Plock · 78%         @1.27  Motor Lublin or Draw & Under 3.5 @1.91                O74/U53    1X77 / Y52  ✓
+19:30  Wisla v Cracovia                        Poland · Ekstraklasa                      Wisla or draw · 81%                            —      —                                                     O77/O51    1X81 / Y53  ✓
+17:00  Motor Lublin v Wisla Plock              Poland · Ekstraklasa                      ✓ Motor Lublin or Wisla Plock · 78%            @1.27  Motor Lublin or Draw & Under 3.5 @1.91                O74/U53    1X77 / Y52  ✓
 
-17:00  NK Lokomotiva Zagreb v NK Rudes Zagreb  Croatia · HNL                             NK Lokomotiva Zagreb or draw · 77%          —      —                                                     O76/O54    1X77 / Y55  ○ᴹ
+17:00  NK Lokomotiva Zagreb v NK Rudes Zagreb  Croatia · HNL                             NK Lokomotiva Zagreb or NK Rudes Zagreb · 78%  @1.27  —                                                     O76/O54    1X74 / Y56  ○ᴹ
 
-20:00  Derby v Bolton Wanderers                England · Championship                    ✓ Derby or Bolton Wanderers · 79%           @1.28  —                                                     O85/O64    1277 / Y65  ✓
+20:00  Derby v Bolton Wanderers                England · Championship                    ✓ Derby or Bolton Wanderers · 78%              @1.30  —                                                     O83/O62    1276 / Y64  ✓
 
-19:45  Venezia FC v Udinese                    Italy · Serie A                           ᴮ Venezia FC or Udinese · 78%               @1.31  Venezia FC or Udinese & Under 4.5 @1.57               O70/U56    1274 / N51  ✓
+19:45  Venezia FC v Udinese                    Italy · Serie A                           ✓ Venezia FC or Udinese · 78%                  @1.32  Venezia FC Under 2.5 goals @1.21                      O70/U56    1274 / N51  ✓
 
-19:30  Hamburg v M'gladbach                    Germany · Bundesliga                      ✓ Hamburg or M'gladbach · 78%               @1.30  Hamburg or M'gladbach & Under 4.5 @1.61               O76/O52    1274 / Y56  ✓
+19:30  Hamburg v M'gladbach                    Germany · Bundesliga                      ✓ Hamburg or M'gladbach · 79%                  @1.30  Hamburg or M'gladbach & Under 4.5 @1.62               O76/O52    1274 / Y56  ✓
 
-19:45  Toulouse v Strasbourg                   France · Ligue 1                          ✓ Toulouse or Strasbourg · 79%              @1.29  —                                                     O84/O62    1275 / Y64  ✓
+19:45  Toulouse v Strasbourg                   France · Ligue 1                          ✓ Toulouse or Strasbourg · 79%                 @1.29  —                                                     O84/O62    1275 / Y64  ✓
 
-20:45  Famalicao v Arouca                      Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao or Arouca · 78%                 @1.31  Famalicao or Arouca & Under 3.5 @1.75                 O69/U56    1275 / N52  ✓
+20:45  Famalicao v Arouca                      Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao or Arouca · 77%                    @1.33  Famalicao or Arouca & Under 3.5 @1.71                 O69/U56    1275 / N52  ✓
 
-20:00  Everton v Coventry City                 England · Premier League                  ✓ Everton or Coventry City · 79%            @1.26  Everton & Over 1.5 @1.96                              O73/U54    1X78 / Y50  ✓
+20:00  Everton v Coventry City                 England · Premier League                  ✓ Everton or Coventry City · 79%               @1.26  Everton & Over 1.5 @1.97                              O73/U54    1X78 / Y50  ✓
 
-20:00  Sevilla v Alaves                        Spain · La Liga                           ✓ Sevilla or Alaves · 77%                   @1.32  Over 1.5 goals @1.39                                  O79/O56    1275 / Y58  ✓
+20:00  Sevilla v Alaves                        Spain · La Liga                           ✓ Sevilla or Alaves · 77%                      @1.32  Over 1.5 goals @1.39                                  O79/O56    1275 / Y58  ✓
 
-19:30  Castellon v Eibar                       Spain · La Liga 2 / Hypermotion           ✓ Castellon Under 2.5 goals · 71%           @1.42  Castellon or Eibar & Under 3.5 @1.88                  O70/U56    1X77 / N53  ✓
+19:30  Castellon v Eibar                       Spain · La Liga 2 / Hypermotion           ✓ Castellon Under 2.5 goals · 71%              @1.43  Castellon or Eibar & Under 3.5 @1.88                  O70/U56    1X77 / N53  ✓
 
-19:30  Ascoli Calcio 1898 v Palermo            Italy · Serie B                           ✓ Ascoli Calcio 1898 or Palermo · 78%       @1.29  Palermo Under 2.5 goals @1.25                         O72/U55    1X72 / Y51  ✓
+19:30  Ascoli Calcio 1898 v Palermo            Italy · Serie B                           ✓ Ascoli Calcio 1898 or Palermo · 78%          @1.29  Palermo Under 2.5 goals @1.24                         O72/U55    1X72 / Y51  ✓
 
-17:30  Braunschweig v Energie Cottbus          Germany · 2. Bundesliga                   ✓ Braunschweig or Energie Cottbus · 81%     @1.24  Braunschweig or Energie Cottbus & Under 4.5 @1.72     O85/O65    1277 / Y66  ✓
-17:30  Dresden v Greuther Furth                Germany · 2. Bundesliga                   ✓ Dresden or Greuther Furth · 80%           @1.26  —                                                     O85/O65    1278 / Y64  ✓
+17:30  Braunschweig v Energie Cottbus          Germany · 2. Bundesliga                   ✓ Braunschweig or Energie Cottbus · 80%        @1.25  Braunschweig or Energie Cottbus & Under 4.5 @1.71     O85/O65    1277 / Y66  ✓
+17:30  Dresden v Greuther Furth                Germany · 2. Bundesliga                   ✓ Dresden or Greuther Furth · 80%              @1.26  Dresden to win @1.94                                  O85/O65    1278 / Y64  ✓
 
-19:00  Dijon v Red Star                        France · Ligue 2                          ✓ Dijon or Red Star · 79%                   @1.30  —                                                     O86/O66    1276 / Y67  ✓
-19:00  Montpellier v Metz                      France · Ligue 2                          ✓ Montpellier or Metz · 78%                 @1.29  Montpellier or Metz & Under 4.5 @1.55                 O70/U56    1X79 / N53  ✓
-19:00  Dunkerque v Guingamp                    France · Ligue 2                          ✓ Dunkerque or Guingamp · 78%               @1.29  —                                                     O78/O53    1274 / Y58  ✓
-19:00  Grenoble v Reims                        France · Ligue 2                          ✓ Grenoble or Reims · 78%                   @1.28  —                                                     O73/U53    X281 / N52  ✓
-19:00  Boulogne v Annecy                       France · Ligue 2                          ✓ Boulogne or Annecy · 75%                  @1.35  —                                                     O64/U63    X273 / N56  ✓
-19:00  Nancy v Sochaux-Montbeliard             France · Ligue 2                          ✓ Nancy & Under 4.5 · 51%                   @1.92  Nancy Under 1.5 goals @1.86                           O65/U63    1X75 / N57  ✓
+19:00  Dijon v Red Star                        France · Ligue 2                          ✓ Dijon or Red Star · 79%                      @1.30  —                                                     O86/O66    1276 / Y67  ✓
+19:00  Montpellier v Metz                      France · Ligue 2                          ✓ Montpellier or Metz · 78%                    @1.29  Montpellier or Metz & Under 4.5 @1.55                 O70/U56    1X79 / N53  ✓
+19:00  Dunkerque v Guingamp                    France · Ligue 2                          ✓ Dunkerque or Guingamp · 78%                  @1.29  —                                                     O78/O53    1274 / Y57  ✓
+19:00  Grenoble v Reims                        France · Ligue 2                          ✓ Grenoble or Reims · 78%                      @1.28  —                                                     O73/U53    X281 / N52  ✓
+19:00  Boulogne v Annecy                       France · Ligue 2                          ✓ Boulogne or Annecy · 75%                     @1.35  —                                                     O64/U63    X273 / N56  ✓
+19:00  Nancy v Sochaux-Montbeliard             France · Ligue 2                          ✓ Nancy & Under 4.5 · 52%                      @1.92  Nancy Under 1.5 goals @1.86                           O65/U63    1X75 / N57  ✓
 
-19:30  Bristol Rovers v Cambridge United       England · FA Cup                          Bristol Rovers or Cambridge United · 79%    @1.27  Bristol Rovers or Cambridge United & Under 3.5 @1.94  O79/O58    1275 / Y60  ✓ᴹ
-19:45  Oxford City v Leicester                 England · FA Cup                          Leicester & Under 4.5 · 58%                 @1.73  —                                                     O82/O63    X288 / Y52  ✓ᴹ
+19:30  Bristol Rovers v Cambridge United       England · FA Cup                          Bristol Rovers or Cambridge United · 78%       @1.28  Bristol Rovers or Cambridge United & Under 3.5 @1.96  O79/O58    1274 / Y61  ✓ᴹ
+19:45  Oxford City v Leicester                 England · FA Cup                          Leicester & Over 1.5 · 68%                     @1.45  —                                                     O81/O63    X288 / Y52  ✓ᴹ
 
-17:00  Gaziantep FK v Kasimpasa Istanbul       Turkey · Super Lig                        ✓ Gaziantep FK or Kasimpasa Istanbul · 76%  @1.32  —                                                     O72/U55    1270 / Y52  ✓
+17:00  Gaziantep FK v Kasimpasa Istanbul       Turkey · Super Lig                        ✓ Gaziantep FK or Kasimpasa Istanbul · 76%     @1.33  Gaziantep FK or Kasimpasa Istanbul & Under 3.5 @1.80  O72/U55    1270 / Y52  ✓
 
-18:30  SK Rapid v Wolfsberger AC               Austria · Bundesliga                      ✓ SK Rapid & Under 4.5 · 56%                @1.83  SK Rapid Under 3.5 goals @1.36                        O79/O55    1X89 / N52  ✓
+18:30  SK Rapid v Wolfsberger AC               Austria · Bundesliga                      ✓ SK Rapid & Under 4.5 · 57%                   @1.81  SK Rapid Under 3.5 goals @1.35                        O79/O55    1X89 / N52  ✓
 
-18:00  Hammarby IF v IF Elfsborg               Sweden · Allsvenskan                      ✓ Hammarby IF Under 2.5 goals · 65%         @1.55  IF Elfsborg (+1.5) Asian handicap @1.71               O76/O51    1X82 / Y50  ✓
+18:00  Hammarby IF v IF Elfsborg               Sweden · Allsvenskan                      ✓ Hammarby IF & Under 4.5 · 56%                @1.78  Hammarby IF Under 2.5 goals @1.55                     O76/O51    1X82 / Y50  ✓
 ```
 ★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
 ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
 Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
 
-TABLE 1 Mega 1 (4 legs · odds 3 · chance 1 in 3): J1FU6F   load ↦ www.sportybet.com/ng/?shareCode=J1FU6F
-TABLE 1 Mega 2 (3 legs · odds 4 · chance 1 in 3): ZP7AQ7   load ↦ www.sportybet.com/ng/?shareCode=ZP7AQ7
+TABLE 1 Mega 1 (5 legs · odds 3 · chance 1 in 3): QSY7E0   load ↦ www.sportybet.com/ng/?shareCode=QSY7E0
+TABLE 1 Mega 2 (3 legs · odds 4 · chance 1 in 4): HACYPV   load ↦ www.sportybet.com/ng/?shareCode=HACYPV
 TABLE 1 Mega 3 (11 legs · odds 28 · chance 1 in 27): GZCHCP   load ↦ www.sportybet.com/ng/?shareCode=GZCHCP
-TABLE 1 Mega 4 (7 legs · odds 8 · chance 1 in 8): WPMM0L   load ↦ www.sportybet.com/ng/?shareCode=WPMM0L
+TABLE 1 Mega 4 (7 legs · odds 7 · chance 1 in 6): X19FHF   load ↦ www.sportybet.com/ng/?shareCode=X19FHF
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
@@ -75,43 +75,44 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 ──────────────────────────────────
 
 ```
-KO     Fixture                            Country · League                          Pick                                  Chance  Odds   Certainty  Stake  Code
-19:00  Willem II v Zwolle                 Netherlands · Eredivisie                  ✓ Willem II or Zwolle                 77%     @1.28  HIGH       0.25%  THUMFW
-18:00  Silkeborg v Lyngby                 Denmark · Superliga                       ✓ Silkeborg or Lyngby                 79%     @1.27  HIGH       0.25%  GLH82Y
-19:45  Standard v Beveren                 Belgium · Pro League                      ✓ Standard or Beveren                 77%     @1.27  HIGH       0.25%  YWVFPB
-17:00  Motor Lublin v Wisla Plock         Poland · Ekstraklasa                      ✓ Motor Lublin or Wisla Plock         78%     @1.27  HIGH       0.25%  Y7MZQL
-20:00  Derby v Bolton Wanderers           England · Championship                    ✓ Derby or Bolton Wanderers           79%     @1.28  MEDIUM     0.25%  ZUQ90G
-19:45  Venezia FC v Udinese               Italy · Serie A                           ᴮ Venezia FC or Udinese               78%     @1.31  LOW        0.12%  T063SW
-19:30  Hamburg v M'gladbach               Germany · Bundesliga                      ✓ Hamburg or M'gladbach               78%     @1.30  HIGH       0.25%  GSLTGR
-19:45  Toulouse v Strasbourg              France · Ligue 1                          ✓ Toulouse or Strasbourg              79%     @1.29  HIGH       0.25%  GZYWLR
-20:45  Famalicao v Arouca                 Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao or Arouca                 78%     @1.31  MEDIUM     0.25%  SQYWYC
-20:00  Everton v Coventry City            England · Premier League                  ✓ Everton or Coventry City            79%     @1.26  HIGH       0.25%  ZH1M8U
-20:00  Sevilla v Alaves                   Spain · La Liga                           ✓ Sevilla or Alaves                   77%     @1.32  MEDIUM     0.25%  K2AUZD
-19:30  Castellon v Eibar                  Spain · La Liga 2 / Hypermotion           ✓ Castellon Under 2.5 goals           71%     @1.42  LOW        0.12%  KZJFC1
-19:30  Ascoli Calcio 1898 v Palermo       Italy · Serie B                           ✓ Ascoli Calcio 1898 or Palermo       78%     @1.29  HIGH       0.25%  HJAZTX
-17:30  Dresden v Greuther Furth           Germany · 2. Bundesliga                   ✓ Dresden or Greuther Furth           80%     @1.26  HIGH       0.25%  JG4SJ0
-17:30  Braunschweig v Energie Cottbus     Germany · 2. Bundesliga                   ✓ Braunschweig or Energie Cottbus     81%     @1.24  HIGH       0.25%  MWZ2L1
-19:00  Dijon v Red Star                   France · Ligue 2                          ✓ Dijon or Red Star                   79%     @1.30  MEDIUM     0.25%  L51JTQ
-19:00  Grenoble v Reims                   France · Ligue 2                          ✓ Grenoble or Reims                   78%     @1.28  HIGH       0.25%  HNLRG6
-19:00  Montpellier v Metz                 France · Ligue 2                          ✓ Montpellier or Metz                 78%     @1.29  HIGH       0.25%  N8LTRR
-19:00  Nancy v Sochaux-Montbeliard        France · Ligue 2                          ✓ Nancy & Under 4.5                   51%     @1.92  MEDIUM     0.25%  LYL4WS
-19:00  Boulogne v Annecy                  France · Ligue 2                          ✓ Boulogne or Annecy                  75%     @1.35  HIGH       0.25%  ZSVUW7
-19:00  Dunkerque v Guingamp               France · Ligue 2                          ✓ Dunkerque or Guingamp               78%     @1.29  HIGH       0.25%  R4JFZF
-19:30  Bristol Rovers v Cambridge United  England · FA Cup                          Bristol Rovers or Cambridge United    79%     @1.27  LOW        0.12%  X3PUNX
-19:45  Oxford City v Leicester            England · FA Cup                          Leicester & Under 4.5                 58%     @1.73  LOW        0.12%  WNE08C
-17:00  Gaziantep FK v Kasimpasa Istanbul  Turkey · Super Lig                        ✓ Gaziantep FK or Kasimpasa Istanbul  76%     @1.32  HIGH       0.25%  NL8FJN
-18:30  SK Rapid v Wolfsberger AC          Austria · Bundesliga                      ✓ SK Rapid & Under 4.5                56%     @1.83  MEDIUM     0.25%  T3V2MM
-18:00  Hammarby IF v IF Elfsborg          Sweden · Allsvenskan                      ✓ Hammarby IF Under 2.5 goals         65%     @1.55  LOW        0.12%  HUAZ04
+KO     Fixture                                 Country · League                          Pick                                     Chance  Odds   Certainty  Stake  Code
+19:00  Willem II v Zwolle                      Netherlands · Eredivisie                  ✓ Willem II or Zwolle                    77%     @1.29  MEDIUM     0.25%  THUMFW
+18:00  Silkeborg v Lyngby                      Denmark · Superliga                       ✓ Silkeborg or Lyngby                    79%     @1.27  HIGH       0.25%  GLH82Y
+19:45  Standard v Beveren                      Belgium · Pro League                      ✓ Standard or Beveren                    77%     @1.27  HIGH       0.25%  YWVFPB
+17:00  Motor Lublin v Wisla Plock              Poland · Ekstraklasa                      ✓ Motor Lublin or Wisla Plock            78%     @1.27  HIGH       0.25%  Y7MZQL
+17:00  NK Lokomotiva Zagreb v NK Rudes Zagreb  Croatia · HNL                             NK Lokomotiva Zagreb or NK Rudes Zagreb  78%     @1.27  LOW        0.12%  XZQ69C
+20:00  Derby v Bolton Wanderers                England · Championship                    ✓ Derby or Bolton Wanderers              78%     @1.30  HIGH       0.25%  ZUQ90G
+19:45  Venezia FC v Udinese                    Italy · Serie A                           ✓ Venezia FC or Udinese                  78%     @1.32  HIGH       0.25%  T063SW
+19:30  Hamburg v M'gladbach                    Germany · Bundesliga                      ✓ Hamburg or M'gladbach                  79%     @1.30  HIGH       0.25%  GSLTGR
+19:45  Toulouse v Strasbourg                   France · Ligue 1                          ✓ Toulouse or Strasbourg                 79%     @1.29  HIGH       0.25%  GZYWLR
+20:45  Famalicao v Arouca                      Portugal · Primeira Liga / Liga Portugal  ✓ Famalicao or Arouca                    77%     @1.33  MEDIUM     0.25%  SQYWYC
+20:00  Everton v Coventry City                 England · Premier League                  ✓ Everton or Coventry City               79%     @1.26  HIGH       0.25%  ZH1M8U
+20:00  Sevilla v Alaves                        Spain · La Liga                           ✓ Sevilla or Alaves                      77%     @1.32  MEDIUM     0.25%  K2AUZD
+19:30  Castellon v Eibar                       Spain · La Liga 2 / Hypermotion           ✓ Castellon Under 2.5 goals              71%     @1.43  LOW        0.12%  KZJFC1
+19:30  Ascoli Calcio 1898 v Palermo            Italy · Serie B                           ✓ Ascoli Calcio 1898 or Palermo          78%     @1.29  HIGH       0.25%  HJAZTX
+17:30  Dresden v Greuther Furth                Germany · 2. Bundesliga                   ✓ Dresden or Greuther Furth              80%     @1.26  HIGH       0.25%  JG4SJ0
+17:30  Braunschweig v Energie Cottbus          Germany · 2. Bundesliga                   ✓ Braunschweig or Energie Cottbus        80%     @1.25  HIGH       0.25%  MWZ2L1
+19:00  Dijon v Red Star                        France · Ligue 2                          ✓ Dijon or Red Star                      79%     @1.30  MEDIUM     0.25%  L51JTQ
+19:00  Grenoble v Reims                        France · Ligue 2                          ✓ Grenoble or Reims                      78%     @1.28  HIGH       0.25%  HNLRG6
+19:00  Montpellier v Metz                      France · Ligue 2                          ✓ Montpellier or Metz                    78%     @1.29  HIGH       0.25%  N8LTRR
+19:00  Nancy v Sochaux-Montbeliard             France · Ligue 2                          ✓ Nancy & Under 4.5                      52%     @1.92  MEDIUM     0.25%  LYL4WS
+19:00  Boulogne v Annecy                       France · Ligue 2                          ✓ Boulogne or Annecy                     75%     @1.35  HIGH       0.25%  ZSVUW7
+19:00  Dunkerque v Guingamp                    France · Ligue 2                          ✓ Dunkerque or Guingamp                  78%     @1.29  HIGH       0.25%  R4JFZF
+19:30  Bristol Rovers v Cambridge United       England · FA Cup                          Bristol Rovers or Cambridge United       78%     @1.28  LOW        0.12%  X3PUNX
+19:45  Oxford City v Leicester                 England · FA Cup                          Leicester & Over 1.5                     68%     @1.45  LOW        0.12%  NLWLVZ
+17:00  Gaziantep FK v Kasimpasa Istanbul       Turkey · Super Lig                        ✓ Gaziantep FK or Kasimpasa Istanbul     76%     @1.33  HIGH       0.25%  NL8FJN
+18:30  SK Rapid v Wolfsberger AC               Austria · Bundesliga                      ✓ SK Rapid & Under 4.5                   57%     @1.81  MEDIUM     0.25%  T3V2MM
+18:00  Hammarby IF v IF Elfsborg               Sweden · Allsvenskan                      ✓ Hammarby IF & Under 4.5                56%     @1.78  MEDIUM     0.25%  PCKUPP
 ```
 Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
 Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
 
-Price check: 23 of 26 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 3 quoted by no second book.
+Price check: 23 of 27 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 4 quoted by no second book.
 
 TEAM PROFILES (last 20 games each side — context, not a price):
    • Willem II v Zwolle: tempo 3.9 goals/game · draw tendency 22% · open, high-scoring pairing | Willem II 0.9-3.5 a game, draws 18%, BTTS 73%, clean sheets 0%, SoT 2.5-7.7 | Zwolle 1.1-2.2 a game, draws 25%, BTTS 55%, clean sheets 15%, SoT 4.1-6.5
    • Standard v Beveren: tempo 3.1 goals/game · draw tendency 18% · open, high-scoring pairing | Standard 1.6-1.4 a game, draws 25%, BTTS 70%, clean sheets 20%, SoT 4.6-4.8 | Beveren 1.3-2.0 a game, draws 10%, BTTS 40%, clean sheets 30%, SoT 3.7-5.2
-   • Derby v Bolton Wanderers: tempo 3.1 goals/game · draw tendency 18% · open, high-scoring pairing | Derby 1.1-1.8 a game, draws 20%, BTTS 65%, clean sheets 15%, SoT 4.0-5.8 | Bolton 1.4-2.0 a game, draws 15%, BTTS 62%, clean sheets 23%, SoT 4.8-5.8
+   • Derby v Bolton Wanderers: tempo 3.0 goals/game · draw tendency 17% | Derby 1.0-1.9 a game, draws 20%, BTTS 60%, clean sheets 15%, SoT 3.9-5.8 | Bolton 1.4-1.9 a game, draws 14%, BTTS 57%, clean sheets 29%, SoT 4.6-5.6
    • Venezia FC v Udinese: tempo 2.6 goals/game · draw tendency 10% · a side often fails to score | Venezia 0.6-2.0 a game, draws 0%, BTTS 30%, clean sheets 10%, SoT 4.0-6.1 | Udinese 1.1-1.5 a game, draws 20%, BTTS 35%, clean sheets 30%, SoT 4.5-5.2
    • Hamburg v M'gladbach: tempo 3.2 goals/game · draw tendency 20% · open, high-scoring pairing | Hamburg 1.1-2.0 a game, draws 15%, BTTS 65%, clean sheets 5%, SoT 3.8-6.0 | M'gladbach 1.4-1.9 a game, draws 25%, BTTS 55%, clean sheets 30%, SoT 4.4-6.4
    • Toulouse v Strasbourg: tempo 3.2 goals/game · draw tendency 28% · open, high-scoring pairing · a side often fails to score | Toulouse 1.3-1.6 a game, draws 30%, BTTS 50%, clean sheets 20%, SoT 3.9-4.5 | Strasbourg 1.8-1.8 a game, draws 25%, BTTS 75%, clean sheets 10%, SoT 5.0-5.7
@@ -135,13 +136,13 @@ MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ =
    • Silkeborg v Lyngby: Lyngby: set-piece threat v weak set-piece defence -> BTTS & goals · xG 1.74-1.46 · BTTS 63% · O2.5 62% · corners ~10.0 · pick 77% on the matchup
    • Standard v Beveren: both high lines + an elite attack; Standard Liège: counter side v high line -> BTTS & goals · xG 2.82-1.01 · BTTS 60% · O2.5 74% · corners ~11.1 · pick 86% on the matchup
    • Motor Lublin v Wisla Plock: Wisła Płock: set-piece threat v weak set-piece defence; Wisła Płock: blunt attack v tight defence -> BTTS & goals · xG 2.23-1.13 · BTTS 60% · O2.5 65% · corners ~9.6 · pick 80% on the matchup
-   • Derby v Bolton Wanderers: no tactical clash flagged -> no strong goals lean · xG 1.49-1.36 · BTTS 58% · O2.5 54% · corners ~10.7 · pick 75% on the matchup
-   • Venezia FC v Udinese: Venezia: counter side v high line; Venezia: aerial threat v weak in the air; Udinese: set-piece threat v weak set-piece defence -> BTTS & goals · xG 1.88-1.53 · BTTS 66% · O2.5 66% · corners ~9.6 · pick 75% on the matchup
-   • Toulouse v Strasbourg: no tactical clash flagged -> no strong goals lean · xG 2.09-0.91 · BTTS 52% · O2.5 58% · corners ~7.3 · pick 80% on the matchup
+   • Derby v Bolton Wanderers: no tactical clash flagged -> no strong goals lean · xG 1.48-1.37 · BTTS 58% · O2.5 54% · corners ~10.7 · pick 75% on the matchup
+   • Venezia FC v Udinese: Venezia: counter side v high line; Venezia: aerial threat v weak in the air; Udinese: set-piece threat v weak set-piece defence -> BTTS & goals · xG 1.88-1.53 · BTTS 66% · O2.5 66% · corners ~9.6 · pick 78% on the matchup
+   • Toulouse v Strasbourg: Strasbourg: high press v build-up side -> no strong goals lean · xG 2.09-0.91 · BTTS 52% · O2.5 58% · corners ~7.3 · pick 80% on the matchup
    • Famalicao v Arouca: no tactical clash flagged -> no strong goals lean · xG 0.83-1.54 · BTTS 44% · O2.5 42% · corners ~8.6 · pick 74% on the matchup
    • Everton v Coventry City: no tactical clash flagged -> no strong goals lean · xG 1.37-0.94 · BTTS 45% · O2.5 40% · corners ~9.8 · pick 72% on the matchup
    • Sevilla v Alaves: no tactical clash flagged -> no strong goals lean · xG 1.41-1.04 · BTTS 49% · O2.5 44% · corners ~7.3 · pick 73% on the matchup
-   • Castellon v Eibar: Castellón: possession side v low block; Castellón: elite attack v leaky defence -> BTTS & goals · xG 2.59-1.03 · BTTS 59% · O2.5 70% · corners ~9.1 · pick 46% on the matchup
+   • Castellon v Eibar: Castellón: possession side v low block; Castellón: elite attack v leaky defence -> BTTS & goals · xG 2.58-1.03 · BTTS 59% · O2.5 70% · corners ~9.1 · pick 46% on the matchup
    • Ascoli Calcio 1898 v Palermo: Ascoli: counter side v high line; Ascoli: set-piece threat v weak set-piece defence; Ascoli: aerial threat v weak in the air; Ascoli: elite attack v leaky defence; Palermo: counter side v high line; Palermo: set-piece threat v weak set-piece defence -> BTTS & goals · xG 1.94-1.36 · BTTS 64% · O2.5 64% · corners ~10.2 · pick 78% on the matchup
    • Dresden v Greuther Furth: no tactical clash flagged -> BTTS & goals · xG 1.72-1.30 · BTTS 60% · O2.5 58% · corners ~11.6 · pick 76% on the matchup
    • Braunschweig v Energie Cottbus: Eintracht Braunschweig: counter side v high line -> BTTS & goals · xG 2.33-1.35 · BTTS 67% · O2.5 71% · corners ~11.6 · pick 81% on the matchup
@@ -154,18 +155,18 @@ MATCHUP (tactical profiles: formations, press, line, counters, set pieces; ⚑ =
    • Bristol Rovers v Cambridge United: no tactical clash flagged -> BTTS & goals · xG 1.90-1.37 · BTTS 64% · O2.5 64% · corners ~11.6 · pick 78% on the matchup
    • Hammarby IF v IF Elfsborg: no tactical clash flagged -> no strong goals lean · xG 1.64-1.06 · BTTS 53% · O2.5 51% · corners ~10.6 · pick 42% on the matchup
 
-TABLE 2 Mega 1 (4 legs · odds 3 · chance 1 in 3): J1FU6F   load ↦ www.sportybet.com/ng/?shareCode=J1FU6F
-TABLE 2 Mega 2 (3 legs · odds 4 · chance 1 in 3): ZP7AQ7   load ↦ www.sportybet.com/ng/?shareCode=ZP7AQ7
+TABLE 2 Mega 1 (5 legs · odds 3 · chance 1 in 3): QSY7E0   load ↦ www.sportybet.com/ng/?shareCode=QSY7E0
+TABLE 2 Mega 2 (3 legs · odds 4 · chance 1 in 4): HACYPV   load ↦ www.sportybet.com/ng/?shareCode=HACYPV
 TABLE 2 Mega 3 (11 legs · odds 28 · chance 1 in 27): GZCHCP   load ↦ www.sportybet.com/ng/?shareCode=GZCHCP
-TABLE 2 Mega 4 (7 legs · odds 8 · chance 1 in 8): WPMM0L   load ↦ www.sportybet.com/ng/?shareCode=WPMM0L
+TABLE 2 Mega 4 (7 legs · odds 7 · chance 1 in 6): X19FHF   load ↦ www.sportybet.com/ng/?shareCode=X19FHF
 
 ──────────────────────────────────
 TABLE 3A · 50%+ ACCAS
 (3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
 ──────────────────────────────────
 
-50+ #1 · code MAU5RU · odds 1.98 · chance 50%
-   • 17:30 Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — Braunschweig or Energie Cottbus @1.24 (81%, HIGH)
+50+ #1 · code MAU5RU · odds 2.00 · chance 50%
+   • 17:30 Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — Braunschweig or Energie Cottbus @1.25 (80%, HIGH)
    • 17:30 Dresden v Greuther Furth (🇩🇪 Germany · 2. Bundesliga) — Dresden or Greuther Furth @1.26 (80%, HIGH)
    • 17:00 Motor Lublin v Wisla Plock (🇵🇱 Poland · Ekstraklasa) — Motor Lublin or Wisla Plock @1.27 (78%, HIGH)
 
@@ -177,26 +178,26 @@ TABLE 3 · ACCA ROUTE
 3 accas · 11 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
 6 pick(s) under 75% stay singles only (Table 2).
 
-Acca A · code S61ELS · 4 legs · odds 2.79 · chance 37%
-   • 19:00 Dijon v Red Star (🇫🇷 France · Ligue 2) — Dijon or Red Star @1.30 (79%)
-   • 19:30 Hamburg v M'gladbach (🇩🇪 Germany · Bundesliga) — Hamburg or M'gladbach @1.30 (78%)
-   • 19:00 Montpellier v Metz (🇫🇷 France · Ligue 2) — Montpellier or Metz @1.29 (78%)
-   • 19:00 Willem II v Zwolle (🇳🇱 Netherlands · Eredivisie) — Willem II or Zwolle @1.28 (77%)
-Acca B · code Z0KAYB · 3 legs · odds 2.20 · chance 46%
-   • 20:45 Famalicao v Arouca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Famalicao or Arouca @1.31 (78%)
+Acca A · code Z0KAYB · 3 legs · odds 2.23 · chance 46%
+   • 20:45 Famalicao v Arouca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Famalicao or Arouca @1.33 (77%)
    • 20:00 Sevilla v Alaves (🇪🇸 Spain · La Liga) — Sevilla or Alaves @1.32 (77%)
    • 19:45 Standard v Beveren (🇧🇪 Belgium · Pro League) — Standard or Beveren @1.27 (77%)
-Acca C · code MEGZVM · 4 legs · odds 2.71 · chance 37%
-   • 19:00 Dunkerque v Guingamp (🇫🇷 France · Ligue 2) — Dunkerque or Guingamp @1.29 (78%)
-   • 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — Ascoli Calcio 1898 or Palermo @1.29 (78%)
-   • 19:30 Bristol Rovers v Cambridge United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Bristol Rovers or Cambridge United @1.27 (79%)
+Acca B · code Q3WHT8 · 4 legs · odds 2.79 · chance 38%
+   • 19:00 Dijon v Red Star (🇫🇷 France · Ligue 2) — Dijon or Red Star @1.30 (79%)
+   • 19:30 Hamburg v M'gladbach (🇩🇪 Germany · Bundesliga) — Hamburg or M'gladbach @1.30 (79%)
+   • 19:00 Montpellier v Metz (🇫🇷 France · Ligue 2) — Montpellier or Metz @1.29 (78%)
    • 19:00 Grenoble v Reims (🇫🇷 France · Ligue 2) — Grenoble or Reims @1.28 (78%)
+Acca C · code RVNHS8 · 4 legs · odds 2.75 · chance 37%
+   • 19:00 Dunkerque v Guingamp (🇫🇷 France · Ligue 2) — Dunkerque or Guingamp @1.29 (78%)
+   • 19:30 Bristol Rovers v Cambridge United (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Bristol Rovers or Cambridge United @1.28 (78%)
+   • 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — Ascoli Calcio 1898 or Palermo @1.29 (78%)
+   • 19:00 Willem II v Zwolle (🇳🇱 Netherlands · Eredivisie) — Willem II or Zwolle @1.29 (77%)
 
 Every deploy pick of one kickoff window on one slip (the same slips as Table 2's megas):
-TABLE 3 Mega 1 (4 legs · odds 3 · chance 1 in 3): J1FU6F   load ↦ www.sportybet.com/ng/?shareCode=J1FU6F
-TABLE 3 Mega 2 (3 legs · odds 4 · chance 1 in 3): ZP7AQ7   load ↦ www.sportybet.com/ng/?shareCode=ZP7AQ7
+TABLE 3 Mega 1 (5 legs · odds 3 · chance 1 in 3): QSY7E0   load ↦ www.sportybet.com/ng/?shareCode=QSY7E0
+TABLE 3 Mega 2 (3 legs · odds 4 · chance 1 in 4): HACYPV   load ↦ www.sportybet.com/ng/?shareCode=HACYPV
 TABLE 3 Mega 3 (11 legs · odds 28 · chance 1 in 27): GZCHCP   load ↦ www.sportybet.com/ng/?shareCode=GZCHCP
-TABLE 3 Mega 4 (7 legs · odds 8 · chance 1 in 8): WPMM0L   load ↦ www.sportybet.com/ng/?shareCode=WPMM0L
+TABLE 3 Mega 4 (7 legs · odds 7 · chance 1 in 6): X19FHF   load ↦ www.sportybet.com/ng/?shareCode=X19FHF
 
 ──────────────────────────────────
 TABLE 3B · ALT-MARKET ACCAS
@@ -212,8 +213,9 @@ TABLE 3C · POSITIVE-VALUE BETS
  they are not the likeliest outcome)
 ──────────────────────────────────
 
-Value 1 · code NSD0RB · 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — Palermo Under 1.5 goals @1.85 (56%, value +4.2% · model 71% vs SportyBet 52%)
-Value 2 · code ZSG378 · 18:30 SK Rapid v Wolfsberger AC (🇦🇹 Austria · Bundesliga) — SK Rapid Under 2.5 goals @1.94 (53%, value +3.8% · model 64% vs SportyBet 50%)
+Value 1 · code NSD0RB · 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — Palermo Under 1.5 goals @1.84 (57%, value +4.1% · model 71% vs SportyBet 52%)
+Value 2 · code ZSG378 · 18:30 SK Rapid v Wolfsberger AC (🇦🇹 Austria · Bundesliga) — SK Rapid Under 2.5 goals @1.92 (54%, value +3.7% · model 64% vs SportyBet 51%)
+Value 3 · code H5GJ9C · 19:45 Venezia FC v Udinese (🇮🇹 Italy · Serie A) — Venezia FC Under 1.5 goals @1.75 (59%, value +3.0% · model 71% vs SportyBet 55%)
 
 Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
 
@@ -222,93 +224,96 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — Braunschweig or Energie Cottbus (81%) @1.24 · code MWZ2L1
-Acca A: 4 legs, model 37% · code S61ELS
+Primary single: Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — Braunschweig or Energie Cottbus (80%) @1.25 · code MWZ2L1
+Acca A: 3 legs, model 46% · code Z0KAYB
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
 Deploy odds band: 1.20–2.00; picks above 2.00 are never deployed. No price inside the band is 'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).
-Calibration: 1191 legs logged, mean CLV +0.41%.
+Calibration: 1206 legs logged, mean CLV +0.39%.
 Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
 ==================================
 ──────────────────────────────────
 TABLE 3D · BOTH TEAMS TO SCORE
-(22 BTTS-yes singles, 50%+ model chance, one code each)
+(23 BTTS-yes singles, 50%+ model chance, one code each)
 ──────────────────────────────────
-   • 18:00 Silkeborg v Lyngby (🇩🇰 Denmark · Superliga) — BTTS yes @1.50 (model 68%, fair 1.46) · W8AHYG
-   • 19:00 Dijon v Red Star (🇫🇷 France · Ligue 2) — BTTS yes @1.51 (model 65%, fair 1.55) · XWLVWB
-   • 17:30 Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.43 (model 64%, fair 1.56) · TMKH03
-   • 20:00 Derby v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.58 (model 64%, fair 1.57) · WJPYE9
-   • 19:45 Toulouse v Strasbourg (🇫🇷 France · Ligue 1) — BTTS yes @1.54 (model 63%, fair 1.59) · YAMFZZ
-   • 17:30 Dresden v Greuther Furth (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.54 (model 62%, fair 1.60) · LW3MAQ
-   • 19:00 Willem II v Zwolle (🇳🇱 Netherlands · Eredivisie) — BTTS yes @1.50 (model 60%, fair 1.66) · UDW46V
+   • 18:00 Silkeborg v Lyngby (🇩🇰 Denmark · Superliga) — BTTS yes @1.51 (model 68%, fair 1.46) · W8AHYG
+   • 19:00 Dijon v Red Star (🇫🇷 France · Ligue 2) — BTTS yes @1.53 (model 65%, fair 1.55) · XWLVWB
+   • 17:30 Braunschweig v Energie Cottbus (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.44 (model 64%, fair 1.57) · TMKH03
+   • 19:45 Toulouse v Strasbourg (🇫🇷 France · Ligue 1) — BTTS yes @1.53 (model 63%, fair 1.59) · YAMFZZ
+   • 20:00 Derby v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — BTTS yes @1.59 (model 63%, fair 1.60) · WJPYE9
+   • 17:30 Dresden v Greuther Furth (🇩🇪 Germany · 2. Bundesliga) — BTTS yes @1.53 (model 62%, fair 1.60) · LW3MAQ
+   • 19:00 Willem II v Zwolle (🇳🇱 Netherlands · Eredivisie) — BTTS yes @1.52 (model 60%, fair 1.66) · UDW46V
+   • 20:00 Sevilla v Alaves (🇪🇸 Spain · La Liga) — BTTS yes @2.00 (model 59%, fair 1.70) · XGNYWE
    • 19:00 Dunkerque v Guingamp (🇫🇷 France · Ligue 2) — BTTS yes @1.55 (model 58%, fair 1.71) · PBXVXE
    • 19:30 Hamburg v M'gladbach (🇩🇪 Germany · Bundesliga) — BTTS yes @1.55 (model 57%, fair 1.75) · V8MYYY
-   • 19:45 Standard v Beveren (🇧🇪 Belgium · Pro League) — BTTS yes @1.62 (model 56%, fair 1.77) · YTTEWN
+   • 19:45 Standard v Beveren (🇧🇪 Belgium · Pro League) — BTTS yes @1.62 (model 57%, fair 1.77) · YTTEWN
    • 19:30 Wisla v Cracovia (🇵🇱 Poland · Ekstraklasa) — BTTS yes @1.60 (model 56%, fair 1.80) · UKLF15
    • 17:00 Gaziantep FK v Kasimpasa Istanbul (🇹🇷 Turkey · Super Lig) — BTTS yes @1.72 (model 55%, fair 1.82) · G8V7PM
    • 17:00 Motor Lublin v Wisla Plock (🇵🇱 Poland · Ekstraklasa) — BTTS yes @1.58 (model 55%, fair 1.83) · GM38QN
-   • 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — BTTS yes @1.53 (model 54%, fair 1.84) · NXVRW4
+   • 19:30 Ascoli Calcio 1898 v Palermo (🇮🇹 Italy · Serie B) — BTTS yes @1.52 (model 54%, fair 1.84) · NXVRW4
    • 18:00 Hammarby IF v IF Elfsborg (🇸🇪 Sweden · Allsvenskan) — BTTS yes @1.79 (model 54%, fair 1.86) · VL9KZT
    • 20:00 Everton v Coventry City (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — BTTS yes @1.73 (model 54%, fair 1.86) · GZWPBZ
-   • 19:45 Venezia FC v Udinese (🇮🇹 Italy · Serie A) — BTTS yes @1.62 (model 53%, fair 1.90) · T3U9ZN
+   • 19:45 Venezia FC v Udinese (🇮🇹 Italy · Serie A) — BTTS yes @1.67 (model 53%, fair 1.90) · T3U9ZN
    • 19:00 Grenoble v Reims (🇫🇷 France · Ligue 2) — BTTS yes @1.78 (model 52%, fair 1.91) · JK6EAQ
-   • 20:45 Famalicao v Arouca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — BTTS yes @1.80 (model 52%, fair 1.91) · UD9UL1
-   • 18:30 SK Rapid v Wolfsberger AC (🇦🇹 Austria · Bundesliga) — BTTS yes @1.66 (model 52%, fair 1.92) · YV1K7F
+   • 20:45 Famalicao v Arouca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — BTTS yes @1.87 (model 52%, fair 1.91) · UD9UL1
+   • 18:30 SK Rapid v Wolfsberger AC (🇦🇹 Austria · Bundesliga) — BTTS yes @1.68 (model 52%, fair 1.92) · YV1K7F
    • 19:00 Montpellier v Metz (🇫🇷 France · Ligue 2) — BTTS yes @1.60 (model 51%, fair 1.94) · U75STB
-   • 19:30 Castellon v Eibar (🇪🇸 Spain · La Liga 2 / Hypermotion) — BTTS yes @1.64 (model 51%, fair 1.94) · XBMX1R
-   BTTS acca 1: ZPUCJN (3 legs · odds 3.24 · 28%)
-   BTTS acca 2: WEFSU6 (3 legs · odds 3.75 · 25%)
-   BTTS acca 3: Z48L74 (3 legs · odds 3.60 · 20%)
-   BTTS acca 4: G8WM0E (3 legs · odds 4.46 · 17%)
-   BTTS acca 5: G89TRD (3 legs · odds 4.33 · 16%)
-   BTTS acca 6: LN6NNN (3 legs · odds 4.99 · 15%)
-   BTTS acca 7: ZSWDFQ (2 legs · odds 2.99 · 27%)
-   BTTS acca 8: NCXWUC (2 legs · odds 2.62 · 26%)
+   • 19:30 Castellon v Eibar (🇪🇸 Spain · La Liga 2 / Hypermotion) — BTTS yes @1.65 (model 51%, fair 1.94) · XBMX1R
+   BTTS acca 1: ZPUCJN (3 legs · odds 3.33 · 28%)
+   BTTS acca 2: WEFSU6 (3 legs · odds 3.72 · 25%)
+   BTTS acca 3: R249YU (3 legs · odds 4.71 · 21%)
+   BTTS acca 4: UA97HT (3 legs · odds 4.02 · 18%)
+   BTTS acca 5: REZ6UG (3 legs · odds 4.13 · 16%)
+   BTTS acca 6: U134VM (3 legs · odds 5.17 · 15%)
+   BTTS acca 7: R8V530 (3 legs · odds 5.59 · 14%)
+   BTTS acca 8: NCXWUC (2 legs · odds 2.64 · 26%)
 
 ALL CODES
-CLV acca A: WV4NYU (4 legs · odds 2.73 · 39% · positive-CLV markets)
-CLV acca B: KAWWF0 (3 legs · odds 2.60 · 39% · positive-CLV markets)
-50+ #1: MAU5RU (3 legs · odds 1.98 · 50% · stake 0.5%)
+CLV acca A: WV4NYU (4 legs · odds 2.79 · 38% · positive-CLV markets)
+CLV acca B: S3068K (3 legs · odds 2.15 · 47% · positive-CLV markets)
+50+ #1: MAU5RU (3 legs · odds 2.00 · 50% · stake 0.5%)
 BTTS 1: W8AHYG (single · both teams to score)
 BTTS 2: XWLVWB (single · both teams to score)
 BTTS 3: TMKH03 (single · both teams to score)
-BTTS 4: WJPYE9 (single · both teams to score)
-BTTS 5: YAMFZZ (single · both teams to score)
+BTTS 4: YAMFZZ (single · both teams to score)
+BTTS 5: WJPYE9 (single · both teams to score)
 BTTS 6: LW3MAQ (single · both teams to score)
 BTTS 7: UDW46V (single · both teams to score)
-BTTS 8: PBXVXE (single · both teams to score)
-BTTS 9: V8MYYY (single · both teams to score)
-BTTS 10: YTTEWN (single · both teams to score)
-BTTS 11: UKLF15 (single · both teams to score)
-BTTS 12: G8V7PM (single · both teams to score)
-BTTS 13: GM38QN (single · both teams to score)
-BTTS 14: NXVRW4 (single · both teams to score)
-BTTS 15: VL9KZT (single · both teams to score)
-BTTS 16: GZWPBZ (single · both teams to score)
-BTTS 17: T3U9ZN (single · both teams to score)
-BTTS 18: JK6EAQ (single · both teams to score)
-BTTS 19: UD9UL1 (single · both teams to score)
-BTTS 20: YV1K7F (single · both teams to score)
-BTTS 21: U75STB (single · both teams to score)
-BTTS 22: XBMX1R (single · both teams to score)
+BTTS 8: XGNYWE (single · both teams to score)
+BTTS 9: PBXVXE (single · both teams to score)
+BTTS 10: V8MYYY (single · both teams to score)
+BTTS 11: YTTEWN (single · both teams to score)
+BTTS 12: UKLF15 (single · both teams to score)
+BTTS 13: G8V7PM (single · both teams to score)
+BTTS 14: GM38QN (single · both teams to score)
+BTTS 15: NXVRW4 (single · both teams to score)
+BTTS 16: VL9KZT (single · both teams to score)
+BTTS 17: GZWPBZ (single · both teams to score)
+BTTS 18: T3U9ZN (single · both teams to score)
+BTTS 19: JK6EAQ (single · both teams to score)
+BTTS 20: UD9UL1 (single · both teams to score)
+BTTS 21: YV1K7F (single · both teams to score)
+BTTS 22: U75STB (single · both teams to score)
+BTTS 23: XBMX1R (single · both teams to score)
 BTTS acca 1: ZPUCJN (BTTS acca · both teams to score in every game)
 BTTS acca 2: WEFSU6 (BTTS acca · both teams to score in every game)
-BTTS acca 3: Z48L74 (BTTS acca · both teams to score in every game)
-BTTS acca 4: G8WM0E (BTTS acca · both teams to score in every game)
-BTTS acca 5: G89TRD (BTTS acca · both teams to score in every game)
-BTTS acca 6: LN6NNN (BTTS acca · both teams to score in every game)
-BTTS acca 7: ZSWDFQ (BTTS acca · both teams to score in every game)
+BTTS acca 3: R249YU (BTTS acca · both teams to score in every game)
+BTTS acca 4: UA97HT (BTTS acca · both teams to score in every game)
+BTTS acca 5: REZ6UG (BTTS acca · both teams to score in every game)
+BTTS acca 6: U134VM (BTTS acca · both teams to score in every game)
+BTTS acca 7: R8V530 (BTTS acca · both teams to score in every game)
 BTTS acca 8: NCXWUC (BTTS acca · both teams to score in every game)
-Mega 1: J1FU6F (4 legs · odds 3 · stake 0.1%)
-Mega 2: ZP7AQ7 (3 legs · odds 4 · stake 0.1%)
+Mega 1: QSY7E0 (5 legs · odds 3 · stake 0.1%)
+Mega 2: HACYPV (3 legs · odds 4 · stake 0.1%)
 Mega 3: GZCHCP (11 legs · odds 28 · stake 0.1%)
-Mega 4: WPMM0L (7 legs · odds 8 · stake 0.1%)
-Acca A: S61ELS (4 legs · odds 2.79 · 37% · stake 0.25%)
-Acca B: Z0KAYB (3 legs · odds 2.20 · 46% · stake 0.25%)
-Acca C: MEGZVM (4 legs · odds 2.71 · 37% · stake 0.25%)
-Value 1: NSD0RB (1 leg · positive value · odds 1.85 · 56% · stake 0.25%)
-Value 2: ZSG378 (1 leg · positive value · odds 1.94 · 53% · stake 0.25%)
+Mega 4: X19FHF (7 legs · odds 7 · stake 0.1%)
+Acca A: Z0KAYB (3 legs · odds 2.23 · 46% · stake 0.25%)
+Acca B: Q3WHT8 (4 legs · odds 2.79 · 38% · stake 0.25%)
+Acca C: RVNHS8 (4 legs · odds 2.75 · 37% · stake 0.25%)
+Value 1: NSD0RB (1 leg · positive value · odds 1.84 · 57% · stake 0.25%)
+Value 2: ZSG378 (1 leg · positive value · odds 1.92 · 54% · stake 0.25%)
+Value 3: H5GJ9C (1 leg · positive value · odds 1.75 · 59% · stake 0.25%)
 
 ============================================================
 
@@ -320,12 +325,13 @@ Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
 DETAIL — HR53 full per-fixture audit (not sent to Telegram)
 
 PART 0 — HEADER
-Date: 2026-11-04 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Date: 2026-11-05 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
-Calibration: 1191 legs logged, mean CLV +0.41%
+Calibration: 1206 legs logged, mean CLV +0.39%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ League One: 1 team name(s) in the fixtures feed not found in the fitted data — Oxford United. Model knows: AFC Wimbledon, Barnsley, Blackpool, Bolton, Bradford, Bromley, Burton, Cambridge, Cardiff, Doncaster, Exeter, Huddersfield, Leicester, Leyton Orient, Lincoln, Luton, Mansfield, Milton Keynes Dons, Northampton, Notts County, Oxford, Peterboro, Plymouth, Port Vale, Reading, Rotherham, Sheffield Weds, Stevenage, Stockport, Wigan, Wycombe. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
 SOURCE NOTES (where the data came from, not problems):
-  · Turkish Cup results archived: 1 new
-  · graded 0 of 315 pending leg(s)
+  · graded 0 of 388 pending leg(s)
   · picks 2026-10-03: 73 graded, 3 pending (Flashscore)
   · picks 2026-10-04: 13 graded, 0 pending; 13/13 rated fixtures graded (Flashscore)
   · picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
@@ -358,21 +364,23 @@ SOURCE NOTES (where the data came from, not problems):
   · picks 2026-11-01: 67 graded, 1 pending; 71/72 rated fixtures graded (Flashscore)
   · picks 2026-11-02: 12 graded, 0 pending; 22/22 rated fixtures graded (Flashscore)
   · picks 2026-11-03: 22 graded, 0 pending; 22/22 rated fixtures graded (Flashscore)
+  · picks 2026-11-04: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
   · picks 2026-10-09: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
   · picks 2026-10-13: 16 graded, 1 pending; 16/17 rated fixtures graded (Flashscore)
-  · SportyBet events served from cache (<=60min)
+  · SportyBet events pulled live
   · Eredivisie: 18 fixture(s) priced from SportyBet
   · Eredivisie: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
+  · SportyBet events served from cache (<=60min)
   · Danish Superliga: 6 fixture(s) priced from SportyBet
   · Danish Superliga: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
-  · Belgian Pro League: 10 fixture(s) priced from SportyBet
+  · Belgian Pro League: 9 fixture(s) priced from SportyBet
   · Belgian Pro League: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Scottish Premiership: 12 fixture(s) priced from SportyBet
   · Ekstraklasa: 9 fixture(s) priced from SportyBet
   · Ekstraklasa: price check — 0 agree with an independent book, 0 differ, 2 unchecked (margin-free, 5 pts)
   · HNL: 5 fixture(s) priced from SportyBet
   · HNL: price check — 0 agree with an independent book, 0 differ, 1 unchecked (margin-free, 5 pts)
-  · Championship: 15 fixture(s) priced from SportyBet
+  · Championship: 12 fixture(s) priced from SportyBet
   · Championship: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Serie A: 20 fixture(s) priced from SportyBet
   · Serie A: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
@@ -380,16 +388,16 @@ SOURCE NOTES (where the data came from, not problems):
   · Bundesliga: price check — 0 agree with an independent book, 0 differ, 1 unchecked (margin-free, 5 pts)
   · Ligue 1: 18 fixture(s) priced from SportyBet
   · Ligue 1: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
-  · Europa League: 18 fixture(s) priced from SportyBet
+  · Europa League: 17 fixture(s) priced from SportyBet
   · Primeira Liga: 9 fixture(s) priced from SportyBet
   · Primeira Liga: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Premier League: 20 fixture(s) priced from SportyBet
   · Premier League: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · La Liga: 20 fixture(s) priced from SportyBet
   · La Liga: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
-  · Champions League: 9 fixture(s) priced from SportyBet
+  · Champions League: 18 fixture(s) priced from SportyBet
   · Conference League: 18 fixture(s) priced from SportyBet
-  · La Liga 2: 10 fixture(s) priced from SportyBet
+  · La Liga 2: 9 fixture(s) priced from SportyBet
   · La Liga 2: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Serie B: 10 fixture(s) priced from SportyBet
   · Serie B: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
@@ -397,12 +405,12 @@ SOURCE NOTES (where the data came from, not problems):
   · 2. Bundesliga: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Ligue 2: 9 fixture(s) priced from SportyBet
   · Ligue 2: price check — 5 agree with an independent book, 0 differ, 1 unchecked (margin-free, 5 pts)
-  · League One: 13 fixture(s) priced from SportyBet
+  · League One: 12 fixture(s) priced from SportyBet
   · League Two: 12 fixture(s) priced from SportyBet
   · National League: 11 fixture(s) priced from SportyBet
   · FA Cup: 40 fixture(s) priced from SportyBet
   · FA Cup: price check — 2 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
-  · UEFA Nations League: 25 fixture(s) priced from SportyBet
+  · UEFA Nations League: 26 fixture(s) priced from SportyBet
   · Turkish Super Lig: 9 fixture(s) priced from SportyBet
   · Turkish Super Lig: price check — 1 agree with an independent book, 0 differ, 0 unchecked (margin-free, 5 pts)
   · Greek Super League: 14 fixture(s) priced from SportyBet
@@ -419,9 +427,9 @@ SOURCE NOTES (where the data came from, not problems):
   · Eredivisie: 9 fixture(s) blended with shots-on-target ratings
   · Danish Superliga: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Danish Superliga: model fitted on last season + 78 match(es) of this season, weighted to recent (half-life 240.0 days)
-  · Belgian Pro League: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · Belgian Pro League: model fitted on last season + 89 match(es) of this season, weighted to recent (half-life 240.0 days)
-  · Belgian Pro League: 10 fixture(s) blended with shots-on-target ratings
+  · Belgian Pro League: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Belgian Pro League: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Belgian Pro League: 9 fixture(s) blended with shots-on-target ratings
   · Scottish Premiership: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Scottish Premiership: model fitted on last season + 69 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Scottish Premiership: 6 fixture(s) blended with shots-on-target ratings
@@ -429,10 +437,10 @@ SOURCE NOTES (where the data came from, not problems):
   · Ekstraklasa: model fitted on last season + 115 match(es) of this season, weighted to recent (half-life 240.0 days)
   · HNL: 5 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · HNL: 5/5 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
-  · Championship: 15 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · Championship: model fitted on last season + 156 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · Championship: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Championship: model fitted on last season + 168 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Championship: 3 feed name(s) matched to the model's spelling — Bolton Wanderers -> Bolton, Cardiff City -> Cardiff, Lincoln City -> Lincoln
-  · Championship: 15 fixture(s) blended with shots-on-target ratings
+  · Championship: 12 fixture(s) blended with shots-on-target ratings
   · Serie A: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Serie A: model fitted on last season + 100 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Serie A: 1 feed name(s) matched to the model's spelling — Venezia FC -> Venezia
@@ -445,8 +453,8 @@ SOURCE NOTES (where the data came from, not problems):
   · Ligue 1: model fitted on last season + 81 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Ligue 1: 1 feed name(s) matched to the model's spelling — Le Mans FC -> Le Mans
   · Ligue 1: 0 fixture(s) blended with xG ratings (Understat)
-  · Europa League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · Europa League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Europa League: 17 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Europa League: 17/17 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
   · Primeira Liga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Primeira Liga: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Primeira Liga: 2 feed name(s) matched to the model's spelling — Academico de Viseu FC -> Academico Viseu, Maritimo Madeira -> Maritimo
@@ -458,11 +466,11 @@ SOURCE NOTES (where the data came from, not problems):
   · La Liga: model fitted on last season + 109 match(es) of this season, weighted to recent (half-life 240.0 days)
   · La Liga: 3 feed name(s) matched to the model's spelling — Malaga CF -> Malaga, RC Deportivo de A Coruna -> La Coruna, Racing Santander -> Santander
   · La Liga: 0 fixture(s) blended with xG ratings (Understat)
-  · Champions League: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · Champions League: 9/9 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  · Champions League: 0 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · Champions League: 0/0 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
   · Conference League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Conference League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
-  · La Liga 2: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · La Liga 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · La Liga 2: model fitted on last season + 131 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Serie B: model fitted on last season + 100 match(es) of this season, weighted to recent (half-life 240.0 days)
@@ -473,20 +481,20 @@ SOURCE NOTES (where the data came from, not problems):
   · Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Ligue 2: model fitted on last season + 99 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Ligue 2: 1 feed name(s) matched to the model's spelling — Sochaux-Montbeliard -> Sochaux
-  · League One: 13 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · League One: model fitted on last season + 155 match(es) of this season, weighted to recent (half-life 240.0 days)
-  · League One: 10 feed name(s) matched to the model's spelling — Blackpool FC -> Blackpool, Bromley FC -> Bromley, Cambridge United -> Cambridge, Doncaster Rovers -> Doncaster, Oxford United -> Oxford, Peterborough United -> Peterboro, Sheffield Wednesday -> Sheffield Weds, Stevenage FC -> Stevenage, Stockport County FC -> Stockport, Wycombe Wanderers -> Wycombe
+  · League One: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · League One: model fitted on last season + 158 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League One: 9 feed name(s) matched to the model's spelling — Blackpool FC -> Blackpool, Bromley FC -> Bromley, Cambridge United -> Cambridge, Doncaster Rovers -> Doncaster, Peterborough United -> Peterboro, Sheffield Wednesday -> Sheffield Weds, Stevenage FC -> Stevenage, Stockport County FC -> Stockport, Wycombe Wanderers -> Wycombe
   · League Two: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  · League Two: model fitted on last season + 163 match(es) of this season, weighted to recent (half-life 240.0 days)
+  · League Two: model fitted on last season + 164 match(es) of this season, weighted to recent (half-life 240.0 days)
   · League Two: 3 feed name(s) matched to the model's spelling — Barnet FC -> Barnet, Colchester United -> Colchester, York City FC -> York
   · National League: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · National League: model fitted on last season + 189 match(es) of this season, weighted to recent (half-life 240.0 days)
   · National League: 1 feed name(s) matched to the model's spelling — Scunthorpe United -> Scunthorpe
   · FA Cup: 40 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · FA Cup: 40/40 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
-  · UEFA Nations League: 25 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  · UEFA Nations League: 26 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · UEFA Nations League: national-team history via martj42/international_results — 1105 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-10-06; no odds in this source, so a leg's CLV comes from its SportyBet closing capture
-  · UEFA Nations League: national Elo blended into 25 fixture(s)
+  · UEFA Nations League: national Elo blended into 26 fixture(s)
   · Turkish Super Lig: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Turkish Super Lig: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
   · Turkish Super Lig: 12 feed name(s) matched to the model's spelling — Amed Sportif Faaliyetler -> Amedspor, Besiktas Istanbul -> Besiktas, Caykur Rizespor -> Rizespor, Corum FK -> Corum, Erzurumspor FK -> Erzurumspor, Fenerbahce Istanbul -> Fenerbahce, Galatasaray Istanbul -> Galatasaray, Gaziantep FK -> Gaziantep, Genclerbirligi SK -> Genclerbirligi, Goztepe Izmir -> Goztep, Istanbul BB -> Buyuksehyr, Kasimpasa Istanbul -> Kasimpasa
@@ -507,45 +515,45 @@ SOURCE NOTES (where the data came from, not problems):
   · Allsvenskan: 14 feed name(s) matched to the model's spelling — BK Hacken -> Hacken, Degerfors IF -> Degerfors, Djurgardens IF -> Djurgarden, Halmstads BK -> Halmstad, Hammarby IF -> Hammarby, IF Brommapojkarna -> Brommapojkarna, IF Elfsborg -> Elfsborg, IFK Goteborg -> Goteborg, IK Sirius -> Sirius, Kalmar FF -> Kalmar, Malmo -> Malmo FF, Mjallby AIF -> Mjallby, Orgryte IS -> Orgryte, Vasteraas SK -> Vasteras SK
   · Turkish Cup: 0 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   · Turkish Cup: 0/0 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
-  · TARGET DAY 2026-11-06: 28 fixture(s) kicking off that day (317 outside the target day excluded)
+  · TARGET DAY 2026-11-06: 28 fixture(s) kicking off that day (302 outside the target day excluded)
   · Fixture check (TheSportsDB · ESPN · football-data · FotMob · Flashscore): 27/28 confirmed by two independent sources, 1 one source only, 0 conflict(s)
-  · Learning from 13726 graded singles: Result & total +7.1pp (196/305 won vs 172.3 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.2pp (760/968 won vs 727.7 expected) · DC & total +3.0pp (753/1108 won vs 719.2 expected) · Matchbook close (order 44): 1st Half Total -2.0pp (CLV -2.0% over 30), Double chance -0.1pp (CLV -0.1% over 85)
-  · losing-market watch: 7 flag(s), 0 approved block(s) in force
+  · Learning from 13750 graded singles: Result & total +7.4pp (201/311 won vs 175.8 expected) · Odd/Even -5.8pp (162/367 won vs 185.1 expected) · Double chance +3.2pp (768/978 won vs 735.3 expected) · DC & total +3.0pp (757/1114 won vs 722.5 expected) · Matchbook close (order 44): 1st Half Total -1.8pp (CLV -1.8% over 35), Double chance -0.1pp (CLV -0.1% over 85)
+  · losing-market watch: 12 flag(s), 0 approved block(s) in force
   · value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
   · tactical matchup: 22 fixture(s) read from the tactical profiles; weight 0 (fitted on unseen matches; 0 = label only), 0 chance(s) moved (cap ±5%)
-  · No forced picks (plan point 3): 28 game(s) whose safest outcome is under 1.20; 2 got no single (no other market 5+ pts over break-even)
-  · forced-pick mix (2026-11-03): 26 break-even fallback(s) found, 26 kept (no cap)
-  · No Unders in a shootout (order 43): 20 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
+  · No forced picks (plan point 3): 28 game(s) whose safest outcome is under 1.20; 1 got no single (no other market 5+ pts over break-even)
+  · forced-pick mix (2026-11-03): 27 break-even fallback(s) found, 27 kept (no cap)
+  · No Unders in a shootout (order 43): 18 match Under outcome(s) dropped where the team profiles read both sides scoring plenty
   · FA Cup underdog handicaps (order 38): 7 outcome(s) not considered
-  · same-result price shopping: 188 outcome(s) dropped for the same bet at a better price under another market
+  · same-result price shopping: 186 outcome(s) dropped for the same bet at a better price under another market
   · full market ladder: 28 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   · team profiles: 20 deploy pick(s) profiled (last 20 games each side)
-  · deploy odds band 1.20–2.00: 2 fixture(s) dropped from THE CALL (price out of band)
-  · team news (FotMob): 23 pick(s) checked, 0 flagged for injuries/suspensions, 3 swapped to an alternative the news doesn't touch
+  · deploy odds band 1.20–2.00: 1 fixture(s) dropped from THE CALL (price out of band)
+  · team news (FotMob): 24 pick(s) checked, 0 flagged for injuries/suspensions, 1 swapped to an alternative the news doesn't touch
   · switched shaky picks: 0 moved to a steadier market (order 32)
   · sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
-  · value: 2/26 picks positive EV on our chance x price (avg EV -3.0%); the scorecard tracks whether +EV picks really return more
-  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.4%, live 919 @ -4.3% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -5.3%, live 26 @ -2.4% · MARKET est -3.4%, live 227 @ -2.7%
-  · logged 115 new paper leg(s) with a live entry price
-  · Phase 3 gate: 1191 of 30 legs with logged CLV; mean CLV 0.411
-  · positive-CLV accas: 2 built from Double chance +0.19% over 488, Home goals +0.30% over 72
+  · value: 1/27 picks positive EV on our chance x price (avg EV -3.3%); the scorecard tracks whether +EV picks really return more
+  · Staking (% of bankroll): BANKER est +1.4%, live 3 @ +25.0% · SAFE est -4.4%, live 924 @ -4.2% · VALUE est -2.3%, live 8 @ +32.1% · BOOK est -5.3%, live 26 @ -2.4% · MARKET est -3.0%, live 237 @ -2.2%
+  · logged 123 new paper leg(s) with a live entry price
+  · Phase 3 gate: 1206 of 30 legs with logged CLV; mean CLV 0.386
+  · positive-CLV accas: 2 built from Double chance +0.18% over 497, Home goals +0.30% over 72
   · 50%+ accas: 1/1 booked (3 legs, high-certainty legs only)
   · alt-market accas: 0/0 booked (a different market from each fixture's main pick)
-  · positive-value bets (order 37): 2 found, 2/2 slip(s) booked
+  · positive-value bets (order 37): 3 found, 3/3 slip(s) booked
   · ACCAS MEGA not booked: the accas sit in different kickoff windows
   · VALUE_MEGA not booked: its slips sit in different kickoff windows
   · short 3-leg slips: 0 built, 0 booked (paper)
-  · SportyBet booking codes: 26/26 singles, 3/3 accas, 4/4 mega slips
-  · AI Survivor: 16 alive, 1 holding a pick for 2026-11-06 (0 new), 15 waiting for a 80%+ HIGH/MEDIUM pick
+  · SportyBet booking codes: 27/27 singles, 3/3 accas, 4/4 mega slips
+  · AI Survivor: 15 alive, 0 holding a pick for 2026-11-06 (0 new), 15 waiting for a 80%+ HIGH/MEDIUM pick
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
-26 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
+27 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
 MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 
 1. Willem II v Zwolle (Eredivisie)
-   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, espn.com)
-   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P18 2pts, last5 0/15 | away: P14 11pts, last5 7/15  (recent-form tilt +0.47)
    Match result (model probabilities):
       Willem II to win .......... 22%
@@ -554,19 +562,19 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 61% (model)
    Both teams to score YES 60% (model)
    Likely scores (model, label only): 1-1 10% · 1-2 10% · 0-2 8% | goals 0-1 18% · 2-3 43% · 4+ 39% | clean sheet Willem II 14% · Zwolle 30%
-   Expected goals (model): Willem II 1.393, Zwolle 2.177
+   Expected goals (model): Willem II 1.394, Zwolle 2.177
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Willem II to win 12% · Draw 29% · Zwolle to win 58%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Willem II or Zwolle
       Model probability .......... 77%
-      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.14 or longer
-      HR30 numerical MES ......... -1.32% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -0.59% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 2. Silkeborg v Lyngby (Danish Superliga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P9 12pts, last5 5/15 | away: P11 11pts, last5 4/15  (recent-form tilt +0.07)
    Match result (model probabilities):
@@ -584,33 +592,33 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 79%
       Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.11 or longer
-      HR30 numerical MES ......... -2.67% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.84% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 3. Standard v Beveren (Belgian Pro League)
-   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, espn.com)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P9 12pts, last5 1/15 | away: P12 10pts, last5 4/15  (recent-form tilt -0.20)
    Match result (model probabilities):
-      Standard to win .......... 50%
+      Standard to win .......... 49%
       Draw ......................... 25%
       Beveren to win .......... 26%
    Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 52% (model)
    Both teams to score YES 54% (model)
-   Likely scores (model, label only): 1-1 12% · 1-0 10% · 2-1 9% | goals 0-1 24% · 2-3 46% · 4+ 30% | clean sheet Standard 33% · Beveren 19%
-   Expected goals (model): Standard 1.818, Beveren 1.125
+   Likely scores (model, label only): 1-1 12% · 1-0 10% · 2-1 9% | goals 0-1 24% · 2-3 46% · 4+ 30% | clean sheet Standard 32% · Beveren 19%
+   Expected goals (model): Standard 1.813, Beveren 1.126
    Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Standard to win 58% · Draw 25% · Beveren to win 17%
+      Standard to win 58% · Draw 26% · Beveren to win 17%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Standard or Beveren
       Model probability .......... 77%
       Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.26 or longer
-      HR30 numerical MES ......... -2.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.24% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. Motor Lublin v Wisla Plock (Ekstraklasa)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, flashscore.co.uk, sportybet.com)
    Price check: SINGLE-SOURCE — no independent book quotes this match
    Standings/form — home: P11 16pts, last5 11/15 | away: P12 15pts, last5 7/15  (recent-form tilt +0.27)
    Match result (model probabilities):
@@ -631,30 +639,47 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       HR30 numerical MES ......... -3.96% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-5. Derby v Bolton Wanderers (Championship)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
-   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
-   Standings/form — home: P23 7pts, last5 2/15 | away: NO DATA
+5. NK Lokomotiva Zagreb v NK Rudes Zagreb (HNL)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: fotmob.com, sportybet.com)
+   Price check: SINGLE-SOURCE — no independent book quotes this match
    Match result (model probabilities):
-      Derby to win .......... 45%
-      Draw ......................... 23%
-      Bolton Wanderers to win .......... 31%
-   Goals: Over 1.5 goals 85% (model) | Over 2.5 goals 64% (model)
-   Both teams to score YES 65% (model)
-   Likely scores (model, label only): 1-1 10% · 2-1 9% · 1-2 7% | goals 0-1 15% · 2-3 42% · 4+ 42% | clean sheet Derby 23% · Bolton Wanderers 16%
-   Expected goals (model): Derby 1.769, Bolton Wanderers 1.354
-   Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Derby to win 48% · Draw 26% · Bolton Wanderers to win 27%
-      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Derby or Bolton Wanderers
-      Model probability .......... 79%
-      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
-      Breakeven trigger price .... 1.21 or longer
-      HR30 numerical MES ......... -2.31% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      NK Lokomotiva Zagreb to win .......... 48%
+      Draw ......................... 26%
+      NK Rudes Zagreb to win .......... 26%
+   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 54% (model)
+   Both teams to score YES 56% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: NK Lokomotiva Zagreb or NK Rudes Zagreb
+      Model probability .......... 78%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.84% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-6. Venezia FC v Udinese (Serie A)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+6. Derby v Bolton Wanderers (Championship)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
+   Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P23 7pts, last5 1/15 | away: NO DATA
+   Match result (model probabilities):
+      Derby to win .......... 42%
+      Draw ......................... 24%
+      Bolton Wanderers to win .......... 34%
+   Goals: Over 1.5 goals 83% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 64% (model)
+   Likely scores (model, label only): 1-1 11% · 2-1 9% · 1-2 8% | goals 0-1 17% · 2-3 43% · 4+ 40% | clean sheet Derby 22% · Bolton Wanderers 18%
+   Expected goals (model): Derby 1.63, Bolton Wanderers 1.387
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Derby to win 42% · Draw 23% · Bolton Wanderers to win 35%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Derby or Bolton Wanderers
+      Model probability .......... 78%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.24 or longer
+      HR30 numerical MES ......... -1.11% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+7. Venezia FC v Udinese (Serie A)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: NO DATA | away: P19 5pts, last5 1/15
    Match result (model probabilities):
@@ -664,19 +689,19 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 56% (model)
    Both teams to score NO 51% (model)
    Likely scores (model, label only): 0-1 12% · 1-1 12% · 1-0 10% | goals 0-1 30% · 2-3 47% · 4+ 23% | clean sheet Venezia FC 25% · Udinese 35%
-   Expected goals (model): Venezia FC 1.063, Udinese 1.383
+   Expected goals (model): Venezia FC 1.064, Udinese 1.383
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Venezia FC to win 21% · Draw 26% · Udinese to win 54%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Venezia FC or Udinese
       Model probability .......... 78%
-      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.44 or longer
-      HR30 numerical MES ......... -0.78% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -0.46% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-7. Hamburg v M'gladbach (Bundesliga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+8. Hamburg v M'gladbach (Bundesliga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: SINGLE-SOURCE — no independent book quotes this match
    Standings/form — home: P15 9pts, last5 9/15 | away: P18 4pts, last5 4/15  (recent-form tilt +0.33)
    Match result (model probabilities):
@@ -691,14 +716,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Hamburg to win 47% · Draw 28% · M'gladbach to win 25%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Hamburg or M'gladbach
-      Model probability .......... 78%
+      Model probability .......... 79%
       Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.31 or longer
-      HR30 numerical MES ......... -1.16% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.06% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-8. Toulouse v Strasbourg (Ligue 1)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+9. Toulouse v Strasbourg (Ligue 1)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P12 10pts, last5 8/15 | away: P13 10pts, last5 3/15  (recent-form tilt +0.33)
    Match result (model probabilities):
@@ -716,11 +741,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 79%
       Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.20 or longer
-      HR30 numerical MES ......... -0.86% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -0.81% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-9. Famalicao v Arouca (Primeira Liga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+10. Famalicao v Arouca (Primeira Liga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P11 10pts, last5 7/15 | away: P5 20pts, last5 10/15  (recent-form tilt -0.20)
    Match result (model probabilities):
@@ -735,14 +760,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Famalicao to win 44% · Draw 32% · Arouca to win 25%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Famalicao or Arouca
-      Model probability .......... 78%
-      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Model probability .......... 77%
+      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.44 or longer
-      HR30 numerical MES ......... -1.59% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.05% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-10. Everton v Coventry City (Premier League)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+11. Everton v Coventry City (Premier League)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P7 13pts, last5 7/15 | away: NO DATA
    Match result (model probabilities):
@@ -760,11 +785,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 79%
       Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.37 or longer
-      HR30 numerical MES ......... -3.27% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.14% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-11. Sevilla v Alaves (La Liga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+12. Sevilla v Alaves (La Liga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P6 17pts, last5 4/15 | away: P11 12pts, last5 2/15  (recent-form tilt +0.13)
    Match result (model probabilities):
@@ -782,11 +807,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 77%
       Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.26 or longer
-      HR30 numerical MES ......... -1.73% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.59% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-12. Castellon v Eibar (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+13. Castellon v Eibar (La Liga 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P1 27pts, last5 8/15 | away: P3 23pts, last5 5/15  (recent-form tilt +0.20)
    Match result (model probabilities):
@@ -802,13 +827,13 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Castellon Under 2.5 goals
       Model probability .......... 71%
-      Best quoted price .......... 1.42 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.43 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.44 or longer
-      HR30 numerical MES ......... +1.10% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... +1.13% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-13. Ascoli Calcio 1898 v Palermo (Serie B)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+14. Ascoli Calcio 1898 v Palermo (Serie B)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: NO DATA | away: P1 26pts, last5 13/15
    Match result (model probabilities):
@@ -818,7 +843,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 72% (model) | Under 2.5 goals 55% (model)
    Both teams to score YES 51% (model)
    Likely scores (model, label only): 1-1 14% · 0-0 10% · 1-0 10% | goals 0-1 28% · 2-3 49% · 4+ 23% | clean sheet Ascoli Calcio 1898 34% · Palermo 25%
-   Expected goals (model): Ascoli Calcio 1898 1.379, Palermo 1.082
+   Expected goals (model): Ascoli Calcio 1898 1.379, Palermo 1.083
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Ascoli Calcio 1898 to win 33% · Draw 32% · Palermo to win 35%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
@@ -826,11 +851,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 78%
       Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.39 or longer
-      HR30 numerical MES ......... -3.05% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.09% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-14. Dresden v Greuther Furth (2. Bundesliga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+15. Dresden v Greuther Furth (2. Bundesliga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P18 8pts, last5 4/15 | away: P9 12pts, last5 7/15  (recent-form tilt -0.20)
    Match result (model probabilities):
@@ -848,11 +873,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 80%
       Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.18 or longer
-      HR30 numerical MES ......... -2.03% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-15. Braunschweig v Energie Cottbus (2. Bundesliga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+16. Braunschweig v Energie Cottbus (2. Bundesliga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P15 10pts, last5 6/15 | away: NO DATA
    Match result (model probabilities):
@@ -867,14 +892,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Braunschweig to win 38% · Draw 29% · Energie Cottbus to win 33%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Braunschweig or Energie Cottbus
-      Model probability .......... 81%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Model probability .......... 80%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.18 or longer
-      HR30 numerical MES ......... -3.00% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.41% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-16. Dijon v Red Star (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+17. Dijon v Red Star (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: SINGLE-SOURCE — no independent book quotes this match
    Standings/form — home: P8 15pts, last5 9/15 | away: P6 17pts, last5 6/15  (recent-form tilt +0.20)
    Match result (model probabilities):
@@ -884,7 +909,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 86% (model) | Over 2.5 goals 66% (model)
    Both teams to score YES 67% (model)
    Likely scores (model, label only): 1-1 10% · 2-1 9% · 1-2 8% | goals 0-1 14% · 2-3 42% · 4+ 44% | clean sheet Dijon 20% · Red Star 17%
-   Expected goals (model): Dijon 1.755, Red Star 1.629
+   Expected goals (model): Dijon 1.754, Red Star 1.629
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Dijon to win 44% · Draw 29% · Red Star to win 26%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
@@ -892,11 +917,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 79%
       Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.17 or longer
-      HR30 numerical MES ......... -0.84% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.00% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-17. Grenoble v Reims (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+18. Grenoble v Reims (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P18 8pts, last5 1/15 | away: P4 21pts, last5 9/15  (recent-form tilt +0.53)
    Match result (model probabilities):
@@ -906,7 +931,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 73% (model) | Under 2.5 goals 53% (model)
    Both teams to score NO 52% (model)
    Likely scores (model, label only): 0-1 12% · 1-1 12% · 0-2 11% | goals 0-1 27% · 2-3 47% · 4+ 26% | clean sheet Grenoble 18% · Reims 42%
-   Expected goals (model): Grenoble 0.878, Reims 1.691
+   Expected goals (model): Grenoble 0.878, Reims 1.69
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Grenoble to win 13% · Draw 28% · Reims to win 59%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
@@ -917,8 +942,8 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       HR30 numerical MES ......... -3.53% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-18. Montpellier v Metz (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+19. Montpellier v Metz (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P2 24pts, last5 13/15 | away: P10 14pts, last5 5/15  (recent-form tilt +0.53)
    Match result (model probabilities):
@@ -939,8 +964,8 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       HR30 numerical MES ......... -2.16% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-19. Nancy v Sochaux-Montbeliard (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+20. Nancy v Sochaux-Montbeliard (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P3 22pts, last5 15/15 | away: NO DATA
    Match result (model probabilities):
@@ -955,14 +980,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Nancy to win 61% · Draw 28% · Sochaux-Montbeliard to win 11%
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +15pp on home win (Elo 61%/28%/11% vs Dixon-Coles 45%/30%/25%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
    Best available market: Nancy & Under 4.5
-      Model probability .......... 51%
+      Model probability .......... 52%
       Best quoted price .......... 1.92 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.55 or longer
-      HR30 numerical MES ......... -13.35% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -13.36% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-20. Boulogne v Annecy (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+21. Boulogne v Annecy (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P14 10pts, last5 5/15 | away: P7 16pts, last5 6/15  (recent-form tilt +0.07)
    Match result (model probabilities):
@@ -983,8 +1008,8 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       HR30 numerical MES ......... -2.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-21. Dunkerque v Guingamp (Ligue 2)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+22. Dunkerque v Guingamp (Ligue 2)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P12 12pts, last5 4/15 | away: P9 14pts, last5 6/15  (recent-form tilt -0.13)
    Match result (model probabilities):
@@ -992,7 +1017,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Draw ......................... 26%
       Guingamp to win .......... 34%
    Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 53% (model)
-   Both teams to score YES 58% (model)
+   Both teams to score YES 57% (model)
    Likely scores (model, label only): 1-1 12% · 2-1 9% · 1-0 8% | goals 0-1 22% · 2-3 47% · 4+ 31% | clean sheet Dunkerque 26% · Guingamp 23%
    Expected goals (model): Dunkerque 1.481, Guingamp 1.337
    Second opinion — Elo rating engine (ID82), independent of the goals model:
@@ -1005,42 +1030,42 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       HR30 numerical MES ......... -2.52% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-22. Bristol Rovers v Cambridge United (FA Cup)
-   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, sportybet.com, espn.com)
+23. Bristol Rovers v Cambridge United (FA Cup)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Match result (model probabilities):
-      Bristol Rovers to win .......... 30%
-      Draw ......................... 25%
-      Cambridge United to win .......... 45%
+      Bristol Rovers to win .......... 32%
+      Draw ......................... 26%
+      Cambridge United to win .......... 42%
    Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 58% (model)
-   Both teams to score YES 60% (model)
+   Both teams to score YES 61% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Bristol Rovers or Cambridge United
-      Model probability .......... 79%
-      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.32% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Model probability .......... 78%
+      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -2.89% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-23. Oxford City v Leicester (FA Cup)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+24. Oxford City v Leicester (FA Cup)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Match result (model probabilities):
       Oxford City to win .......... 12%
       Draw ......................... 17%
-      Leicester to win .......... 72%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 63% (model)
+      Leicester to win .......... 71%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 63% (model)
    Both teams to score YES 52% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Leicester & Under 4.5
-      Model probability .......... 58%
-      Best quoted price .......... 1.73 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -10.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Leicester & Over 1.5
+      Model probability .......... 68%
+      Best quoted price .......... 1.45 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -10.53% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-24. Gaziantep FK v Kasimpasa Istanbul (Turkish Super Lig)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+25. Gaziantep FK v Kasimpasa Istanbul (Turkish Super Lig)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: NO DATA | away: NO DATA
    Match result (model probabilities):
@@ -1056,13 +1081,13 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Gaziantep FK or Kasimpasa Istanbul
       Model probability .......... 76%
-      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.38 or longer
-      HR30 numerical MES ......... -2.45% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.67% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-25. SK Rapid v Wolfsberger AC (Austrian Bundesliga)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+26. SK Rapid v Wolfsberger AC (Austrian Bundesliga)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P1 30pts, last5 15/15 | away: P12 6pts, last5 1/15  (recent-form tilt +0.93)
    Match result (model probabilities):
@@ -1077,14 +1102,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       SK Rapid to win 75% · Draw 22% · Wolfsberger AC to win 2%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: SK Rapid & Under 4.5
-      Model probability .......... 56%
-      Best quoted price .......... 1.83 decimal (sportybet, best of 1 books)
+      Model probability .......... 57%
+      Best quoted price .......... 1.81 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.26 or longer
-      HR30 numerical MES ......... -8.72% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -8.77% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-26. Hammarby IF v IF Elfsborg (Allsvenskan)
-   Data confidence: VERIFIED — independent factors agree (source: flashscore.co.uk, fotmob.com, sportybet.com, espn.com)
+27. Hammarby IF v IF Elfsborg (Allsvenskan)
+   Data confidence: VERIFIED — independent factors agree (source: fotmob.com, espn.com, flashscore.co.uk, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: NO DATA | away: NO DATA
    Match result (model probabilities):
@@ -1098,22 +1123,22 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Hammarby IF to win 71% · Draw 15% · IF Elfsborg to win 14%
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +13pp on home win (Elo 71%/15%/14% vs Dixon-Coles 58%/24%/18%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
-   Best available market: Hammarby IF Under 2.5 goals
-      Model probability .......... 65%
-      Best quoted price .......... 1.55 decimal (sportybet, best of 1 books)
+   Best available market: Hammarby IF & Under 4.5
+      Model probability .......... 56%
+      Best quoted price .......... 1.78 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.32 or longer
-      HR30 numerical MES ......... +0.68% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... -11.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
 Willem II v Zwolle (Eredivisie) | Zwolle·55% | O82 / O61 | X278 / Y60 | ✓
 Silkeborg v Lyngby (Danish Superliga) | Silkeborg·41% | O90 / O72 | 1276 / Y72 | ✓
-Standard v Beveren (Belgian Pro League) | Standard·50% | O76 / O52 | 1275 / Y54 | ✓
+Standard v Beveren (Belgian Pro League) | Standard·49% | O76 / O52 | 1275 / Y54 | ✓
 Motor Lublin v Wisla Plock (Ekstraklasa) | Motor Lubl·48% | O74 / U53 | 1X77 / Y52 | ✓
 Wisla v Cracovia (Ekstraklasa) | Wisla·54% | O77 / O51 | 1X81 / Y53 | ✓
-NK Lokomotiva Zagreb v NK Rudes Zagreb (HNL) | NK Lokomot·52% | O76 / O54 | 1X77 / Y55 | ○
-Derby v Bolton Wanderers (Championship) | Derby·45% | O85 / O64 | 1277 / Y65 | ✓
+NK Lokomotiva Zagreb v NK Rudes Zagreb (HNL) | NK Lokomot·48% | O76 / O54 | 1X74 / Y56 | ○
+Derby v Bolton Wanderers (Championship) | Derby·42% | O83 / O62 | 1276 / Y64 | ✓
 Venezia FC v Udinese (Serie A) | Udinese·45% | O70 / U56 | 1274 / N51 | ✓
 Hamburg v M'gladbach (Bundesliga) | Hamburg·44% | O76 / O52 | 1274 / Y56 | ✓
 Toulouse v Strasbourg (Ligue 1) | Toulouse·42% | O84 / O62 | 1275 / Y64 | ✓
@@ -1129,16 +1154,15 @@ Grenoble v Reims (Ligue 2) | Reims·56% | O73 / U53 | X281 / N52 | ✓
 Montpellier v Metz (Ligue 2) | Montpellie·53% | O70 / U56 | 1X79 / N53 | ✓
 Nancy v Sochaux-Montbeliard (Ligue 2) | Nancy·45% | O65 / U63 | 1X75 / N57 | ✓
 Boulogne v Annecy (Ligue 2) | Annecy·43% | O64 / U63 | X273 / N56 | ✓
-Dunkerque v Guingamp (Ligue 2) | Dunkerque·40% | O78 / O53 | 1274 / Y58 | ✓
-Bristol Rovers v Cambridge United (FA Cup) | Cambridge ·45% | O79 / O58 | 1275 / Y60 | ✓
-Oxford City v Leicester (FA Cup) | Leicester·72% | O82 / O63 | X288 / Y52 | ✓
+Dunkerque v Guingamp (Ligue 2) | Dunkerque·40% | O78 / O53 | 1274 / Y57 | ✓
+Bristol Rovers v Cambridge United (FA Cup) | Cambridge ·42% | O79 / O58 | 1274 / Y61 | ✓
+Oxford City v Leicester (FA Cup) | Leicester·71% | O81 / O63 | X288 / Y52 | ✓
 Gaziantep FK v Kasimpasa Istanbul (Turkish Super Lig) | Kasimpasa ·37% | O72 / U55 | 1270 / Y52 | ✓
 SK Rapid v Wolfsberger AC (Austrian Bundesliga) | SK Rapid·68% | O79 / O55 | 1X89 / N52 | ✓
 Hammarby IF v IF Elfsborg (Allsvenskan) | Hammarby I·58% | O76 / O51 | 1X82 / Y50 | ✓
 
 PART 3 — REJECTED / WATCHLIST
 Wisla v Cracovia (Ekstraklasa): no deploy: no live price in the 1.20–2.00 odds band
-NK Lokomotiva Zagreb v NK Rudes Zagreb (HNL): no deploy: no live price in the 1.20–2.00 odds band
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 27

@@ -93,11 +93,40 @@ def ncaa_candidates(row: dict, ko: datetime) -> list[dict]:
     return out
 
 
+# Which bot can trade each market (venue catalogues read 2026-11-05: Matchbook basketball =
+# Moneyline, Handicap, Total, 1st Half Total, 1st Half Handicap; Betfair = MATCH_ODDS, HANDICAP,
+# COMBINED_TOTAL; SportyBet = all of them, by booking code). Half lines only on the exchanges.
+MATCHBOOK_MARKETS = ("219", "223", "225", "68", "66")
+BETFAIR_MARKETS = ("219", "223", "225")
+
+
+def venues(key: str, on_matchbook: bool) -> dict:
+    """Where this pick could go: SportyBet always (its own price), Matchbook when the game is
+    matched there and the market is one it lists, Betfair when the market is one it lists
+    (whether Betfair lists the game is the Betfair bot's own lookup)."""
+    mid = key[2:].split("|")[0]
+    return {"sportybet": True, "matchbook": on_matchbook and mid in MATCHBOOK_MARKETS,
+            "betfair_market": mid in BETFAIR_MARKETS}
+
+
+def _book(sel: dict) -> str | None:
+    """A SportyBet booking code for one pick (the same share endpoint as the NBA board). Only
+    inside GitHub Actions: tests and desktop runs never call SportyBet. None = PENDING."""
+    import os
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return None
+    try:
+        from pipeline.sportybet_booking import create_booking_code
+        return create_booking_code([sel])[0]
+    except Exception:  # noqa: BLE001 — a failed booking leaves the code PENDING, the pick stands
+        return None
+
+
 def path_for(day: str, folder: Path = OUT_DIR) -> Path:
     return folder / f"wb_{day}.json"
 
 
-def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR) -> int:
+def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR, book=_book) -> int:
     """Freeze a pick for every non-NBA basketball game that newly qualifies. Returns how many."""
     bb = [e for e in events if e.get("_sport") == "basketball"]
     docs: dict[str, dict] = {}
@@ -122,9 +151,14 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
         best = max(cands, key=lambda c: c["value"], default=None)
         if best is None:
             continue
+        mid, spec, out = (best["key"][2:].split("|") + ["", ""])[:3]
+        oid = (r.get("oids") or {}).get(best["key"])
+        code = book({"eventId": r["id"], "marketId": mid, "specifier": spec, "outcomeId": oid}) if oid else None
         doc["picks"].append({"sb_event_id": r["id"], "country": r.get("country"), "comp": r.get("comp"),
                              "home": r["home"], "away": r["away"], "ko": r["ko"],
                              "pick": describe(best["key"], r["home"], r["away"]), **best,
+                             "market_id": mid, "specifier": spec, "outcome": out, "outcome_id": oid,
+                             "code": code, "venues": venues(best["key"], mb is not None),
                              "at": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
         added += 1
     for day, doc in docs.items():

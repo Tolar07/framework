@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-05T06:13Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.3% over 37",
+ "built_at": "2026-11-05T06:43Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37",
  "groups": [
   {
    "name": "baseline: every SportyBet side at its last price",
@@ -82,7 +82,7 @@
    "n_entry": 31,
    "gap_entry": -0.0412,
    "n_clv": 31,
-   "clv": -0.0406,
+   "clv": -0.0398,
    "clv_se": 0.0017,
    "beat": 0.0
   },
@@ -376,7 +376,7 @@
    "n_entry": 37,
    "gap_entry": -0.0441,
    "n_clv": 37,
-   "clv": -0.043,
+   "clv": -0.0423,
    "clv_se": 0.0019,
    "beat": 0.0
   },
@@ -558,7 +558,7 @@
    "n_entry": 37,
    "gap_entry": -0.0187,
    "n_clv": 37,
-   "clv": -0.0175,
+   "clv": -0.0168,
    "clv_se": 0.0016,
    "beat": 0.0
   },
@@ -572,8 +572,8 @@
    "n_entry": 37,
    "gap_entry": -0.0184,
    "n_clv": 37,
-   "clv": -0.0172,
-   "clv_se": 0.0014,
+   "clv": -0.0165,
+   "clv_se": 0.0015,
    "beat": 0.0
   },
   {
@@ -586,7 +586,7 @@
    "n_entry": 37,
    "gap_entry": -0.0441,
    "n_clv": 37,
-   "clv": -0.043,
+   "clv": -0.0423,
    "clv_se": 0.0019,
    "beat": 0.0
   }
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0406,
+   "clv": -0.0398,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": 0.0189
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.043,
+   "clv": -0.0423,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359

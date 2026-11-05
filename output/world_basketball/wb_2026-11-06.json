@@ -17,7 +17,15 @@
    "line_total": 159.5,
    "line_spread": 1.5,
    "at": "2026-11-05T10:13Z",
-   "result": null
+   "result": null,
+   "market_id": "223",
+   "specifier": "hcp=-1.5",
+   "outcome": "Away (+1.5)",
+   "outcome_id": "1715",
+   "code": "HC7ZXV",
+   "chance": 0.6178,
+   "tip": "2026-11-06T00:00:00Z",
+   "event_id": "sr:match:75115882"
   },
   {
    "sb_event_id": "sr:match:73245602",
@@ -35,7 +43,15 @@
    "line_total": 141.5,
    "line_spread": 1.5,
    "at": "2026-11-05T13:43Z",
-   "result": null
+   "result": null,
+   "market_id": "223",
+   "specifier": "hcp=-1.5",
+   "outcome": "Away (+1.5)",
+   "outcome_id": "1715",
+   "code": "HXTPYN",
+   "chance": 0.6178,
+   "tip": "2026-11-06T00:00:00Z",
+   "event_id": "sr:match:73245602"
   },
   {
    "sb_event_id": "sr:match:72714532",
@@ -53,7 +69,15 @@
    "line_total": 154.5,
    "line_spread": -26.5,
    "at": "2026-11-05T13:43Z",
-   "result": null
+   "result": null,
+   "market_id": "223",
+   "specifier": "hcp=-31.5",
+   "outcome": "Away (+31.5)",
+   "outcome_id": "1715",
+   "code": "PYT5GY",
+   "chance": 0.6827,
+   "tip": "2026-11-06T01:00:00Z",
+   "event_id": "sr:match:72714532"
   },
   {
    "sb_event_id": "sr:match:73210218",
@@ -71,6 +95,45 @@
    "line_total": 157.5,
    "line_spread": -35.5,
    "at": "2026-11-05T13:43Z",
+   "result": null,
+   "market_id": "225",
+   "specifier": "total=155.5",
+   "outcome": "Over 155.5",
+   "outcome_id": "12",
+   "code": "QU5T4D",
+   "chance": 0.5591,
+   "tip": "2026-11-06T01:00:00Z",
+   "event_id": "sr:match:73210218"
+  },
+  {
+   "sb_event_id": "sr:match:73809066",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Marist Red Foxes",
+   "away": "UMBC Retrievers",
+   "ko": "2026-11-06T00:00:00Z",
+   "pick": "1st half Over 65.5 points",
+   "key": "B:68|total=65.5|Over 65.5",
+   "price": 1.97,
+   "fair": 0.5393,
+   "value": 0.0624,
+   "source": "espn DraftKings",
+   "line_total": 140.5,
+   "line_spread": -4.5,
+   "market_id": "68",
+   "specifier": "total=65.5",
+   "outcome": "Over 65.5",
+   "outcome_id": "12",
+   "code": "LZ7KJ7",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": false
+   },
+   "chance": 0.5393,
+   "tip": "2026-11-06T00:00:00Z",
+   "event_id": "sr:match:73809066",
+   "at": "2026-11-05T14:13Z",
    "result": null
   }
  ]

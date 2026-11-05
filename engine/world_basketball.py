@@ -10,6 +10,9 @@ basketball league on record (universe, 1,998 games since 7 Oct: favourites at 55
 price (engine/nba_value.py). Outside the NBA the sharp price is the Matchbook exchange's fair
 chance (engine/exchange.py), which lists NCAA Division I, the EuroLeague and the EuroCup.
 
+NCAA men's games are also priced from ESPN's sharp line (DraftKings / ESPN BET) with the shapes fitted in
+backtest/NCAA_STUDY.md (engine/ncaa_lines.py), as the NBA board prices the NBA from ESPN BET.
+
 Every edge-book look (monitor/edge_run.py, ~30 min) offers each non-NBA game kicking off within
 WINDOW: its sides with an exchange fair chance (winner, handicap, total, 1st-half total). A side
 qualifies like an NBA pick: price in BAND, fair chance >= 50%, value = price x fair - 1 >= +3% on
@@ -51,18 +54,42 @@ def describe(key: str, home: str, away: str) -> str:
     return f"{o} points"
 
 
+def _qualifies(key: str, price: float, p: float) -> float | None:
+    value = price * p - 1
+    need = MIN_VALUE.get(key[2:].split("|")[0], LINE_VALUE)
+    return value if BAND[0] <= price <= BAND[1] and p >= 0.50 and need <= value <= MAX_VALUE else None
+
+
 def candidates(row: dict, idx: dict[str, dict]) -> list[dict]:
+    """Sides priced by the Matchbook exchange's fair chance."""
     out = []
     for key, price in (row.get("sides") or {}).items():
         b = ex.quote(key, idx)
-        if not b or not b.get("p") or (b.get("liq") or 0) < LIQ or not BAND[0] <= price <= BAND[1]:
+        if not b or not b.get("p") or (b.get("liq") or 0) < LIQ:
             continue
-        p = b["p"]
-        value = price * p - 1
-        need = MIN_VALUE.get(key[2:].split("|")[0], LINE_VALUE)
-        if p >= 0.50 and need <= value <= MAX_VALUE:
-            out.append({"key": key, "price": price, "fair": round(p, 4), "value": round(value, 4),
-                        "back": b.get("back"), "lay": b.get("lay"), "liq": b.get("liq")})
+        value = _qualifies(key, price, b["p"])
+        if value is not None:
+            out.append({"key": key, "price": price, "fair": round(b["p"], 4), "value": round(value, 4),
+                        "source": "matchbook", "back": b.get("back"), "lay": b.get("lay"), "liq": b.get("liq")})
+    return out
+
+
+def ncaa_candidates(row: dict, ko: datetime) -> list[dict]:
+    """NCAA sides priced from ESPN's sharp line with backtest/NCAA_STUDY.md's shapes (engine/ncaa_lines.py)."""
+    from engine import ncaa_lines as nl
+    gs = nl.games(ko) + nl.games(ko - timedelta(days=1))          # ESPN lists by US date
+    g = nl.match(row["home"], row["away"], ko, gs)
+    ln = nl.line(g) if g else None
+    if not ln:
+        return []
+    out = []
+    for key, price in (row.get("sides") or {}).items():
+        p = nl.fair(key, ln)
+        value = _qualifies(key, price, p) if p else None
+        if value is not None:
+            out.append({"key": key, "price": price, "fair": round(p, 4), "value": round(value, 4),  # type: ignore[arg-type]
+                        "source": f"espn {ln.get('provider') or ''}".strip(), "line_total": ln.get("total"),
+                        "line_spread": ln.get("spread")})
     return out
 
 
@@ -89,9 +116,10 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
         if any(x["sb_event_id"] == r["id"] for x in doc["picks"]):
             continue                                                 # frozen: the entry price stays
         mb = ex.match_event(r["home"], r["away"], ko, bb)
-        if mb is None:
-            continue
-        best = max(candidates(r, ex.index_event(mb)), key=lambda c: c["value"], default=None)
+        cands = candidates(r, ex.index_event(mb)) if mb else []
+        if "ncaa" in (r.get("comp") or "").lower():
+            cands += ncaa_candidates(r, ko)
+        best = max(cands, key=lambda c: c["value"], default=None)
         if best is None:
             continue
         doc["picks"].append({"sb_event_id": r["id"], "country": r.get("country"), "comp": r.get("comp"),

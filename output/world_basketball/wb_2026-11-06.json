@@ -166,6 +166,37 @@
    "event_id": "sr:match:73905026",
    "at": "2026-11-05T15:13Z",
    "result": null
+  },
+  {
+   "sb_event_id": "sr:match:73905004",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Iona Gaels",
+   "away": "NJIT Highlanders",
+   "ko": "2026-11-06T00:00:00Z",
+   "pick": "1st half Over 68.5 points",
+   "key": "B:68|total=68.5|Over 68.5",
+   "price": 2.0,
+   "fair": 0.5332,
+   "value": 0.0664,
+   "source": "espn DraftKings",
+   "line_total": 146.5,
+   "line_spread": -9.5,
+   "market_id": "68",
+   "specifier": "total=68.5",
+   "outcome": "Over 68.5",
+   "outcome_id": "12",
+   "code": "G8X8M4",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": false
+   },
+   "chance": 0.5332,
+   "tip": "2026-11-06T00:00:00Z",
+   "event_id": "sr:match:73905004",
+   "at": "2026-11-05T20:13Z",
+   "result": null
   }
  ]
 }

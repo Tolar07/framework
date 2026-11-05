@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T19:43Z",
+ "built_at": "2026-11-05T20:13Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37",
  "groups": [
   {
@@ -597,11 +597,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 9,
-   "gap_entry": 0.085,
+   "n_entry": 10,
+   "gap_entry": 0.0832,
    "n_clv": 6,
-   "clv": -0.0544,
-   "clv_se": 0.0262,
+   "clv": -0.054,
+   "clv_se": 0.0263,
    "beat": 0.1667
   },
   {
@@ -611,11 +611,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 9,
-   "gap_entry": 0.085,
+   "n_entry": 10,
+   "gap_entry": 0.0832,
    "n_clv": 6,
-   "clv": -0.0544,
-   "clv_se": 0.0262,
+   "clv": -0.054,
+   "clv_se": 0.0263,
    "beat": 0.1667
   }
  ],
@@ -966,7 +966,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0544,
+   "clv": -0.054,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -975,7 +975,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0544,
+   "clv": -0.054,
    "p_value": null,
    "bh_pass": false,
    "roi": null

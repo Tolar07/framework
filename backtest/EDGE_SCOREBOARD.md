@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T19:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
+Built 2026-11-05T20:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -48,8 +48,8 @@ Built 2026-11-05T19:43Z. Edge: 0 strategies ready for the Architect; board singl
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.9% (37) | -1.6% ± 0.4% (37) | 16% |
 | venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.8% (37) | -1.6% ± 0.3% (37) | 16% |
 | venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.4% (37) | -4.2% ± 0.4% (37) | 3% |
-| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.5% (9) | -5.4% ± 2.6% (6) | 17% |
-| world basketball: all leagues | 0 | PENDING | PENDING | +8.5% (9) | -5.4% ± 2.6% (6) | 17% |
+| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.3% (10) | -5.4% ± 2.6% (6) | 17% |
+| world basketball: all leagues | 0 | PENDING | PENDING | +8.3% (10) | -5.4% ± 2.6% (6) | 17% |
 
 ## Promotion (step 7)
 

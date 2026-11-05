@@ -136,6 +136,26 @@ def test_basketball_half_from_feed():
     assert "h1_home" not in fs.parse_feed(feed)[0]                # football: untouched
 
 
+def test_world_basketball_every_side_group():
+    """Every non-NBA basketball side over the world board's bars at its first gap is graded."""
+    import tempfile
+    from pathlib import Path
+    x = {"s": 1.80, "p": 0.60, "g": 0.08, "h": 3.0, "pm": 0.0}             # +8% total line: clears
+    small = {"s": 1.80, "p": 0.57, "g": 0.026, "h": 3.0, "pm": 0.0}       # +2.6%: below the +5% line bar
+    obs = {"2026-11-04": {"events": {
+        "sr:match:9": {"sport": "basketball", "covered": False, "k": {
+            "B:225|total=160.5|Over 160.5": {"x": x, "p1": 0.61},
+            "B:223|hcp=-3.5|Home (-3.5)": {"x": small, "p1": 0.57}}},
+        "sr:match:8": {"sport": "basketball", "covered": True, "k": {      # an NBA game: not this group
+            "B:225|total=220.5|Over 220.5": {"x": x, "p1": 0.6}}}}}}
+    res = {"sr:match:9": {"__res__": {"h": 85, "a": 80}}, "sr:match:8": {"__res__": {"h": 120, "a": 110}}}
+    with tempfile.TemporaryDirectory() as t:
+        groups = {g["name"]: g for g in sc.collect(obs, res, Path(t))["groups"]}
+    assert groups["world basketball: every side over the bars"]["n"] == 1
+    assert groups["world basketball every side: market 225"]["hit"] == 1.0
+    assert "world basketball every side: market 223" not in groups
+
+
 def test_summary_and_promotion():
     rows = [{"price": 2.0, "won": i % 2, "p_entry": 0.52, "p_close": 0.53} for i in range(250)]
     good = sc.summarize("strong", rows)

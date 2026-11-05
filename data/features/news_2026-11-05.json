@@ -68,6 +68,48 @@
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "predicted"
  },
+ "Alkmaar v Juventus": {
+  "absent": [
+   {
+    "name": "Kees Smit",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Stije Resink",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jizz Hornkamp",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kenan Y\u0131ld\u0131z",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kh\u00e9phren Thuram-Ulien",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Francisco Concei\u00e7\u00e3o",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.45014239405838985,
+  "away_unavailable": 8,
+  "fotmob_id": 6112262,
+  "home_missing_share": 0.22893083089834798,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Atalanta v FC Kairat Almaty": {
   "absent": [
    {
@@ -94,6 +136,176 @@
   "home_unavailable": 10,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "unavailable"
+ },
+ "Bayer Leverkusen v Marseille": {
+  "absent": [
+   {
+    "name": "Christian Kofane",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Gu\u00e9la Dou\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kennet Eichhorn",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Emerson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Derek Cornelius",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.037307955341034676,
+  "away_unavailable": 2,
+  "fotmob_id": 6112242,
+  "home_missing_share": 0.3696339482635476,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Benfica v KKS Lech Poznan": {
+  "absent": [
+   {
+    "name": "Leandro Barreiro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Enzo Barrenechea",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Cl\u00e9ment Lenglet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Wojciech Mo\u0144ka",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Allahyar Sayyadmanesh",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ali Gholizadeh",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.36645041857003413,
+  "away_unavailable": 6,
+  "fotmob_id": 6112248,
+  "home_missing_share": 0.13583276924323254,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "CS Universitatea Craiova v KF Egnatia Rrogozhine": {
+  "absent": [
+   {
+    "name": "Pavlo Isenko",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": null,
+  "away_unavailable": 0,
+  "fotmob_id": 6112506,
+  "home_missing_share": 1.0,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
+ "Celta v Union Gilloise": {
+  "absent": [
+   {
+    "name": "Miguel Rom\u00e1n",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jones El-Abdellaoui",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "\u00c1lvaro N\u00fa\u00f1ez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Mac Allister",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mateo Biondic",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ond\u0159ej Kri\u010dfalu\u0161i",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.3373169169572408,
+  "away_unavailable": 5,
+  "fotmob_id": 6112347,
+  "home_missing_share": 0.30368684230200227,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Celtic v Besiktas Istanbul": {
+  "absent": [
+   {
+    "name": "Alistair Johnston",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yang Hyun-Jun",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fabio Miretti",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "\u00dcmit Akda\u011f",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.17354436325397238,
+  "away_unavailable": 2,
+  "fotmob_id": 6112301,
+  "home_missing_share": 0.27879882208077017,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Crvena Zvezda v Inter Club de Escaldes": {
   "absent": [],
@@ -232,6 +444,122 @@
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "FC Twente Enschede v Pafos FC": {
+  "absent": [
+   {
+    "name": "Filip Thorvaldsen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Stav Lemkin",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Max Bruns",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Charalampos Kyriakidis",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 1,
+  "fotmob_id": 6112480,
+  "home_missing_share": 1.0,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
+ "Getafe v Brighton": {
+  "absent": [
+   {
+    "name": "Christantus Uche",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Zaid Abner Romero",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juanmi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ferdi Kad\u0131o\u011flu",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Zadok Yohanna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Pascal Struijk",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.3269366236753433,
+  "away_unavailable": 7,
+  "fotmob_id": 6112474,
+  "home_missing_share": 0.24441870331639423,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Hapoel Be`er Sheva FC v OFI Crete": {
+  "absent": [
+   {
+    "name": "Lucas Ventura",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Eliel Peretz",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dan Biton",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Apostolakis",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikos Christogeorgos",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Pavlos Kenourgiakis",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.34051345233075553,
+  "away_unavailable": 9,
+  "fotmob_id": 6112365,
+  "home_missing_share": 0.2918662293439481,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Lincoln Red Imps v HNK Hajduk Split": {
   "absent": [
    {
@@ -259,6 +587,33 @@
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Lugano v FK Kauno Zalgiris": {
+  "absent": [
+   {
+    "name": "Dereck Moncada",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Claudio Cassano",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Renato Steffen",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": null,
+  "away_unavailable": 0,
+  "fotmob_id": 6112471,
+  "home_missing_share": 1.0,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Mjallby AIF v FK Borac Banja Luka": {
   "absent": [
    {
@@ -280,6 +635,43 @@
   "home_unavailable": 2,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "unavailable"
+ },
+ "Monaco v Nordsjaelland": {
+  "absent": [
+   {
+    "name": "Ansu Fati",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Stanis Idumbo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Justin Janssen",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Araphat Mohammed",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Souleymane Alio",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.14813861686303115,
+  "away_unavailable": 3,
+  "fotmob_id": 6112401,
+  "home_missing_share": 0.14004024204748855,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "predicted"
  },
  "NEC Nijmegen v AC Omonia Nicosia": {
   "absent": [
@@ -353,6 +745,33 @@
   "home_missing_share": 0.1194964293518832,
   "home_unavailable": 3,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Panathinaikos v PFC CSKA Sofia": {
+  "absent": [
+   {
+    "name": "Azzedine Ounahi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Victor Kristiansen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sverrir Ingi Ingason",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 6112416,
+  "home_missing_share": 0.41825360037942283,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "RSC Anderlecht v Salzburg": {
@@ -439,6 +858,60 @@
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Riga FC v FK Jablonec": {
+  "absent": [
+   {
+    "name": "Orlando Galo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ren\u0101rs Varslav\u0101ns",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin-Prince Milla",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jan Suchan",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jan Hanu\u0161",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.12422186901192254,
+  "away_unavailable": 3,
+  "fotmob_id": 6112522,
+  "home_missing_share": 0.2330853703941216,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "SCU Torreense v FC Ararat-Armenia": {
+  "absent": [
+   {
+    "name": "Adama Baradji",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": null,
+  "away_unavailable": 0,
+  "fotmob_id": 6112361,
+  "home_missing_share": 1.0,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Sparta Prague v Bournemouth": {
   "absent": [
    {
@@ -479,6 +952,107 @@
   "home_missing_share": 0.42496713619659016,
   "home_unavailable": 7,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "St. Truidense VV v SK Brann": {
+  "absent": [
+   {
+    "name": "Nana Boakye",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Eggert Gu\u00f0mundsson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jacob Lungi S\u00f8rensen",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.34691317531320937,
+  "away_unavailable": 6,
+  "fotmob_id": 6112490,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Sturm Graz v NK Celje": {
+  "absent": [
+   {
+    "name": "Nelson Weiper",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Filip R\u00f3zga",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Daniil Khudyakov",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jo\u0161t Pi\u0161ek",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 1,
+  "fotmob_id": 6112316,
+  "home_missing_share": 1.0,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
+ "Sunderland AFC v GNK Dinamo Zagreb": {
+  "absent": [
+   {
+    "name": "Habib Diarra",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Daniel Ballard",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nordi Mukiele",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Scott McKenna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Stjepan Radelji\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Dani Rodr\u00edguez",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T14:00Z",
+  "away_missing_share": 0.10282785311657476,
+  "away_unavailable": 4,
+  "fotmob_id": 6112331,
+  "home_missing_share": 0.2819557530991274,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-11-05T20:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Trabzonspor v Freiburg": {

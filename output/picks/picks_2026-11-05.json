@@ -7896,5 +7896,465 @@
     "chance_corr": 0.47
    }
   ]
- }
+ },
+ "replaced": [
+  {
+   "kind": "accas",
+   "name": "Acca D",
+   "old_code": "VAHV65",
+   "new_code": "Y9H11W",
+   "notes": [
+    "Atalanta v FC Kairat Almaty: Atalanta & Over 1.5 dropped (team news: Atalanta missing 100% of value after squad depth (100% raw) (Giacomo Raspadori, Gianluca Scamacca, Odilon Kossounou))"
+   ],
+   "odds": 2.179,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Mjallby AIF v FK Borac Banja Luka",
+     "home": "Mjallby AIF",
+     "away": "FK Borac Banja Luka",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Mjallby AIF or FK Borac Banja Luka",
+     "price": 1.33,
+     "result": null
+    },
+    {
+     "fixture": "PFC Levski Sofia v Jagiellonia Bialystok",
+     "home": "PFC Levski Sofia",
+     "away": "Jagiellonia Bialystok",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "PFC Levski Sofia or Jagiellonia Bialystok",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Kuopion Palloseura v Gent",
+     "home": "Kuopion Palloseura",
+     "away": "Gent",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Kuopion Palloseura or Gent",
+     "price": 1.26,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Mjallby AIF v FK Borac Banja Luka",
+    "PFC Levski Sofia v Jagiellonia Bialystok",
+    "Kuopion Palloseura v Gent"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca E",
+   "old_code": "WZEY8Y",
+   "new_code": "VYK4TG",
+   "notes": [
+    "Lugano v FK Kauno Zalgiris: Lugano & Over 1.5 dropped (team news: Lugano missing 100% of value after squad depth (100% raw) (Dereck Moncada, Claudio Cassano, Renato Steffen))"
+   ],
+   "odds": 1.716,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Riga FC v FK Jablonec",
+     "home": "Riga FC",
+     "away": "FK Jablonec",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Riga FC or FK Jablonec",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Alkmaar v Juventus",
+     "home": "Alkmaar",
+     "away": "Juventus",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Alkmaar or Juventus",
+     "price": 1.3,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Riga FC v FK Jablonec",
+    "Alkmaar v Juventus"
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 1",
+   "old_code": "W0ZTRA",
+   "new_code": "RBA726",
+   "notes": [
+    "Atalanta v FC Kairat Almaty: Atalanta & Over 1.5 dropped (team news: Atalanta missing 100% of value after squad depth (100% raw) (Giacomo Raspadori, Gianluca Scamacca, Odilon Kossounou))",
+    "AC Milan v Ferencvarosi Budapest: AC Milan & Over 1.5 dropped (team news: Milan missing 12% of value after squad depth (27% raw) (Strahinja Pavlovi\u0107, Alexis Saelemaekers, Samuel Chukwueze))"
+   ],
+   "odds": 50.664,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Sparta Prague v Bournemouth",
+     "home": "Sparta Prague",
+     "away": "Bournemouth",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Sparta Prague or Bournemouth",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Real Sociedad v Lyon",
+     "home": "Real Sociedad",
+     "away": "Lyon",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Real Sociedad or Lyon",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "NEC Nijmegen v AC Omonia Nicosia",
+     "home": "NEC Nijmegen",
+     "away": "AC Omonia Nicosia",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "NEC Nijmegen or AC Omonia Nicosia",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Crystal Palace v Hoffenheim",
+     "home": "Crystal Palace",
+     "away": "Hoffenheim",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Crystal Palace or Hoffenheim",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "FC Midtjylland v Ajax",
+     "home": "FC Midtjylland",
+     "away": "Ajax",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "FC Midtjylland or Ajax",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "RSC Anderlecht v Salzburg",
+     "home": "RSC Anderlecht",
+     "away": "Salzburg",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "RSC Anderlecht or Salzburg",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Kuopion Palloseura v Gent",
+     "home": "Kuopion Palloseura",
+     "away": "Gent",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Kuopion Palloseura or Gent",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Trabzonspor v Freiburg",
+     "home": "Trabzonspor",
+     "away": "Freiburg",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Trabzonspor or Freiburg",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "FC Thun v Heart of Midlothian FC",
+     "home": "FC Thun",
+     "away": "Heart of Midlothian FC",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "FC Thun or Heart of Midlothian FC",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Lillestroem SK v Viktoria Plzen",
+     "home": "Lillestroem SK",
+     "away": "Viktoria Plzen",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Lillestroem SK or Viktoria Plzen",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "PFC Levski Sofia v Jagiellonia Bialystok",
+     "home": "PFC Levski Sofia",
+     "away": "Jagiellonia Bialystok",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "PFC Levski Sofia or Jagiellonia Bialystok",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Crvena Zvezda v Inter Club de Escaldes",
+     "home": "Crvena Zvezda",
+     "away": "Inter Club de Escaldes",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=2.5|Home & Over 2.5",
+     "pick": "Crvena Zvezda & Over 2.5",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "AGF Aarhus v Braga",
+     "home": "AGF Aarhus",
+     "away": "Braga",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "AGF Aarhus or Braga",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Mjallby AIF v FK Borac Banja Luka",
+     "home": "Mjallby AIF",
+     "away": "FK Borac Banja Luka",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Mjallby AIF or FK Borac Banja Luka",
+     "price": 1.33,
+     "result": null
+    },
+    {
+     "fixture": "Lincoln Red Imps v HNK Hajduk Split",
+     "home": "Lincoln Red Imps",
+     "away": "HNK Hajduk Split",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=1.5|Away & Over 1.5",
+     "pick": "HNK Hajduk Split & Over 1.5",
+     "price": 1.58,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Sparta Prague v Bournemouth",
+    "Real Sociedad v Lyon",
+    "NEC Nijmegen v AC Omonia Nicosia",
+    "Crystal Palace v Hoffenheim",
+    "FC Midtjylland v Ajax",
+    "RSC Anderlecht v Salzburg",
+    "Kuopion Palloseura v Gent",
+    "Trabzonspor v Freiburg",
+    "FC Thun v Heart of Midlothian FC",
+    "Lillestroem SK v Viktoria Plzen",
+    "PFC Levski Sofia v Jagiellonia Bialystok",
+    "Crvena Zvezda v Inter Club de Escaldes",
+    "AGF Aarhus v Braga",
+    "Mjallby AIF v FK Borac Banja Luka",
+    "Lincoln Red Imps v HNK Hajduk Split"
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 2",
+   "old_code": "PXK46C",
+   "new_code": "STG7SA",
+   "notes": [
+    "Lugano v FK Kauno Zalgiris: Lugano & Over 1.5 dropped (team news: Lugano missing 100% of value after squad depth (100% raw) (Dereck Moncada, Claudio Cassano, Renato Steffen))",
+    "FC Twente Enschede v Pafos FC: FC Twente Enschede & Over 1.5 dropped (team news: FC Twente missing 100% of value (Filip Thorvaldsen, Stav Lemkin, Max Bruns))"
+   ],
+   "odds": 52.771,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Benfica v KKS Lech Poznan",
+     "home": "Benfica",
+     "away": "KKS Lech Poznan",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "pick": "Benfica & Over 1.5",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Panathinaikos v PFC CSKA Sofia",
+     "home": "Panathinaikos",
+     "away": "PFC CSKA Sofia",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Panathinaikos or PFC CSKA Sofia",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "CS Universitatea Craiova v KF Egnatia Rrogozhine",
+     "home": "CS Universitatea Craiova",
+     "away": "KF Egnatia Rrogozhine",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "CS Universitatea Craiova or KF Egnatia Rrogozhine",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Sunderland AFC v GNK Dinamo Zagreb",
+     "home": "Sunderland AFC",
+     "away": "GNK Dinamo Zagreb",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Sunderland AFC or GNK Dinamo Zagreb",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Sturm Graz v NK Celje",
+     "home": "Sturm Graz",
+     "away": "NK Celje",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Sturm Graz or NK Celje",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "St. Truidense VV v SK Brann",
+     "home": "St. Truidense VV",
+     "away": "SK Brann",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "St. Truidense VV or SK Brann",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Copenhagen v FC Iberia 1999",
+     "home": "Copenhagen",
+     "away": "FC Iberia 1999",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "pick": "Copenhagen & Over 1.5",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Getafe v Brighton",
+     "home": "Getafe",
+     "away": "Brighton",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Getafe or Brighton",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Celtic v Besiktas Istanbul",
+     "home": "Celtic",
+     "away": "Besiktas Istanbul",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Celtic or Besiktas Istanbul",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Hapoel Be`er Sheva FC v OFI Crete",
+     "home": "Hapoel Be`er Sheva FC",
+     "away": "OFI Crete",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Hapoel Be`er Sheva FC or OFI Crete",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "SCU Torreense v FC Ararat-Armenia",
+     "home": "SCU Torreense",
+     "away": "FC Ararat-Armenia",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "SCU Torreense or FC Ararat-Armenia",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Alkmaar v Juventus",
+     "home": "Alkmaar",
+     "away": "Juventus",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Alkmaar or Juventus",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Celta v Union Gilloise",
+     "home": "Celta",
+     "away": "Union Gilloise",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Celta or Union Gilloise",
+     "price": 1.31,
+     "result": null
+    },
+    {
+     "fixture": "Riga FC v FK Jablonec",
+     "home": "Riga FC",
+     "away": "FK Jablonec",
+     "kickoff": "2026-11-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Riga FC or FK Jablonec",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Bayer Leverkusen v Marseille",
+     "home": "Bayer Leverkusen",
+     "away": "Marseille",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "pick": "Bayer Leverkusen & Over 1.5",
+     "price": 1.47,
+     "result": null
+    },
+    {
+     "fixture": "Monaco v Nordsjaelland",
+     "home": "Monaco",
+     "away": "Nordsjaelland",
+     "kickoff": "2026-11-05",
+     "market": "SB:37|total=1.5|Home & Over 1.5",
+     "pick": "Monaco & Over 1.5",
+     "price": 1.53,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Benfica v KKS Lech Poznan",
+    "Panathinaikos v PFC CSKA Sofia",
+    "CS Universitatea Craiova v KF Egnatia Rrogozhine",
+    "Sunderland AFC v GNK Dinamo Zagreb",
+    "Sturm Graz v NK Celje",
+    "St. Truidense VV v SK Brann",
+    "Copenhagen v FC Iberia 1999",
+    "Getafe v Brighton",
+    "Celtic v Besiktas Istanbul",
+    "Hapoel Be`er Sheva FC v OFI Crete",
+    "SCU Torreense v FC Ararat-Armenia",
+    "Alkmaar v Juventus",
+    "Celta v Union Gilloise",
+    "Riga FC v FK Jablonec",
+    "Bayer Leverkusen v Marseille",
+    "Monaco v Nordsjaelland"
+   ]
+  }
+ ]
 }

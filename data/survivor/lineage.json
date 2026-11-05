@@ -1136,6 +1136,20 @@
    "retired": "2026-11-02"
   },
   {
+   "lineage_id": "ln_0b1c4b5e41",
+   "parent_id": "ln_fd9b5ff8a2",
+   "generation": 14,
+   "bankroll": 0.26,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-24",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_2608c4ba33",
    "parent_id": "ln_6d69aace96",
    "generation": 15,
@@ -1318,25 +1332,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_0b1c4b5e41",
-   "parent_id": "ln_fd9b5ff8a2",
-   "generation": 14,
-   "bankroll": 1.26,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-24",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-11-04",
-    "fixture": "Cardiff City v West Ham",
-    "pick": "Cardiff City or West Ham",
-    "price": 1.26
-   }
-  },
-  {
    "lineage_id": "ln_8f07e7d94d",
    "parent_id": "ln_7723ee9dd3",
    "generation": 14,
@@ -1365,6 +1360,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-11-04",
+ "last_bred_date": "2026-11-05",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

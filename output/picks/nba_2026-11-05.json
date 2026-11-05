@@ -16,7 +16,7 @@
     "sr:match:73719532"
    ],
    "odds": 49.78,
-   "result": null
+   "result": "lost"
   },
   {
    "name": "NBA acca B",
@@ -29,7 +29,7 @@
     "sr:match:73719542"
    ],
    "odds": 27.44,
-   "result": null
+   "result": "lost"
   }
  ],
  "picks": [
@@ -59,9 +59,9 @@
     "total": 232.5
    },
    "code": "YRDHQZ",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "105-120",
+   "close_value": 0.2179,
    "matchbook": {
     "back": null,
     "listed": true
@@ -94,9 +94,9 @@
     "total": 233.5
    },
    "code": "RG66KL",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "135-105",
+   "close_value": 0.183,
    "matchbook": {
     "back": null,
     "listed": false
@@ -129,9 +129,9 @@
     "total": 228.5
    },
    "code": "PYSKGT",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "103-107",
+   "close_value": 0.1267,
    "matchbook": {
     "back": null,
     "listed": true
@@ -164,9 +164,9 @@
     "total": 235.5
    },
    "code": "PYSKGU",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "120-113",
+   "close_value": 0.0587,
    "matchbook": {
     "back": null,
     "listed": true
@@ -199,9 +199,9 @@
     "total": 228.5
    },
    "code": "Q7YMZ7",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "124-116",
+   "close_value": 0.1516,
    "matchbook": {
     "back": null,
     "listed": false
@@ -234,9 +234,9 @@
     "total": 220.5
    },
    "code": "MYV82P",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "107-117",
+   "close_value": 0.1813,
    "matchbook": {
     "back": null,
     "listed": false
@@ -269,9 +269,9 @@
     "total": 230.5
    },
    "code": "NR5UMX",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "128-109",
+   "close_value": 0.2127,
    "matchbook": {
     "back": null,
     "listed": false
@@ -304,9 +304,9 @@
     "total": 227.5
    },
    "code": "ZMZSZM",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "119-132",
+   "close_value": 0.1529,
    "matchbook": {
     "back": null,
     "listed": false
@@ -339,9 +339,9 @@
     "total": 227.5
    },
    "code": "QSAT15",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "112-111",
+   "close_value": 0.1858,
    "matchbook": {
     "back": null,
     "listed": false
@@ -374,9 +374,9 @@
     "total": 234.5
    },
    "code": "HZ0QAS",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "103-116",
+   "close_value": 0.183,
    "matchbook": {
     "back": 1.67,
     "listed": true
@@ -409,9 +409,9 @@
     "total": 233.5
    },
    "code": "P9HZLB",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "116-117",
+   "close_value": 0.183,
    "matchbook": {
     "back": null,
     "listed": true
@@ -513,7 +513,7 @@
      "280-289": 0.0003
     }
    },
-   "score": null
+   "score": "106-112"
   },
   {
    "tip": "2026-11-05T00:00:00+00:00",
@@ -609,7 +609,7 @@
      "290-299": 0.0007
     }
    },
-   "score": null
+   "score": "105-120"
   },
   {
    "tip": "2026-11-05T00:30:00+00:00",
@@ -714,7 +714,7 @@
      "280-289": 0.0008
     }
    },
-   "score": null
+   "score": "109-102"
   },
   {
    "tip": "2026-11-05T00:30:00+00:00",
@@ -790,7 +790,7 @@
      "270-279": 0.0008
     }
    },
-   "score": null
+   "score": "114-104"
   },
   {
    "tip": "2026-11-05T00:30:00+00:00",
@@ -877,7 +877,7 @@
      "290-299": 0.0008
     }
    },
-   "score": null
+   "score": "135-105"
   },
   {
    "tip": "2026-11-05T01:00:00+00:00",
@@ -1036,7 +1036,7 @@
      "290-299": 0.0003
     }
    },
-   "score": null
+   "score": "103-107"
   },
   {
    "tip": "2026-11-05T01:00:00+00:00",
@@ -1194,7 +1194,7 @@
      "290-299": 0.0012
     }
    },
-   "score": null
+   "score": "120-113"
   },
   {
    "tip": "2026-11-05T01:00:00+00:00",
@@ -1290,7 +1290,7 @@
      "290-299": 0.0003
     }
    },
-   "score": null
+   "score": "124-116"
   },
   {
    "tip": "2026-11-05T01:30:00+00:00",
@@ -1386,7 +1386,7 @@
      "280-289": 0.0005
     }
    },
-   "score": null
+   "score": "107-117"
   },
   {
    "tip": "2026-11-05T02:00:00+00:00",
@@ -1482,7 +1482,7 @@
      "290-299": 0.0005
     }
    },
-   "score": null
+   "score": "128-109"
   },
   {
    "tip": "2026-11-05T02:00:00+00:00",
@@ -1578,7 +1578,7 @@
      "290-299": 0.0003
     }
    },
-   "score": null
+   "score": "119-132"
   },
   {
    "tip": "2026-11-05T02:30:00+00:00",
@@ -1665,7 +1665,7 @@
      "290-299": 0.0003
     }
    },
-   "score": null
+   "score": "112-111"
   },
   {
    "tip": "2026-11-05T03:00:00+00:00",
@@ -1751,7 +1751,7 @@
      "290-299": 0.001
     }
    },
-   "score": null
+   "score": "103-116"
   },
   {
    "tip": "2026-11-05T03:30:00+00:00",
@@ -1910,7 +1910,7 @@
      "290-299": 0.0008
     }
    },
-   "score": null
+   "score": "116-117"
   }
  ],
  "players": {

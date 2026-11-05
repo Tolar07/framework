@@ -856,5 +856,18 @@
   "fh_home": 1,
   "fh_away": 0,
   "went_to_et": false
+ },
+ {
+  "date": "2026-11-04",
+  "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Fethiyespor",
+  "away": "Eyupspor",
+  "home_tier": 3,
+  "away_tier": 1,
+  "fthg": 2,
+  "ftag": 4,
+  "fh_home": 1,
+  "fh_away": 2,
+  "went_to_et": false
  }
 ]

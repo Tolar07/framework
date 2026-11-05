@@ -75,8 +75,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-3",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -240,8 +240,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "3-3",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -404,8 +404,8 @@
    "sharp_ev": -0.038,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -573,8 +573,8 @@
    "sharp_ev": -0.0413,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -742,8 +742,8 @@
    "sharp_ev": null,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -904,8 +904,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-3",
    "bias": {
     "yes": {
      "cell": "*|1.20-1.30",
@@ -1076,8 +1076,8 @@
    "sharp_ev": null,
    "first_price": 1.59,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "3-2",
    "bias": {
     "yes": {
      "cell": "SB:37|1.50-1.75",
@@ -1240,8 +1240,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -1386,8 +1386,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-9",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -1546,8 +1546,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-1",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -1710,8 +1710,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "bias": {
     "yes": {
      "cell": "SB:10|1.20-1.30",
@@ -1874,8 +1874,8 @@
    "sharp_ev": null,
    "first_price": 1.62,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-3",
    "bias": {
     "yes": {
      "cell": "SB:37|1.50-1.75",
@@ -2011,8 +2011,8 @@
    "sharp_ev": null,
    "first_price": 1.38,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "bias": {
     "yes": {
      "cell": "SB:37|1.30-1.50",
@@ -2156,8 +2156,8 @@
    "sharp_ev": null,
    "first_price": 1.46,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-1",
    "bias": {
     "yes": {
      "cell": "SB:37|1.30-1.50",
@@ -2311,8 +2311,8 @@
    "sharp_ev": null,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-0",
    "bias": {
     "yes": {
      "cell": "SB:10|1.30-1.50",
@@ -2400,7 +2400,7 @@
     "Oxford United v Reading",
     "Wrexham v Middlesbrough"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -2498,7 +2498,7 @@
     "Porto v Napoli",
     "Bristol City v Wolves"
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T20:00:00Z",
@@ -2597,7 +2597,7 @@
     "AEK Athens v Real Madrid",
     "Fenerbahce Istanbul v Liverpool"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1745",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T17:45:00Z",
@@ -2661,7 +2661,7 @@
     "Viking FK v Sabah Masazir",
     "RB Leipzig v Man City"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1930",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:30:00Z",
@@ -2918,11 +2918,11 @@
      "pick": "Reading Under 1.5 goals",
      "price": 1.69,
      "chance": 0.6038,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-0"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -3031,7 +3031,7 @@
      0.0
     ]
    ],
-   "ft": null
+   "ft": "1-3"
   },
   {
    "fixture": "Cardiff City v West Ham",
@@ -3113,7 +3113,7 @@
      0.0013
     ]
    ],
-   "ft": null
+   "ft": "3-3"
   },
   {
    "fixture": "Wrexham v Middlesbrough",
@@ -3195,7 +3195,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Bristol City v Wolves",
@@ -3277,7 +3277,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Rennes v Olympiacos",
@@ -3306,7 +3306,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "AEK Athens v Real Madrid",
@@ -3331,7 +3331,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Fenerbahce Istanbul v Liverpool",
@@ -3356,7 +3356,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "Borussia Dortmund v Betis",
@@ -3385,7 +3385,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Lens v Como 1907",
@@ -3410,7 +3410,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "1-9"
   },
   {
    "fixture": "Porto v Napoli",
@@ -3435,7 +3435,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "PSV Eindhoven v Club Brugge",
@@ -3464,7 +3464,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "RB Leipzig v Man City",
@@ -3489,7 +3489,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Slavia Prague v Arsenal",
@@ -3514,7 +3514,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Viking FK v Sabah Masazir",
@@ -3539,7 +3539,7 @@
     ]
    ],
    "scores": null,
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "Oxford United v Reading",
@@ -3625,7 +3625,7 @@
      0.0001
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   }
  ],
  "study": [],
@@ -3649,11 +3649,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.41,
      "chance": 0.6968339988077844,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-3"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -3699,11 +3699,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.63,
      "chance": 0.5779429851597497,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "2-0"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -3749,11 +3749,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.56,
      "chance": 0.5511056911226625,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "2-0"
     }
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1945",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -3799,11 +3799,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.76,
      "chance": 0.5475356443215657,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_2000",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T20:00:00Z",
@@ -3849,11 +3849,11 @@
      "pick": "Both teams to score \u2014 yes",
      "price": 1.64,
      "chance": 0.5146312836751554,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-3"
     }
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_1930",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:30:00Z",
@@ -3896,7 +3896,7 @@
     "Borussia Dortmund v Betis",
     "Wrexham v Middlesbrough"
    ],
-   "result": null,
+   "result": "lost",
    "cohort_id": "COHORT_20261104_1930",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",
@@ -3992,7 +3992,7 @@
     "Oxford United v Reading",
     "Bristol City v Wolves"
    ],
-   "result": null,
+   "result": "won",
    "cohort_id": "COHORT_20261104_1930",
    "cohort_merged": false,
    "earliest_kickoff_utc": "2026-11-04T19:45:00Z",

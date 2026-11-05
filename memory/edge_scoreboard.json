@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T01:13Z",
+ "built_at": "2026-11-05T01:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33",
  "groups": [
   {
@@ -527,12 +527,12 @@
    "hit": 0.6216,
    "roi": 0.2058,
    "roi_se": 0.1102,
-   "n_entry": 7,
-   "gap_entry": -0.0439,
-   "n_clv": 7,
-   "clv": -0.0435,
-   "clv_se": 0.0229,
-   "beat": 0.2857
+   "n_entry": 8,
+   "gap_entry": -0.0401,
+   "n_clv": 8,
+   "clv": -0.0397,
+   "clv_se": 0.0203,
+   "beat": 0.25
   },
   {
    "name": "nba: board picks",
@@ -541,12 +541,12 @@
    "hit": 0.6173,
    "roi": 0.1851,
    "roi_se": 0.1046,
-   "n_entry": 7,
-   "gap_entry": -0.0439,
-   "n_clv": 7,
-   "clv": -0.0435,
-   "clv_se": 0.0229,
-   "beat": 0.2857
+   "n_entry": 8,
+   "gap_entry": -0.0401,
+   "n_clv": 8,
+   "clv": -0.0397,
+   "clv_se": 0.0203,
+   "beat": 0.25
   },
   {
    "name": "venue: board singles at Matchbook (after 2%)",
@@ -920,7 +920,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (74 of 200)",
    "n": 74,
-   "clv": -0.0435,
+   "clv": -0.0397,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2058
@@ -929,7 +929,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (81 of 200)",
    "n": 81,
-   "clv": -0.0435,
+   "clv": -0.0397,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1851

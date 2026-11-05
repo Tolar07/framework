@@ -228,7 +228,8 @@ def _not_ignored(rels: set[str]) -> set[str]:
     if r.returncode not in (0, 1):
         return rels
     f = r.stdout.split("\0")
-    dropped = {f[i + 3] for i in range(0, len(f) - 3, 4) if f[i + 3] and f[i + 2] not in KEEP_PATTERNS}
+    dropped = {f[i + 3] for i in range(0, len(f) - 3, 4)          # a "!" re-include is a match too: not ignored
+               if f[i + 3] and f[i + 2] not in KEEP_PATTERNS and not f[i + 2].startswith("!")}
     tracked = subprocess.run(["git", "ls-files", "-z", "--", *DATA_DIRS], cwd=ROOT,  # noqa: S603,S607
                              capture_output=True, text=True)
     if tracked.returncode == 0:

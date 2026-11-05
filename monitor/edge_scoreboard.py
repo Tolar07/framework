@@ -60,8 +60,9 @@ _ALIAS = {"BTTS_YES": "SB:29||Yes", "OVER_2_5": "SB:18|total=2.5|Over 2.5"}
 
 # ---------------------------------------------------------------- loading
 def grade_basketball(key: str, res: dict) -> int | None:
-    """1/0 for a "B:" side from the final score (overtime included), None for a push or a
-    market the final score can't settle (1st-half totals)."""
+    """1/0 for a "B:" side from the final score (overtime included); the 1st-half total (68)
+    from the half-time points `ht` when the result carries them. None for a push or a market
+    the result can't settle."""
     h, a = res.get("h"), res.get("a")
     if h is None or a is None:
         return None
@@ -69,10 +70,15 @@ def grade_basketball(key: str, res: dict) -> int | None:
     o = out.lower()
     if mid == "219" and o in ("home", "away"):
         return int((h > a) == (o == "home")) if h != a else None
-    if mid == "225":
+    if mid in ("225", "68"):
         m = re.search(r"total=([\d.]+)", spec)
         if not m or not o.startswith(("over", "under")):
             return None
+        if mid == "68":
+            ht = res.get("ht") or [None, None]
+            if ht[0] is None or ht[1] is None:
+                return None
+            h, a = ht
         t = float(m.group(1))
         return None if h + a == t else int((h + a > t) == o.startswith("over"))
     if mid == "223":

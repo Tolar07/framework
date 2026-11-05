@@ -203,7 +203,10 @@ def result_of(sport: str, e: dict) -> dict:
     if sport == "football":
         return {"h": e["fthg"], "a": e["ftag"], "ht": [e.get("fh_home"), e.get("fh_away")],
                 "after_90": bool(e.get("finished_other"))}
-    return {"h": e["fthg"], "a": e["ftag"]}
+    out = {"h": e["fthg"], "a": e["ftag"]}
+    if e.get("h1_home") is not None and e.get("h1_away") is not None:
+        out["ht"] = [e["h1_home"], e["h1_away"]]    # 1st-half points: grades the 1st-half total (68)
+    return out
 
 
 def grade(pending: dict, index: dict[str, ResultIndex], now: datetime,

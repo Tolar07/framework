@@ -1,40 +1,41 @@
 {
- "built_at": "2026-11-05T06:43Z",
+ "built_at": "2026-11-05T07:13Z",
  "recorded_only": true,
  "studies": [
   {
    "name": "every SportyBet side, exchange at first look",
-   "n": 1305,
+   "n": 1899,
    "weights": {
-    "band:1-1.3": 0.0456,
-    "band:1.3-1.6": 0.0718,
-    "band:1.6-2": 0.1137,
-    "band:2-3": -0.1034,
-    "band:3-99": -0.1591,
-    "basketball": -0.0288,
+    "band:1-1.3": 0.0736,
+    "band:1.3-1.6": 0.0266,
+    "band:1.6-2": 0.0876,
+    "band:2-3": -0.1167,
+    "band:3-99": -0.0995,
+    "basketball": -0.0023,
     "early": 0.0,
-    "fam:B:225": -0.0335,
-    "fam:SB:1": 0.0544,
-    "fam:SB:10": -0.0327,
-    "fam:SB:14": -0.1444,
-    "fam:SB:16": -0.0049,
-    "fam:SB:18": 0.0008,
-    "fam:SB:29": -0.0215,
-    "fam:SB:37": 0.0487,
-    "gap": -0.2523
+    "fam:B:223": -0.0107,
+    "fam:B:225": -0.0275,
+    "fam:SB:1": 0.0458,
+    "fam:SB:10": 0.0253,
+    "fam:SB:14": -0.0591,
+    "fam:SB:16": 0.0053,
+    "fam:SB:18": 0.0056,
+    "fam:SB:37": 0.0215,
+    "gap": -0.1248,
+    "model": 0.0191
    },
-   "exchange_logloss": 0.52279,
+   "exchange_logloss": 0.55503,
    "walk_forward": {
-    "n": 109,
-    "gain": 0.00265,
-    "se": 0.00256
+    "n": 692,
+    "gain": -0.00055,
+    "se": 0.0011
    },
    "status": "no information beyond the exchange yet"
   },
   {
    "name": "board picks: our model vs the exchange",
-   "n": 0,
-   "status": "COLLECTING (0 of 200 graded rows)"
+   "n": 11,
+   "status": "COLLECTING (11 of 200 graded rows)"
   }
  ]
 }

@@ -41,6 +41,20 @@ memory. The one shared log for every Tolar07 repo is the pinned issue
 4. About to change something another session touched recently? Comment on #54 first, citing its note.
 5. No tokens, keys, passwords, account numbers or private slip data in notes.
 
+## Merge all, commit always — every session, every repo (Architect standing instruction, 2026-11-05)
+
+"Merge all and commit always, do for all sessions." No work is left uncommitted, unmerged or waiting on
+someone to remember it:
+
+1. Every change goes on a branch, into a PR, and is **merged as soon as its checks pass**. Never leave a PR open
+   for "later".
+2. A PR that fails gets fixed and merged. One that is superseded or duplicated gets closed with the reason.
+3. End every job synced: this repo on `main` and 0/0 against origin, and the gitlink bumped in Tolar07/omniroute-test.
+   Commit what you made, and don't discard another session's work.
+4. Anything that would need a human to remember a step (a deploy, an install, a review, a re-run) is automated
+   in the same job, not left as a reminder. Money rules, stakes, thresholds and keys stay the Architect's.
+5. Note it on omniroute-test#54.
+
 ---
 
 ## THE LIVE LOOP — DO NOT BREAK IT

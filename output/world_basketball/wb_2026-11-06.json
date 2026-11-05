@@ -135,6 +135,37 @@
    "event_id": "sr:match:73809066",
    "at": "2026-11-05T14:13Z",
    "result": null
+  },
+  {
+   "sb_event_id": "sr:match:73905026",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Rider Broncs",
+   "away": "New Hampshire Wildcats",
+   "ko": "2026-11-06T00:00:00Z",
+   "pick": "New Hampshire Wildcats +1.5",
+   "key": "B:223|hcp=-1.5|Away (+1.5)",
+   "price": 1.78,
+   "fair": 0.6178,
+   "value": 0.0996,
+   "source": "espn DraftKings",
+   "line_total": 141.5,
+   "line_spread": 1.5,
+   "market_id": "223",
+   "specifier": "hcp=-1.5",
+   "outcome": "Away (+1.5)",
+   "outcome_id": "1715",
+   "code": "XCWX4U",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": true
+   },
+   "chance": 0.6178,
+   "tip": "2026-11-06T00:00:00Z",
+   "event_id": "sr:match:73905026",
+   "at": "2026-11-05T15:13Z",
+   "result": null
   }
  ]
 }

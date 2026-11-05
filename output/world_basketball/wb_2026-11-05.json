@@ -1,0 +1,24 @@
+{
+ "date": "2026-11-05",
+ "picks": [
+  {
+   "sb_event_id": "sr:match:73716386",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Penn State Nittany Lions",
+   "away": "Chattanooga Mocs",
+   "ko": "2026-11-05T23:00:00Z",
+   "pick": "Under 160.5 points",
+   "key": "B:225|total=160.5|Under 160.5",
+   "price": 1.9,
+   "fair": 0.5873,
+   "value": 0.1159,
+   "source": "matchbook",
+   "back": 1.63,
+   "lay": 1.76,
+   "liq": 21.06,
+   "at": "2026-11-05T10:13Z",
+   "result": null
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-06",
+ "picks": [
+  {
+   "sb_event_id": "sr:match:75115882",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Lehigh Mountain Hawks",
+   "away": "Cornell Big Red",
+   "ko": "2026-11-06T00:00:00Z",
+   "pick": "Cornell Big Red +1.5",
+   "key": "B:223|hcp=-1.5|Away (+1.5)",
+   "price": 1.71,
+   "fair": 0.6178,
+   "value": 0.0564,
+   "source": "espn DraftKings",
+   "line_total": 159.5,
+   "line_spread": 1.5,
+   "at": "2026-11-05T10:13Z",
+   "result": null
+  }
+ ]
+}

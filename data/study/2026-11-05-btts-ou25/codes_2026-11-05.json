@@ -1,0 +1,414 @@
+{
+ "run_id": "exp-20261105T000609Z-b953c3",
+ "fetched_at": "2026-11-05T00:06:09+00:00",
+ "date": "2026-11-05",
+ "status": "EXPERIMENT - record only, not on the board, not placed",
+ "btts_accas": [
+  {
+   "name": "BTTS A",
+   "code": "VMRJX4",
+   "odds": 2.16,
+   "chance": 0.426,
+   "legs": [
+    "Crvena Zvezda v Inter Club de Escaldes: BTTS No @1.48 (65%)",
+    "FC Midtjylland v Ajax: BTTS Yes @1.46 (65%)"
+   ]
+  },
+  {
+   "name": "BTTS B",
+   "code": "G26160",
+   "odds": 2.22,
+   "chance": 0.407,
+   "legs": [
+    "Trabzonspor v Freiburg: BTTS Yes @1.48 (64%)",
+    "Celtic v Besiktas Istanbul: BTTS Yes @1.50 (63%)"
+   ]
+  },
+  {
+   "name": "BTTS C",
+   "code": "MZPAE6",
+   "odds": 2.28,
+   "chance": 0.398,
+   "legs": [
+    "FC Thun v Heart of Midlothian FC: BTTS Yes @1.50 (63%)",
+    "Lillestroem SK v Viktoria Plzen: BTTS Yes @1.52 (63%)"
+   ]
+  },
+  {
+   "name": "BTTS D",
+   "code": "H5GZ3Q",
+   "odds": 2.34,
+   "chance": 0.386,
+   "legs": [
+    "Crystal Palace v Hoffenheim: BTTS Yes @1.51 (62%)",
+    "RSC Anderlecht v Salzburg: BTTS Yes @1.55 (62%)"
+   ]
+  },
+  {
+   "name": "BTTS E",
+   "code": "HRPGAU",
+   "odds": 2.54,
+   "chance": 0.355,
+   "legs": [
+    "Hapoel Be`er Sheva FC v OFI Crete: BTTS Yes @1.59 (60%)",
+    "NEC Nijmegen v AC Omonia Nicosia: BTTS Yes @1.60 (60%)"
+   ]
+  },
+  {
+   "name": "BTTS F",
+   "code": "WKKF4P",
+   "odds": 2.56,
+   "chance": 0.353,
+   "legs": [
+    "Real Sociedad v Lyon: BTTS Yes @1.59 (60%)",
+    "St. Truidense VV v SK Brann: BTTS Yes @1.61 (59%)"
+   ]
+  },
+  {
+   "name": "BTTS G",
+   "code": "YTV4T7",
+   "odds": 2.71,
+   "chance": 0.336,
+   "legs": [
+    "Monaco v Nordsjaelland: BTTS Yes @1.63 (58%)",
+    "Celta v Union Gilloise: BTTS Yes @1.66 (57%)"
+   ]
+  },
+  {
+   "name": "BTTS H",
+   "code": "KVWB4V",
+   "odds": 2.81,
+   "chance": 0.322,
+   "legs": [
+    "Bayer Leverkusen v Marseille: BTTS Yes @1.67 (57%)",
+    "Sturm Graz v NK Celje: BTTS Yes @1.68 (57%)"
+   ]
+  },
+  {
+   "name": "BTTS I",
+   "code": "RYX8K2",
+   "odds": 2.89,
+   "chance": 0.311,
+   "legs": [
+    "Alkmaar v Juventus: BTTS Yes @1.70 (56%)",
+    "Copenhagen v FC Iberia 1999: BTTS No @1.70 (56%)"
+   ]
+  },
+  {
+   "name": "BTTS J",
+   "code": "YWACB8",
+   "odds": 2.96,
+   "chance": 0.309,
+   "legs": [
+    "PFC Levski Sofia v Jagiellonia Bialystok: BTTS Yes @1.72 (56%)",
+    "Sparta Prague v Bournemouth: BTTS Yes @1.72 (56%)"
+   ]
+  },
+  {
+   "name": "BTTS K",
+   "code": "L0SRWR",
+   "odds": 3.01,
+   "chance": 0.298,
+   "legs": [
+    "Riga FC v FK Jablonec: BTTS Yes @1.73 (55%)",
+    "Atalanta v FC Kairat Almaty: BTTS No @1.74 (54%)"
+   ]
+  },
+  {
+   "name": "BTTS L",
+   "code": "YCK09A",
+   "odds": 3.17,
+   "chance": 0.287,
+   "legs": [
+    "Lincoln Red Imps v HNK Hajduk Split: BTTS No @1.77 (54%)",
+    "Mjallby AIF v FK Borac Banja Luka: BTTS Yes @1.79 (53%)"
+   ]
+  },
+  {
+   "name": "BTTS M",
+   "code": "HSX2YR",
+   "odds": 3.2,
+   "chance": 0.281,
+   "legs": [
+    "Getafe v Brighton: BTTS No @1.78 (53%)",
+    "FC Twente Enschede v Pafos FC: BTTS Yes @1.80 (53%)"
+   ]
+  },
+  {
+   "name": "BTTS N",
+   "code": "R8UXT4",
+   "odds": 3.31,
+   "chance": 0.275,
+   "legs": [
+    "Sunderland AFC v GNK Dinamo Zagreb: BTTS Yes @1.81 (52%)",
+    "AGF Aarhus v Braga: BTTS Yes @1.83 (52%)"
+   ]
+  },
+  {
+   "name": "BTTS O",
+   "code": "K1BBSE",
+   "odds": 3.4,
+   "chance": 0.268,
+   "legs": [
+    "AC Milan v Ferencvarosi Budapest: BTTS Yes @1.84 (52%)",
+    "CS Universitatea Craiova v KF Egnatia Rrogozhine: BTTS No @1.85 (51%)"
+   ]
+  },
+  {
+   "name": "BTTS P",
+   "code": "HFGLAA",
+   "odds": 3.5,
+   "chance": 0.257,
+   "legs": [
+    "Benfica v KKS Lech Poznan: BTTS No @1.86 (51%)",
+    "SCU Torreense v FC Ararat-Armenia: BTTS No @1.88 (51%)"
+   ]
+  },
+  {
+   "name": "BTTS Q",
+   "code": "H9SL7H",
+   "odds": 6.64,
+   "chance": 0.128,
+   "legs": [
+    "Kuopion Palloseura v Gent: BTTS No @1.88 (51%)",
+    "Lugano v FK Kauno Zalgiris: BTTS No @1.89 (50%)",
+    "Panathinaikos v PFC CSKA Sofia: BTTS Yes @1.87 (50%)"
+   ]
+  }
+ ],
+ "btts_all": [
+  {
+   "name": "BTTS ALL part 1",
+   "code": "VFEJEQ",
+   "odds": 330629.41,
+   "chance": 0.0,
+   "legs": [
+    "Crvena Zvezda v Inter Club de Escaldes: BTTS No @1.48 (65%)",
+    "FC Midtjylland v Ajax: BTTS Yes @1.46 (65%)",
+    "Trabzonspor v Freiburg: BTTS Yes @1.48 (64%)",
+    "Celtic v Besiktas Istanbul: BTTS Yes @1.50 (63%)",
+    "FC Thun v Heart of Midlothian FC: BTTS Yes @1.50 (63%)",
+    "Lillestroem SK v Viktoria Plzen: BTTS Yes @1.52 (63%)",
+    "Crystal Palace v Hoffenheim: BTTS Yes @1.51 (62%)",
+    "RSC Anderlecht v Salzburg: BTTS Yes @1.55 (62%)",
+    "Hapoel Be`er Sheva FC v OFI Crete: BTTS Yes @1.59 (60%)",
+    "NEC Nijmegen v AC Omonia Nicosia: BTTS Yes @1.60 (60%)",
+    "Real Sociedad v Lyon: BTTS Yes @1.59 (60%)",
+    "St. Truidense VV v SK Brann: BTTS Yes @1.61 (59%)",
+    "Monaco v Nordsjaelland: BTTS Yes @1.63 (58%)",
+    "Celta v Union Gilloise: BTTS Yes @1.66 (57%)",
+    "Bayer Leverkusen v Marseille: BTTS Yes @1.67 (57%)",
+    "Sturm Graz v NK Celje: BTTS Yes @1.68 (57%)",
+    "Alkmaar v Juventus: BTTS Yes @1.70 (56%)",
+    "Copenhagen v FC Iberia 1999: BTTS No @1.70 (56%)",
+    "PFC Levski Sofia v Jagiellonia Bialystok: BTTS Yes @1.72 (56%)",
+    "Sparta Prague v Bournemouth: BTTS Yes @1.72 (56%)",
+    "Riga FC v FK Jablonec: BTTS Yes @1.73 (55%)",
+    "Atalanta v FC Kairat Almaty: BTTS No @1.74 (54%)",
+    "Lincoln Red Imps v HNK Hajduk Split: BTTS No @1.77 (54%)",
+    "Mjallby AIF v FK Borac Banja Luka: BTTS Yes @1.79 (53%)",
+    "Getafe v Brighton: BTTS No @1.78 (53%)",
+    "FC Twente Enschede v Pafos FC: BTTS Yes @1.80 (53%)"
+   ]
+  },
+  {
+   "name": "BTTS ALL part 2",
+   "code": "MGYQC3",
+   "odds": 261.97,
+   "chance": 0.002,
+   "legs": [
+    "Sunderland AFC v GNK Dinamo Zagreb: BTTS Yes @1.81 (52%)",
+    "AGF Aarhus v Braga: BTTS Yes @1.83 (52%)",
+    "AC Milan v Ferencvarosi Budapest: BTTS Yes @1.84 (52%)",
+    "CS Universitatea Craiova v KF Egnatia Rrogozhine: BTTS No @1.85 (51%)",
+    "Benfica v KKS Lech Poznan: BTTS No @1.86 (51%)",
+    "SCU Torreense v FC Ararat-Armenia: BTTS No @1.88 (51%)",
+    "Kuopion Palloseura v Gent: BTTS No @1.88 (51%)",
+    "Lugano v FK Kauno Zalgiris: BTTS No @1.89 (50%)",
+    "Panathinaikos v PFC CSKA Sofia: BTTS Yes @1.87 (50%)"
+   ]
+  }
+ ],
+ "ou25_acca2": [
+  {
+   "name": "O/U2.5 ACCA2 A",
+   "code": "QURTEQ",
+   "odds": 1.68,
+   "chance": 0.545,
+   "legs": [
+    "Benfica v KKS Lech Poznan: O/U Over 2.5 @1.29 (74%)",
+    "Crvena Zvezda v Inter Club de Escaldes: O/U Over 2.5 @1.30 (73%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 B",
+   "code": "HL68GP",
+   "odds": 1.89,
+   "chance": 0.491,
+   "legs": [
+    "Lugano v FK Kauno Zalgiris: O/U Over 2.5 @1.35 (71%)",
+    "Atalanta v FC Kairat Almaty: O/U Over 2.5 @1.40 (69%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 C",
+   "code": "XYGGFE",
+   "odds": 2.02,
+   "chance": 0.458,
+   "legs": [
+    "Bayer Leverkusen v Marseille: O/U Over 2.5 @1.42 (68%)",
+    "Copenhagen v FC Iberia 1999: O/U Over 2.5 @1.42 (68%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 D",
+   "code": "MR415Z",
+   "odds": 2.04,
+   "chance": 0.452,
+   "legs": [
+    "FC Twente Enschede v Pafos FC: O/U Over 2.5 @1.43 (67%)",
+    "Monaco v Nordsjaelland: O/U Over 2.5 @1.43 (67%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 E",
+   "code": "T4PL1Y",
+   "odds": 2.29,
+   "chance": 0.405,
+   "legs": [
+    "FC Midtjylland v Ajax: O/U Over 2.5 @1.50 (64%)",
+    "AC Milan v Ferencvarosi Budapest: O/U Over 2.5 @1.53 (63%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 F",
+   "code": "RZB4QR",
+   "odds": 2.33,
+   "chance": 0.397,
+   "legs": [
+    "Crystal Palace v Hoffenheim: O/U Over 2.5 @1.52 (63%)",
+    "Trabzonspor v Freiburg: O/U Over 2.5 @1.53 (63%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 G",
+   "code": "RZXY3E",
+   "odds": 2.4,
+   "chance": 0.387,
+   "legs": [
+    "Celtic v Besiktas Istanbul: O/U Over 2.5 @1.55 (62%)",
+    "FC Thun v Heart of Midlothian FC: O/U Over 2.5 @1.55 (62%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 H",
+   "code": "SCSV0B",
+   "odds": 2.43,
+   "chance": 0.379,
+   "legs": [
+    "Sturm Graz v NK Celje: O/U Over 2.5 @1.55 (62%)",
+    "Lillestroem SK v Viktoria Plzen: O/U Over 2.5 @1.57 (61%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 I",
+   "code": "PHGV1U",
+   "odds": 2.43,
+   "chance": 0.377,
+   "legs": [
+    "Real Sociedad v Lyon: O/U Over 2.5 @1.55 (61%)",
+    "St. Truidense VV v SK Brann: O/U Over 2.5 @1.57 (61%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 J",
+   "code": "G25ZHG",
+   "odds": 2.5,
+   "chance": 0.37,
+   "legs": [
+    "RSC Anderlecht v Salzburg: O/U Over 2.5 @1.58 (61%)",
+    "Sparta Prague v Bournemouth: O/U Over 2.5 @1.58 (61%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 K",
+   "code": "H9SL7C",
+   "odds": 2.59,
+   "chance": 0.358,
+   "legs": [
+    "NEC Nijmegen v AC Omonia Nicosia: O/U Over 2.5 @1.59 (61%)",
+    "Sunderland AFC v GNK Dinamo Zagreb: O/U Over 2.5 @1.63 (59%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 L",
+   "code": "XSZ80N",
+   "odds": 2.76,
+   "chance": 0.333,
+   "legs": [
+    "Hapoel Be`er Sheva FC v OFI Crete: O/U Over 2.5 @1.66 (58%)",
+    "Panathinaikos v PFC CSKA Sofia: O/U Over 2.5 @1.66 (57%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 M",
+   "code": "TLDLPT",
+   "odds": 2.98,
+   "chance": 0.311,
+   "legs": [
+    "Lincoln Red Imps v HNK Hajduk Split: O/U Over 2.5 @1.72 (56%)",
+    "CS Universitatea Craiova v KF Egnatia Rrogozhine: O/U Over 2.5 @1.73 (55%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 N",
+   "code": "R3YGSA",
+   "odds": 3.19,
+   "chance": 0.292,
+   "legs": [
+    "Celta v Union Gilloise: O/U Over 2.5 @1.78 (54%)",
+    "Alkmaar v Juventus: O/U Over 2.5 @1.79 (54%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 O",
+   "code": "VRU7VC",
+   "odds": 3.38,
+   "chance": 0.273,
+   "legs": [
+    "PFC Levski Sofia v Jagiellonia Bialystok: O/U Over 2.5 @1.81 (53%)",
+    "SCU Torreense v FC Ararat-Armenia: O/U Under 2.5 @1.87 (51%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 P",
+   "code": "JVMABD",
+   "odds": 3.55,
+   "chance": 0.261,
+   "legs": [
+    "Mjallby AIF v FK Borac Banja Luka: O/U Under 2.5 @1.88 (51%)",
+    "AGF Aarhus v Braga: O/U Under 2.5 @1.89 (51%)"
+   ]
+  },
+  {
+   "name": "O/U2.5 ACCA2 Q",
+   "code": "KKPG8J",
+   "odds": 6.86,
+   "chance": 0.129,
+   "legs": [
+    "Riga FC v FK Jablonec: O/U Over 2.5 @1.89 (51%)",
+    "Kuopion Palloseura v Gent: O/U Over 2.5 @1.90 (50%)",
+    "Getafe v Brighton: O/U Under 2.5 @1.91 (50%)"
+   ]
+  }
+ ],
+ "btts_yes_no_split": {
+  "yes": 25,
+  "no": 10
+ },
+ "ou_split": {
+  "over": 31,
+  "under": 4
+ },
+ "pending": []
+}

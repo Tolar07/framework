@@ -11,7 +11,8 @@ from types import SimpleNamespace as NS
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import nba_teams as nt
-from engine import nba_value as nv
+from engine import nba_value as nv  # noqa: I001
+nv.BLEND = {}     # model-only chances (the live blend weights are memory/nba_blend.json)
 
 sharp = NS(ml_home=1.5405, ml_away=2.54, spread=-6.0, total=220.0)   # home 113, away 107
 
@@ -37,7 +38,8 @@ assert nv.fair_chance("66", "hcp=-3", "Home (-3)", sharp) is None
 # quarter handicaps: quarters 1-3 only
 p1 = nv.fair_chance("303", "hcp=-1.5|quarternr=1", "Home (-1.5)", sharp)
 assert abs(p1 - (1 - nv._phi((1.5 - 0.331 * 6) / 8.3))) < 1e-9
-assert nv.fair_chance("303", "hcp=-1.5|quarternr=4", "Home (-1.5)", sharp) is None, "Q4: OT rule unconfirmed"
+p4 = nv.fair_chance("303", "hcp=-1.5|quarternr=4", "Home (-1.5)", sharp)       # live since 2026-11-05
+assert abs(p4 - (1 - nv._phi((1.5 - 0.103 * 6) / 8.0))) < 1e-9, "Q4: the quarter alone, its own k"
 assert nv.fair_chance("303", "hcp=-1.5", "Home (-1.5)", sharp) is None
 print("1st-half and quarter handicaps: OK")
 

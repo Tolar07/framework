@@ -55,6 +55,16 @@ someone to remember it:
    in the same job, not left as a reminder. Money rules, stakes, thresholds and keys stay the Architect's.
 5. Note it on omniroute-test#54.
 
+## Basketball inherits football — every session (Architect standing instruction, 2026-11-05)
+
+"All the things that have been done for football should apply to basketball ... so we don't miss any settings on football,
+and basketball does not have it ... more like an inheritance thing." Every framework module is listed in
+`config/sport_parity.json` with what basketball (NBA, world leagues, NCAA) has of it: `covers`, `twin <module>`,
+`todo <priority>`, `shared` or `n/a <reason>`. `tests/sport_parity_test.py` fails when a module is missing, so a new
+football feature does not merge until it says what basketball gets. When you build a football feature, build the
+basketball side in the same job, or list it as `todo` with a priority. When you close a `todo`, change it to
+`covers` / `twin`. The `basketball_gaps` list covers what the NBA has and world basketball / NCAA doesn't yet.
+
 ---
 
 ## THE LIVE LOOP — DO NOT BREAK IT

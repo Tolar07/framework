@@ -1,0 +1,729 @@
+{
+ "_about": "Sport parity (Architect 2026-11-05: 'all the things that have been done for football should apply to basketball ... more like an inheritance thing'). Every framework module is listed with what basketball has of it. tests/sport_parity_test.py fails when a module is missing, so a new football feature cannot merge without saying what basketball gets: covers / twin <module> / todo <priority> / shared / n/a <reason>.",
+ "modules": {
+  "engine/bias_checks.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/calibration.py": {
+   "status": "twin",
+   "note": "chances recalibrated: season refit of widths/shares + blend with SportyBet's price",
+   "basketball": "engine/nba_recal.py backtest/nba_blend_study.py"
+  },
+  "engine/claude_reader.py": {
+   "status": "todo",
+   "note": "Claude as a fact-sheet reader for NBA picks",
+   "priority": 2
+  },
+  "engine/claude_review.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/clv_accas.py": {
+   "status": "todo",
+   "note": "positive-CLV NBA accas from legs with value against the close",
+   "priority": 3
+  },
+  "engine/cognitive_core.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/cohorts.py": {
+   "status": "todo",
+   "note": "time-bucketed NBA accas (tip-offs inside one window)",
+   "priority": 3
+  },
+  "engine/competitions.py": {
+   "status": "twin",
+   "note": "NBA team ids; world basketball: every non-NBA league (covered flag)",
+   "basketball": "engine/nba_teams.py engine/world_basketball.py"
+  },
+  "engine/cross_league.py": {
+   "status": "todo",
+   "note": "with data/league_strength: world basketball across leagues",
+   "priority": 3
+  },
+  "engine/day_override.py": {
+   "status": "todo",
+   "note": "one-day NBA board overrides (config/day_overrides.json) for the Architect's special nights",
+   "priority": 3
+  },
+  "engine/dixon_coles.py": {
+   "status": "n/a",
+   "note": "goals model; NBA is priced from the sharp line (engine/nba_value.py) and projected from players (engine/nba_projection.py)"
+  },
+  "engine/edge_book.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/elo.py": {
+   "status": "n/a",
+   "note": "football ratings; NBA ratings come from the sharp line and engine/nba_projection.py"
+  },
+  "engine/exchange.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/experiments.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/fact_sheet.py": {
+   "status": "todo",
+   "note": "fact sheet (panel probabilities) for NBA picks",
+   "priority": 2
+  },
+  "engine/features.py": {
+   "status": "twin",
+   "note": "model features",
+   "basketball": "engine/nba_projection.py"
+  },
+  "engine/fixture_match.py": {
+   "status": "twin",
+   "note": "matching one source's game to another's",
+   "basketball": "engine/nba_teams.py"
+  },
+  "engine/focus.py": {
+   "status": "todo",
+   "note": "NBA board focus (one night, one competition: NBA Cup, play-offs)",
+   "priority": 3
+  },
+  "engine/form.py": {
+   "status": "twin",
+   "note": "recent form: last-10 minutes and points per player, team pace",
+   "basketball": "engine/nba_projection.py"
+  },
+  "engine/freeze.py": {
+   "status": "twin",
+   "note": "each NBA pick booked once, its code kept; watch picks never re-picked",
+   "basketball": "run_nba.py"
+  },
+  "engine/full_markets.py": {
+   "status": "twin",
+   "note": "every market priced / recorded",
+   "basketball": "engine/nba_value.py engine/nba_markets.py"
+  },
+  "engine/half.py": {
+   "status": "twin",
+   "note": "1st half / quarter lines (period shares)",
+   "basketball": "engine/nba_value.py"
+  },
+  "engine/inputs.py": {
+   "status": "todo",
+   "note": "candidate NBA inputs: rest days, back-to-back, travel, motivation (tanking, seeding), studied walk-forward",
+   "priority": 2
+  },
+  "engine/learned_weights.py": {
+   "status": "todo",
+   "note": "panel member weights for NBA verdicts",
+   "priority": 2
+  },
+  "engine/learning.py": {
+   "status": "twin",
+   "note": "learning from results: nightly refit + model/price blend per market group",
+   "basketball": "engine/nba_recal.py backtest/nba_blend_study.py"
+  },
+  "engine/leg_postmortem.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/loss_watch.py": {
+   "status": "todo",
+   "note": "losing-market watch and proposals for NBA market families",
+   "priority": 2
+  },
+  "engine/market_consistency.py": {
+   "status": "n/a",
+   "note": "football goal-expectation consistency across markets; NBA lines all come from one sharp total/spread"
+  },
+  "engine/market_implied.py": {
+   "status": "twin",
+   "note": "SportyBet's own chance (sb_fair) in the blend",
+   "basketball": "engine/nba_value.py"
+  },
+  "engine/markets.py": {
+   "status": "twin",
+   "note": "market catalogue and fair chances",
+   "basketball": "engine/nba_value.py"
+  },
+  "engine/mes.py": {
+   "status": "n/a",
+   "note": "football deploy-at trigger price; NBA picks carry fair_price"
+  },
+  "engine/name_match.py": {
+   "status": "twin",
+   "note": "team-name matching",
+   "basketball": "engine/nba_teams.py"
+  },
+  "engine/national_elo.py": {
+   "status": "n/a",
+   "note": "national football teams"
+  },
+  "engine/nba_ext_model.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_gate.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_ladder.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_markets.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_projection.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_recal.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_shadow.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_shape.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_teams.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/nba_value.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/ncaa_lines.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/paper_book.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/picks_ledger.py": {
+   "status": "twin",
+   "note": "NBA ledger: output/picks/nba_<date>.json + nba_watch_<date>.json, graded",
+   "basketball": "run_nba.py"
+  },
+  "engine/profiles.py": {
+   "status": "todo",
+   "note": "NBA team style profiles (pace, shot mix)",
+   "priority": 2
+  },
+  "engine/reasoning.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/residual_model.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/retrain.py": {
+   "status": "twin",
+   "note": "nightly refit",
+   "basketball": "engine/nba_recal.py backtest/nba_blend_study.py"
+  },
+  "engine/scoreline.py": {
+   "status": "n/a",
+   "note": "football correct scores"
+  },
+  "engine/scout.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/sharp_value.py": {
+   "status": "twin",
+   "note": "the NBA board IS the sharp-value method",
+   "basketball": "engine/nba_value.py"
+  },
+  "engine/short_legs.py": {
+   "status": "todo",
+   "note": "no forced NBA picks / short NBA slips",
+   "priority": 3
+  },
+  "engine/slate.py": {
+   "status": "twin",
+   "note": "the night's NBA slate",
+   "basketball": "run_nba.py"
+  },
+  "engine/slip_overlap.py": {
+   "status": "todo",
+   "note": "one outcome, one slip for NBA accas",
+   "priority": 3
+  },
+  "engine/soft_close_shadow.py": {
+   "status": "n/a",
+   "note": "football hypothesis H003 (Over 2.5 close)"
+  },
+  "engine/sot_model.py": {
+   "status": "n/a",
+   "note": "football shots on target"
+  },
+  "engine/squad_depth.py": {
+   "status": "todo",
+   "note": "does an NBA absence really hurt THIS pick (minutes share, on/off: backtest/NBA_ONOFF_STUDY.md)",
+   "priority": 1
+  },
+  "engine/squad_profile.py": {
+   "status": "todo",
+   "note": "NBA rotation: each player's minutes role, coach's rest habit",
+   "priority": 2
+  },
+  "engine/staking.py": {
+   "status": "todo",
+   "note": "suggested stake tied to proven NBA edge (bots stake flat today)",
+   "priority": 3
+  },
+  "engine/study_record.py": {
+   "status": "twin",
+   "note": "NBA study lines recorded and graded",
+   "basketball": "run_nba.py"
+  },
+  "engine/survivor.py": {
+   "status": "todo",
+   "note": "an AI Survivor lineage for basketball",
+   "priority": 3
+  },
+  "engine/tactics.py": {
+   "status": "todo",
+   "note": "NBA matchup read (pace v pace, 3-point v perimeter defence)",
+   "priority": 3
+  },
+  "engine/tactics_study.py": {
+   "status": "todo",
+   "note": "the NBA matchup read against results",
+   "priority": 3
+  },
+  "engine/team_news.py": {
+   "status": "todo",
+   "note": "NBA team news per pick: injury report / late scratch hurts or helps THIS pick (side, total, team total)",
+   "priority": 1
+  },
+  "engine/tip_board.py": {
+   "status": "todo",
+   "note": "NBA tip sites run like a board on paper",
+   "priority": 2
+  },
+  "engine/tip_sites.py": {
+   "status": "todo",
+   "note": "collect and grade free NBA prediction-site tips",
+   "priority": 2
+  },
+  "engine/tipsters.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/uktime.py": {
+   "status": "shared",
+   "note": "UK time for every board"
+  },
+  "engine/universe.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/verdict_panel.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/walkforward.py": {
+   "status": "shared",
+   "note": "walk-forward helper, any sport"
+  },
+  "engine/why_learning.py": {
+   "status": "todo",
+   "note": "why-weighted learning for NBA (outplayed v unlucky)",
+   "priority": 2
+  },
+  "engine/why_record.py": {
+   "status": "todo",
+   "note": "why each NBA pick won or lost",
+   "priority": 2
+  },
+  "engine/world_basketball.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "engine/xg_model.py": {
+   "status": "n/a",
+   "note": "football expected goals; NBA's equivalent is the player projection"
+  },
+  "monitor/board_clock.py": {
+   "status": "shared",
+   "note": "starts the board runs; the NBA board is built in the morning slot of the same daily.yml"
+  },
+  "monitor/bot_grader.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/bot_learning.py": {
+   "status": "todo",
+   "note": "the bots' NBA paper challengers fed back",
+   "priority": 3
+  },
+  "monitor/commands_loop.py": {
+   "status": "shared",
+   "note": "the command loop; the commands themselves are output/telegram_commands.py"
+  },
+  "monitor/edge_run.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/edge_scoreboard.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/experiment_run.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/fdata.py": {
+   "status": "shared",
+   "note": "framework-data storage"
+  },
+  "monitor/json_log.py": {
+   "status": "shared",
+   "note": "logging"
+  },
+  "monitor/learning_watch.py": {
+   "status": "todo",
+   "note": "alarm when an NBA learning loop stalls (nba_recal, blend, side-by-side record)",
+   "priority": 2
+  },
+  "monitor/live_loop.py": {
+   "status": "twin",
+   "note": "the live loop",
+   "basketball": "monitor/nba_live.py"
+  },
+  "monitor/live_tracker.py": {
+   "status": "twin",
+   "note": "where every pick stands, live. World basketball: see basketball_gaps",
+   "basketball": "monitor/nba_live.py"
+  },
+  "monitor/loop_util.py": {
+   "status": "shared",
+   "note": "one-loop guard"
+  },
+  "monitor/match_study_run.py": {
+   "status": "todo",
+   "note": "nightly NBA match study",
+   "priority": 2
+  },
+  "monitor/matchbook_ledger.py": {
+   "status": "todo",
+   "note": "Matchbook's graded NBA / world basketball bets summarised per market family",
+   "priority": 2
+  },
+  "monitor/nba_live.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/nba_watch.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/news_loop.py": {
+   "status": "twin",
+   "note": "pre-tip loop: sharp line v SportyBet, VALUE GONE checks. Injury-report changes: engine/team_news.py todo",
+   "basketball": "monitor/nba_watch.py"
+  },
+  "monitor/preview_diff.py": {
+   "status": "todo",
+   "note": "NBA preview boards days ahead, and what moved",
+   "priority": 3
+  },
+  "monitor/push_marker.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/reasoning_run.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/retrain_run.py": {
+   "status": "twin",
+   "note": "NBA refits run in daily.yml (nba_recal, blend study)",
+   "basketball": "engine/nba_recal.py backtest/nba_blend_study.py .github/workflows/daily.yml"
+  },
+  "monitor/rule_scorecard.py": {
+   "status": "todo",
+   "note": "the bots' NBA and world-basketball rules on the scorecard",
+   "priority": 2
+  },
+  "monitor/run_watchdog.py": {
+   "status": "shared",
+   "note": "restarts a missed daily.yml slot, which also builds the NBA board; nba_watch / nba_live have backup crons"
+  },
+  "monitor/sharp_list.py": {
+   "status": "twin",
+   "note": "the NBA board is the sharp list",
+   "basketball": "engine/nba_value.py"
+  },
+  "monitor/sportybet_ledger.py": {
+   "status": "todo",
+   "note": "the Architect's real SportyBet NBA / world basketball bets fed back",
+   "priority": 2
+  },
+  "monitor/squad_profiles.py": {
+   "status": "todo",
+   "note": "weekly NBA rotation profiles",
+   "priority": 2
+  },
+  "monitor/supervisor.py": {
+   "status": "todo",
+   "note": "the daily check must cover the NBA board, line watch, live tracker and the world-basketball picks",
+   "priority": 1
+  },
+  "monitor/timing_experiment.py": {
+   "status": "todo",
+   "note": "Matchbook early v Betfair late on NBA picks",
+   "priority": 3
+  },
+  "monitor/tip_sites_run.py": {
+   "status": "todo",
+   "note": "NBA tip sites run",
+   "priority": 2
+  },
+  "monitor/tipster_run.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "monitor/universe_sweep.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "data/api_football_results.py": {
+   "status": "twin",
+   "note": "results: ESPN NBA scoreboard; world basketball: engine/universe.py (Flashscore sport 3)",
+   "basketball": "data/nba_source.py"
+  },
+  "data/espn_fixtures.py": {
+   "status": "twin",
+   "note": "fixtures: ESPN NBA scoreboard",
+   "basketball": "data/nba_source.py"
+  },
+  "data/european_archive.py": {
+   "status": "twin",
+   "note": "results archive: basketball games archived by the universe sweep",
+   "basketball": "engine/universe.py"
+  },
+  "data/fixture_features.py": {
+   "status": "twin",
+   "note": "per-game features: pace, ratings, line-ups",
+   "basketball": "engine/nba_projection.py"
+  },
+  "data/fixtures_source.py": {
+   "status": "twin",
+   "note": "fixtures: ESPN NBA; world basketball: SportyBet list in monitor/edge_run.py",
+   "basketball": "data/nba_source.py"
+  },
+  "data/flashscore_results.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "data/football_data_source.py": {
+   "status": "twin",
+   "note": "seasons of results + closing lines for backtests",
+   "basketball": "data/nba_source.py"
+  },
+  "data/fotmob.py": {
+   "status": "twin",
+   "note": "NBA injury list and expected starters (ESPN). World basketball / NCAA: see basketball_gaps",
+   "basketball": "data/nba_players.py"
+  },
+  "data/international_source.py": {
+   "status": "n/a",
+   "note": "national-team football fixtures; basketball internationals are listed by SportyBet and priced in world basketball"
+  },
+  "data/league_strength.py": {
+   "status": "todo",
+   "note": "cross-league strength for world basketball (EuroLeague v domestic leagues)",
+   "priority": 3
+  },
+  "data/match_stats.py": {
+   "status": "todo",
+   "note": "how each NBA game was played (box score: pace, shooting luck, free throws) for the why-study",
+   "priority": 2
+  },
+  "data/match_study.py": {
+   "status": "todo",
+   "note": "nightly why-study of every NBA game, bet or not",
+   "priority": 2
+  },
+  "data/matchbook_prices.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "data/nba_players.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "data/nba_source.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "data/team_profiles.py": {
+   "status": "todo",
+   "note": "NBA team profiles: pace, offensive / defensive rating, 3-point rate, rest; partly in engine/nba_projection.team_table",
+   "priority": 2
+  },
+  "data/thesportsdb_fixtures.py": {
+   "status": "twin",
+   "note": "second fixture source",
+   "basketball": "data/nba_source.py"
+  },
+  "scripts/clv_scorecard.py": {
+   "status": "twin",
+   "note": "NBA and world basketball rows on the edge scoreboard",
+   "basketball": "monitor/edge_scoreboard.py"
+  },
+  "scripts/olp_query.py": {
+   "status": "todo",
+   "note": "the read-only query surface for NBA records",
+   "priority": 3
+  },
+  "scripts/rebuild_survivor.py": {
+   "status": "n/a",
+   "note": "football survivor rebuild"
+  },
+  "scripts/self_improve.py": {
+   "status": "todo",
+   "note": "the weekly self-improvement review must ask about basketball too",
+   "priority": 2
+  },
+  "scripts/send_study.py": {
+   "status": "shared",
+   "note": "sends any study file"
+  },
+  "scripts/weekly_review.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "output/bet365_board.py": {
+   "status": "n/a",
+   "note": "bet365 retired 2026-10-16"
+  },
+  "output/notify.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  },
+  "output/produce_bet.py": {
+   "status": "n/a",
+   "note": "football bet production rule"
+  },
+  "output/routines_cmd.py": {
+   "status": "shared",
+   "note": "/routines covers every workflow"
+  },
+  "output/telegram_commands.py": {
+   "status": "todo",
+   "note": "/board, /why, /status must show the NBA board and world-basketball picks",
+   "priority": 1
+  },
+  "pipeline/odds.py": {
+   "status": "twin",
+   "note": "SportyBet basketball prices read directly",
+   "basketball": "monitor/edge_run.py engine/nba_value.py"
+  },
+  "pipeline/odds_footballdata.py": {
+   "status": "n/a",
+   "note": "football-data.co.uk odds"
+  },
+  "pipeline/odds_sportybet.py": {
+   "status": "twin",
+   "note": "SportyBet basketball prices",
+   "basketball": "monitor/edge_run.py engine/nba_markets.py"
+  },
+  "pipeline/odds_verify.py": {
+   "status": "twin",
+   "note": "second price source: the sharp line (ESPN) / Matchbook exchange",
+   "basketball": "engine/nba_value.py"
+  },
+  "pipeline/sharp.py": {
+   "status": "twin",
+   "note": "Matchbook exchange fair chance for every basketball side",
+   "basketball": "engine/exchange.py"
+  },
+  "pipeline/sportybet_booking.py": {
+   "status": "shared",
+   "note": "booking codes for NBA and world basketball too"
+  },
+  "verification/fixture_check.py": {
+   "status": "twin",
+   "note": "second-source fixture check: ESPN match (ids decide)",
+   "basketball": "engine/nba_teams.py data/nba_source.py"
+  },
+  "verification/id403.py": {
+   "status": "twin",
+   "note": "source stamp",
+   "basketball": "engine/nba_teams.py"
+  },
+  "clv/clv_logger.py": {
+   "status": "twin",
+   "note": "NBA close_value per pick (value against the closing sharp line)",
+   "basketball": "run_nba.py"
+  },
+  "clv/clv_sync.py": {
+   "status": "twin",
+   "note": "NBA picks graded with their closing line in run_nba.grade",
+   "basketball": "run_nba.py"
+  },
+  "run_daily.py": {
+   "status": "twin",
+   "note": "the board run",
+   "basketball": "run_nba.py"
+  },
+  "run_nba.py": {
+   "status": "covers",
+   "note": "handles basketball itself"
+  }
+ },
+ "basketball_gaps": [
+  {
+   "feature": "team news / injuries for world basketball and NCAA picks",
+   "nba_has": "data/nba_players.py",
+   "priority": 1
+  },
+  {
+   "feature": "scout (Gemini + Search) on world basketball / NCAA picks",
+   "nba_has": "engine/scout.py",
+   "priority": 1
+  },
+  {
+   "feature": "Gemini reasoning verdicts on world basketball / NCAA picks",
+   "nba_has": "engine/reasoning.py",
+   "priority": 2
+  },
+  {
+   "feature": "live tracker for world basketball / NCAA picks",
+   "nba_has": "monitor/nba_live.py",
+   "priority": 2
+  },
+  {
+   "feature": "line watch (price drift, VALUE GONE) for world basketball picks",
+   "nba_has": "monitor/nba_watch.py",
+   "priority": 2
+  },
+  {
+   "feature": "every-market record + period study for NCAA (halves) and FIBA (40-min) leagues",
+   "nba_has": "engine/nba_markets.py backtest/nba_period_study.py",
+   "priority": 2
+  },
+  {
+   "feature": "player props priced from a player model (NBA props are settled, not yet priced)",
+   "nba_has": "engine/nba_projection.py",
+   "priority": 2
+  },
+  {
+   "feature": "scout effects signed on NBA picks (football's pick_effect; NBA absences recorded only)",
+   "nba_has": "engine/scout.py",
+   "priority": 1
+  }
+ ]
+}

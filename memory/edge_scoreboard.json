@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T00:13Z",
+ "built_at": "2026-11-05T00:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 27,
    "gap_entry": -0.0412,
    "n_clv": 27,
-   "clv": -0.0428,
+   "clv": -0.0429,
    "clv_se": 0.002,
    "beat": 0.0
   },
@@ -376,7 +376,7 @@
    "n_entry": 33,
    "gap_entry": -0.0445,
    "n_clv": 33,
-   "clv": -0.0453,
+   "clv": -0.0454,
    "clv_se": 0.0021,
    "beat": 0.0
   },
@@ -530,8 +530,8 @@
    "n_entry": 7,
    "gap_entry": -0.0439,
    "n_clv": 7,
-   "clv": -0.051,
-   "clv_se": 0.0238,
+   "clv": -0.0502,
+   "clv_se": 0.0215,
    "beat": 0.1429
   },
   {
@@ -544,8 +544,8 @@
    "n_entry": 7,
    "gap_entry": -0.0439,
    "n_clv": 7,
-   "clv": -0.051,
-   "clv_se": 0.0238,
+   "clv": -0.0502,
+   "clv_se": 0.0215,
    "beat": 0.1429
   },
   {
@@ -558,7 +558,7 @@
    "n_entry": 33,
    "gap_entry": -0.0174,
    "n_clv": 33,
-   "clv": -0.0182,
+   "clv": -0.0183,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -572,7 +572,7 @@
    "n_entry": 33,
    "gap_entry": -0.0174,
    "n_clv": 33,
-   "clv": -0.0182,
+   "clv": -0.0183,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -586,7 +586,7 @@
    "n_entry": 33,
    "gap_entry": -0.0445,
    "n_clv": 33,
-   "clv": -0.0453,
+   "clv": -0.0454,
    "clv_se": 0.0021,
    "beat": 0.0
   }
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0428,
+   "clv": -0.0429,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0453,
+   "clv": -0.0454,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359
@@ -920,7 +920,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (74 of 200)",
    "n": 74,
-   "clv": -0.051,
+   "clv": -0.0502,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2058
@@ -929,7 +929,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (81 of 200)",
    "n": 81,
-   "clv": -0.051,
+   "clv": -0.0502,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1851

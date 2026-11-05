@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T23:13Z",
+ "built_at": "2026-11-05T23:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54",
  "groups": [
   {
@@ -362,7 +362,7 @@
    "n_entry": 22,
    "gap_entry": -0.0569,
    "n_clv": 22,
-   "clv": -0.0537,
+   "clv": -0.0552,
    "clv_se": 0.0054,
    "beat": 0.0
   },
@@ -657,7 +657,7 @@
    "gap_entry": -0.0199,
    "n_clv": 54,
    "clv": -0.0186,
-   "clv_se": 0.0025,
+   "clv_se": 0.0024,
    "beat": 0.1111
   },
   {
@@ -684,8 +684,8 @@
    "n_entry": 11,
    "gap_entry": 0.083,
    "n_clv": 6,
-   "clv": -0.0473,
-   "clv_se": 0.0263,
+   "clv": -0.0402,
+   "clv_se": 0.0255,
    "beat": 0.3333
   },
   {
@@ -698,8 +698,8 @@
    "n_entry": 11,
    "gap_entry": 0.083,
    "n_clv": 6,
-   "clv": -0.0473,
-   "clv_se": 0.0263,
+   "clv": -0.0402,
+   "clv_se": 0.0255,
    "beat": 0.3333
   }
  ],
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0537,
+   "clv": -0.0552,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -1104,7 +1104,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0473,
+   "clv": -0.0402,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -1113,7 +1113,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0473,
+   "clv": -0.0402,
    "p_value": null,
    "bh_pass": false,
    "roi": null

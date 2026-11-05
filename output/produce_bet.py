@@ -9,6 +9,7 @@ HR35 hard guardrail carried through: completeness never overrides honesty.
 A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 """
 from __future__ import annotations
+import os
 import re
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta, timezone
@@ -1588,6 +1589,29 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 _aodds *= _l[4]
             out.append(f"   {_an}: {_bac.get(_an) or 'PENDING'} ({len(_alegs)} legs · odds {_aodds:.2f} · "
                        f"{round(_ach*100)}%)")
+    # --- TABLE 3E · UNDER 2.5 GOALS (Architect 2026-11-05, weekend dates only) ---
+    try:
+        _u25 = _build_under25(board)
+    except Exception:  # noqa: BLE001 — a display table never breaks the board
+        _u25 = []
+    if _u25:
+        _uc = extra_codes.get("under25_codes") or {}
+        out += [_CANON_RULE, "TABLE 3E · UNDER 2.5 GOALS",
+                f"({len(_u25)} Under 2.5 singles, {round(UNDER25_MIN*100)}%+ model chance, one code each)",
+                _CANON_RULE]
+        for _uname, _ulegs, _ucombo in _u25:
+            _ubf, _pk, _ch, _k, _pr = _ulegs[0]
+            out.append(f"   • {kickoff(_ubf)} "
+                       f"{comp.where(_ubf.fixture.split(' (')[0], _ubf.fixture.rsplit('(', 1)[-1].rstrip(')'))} "
+                       f"— Under 2.5 @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f}) "
+                       f"· {_uc.get(_uname) or 'PENDING'}")
+        _uac = extra_codes.get("under25_acca_codes") or {}
+        for _an, _alegs, _ach in _build_under25_accas(_u25):
+            _aodds = 1.0
+            for _l in _alegs:
+                _aodds *= _l[4]
+            out.append(f"   {_an}: {_uac.get(_an) or 'PENDING'} ({len(_alegs)} legs · odds {_aodds:.2f} · "
+                       f"{round(_ach*100)}%)")
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
@@ -1622,6 +1646,10 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append(f"{_bn}: {_bcode} (single · both teams to score)")
         for _bn, _bcode in (extra_codes.get("btts_acca_codes") or {}).items():
             out.append(f"{_bn}: {_bcode} (BTTS acca · both teams to score in every game)")
+        for _bn, _bcode in (extra_codes.get("under25_codes") or {}).items():
+            out.append(f"{_bn}: {_bcode} (single · under 2.5 goals)")
+        for _bn, _bcode in (extra_codes.get("under25_acca_codes") or {}).items():
+            out.append(f"{_bn}: {_bcode} (Under 2.5 acca · under 2.5 goals in every game)")
         if extra_codes.get("value_mega"):
             out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
                        f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
@@ -1736,6 +1764,46 @@ def _build_btts_accas(singles: list) -> list[tuple]:
             ch *= leg[2]
         out.append((f"BTTS acca {k}", legs, ch))
     return out
+
+
+# UNDER 2.5 WEEKEND (Architect 2026-11-05: "on the weekend you would do BTTS and under 2.5 singles and
+# accas ... let's leave it for the weekend"): on the listed kick-off dates every model-rated game whose
+# calibrated Under 2.5 chance is UNDER25_MIN+ (SportyBet price in the deploy band) is its own single with its
+# own code, and the same games also go out as 2-3 leg accas, exactly like the BTTS table (TABLE 3E).
+# The 55% bar: on 977 graded model games 2026-10-04..11-04, games the model gave 55%+ went under 62.5% of
+# the time (n=72; model said 60.3%); at 50%+ only 54.1% (n=172), too thin at typical Under 2.5 prices.
+# UNDER25_DATES (comma list of YYYY-MM-DD) replaces the default dates; "" turns it off.
+UNDER25_MIN = 0.55
+UNDER25_DATES = frozenset(d.strip() for d in os.environ.get("UNDER25_DATES", "2026-11-07,2026-11-08").split(",")
+                          if d.strip())
+
+
+def _build_under25(board: list) -> list[tuple]:
+    """[("U2.5 1", [leg], chance), ...] strongest first, one single per game on an UNDER25_DATES
+    kick-off date, or []. A leg is (bf, pick, chance, market key, SportyBet price), as in _build_btts."""
+    from engine.calibration import over as _over
+    rows = []
+    for bf in board:
+        p = getattr(bf, "probs", None)
+        if p is None or getattr(bf, "prob_source", "model") != "model":
+            continue
+        if str(getattr(bf, "kickoff_date", "") or "")[:10] not in UNDER25_DATES:
+            continue
+        o = _over(2.5, p.p_over_25)
+        if o is None:
+            continue
+        ch = 1.0 - o
+        price = getattr(bf, "under25_price", None)
+        if ch < UNDER25_MIN or not price or not (DEPLOY_ODDS_MIN <= price <= DEPLOY_ODDS_MAX):
+            continue
+        rows.append((bf, "Under 2.5 goals", ch, mkt.UNDER_25, price))
+    rows.sort(key=lambda r: -r[2])
+    return [(f"U2.5 {i}", [r], r[2]) for i, r in enumerate(rows, 1)]
+
+
+def _build_under25_accas(singles: list) -> list[tuple]:
+    """The Under 2.5 singles also as 2-3 leg accas, strongest first, each game once (as _build_btts_accas)."""
+    return [(n.replace("BTTS acca", "U2.5 acca"), legs, ch) for n, legs, ch in _build_btts_accas(singles)]
 
 
 def _acca_odds(legs) -> float:

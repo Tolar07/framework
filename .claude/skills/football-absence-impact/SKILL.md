@@ -92,6 +92,17 @@ apply the steps below.
 - [ ] Any structural gap (no fit full-back / keeper / striker) is named.
 - [ ] Nothing here changed a stake or a threshold (House rules).
 
+## Incident: a wrong flag is about to trigger actions
+
+When the Architect corrects a false flag shortly before kick-off:
+
+1. List who acts on the flag (three bots exit on RISK/CAUTION).
+2. Correct tonight's live records on main first, with the same function and the originals kept in `*_raw` fields.
+   CI takes about 12 minutes and the news loop skips picks it already checked, so a code PR first would miss kick-off.
+3. Then ship the code fix and any research as PRs.
+
+Correcting a record is not changing a rule: House rules below still apply.
+
 ## House rules (OLP XDV)
 
 - RECORDED ONLY beyond the level itself. Stake sizes, thresholds (12% / 25%) and whether bots

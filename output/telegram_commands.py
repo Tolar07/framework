@@ -33,6 +33,8 @@ COMMANDS
   /lookup <team>, /picks [date]   the records, via scripts/olp_query.py
   /approve P3, /reject P3   decide a proposal — the Architect's chat ONLY,
              refused when TELEGRAM_CHAT_ID is unset (fails closed)
+  /routines  every scheduled job across the bot repos (output/routines_cmd.py)
+  /run <name> start a scheduled job now — the Architect's chat ONLY, fails closed
   /help      this list
 """
 from __future__ import annotations
@@ -111,7 +113,9 @@ def cmd_help(_: str) -> str:
         "/proposals — markets the watch proposes to stop picking\n"
         "/lookup Arsenal — every pick and rated fixture for a team on record\n"
         "/picks or /picks 2026-10-03 — a day's picks and results\n"
-        "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n\n"
+        "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n"
+        "/routines — every scheduled job: last result, next run, what needs attention\n"
+        "/run edge — start a scheduled job now (your chat only)\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
     )
 
@@ -408,6 +412,11 @@ def cmd_proposals(_: str) -> str:
         "\n\nReply /approve ID or /reject ID. Rejecting an approved block lifts it."
 
 
+def cmd_routines(arg: str) -> str:
+    from output import routines_cmd
+    return routines_cmd.cmd_routines(arg)
+
+
 def _decide(arg: str, approve: bool, chat_id: Optional[str]) -> str:
     # FAILS CLOSED: a decision changes what the board picks, so it is taken
     # only from the Architect's own chat, and never when no chat is configured.
@@ -426,6 +435,7 @@ HANDLERS = {
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
     "/debrief": cmd_debrief, "/proposals": cmd_proposals,
     "/lookup": cmd_lookup, "/picks": cmd_picks,
+    "/routines": cmd_routines,
 }
 
 
@@ -450,6 +460,12 @@ def handle(text: str, chat_id: Optional[str] = None) -> str:
     cmd = low.split()[0] if low else ""
     if cmd in ("/approve", "/reject"):
         return _decide(stripped[len(cmd):], cmd == "/approve", chat_id)
+    if cmd == "/run":
+        # starts a scheduled job: the Architect's chat only, fails closed like /approve
+        if not chat_id or chat_id not in _allowed():
+            return "REFUSED — routines are started from the Architect's chat only."
+        from output import routines_cmd
+        return routines_cmd.cmd_run(stripped[len(cmd):])
     handler = HANDLERS.get(cmd)
     if handler is None:
         return f"Unknown command '{cmd or stripped[:20]}'.\n\n{cmd_help('')}"

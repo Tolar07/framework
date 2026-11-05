@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T16:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -3.6% over 37
+Built 2026-11-05T17:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -3.6% over 37
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -11,7 +11,7 @@ Built 2026-11-05T16:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: Away goals | 7 | 71% | -12.9% ± 22.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away win to nil | 3 | 67% | -19.0% ± 40.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: DC & total | 1 | 100% | +25.0% | PENDING (0) | PENDING (0) | PENDING |
-| board family: Double chance | 90 | 80% | +2.0% ± 5.4% | -4.1% (31) | -3.6% ± 0.3% (31) | 0% |
+| board family: Double chance | 90 | 80% | +2.0% ± 5.4% | -4.1% (31) | -3.7% ± 0.3% (31) | 0% |
 | board family: European handicap | 1 | 100% | +20.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home goals | 12 | 92% | +16.0% ± 10.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home win to nil | 6 | 33% | -59.2% ± 25.8% | PENDING (0) | PENDING (0) | PENDING |
@@ -46,10 +46,10 @@ Built 2026-11-05T16:43Z. Edge: 0 strategies ready for the Architect; board singl
 | nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -4.6% (9) | -3.6% ± 1.8% (9) | 33% |
 | nba: board picks | 92 | 60% | +14.7% ± 9.9% | -4.6% (9) | -3.6% ± 1.8% (9) | 33% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.9% (37) | -1.0% ± 0.3% (37) | 27% |
-| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.8% (37) | -0.9% ± 0.3% (37) | 27% |
+| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -1.8% (37) | -1.0% ± 0.3% (37) | 27% |
 | venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.4% (37) | -3.6% ± 0.3% (37) | 0% |
-| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.1% (8) | -6.4% ± 2.3% (5) | 0% |
-| world basketball: all leagues | 0 | PENDING | PENDING | +8.1% (8) | -6.4% ± 2.3% (5) | 0% |
+| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.1% (8) | -5.8% ± 2.9% (5) | 20% |
+| world basketball: all leagues | 0 | PENDING | PENDING | +8.1% (8) | -5.8% ± 2.9% (5) | 20% |
 
 ## Promotion (step 7)
 
@@ -61,7 +61,7 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: Away goals | COLLECTING (7 of 200) | 7 | PENDING | — | — |
 | board family: Away win to nil | COLLECTING (3 of 200) | 3 | PENDING | — | — |
 | board family: DC & total | COLLECTING (1 of 200) | 1 | PENDING | — | — |
-| board family: Double chance | COLLECTING (90 of 200) | 90 | -3.6% | 1.0 | — |
+| board family: Double chance | COLLECTING (90 of 200) | 90 | -3.7% | 1.0 | — |
 | board family: European handicap | COLLECTING (1 of 200) | 1 | PENDING | — | — |
 | board family: Home goals | COLLECTING (12 of 200) | 12 | PENDING | — | — |
 | board family: Home win to nil | COLLECTING (6 of 200) | 6 | PENDING | — | — |
@@ -95,8 +95,8 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
 | nba market: 68 | COLLECTING (85 of 200) | 85 | -3.6% | — | — |
 | nba: board picks | COLLECTING (92 of 200) | 92 | -3.6% | — | — |
-| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -6.4% | — | — |
-| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -6.4% | — | — |
+| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -5.8% | — | — |
+| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -5.8% | — | — |
 
 ## Residual model (step 6)
 

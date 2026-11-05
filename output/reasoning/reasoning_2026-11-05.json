@@ -74,7 +74,35 @@
     "stakes_on": true,
     "stake_factor": null
    },
-   "panel_prob": 0.65
+   "panel_prob": 0.65,
+   "panel_lineup": {
+    "stage": "lineup",
+    "anchor": 0.6749,
+    "anchor_source": "model",
+    "members": {
+     "gemini": 0.65,
+     "nvidia": 0.66
+    },
+    "prompt": "p1",
+    "domain": "football",
+    "family": "Result & total",
+    "panel_prob": 0.6551,
+    "edge": -0.0173,
+    "advised_stake_factor": 0.5,
+    "authority": {
+     "n": 5,
+     "earned": false,
+     "panel_brier": 0.1622,
+     "live_brier": 0.1571,
+     "panel_brier_on_live": 0.1622,
+     "clv_n": 5,
+     "panel_clv_hit": 0.6,
+     "live_clv_hit": 0.6
+    },
+    "mode": "shadow",
+    "stakes_on": true,
+    "stake_factor": null
+   }
   },
   {
    "fixture": "Crystal Palace v Hoffenheim",
@@ -2638,5 +2666,28 @@
   },
   "authority": 0,
   "missing": []
- }
+ },
+ "lineup_passes": [
+  {
+   "at": "2026-11-05T16:40+00:00",
+   "picks": 1,
+   "members": {
+    "openrouter": {
+     "model": "google/gemma-4-26b-a4b-it:free",
+     "status": "off for this run: openrouter: 429",
+     "answered": 0
+    },
+    "gemini": {
+     "model": "gemini-3.5-flash-lite",
+     "status": "ok",
+     "answered": 1
+    },
+    "nvidia": {
+     "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+     "status": "ok",
+     "answered": 1
+    }
+   }
+  }
+ ]
 }

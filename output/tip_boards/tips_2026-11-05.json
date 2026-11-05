@@ -1626,13 +1626,13 @@
  "results": {
   "statarea": {
    "won": 1,
-   "lost": 0,
-   "open": 33
+   "lost": 1,
+   "open": 32
   },
   "vitibet": {
-   "won": 0,
-   "lost": 0,
-   "open": 62
+   "won": 1,
+   "lost": 3,
+   "open": 58
   },
   "sites agree": {
    "won": 0,

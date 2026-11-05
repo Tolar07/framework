@@ -2,14 +2,14 @@
 
 Written by `backtest/tipster_study.py` from graded slips (`engine/tipsters.py`). Implied chance = 1 / price with the bookmaker's margin included — a fairly priced leg lands ~5% more often than that. Nothing is trusted before 100+ graded slips; nothing is promoted without the Architect. Paper only.
 
-105 slips looked at: 105 graded, 0 ungradable (a leg's result or market couldn't be read).
+110 slips looked at: 110 graded, 0 ungradable (a leg's result or market couldn't be read).
 
 ## Per poster
 
 | Poster | slips | slips landed | legs landed | £1 a slip: return ± se | verdict |
 |---|---|---|---|---|---|
-| site:vitibet | 56 (56 graded) | 36/56 landed vs 100.0% implied | 36/56 legs | -36% ± 6% | learning |
-| site:statarea | 49 (49 graded) | 33/49 landed vs 100.0% implied | 33/49 legs | -33% ± 7% | learning |
+| site:vitibet | 60 (60 graded) | 37/60 landed vs 100.0% implied | 37/60 legs | -38% ± 6% | learning |
+| site:statarea | 50 (50 graded) | 33/50 landed vs 100.0% implied | 33/50 legs | -34% ± 7% | learning |
 
 ## Legs by market
 
@@ -32,14 +32,14 @@ aligned = a plain market at 60%+ implied (≤ 1.67, the kind of leg our F8/F1/F2
 
 | Class | legs | landed | implied (avg) | ungradable |
 |---|---|---|---|---|
-| middle | 105 | — | — | 105 |
+| middle | 110 | — | — | 110 |
 
 ## Official Top Picks vs everyone else
 
 | Source | slips | slips landed | legs landed | £1 a slip: return ± se | verdict |
 |---|---|---|---|---|---|
 | official (@SportyBet / @SportyBetNG) | 0 | — | — | — | — |
-| tipsters | 105 (105 graded) | 69/105 landed vs 100.0% implied | 69/105 legs | -34% ± 5% | enough to judge |
+| tipsters | 110 (110 graded) | 70/110 landed vs 100.0% implied | 70/110 legs | -36% ± 5% | enough to judge |
 
 A bookmaker's margin of ~5% a leg compounds on an acca: 6 legs at fair prices still return about −26% on average, so a long acca slip must beat that just to break even.
 
@@ -47,7 +47,7 @@ A bookmaker's margin of ~5% a leg compounds on an acca: 6 legs at fair prices st
 
 Each leg is looked up in the universe sweep (`data/universe/`; every SportyBet football and basketball game, first and last price before kick-off, swept every 3 h) and compared with SportyBet's LAST price there. CLV = entry price / closing price − 1 (positive = the price shortened after the tip, as for our own picks, order 20). EV vs close = the closing price's margin-free chance × the entry price − 1 (a fair bet reads 0; the bookmaker's margin makes the average leg about −5%). Move = how many points of margin-free chance the market moved TOWARDS the leg between the sweep's first and last look — it doesn't depend on when the entry price was read. Entry price: a SportyBet leg's price when its code was DECODED (SportyBet's share API gives today's price, not the price at posting — decode soon after collecting), a bet365 leg's price as posted. A leg whose entry price was read after the sweep's last look has no close and is left out, as is a market the sweep doesn't keep (handicaps, team totals, specials other than 1UP/2UP). 1UP/2UP legs get a CLV but no EV or move: both teams can go a goal up in the same game, so that row's chances don't add up to one.
 
-0 of 105 legs measured against the close.
+0 of 110 legs measured against the close.
 
 | Group | legs | CLV ± se · beat close | EV vs close ± se | moved towards the leg | median entry → kick-off |
 |---|---|---|---|---|---|

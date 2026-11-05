@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T04:43Z",
+ "built_at": "2026-11-05T05:13Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 35",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 29,
    "gap_entry": -0.0412,
    "n_clv": 29,
-   "clv": -0.0415,
+   "clv": -0.0413,
    "clv_se": 0.0018,
    "beat": 0.0
   },
@@ -376,8 +376,8 @@
    "n_entry": 35,
    "gap_entry": -0.0444,
    "n_clv": 35,
-   "clv": -0.0439,
-   "clv_se": 0.0019,
+   "clv": -0.0437,
+   "clv_se": 0.002,
    "beat": 0.0
   },
   {
@@ -558,7 +558,7 @@
    "n_entry": 35,
    "gap_entry": -0.0174,
    "n_clv": 35,
-   "clv": -0.0168,
+   "clv": -0.0167,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -572,7 +572,7 @@
    "n_entry": 35,
    "gap_entry": -0.0174,
    "n_clv": 35,
-   "clv": -0.0168,
+   "clv": -0.0167,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -586,8 +586,8 @@
    "n_entry": 35,
    "gap_entry": -0.0444,
    "n_clv": 35,
-   "clv": -0.0439,
-   "clv_se": 0.0019,
+   "clv": -0.0437,
+   "clv_se": 0.002,
    "beat": 0.0
   }
  ],
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0415,
+   "clv": -0.0413,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0439,
+   "clv": -0.0437,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359

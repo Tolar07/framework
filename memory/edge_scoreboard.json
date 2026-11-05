@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T02:13Z",
+ "built_at": "2026-11-05T02:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 27,
    "gap_entry": -0.0412,
    "n_clv": 27,
-   "clv": -0.0427,
+   "clv": -0.0426,
    "clv_se": 0.002,
    "beat": 0.0
   },
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0427,
+   "clv": -0.0426,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189

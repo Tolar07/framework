@@ -1,0 +1,22 @@
+{
+ "_about": "Multi-sport rollout, standing order 50 (Architect 2026-11-05 21:17-21:23 UK). One new sport a week: Week A = build, backtest, shadow/paper board graded nightly; Week B = LIVE on all three bots (Matchbook, Betfair, SportyBet) wherever the venue lists the market, and the next sport starts its Week A. The gate report is published but a failing gate STILL goes live (Architect: 'a failing gate would still go live'); markets and fixtures that are not bet keep paper-trading and learning, exactly like football. Every sport INHERITS football's and basketball's merged rules and structure: scouts, training, learning, self-improvement, reporting, news, line-ups, the full market catalogue, the three bots' unified rulebook. NO STEAM betting on any new sport, not even paper. tests/standing_orders_test.py guards this file.",
+ "inherit_from": ["football", "basketball"],
+ "venues": ["matchbook", "betfair", "sportybet"],
+ "steam": false,
+ "failing_gate_goes_live": true,
+ "unbet_markets_paper_trade": true,
+ "full_market_catalogue": true,
+ "week_a": ["data feed + venue odds mapped", "model built", "walk-forward backtest (3+ seasons, vs closing price, net of commission, every try counted)", "shadow board graded nightly, paper bets on all three bots", "nightly retrain on the Oracle clock (routines.TRAINING)", "sport parity entries", "daily digest + 23:02 report", "gate report on #54 and Telegram"],
+ "week_b": ["live on all three bots, money on, undo switch per sport", "unbet markets and fixtures stay on paper and keep learning"],
+ "sports": [
+  {"order": 1, "sport": "ice_hockey", "scope": "NHL + SHL, Liiga, National League, DEL, KHL", "shadow_start": "2026-11-09", "live_from": "2026-11-16"},
+  {"order": 2, "sport": "american_football", "scope": "NFL + NCAAF", "shadow_start": "2026-11-16", "live_from": "2026-11-23"},
+  {"order": 3, "sport": "snooker", "scope": "World Snooker Tour ranking events", "shadow_start": "2026-11-23", "live_from": "2026-11-30"},
+  {"order": 4, "sport": "darts", "scope": "PDC tour + World Championship", "shadow_start": "2026-11-30", "live_from": "2026-12-07"},
+  {"order": 5, "sport": "volleyball_table_tennis", "scope": "top volleyball leagues; table tennis WTT/ITTF only (no Setka Cup or similar integrity-risk leagues)", "shadow_start": "2026-12-07", "live_from": "2026-12-14"},
+  {"order": 6, "sport": "cricket", "scope": "Tests, ODIs, T20Is, Big Bash, major T20 leagues", "shadow_start": "2026-12-14", "live_from": "2026-12-21"},
+  {"order": 7, "sport": "rugby", "scope": "Premiership, URC, Top 14, Champions Cup, internationals", "shadow_start": "2026-12-21", "live_from": "2026-12-28"},
+  {"order": 8, "sport": "tennis", "scope": "ATP, WTA, Challenger, ITF", "shadow_start": "2026-12-28", "live_from": "2027-01-04"},
+  {"order": 9, "sport": "baseball", "scope": "MLB + NPB + KBO (+ winter leagues for the shadow week)", "shadow_start": "2027-01-04", "live_from": "season_opening", "note": "MLB is in its off-season: built, backtested and shadowed on the winter leagues in January; live from MLB Opening Day (late March 2027)."}
+ ]
+}

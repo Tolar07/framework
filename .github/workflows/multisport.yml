@@ -1,0 +1,65 @@
+name: OLP XDV multi-sport boards
+
+# Multi-sport rollout (standing order 50; Architect 2026-11-05 23:34: "build everything ... all
+# these sports ... schedule their practice to be done soon"). American football, snooker, darts,
+# volleyball, table tennis, cricket, rugby, tennis, baseball (ice hockey: ice_hockey.yml).
+# look: every side of every SportyBet game in the next 24 h beside the Matchbook exchange's fair
+# chance and each sport's Elo; value picks frozen with SportyBet codes into
+# output/multisport/<sport>/ms_<date>.json (PAPER until config/sport_rollout.json live_from; the
+# bots read the same files). grade: settle finished games from Flashscore and teach each sport's
+# Elo from every finished game of the last 7 days. report: grade + Telegram. No steam.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "look | grade | report"
+        required: false
+        default: "look"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: multisport
+  cancel-in-progress: false
+
+jobs:
+  hockey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+          MODE: ${{ github.event.inputs.mode || 'look' }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          case "$MODE" in
+            look)   python run_multisport.py ;;
+            grade)  python run_multisport.py --grade ;;
+            report) python run_multisport.py --report --telegram ;;
+            *) echo "unknown mode $MODE"; exit 1 ;;
+          esac
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport || true

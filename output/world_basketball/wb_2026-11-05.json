@@ -58,6 +58,37 @@
    "event_id": "sr:match:73933100",
    "at": "2026-11-05T14:13Z",
    "result": null
+  },
+  {
+   "sb_event_id": "sr:match:74803372",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "North Texas Mean Green",
+   "away": "McNeese State Cowboys",
+   "ko": "2026-11-05T22:00:00Z",
+   "pick": "1st half Over 65.5 points",
+   "key": "B:68|total=65.5|Over 65.5",
+   "price": 2.0,
+   "fair": 0.5573,
+   "value": 0.1146,
+   "source": "espn Draft Kings",
+   "line_total": 141.5,
+   "line_spread": 2.5,
+   "market_id": "68",
+   "specifier": "total=65.5",
+   "outcome": "Over 65.5",
+   "outcome_id": "12",
+   "code": "QE3DPD",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": false
+   },
+   "chance": 0.5573,
+   "tip": "2026-11-05T22:00:00Z",
+   "event_id": "sr:match:74803372",
+   "at": "2026-11-05T18:43Z",
+   "result": null
   }
  ]
 }

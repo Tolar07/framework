@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-05T03:43Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 34",
+ "built_at": "2026-11-05T04:13Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 35",
  "groups": [
   {
    "name": "baseline: every SportyBet side at its last price",
@@ -79,11 +79,11 @@
    "hit": 0.8,
    "roi": 0.0189,
    "roi_se": 0.0575,
-   "n_entry": 28,
-   "gap_entry": -0.0411,
-   "n_clv": 28,
-   "clv": -0.0418,
-   "clv_se": 0.0019,
+   "n_entry": 29,
+   "gap_entry": -0.0412,
+   "n_clv": 29,
+   "clv": -0.0417,
+   "clv_se": 0.0018,
    "beat": 0.0
   },
   {
@@ -166,8 +166,8 @@
    "n_entry": 6,
    "gap_entry": -0.0595,
    "n_clv": 6,
-   "clv": -0.0561,
-   "clv_se": 0.0056,
+   "clv": -0.0555,
+   "clv_se": 0.0054,
    "beat": 0.0
   },
   {
@@ -373,11 +373,11 @@
    "hit": 0.7701,
    "roi": -0.0359,
    "roi_se": 0.0154,
-   "n_entry": 34,
+   "n_entry": 35,
    "gap_entry": -0.0444,
-   "n_clv": 34,
-   "clv": -0.0443,
-   "clv_se": 0.002,
+   "n_clv": 35,
+   "clv": -0.0441,
+   "clv_se": 0.0019,
    "beat": 0.0
   },
   {
@@ -555,10 +555,10 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 34,
+   "n_entry": 35,
    "gap_entry": -0.0174,
-   "n_clv": 34,
-   "clv": -0.0173,
+   "n_clv": 35,
+   "clv": -0.0171,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -569,10 +569,10 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 34,
+   "n_entry": 35,
    "gap_entry": -0.0174,
-   "n_clv": 34,
-   "clv": -0.0173,
+   "n_clv": 35,
+   "clv": -0.0171,
    "clv_se": 0.0014,
    "beat": 0.0
   },
@@ -583,11 +583,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 34,
+   "n_entry": 35,
    "gap_entry": -0.0444,
-   "n_clv": 34,
-   "clv": -0.0443,
-   "clv_se": 0.002,
+   "n_clv": 35,
+   "clv": -0.0441,
+   "clv_se": 0.0019,
    "beat": 0.0
   }
  ],
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0418,
+   "clv": -0.0417,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -686,7 +686,7 @@
    "name": "board family: Result & total",
    "status": "COLLECTING (3 of 200)",
    "n": 3,
-   "clv": -0.0561,
+   "clv": -0.0555,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.5033
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0443,
+   "clv": -0.0441,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359

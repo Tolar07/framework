@@ -189,16 +189,51 @@ def _walk(paths) -> set[str]:
     return {r for r in rels if _is_data(r)}
 
 
+# .gitignore patterns that do NOT keep a data file out of framework-data: the repo-wide "*.jsonl" guard
+# (meant for conversation logs; the data logs are .jsonl) and everything inside the block that marks the
+# data as living in framework-data (step D: the data is ignored in framework BECAUSE it is saved here).
+KEEP_PATTERNS = {"*.jsonl"}
+BLOCK_START, BLOCK_END = "# >>> data lives in framework-data", "# <<< data lives in framework-data"
+
+
+def _rules_outside_block() -> list[str] | None:
+    try:
+        lines = (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+    out, inside = [], False
+    for line in lines:
+        if line.strip() == BLOCK_START:
+            inside = True
+        elif line.strip() == BLOCK_END:
+            inside = False
+        elif not inside:
+            out.append(line)
+    return out
+
+
 def _not_ignored(rels: set[str]) -> set[str]:
-    """Drop what framework's .gitignore keeps out (caches, conversations, logs). Outside a git work tree
-    (the tests) nothing is dropped."""
-    if not rels:
+    """Drop what framework's .gitignore keeps out on purpose (caches, conversations, runtime state).
+    The rules are checked in a scratch repo without the data block (a whole ignored folder would hide the
+    cache rules inside it). Files framework tracks are never dropped. No .gitignore (the tests): none."""
+    rules = _rules_outside_block()
+    if not rels or rules is None:
         return rels
-    r = subprocess.run(["git", "check-ignore", "--stdin", "-z", "--no-index"], cwd=ROOT,  # noqa: S603,S607
-                       input="\0".join(sorted(rels)) + "\0", capture_output=True, text=True)
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        subprocess.run(["git", "init", "-q", d], capture_output=True)  # noqa: S603,S607
+        Path(d, ".gitignore").write_text("\n".join(rules) + "\n", encoding="utf-8")
+        r = subprocess.run(["git", "check-ignore", "-v", "-z", "--no-index", "--stdin"], cwd=d,  # noqa: S603,S607
+                           input="\0".join(sorted(rels)) + "\0", capture_output=True, text=True)
     if r.returncode not in (0, 1):
         return rels
-    return rels - {x for x in r.stdout.split("\0") if x}
+    f = r.stdout.split("\0")
+    dropped = {f[i + 3] for i in range(0, len(f) - 3, 4) if f[i + 3] and f[i + 2] not in KEEP_PATTERNS}
+    tracked = subprocess.run(["git", "ls-files", "-z", "--", *DATA_DIRS], cwd=ROOT,  # noqa: S603,S607
+                             capture_output=True, text=True)
+    if tracked.returncode == 0:
+        dropped -= {x for x in tracked.stdout.split("\0") if x}
+    return rels - dropped
 
 
 def save(paths, message: str) -> str:

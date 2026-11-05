@@ -26,7 +26,9 @@ def main() -> int:
 
     ws = job(tmp, "W")
     git("init", "-q", cwd=ws)                                  # the framework checkout, with its .gitignore
-    (ws / ".gitignore").write_bytes(b"data/cache/\n.fdata/\n")
+    (ws / ".gitignore").write_bytes(
+        b"# >>> data lives in framework-data\noutput/\nmemory/\ndata/\n# <<< data lives in framework-data\n"
+        b"*.jsonl\ndata/cache/\n.fdata/\n")
     use(ws)
     fdata.pull()
     (ws / "output/world_basketball").mkdir(parents=True)
@@ -34,8 +36,10 @@ def main() -> int:
     (ws / "data/cache").mkdir()
     (ws / "data/cache/big.json").write_bytes(b"cache\n")            # ignored
     (ws / "output/picks/p.json").write_bytes(b"2\n")                # in the paths
+    (ws / "data/study").mkdir()
+    (ws / "data/study/live.jsonl").write_bytes(b"x\n")              # *.jsonl guard does not apply to data
     (ws / "data/keep.txt").unlink()                                   # outside the paths: never deleted
-    assert "saved 2 file(s)" in fdata.save(["output/picks"], "t"), "expected picks + world basketball"
+    assert "saved 3 file(s)" in fdata.save(["output/picks"], "t"), "expected picks + wb + study log"
 
     check = tmp / "check"
     git("clone", "-q", (tmp / "remote.git").as_uri(), str(check), cwd=tmp)
@@ -44,6 +48,7 @@ def main() -> int:
     assert not (check / "data/cache").exists(), "an ignored cache reached framework-data"
     assert (check / "data/keep.txt").exists(), "a deletion outside the named paths was saved"
     assert (check / "memory/m.json").read_bytes() == b"1\n"
+    assert (check / "data/study/live.jsonl").exists(), "a data .jsonl was dropped by the *.jsonl guard"
     print("fdata scope: OK")
     return 0
 

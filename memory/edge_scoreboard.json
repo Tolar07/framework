@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T20:13Z",
+ "built_at": "2026-11-05T20:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.2% over 37",
  "groups": [
   {
@@ -530,8 +530,8 @@
    "n_entry": 10,
    "gap_entry": -0.0375,
    "n_clv": 10,
-   "clv": -0.0268,
-   "clv_se": 0.0186,
+   "clv": -0.0239,
+   "clv_se": 0.0197,
    "beat": 0.4
   },
   {
@@ -544,8 +544,8 @@
    "n_entry": 10,
    "gap_entry": -0.0375,
    "n_clv": 10,
-   "clv": -0.0268,
-   "clv_se": 0.0186,
+   "clv": -0.0239,
+   "clv_se": 0.0197,
    "beat": 0.4
   },
   {
@@ -600,8 +600,8 @@
    "n_entry": 10,
    "gap_entry": 0.0832,
    "n_clv": 6,
-   "clv": -0.054,
-   "clv_se": 0.0263,
+   "clv": -0.0526,
+   "clv_se": 0.0262,
    "beat": 0.1667
   },
   {
@@ -614,8 +614,8 @@
    "n_entry": 10,
    "gap_entry": 0.0832,
    "n_clv": 6,
-   "clv": -0.054,
-   "clv_se": 0.0263,
+   "clv": -0.0526,
+   "clv_se": 0.0262,
    "beat": 0.1667
   }
  ],
@@ -948,7 +948,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (85 of 200)",
    "n": 85,
-   "clv": -0.0268,
+   "clv": -0.0239,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1615
@@ -957,7 +957,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (92 of 200)",
    "n": 92,
-   "clv": -0.0268,
+   "clv": -0.0239,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1466
@@ -966,7 +966,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.054,
+   "clv": -0.0526,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -975,7 +975,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.054,
+   "clv": -0.0526,
    "p_value": null,
    "bh_pass": false,
    "roi": null

@@ -1506,6 +1506,26 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             extra_codes.setdefault("btts_acca_codes", {})[_n] = _code
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
+                # TABLE 3E · UNDER 2.5 (Architect 2026-11-05, weekend dates only): priced from SportyBet,
+                # one code per single, and 2-3 leg accas of the same games - booked like the BTTS table
+                try:
+                    from output.produce_bet import _build_under25, _build_under25_accas
+                    for _b in board:
+                        _fx = odds_index.get((_b.probs.home_team, _b.probs.away_team)) \
+                            if _b.probs else None
+                        _q = getattr(_fx, "under25", None) if _fx else None
+                        _b.under25_price = getattr(_q, "price", None)
+                    _u25 = _build_under25(shown)
+                    for _kind, _slips in (("under25_codes", _u25), ("under25_acca_codes", _build_under25_accas(_u25))):
+                        for _n, _legs, _c in _slips:
+                            _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                                    bf.probs.home_team, bf.probs.away_team, key)
+                                   for bf, _pick, _prob, key, _price in _legs]
+                            _code, _ = sbk.code_for_legs(sb_index, _ls)
+                            if _code:
+                                extra_codes.setdefault(_kind, {})[_n] = _code
+                except Exception as _e:  # noqa: BLE001
+                    all_flags.append(f"Under 2.5 table skipped ({_e})")
                 # SHORT 3-LEG SLIPS (Architect 2026-11-01, plan point 3, engine/short_legs.py): the
                 # sub-1.20 legs the model backs, three to a slip; booked and graded, paper (no bot stakes)
                 try:
@@ -1577,6 +1597,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         from output.produce_bet import _build_value as _build_value_l
         from output.produce_bet import _build_btts as _btts_l
         from output.produce_bet import _build_btts_accas as _btts_accas_l
+        from output.produce_bet import _build_under25 as _u25_l
+        from output.produce_bet import _build_under25_accas as _u25_accas_l
         if frozen is not None:
             raise _KeepFrozen()
         # the accas that were booked, not a rebuild from every game: since #267 the main accas
@@ -1589,7 +1611,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
                                   values=_build_value_l(dep), value_codes=value_codes,
                                   combined=extra_codes,
-                                  btts=_btts_l(shown) + _btts_accas_l(_btts_l(shown)))
+                                  btts=_btts_l(shown) + _btts_accas_l(_btts_l(shown)),
+                                  under25=_u25_l(shown) + _u25_accas_l(_u25_l(shown)))
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001

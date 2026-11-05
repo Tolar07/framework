@@ -13,7 +13,7 @@ and are marked too.
 from __future__ import annotations
 
 # 50+ 3-leg first (+7% graded 24 Oct-1 Nov), then positive-CLV accas (+3%), then the main accas, then the rest
-ORDER = ("safe3", "clv_accas", "accas", "value", "btts", "alts", "short3", "megas")
+ORDER = ("safe3", "clv_accas", "accas", "value", "btts", "under25", "alts", "short3", "megas")
 
 
 def leg_keys(slip: dict) -> set:

@@ -165,7 +165,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                  acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
                  alts: Optional[list] = None, alt_codes: Optional[dict] = None,
                  values: Optional[list] = None, value_codes: Optional[dict] = None,
-                 combined: Optional[dict] = None, btts: Optional[list] = None) -> Path:
+                 combined: Optional[dict] = None, btts: Optional[list] = None,
+                 under25: Optional[list] = None) -> Path:
     singles = [_single(bf) for bf in board
                if bf.on_deploy_shortlist and bf.probs is not None and bf.best_market_key]
     doc = {
@@ -188,6 +189,10 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         "btts": [_alt_slip(n, l, c, (((combined or {}).get("btts_codes") or {})
                                      | ((combined or {}).get("btts_acca_codes") or {})).get(n))
                  for n, l, c in (btts or [])],
+        # TABLE 3E (Architect 2026-11-05, weekend dates): Under 2.5 singles + 2-3 leg accas, graded like BTTS
+        "under25": [_alt_slip(n, l, c, (((combined or {}).get("under25_codes") or {})
+                                        | ((combined or {}).get("under25_acca_codes") or {})).get(n))
+                    for n, l, c in (under25 or [])],
         # one code for every slip of a kind (Architect 2026-10-09): lands only
         # when every slip of that kind lands
         # EXPERIMENT ENGINE (engine/experiments.py): picks / slips a live
@@ -381,7 +386,8 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
         for slip in (doc.get("alts", []) + doc.get("replaced", [])
-                     + doc.get("value", []) + doc.get("btts", []) + doc.get("short3", [])):  # own-market legs
+                     + doc.get("value", []) + doc.get("btts", []) + doc.get("under25", [])
+                     + doc.get("short3", [])):  # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] in (None, "no-90min-result"):
                     ev = find(events, leg["home"], leg["away"], leg["kickoff"] or doc["date"],
@@ -403,10 +409,10 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
             if new != cmb.get("result"):
                 cmb["result"] = new
                 changed += 1
-        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts",
+        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts", "under25",
                      "accas_dropped", "safe3_dropped", "clv_accas", "short3"):
             for slip in doc.get(kind, []):
-                if kind in ("alts", "replaced", "value", "btts", "short3"):
+                if kind in ("alts", "replaced", "value", "btts", "under25", "short3"):
                     legs = slip.get("alt_legs", [])
                 else:
                     legs = [by_fixture.get(f) for f in slip["legs"]]

@@ -43,6 +43,20 @@ def basketball_sides(event: dict) -> dict[str, float]:
     return out
 
 
+def basketball_oids(event: dict) -> dict[str, str]:
+    """{side key: SportyBet outcome id} for the same sides as basketball_sides: what a booking
+    code needs (engine/world_basketball books one per pick)."""
+    out: dict[str, str] = {}
+    for m in event.get("markets") or []:
+        mid = str(m.get("id"))
+        if mid not in BASKETBALL_MARKETS or m.get("status") not in (None, 0, "0"):
+            continue
+        for o in m.get("outcomes") or []:
+            if o.get("id") is not None:
+                out[f"B:{mid}|{m.get('specifier') or ''}|{(o.get('desc') or '').strip()}"] = str(o["id"])
+    return out
+
+
 def sb_rows(now: datetime, get=None) -> tuple[list[dict], list[str]]:
     """Every listed SportyBet game with its side prices, both sports."""
     from monitor import universe_sweep as us
@@ -73,6 +87,8 @@ def sb_rows(now: datetime, get=None) -> tuple[list[dict], list[str]]:
                                      "away": e.get("awayTeamName"), "ko": ko.strftime("%Y-%m-%dT%H:%M:%SZ"),
                                      "comp": t.get("name"), "country": cat.get("name"),
                                      "covered": t.get("id") in cov[sport], "sides": sides})
+                        if sport == "basketball":
+                            rows[-1]["oids"] = basketball_oids(e)
                         n += 1
                 if not ts or k < 100:
                     break

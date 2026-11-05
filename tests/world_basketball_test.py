@@ -51,6 +51,28 @@ def test_skips_nba_far_games_thin_books_and_no_value():
         assert wb.update([_row(home_price=1.50)], [_event()], NOW, folder=d) == 0          # below fair
 
 
+def test_pick_is_bot_ready():
+    """2026-11-05: each pick carries what a bot needs to place it: SportyBet's market / outcome
+    ids, a booking code (PENDING when booking fails or outside Actions) and the venues."""
+    booked = []
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        row = {**_row(), "oids": {"B:219||Home": "4", "B:219||Away": "5"}}
+        assert wb.update([row], [_event()], NOW, folder=d, book=lambda s: booked.append(s) or "ABC123") == 1
+        p = json.loads((d / f"wb_{KO:%Y-%m-%d}.json").read_text(encoding="utf-8"))["picks"][0]
+        assert booked == [{"eventId": "sr:match:1", "marketId": "219", "specifier": "", "outcomeId": "4"}]
+        assert p["code"] == "ABC123" and p["outcome_id"] == "4" and p["market_id"] == "219"
+        assert p["venues"] == {"sportybet": True, "matchbook": True, "betfair_market": True}
+    with tempfile.TemporaryDirectory() as t:        # no outcome id: no booking, code PENDING
+        assert wb.update([_row()], [_event()], NOW, folder=Path(t), book=lambda s: 1 / 0) == 1
+    assert wb.venues("B:68|total=80.5|Over 80.5", True) == {"sportybet": True, "matchbook": True,
+                                                            "betfair_market": False}
+    assert wb.venues("B:225|total=160.5|Over 160.5", False)["matchbook"] is False   # game not on Matchbook
+    import os
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        assert wb._book({"eventId": "x"}) is None                                   # never calls SportyBet here
+
+
 def test_describe():
     assert wb.describe("B:223|hcp=-6.5|Home (-6.5)", "A", "B") == "A -6.5"
     assert wb.describe("B:225|total=160.5|Over 160.5", "A", "B") == "Over 160.5 points"
@@ -60,6 +82,7 @@ def test_describe():
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
+    test_pick_is_bot_ready()
     test_describe()
     print("world_basketball_test OK")
 

@@ -126,6 +126,24 @@
    "chance": 0.5541,
    "ev": 0.0527,
    "result": null
+  },
+  {
+   "event_id": "sr:match:73719546",
+   "espn_id": "401909937",
+   "espn_date": "2026-11-06",
+   "tip": "2026-11-06T03:00Z",
+   "home": "GSW",
+   "away": "MIA",
+   "stage": "regular",
+   "at": "2026-11-05T22:15:00Z",
+   "family": "Away team 1st half points",
+   "market_id": "70",
+   "specifier": "total=59.5",
+   "outcome": "Under 59.5",
+   "price": 1.96,
+   "chance": 0.539,
+   "ev": 0.0565,
+   "result": null
   }
  ]
 }

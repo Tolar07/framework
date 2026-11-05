@@ -1,5 +1,5 @@
 {
- "reviewed": "2026-11-04",
+ "reviewed": "2026-11-05",
  "inputs": [
   {
    "input": "team strength",
@@ -24,9 +24,9 @@
     "engine/form.py"
    ],
    "evidence": [
-    "home win | xG edge: NO CLEAR EFFECT (Brier +0.00147)",
-    "over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00025)",
-    "BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00022)"
+    "home win | xG edge: NO CLEAR EFFECT (Brier +0.00146)",
+    "over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00062)",
+    "BTTS yes | xG total: NO CLEAR EFFECT (Brier -0.00033)"
    ]
   },
   {
@@ -48,9 +48,9 @@
    "status": "TESTED",
    "where": [],
    "evidence": [
-    "home win | h2h_gd: NO CLEAR EFFECT (Brier -0.00019)",
+    "home win | h2h_gd: NO CLEAR EFFECT (Brier -0.00018)",
     "home win | h2h_goals: HURTS (Brier -0.00022)",
-    "over 2.5 | h2h_gd: NO CLEAR EFFECT (Brier -0.00029)"
+    "over 2.5 | h2h_gd: NO CLEAR EFFECT (Brier -0.00028)"
    ]
   },
   {
@@ -140,60 +140,60 @@
    "what": "engine/learning.py chance shift per family / league",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-02",
+   "newest": "2026-11-03",
    "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (2 d old)"
+   "note": "newest evidence 2026-11-03 (2 d old)"
   },
   {
    "loop": "match study",
    "what": "monitor/match_study_run.py per-match expected v happened v why",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-04 (1 d old)"
   },
   {
    "loop": "why record",
    "what": "engine/why_record.py right / unlucky / outplayed / game-changed",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-02",
+   "newest": "2026-11-03",
    "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (2 d old)"
+   "note": "newest evidence 2026-11-03 (2 d old)"
   },
   {
    "loop": "tactics lessons",
    "what": "engine/tactics_study.py lessons tested on unseen matches",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 112,
-   "then": 0,
+   "now": 116,
+   "then": 52,
    "ok": true,
-   "note": "0 -> 112 tested over 7 d"
+   "note": "52 -> 116 tested over 7 d"
   },
   {
    "loop": "slip post-mortem",
    "what": "engine/leg_postmortem.py slip-killer leg classes",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 431,
-   "then": 342,
+   "now": 439,
+   "then": 357,
    "ok": true,
-   "note": "342 -> 431 tested over 7 d"
+   "note": "357 -> 439 tested over 7 d"
   },
   {
    "loop": "why-weighted shadow",
    "what": "engine/why_learning.py walk-forward v the live learner",
    "kind": "grew",
    "allowance_days": 7,
-   "now": 1161,
-   "then": null,
+   "now": 1183,
+   "then": 958,
    "ok": true,
-   "note": "1161 tested (no history 7 d back)"
+   "note": "958 -> 1183 tested over 7 d"
   },
   {
    "loop": "reasoning lessons",
@@ -201,39 +201,39 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-03",
-   "age_days": 1,
+   "age_days": 2,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-03 (2 d old)"
   },
   {
    "loop": "experiment engine",
    "what": "engine/experiments.py strategies in shadow",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-04 (1 d old)"
   },
   {
    "loop": "nightly refit",
    "what": "engine/retrain.py out-of-sample refit",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-04",
+   "newest": "2026-11-05",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-04 (0 d old)"
+   "note": "newest evidence 2026-11-05 (0 d old)"
   },
   {
    "loop": "AI fact sheet",
    "what": "engine/fact_sheet.py facts 2 of 3 models agree on",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-04 (1 d old)"
   },
   {
    "loop": "verdict panel",
@@ -250,10 +250,10 @@
    "what": "engine/learned_weights.py walk-forward weights per member / fact",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-04 (1 d old)"
   },
   {
    "loop": "prompt contest",
@@ -261,9 +261,9 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-01",
-   "age_days": 3,
+   "age_days": 4,
    "ok": true,
-   "note": "newest evidence 2026-11-01 (3 d old)"
+   "note": "newest evidence 2026-11-01 (4 d old)"
   },
   {
    "loop": "AI weekly review",
@@ -271,39 +271,39 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 2,
+   "age_days": 3,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (2 d old)"
+   "note": "newest evidence 2026-11-02 (3 d old)"
   },
   {
    "loop": "universe sweep",
    "what": "engine/universe.py every SportyBet game graded, bet on or not",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-04",
+   "newest": "2026-11-05",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-04 (0 d old)"
+   "note": "newest evidence 2026-11-05 (0 d old)"
   },
   {
    "loop": "paper book",
    "what": "engine/paper_book.py fixed-rule paper bets on every game",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-04",
+   "newest": "2026-11-05",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-04 (0 d old)"
+   "note": "newest evidence 2026-11-05 (0 d old)"
   },
   {
    "loop": "sharp list",
    "what": "monitor/sharp_list.py parallel sharp-value picks",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-04",
+   "newest": "2026-11-05",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-04 (0 d old)"
+   "note": "newest evidence 2026-11-05 (0 d old)"
   },
   {
    "loop": "research runner",
@@ -311,29 +311,29 @@
    "kind": "fresh",
    "allowance_days": 7,
    "newest": "2026-11-02",
-   "age_days": 2,
+   "age_days": 3,
    "ok": true,
-   "note": "newest evidence 2026-11-02 (2 d old)"
+   "note": "newest evidence 2026-11-02 (3 d old)"
   },
   {
    "loop": "matchbook ledger",
    "what": "monitor/matchbook_ledger.py live bot record by family (order 44)",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "age_days": 1,
    "ok": true,
-   "note": "newest evidence 2026-11-03 (1 d old)"
+   "note": "newest evidence 2026-11-04 (1 d old)"
   },
   {
    "loop": "bot challengers",
    "what": "monitor/bot_learning.py the bots' paper challengers v live",
    "kind": "fresh",
    "allowance_days": 7,
-   "newest": "2026-11-04",
+   "newest": "2026-11-05",
    "age_days": 0,
    "ok": true,
-   "note": "newest evidence 2026-11-04 (0 d old)"
+   "note": "newest evidence 2026-11-05 (0 d old)"
   }
  ],
  "proposals": [
@@ -359,7 +359,7 @@
    "title": "Model input: xG for / against (tested)",
    "ev": 0.75,
    "kind": "input",
-   "body": "'xG for / against' was tested and is not a live probability input (home win | xG edge: NO CLEAR EFFECT (Brier +0.00147); over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00025)). Re-test when the data has grown; nothing to build now."
+   "body": "'xG for / against' was tested and is not a live probability input (home win | xG edge: NO CLEAR EFFECT (Brier +0.00146); over 2.5 | xG total: NO CLEAR EFFECT (Brier -0.00062)). Re-test when the data has grown; nothing to build now."
   },
   {
    "title": "Model input: travel distance (context)",
@@ -392,8 +392,159 @@
    "body": "'recent form' was tested and is not a live probability input (home win | form_ppg: HURTS (Brier -0.00038); home win | form_gd: HURTS (Brier -0.00042)). Re-test when the data has grown; nothing to build now."
   }
  ],
+ "position": {
+  "as_of": "2026-11-05",
+  "bots": {
+   "sportybet": {
+    "7d": {
+     "bets": 464,
+     "graded": 418,
+     "flat_return": 0.0053,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    },
+    "30d": {
+     "bets": 894,
+     "graded": 843,
+     "flat_return": -0.0073,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    }
+   },
+   "sportybet2": {
+    "7d": {
+     "bets": 315,
+     "graded": 289,
+     "flat_return": 0.021,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    },
+    "30d": {
+     "bets": 354,
+     "graded": 328,
+     "flat_return": -0.0058,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    }
+   },
+   "matchbook": {
+    "7d": {
+     "bets": 142,
+     "graded": 138,
+     "flat_return": -0.0329,
+     "clv": {
+      "n": 142,
+      "mean": 0.0182,
+      "lo": 0.0042,
+      "hi": 0.0321
+     },
+     "verdict": "working"
+    },
+    "30d": {
+     "bets": 514,
+     "graded": 506,
+     "flat_return": -0.062,
+     "clv": {
+      "n": 514,
+      "mean": 0.0134,
+      "lo": 0.0034,
+      "hi": 0.0233
+     },
+     "verdict": "working"
+    }
+   },
+   "betfair": {
+    "7d": {
+     "bets": 197,
+     "graded": 196,
+     "flat_return": 0.0011,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    },
+    "30d": {
+     "bets": 197,
+     "graded": 196,
+     "flat_return": 0.0011,
+     "clv": {
+      "n": 0,
+      "mean": null,
+      "lo": null,
+      "hi": null
+     },
+     "verdict": "PENDING"
+    }
+   }
+  },
+  "working": [
+   "matchbook | codes | Double Chance",
+   "matchbook | codes | NBA 2026-11-03",
+   "matchbook | inplay | Goals"
+  ],
+  "not_working": [
+   "matchbook | codes | Goals"
+  ],
+  "no_clv_yet": 121,
+  "stalled_loops": [],
+  "proposals": [
+   {
+    "kind": "timing",
+    "who": "matchbook / inplay",
+    "ev": 5.0,
+    "line": "TIMING matchbook / inplay: CLV +14.0% but flat return -13.1% over 58 bets: the edge is there at the close and lost at the price taken. Needs: first-look vs take-time prices.",
+    "needs": "price at pick time vs price taken"
+   },
+   {
+    "kind": "timing",
+    "who": "matchbook / codes",
+    "ev": 0.47,
+    "line": "TIMING matchbook / codes: CLV +0.5% but flat return -10.3% over 84 bets: the edge is there at the close and lost at the price taken. Needs: first-look vs take-time prices.",
+    "needs": "price at pick time vs price taken"
+   }
+  ],
+  "multiplicity": {
+   "q": 0.1,
+   "tested": 6,
+   "pass": [
+    "research H003",
+    "tactics counter side v counter-exposed",
+    "tactics formation 4-4-2 v 4-1-4-1",
+    "tactics possession side v low block"
+   ],
+   "fail": [
+    "research H001",
+    "research H002"
+   ]
+  },
+  "built_at": "2026-11-05T03:23:32+00:00"
+ },
  "issues_opened": [
-  "https://github.com/Tolar07/framework/issues/287",
-  "https://github.com/Tolar07/framework/issues/288"
+  "https://github.com/Tolar07/framework/issues/310",
+  "https://github.com/Tolar07/framework/issues/311",
+  "https://github.com/Tolar07/framework/issues/312"
  ]
 }

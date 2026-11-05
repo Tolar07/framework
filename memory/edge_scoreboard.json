@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T05:13Z",
+ "built_at": "2026-11-05T05:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 35",
  "groups": [
   {
@@ -377,7 +377,7 @@
    "gap_entry": -0.0444,
    "n_clv": 35,
    "clv": -0.0437,
-   "clv_se": 0.002,
+   "clv_se": 0.0019,
    "beat": 0.0
   },
   {
@@ -587,7 +587,7 @@
    "gap_entry": -0.0444,
    "n_clv": 35,
    "clv": -0.0437,
-   "clv_se": 0.002,
+   "clv_se": 0.0019,
    "beat": 0.0
   }
  ],

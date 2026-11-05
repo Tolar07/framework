@@ -10,6 +10,7 @@ from types import SimpleNamespace as NS
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import nba_value as nv
+nv.BLEND = {}     # model-only chances: the board's rules are tested apart from memory/nba_blend.json
 import run_nba
 
 sharp = NS(ml_home=1.5405, ml_away=2.54, spread=-5.5, total=213.5)
@@ -59,7 +60,7 @@ sh2 = NS(ml_home=1.9, ml_away=1.9, spread=-1.5, total=230.0)
 assert abs(nv.fair_chance("68", "total=115.5", "Over 115.5", sh2) - 0.5) < 0.01          # 0.502 x 230 = 115.5
 assert 0.84 < nv.fair_chance("68", "total=103.5", "Over 103.5", sh2) < 0.86              # 12 below
 assert 0.81 < nv.fair_chance("236", "total=50.5|quarternr=1", "Over 50.5", sh2) < 0.85  # 7.7 below 58.2
-assert nv.fair_chance("236", "total=50.5|quarternr=2", "Over 50.5", sh2) is None, "1st quarter only"
+assert nv.fair_chance("236", "total=50.5|quarternr=2", "Over 50.5", sh2) is not None, "Q2-Q4 live since 2026-11-05"
 assert nv.settle({"market_id": "236", "outcome": "Over 50.5", "specifier": "total=50.5|quarternr=1"},
                  110, 100, [30, 25, 30, 25], [24, 25, 25, 26]) == "won"                 # Q1 = 54
 assert nv.settle({"market_id": "68", "outcome": "Under 104.5", "specifier": "total=104.5"},

@@ -118,14 +118,25 @@ def standing(p: dict, s: dict) -> str:
     from engine import nba_value as nv
     mid, spec, out = str(p.get("market_id")), p.get("specifier") or "", p.get("outcome") or ""
     qh, qa = s["q_home"], s["q_away"]
-    if mid in ("68", "236"):                                   # 1st half / 1st quarter total
-        n = 2 if mid == "68" else 1
+    q = re.search(r"quarternr=(\d)", spec)
+    if mid in ("68", "236", "66", "303", "69", "70", "756", "757"):   # a half or one quarter
+        if mid in ("68", "66", "69", "70"):
+            first, n = 0, 2
+        else:                                                   # the quarter named (2026-11-05: Q2-Q4 too)
+            n = int(q.group(1)) if q else 1
+            first = n - 1
         done = periods_done(s) >= n and len(qh) >= n and len(qa) >= n
         if done:
             r = nv.settle(p, s["hs"], s["as"], qh, qa)
             return f"{(r or 'PENDING').upper()} — {p.get('pick')}"
-        pts = sum(qh[:n]) + sum(qa[:n])
+        h, a = sum(qh[first:n]), sum(qa[first:n])
+        pts = h if mid in ("69", "756") else a if mid in ("70", "757") else h + a
+        if mid in ("66", "303"):
+            return f"running — {p.get('pick')}: home {'+' if h >= a else ''}{h - a} in the period so far"
         return f"running — {p.get('pick')}: {pts} so far"
+    if mid in ("90", "88") and s["state"] != "post":            # 2nd half (regulation): graded at the final
+        h, a = sum(qh[2:4]), sum(qa[2:4])
+        return f"running — {p.get('pick')}: 2nd half {h}-{a} so far"
     if s["state"] == "post":
         r = nv.settle(p, s["hs"], s["as"], qh, qa)
         return f"{(r or 'PENDING').upper()} — {p.get('pick')}"

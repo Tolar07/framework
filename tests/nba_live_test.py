@@ -90,6 +90,20 @@ def test_a_handed_off_run_does_not_repeat_what_was_said():
         assert NL.resume(Path(d) / "missing.jsonl") == {}
 
 
+def test_standing_reads_the_quarter_named():
+    """2026-11-05: a Q3 total must not settle on the 1st quarter's points (every market live)."""
+    p = {"market_id": "236", "specifier": "total=50.5|quarternr=3", "outcome": "Over 50.5", "pick": "Q3 Over"}
+    s = {"state": "in", "period": 2, "name": "STATUS_IN_PROGRESS", "hs": 60, "as": 55,
+         "q_home": [30, 30], "q_away": [28, 27]}
+    assert NL.standing(p, s).startswith("running"), "Q3 not played yet"
+    s.update(period=3, name="STATUS_END_PERIOD", hs=86, **{"as": 80}, q_home=[30, 30, 26], q_away=[28, 27, 25])
+    assert NL.standing(p, s).startswith("WON"), "Q3 = 26 + 25 = 51"
+    team = {"market_id": "70", "specifier": "total=54.5", "outcome": "Under 54.5", "pick": "away 1H Under"}
+    assert NL.standing(team, s).startswith("LOST"), "away 1st half 28 + 27 = 55 > 54.5"
+    h2 = {"market_id": "90", "specifier": "total=100.5", "outcome": "Over 100.5", "pick": "2H Over"}
+    assert "2nd half 26-25 so far" in NL.standing(h2, s)
+
+
 def test_snapshots_are_not_git_ignored():
     """The blanket *.jsonl ignore made the first night's saves silently save nothing."""
     import subprocess

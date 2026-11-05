@@ -138,7 +138,8 @@ def settle_rows(rows: list[dict], games: dict, boxes: dict | None = None) -> tup
                 fair = 1 / p if m["id"] in LADDERS else (1 / p) / inv
                 out.append({"stage": r.get("stage"), "family": family(m), "mid": m["id"],
                             "side": desc.split()[0].lower() if desc else "", "price": p,
-                            "fair": fair, "model": model, "board": board, "won": w})
+                            "fair": fair, "model": model, "board": board, "won": w,
+                            "tip": r.get("tip"), "event_id": r["event_id"], "spec": spec})
     return out, dict(unsettled)
 
 

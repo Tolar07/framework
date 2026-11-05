@@ -66,6 +66,9 @@ jobs:
           THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          # /routines and /run read and queue in matchbook-agent (output/routines_cmd.py) with the
+          # write deploy key the bot grader already uses
+          MB_DEPLOY_KEY:      ${{ secrets.BOT_LEDGER_KEY_MATCHBOOK }}
           PYTHONIOENCODING:   utf-8
           HANDOFF:            ${{ github.event.inputs.handoff }}
         run: |

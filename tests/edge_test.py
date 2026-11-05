@@ -116,6 +116,24 @@ def test_grade_basketball():
     assert sc.grade_basketball("B:223|hcp=-9.5|Home (-9.5)", res) == 1
     assert sc.grade_basketball("B:223|hcp=11.5|Away (+11.5)", res) == 1
     assert sc.grade_basketball("B:68|total=110.5|Under 110.5", res) is None   # half score unknown
+    half = {"h": 110, "a": 100, "ht": [52, 50]}
+    assert sc.grade_basketball("B:68|total=101.5|Over 101.5", half) == 1
+    assert sc.grade_basketball("B:68|total=101.5|Under 101.5", half) == 0
+    assert sc.grade_basketball("B:68|total=102|Over 102", half) is None       # push
+
+
+def test_basketball_half_from_feed():
+    from data import flashscore_results as fs
+    from engine import universe as uv
+    feed = ("~ZA÷USA: NBA¬~AA÷x1¬AD÷1762300000¬AB÷3¬AC÷3¬AE÷Home¬AF÷Away¬AG÷112¬AH÷117"
+            "¬BA÷30¬BB÷26¬BC÷18¬BD÷33¬BE÷36¬BF÷31¬BG÷28¬BH÷27¬"
+            "~ZA÷USA: NCAA¬~AA÷x2¬AD÷1762300000¬AB÷3¬AC÷3¬AE÷T¬AF÷W¬AG÷90¬AH÷59"
+            "¬BA÷0¬BB÷0¬BC÷34¬BD÷31¬BE÷0¬BF÷0¬BG÷56¬BH÷28¬")
+    nba, ncaa = fs.parse_feed(feed, 3)
+    assert (nba["h1_home"], nba["h1_away"]) == (48, 59)          # Q1 + Q2
+    assert (ncaa["h1_home"], ncaa["h1_away"]) == (34, 31)        # NCAA halves
+    assert uv.result_of("basketball", ncaa) == {"h": 90, "a": 59, "ht": [34, 31]}
+    assert "h1_home" not in fs.parse_feed(feed)[0]                # football: untouched
 
 
 def test_summary_and_promotion():

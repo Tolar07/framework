@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.07422206229055091,
   "away_unavailable": 2,
   "fotmob_id": 6112255,
@@ -59,7 +59,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.050983131131540446,
   "away_unavailable": 1,
   "fotmob_id": 6112532,
@@ -126,11 +126,16 @@
     "name": "Odilon Kossounou",
     "side": "home",
     "type": "injury"
+   },
+   {
+    "name": "Jorginho",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
-  "away_missing_share": null,
-  "away_unavailable": 0,
+  "at": "2026-11-05T16:20Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 1,
   "fotmob_id": 6112388,
   "home_missing_share": 1.0,
   "home_unavailable": 10,
@@ -308,13 +313,19 @@
   "lineup_type": "lastStarting11"
  },
  "Crvena Zvezda v Inter Club de Escaldes": {
-  "absent": [],
-  "at": "2026-11-05T12:00Z",
+  "absent": [
+   {
+    "name": "Adem Avdi\u0107",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6112410,
-  "home_missing_share": 0.0,
-  "home_unavailable": 0,
+  "home_missing_share": 0.21215280566717593,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-11-05T17:45:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -351,7 +362,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.4081855580725741,
   "away_unavailable": 9,
   "fotmob_id": 6112325,
@@ -393,7 +404,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.40077936737037073,
   "away_unavailable": 7,
   "fotmob_id": 6112405,
@@ -435,7 +446,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.2902375874781439,
   "away_unavailable": 10,
   "fotmob_id": 6112539,
@@ -578,7 +589,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.21759209853005115,
   "away_unavailable": 4,
   "fotmob_id": 6112485,
@@ -627,7 +638,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": null,
   "away_unavailable": 0,
   "fotmob_id": 6112548,
@@ -706,7 +717,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 6112368,
@@ -738,7 +749,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.09726918766970083,
   "away_unavailable": 1,
   "fotmob_id": 6112380,
@@ -807,7 +818,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.3367870124860911,
   "away_unavailable": 9,
   "fotmob_id": 6112311,
@@ -849,7 +860,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.45810188478707936,
   "away_unavailable": 7,
   "fotmob_id": 6112270,
@@ -945,7 +956,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.2498609806145845,
   "away_unavailable": 4,
   "fotmob_id": 6112304,
@@ -1088,7 +1099,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-11-05T12:00Z",
+  "at": "2026-11-05T16:20Z",
   "away_missing_share": 0.16904749623248874,
   "away_unavailable": 3,
   "fotmob_id": 6112501,

@@ -1,0 +1,54 @@
+name: OLP XDV experiment grade (5 Nov accas)
+
+# Grades the 34 experiment accas placed on SportyBet account 1 on 2026-11-05 (omniroute-test#54) once
+# the games are over, saves grades_2026-11-05.json/.txt and sends the result to the Architect's own chat.
+# Runs after the evening games and again next morning for anything still PENDING. Nothing to remember.
+on:
+  schedule:
+    - cron: "47 22 5 11 *"
+    - cron: "17 7 6 11 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: framework-data-write
+  cancel-in-progress: false
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Grade
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/study/2026-11-05-btts-ou25/grade.py 2026-11-05 | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save
+        run: python3 monitor/fdata.py save "experiment accas graded $(date -u +%H:%M) [skip ci]" data/study/2026-11-05-btts-ou25
+      - name: Send to the Architect
+        env:
+          TELEGRAM_BOT_TOKEN:     ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:       ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          PYTHONIOENCODING:       utf-8
+        run: python scripts/send_study.py data/study/2026-11-05-btts-ou25/grades_2026-11-05.txt

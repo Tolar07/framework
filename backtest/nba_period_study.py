@@ -89,7 +89,14 @@ def per_game(g) -> dict:
             "h1_m": sum(qh[:2]) - sum(qa[:2]), "h1_t": sum(qh[:2]) + sum(qa[:2]),
             **{f"q{n}_m": qh[n - 1] - qa[n - 1] for n in (1, 2, 3)},
             "q1_t": qh[0] + qa[0], "h1_home": sum(qh[:2]), "h1_away": sum(qa[:2]),
-            "q1_home": qh[0], "q1_away": qa[0], "reg_home": sum(qh[:4]), "reg_away": sum(qa[:4])}
+            "q1_home": qh[0], "q1_away": qa[0], "reg_home": sum(qh[:4]), "reg_away": sum(qa[:4]),
+            # added 2026-11-05 (every SportyBet NBA market): quarters 2-4 and the 2nd half
+            # (regulation: Q3 + Q4), and each team's points per half / quarter
+            **{f"q{n}_t": qh[n - 1] + qa[n - 1] for n in (2, 3, 4)},
+            "q4_m": qh[3] - qa[3], "h2_t": sum(qh[2:4]) + sum(qa[2:4]), "h2_m": sum(qh[2:4]) - sum(qa[2:4]),
+            **{f"tp_{p}_{side}": v for side, q in (("home", qh), ("away", qa))
+               for p, v in (("h1", sum(q[:2])), ("h2", sum(q[2:4])), ("q1", q[0]), ("q2", q[1]),
+                            ("q3", q[2]), ("q4", q[3]))}}
 
 
 def fit_all(rows: list[dict]) -> dict:
@@ -106,9 +113,17 @@ def fit_all(rows: list[dict]) -> dict:
     for p in ("h1", "q1", "q2", "q3"):
         k = _k([r[f"{p}_m"] for r in rows], [r["x"] for r in rows])
         f[f"{p}_m_k"], f[f"{p}_m_sd"] = k, _sd([r[f"{p}_m"] - k * r["x"] for r in rows])
-    for p in ("h1", "q1"):
+    for p in ("h1", "q1", "q2", "q3", "q4", "h2"):
         k = _k([r[f"{p}_t"] for r in rows], [r["T"] for r in rows])
         f[f"{p}_t_k"], f[f"{p}_t_sd"] = k, _sd([r[f"{p}_t"] - k * r["T"] for r in rows])
+    for p in ("q4", "h2"):
+        k = _k([r[f"{p}_m"] for r in rows], [r["x"] for r in rows])
+        f[f"{p}_m_k"], f[f"{p}_m_sd"] = k, _sd([r[f"{p}_m"] - k * r["x"] for r in rows])
+    for p in ("h1", "h2", "q1", "q2", "q3", "q4"):      # one team's points in the period ~ k x its expected points
+        ys = [r[f"tp_{p}_home"] for r in rows] + [r[f"tp_{p}_away"] for r in rows]
+        xs = [r["exp_home"] for r in rows] + [r["exp_away"] for r in rows]
+        k = _k(ys, xs)
+        f[f"tp_{p}_k"], f[f"tp_{p}_sd"] = k, _sd([y - k * x for y, x in zip(ys, xs, strict=True)])
     return f
 
 
@@ -191,9 +206,20 @@ def main() -> int:
                     ("q2", "2nd-quarter margin (303)"), ("q3", "3rd-quarter margin (303)")):
         row(name, f"{f[p + '_m_k']:.3f} × (−S)", f[p + "_m_sd"],
             [r[p + "_m"] - f[p + "_m_k"] * r["x"] for r in test])
-    for p, name in (("h1", "1st-half total"), ("q1", "1st-quarter total")):
+    for p, name in (("q4", "4th-quarter margin (303)"), ("h2", "2nd-half margin (88, regulation)")):
+        row(name, f"{f[p + '_m_k']:.3f} × (−S)", f[p + "_m_sd"],
+            [r[p + "_m"] - f[p + "_m_k"] * r["x"] for r in test])
+    for p, name in (("h1", "1st-half total"), ("q1", "1st-quarter total"), ("q2", "2nd-quarter total"),
+                    ("q3", "3rd-quarter total"), ("q4", "4th-quarter total"),
+                    ("h2", "2nd-half total (90, regulation)")):
         row(name, f"{f[p + '_t_k']:.3f} × T", f[p + "_t_sd"],
             [r[p + "_t"] - f[p + "_t_k"] * r["T"] for r in test])
+    for p, name in (("h1", "team 1st-half points (69/70)"), ("h2", "team 2nd-half points"),
+                    ("q1", "team Q1 points (756/757)"), ("q2", "team Q2 points"),
+                    ("q3", "team Q3 points"), ("q4", "team Q4 points")):
+        row(name, f"{f['tp_' + p + '_k']:.3f} × team expected", f["tp_" + p + "_sd"],
+            [r[f"tp_{p}_{side}"] - f["tp_" + p + "_k"] * r[f"exp_{side}"] for r in test
+             for side in ("home", "away")])
     ot = sum(r["ot"] for r in test) / len(test)
     L += ["", f"Overtime in {ot:.1%} of test games (it counts in the full-game, team-total and "
           "handicap markets, never in the regulation total or a half/quarter).", ""]
@@ -237,6 +263,11 @@ def main() -> int:
           f"H1_MARGIN = ({f['h1_m_k']:.3f}, {sd['h1_m_sd']})"]
     L += [f"Q{n}_MARGIN = ({f[f'q{n}_m_k']:.3f}, {sd[f'q{n}_m_sd']})" for n in (1, 2, 3)]
     L += [f"H1_TOTAL = ({f['h1_t_k']:.3f}, {sd['h1_t_sd']}); Q1_TOTAL = ({f['q1_t_k']:.3f}, {sd['q1_t_sd']})",
+          "Q_TOTAL = {" + ", ".join(f"{n}: ({f[f'q{n}_t_k']:.3f}, {sd[f'q{n}_t_sd']})" for n in (1, 2, 3, 4)) + "}",
+          f"H2_TOTAL = ({f['h2_t_k']:.3f}, {sd['h2_t_sd']}); H2_MARGIN = ({f['h2_m_k']:.3f}, {sd['h2_m_sd']}); "
+          f"Q4_MARGIN = ({f['q4_m_k']:.3f}, {sd['q4_m_sd']})",
+          "TEAM_PERIOD = {" + ", ".join(f"'{p}': ({f[f'tp_{p}_k']:.3f}, {sd[f'tp_{p}_sd']})"
+                                        for p in ("h1", "h2", "q1", "q2", "q3", "q4")) + "}",
           "```", ""]
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
     print("\n".join(L))

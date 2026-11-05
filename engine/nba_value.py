@@ -57,6 +57,21 @@ Q_MARGIN = {1: (0.331, 8.3), 2: (0.308, 8.2), 3: (0.320, 8.5)}
 TEAM_MARKETS = ("227", "228")
 HCP_PERIOD_MARKETS = ("66", "303")
 MARKETS = ("219", "223", "225") + PERIOD_MARKETS + TEAM_MARKETS + ("18",) + HCP_PERIOD_MARKETS
+# SHADOW markets (Architect 2026-11-05: "look at other markets too ... first quarter, second
+# quarter, third quarter, the full market"). Fitted in backtest/NBA_PERIOD_STUDY.md (learned
+# 2023-24, held on 2024-26). PRICED AND RECORDED ONLY (fair_chance(..., shadow=True), the
+# would-be picks in backtest/NBA_MARKET_STUDY.md): the board, the line watch and the bots never
+# see them until their record earns it. The 2nd half is regulation (Q3 + Q4), the 4th quarter
+# the quarter alone; a 2nd-half line is graded only in a game without overtime, where every
+# book's rule agrees.
+Q_TOTAL = {1: (0.250, 8.1), 2: (0.251, 8.4), 3: (0.252, 8.3), 4: (0.243, 8.9)}
+H2_TOTAL = (0.495, 12.6)
+H2_MARGIN = (0.423, 10.8)
+Q4_MARGIN = (0.103, 8.0)
+TEAM_PERIOD = {"h1": (0.501, 8.1), "h2": (0.495, 8.3), "q1": (0.250, 5.8), "q2": (0.251, 5.9),
+               "q3": (0.252, 6.0), "q4": (0.243, 6.0)}
+SHADOW_MARKETS = ("236", "90", "88", "69", "70", "756", "757", "303")   # 236 q2-q4, 303 q4 only
+
 # The spread real results show per market — for the ladder study (engine/nba_ladder keys).
 MEASURED_SD = {"225": TOTAL_SD, "227": TEAM_SD, "228": TEAM_SD, "18": REG_SD,
                "223": MARGIN_SD, "66": H1_MARGIN[1],
@@ -90,11 +105,66 @@ def _home_covers(h: float, mean: float, sd: float, side: str) -> float | None:
     return p_home if side == "Home" else (1 - p_home if side == "Away" else None)
 
 
-def fair_chance(market_id: str, specifier: str, outcome: str, sharp) -> Optional[float]:
+def _quarter(specifier: str) -> int:
+    q = re.search(r"quarternr=(\d)", specifier or "")
+    return int(q.group(1)) if q else 0
+
+
+def _line(specifier: str, key: str) -> float | None:
+    m = re.search(key + r"=(-?\d+(?:\.\d+)?)", specifier or "")
+    return float(m.group(1)) if m else None
+
+
+def shadow_chance(market_id: str, specifier: str, outcome: str, sharp) -> Optional[float]:
+    """Fair chance for a SHADOW market (see SHADOW_MARKETS), or None. Whole-number lines can
+    push and are never priced."""
+    side = outcome.split()[0] if outcome else ""
+    if sharp.total is None:
+        return None
+    q = _quarter(specifier)
+    if market_id in ("236", "90", "69", "70", "756", "757"):
+        line = _line(specifier, "total")
+        if line is None or line == int(line):
+            return None
+        if market_id == "236":
+            if q not in (2, 3, 4):
+                return None                      # Q1 is a board market (fair_chance)
+            k, sd = Q_TOTAL[q]
+            mean = k * sharp.total
+        elif market_id == "90":
+            k, sd = H2_TOTAL
+            mean = k * sharp.total
+        else:
+            if sharp.spread is None:
+                return None
+            per = "h1" if market_id in ("69", "70") else f"q{q}"
+            if per not in TEAM_PERIOD:
+                return None
+            k, sd = TEAM_PERIOD[per]
+            home = market_id in ("69", "756")
+            mean = k * ((sharp.total - sharp.spread) / 2 if home else (sharp.total + sharp.spread) / 2)
+        return _over(line, mean, sd, side)
+    if market_id in ("88", "303"):
+        h = _line(specifier, "hcp")
+        if sharp.spread is None or h is None or h == int(h):
+            return None
+        if market_id == "303" and q != 4:
+            return None                          # Q1-Q3 are board markets
+        k, sd = H2_MARGIN if market_id == "88" else Q4_MARGIN
+        return _home_covers(h, k * -sharp.spread, sd, side)
+    return None
+
+
+def fair_chance(market_id: str, specifier: str, outcome: str, sharp, shadow: bool = False) -> Optional[float]:
     """Fair chance of one SportyBet outcome from the sharp line, or None.
 
     `sharp` has ml_home, ml_away, spread (home line), total. `outcome` is
-    SportyBet's desc: "Home"/"Away", "Home (-4.5)"/"Away (+4.5)", "Over 220.5"."""
+    SportyBet's desc: "Home"/"Away", "Home (-4.5)"/"Away (+4.5)", "Over 220.5".
+    shadow=True also prices the SHADOW markets (studies only; the board never passes it)."""
+    if shadow:
+        sp = shadow_chance(market_id, specifier, outcome, sharp)
+        if sp is not None:
+            return sp
     side = outcome.split()[0] if outcome else ""
     if market_id == "219":
         if not (sharp.ml_home and sharp.ml_away):
@@ -313,11 +383,47 @@ def settle(row: dict, hs: int, as_: int, q_home: Optional[list] = None,
         return "won" if (o.startswith("Over") == over) else "lost"
     if mid in PERIOD_MARKETS:
         m = re.search(r"total=(\d+(?:\.\d+)?)", spec)
-        n = 2 if mid == "68" else 1
-        if not m or not q_home or not q_away or len(q_home) < n or len(q_away) < n:
+        if not m or not q_home or not q_away:
             return None
-        pts = sum(q_home[:n]) + sum(q_away[:n])
+        if mid == "68":
+            if len(q_home) < 2 or len(q_away) < 2:
+                return None
+            pts = sum(q_home[:2]) + sum(q_away[:2])
+        else:                                    # 236: the quarter named (always read as Q1 before 2026-11-05)
+            n = _quarter(spec) or 1
+            if len(q_home) < n or len(q_away) < n:
+                return None
+            pts = q_home[n - 1] + q_away[n - 1]
         return "won" if (o.startswith("Over") == (pts > float(m.group(1)))) else "lost"
+    if mid in ("90", "88"):                      # 2nd half, regulation; graded only without overtime
+        if not q_home or not q_away or len(q_home) != 4 or len(q_away) != 4:
+            return None
+        if mid == "90":
+            t = _line(spec, "total")
+            if t is None:
+                return None
+            pts = sum(q_home[2:4]) + sum(q_away[2:4])
+            return None if pts == t else ("won" if (o.startswith("Over") == (pts > t)) else "lost")
+        h = _line(spec, "hcp")
+        if h is None:
+            return None
+        margin = sum(q_home[2:4]) - sum(q_away[2:4]) + h
+        return None if margin == 0 else ("won" if (o.startswith("Home") == (margin > 0)) else "lost")
+    if mid in ("69", "70", "756", "757"):        # one team's points in the 1st half / a quarter
+        t = _line(spec, "total")
+        qs = q_home if mid in ("69", "756") else q_away
+        if t is None or not qs:
+            return None
+        if mid in ("69", "70"):
+            if len(qs) < 2:
+                return None
+            pts = sum(qs[:2])
+        else:
+            n = _quarter(spec)
+            if not 1 <= n <= 4 or len(qs) < n:
+                return None
+            pts = qs[n - 1]
+        return None if pts == t else ("won" if (o.startswith("Over") == (pts > t)) else "lost")
     if mid in TEAM_MARKETS:
         m = re.search(r"total=(\d+(?:\.\d+)?)", spec)
         if not m:
@@ -339,10 +445,9 @@ def settle(row: dict, hs: int, as_: int, q_home: Optional[list] = None,
                 return None
             margin = sum(q_home[:2]) - sum(q_away[:2])
         else:
-            q = re.search(r"quarternr=(\d)", spec)
-            n = int(q.group(1)) if q else 0
-            if not 1 <= n <= 3 or len(q_home) < n or len(q_away) < n:
-                return None
+            n = _quarter(spec)
+            if not 1 <= n <= 4 or len(q_home) < n or len(q_away) < n:
+                return None                      # Q4 is the quarter alone (2026-11-05)
             margin = q_home[n - 1] - q_away[n - 1]
         home_covers = margin + float(m.group(1)) > 0
         return "won" if (o.startswith("Home") == home_covers) else "lost"

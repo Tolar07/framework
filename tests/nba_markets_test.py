@@ -26,6 +26,62 @@ assert nm.settle_any("47", "", "Home/Home", 112, 108, qh, qa) == 0
 assert nm.settle_any("225", "total=219.5", "Over 219.5", 112, 108, qh, qa) == 1
 assert nm.settle_any("999", "", "Over 100.5", 112, 108, qh, qa) is None, "an unknown market is never guessed"
 assert nm.settle_any("1", "", "Home", 112, 108, None, None) is None, "no quarter scores: PENDING"
+
+# 2026-11-05: every market with a rule. Quarter totals read the quarter named (Q4 = 24 + 22).
+assert nm.settle_any("236", "total=45.5|quarternr=4", "Over 45.5", 112, 108, qh, qa) == 1
+assert nm.settle_any("236", "total=45.5|quarternr=3", "Over 45.5", 112, 108, qh, qa) == 0, "Q3 = 20 + 24"
+assert nm.settle_any("236", "total=57.5|quarternr=1", "Over 57.5", 112, 108, qh, qa) == 1, "Q1 = 30 + 28"
+assert nm.settle_any("90", "total=89.5", "Over 89.5", 112, 108, qh, qa) is None, "2nd half: overtime game -> PENDING"
+reg_h, reg_a = qh[:4], qa[:4]
+assert nm.settle_any("90", "total=89.5", "Over 89.5", 104, 104, reg_h, reg_a) == 1, "2nd half = Q3 + Q4"
+assert nm.settle_any("88", "hcp=-1.5", "Home (-1.5)", 104, 104, reg_h, reg_a) == 0, "2nd half 44-46"
+assert nm.settle_any("303", "hcp=-1.5|quarternr=4", "Home (-1.5)", 104, 104, reg_h, reg_a) == 1, "Q4 24-22"
+assert nm.settle_any("69", "total=59.5", "Over 59.5", 112, 108, qh, qa) == 1, "home 1st half 60"
+assert nm.settle_any("757", "total=23.5|quarternr=3", "Under 23.5", 112, 108, qh, qa) == 0, "away Q3 24"
+assert nm.settle_any("83", "", "Away", 112, 108, qh, qa) is None, "2nd half 1X2 in an overtime game"
+assert nm.settle_any("64", "", "Home", 112, 108, qh, qa) == 1, "1st half draw no bet 60-58"
+assert nm.settle_any("302", "quarternr=2", "Home", 112, 108, qh, qa) is None, "Q2 30-30: draw no bet voids"
+assert nm.settle_any("220", "", "Yes", 112, 108, qh, qa) == 1, "there was overtime"
+assert nm.settle_any("229", "", "Even", 112, 108, qh, qa) == 1, "220 points"
+assert nm.settle_any("304", "quarternr=1", "Even", 112, 108, qh, qa) == 1, "Q1 58 points"
+print("period markets: OK")
+
+blob = {"boxscore": {"players": [
+    {"team": {"abbreviation": "MIL"}, "statistics": [{"keys": [
+        "minutes", "points", "fieldGoalsMade-fieldGoalsAttempted",
+        "threePointFieldGoalsMade-threePointFieldGoalsAttempted", "rebounds", "assists"], "athletes": [
+        {"athlete": {"displayName": "Giannis Antetokounmpo"}, "stats": ["41", "27", "8-20", "0-2", "14", "6"]},
+        {"athlete": {"displayName": "Kris Dunn"}, "didNotPlay": True, "stats": []}]}]},
+    {"team": {"abbreviation": "LAC"}, "statistics": [{"keys": [
+        "minutes", "points", "fieldGoalsMade-fieldGoalsAttempted",
+        "threePointFieldGoalsMade-threePointFieldGoalsAttempted", "rebounds", "assists"], "athletes": [
+        {"athlete": {"displayName": "Klay Thompson Jr."}, "stats": ["30", "18", "6-14", "4-9", "3", "2"]}]}]}]}}
+box = nm.box_stats(blob, "MIL", "LAC")
+assert box["players"]["giannis antetokounmpo"]["reb"] == 14 and box["home"]["2pm"] == 8 and box["away"]["3pm"] == 4
+assert nm.settle_any("921", "total=25.5|player=sr:player:1", "Over 25.5", 112, 108, qh, qa,
+                     name="Antetokounmpo, Giannis total points (incl. overtime)", box=box) == 1
+assert nm.settle_any("923", "total=2.5|player=sr:player:2", "Under 2.5", 112, 108, qh, qa,
+                     name="Thompson, Klay total rebounds (incl. overtime)", box=box) == 0, "Jr. dropped in matching"
+assert nm.settle_any("921", "total=7.5", "Over 7.5", 112, 108, qh, qa,
+                     name="Dunn, Kris total points (incl. overtime)", box=box) is None, "did not play: void"
+assert nm.settle_any("772", "", "Antetokounmpo, Giannis 14+", 112, 108, qh, qa, box=box) == 1
+assert nm.settle_any("772", "", "Antetokounmpo, Giannis 15+", 112, 108, qh, qa, box=box) == 0
+assert nm.settle_any("900967", "total=3.5", "Over 3.5", 112, 108, qh, qa, box=box) == 1, "3-pointers 0 + 4"
+assert nm.settle_any("900874", "", "Home", 112, 108, qh, qa, box=box) == 1, "assists 6 v 2"
+assert nm.settle_any("921", "total=25.5", "Over 25.5", 112, 108, qh, qa, name="X, Y total points", box=None) is None
+print("player props and team stat totals: OK")
+
+# SHADOW pricing never reaches the board's fair_chance
+sh = SimpleNamespace(ml_home=1.5, ml_away=2.6, spread=-5.5, total=226.5)
+for mid, spec, desc in (("236", "total=56.5|quarternr=2", "Over 56.5"), ("90", "total=111.5", "Under 111.5"),
+                        ("88", "hcp=-2.5", "Home (-2.5)"), ("69", "total=58.5", "Over 58.5"),
+                        ("303", "hcp=-0.5|quarternr=4", "Home (-0.5)")):
+    assert nv.fair_chance(mid, spec, desc, sh) is None, f"{mid} is shadow only"
+    assert 0.3 < nv.fair_chance(mid, spec, desc, sh, shadow=True) < 0.7
+assert nv.fair_chance("236", "total=56.5|quarternr=1", "Over 56.5", sh) == \
+    nv.fair_chance("236", "total=56.5|quarternr=1", "Over 56.5", sh, shadow=True), "Q1 unchanged"
+assert nv.fair_chance("90", "total=111", "Over 111", sh, shadow=True) is None, "whole line can push"
+print("shadow pricing: OK")
 print("settlement of every market: OK")
 
 page = {"markets": [{"id": "1", "desc": "1X2", "specifier": "", "status": 0,

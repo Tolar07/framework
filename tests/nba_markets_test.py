@@ -71,13 +71,31 @@ assert nm.settle_any("900874", "", "Home", 112, 108, qh, qa, box=box) == 1, "ass
 assert nm.settle_any("921", "total=25.5", "Over 25.5", 112, 108, qh, qa, name="X, Y total points", box=None) is None
 print("player props and team stat totals: OK")
 
-# SHADOW pricing never reaches the board's fair_chance
+# every market live (Architect 2026-11-05 evening): the former SHADOW markets are always priced
 sh = SimpleNamespace(ml_home=1.5, ml_away=2.6, spread=-5.5, total=226.5)
 for mid, spec, desc in (("236", "total=56.5|quarternr=2", "Over 56.5"), ("90", "total=111.5", "Under 111.5"),
                         ("88", "hcp=-2.5", "Home (-2.5)"), ("69", "total=58.5", "Over 58.5"),
                         ("303", "hcp=-0.5|quarternr=4", "Home (-0.5)")):
-    assert nv.fair_chance(mid, spec, desc, sh) is None, f"{mid} is shadow only"
-    assert 0.3 < nv.fair_chance(mid, spec, desc, sh, shadow=True) < 0.7
+    assert nv.fair_chance(mid, spec, desc, sh) == nv.fair_chance(mid, spec, desc, sh, shadow=True)
+    assert 0.3 < nv.fair_chance(mid, spec, desc, sh) < 0.7
+    assert mid in nv.MARKETS
+# the blend with SportyBet's own price, and the board text for every new market
+assert nv.sb_fair([("Over 56.5", 1.8), ("Under 56.5", 2.0)], "Over 56.5") == (1 / 1.8) / (1 / 1.8 + 1 / 2.0)
+assert nv.sb_fair([("Over 56.5", 1.8)], "Over 56.5") is None, "one price: no margin to remove"
+_keep = nv.BLEND
+nv.BLEND = {"team period points": 0.5}
+assert abs(nv.blended(0.70, "69", "total=58.5", 0.50) - 0.60) < 1e-12
+assert nv.blended(0.70, "68", "total=110.5", 0.50) == 0.70, "no weight for the group: model only"
+assert nv.blended(0.70, "69", "total=58.5", None) == 0.70, "no SportyBet twin: model only"
+nv.BLEND = _keep
+for mid, spec, desc, text in (("236", "total=56.5|quarternr=3", "Over 56.5", "3rd quarter Over 56.5 points"),
+                              ("303", "hcp=-0.5|quarternr=4", "Home (-0.5)", "LAC (-0.5) 4th quarter handicap"),
+                              ("90", "total=111.5", "Under 111.5", "2nd half Under 111.5 points (regulation)"),
+                              ("88", "hcp=2.5", "Away (-2.5)", "MIA (-2.5) 2nd half handicap"),
+                              ("70", "total=58.5", "Under 58.5", "MIA 1st half Under 58.5 points"),
+                              ("756", "total=27.5|quarternr=2", "Over 27.5", "LAC 2nd quarter Over 27.5 points")):
+    got = nv.display({"market_id": mid, "specifier": spec, "outcome": desc}, "LAC", "MIA")
+    assert got == text, (got, text)
 assert nv.fair_chance("236", "total=56.5|quarternr=1", "Over 56.5", sh) == \
     nv.fair_chance("236", "total=56.5|quarternr=1", "Over 56.5", sh, shadow=True), "Q1 unchanged"
 assert nv.fair_chance("90", "total=111", "Over 111", sh, shadow=True) is None, "whole line can push"

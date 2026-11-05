@@ -1,5 +1,5 @@
 """
-NBA SHADOW BOARD — the SHADOW markets played side by side with the live NBA board
+NBA SHADOW BOARD — every NBA market played side by side with the live NBA board
 (Architect 2026-11-05: "It needs small graded game first. Do it side by side. You learn by
 doing it side by side. Still go with NBA for tonight").
 
@@ -35,7 +35,9 @@ OUT_DIR = ROOT / "output" / "nba_shadow"
 REPORT = ROOT / "backtest" / "NBA_SHADOW.md"
 PROMOTE_N = 100
 PROMOTE_SE = 2.0          # nine markets tested at once: 1 se would pass one by luck about half the time
-NAMES = {"236": "Quarter total", "90": "2nd half total (reg.)", "88": "2nd half handicap (reg.)",
+NAMES = {"219": "Winner (incl. OT)", "223": "Handicap (incl. OT)", "225": "Total (incl. OT)",
+         "68": "1st half total", "66": "1st half handicap", "227": "Home team points (incl. OT)",
+         "228": "Away team points (incl. OT)", "18": "Total (regulation)", "236": "Quarter total", "90": "2nd half total (reg.)", "88": "2nd half handicap (reg.)",
          "69": "Home team 1st half points", "70": "Away team 1st half points",
          "756": "Home team quarter points", "757": "Away team quarter points", "303": "Quarter handicap"}
 
@@ -50,7 +52,9 @@ def _t(text: str) -> datetime:
 
 
 def candidates(look: dict) -> list[dict]:
-    """Shadow lines in one look that clear the board's bars (best per market family)."""
+    """Lines in one look that clear the board's bars with the board's (blended) chance, best per
+    market family. Since 2026-11-05 evening every market is live, so this records every family,
+    not only the former SHADOW ones: the board takes one pick per game, this grades them all."""
     from engine import nba_value as nv
     sh = look.get("sharp") or {}
     sharp = SimpleNamespace(ml_home=sh.get("ml_home"), ml_away=sh.get("ml_away"),
@@ -60,16 +64,16 @@ def candidates(look: dict) -> list[dict]:
     best: dict[str, dict] = {}
     for m in look.get("markets") or []:
         mid, spec = str(m.get("id")), m.get("spec") or ""
-        if mid not in nv.SHADOW_MARKETS or not m.get("open", True):
+        if mid not in nv.MARKETS or not m.get("open", True):
             continue
+        twin = [(d, x) for d, x in m.get("outcomes") or []]
         for desc, price in m.get("outcomes") or []:
-            if nv.fair_chance(mid, spec, desc, sharp) is not None:
-                continue                                   # a board line (Q1 total, Q1-Q3 handicap)
-            p = nv.fair_chance(mid, spec, desc, sharp, shadow=True)
+            p = nv.blended(nv.fair_chance(mid, spec, desc, sharp), mid, spec, nv.sb_fair(twin, desc))
             if p is None or not (nv.BAND[0] <= price <= nv.BAND[1]) or p < nv.MIN_CHANCE:
                 continue
             ev = p * price - 1
-            if not nv.MIN_EV_LINE <= ev <= nv.MAX_EV:
+            need = nv.MIN_EV_WINNER if mid == "219" else nv.MIN_EV_LINE
+            if not need <= ev <= nv.MAX_EV:
                 continue
             fam = family(mid, spec)
             if fam not in best or ev > best[fam]["ev"]:
@@ -158,12 +162,13 @@ def report(folder: Path = OUT_DIR) -> str:
                 rows.setdefault(p["family"], []).append(p)
             elif not p.get("result"):
                 pending += 1
-    L = ["# NBA SHADOW BOARD — shadow markets played side by side with the live NBA board", "",
-         "Written by `engine/nba_shadow.py`. Each game's first SportyBet line that clears the board's "
-         "bars in a SHADOW market, frozen before tip-off at that price, graded from ESPN. PAPER: "
-         "nothing booked or staked. Overlapping lines in one game are separate picks.", "",
-         f"READY = {PROMOTE_N}+ graded and return more than {PROMOTE_SE:g} se above zero; then the "
-         f"market can move onto the board. Still to grade: {pending}.", "",
+    L = ["# NBA SIDE-BY-SIDE RECORD — every NBA market, next to the live board", "",
+         "Written by `engine/nba_shadow.py`. Every market is live on the board since 2026-11-05, which "
+         "takes ONE pick per game; this grades each game's first SportyBet line that clears the board's "
+         "bars (with the board's blended chance, backtest/NBA_BLEND_STUDY.md) in EVERY market family, "
+         "frozen before tip-off at that price, graded from ESPN. Recorded only: nothing booked from it.", "",
+         f"PROVEN = {PROMOTE_N}+ graded and return more than {PROMOTE_SE:g} se above zero. A family "
+         f"that stays negative is the first to look at. Still to grade: {pending}.", "",
          "| Market | graded | won | stated chance | return ± se | status |", "|---|---:|---:|---:|---|---|"]
     if not rows:
         return "\n".join(L + ["", "NO DATA — PENDING (no graded shadow pick yet)"]) + "\n"
@@ -173,7 +178,7 @@ def report(folder: Path = OUT_DIR) -> str:
         mean = sum(rets) / n
         se = math.sqrt(sum((x - mean) ** 2 for x in rets) / (n - 1) / n) if n > 1 else None
         ready = n >= PROMOTE_N and se is not None and mean > PROMOTE_SE * se
-        status = "**READY**" if ready else f"COLLECTING ({n} of {PROMOTE_N})" if n < PROMOTE_N else "not yet"
+        status = "**PROVEN**" if ready else f"COLLECTING ({n} of {PROMOTE_N})" if n < PROMOTE_N else "not yet"
         L.append(f"| {fam} | {n} | {sum(p['result'] == 'won' for p in rs) / n:.0%} | "
                  f"{sum(p['chance'] for p in rs) / n:.0%} | {mean:+.1%}" + (f" ± {se:.1%}" if se else "")
                  + f" | {status} |")

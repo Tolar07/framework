@@ -56,7 +56,12 @@ H1_MARGIN = (0.639, 11.0)
 Q_MARGIN = {1: (0.331, 8.3), 2: (0.308, 8.2), 3: (0.320, 8.5)}
 TEAM_MARKETS = ("227", "228")
 HCP_PERIOD_MARKETS = ("66", "303")
-MARKETS = ("219", "223", "225") + PERIOD_MARKETS + TEAM_MARKETS + ("18",) + HCP_PERIOD_MARKETS
+# Architect 2026-11-05 (evening): "let everything go live. Grade everything" — the markets
+# first priced as SHADOW (below) join the board: Q2-Q4 totals, 2nd half, Q4 handicap, team
+# half / quarter points. Each chance is blended with SportyBet's own price where the blend
+# study says the model alone is overconfident (BLEND, backtest/NBA_BLEND_STUDY.md).
+NEW_MARKETS = ("90", "88", "69", "70", "756", "757")
+MARKETS = ("219", "223", "225") + PERIOD_MARKETS + TEAM_MARKETS + ("18",) + HCP_PERIOD_MARKETS + NEW_MARKETS
 # SHADOW markets (Architect 2026-11-05: "look at other markets too ... first quarter, second
 # quarter, third quarter, the full market"). Fitted in backtest/NBA_PERIOD_STUDY.md (learned
 # 2023-24, held on 2024-26). PRICED AND RECORDED ONLY (fair_chance(..., shadow=True), the
@@ -160,11 +165,11 @@ def fair_chance(market_id: str, specifier: str, outcome: str, sharp, shadow: boo
 
     `sharp` has ml_home, ml_away, spread (home line), total. `outcome` is
     SportyBet's desc: "Home"/"Away", "Home (-4.5)"/"Away (+4.5)", "Over 220.5".
-    shadow=True also prices the SHADOW markets (studies only; the board never passes it)."""
-    if shadow:
-        sp = shadow_chance(market_id, specifier, outcome, sharp)
-        if sp is not None:
-            return sp
+    Since 2026-11-05 every market is live: the former SHADOW markets are always priced
+    (`shadow` is kept for old callers and changes nothing)."""
+    sp = shadow_chance(market_id, specifier, outcome, sharp)
+    if sp is not None:
+        return sp
     side = outcome.split()[0] if outcome else ""
     if market_id == "219":
         if not (sharp.ml_home and sharp.ml_away):
@@ -256,6 +261,49 @@ def use_season_refit(path=None) -> list[str]:
     return notes
 
 
+# ── blend with SportyBet's own price (backtest/nba_blend_study.py) ─────────────────────────
+def blend_group(market_id: str, specifier: str) -> str | None:
+    q = _quarter(specifier)
+    return {"219": "winner", "223": "handicap", "225": "total", "18": "total", "68": "1st half total",
+            "236": "1st quarter total" if q == 1 else "quarter total Q2-Q4", "90": "2nd half",
+            "88": "2nd half", "66": "1st half handicap", "303": "quarter handicap", "227": "team total",
+            "228": "team total", "69": "team period points", "70": "team period points",
+            "756": "team period points", "757": "team period points"}.get(market_id)
+
+
+def _load_blend() -> dict[str, float]:
+    import json
+    from pathlib import Path
+    try:
+        doc = json.loads((Path(__file__).parent.parent / "memory" / "nba_blend.json").read_text(encoding="utf-8"))
+        return {k: float(v) for k, v in (doc.get("w") or {}).items()}
+    except (OSError, ValueError, TypeError, AttributeError):
+        return {}
+
+
+BLEND = _load_blend()          # group -> weight on the model; missing = 1.0 (model only)
+
+
+def sb_fair(outcomes: list[tuple[str, float]], desc: str) -> Optional[float]:
+    """SportyBet's own chance for `desc` on a two-way line: its two prices, margin removed."""
+    if len(outcomes) != 2:
+        return None
+    try:
+        inv = {d: 1 / float(p) for d, p in outcomes}
+    except (TypeError, ValueError, ZeroDivisionError):
+        return None
+    tot = sum(inv.values())
+    return inv[desc] / tot if desc in inv and tot > 0 else None
+
+
+def blended(p: Optional[float], market_id: str, specifier: str, sb: Optional[float]) -> Optional[float]:
+    """The model's chance blended with SportyBet's own (BLEND weight per market group)."""
+    if p is None or sb is None:
+        return p
+    w = BLEND.get(blend_group(market_id, specifier) or "", 1.0)
+    return w * p + (1 - w) * sb
+
+
 def is_open(market: dict) -> bool:
     return market.get("status") in (None, 0, "0")
 
@@ -268,6 +316,7 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
         if mid not in MARKETS or not is_open(m):
             continue
         spec = m.get("specifier") or ""
+        twin = [(o.get("desc", ""), o.get("odds")) for o in m.get("outcomes", [])]
         for o in m.get("outcomes", []):
             try:
                 price = float(o.get("odds"))
@@ -275,7 +324,7 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
                 continue
             if not (BAND[0] <= price <= BAND[1]) or o.get("id") is None:
                 continue
-            p = fair_chance(mid, spec, o.get("desc", ""), sharp)
+            p = blended(fair_chance(mid, spec, o.get("desc", ""), sharp), mid, spec, sb_fair(twin, o.get("desc", "")))
             if p is None or p < MIN_CHANCE:
                 continue
             ev = p * price - 1
@@ -346,8 +395,19 @@ def display(row: dict, home: str, away: str) -> str:
         return f"{o} points (incl. OT)"
     if mid == "68":
         return f"1st half {o} points"
+    nth = ("1st", "2nd", "3rd", "4th")
+    qn = _quarter(row.get("specifier") or "")
     if mid == "236":
-        return f"1st quarter {o} points"
+        return f"{nth[qn - 1] if 1 <= qn <= 4 else '1st'} quarter {o} points"
+    if mid == "90":
+        return f"2nd half {o} points (regulation)"
+    if mid == "88":
+        m2 = re.search(r"\(([-+]?\d+(?:\.\d+)?)\)", o)
+        return f"{home if o.startswith('Home') else away} ({m2.group(1) if m2 else '?'}) 2nd half handicap"
+    if mid in ("69", "70", "756", "757"):
+        team = home if mid in ("69", "756") else away
+        period = "1st half" if mid in ("69", "70") else f"{nth[qn - 1] if 1 <= qn <= 4 else '?'} quarter"
+        return f"{team} {period} {o} points"
     if mid in TEAM_MARKETS:
         return f"{home if mid == '227' else away} {o} points (incl. OT)"
     if mid == "18":
@@ -356,7 +416,7 @@ def display(row: dict, home: str, away: str) -> str:
         m = re.search(r"\(([-+]?\d+(?:\.\d+)?)\)", o)
         team = home if o.startswith("Home") else away
         q = re.search(r"quarternr=(\d)", row.get("specifier") or "")
-        period = "1st half" if mid == "66" else f"{('1st', '2nd', '3rd')[int(q.group(1)) - 1]} quarter" if q else "quarter"
+        period = "1st half" if mid == "66" else f"{('1st', '2nd', '3rd', '4th')[int(q.group(1)) - 1]} quarter" if q else "quarter"
         return f"{team} ({m.group(1) if m else '?'}) {period} handicap"
     return o
 

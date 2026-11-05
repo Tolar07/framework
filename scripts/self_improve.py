@@ -85,10 +85,10 @@ INPUTS = [
     ("rest days / congestion", "days since last match, games in 14 days", 2, r"rest.days|congestion",
      None, "backtest/REST_STUDY.md"),
     ("travel distance", "away-side travel, time zones", 1, r"travel", None, None),
-    ("lineups / injuries", "expected XI strength v full strength", 5, r"lineup|injur", None,
-     "backtest/LINEUP_STUDY.md"),
+    ("lineups / injuries", "expected XI strength v full strength", 5, r"lineup|injur", "missing ",
+     "backtest/INPUTS_STUDY.md"),            # part C (PR #262 / #304)
     ("motivation / table", "title, Europe, relegation stakes late in season", 2, r"motivation|standings",
-     None, None),
+     "table_", "backtest/INPUTS_STUDY.md"),  # part A: table_ppg_gap, table_stakes (PR #268)
     ("referee", "card and penalty tendencies", 1, r"referee", None, None),
     ("weather", "wind / rain lowers goals", 1, r"weather", None, None),
     ("market moves", "opening -> closing drift, sharp money", 4, r"drift_pct|bsteamb", None,
@@ -104,7 +104,7 @@ def audit_inputs() -> list[dict]:
         in_ctx = _grep(pat, CONTEXT)
         tested = []
         if gkey:
-            for part in ("part_a", "part_b"):
+            for part in ("part_a", "part_b", "part_c"):
                 for k, s in (gate.get(part) or {}).items():
                     feat = k.split(" | ")[-1]
                     if feat.startswith(gkey) or gkey in k:
@@ -275,6 +275,11 @@ def open_issues(props: list[dict], top: int = 5) -> list[str]:
         "weekly self-improvement proposals", "--force")
     have = {x["title"] for x in json.loads(_gh("issue", "list", "-R", repo, "--state", "open", "--label", LABEL,
                                                "--limit", "100", "--json", "title") or "[]")}
+    # a proposal closed as "not planned" (a duplicate of something built) is never opened again
+    # (2026-11-05: #310-#312 were re-proposals of inputs already studied)
+    have |= {x["title"] for x in json.loads(_gh("issue", "list", "-R", repo, "--state", "closed", "--label", LABEL,
+                                                "--limit", "200", "--json", "title,stateReason") or "[]")
+             if x.get("stateReason") == "NOT_PLANNED"}
     made = []
     for p in [p for p in props if p["kind"] == "fix" or p["ev"] >= 1.0][:top]:
         if p["title"] in have:

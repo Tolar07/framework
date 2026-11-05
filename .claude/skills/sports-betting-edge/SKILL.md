@@ -112,6 +112,13 @@ many bets the edge is ground out, sized by a fraction of Kelly (Unabated "Why mo
 - Following tipsters' records without sample size or losses. Selling picks or courses is a bias. Here OddsJam and
   the prop tipster are selling tools or subscriptions.
 - Fixed thresholds across leagues. A league's liquidity changes how much a price can be trusted.
+- Shuffling results across fixtures as the permutation null for a betting rule. It breaks the price-to-result link
+  (favourites stop winning more often), so long shots pay too often in the null worlds: 879 fixtures gave p 0.99.
+  The null is "the model adds nothing beyond the market": redraw each result from the market's own
+  margin-removed odds (the same data gave p 0.142).
+- Promoting a feature on a version the bot cannot see at decision time. A closing-price feature showed its gain
+  only because it used kick-off information; the pick-time version (first price) failed. Re-test the decision-time
+  version before promoting.
 
 ## Quality check before a rule, market or input is trusted
 
@@ -119,7 +126,8 @@ many bets the edge is ground out, sized by a fraction of Kelly (Unabated "Why mo
 - [ ] EV > 0 after commission at the price actually available.
 - [ ] Market tiered by the three CLV tests, and CLV only used as proof in markets that pass.
 - [ ] ≥ 500 graded projections (bet or not), with CLV rate and Brier against the close reported.
-- [ ] The rule passed the permutation and walk-forward gates in `trading-bot-training`, with outcomes shuffled.
+- [ ] The rule passed the permutation and walk-forward gates in `trading-bot-training`. For a betting rule the
+      permutation null is market-odds redraws, not shuffled results (see Common mistakes).
 - [ ] Kelly fraction recorded; live stakes untouched (Architect's decision).
 - [ ] Figures come from a fetch in this session (HR59); anything missing reads PENDING (HR35).
 

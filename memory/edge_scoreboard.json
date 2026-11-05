@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T16:13Z",
+ "built_at": "2026-11-05T16:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -3.6% over 37",
  "groups": [
   {
@@ -82,8 +82,8 @@
    "n_entry": 31,
    "gap_entry": -0.0412,
    "n_clv": 31,
-   "clv": -0.0361,
-   "clv_se": 0.0027,
+   "clv": -0.0359,
+   "clv_se": 0.0029,
    "beat": 0.0
   },
   {
@@ -166,8 +166,8 @@
    "n_entry": 6,
    "gap_entry": -0.0595,
    "n_clv": 6,
-   "clv": -0.0365,
-   "clv_se": 0.0081,
+   "clv": -0.0341,
+   "clv_se": 0.0089,
    "beat": 0.0
   },
   {
@@ -376,8 +376,8 @@
    "n_entry": 37,
    "gap_entry": -0.0441,
    "n_clv": 37,
-   "clv": -0.0362,
-   "clv_se": 0.0026,
+   "clv": -0.0356,
+   "clv_se": 0.0028,
    "beat": 0.0
   },
   {
@@ -558,9 +558,9 @@
    "n_entry": 37,
    "gap_entry": -0.0187,
    "n_clv": 37,
-   "clv": -0.0104,
-   "clv_se": 0.003,
-   "beat": 0.2432
+   "clv": -0.0098,
+   "clv_se": 0.0031,
+   "beat": 0.2703
   },
   {
    "name": "venue: board singles at the better book",
@@ -572,9 +572,9 @@
    "n_entry": 37,
    "gap_entry": -0.0184,
    "n_clv": 37,
-   "clv": -0.0101,
-   "clv_se": 0.0029,
-   "beat": 0.2432
+   "clv": -0.0095,
+   "clv_se": 0.003,
+   "beat": 0.2703
   },
   {
    "name": "venue: same singles at SportyBet",
@@ -586,8 +586,8 @@
    "n_entry": 37,
    "gap_entry": -0.0441,
    "n_clv": 37,
-   "clv": -0.0362,
-   "clv_se": 0.0026,
+   "clv": -0.0356,
+   "clv_se": 0.0028,
    "beat": 0.0
   },
   {
@@ -600,8 +600,8 @@
    "n_entry": 8,
    "gap_entry": 0.0813,
    "n_clv": 5,
-   "clv": -0.0647,
-   "clv_se": 0.0233,
+   "clv": -0.0637,
+   "clv_se": 0.0227,
    "beat": 0.0
   },
   {
@@ -614,8 +614,8 @@
    "n_entry": 8,
    "gap_entry": 0.0813,
    "n_clv": 5,
-   "clv": -0.0647,
-   "clv_se": 0.0233,
+   "clv": -0.0637,
+   "clv_se": 0.0227,
    "beat": 0.0
   }
  ],
@@ -660,7 +660,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (90 of 200)",
    "n": 90,
-   "clv": -0.0361,
+   "clv": -0.0359,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": 0.0197
@@ -714,7 +714,7 @@
    "name": "board family: Result & total",
    "status": "COLLECTING (8 of 200)",
    "n": 8,
-   "clv": -0.0365,
+   "clv": -0.0341,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2825
@@ -849,7 +849,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1198,
-   "clv": -0.0362,
+   "clv": -0.0356,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0346
@@ -966,7 +966,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0647,
+   "clv": -0.0637,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -975,7 +975,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0647,
+   "clv": -0.0637,
    "p_value": null,
    "bh_pass": false,
    "roi": null

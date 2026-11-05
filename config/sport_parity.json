@@ -1,6 +1,14 @@
 {
  "_about": "Sport parity (Architect 2026-11-05: 'all the things that have been done for football should apply to basketball ... more like an inheritance thing'). Every framework module is listed with what basketball has of it. tests/sport_parity_test.py fails when a module is missing, so a new football feature cannot merge without saying what basketball gets: covers / twin <module> / todo <priority> / shared / n/a <reason>.",
  "modules": {
+  "engine/multisport.py": {
+   "status": "n/a",
+   "note": "multi-sport boards (order 50: American football, snooker, darts, volleyball, table tennis, cricket, rugby, tennis, baseball); basketball's equivalent is engine/world_basketball.py"
+  },
+  "run_multisport.py": {
+   "status": "n/a",
+   "note": "multi-sport boards runner (order 50); basketball has run_nba.py"
+  },
   "data/nhl_source.py": {
    "status": "n/a",
    "note": "NHL results for the ice hockey model (order 50 multi-sport); basketball uses data/nba_source.py"

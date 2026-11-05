@@ -9,7 +9,7 @@
  "week_a": ["data feed + venue odds mapped", "model built", "walk-forward backtest (3+ seasons, vs closing price, net of commission, every try counted)", "shadow board graded nightly, paper bets on all three bots", "nightly retrain on the Oracle clock (routines.TRAINING)", "sport parity entries", "daily digest + 23:02 report", "gate report on #54 and Telegram"],
  "week_b": ["live on all three bots, money on, undo switch per sport", "unbet markets and fixtures stay on paper and keep learning"],
  "sports": [
-  {"order": 1, "sport": "ice_hockey", "scope": "NHL + SHL, Liiga, National League, DEL, KHL", "shadow_start": "2026-11-09", "live_from": "2026-11-16"},
+  {"order": 1, "sport": "ice_hockey", "scope": "NHL + SHL, Liiga, National League, DEL, KHL", "shadow_start": "2026-11-05", "live_from": "2026-11-12", "note": "Architect 2026-11-05 21:40: start building from today; shadow from 5 Nov, live a week later."},
   {"order": 2, "sport": "american_football", "scope": "NFL + NCAAF", "shadow_start": "2026-11-16", "live_from": "2026-11-23"},
   {"order": 3, "sport": "snooker", "scope": "World Snooker Tour ranking events", "shadow_start": "2026-11-23", "live_from": "2026-11-30"},
   {"order": 4, "sport": "darts", "scope": "PDC tour + World Championship", "shadow_start": "2026-11-30", "live_from": "2026-12-07"},

@@ -44,7 +44,7 @@ same way `config/sport_parity.json` does for basketball.
 
 | # | Sport | Shadow week | Live from | Model starting point |
 |---|---|---|---|---|
-| 1 | Ice hockey (NHL, SHL, Liiga, NL, DEL, KHL) | 9-15 Nov | 16 Nov | Poisson/Dixon-Coles goals model (3-way 60 min + totals), starting goalie as the key input |
+| 1 | Ice hockey (NHL, SHL, Liiga, NL, DEL, KHL) | 5-11 Nov | 12 Nov | Poisson/Dixon-Coles goals model (3-way 60 min + totals), starting goalie as the key input |
 | 2 | American football (NFL, NCAAF) | 16-22 Nov | 23 Nov | Efficiency ratings (EPA/play), spread/total like basketball handicaps |
 | 3 | Snooker | 23-29 Nov | 30 Nov | Player Elo + frame win rate, frame handicaps/totals |
 | 4 | Darts | 30 Nov-6 Dec | 7 Dec | Player ratings from three-dart average and checkout % |

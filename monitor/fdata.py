@@ -189,9 +189,27 @@ def _walk(paths) -> set[str]:
     return {r for r in rels if _is_data(r)}
 
 
+def _not_ignored(rels: set[str]) -> set[str]:
+    """Drop what framework's .gitignore keeps out (caches, conversations, logs). Outside a git work tree
+    (the tests) nothing is dropped."""
+    if not rels:
+        return rels
+    r = subprocess.run(["git", "check-ignore", "--stdin", "-z", "--no-index"], cwd=ROOT,  # noqa: S603,S607
+                       input="\0".join(sorted(rels)) + "\0", capture_output=True, text=True)
+    if r.returncode not in (0, 1):
+        return rels
+    return rels - {x for x in r.stdout.split("\0") if x}
+
+
 def save(paths, message: str) -> str:
-    """Commit what this job changed under `paths` to framework-data and push.
-    Says exactly what happened (HR35): a push that did not land is never 'saved'."""
+    """Commit what this job changed to framework-data and push.
+    Says exactly what happened (HR35): a push that did not land is never 'saved'.
+
+    Every changed data file is saved, not only those under `paths` (2026-11-05: jobs added after the move
+    listed too few paths, so world basketball picks, tip boards, the NBA blend, players and studies never
+    reached framework-data; found before the framework stops publishing data). A file the job did not change
+    since its pull is never written, so another job's work is never overwritten. Deletions stay limited to
+    `paths` (a refreeze names its folder)."""
     if not enabled():
         return "framework-data: not checked out, nothing saved there"
     base, old = _load_base()
@@ -199,7 +217,8 @@ def save(paths, message: str) -> str:
         return "framework-data: NOT SAVED — no pull recorded in this job"
     prefixes = tuple(p.strip("/") + "/" for p in paths)
     in_scope = lambda r: r in paths or r.startswith(prefixes)  # noqa: E731
-    changed = {r for r in _walk(paths) if _blob(ROOT / r) != old.get(r)}
+    scope = _walk(paths) | _not_ignored(_walk(DATA_DIRS))
+    changed = {r for r in scope if _blob(ROOT / r) != old.get(r)}
     gone = {r for r in old if in_scope(r) and not (ROOT / r).exists()}
     if len(gone) > MAX_GONE:
         # a refreeze removes a file or two; dozens missing at once means the

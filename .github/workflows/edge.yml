@@ -26,6 +26,18 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -44,3 +56,6 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python monitor/edge_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "edge book $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/edge memory || true

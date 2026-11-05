@@ -22,6 +22,18 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -39,6 +51,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "tip sites $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/tip_sites output/tip_boards || true
           git add data/tip_sites output/tip_boards
           git diff --staged --quiet && exit 0
           git commit -q -m "tip sites: tips, grades and study $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"

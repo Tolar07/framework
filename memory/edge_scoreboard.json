@@ -1,20 +1,20 @@
 {
- "built_at": "2026-11-05T03:13Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 34",
+ "built_at": "2026-11-05T03:43Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 34",
  "groups": [
   {
    "name": "baseline: every SportyBet side at its last price",
    "kind": "baseline",
-   "n": 1184,
-   "hit": 0.4451,
-   "roi": -0.1155,
-   "roi_se": 0.0415,
+   "n": 1305,
+   "hit": 0.449,
+   "roi": -0.1181,
+   "roi_se": 0.0385,
    "n_entry": 0,
    "gap_entry": null,
-   "n_clv": 1184,
-   "clv": -0.0907,
-   "clv_se": 0.0025,
-   "beat": 0.022
+   "n_clv": 1305,
+   "clv": -0.0897,
+   "clv_se": 0.0023,
+   "beat": 0.0199
   },
   {
    "name": "board family: Asian handicap",
@@ -82,7 +82,7 @@
    "n_entry": 28,
    "gap_entry": -0.0411,
    "n_clv": 28,
-   "clv": -0.042,
+   "clv": -0.0418,
    "clv_se": 0.0019,
    "beat": 0.0
   },
@@ -376,7 +376,7 @@
    "n_entry": 34,
    "gap_entry": -0.0444,
    "n_clv": 34,
-   "clv": -0.0445,
+   "clv": -0.0443,
    "clv_se": 0.002,
    "beat": 0.0
   },
@@ -558,8 +558,8 @@
    "n_entry": 34,
    "gap_entry": -0.0174,
    "n_clv": 34,
-   "clv": -0.0176,
-   "clv_se": 0.0013,
+   "clv": -0.0173,
+   "clv_se": 0.0014,
    "beat": 0.0
   },
   {
@@ -572,8 +572,8 @@
    "n_entry": 34,
    "gap_entry": -0.0174,
    "n_clv": 34,
-   "clv": -0.0176,
-   "clv_se": 0.0013,
+   "clv": -0.0173,
+   "clv_se": 0.0014,
    "beat": 0.0
   },
   {
@@ -586,7 +586,7 @@
    "n_entry": 34,
    "gap_entry": -0.0444,
    "n_clv": 34,
-   "clv": -0.0445,
+   "clv": -0.0443,
    "clv_se": 0.002,
    "beat": 0.0
   }
@@ -632,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.042,
+   "clv": -0.0418,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -821,7 +821,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0445,
+   "clv": -0.0443,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359
@@ -938,27 +938,32 @@
  "residual": [
   {
    "name": "every SportyBet side, exchange at first look",
-   "n": 1184,
+   "n": 1305,
    "weights": {
-    "band:1-1.3": 0.0248,
-    "band:1.3-1.6": 0.0644,
-    "band:1.6-2": 0.0826,
-    "band:2-3": -0.0073,
-    "band:3-99": -0.1474,
-    "basketball": -0.029,
+    "band:1-1.3": 0.0456,
+    "band:1.3-1.6": 0.0718,
+    "band:1.6-2": 0.1137,
+    "band:2-3": -0.1034,
+    "band:3-99": -0.1591,
+    "basketball": -0.0288,
     "early": 0.0,
-    "fam:B:225": -0.0333,
-    "fam:SB:1": 0.0361,
-    "fam:SB:10": -0.0456,
-    "fam:SB:14": -0.138,
-    "fam:SB:16": -0.0175,
-    "fam:SB:18": -0.0105,
-    "fam:SB:29": -0.0373,
-    "fam:SB:37": 0.0221,
-    "gap": -0.2705
+    "fam:B:225": -0.0335,
+    "fam:SB:1": 0.0544,
+    "fam:SB:10": -0.0327,
+    "fam:SB:14": -0.1444,
+    "fam:SB:16": -0.0049,
+    "fam:SB:18": 0.0008,
+    "fam:SB:29": -0.0215,
+    "fam:SB:37": 0.0487,
+    "gap": -0.2523
    },
-   "exchange_logloss": 0.5162,
-   "status": "fitted, waiting for a day to test out of sample"
+   "exchange_logloss": 0.52279,
+   "walk_forward": {
+    "n": 109,
+    "gain": 0.00265,
+    "se": 0.00256
+   },
+   "status": "no information beyond the exchange yet"
   },
   {
    "name": "board picks: our model vs the exchange",

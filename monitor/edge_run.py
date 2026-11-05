@@ -43,6 +43,19 @@ def basketball_sides(event: dict) -> dict[str, float]:
     return out
 
 
+def basketball_oids(event: dict) -> dict[str, str]:
+    """basketball_sides' keys -> SportyBet outcome id (for a booking code)."""
+    out: dict[str, str] = {}
+    for m in event.get("markets") or []:
+        mid = str(m.get("id"))
+        if mid not in BASKETBALL_MARKETS:
+            continue
+        for o in m.get("outcomes") or []:
+            if o.get("id") is not None:
+                out[f"B:{mid}|{m.get('specifier') or ''}|{(o.get('desc') or '').strip()}"] = str(o["id"])
+    return out
+
+
 def sb_rows(now: datetime, get=None) -> tuple[list[dict], list[str]]:
     """Every listed SportyBet game with its side prices, both sports."""
     from monitor import universe_sweep as us
@@ -72,7 +85,8 @@ def sb_rows(now: datetime, get=None) -> tuple[list[dict], list[str]]:
                         rows.append({"sport": sport, "id": e["eventId"], "home": e.get("homeTeamName"),
                                      "away": e.get("awayTeamName"), "ko": ko.strftime("%Y-%m-%dT%H:%M:%SZ"),
                                      "comp": t.get("name"), "country": cat.get("name"),
-                                     "covered": t.get("id") in cov[sport], "sides": sides})
+                                     "covered": t.get("id") in cov[sport], "sides": sides,
+                                     **({"oids": basketball_oids(e)} if sport == "basketball" else {})})
                         n += 1
                 if not ts or k < 100:
                     break

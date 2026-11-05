@@ -1,8 +1,11 @@
 """
 WORLD BASKETBALL — the NBA board's method for every other basketball league SportyBet lists
 (Architect 2026-11-05: "start widening the basketball reach to other leagues aside this NBA").
-PAPER: recorded and graded; no bot stakes it and no code books it until its record earns that,
-and that is the Architect's call.
+STAKED (Architect 2026-11-05 13:20 UTC: "Once the world basketball and the NCAA board is ready and
+everything is done and it's fully ready, staking should continue. Then the bots continue with it.").
+matchbook-agent, betfair-agent and sportybet-agent read wb_<date>.json like nba_<date>.json, at the
+NBA board's stakes and money rules; every pick carries the NBA board's fields and its own code.
+It is still graded per league on the edge scoreboard.
 
 Why this method: picking the likeliest side at SportyBet's price loses the margin in every
 basketball league on record (universe, 1,998 games since 7 Oct: favourites at 55-85% returned
@@ -142,8 +145,19 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
             p = path_for(day, folder)
             docs[day] = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"date": day, "picks": []}
         doc = docs[day]
-        if any(x["sb_event_id"] == r["id"] for x in doc["picks"]):
-            continue                                                 # frozen: the entry price stays
+        have = next((x for x in doc["picks"] if x["sb_event_id"] == r["id"]), None)
+        if have is not None:                                         # frozen: the entry price stays
+            if "market_id" not in have:                              # frozen before the bot fields
+                mid, spec, out = (have["key"][2:].split("|") + ["", ""])[:3]
+                have.update({"market_id": mid, "specifier": spec, "outcome": out.strip(),
+                             "outcome_id": (r.get("oids") or {}).get(have["key"]), "code": None})
+            have.setdefault("chance", have.get("fair"))
+            have.setdefault("tip", have.get("ko"))
+            have.setdefault("event_id", have.get("sb_event_id"))
+            if not have.get("code") and have.get("outcome_id"):     # PENDING: retried every look
+                have["code"] = book({"eventId": r["id"], "marketId": have["market_id"],
+                                     "specifier": have["specifier"], "outcomeId": have["outcome_id"]})
+            continue
         mb = ex.match_event(r["home"], r["away"], ko, bb)
         cands = candidates(r, ex.index_event(mb)) if mb else []
         if "ncaa" in (r.get("comp") or "").lower():
@@ -159,6 +173,7 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
                              "pick": describe(best["key"], r["home"], r["away"]), **best,
                              "market_id": mid, "specifier": spec, "outcome": out, "outcome_id": oid,
                              "code": code, "venues": venues(best["key"], mb is not None),
+                             "chance": best["fair"], "tip": r["ko"], "event_id": r["id"],   # what the bots read
                              "at": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
         added += 1
     for day, doc in docs.items():

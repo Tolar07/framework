@@ -1,8 +1,11 @@
 """
 WORLD BASKETBALL — the NBA board's method for every other basketball league SportyBet lists
 (Architect 2026-11-05: "start widening the basketball reach to other leagues aside this NBA").
-PAPER: recorded and graded; no bot stakes it and no code books it until its record earns that,
-and that is the Architect's call.
+STAKED (Architect 2026-11-05, on this board and the NCAA one: "Once ... it's fully ready, staking
+should continue. Then the bots continue with it."). Each pick carries the NBA board's fields
+(market_id, specifier, outcome, outcome_id, chance, tip, event_id) and its own one-leg SportyBet
+booking code, so the bots read wb_<date>.json exactly as they read nba_<date>.json, at the NBA
+board's stakes and money rules. It is still graded per league on the edge scoreboard.
 
 Why this method: picking the likeliest side at SportyBet's price loses the margin in every
 basketball league on record (universe, 1,998 games since 7 Oct: favourites at 55-85% returned
@@ -93,11 +96,38 @@ def ncaa_candidates(row: dict, ko: datetime) -> list[dict]:
     return out
 
 
+def nba_fields(r: dict, best: dict, oids: dict) -> dict:
+    """The NBA board's pick fields, so every bot reads a wb_ pick like an nba_ pick."""
+    mid, spec, out = (best["key"][2:].split("|") + ["", ""])[:3]
+    return {"market_id": mid, "specifier": spec, "outcome": out.strip(), "outcome_id": oids.get(best["key"]),
+            "chance": best["fair"], "tip": r["ko"], "event_id": r["id"], "code": None}
+
+
+def book_codes(doc: dict, now: datetime, book=None) -> int:
+    """A one-leg SportyBet code for every pick not yet booked and not yet started (retried each look)."""
+    if book is None:
+        from pipeline.sportybet_booking import create_booking_code as book
+    n = 0
+    for p in doc.get("picks") or []:
+        ko = ex._dt(p.get("ko"))
+        if p.get("code") or not p.get("outcome_id") or ko is None or ko <= now:
+            continue
+        try:
+            code, _url, _ = book([{"eventId": p["event_id"], "marketId": p["market_id"],
+                                   "specifier": p["specifier"], "outcomeId": p["outcome_id"]}])
+        except Exception:  # noqa: BLE001 — a failed booking reads PENDING and is retried next look
+            code = None
+        if code:
+            p["code"] = code
+            n += 1
+    return n
+
+
 def path_for(day: str, folder: Path = OUT_DIR) -> Path:
     return folder / f"wb_{day}.json"
 
 
-def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR) -> int:
+def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR, book=None) -> int:
     """Freeze a pick for every non-NBA basketball game that newly qualifies. Returns how many."""
     bb = [e for e in events if e.get("_sport") == "basketball"]
     docs: dict[str, dict] = {}
@@ -113,8 +143,11 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
             p = path_for(day, folder)
             docs[day] = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"date": day, "picks": []}
         doc = docs[day]
-        if any(x["sb_event_id"] == r["id"] for x in doc["picks"]):
-            continue                                                 # frozen: the entry price stays
+        have = next((x for x in doc["picks"] if x["sb_event_id"] == r["id"]), None)
+        if have is not None:                                         # frozen: the entry price stays
+            if "market_id" not in have:                              # frozen before 2026-11-05's staking
+                have.update(nba_fields(r, have, r.get("oids") or {}))
+            continue
         mb = ex.match_event(r["home"], r["away"], ko, bb)
         cands = candidates(r, ex.index_event(mb)) if mb else []
         if "ncaa" in (r.get("comp") or "").lower():
@@ -125,10 +158,12 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
         doc["picks"].append({"sb_event_id": r["id"], "country": r.get("country"), "comp": r.get("comp"),
                              "home": r["home"], "away": r["away"], "ko": r["ko"],
                              "pick": describe(best["key"], r["home"], r["away"]), **best,
+                             **nba_fields(r, best, r.get("oids") or {}),
                              "at": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
         added += 1
     for day, doc in docs.items():
         if doc["picks"]:
+            book_codes(doc, now, book)
             folder.mkdir(parents=True, exist_ok=True)
             path_for(day, folder).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     return added

@@ -1,7 +1,21 @@
 {
- "built_at": "2026-11-04T15:31Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.0% over 11",
+ "built_at": "2026-11-05T00:13Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33",
  "groups": [
+  {
+   "name": "baseline: every SportyBet side at its last price",
+   "kind": "baseline",
+   "n": 1184,
+   "hit": 0.4451,
+   "roi": -0.1155,
+   "roi_se": 0.0415,
+   "n_entry": 0,
+   "gap_entry": null,
+   "n_clv": 1184,
+   "clv": -0.0907,
+   "clv_se": 0.0025,
+   "beat": 0.022
+  },
   {
    "name": "board family: Asian handicap",
    "kind": "strategy",
@@ -65,11 +79,11 @@
    "hit": 0.8,
    "roi": 0.0189,
    "roi_se": 0.0575,
-   "n_entry": 9,
-   "gap_entry": -0.0391,
-   "n_clv": 9,
-   "clv": -0.0391,
-   "clv_se": 0.0049,
+   "n_entry": 27,
+   "gap_entry": -0.0412,
+   "n_clv": 27,
+   "clv": -0.0428,
+   "clv_se": 0.002,
    "beat": 0.0
   },
   {
@@ -149,11 +163,11 @@
    "hit": 1.0,
    "roi": 0.5033,
    "roi_se": 0.1517,
-   "n_entry": 2,
-   "gap_entry": -0.0431,
-   "n_clv": 2,
-   "clv": -0.0431,
-   "clv_se": 0.0045,
+   "n_entry": 6,
+   "gap_entry": -0.0595,
+   "n_clv": 6,
+   "clv": -0.0567,
+   "clv_se": 0.0056,
    "beat": 0.0
   },
   {
@@ -359,12 +373,124 @@
    "hit": 0.7701,
    "roi": -0.0359,
    "roi_se": 0.0154,
-   "n_entry": 11,
-   "gap_entry": -0.0398,
-   "n_clv": 11,
-   "clv": -0.0398,
-   "clv_se": 0.004,
+   "n_entry": 33,
+   "gap_entry": -0.0445,
+   "n_clv": 33,
+   "clv": -0.0453,
+   "clv_se": 0.0021,
    "beat": 0.0
+  },
+  {
+   "name": "gap board timing: 1-6h before kick-off",
+   "kind": "strategy",
+   "n": 1,
+   "hit": 1.0,
+   "roi": 3.18,
+   "roi_se": null,
+   "n_entry": 1,
+   "gap_entry": 0.0701,
+   "n_clv": 1,
+   "clv": 0.0701,
+   "clv_se": null,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board timing: <1h before kick-off",
+   "kind": "strategy",
+   "n": 1,
+   "hit": 1.0,
+   "roi": 1.22,
+   "roi_se": null,
+   "n_entry": 1,
+   "gap_entry": 0.0305,
+   "n_clv": 1,
+   "clv": 0.0305,
+   "clv_se": null,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board timing: exchange flat",
+   "kind": "strategy",
+   "n": 2,
+   "hit": 1.0,
+   "roi": 2.2,
+   "roi_se": 0.98,
+   "n_entry": 2,
+   "gap_entry": 0.0503,
+   "n_clv": 2,
+   "clv": 0.0503,
+   "clv_se": 0.0198,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board: basketball",
+   "kind": "strategy",
+   "n": 2,
+   "hit": 1.0,
+   "roi": 2.2,
+   "roi_se": 0.98,
+   "n_entry": 2,
+   "gap_entry": 0.0503,
+   "n_clv": 2,
+   "clv": 0.0503,
+   "clv_se": 0.0198,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board: gap 2%+",
+   "kind": "strategy",
+   "n": 2,
+   "hit": 1.0,
+   "roi": 2.2,
+   "roi_se": 0.98,
+   "n_entry": 2,
+   "gap_entry": 0.0503,
+   "n_clv": 2,
+   "clv": 0.0503,
+   "clv_se": 0.0198,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board: gap 3%+",
+   "kind": "strategy",
+   "n": 2,
+   "hit": 1.0,
+   "roi": 2.2,
+   "roi_se": 0.98,
+   "n_entry": 2,
+   "gap_entry": 0.0503,
+   "n_clv": 2,
+   "clv": 0.0503,
+   "clv_se": 0.0198,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board: gap 5%+",
+   "kind": "strategy",
+   "n": 1,
+   "hit": 1.0,
+   "roi": 3.18,
+   "roi_se": null,
+   "n_entry": 1,
+   "gap_entry": 0.0701,
+   "n_clv": 1,
+   "clv": 0.0701,
+   "clv_se": null,
+   "beat": 1.0
+  },
+  {
+   "name": "gap board: not covered leagues",
+   "kind": "strategy",
+   "n": 2,
+   "hit": 1.0,
+   "roi": 2.2,
+   "roi_se": 0.98,
+   "n_entry": 2,
+   "gap_entry": 0.0503,
+   "n_clv": 2,
+   "clv": 0.0503,
+   "clv_se": 0.0198,
+   "beat": 1.0
   },
   {
    "name": "nba market: 223",
@@ -404,9 +530,9 @@
    "n_entry": 7,
    "gap_entry": -0.0439,
    "n_clv": 7,
-   "clv": -0.0439,
-   "clv_se": 0.0108,
-   "beat": 0.0
+   "clv": -0.051,
+   "clv_se": 0.0238,
+   "beat": 0.1429
   },
   {
    "name": "nba: board picks",
@@ -418,9 +544,9 @@
    "n_entry": 7,
    "gap_entry": -0.0439,
    "n_clv": 7,
-   "clv": -0.0439,
-   "clv_se": 0.0108,
-   "beat": 0.0
+   "clv": -0.051,
+   "clv_se": 0.0238,
+   "beat": 0.1429
   },
   {
    "name": "venue: board singles at Matchbook (after 2%)",
@@ -429,11 +555,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 11,
-   "gap_entry": -0.0155,
-   "n_clv": 11,
-   "clv": -0.0155,
-   "clv_se": 0.0023,
+   "n_entry": 33,
+   "gap_entry": -0.0174,
+   "n_clv": 33,
+   "clv": -0.0182,
+   "clv_se": 0.0014,
    "beat": 0.0
   },
   {
@@ -443,11 +569,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 11,
-   "gap_entry": -0.0155,
-   "n_clv": 11,
-   "clv": -0.0155,
-   "clv_se": 0.0023,
+   "n_entry": 33,
+   "gap_entry": -0.0174,
+   "n_clv": 33,
+   "clv": -0.0182,
+   "clv_se": 0.0014,
    "beat": 0.0
   },
   {
@@ -457,11 +583,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 11,
-   "gap_entry": -0.0398,
-   "n_clv": 11,
-   "clv": -0.0398,
-   "clv_se": 0.004,
+   "n_entry": 33,
+   "gap_entry": -0.0445,
+   "n_clv": 33,
+   "clv": -0.0453,
+   "clv_se": 0.0021,
    "beat": 0.0
   }
  ],
@@ -506,7 +632,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (80 of 200)",
    "n": 80,
-   "clv": -0.0391,
+   "clv": -0.0428,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.0189
@@ -560,7 +686,7 @@
    "name": "board family: Result & total",
    "status": "COLLECTING (3 of 200)",
    "n": 3,
-   "clv": -0.0431,
+   "clv": -0.0567,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.5033
@@ -695,10 +821,82 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1183,
-   "clv": -0.0398,
-   "p_value": null,
+   "clv": -0.0453,
+   "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0359
+  },
+  {
+   "name": "gap board timing: 1-6h before kick-off",
+   "status": "COLLECTING (1 of 200)",
+   "n": 1,
+   "clv": 0.0701,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 3.18
+  },
+  {
+   "name": "gap board timing: <1h before kick-off",
+   "status": "COLLECTING (1 of 200)",
+   "n": 1,
+   "clv": 0.0305,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 1.22
+  },
+  {
+   "name": "gap board timing: exchange flat",
+   "status": "COLLECTING (2 of 200)",
+   "n": 2,
+   "clv": 0.0503,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 2.2
+  },
+  {
+   "name": "gap board: basketball",
+   "status": "COLLECTING (2 of 200)",
+   "n": 2,
+   "clv": 0.0503,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 2.2
+  },
+  {
+   "name": "gap board: gap 2%+",
+   "status": "COLLECTING (2 of 200)",
+   "n": 2,
+   "clv": 0.0503,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 2.2
+  },
+  {
+   "name": "gap board: gap 3%+",
+   "status": "COLLECTING (2 of 200)",
+   "n": 2,
+   "clv": 0.0503,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 2.2
+  },
+  {
+   "name": "gap board: gap 5%+",
+   "status": "COLLECTING (1 of 200)",
+   "n": 1,
+   "clv": 0.0701,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 3.18
+  },
+  {
+   "name": "gap board: not covered leagues",
+   "status": "COLLECTING (2 of 200)",
+   "n": 2,
+   "clv": 0.0503,
+   "p_value": null,
+   "bh_pass": false,
+   "roi": 2.2
   },
   {
    "name": "nba market: 223",
@@ -722,7 +920,7 @@
    "name": "nba market: 68",
    "status": "COLLECTING (74 of 200)",
    "n": 74,
-   "clv": -0.0439,
+   "clv": -0.051,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.2058
@@ -731,7 +929,7 @@
    "name": "nba: board picks",
    "status": "COLLECTING (81 of 200)",
    "n": 81,
-   "clv": -0.0439,
+   "clv": -0.051,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.1851
@@ -740,8 +938,27 @@
  "residual": [
   {
    "name": "every SportyBet side, exchange at first look",
-   "n": 0,
-   "status": "COLLECTING (0 of 200 graded rows)"
+   "n": 1184,
+   "weights": {
+    "band:1-1.3": 0.0248,
+    "band:1.3-1.6": 0.0644,
+    "band:1.6-2": 0.0826,
+    "band:2-3": -0.0073,
+    "band:3-99": -0.1474,
+    "basketball": -0.029,
+    "early": 0.0,
+    "fam:B:225": -0.0333,
+    "fam:SB:1": 0.0361,
+    "fam:SB:10": -0.0456,
+    "fam:SB:14": -0.138,
+    "fam:SB:16": -0.0175,
+    "fam:SB:18": -0.0105,
+    "fam:SB:29": -0.0373,
+    "fam:SB:37": 0.0221,
+    "gap": -0.2705
+   },
+   "exchange_logloss": 0.5162,
+   "status": "fitted, waiting for a day to test out of sample"
   },
   {
    "name": "board picks: our model vs the exchange",

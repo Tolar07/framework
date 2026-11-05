@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T02:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33
+Built 2026-11-05T03:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 34
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -11,7 +11,7 @@ Built 2026-11-05T02:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: Away goals | 7 | 71% | -12.9% ± 22.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away win to nil | 3 | 67% | -19.0% ± 40.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: DC & total | 1 | 100% | +25.0% | PENDING (0) | PENDING (0) | PENDING |
-| board family: Double chance | 80 | 80% | +1.9% ± 5.8% | -4.1% (27) | -4.3% ± 0.2% (27) | 0% |
+| board family: Double chance | 80 | 80% | +1.9% ± 5.8% | -4.1% (28) | -4.2% ± 0.2% (28) | 0% |
 | board family: European handicap | 1 | 100% | +20.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home goals | 12 | 92% | +16.0% ± 10.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home win to nil | 6 | 33% | -59.2% ± 25.8% | PENDING (0) | PENDING (0) | PENDING |
@@ -32,7 +32,7 @@ Built 2026-11-05T02:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: SB:547 | 24 | 62% | -23.6% ± 12.3% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:548 | 13 | 85% | +4.0% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
 | board: BTTS singles | 23 | 57% | -4.5% ± 18.1% | -5.7% (5) | -5.7% ± 1.7% (5) | 0% |
-| board: football singles | 1183 | 77% | -3.6% ± 1.5% | -4.5% (33) | -4.5% ± 0.2% (33) | 0% |
+| board: football singles | 1183 | 77% | -3.6% ± 1.5% | -4.4% (34) | -4.5% ± 0.2% (34) | 0% |
 | gap board timing: 1-6h before kick-off | 1 | 100% | +318.0% | +7.0% (1) | +7.0% (1) | 100% |
 | gap board timing: <1h before kick-off | 1 | 100% | +122.0% | +3.0% (1) | +3.0% (1) | 100% |
 | gap board timing: exchange flat | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
@@ -45,9 +45,9 @@ Built 2026-11-05T02:43Z. Edge: 0 strategies ready for the Architect; board singl
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 68 | 74 | 62% | +20.6% ± 11.0% | -4.0% (8) | -4.1% ± 2.0% (8) | 25% |
 | nba: board picks | 81 | 62% | +18.5% ± 10.5% | -4.0% (8) | -4.1% ± 2.0% (8) | 25% |
-| venue: board singles at Matchbook (after 2%) *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
-| venue: board singles at the better book *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
-| venue: same singles at SportyBet *(baseline)* | 0 | PENDING | PENDING | -4.5% (33) | -4.5% ± 0.2% (33) | 0% |
+| venue: board singles at Matchbook (after 2%) *(baseline)* | 0 | PENDING | PENDING | -1.7% (34) | -1.8% ± 0.1% (34) | 0% |
+| venue: board singles at the better book *(baseline)* | 0 | PENDING | PENDING | -1.7% (34) | -1.8% ± 0.1% (34) | 0% |
+| venue: same singles at SportyBet *(baseline)* | 0 | PENDING | PENDING | -4.4% (34) | -4.5% ± 0.2% (34) | 0% |
 
 ## Promotion (step 7)
 
@@ -59,7 +59,7 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: Away goals | COLLECTING (7 of 200) | 7 | PENDING | — | — |
 | board family: Away win to nil | COLLECTING (3 of 200) | 3 | PENDING | — | — |
 | board family: DC & total | COLLECTING (1 of 200) | 1 | PENDING | — | — |
-| board family: Double chance | COLLECTING (80 of 200) | 80 | -4.3% | — | — |
+| board family: Double chance | COLLECTING (80 of 200) | 80 | -4.2% | — | — |
 | board family: European handicap | COLLECTING (1 of 200) | 1 | PENDING | — | — |
 | board family: Home goals | COLLECTING (12 of 200) | 12 | PENDING | — | — |
 | board family: Home win to nil | COLLECTING (6 of 200) | 6 | PENDING | — | — |

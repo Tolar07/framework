@@ -661,4 +661,17 @@ assert all(x in _si for x in ("scripts/self_improve.py --issues", "WebSearch", "
 assert (ROOT / ".github" / "workflows" / "learning_watch.yml").exists(), "Order 49: stalled-loop watch"
 assert "Self-improvement loop" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
 
+# Order 50: multi-sport rollout — one sport a week, live after its shadow week whatever the gate
+# says, inherits football + basketball, three bots, NO steam (Architect 2026-11-05)
+import json as _json50  # noqa: E402
+_ro = _json50.loads((ROOT / "config" / "sport_rollout.json").read_text(encoding="utf-8"))
+assert _ro["steam"] is False, "Order 50: no steam betting on any new sport"
+assert _ro["failing_gate_goes_live"] is True and _ro["unbet_markets_paper_trade"] is True, \
+    "Order 50: a failing gate still goes live; unbet markets keep paper-trading"
+assert _ro["inherit_from"] == ["football", "basketball"] and _ro["full_market_catalogue"] is True
+assert set(_ro["venues"]) == {"matchbook", "betfair", "sportybet"}, "Order 50: all three bots"
+_sp50 = [s["sport"] for s in _ro["sports"]]
+assert _sp50[0] == "ice_hockey" and len(_sp50) == len(set(_sp50)) >= 8, "Order 50: hockey first, 8+ sports"
+assert "Multi-sport rollout" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -21,8 +21,20 @@ Learned on 2023-24; the test column is the same measure on 2024-25 + 2025-26 (no
 | 1st-quarter margin (303) | 0.331 × (−S) | 8.30 | 8.25 | -0.04 |
 | 2nd-quarter margin (303) | 0.308 × (−S) | 8.24 | 8.25 | -0.34 |
 | 3rd-quarter margin (303) | 0.320 × (−S) | 8.24 | 8.54 | -0.10 |
+| 4th-quarter margin (303) | 0.103 × (−S) | 7.93 | 7.98 | +0.14 |
+| 2nd-half margin (88, regulation) | 0.423 × (−S) | 10.78 | 10.83 | +0.04 |
 | 1st-half total | 0.501 × T | 11.96 | 11.88 | +0.39 |
 | 1st-quarter total | 0.250 × T | 8.05 | 8.13 | +0.63 |
+| 2nd-quarter total | 0.251 × T | 8.11 | 8.38 | -0.24 |
+| 3rd-quarter total | 0.252 × T | 8.12 | 8.34 | +0.44 |
+| 4th-quarter total | 0.243 × T | 8.61 | 8.89 | -0.35 |
+| 2nd-half total (90, regulation) | 0.495 × T | 12.17 | 12.62 | +0.09 |
+| team 1st-half points (69/70) | 0.501 × team expected | 8.14 | 8.08 | +0.18 |
+| team 2nd-half points | 0.495 × team expected | 8.13 | 8.31 | +0.06 |
+| team Q1 points (756/757) | 0.250 × team expected | 5.79 | 5.80 | +0.31 |
+| team Q2 points | 0.251 × team expected | 5.79 | 5.88 | -0.13 |
+| team Q3 points | 0.252 × team expected | 5.79 | 5.96 | +0.21 |
+| team Q4 points | 0.243 × team expected | 5.88 | 5.97 | -0.16 |
 
 Overtime in 4.6% of test games (it counts in the full-game, team-total and handicap markets, never in the regulation total or a half/quarter).
 
@@ -103,5 +115,8 @@ Q1_MARGIN = (0.331, 8.3)
 Q2_MARGIN = (0.308, 8.2)
 Q3_MARGIN = (0.320, 8.5)
 H1_TOTAL = (0.501, 12.0); Q1_TOTAL = (0.250, 8.1)
+Q_TOTAL = {1: (0.250, 8.1), 2: (0.251, 8.4), 3: (0.252, 8.3), 4: (0.243, 8.9)}
+H2_TOTAL = (0.495, 12.6); H2_MARGIN = (0.423, 10.8); Q4_MARGIN = (0.103, 8.0)
+TEAM_PERIOD = {'h1': (0.501, 8.1), 'h2': (0.495, 8.3), 'q1': (0.250, 5.8), 'q2': (0.251, 5.9), 'q3': (0.252, 6.0), 'q4': (0.243, 6.0)}
 ```
 

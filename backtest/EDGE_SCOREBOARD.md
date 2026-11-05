@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-05T00:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33
+Built 2026-11-05T01:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 33
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -43,8 +43,8 @@ Built 2026-11-05T00:43Z. Edge: 0 strategies ready for the Architect; board singl
 | gap board: not covered leagues | 2 | 100% | +220.0% ± 98.0% | +5.0% (2) | +5.0% ± 2.0% (2) | 100% |
 | nba market: 223 | 4 | 75% | +28.7% ± 43.1% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
-| nba market: 68 | 74 | 62% | +20.6% ± 11.0% | -4.4% (7) | -5.0% ± 2.1% (7) | 14% |
-| nba: board picks | 81 | 62% | +18.5% ± 10.5% | -4.4% (7) | -5.0% ± 2.1% (7) | 14% |
+| nba market: 68 | 74 | 62% | +20.6% ± 11.0% | -4.4% (7) | -4.3% ± 2.3% (7) | 29% |
+| nba: board picks | 81 | 62% | +18.5% ± 10.5% | -4.4% (7) | -4.3% ± 2.3% (7) | 29% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
 | venue: board singles at the better book *(baseline)* | 0 | PENDING | PENDING | -1.7% (33) | -1.8% ± 0.1% (33) | 0% |
 | venue: same singles at SportyBet *(baseline)* | 0 | PENDING | PENDING | -4.5% (33) | -4.5% ± 0.2% (33) | 0% |
@@ -91,8 +91,8 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | gap board: not covered leagues | COLLECTING (2 of 200) | 2 | +5.0% | — | — |
 | nba market: 223 | COLLECTING (4 of 200) | 4 | PENDING | — | — |
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
-| nba market: 68 | COLLECTING (74 of 200) | 74 | -5.0% | — | — |
-| nba: board picks | COLLECTING (81 of 200) | 81 | -5.0% | — | — |
+| nba market: 68 | COLLECTING (74 of 200) | 74 | -4.3% | — | — |
+| nba: board picks | COLLECTING (81 of 200) | 81 | -4.3% | — | — |
 
 ## Residual model (step 6)
 

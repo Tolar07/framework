@@ -1266,19 +1266,19 @@
  },
  "results": {
   "statarea": {
-   "won": 1,
-   "lost": 0,
-   "open": 26
+   "won": 8,
+   "lost": 7,
+   "open": 12
   },
   "vitibet": {
-   "won": 3,
-   "lost": 3,
-   "open": 42
+   "won": 20,
+   "lost": 12,
+   "open": 16
   },
   "sites agree": {
-   "won": 0,
-   "lost": 0,
-   "open": 10
+   "won": 6,
+   "lost": 3,
+   "open": 1
   }
  }
 }

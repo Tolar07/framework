@@ -516,9 +516,8 @@
    "priority": 2
   },
   "monitor/supervisor.py": {
-   "status": "todo",
-   "note": "the daily check must cover the NBA board, line watch, live tracker and the world-basketball picks",
-   "priority": 1
+   "status": "covers",
+   "note": "the daily status carries NBA board + codes, line watch, live tracker, side-by-side record, world basketball picks and edge.yml (framework #331)"
   },
   "monitor/timing_experiment.py": {
    "status": "todo",

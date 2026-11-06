@@ -36,6 +36,8 @@ sys.path.insert(0, str(ROOT))
 BOARDS = ROOT / "output" / "boards"
 PICKS = ROOT / "output" / "picks"
 API = "https://api.github.com/repos/{repo}/actions/workflows/{wf}/runs?per_page=5{q}"
+NBA_SHADOW = ROOT / "backtest" / "NBA_SHADOW.md"
+WORLD_BB = ROOT / "output" / "world_basketball"
 ONE_FAMILY_WARN = 0.75      # one market family on 75%+ of the picks
 
 
@@ -69,6 +71,73 @@ def pick_stats(day: str, picks: Path = PICKS) -> dict:
             "single_codes": sum(1 for s in singles if s.get("code")),
             "slips": len(slips), "slip_codes": sum(1 for s in slips if s.get("code")),
             "alts": len(alts), "alt_codes": sum(1 for a in alts if a.get("code"))}
+
+
+def basketball_facts(day: str, picks: Path = PICKS, wb: Path = WORLD_BB,
+                     shadow: Path = NBA_SHADOW) -> dict:
+    """What the NBA and world basketball left behind (framework #331). Reads files only.
+    day = the football board's date; the NBA night is filed under that date or the one before."""
+    from datetime import date, timedelta
+    d0 = date.fromisoformat(day) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", day) else None
+    days = [day] + ([(d0 - timedelta(days=1)).isoformat()] if d0 else [])
+
+    def _load(path: Path) -> dict | None:
+        try:
+            return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        except Exception:  # noqa: BLE001 — an unreadable file is reported as missing
+            return None
+    out: dict = {"nba": None, "wb": None, "shadow": None}
+    for d in days:
+        doc = _load(picks / f"nba_{d}.json")
+        if doc is not None:
+            ps = doc.get("picks") or []
+            out["nba"] = {"day": d, "picks": len(ps), "codes": sum(1 for p in ps if p.get("code"))}
+            break
+    for d in days:
+        doc = _load(wb / f"wb_{d}.json")
+        if doc is not None:
+            ps = doc.get("picks") or []
+            out["wb"] = {"day": d, "picks": len(ps), "codes": sum(1 for p in ps if p.get("code"))}
+            break
+    if shadow.exists():
+        text = shadow.read_text(encoding="utf-8")
+        m = re.search(r"Still to grade: (\d+)", text)
+        out["shadow"] = {"no_data": "NO DATA" in text, "pending": int(m.group(1)) if m else None}
+    return out
+
+
+def basketball_lines(facts: dict, runs: dict[str, str]) -> tuple[list[str], list[str]]:
+    """(problems, fine) one line each: NBA board, line watch, live tracker, side-by-side
+    record, world basketball picks, edge.yml. Missing data reads PENDING/missing, never guessed."""
+    bad: list[str] = []
+    ok: list[str] = []
+    n = facts.get("nba")
+    if n is None:
+        bad.append("NBA: no board file for tonight (output/picks/nba_<date>.json)")
+    elif n["picks"] and n["codes"] < n["picks"]:
+        bad.append(f"NBA board {n['day']}: codes {n['codes']}/{n['picks']} booked")
+    else:
+        ok.append(f"NBA board {n['day']}: {n['picks']} pick(s), codes {n['codes']}/{n['picks']}")
+    for wf, label in (("nba_watch.yml", "NBA line watch"), ("nba_live.yml", "NBA live tracker"),
+                      ("edge.yml", "edge scoreboard")):
+        if wf in runs:               # no API access (local run): not checked, not guessed
+            (ok if runs[wf] in ("success", "in_progress", "queued", "none") else bad).append(
+                f"{label}: {runs[wf]}")
+    sh = facts.get("shadow")
+    if sh is None:
+        bad.append("NBA side-by-side record (backtest/NBA_SHADOW.md) missing")
+    elif sh["no_data"]:
+        ok.append("NBA side-by-side record: PENDING (no graded pick yet)")
+    else:
+        ok.append(f"NBA side-by-side record graded, {sh['pending']} still to grade")
+    w = facts.get("wb")
+    if w is None:
+        ok.append("world basketball: PENDING (no wb file for today/yesterday)")
+    elif w["picks"] and w["codes"] < w["picks"]:
+        bad.append(f"world basketball {w['day']}: codes {w['codes']}/{w['picks']} booked")
+    else:
+        ok.append(f"world basketball {w['day']}: {w['picks']} pick(s), codes {w['codes']}/{w['picks']}")
+    return bad, ok
 
 
 def board_facts(day: str, boards: Path = BOARDS) -> dict:
@@ -106,7 +175,7 @@ def last_run(repo: str, token: str, wf: str, branch: str | None = "main") -> str
 
 def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
            runs: dict[str, str], subscribers: int | None = None,
-           knowledge: dict | None = None) -> str:
+           knowledge: dict | None = None, basketball: dict | None = None) -> str:
     """The one Telegram status. Problems first, each with ⚠.
 
     subscribers: how many subscriber chats the TELEGRAM_SUBSCRIBER_CHAT_IDS
@@ -175,6 +244,10 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
             ok.append(_lp.line(json.loads(_lp.OUT.read_text(encoding="utf-8"))))
     except Exception as e:  # noqa: BLE001 — a status line, never a failed check
         ok.append(f"experiments / post-mortem: unreadable ({e})")
+    if basketball is not None:       # framework #331: basketball inherits the daily check
+        b_bad, b_ok = basketball_lines(basketball, runs)
+        bad += b_bad
+        ok += b_ok
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])
@@ -196,7 +269,8 @@ def main(argv: list[str] | None = None) -> int:
             facts, stats = board_facts(day), pick_stats(day)
         repo, token = os.environ.get("GITHUB_REPOSITORY", ""), os.environ.get("GITHUB_TOKEN", "")
         runs = ({wf: last_run(repo, token, wf, None if wf != "tests.yml" else "main")
-                 for wf in ("tests.yml", "watchdog.yml", "news.yml")}
+                 for wf in ("tests.yml", "watchdog.yml", "news.yml",
+                              "nba_watch.yml", "nba_live.yml", "edge.yml")}
                 if repo and token else {})
         from output import notify
         from datetime import datetime, timezone
@@ -209,7 +283,8 @@ def main(argv: list[str] | None = None) -> int:
                      "open": sum(p.get("status") == "open" for p in loss_watch.load_proposals()),
                      "last_run": (lambda r: r[-1] if r else {})(read_runs(last=1))}
         text = report(day, name, a.run_conclusion, facts, stats, runs,
-                      subscribers=len(notify.subscriber_chats()), knowledge=knowledge)
+                      subscribers=len(notify.subscriber_chats()), knowledge=knowledge,
+                      basketball=basketball_facts(day))
     except Exception as e:  # noqa: BLE001
         text = f"🛡 SUPERVISOR — could not complete its check ({e})"
     print(text)

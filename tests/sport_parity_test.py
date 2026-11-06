@@ -60,13 +60,47 @@ def test_every_entry_is_complete():
             assert (ROOT / p).exists(), f"basketball gap names a missing NBA module: {p}"
 
 
+NBA_SCOPE = ["engine", "monitor", "output", "backtest"]
+
+
+def nba_files() -> set[str]:
+    """Every NBA module: basketball inherits the NBA (Architect 2026-11-06 18:07 UK)."""
+    out = {p.relative_to(ROOT).as_posix() for d in NBA_SCOPE for p in (ROOT / d).glob("*nba*.py")}
+    return out | ({"run_nba.py"} if (ROOT / "run_nba.py").exists() else set())
+
+
+def test_every_nba_module_says_what_basketball_gets():
+    """Architect 2026-11-06 18:07 UK: "NBA and basketball, they're the same thing ... inherit all its
+    attributes of NBA". A new NBA module fails here until it says what world basketball / NCAA gets."""
+    mods = REG.get("nba_modules") or {}
+    missing = sorted(nba_files() - set(mods))
+    assert not missing, ("NBA module not in config/sport_parity.json nba_modules — say what world basketball / "
+                         f"NCAA gets (covers / twin / todo / n/a): {missing}")
+    stale = sorted(set(mods) - nba_files())
+    assert not stale, f"listed in nba_modules but gone: {stale}"
+    for f, e in mods.items():
+        st = e.get("status")
+        assert st in {"covers", "twin", "todo", "n/a"}, (f, st)
+        assert e.get("note"), f"{f}: say why"
+        if st == "twin":
+            for p in (e.get("basketball") or "").split() or [""]:
+                assert p and (ROOT / p).exists(), f"{f}: twin {p!r} does not exist"
+        if st == "todo":
+            assert e.get("priority") in (1, 2, 3) and isinstance(e.get("issue"), int),                 f"{f}: todo needs priority 1-3 and the open issue building it"
+        if st == "covers":
+            txt = (ROOT / f).read_text(encoding="utf-8", errors="ignore")
+            assert re.search(r"world.basketball|ncaa|wb_", txt, re.I), f"{f}: says it covers world basketball but never mentions it"
+
+
 def main() -> None:
     test_every_module_is_listed()
     test_every_entry_is_complete()
+    test_every_nba_module_says_what_basketball_gets()
     todo = [e for e in REG["modules"].values() if e["status"] == "todo"]
     print(f"sport_parity_test OK — {len(REG['modules'])} modules; basketball still to inherit: "
           f"{len(todo)} (priority 1: {sum(e['priority'] == 1 for e in todo)}), "
-          f"{len(REG.get('basketball_gaps') or [])} world-basketball gaps")
+          f"{len(REG.get('basketball_gaps') or [])} world-basketball gaps; NBA modules world basketball still to "
+          f"inherit: {sum(e['status'] == 'todo' for e in (REG.get('nba_modules') or {}).values())}")
 
 
 if __name__ == "__main__":

@@ -343,11 +343,71 @@ def render(doc: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def grade_wb(obs: dict, results: dict, folder: Path | None = None) -> int:
+    """BASKETBALL INHERITS THE NBA (Architect 2026-11-06 18:07 UK: "NBA and basketball, they're the same
+    thing ... inherit all its attributes of NBA"). Like run_nba.grade / grade_accas, every world basketball /
+    NCAA pick gets its result, score and closing value written into its own wb_<date>.json, and each night's
+    accas (acca_<night>.json) are won when every leg won, lost as soon as one leg lost. Returns picks graded."""
+    from engine import world_basketball as wbb
+    folder = folder or wbb.OUT_DIR
+    graded, res_by_event = 0, {}
+    for day, doc in wbb.load_all(folder):
+        changed = False
+        for p in doc.get("picks") or []:
+            ev = p.get("sb_event_id") or p.get("event_id")
+            if p.get("result") or not ev or not p.get("key"):
+                if p.get("result"):
+                    res_by_event[ev] = p["result"]
+                continue
+            won = _won(results, ev, p["key"])
+            g = (results.get(ev) or {}).get("__res__") or {}
+            if won is None:
+                if g.get("h") is None or g.get("a") is None:
+                    continue                                  # not finished
+                p["result"] = "void"                          # finished but a push / unsettleable line
+            else:
+                p["result"] = "won" if won else "lost"
+            if g.get("h") is not None and g.get("a") is not None:
+                p["score"] = f"{g['h']}-{g['a']}"
+            rec = (eb.find(obs, ev, "", "", None) or {}).get("k", {}).get(p["key"]) or {}
+            pc, price = rec.get("p1"), ex._f(p.get("price"))
+            p["close_value"] = round(pc * price - 1, 4) if pc and price else None
+            res_by_event[ev] = p["result"]
+            graded, changed = graded + 1, True
+        if changed:
+            wbb.path_for(day, folder).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+    for f in sorted(folder.glob("acca_*.json")) if folder.exists() else []:
+        try:
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        changed = False
+        for a in [doc, *(doc.get("accas") or [])]:
+            if a.get("result") or not a.get("legs"):
+                continue
+            legs = [res_by_event.get(e) for e in a["legs"]]
+            if "lost" in legs:
+                a["result"] = "lost"
+            elif all(x in ("won", "void") for x in legs):
+                a["result"] = "won" if "won" in legs else "void"
+            else:
+                continue
+            changed = True
+        if changed:
+            f.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+    return graded
+
+
 def build(now: datetime | None = None, obs: dict | None = None, results: dict | None = None,
           picks_dir: Path = PICKS_DIR, write: bool = True) -> str:
     now = now or datetime.now(UTC)
     obs = eb.load_all() if obs is None else obs
     results = universe_results() if results is None else results
+    if write:
+        try:
+            grade_wb(obs, results)
+        except Exception as e:  # noqa: BLE001 — the scoreboard is written either way
+            print(f"world basketball grading skipped ({str(e)[:80]})")
     c = collect(obs, results, picks_dir)
     groups = c["groups"]
     promo = promotion(groups)

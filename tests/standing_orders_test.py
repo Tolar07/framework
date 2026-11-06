@@ -687,3 +687,7 @@ for _f in ("ARCHITECT_SIGNOFF =", "CLV_GATE =", "assert_paper_only", "LOSS_STOP"
 assert "Decision layer" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
 
 print("standing_orders_test: OK — all Architect standing orders hold")
+
+# Order 52: basketball inherits the NBA (Architect 2026-11-06 18:07 UK); every NBA module says what world basketball gets
+assert "Basketball inherits the NBA" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
+assert _json50.loads((ROOT / "config" / "sport_parity.json").read_text(encoding="utf-8")).get("nba_modules"),     "Order 52: config/sport_parity.json nba_modules"

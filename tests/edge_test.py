@@ -201,6 +201,41 @@ def test_records_exchange_entry_only():
     rx._EVENTS = None
 
 
+def test_world_basketball_graded_like_nba():
+    """Architect 2026-11-06 18:07: basketball inherits the NBA. Each world basketball / NCAA pick gets its
+    result, score and closing value in its own file, and the night's accas are graded from the legs."""
+    import json
+    import tempfile
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        picks = [{"sb_event_id": "e1", "event_id": "e1", "key": "B:223|hcp=-20.5|Away (+20.5)", "price": 1.8,
+                  "result": None},
+                 {"sb_event_id": "e2", "event_id": "e2", "key": "B:225|total=150.5|Over 150.5", "price": 2.0,
+                  "result": None},
+                 {"sb_event_id": "e3", "event_id": "e3", "key": "B:225|total=140.5|Over 140.5", "price": 1.9,
+                  "result": None}]
+        (d / "wb_2026-11-07.json").write_text(json.dumps({"date": "2026-11-07", "picks": picks}), encoding="utf-8")
+        acca = {"night": "2026-11-06", "code": "ALL", "legs": ["e1", "e2", "e3"], "result": None,
+                "accas": [{"code": "ALL", "legs": ["e1", "e2", "e3"], "result": None},
+                          {"code": "A", "legs": ["e1", "e2"], "result": None},
+                          {"code": "B", "legs": ["e3"], "result": None}]}
+        (d / "acca_2026-11-06.json").write_text(json.dumps(acca), encoding="utf-8")
+        results = {"e1": {"__res__": {"h": 80, "a": 70}},            # away +20.5 covers
+                   "e2": {"__res__": {"h": 70, "a": 70}}}            # 140 < 150.5: lost; e3 not finished
+        obs = {"2026-11-07": {"events": {"e1": {"k": {"B:223|hcp=-20.5|Away (+20.5)": {"p1": 0.6}}}}}}
+        assert sc.grade_wb(obs, results, d) == 2
+        got = json.loads((d / "wb_2026-11-07.json").read_text(encoding="utf-8"))["picks"]
+        assert [(p["result"], p.get("score")) for p in got] == [("won", "80-70"), ("lost", "70-70"), (None, None)]
+        assert got[0]["close_value"] == round(0.6 * 1.8 - 1, 4) and got[1]["close_value"] is None
+        a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
+        assert (a["result"], [x["result"] for x in a["accas"]]) == ("lost", ["lost", "lost", None])
+        results["e3"] = {"__res__": {"h": 75, "a": 70}}                # 145 > 140.5: won
+        assert sc.grade_wb(obs, results, d) == 1
+        a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
+        assert [x["result"] for x in a["accas"]] == ["lost", "lost", "won"]
+        assert sc.grade_wb(obs, results, d) == 0                        # graded once
+
+
 def main() -> None:
     for name, fn in sorted(globals().items()):
         if name.startswith("test_") and callable(fn):

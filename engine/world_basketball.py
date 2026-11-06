@@ -209,6 +209,10 @@ ACCA_LEAD = timedelta(hours=2)
 # top-level code stays the all-picks slip. Stakes are the bots' (sportybet-agent wb_acca: NGN 1,000 on account 1,
 # the normal acca stake elsewhere; Architect 2026-11-06 18:35).
 SPLIT_MIN = 4
+# TWO TEST NIGHTS ONLY (the Architect, 2026-11-06 19:06 UK: "aside from the one I just did for 2 nights only";
+# answered: tonight + tomorrow, then stop). The all + 2 halves slips are booked for these nights and no other;
+# basketball gets its own football-style board (every section, staked) instead.
+TEST_NIGHTS = frozenset({"2026-11-06", "2026-11-07"})
 
 
 def night_of(tip: datetime) -> str:
@@ -265,6 +269,8 @@ def combined_accas(now: datetime, night: str, start: datetime, end: datetime, nb
     path = acca_path(night, folder)
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
+    if night not in TEST_NIGHTS:
+        return None
     legs: dict[str, tuple[datetime, dict]] = {}
     for x in list(nba_picks) + [x for _, doc in load_all(folder) for x in doc.get("picks") or []]:
         lx = _legs_of(x)
@@ -292,7 +298,7 @@ def night_accas(now: datetime, folder: Path = OUT_DIR, book=_book_many) -> list[
     made = []
     for night, legs in sorted(nights.items()):
         path = acca_path(night, folder)
-        if path.exists():                                   # frozen: booked once a night
+        if path.exists() or night not in TEST_NIGHTS:       # frozen: booked once a night; test nights only
             continue
         legs = sorted([(t, x) for t, x in legs if t > now], key=lambda tx: tx[0])
         if len(legs) < 2 or legs[0][0] - now > ACCA_LEAD:

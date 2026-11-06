@@ -202,6 +202,21 @@ def test_one_basketball_set_nba_plus_world():
         assert [a["code"] for a in got] == ["K"]                                # 2 legs: the all-picks slip only
 
 
+def test_all_halves_slips_on_the_two_test_nights_only():
+    """Architect 2026-11-06 19:06: the all + 2 halves slips were a test for tonight and tomorrow, then stop."""
+    assert set(wb.TEST_NIGHTS) == {"2026-11-06", "2026-11-07"}
+    start = datetime(2026, 11, 8, 10, 0, tzinfo=UTC)
+    nba = [{**_pick(i, datetime(2026, 11, 9, 0, 20 * i, tzinfo=UTC)), "event_id": f"n{i}"} for i in range(3)]
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        assert wb.combined_accas(start - timedelta(hours=3), "2026-11-08", start, start + timedelta(hours=24), nba,
+                                 lambda s: 1 / 0, folder=d) is None
+        (d / "wb_2026-11-08.json").write_text(json.dumps({"date": "2026-11-08", "picks": [
+            _pick(i, datetime(2026, 11, 8, 20, i, tzinfo=UTC)) for i in range(3)]}), encoding="utf-8")
+        assert wb.night_accas(datetime(2026, 11, 8, 19, 0, tzinfo=UTC), d, book=lambda s: 1 / 0) == []
+        assert not list(d.glob("acca_*.json"))
+
+
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
@@ -211,6 +226,7 @@ def main() -> None:
     test_night_acca_all_picks_once()
     test_night_three_accas()
     test_one_basketball_set_nba_plus_world()
+    test_all_halves_slips_on_the_two_test_nights_only()
     print("world_basketball_test OK")
 
 

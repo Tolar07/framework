@@ -150,3 +150,14 @@ def test_hockey_recal_reads_graded_record():
         lg = Path(td) / "l.jsonl"
         assert hr.run([("2026-11-05", doc)], log=lg)["status"] == "PENDING"
         assert lg.read_text().count("\n") == 1
+
+
+def test_league_study():
+    from engine import hockey_league_study as hs
+    g = lambda comp, res, won, fair: {"comp": comp, "result": res, "sides": {"1|x": {"first": {"fair": fair}, "won": won}}}
+    docs = [("d", {"games": {"1": g("SHL", {"reg": [1, 0]}, 1, 0.6), "2": g("SHL", None, None, 0.5),
+                             "3": g("KHL", {"reg": [0, 1]}, 0, None)}})]
+    r = hs.study(docs)
+    assert r["SHL"]["seen"] == 2 and r["SHL"]["graded"] == 1 and r["SHL"]["fair_brier"] == 0.16
+    assert r["SHL"]["status"] == "PENDING" and r["KHL"]["fair_brier"] is None
+    assert "PENDING" in hs.render(r)

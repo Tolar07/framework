@@ -204,6 +204,10 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
 # not started goes on ONE slip, booked once and frozen in acca_<night>.json; the bots place that code. The
 # singles are unchanged. Told before deciding: 13 legs at 54-65% each win about 1 time in 1,000.
 ACCA_LEAD = timedelta(hours=2)
+# THREE ACCAS (the Architect, 2026-11-06 17:51 UK: "for the 3ACCA, use 1,000 naira each on my account"): the
+# all-picks slip plus the night split in two by tip-off (from SPLIT_MIN picks), all three in "accas". The
+# top-level code stays the all-picks slip. Stakes are the bots' (sportybet-agent wb_acca: NGN 1,000, account 1).
+SPLIT_MIN = 4
 
 
 def night_of(tip: datetime) -> str:
@@ -230,19 +234,28 @@ def night_accas(now: datetime, folder: Path = OUT_DIR, book=_book_many) -> list[
         legs = sorted([(t, x) for t, x in legs if t > now], key=lambda tx: tx[0])
         if len(legs) < 2 or legs[0][0] - now > ACCA_LEAD:
             continue
-        sels = [{"eventId": x["event_id"], "marketId": x["market_id"], "specifier": x.get("specifier") or "",
-                 "outcomeId": x["outcome_id"]} for _, x in legs]
-        code = book(sels)
-        if not code:
-            continue                                        # PENDING: retried on the next look
-        odds = chance = 1.0
-        for _, x in legs:
-            odds *= float(x.get("price") or 1.0)
-            chance *= float(x.get("chance") or 0.0)
-        doc = {"night": night, "name": f"Basketball acca (all {len(legs)} picks)", "code": code,
-               "legs": [x["event_id"] for _, x in legs], "codes": [x["code"] for _, x in legs],
-               "odds": round(odds, 2), "chance": round(chance, 5), "first_tip": legs[0][1].get("tip"),
-               "booked_at": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None}
+        groups = [("all", f"Basketball acca (all {len(legs)} picks)", legs)]
+        if len(legs) >= SPLIT_MIN:                           # the two halves in tip-off order (as run_nba)
+            half = (len(legs) + 1) // 2
+            groups += [("A", f"Basketball acca A (first {half})", legs[:half]),
+                       ("B", f"Basketball acca B (last {len(legs) - half})", legs[half:])]
+        accas = []
+        for key, name, g in groups:
+            code = book([{"eventId": x["event_id"], "marketId": x["market_id"], "specifier": x.get("specifier") or "",
+                          "outcomeId": x["outcome_id"]} for _, x in g])
+            if not code:
+                break
+            odds = chance = 1.0
+            for _, x in g:
+                odds *= float(x.get("price") or 1.0)
+                chance *= float(x.get("chance") or 0.0)
+            accas.append({"key": key, "name": name, "code": code, "legs": [x["event_id"] for _, x in g],
+                          "codes": [x["code"] for _, x in g], "odds": round(odds, 2), "chance": round(chance, 5),
+                          "result": None})
+        if len(accas) < len(groups):
+            continue                                        # PENDING: all booked together on the next look
+        doc = {"night": night, **{k: v for k, v in accas[0].items() if k != "key"},
+               "first_tip": legs[0][1].get("tip"), "booked_at": now.strftime("%Y-%m-%dT%H:%MZ"), "accas": accas}
         folder.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
         made.append(night)

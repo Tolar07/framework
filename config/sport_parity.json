@@ -25,7 +25,10 @@
    "status": "n/a",
    "note": "ice hockey goals model (order 50); basketball is priced from the sharp line and engine/nba_projection.py"
   },
-  "engine/hockey_league_study.py": {"status": "todo", "priority": 3, "note": "which hockey leagues beyond NHL can get their own model, record only (order 50); basketball equivalent (per-league readiness for world basketball) not built yet"},
+  "engine/hockey_league_study.py": {
+   "status": "n/a",
+   "note": "ice hockey: which leagues beyond the NHL get their own goals model (#338, record only); basketball's leagues are covered by engine/world_basketball.py"
+  },
   "engine/hockey_recal.py": {
    "status": "twin",
    "basketball": "engine/nba_recal.py",
@@ -743,47 +746,182 @@
   "monitor/betfair_check.py": {
    "status": "covers",
    "note": "every live Betfair bet, every sport incl. basketball (nba): closing price + wins vs prices"
-  },
-  "engine/hockey_league_study.py": {
-   "status": "n/a",
-   "note": "ice hockey: which leagues beyond the NHL get their own goals model (#338, record only); basketball's leagues are covered by engine/world_basketball.py"
   }
  },
  "basketball_gaps": [
   {
    "feature": "team news / injuries for world basketball and NCAA picks",
    "nba_has": "data/nba_players.py",
-   "priority": 1
+   "priority": 1,
+   "issue": 391
   },
   {
    "feature": "Gemini reasoning verdicts on world basketball / NCAA picks",
    "nba_has": "engine/reasoning.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 392
   },
   {
    "feature": "live tracker for world basketball / NCAA picks",
    "nba_has": "monitor/nba_live.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 393
   },
   {
    "feature": "line watch (price drift, VALUE GONE) for world basketball picks",
    "nba_has": "monitor/nba_watch.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 390
   },
   {
    "feature": "every-market record + period study for NCAA (halves) and FIBA (40-min) leagues",
    "nba_has": "engine/nba_markets.py backtest/nba_period_study.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 394
   },
   {
    "feature": "player props priced from a player model (NBA props are settled, not yet priced)",
    "nba_has": "engine/nba_projection.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 396
   },
   {
    "feature": "ESPN injury feed for NCAA / EuroLeague (the scout's world-basketball absences stay unconfirmed, effect 0, until one exists)",
    "nba_has": "data/nba_players.py",
-   "priority": 2
+   "priority": 2,
+   "issue": 391
   }
- ]
+ ],
+ "_about_nba_modules": "Basketball inherits the NBA (Architect 2026-11-06 18:07 UK: \"NBA and basketball, they're the same thing ... NBA is a league, basketball is a sport. So you should inherit all its attributes of NBA\"). Every NBA module (engine/monitor/output/backtest nba_*.py and run_nba.py) says what world basketball / NCAA has of it: covers / twin / todo (priority + open issue) / n/a (why). tests/sport_parity_test.py fails on an unlisted NBA module, so a new NBA feature cannot merge without saying what the rest of basketball gets. The bots already place world basketball singles at the NBA stakes and rules (2026-11-05).",
+ "nba_modules": {
+  "run_nba.py": {
+   "status": "twin",
+   "basketball": "engine/world_basketball.py",
+   "note": "the board: world basketball / NCAA picks frozen with code + bot fields; nightly accas (all + two halves) as NBA acca A/B"
+  },
+  "engine/nba_value.py": {
+   "status": "twin",
+   "basketball": "engine/world_basketball.py engine/ncaa_lines.py",
+   "note": "value by price comparison against a sharp price (exchange fair chance; ESPN line for NCAA)"
+  },
+  "output/telegram_nba.py": {
+   "status": "covers",
+   "note": "/board basketball shows the world basketball board"
+  },
+  "backtest/nba_study.py": {
+   "status": "twin",
+   "basketball": "backtest/ncaa_study.py",
+   "note": "can the method work: NCAA study fitted the NCAA line shapes"
+  },
+  "engine/nba_teams.py": {
+   "status": "n/a",
+   "note": "NBA team table across sources; world basketball reads SportyBet's own event/competitor ids"
+  },
+  "engine/nba_ext_model.py": {
+   "status": "n/a",
+   "note": "reads the external NBA_Betting project, which models the NBA only"
+  },
+  "monitor/nba_watch.py": {
+   "status": "todo",
+   "priority": 1,
+   "issue": 390,
+   "note": "line watch before tip-off"
+  },
+  "engine/nba_team_news.py": {
+   "status": "todo",
+   "priority": 1,
+   "issue": 391,
+   "note": "team news per pick"
+  },
+  "engine/nba_absence_impact.py": {
+   "status": "todo",
+   "priority": 1,
+   "issue": 391,
+   "note": "absence impact"
+  },
+  "monitor/nba_live.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 393,
+   "note": "live tracker"
+  },
+  "engine/nba_markets.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 394,
+   "note": "every-market record"
+  },
+  "engine/nba_shadow.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 394,
+   "note": "every-market shadow board"
+  },
+  "backtest/nba_market_study.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 394,
+   "note": "market study"
+  },
+  "backtest/nba_period_study.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 394,
+   "note": "period study (NCAA halves, FIBA 40 min)"
+  },
+  "engine/nba_recal.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 395,
+   "note": "nightly recalibration"
+  },
+  "backtest/nba_blend_study.py": {
+   "status": "todo",
+   "priority": 2,
+   "issue": 395,
+   "note": "blend study"
+  },
+  "engine/nba_projection.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 396,
+   "note": "player-built projection"
+  },
+  "engine/nba_gate.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 396,
+   "note": "projection gate"
+  },
+  "backtest/nba_projection_study.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 396,
+   "note": "projection study"
+  },
+  "backtest/nba_onoff_study.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 396,
+   "note": "teammate on/off study"
+  },
+  "engine/nba_ladder.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 397,
+   "note": "points ladders"
+  },
+  "backtest/nba_ladder_study.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 397,
+   "note": "ladder study"
+  },
+  "engine/nba_shape.py": {
+   "status": "todo",
+   "priority": 3,
+   "issue": 397,
+   "note": "game shape"
+  }
+ }
 }

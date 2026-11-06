@@ -57,6 +57,29 @@ with tempfile.TemporaryDirectory() as d:
                        {"board": True, "run_id": True, "no_data": 0, "bet365": True},
                        dict(st, top_share=0.4, single_codes=10, slip_codes=2), {}, subscribers=0)
     assert "1 issue(s)" in nosubs and "⚠ subscribers: none" in nosubs, nosubs
+    # framework #331: basketball lines
+    (picks / "nba_2026-10-04.json").write_text(json.dumps(
+        {"picks": [{"code": "N1"}, {"code": None}]}))
+    wbd = Path(d) / "wb"
+    wbd.mkdir()
+    (wbd / "wb_2026-10-04.json").write_text(json.dumps({"picks": [{"code": "W1"}]}))
+    shd = Path(d) / "NBA_SHADOW.md"
+    shd.write_text("Still to grade: 7.\n")
+    bf = sv.basketball_facts("2026-10-04", picks, wbd, shd)
+    assert bf == {"nba": {"day": "2026-10-04", "picks": 2, "codes": 1},
+                  "wb": {"day": "2026-10-04", "picks": 1, "codes": 1},
+                  "shadow": {"no_data": False, "pending": 7}}, bf
+    t2 = sv.report("2026-10-04", "morning", "success", facts, st,
+                   {"nba_watch.yml": "failure", "edge.yml": "success"}, basketball=bf)
+    for must in ("⚠ NBA board 2026-10-04: codes 1/2 booked", "⚠ NBA line watch: failure",
+                 "✓ edge scoreboard: success", "✓ NBA side-by-side record graded, 7 still to grade",
+                 "✓ world basketball 2026-10-04: 1 pick(s)"):
+        assert must in t2, (must, t2)
+    assert "live tracker" not in t2
+    empty = sv.basketball_facts("2026-10-09", picks, wbd, Path(d) / "none.md")
+    eb, eo = sv.basketball_lines(empty, {})
+    assert any("no board file" in x for x in eb) and any("missing" in x for x in eb), eb
+    assert any("PENDING" in x for x in eo), eo
 print("supervisor status: OK")
 
 with tempfile.TemporaryDirectory() as d:

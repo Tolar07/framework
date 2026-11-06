@@ -130,6 +130,7 @@ def test_night_acca_all_picks_once():
         assert a["legs"] == ["sr:match:1", "sr:match:2", "sr:match:3"] and a["odds"] == round(1.8 ** 3, 2)
         assert seen[0][0] == {"eventId": "sr:match:1", "marketId": "223", "specifier": "hcp=-20.5",
                               "outcomeId": "1715"}
+        assert [x["code"] for x in a["accas"]] == ["ACC1"]                                  # 3 picks: no split
         assert wb.night_accas(n0 + timedelta(hours=2), d, book=book) == [] and len(seen) == 1   # frozen
         late = datetime(2026, 11, 6, 22, 30, tzinfo=UTC)                                    # first game started
         with tempfile.TemporaryDirectory() as t2:
@@ -145,6 +146,28 @@ def test_night_acca_all_picks_once():
         assert wb._book_many([{"eventId": "x"}]) is None                                    # never calls SportyBet here
 
 
+def test_night_three_accas():
+    """Architect 2026-11-06 17:51: three accas a night: all picks, then the two halves by tip-off."""
+    first = datetime(2026, 11, 6, 22, 0, tzinfo=UTC)
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        (d / "wb_2026-11-06.json").write_text(json.dumps({"date": "2026-11-06", "picks": [
+            _pick(i, first + timedelta(minutes=30 * i)) for i in range(5)]}), encoding="utf-8")
+        n = iter(["ALL", "A1", "B1"])
+        assert wb.night_accas(first - timedelta(hours=1), d, book=lambda s: next(n)) == ["2026-11-06"]
+        a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
+        assert [(x["key"], x["code"], x["codes"]) for x in a["accas"]] == [
+            ("all", "ALL", ["C0", "C1", "C2", "C3", "C4"]), ("A", "A1", ["C0", "C1", "C2"]), ("B", "B1", ["C3", "C4"])]
+        assert a["code"] == "ALL" and len(a["legs"]) == 5
+    with tempfile.TemporaryDirectory() as t:                                                 # one booking fails:
+        d = Path(t)                                                                          # none written, retried
+        (d / "wb_2026-11-06.json").write_text(json.dumps({"date": "2026-11-06", "picks": [
+            _pick(i, first + timedelta(minutes=30 * i)) for i in range(5)]}), encoding="utf-8")
+        n = iter(["ALL", None, "B1"])
+        assert wb.night_accas(first - timedelta(hours=1), d, book=lambda s: next(n)) == []
+        assert not (d / "acca_2026-11-06.json").exists()
+
+
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
@@ -152,6 +175,7 @@ def main() -> None:
     test_staked_fields_backfill_and_retry()
     test_describe()
     test_night_acca_all_picks_once()
+    test_night_three_accas()
     print("world_basketball_test OK")
 
 

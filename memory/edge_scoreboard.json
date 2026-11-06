@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-06T02:43Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54",
+ "built_at": "2026-11-06T03:13Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 55",
  "groups": [
   {
    "name": "baseline: every SportyBet side at its last price",
@@ -79,12 +79,12 @@
    "hit": 0.8,
    "roi": 0.0197,
    "roi_se": 0.0542,
-   "n_entry": 48,
-   "gap_entry": -0.0432,
-   "n_clv": 48,
-   "clv": -0.043,
-   "clv_se": 0.0027,
-   "beat": 0.0208
+   "n_entry": 49,
+   "gap_entry": -0.0435,
+   "n_clv": 49,
+   "clv": -0.0432,
+   "clv_se": 0.0026,
+   "beat": 0.0204
   },
   {
    "name": "board family: European handicap",
@@ -362,8 +362,8 @@
    "n_entry": 23,
    "gap_entry": -0.0575,
    "n_clv": 23,
-   "clv": -0.0572,
-   "clv_se": 0.0046,
+   "clv": -0.0577,
+   "clv_se": 0.0047,
    "beat": 0.0
   },
   {
@@ -373,12 +373,12 @@
    "hit": 0.7705,
    "roi": -0.0346,
    "roi_se": 0.0153,
-   "n_entry": 54,
-   "gap_entry": -0.045,
-   "n_clv": 54,
-   "clv": -0.0443,
+   "n_entry": 55,
+   "gap_entry": -0.0452,
+   "n_clv": 55,
+   "clv": -0.0444,
    "clv_se": 0.0028,
-   "beat": 0.0185
+   "beat": 0.0182
   },
   {
    "name": "gap board timing: 1-6h before kick-off",
@@ -639,12 +639,12 @@
    "hit": 0.8182,
    "roi": 0.081,
    "roi_se": 0.1615,
-   "n_entry": 54,
-   "gap_entry": -0.0204,
-   "n_clv": 54,
-   "clv": -0.0196,
-   "clv_se": 0.0027,
-   "beat": 0.1111
+   "n_entry": 55,
+   "gap_entry": -0.0207,
+   "n_clv": 55,
+   "clv": -0.0199,
+   "clv_se": 0.0026,
+   "beat": 0.1091
   },
   {
    "name": "venue: board singles at the better book",
@@ -653,12 +653,12 @@
    "hit": 0.8182,
    "roi": 0.081,
    "roi_se": 0.1615,
-   "n_entry": 54,
-   "gap_entry": -0.0199,
-   "n_clv": 54,
-   "clv": -0.0191,
+   "n_entry": 55,
+   "gap_entry": -0.0202,
+   "n_clv": 55,
+   "clv": -0.0194,
    "clv_se": 0.0025,
-   "beat": 0.1111
+   "beat": 0.1091
   },
   {
    "name": "venue: same singles at SportyBet",
@@ -667,12 +667,12 @@
    "hit": 0.8182,
    "roi": 0.05,
    "roi_se": 0.1567,
-   "n_entry": 54,
-   "gap_entry": -0.045,
-   "n_clv": 54,
-   "clv": -0.0443,
+   "n_entry": 55,
+   "gap_entry": -0.0452,
+   "n_clv": 55,
+   "clv": -0.0444,
    "clv_se": 0.0028,
-   "beat": 0.0185
+   "beat": 0.0182
   },
   {
    "name": "world basketball: NCAA, Regular Season",
@@ -744,7 +744,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (90 of 200)",
    "n": 90,
-   "clv": -0.043,
+   "clv": -0.0432,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": 0.0197
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0572,
+   "clv": -0.0577,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -933,7 +933,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1198,
-   "clv": -0.0443,
+   "clv": -0.0444,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0346

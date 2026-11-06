@@ -132,8 +132,12 @@ def _book_many(sels: list[dict]) -> str | None:
         return None
     try:
         from pipeline.sportybet_booking import create_booking_code
-        return create_booking_code(sels)[0]
-    except Exception:  # noqa: BLE001 — not booked: retried on the next look
+        code, _url, note = create_booking_code(sels)
+        if not code:        # 2026-11-06: the night's slips failed silently on the runner; say why in the log
+            print(f"world basketball: {len(sels)}-leg slip not booked: {note}")
+        return code
+    except Exception as e:  # noqa: BLE001 — not booked: retried on the next look
+        print(f"world basketball: {len(sels)}-leg slip not booked: {type(e).__name__}: {str(e)[:120]}")
         return None
 
 
@@ -223,6 +227,18 @@ def acca_path(night: str, folder: Path = OUT_DIR) -> Path:
     return folder / f"acca_{night}.json"
 
 
+def _frozen(path: Path, night: str) -> bool:
+    """The night's slips are booked. A file carried over from another night (2026-11-06 23:12: the 06-11 slip
+    Y40DAP, missed by the 22:00 placer cut-off, was carried to the 07-11 placing date) is not that night's
+    own booking: the night books its slips over it (the carried slip is graded in its own night's file)."""
+    if not path.exists():
+        return False
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("night") == night
+    except (OSError, ValueError):
+        return True
+
+
 def _legs_of(x: dict) -> tuple[datetime, dict] | None:
     tip = ex._dt(x.get("tip") or x.get("ko"))
     if tip is None or not (x.get("code") and x.get("outcome_id") and x.get("market_id") and x.get("event_id")):
@@ -267,7 +283,7 @@ def combined_accas(now: datetime, night: str, start: datetime, end: datetime, nb
                    book, folder: Path = OUT_DIR) -> dict | None:
     """Book (once) the night's basketball slips from NBA + world basketball picks; the frozen doc, or None."""
     path = acca_path(night, folder)
-    if path.exists():
+    if _frozen(path, night):
         return json.loads(path.read_text(encoding="utf-8"))
     if night not in TEST_NIGHTS:
         return None
@@ -298,7 +314,7 @@ def night_accas(now: datetime, folder: Path = OUT_DIR, book=_book_many) -> list[
     made = []
     for night, legs in sorted(nights.items()):
         path = acca_path(night, folder)
-        if path.exists() or night not in TEST_NIGHTS:       # frozen: booked once a night; test nights only
+        if _frozen(path, night) or night not in TEST_NIGHTS:   # frozen: booked once a night; test nights only
             continue
         legs = sorted([(t, x) for t, x in legs if t > now], key=lambda tx: tx[0])
         if len(legs) < 2 or legs[0][0] - now > ACCA_LEAD:

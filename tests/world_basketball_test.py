@@ -217,6 +217,19 @@ def test_all_halves_slips_on_the_two_test_nights_only():
         assert not list(d.glob("acca_*.json"))
 
 
+def test_carried_over_file_is_rebooked():
+    """2026-11-06 23:12: the 06-11 slip carried into acca_2026-11-07.json is not 07-11's own booking."""
+    start = datetime(2026, 11, 7, 10, 0, tzinfo=UTC)
+    nba = [{**_pick(i, datetime(2026, 11, 8, 0, 20 * i, tzinfo=UTC)), "event_id": f"n{i}"} for i in range(2)]
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        (d / "acca_2026-11-07.json").write_text(json.dumps({"night": "2026-11-06", "carried_over": True,
+                                                             "code": "Y40DAP"}), encoding="utf-8")
+        doc = wb.combined_accas(datetime(2026, 11, 7, 6, 47, tzinfo=UTC), "2026-11-07", start,
+                                start + timedelta(hours=24), nba, lambda s: "NEW", folder=d)
+        assert doc["code"] == "NEW" and doc["night"] == "2026-11-07"
+
+
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
@@ -227,6 +240,7 @@ def main() -> None:
     test_night_three_accas()
     test_one_basketball_set_nba_plus_world()
     test_all_halves_slips_on_the_two_test_nights_only()
+    test_carried_over_file_is_rebooked()
     print("world_basketball_test OK")
 
 

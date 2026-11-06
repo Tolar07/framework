@@ -2,7 +2,8 @@ name: OLP XDV multi-sport boards
 
 # Multi-sport rollout (standing order 50; Architect 2026-11-05 23:34: "build everything ... all
 # these sports ... schedule their practice to be done soon"). American football, snooker, darts,
-# volleyball, table tennis, cricket, rugby, tennis, baseball (ice hockey: ice_hockey.yml).
+# volleyball, table tennis, cricket, rugby, tennis, baseball AND ice hockey (Architect 2026-11-06: "all the boards
+# should be multi-sport"; ice_hockey.yml retired, hockey keeps its NHL model and ih_ files via run_hockey.py).
 # look: every side of every SportyBet game in the next 24 h beside the Matchbook exchange's fair
 # chance and each sport's Elo; value picks frozen with SportyBet codes into
 # output/multisport/<sport>/ms_<date>.json (PAPER until config/sport_rollout.json live_from; the
@@ -25,9 +26,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  hockey:
+  board:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
@@ -46,6 +47,12 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Restore the NHL history cache (ice hockey's model)
+        uses: actions/cache@v4
+        with:
+          path: data/cache/nhl
+          key: olp-xdv-nhl-${{ github.run_id }}
+          restore-keys: olp-xdv-nhl-
       - name: Run
         env:
           PYTHONIOENCODING: utf-8
@@ -64,4 +71,4 @@ jobs:
         run: python monitor/connections_check.py
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport || true
+        run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport output/ice_hockey data/ice_hockey || true

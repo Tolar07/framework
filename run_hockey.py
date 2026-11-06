@@ -7,7 +7,10 @@ ICE HOCKEY BOARD runner (standing order 50, multi-sport rollout; engine/ice_hock
   python run_hockey.py --report     print the scoreboard (and send it with --telegram)
   python run_hockey.py --dry        look without writing (prints what would be picked)
 
-Started by .github/workflows/ice_hockey.yml (Oracle VM clock). No steam (order 50).
+Since 2026-11-06 ice hockey is part of the ONE multi-sport board (Architect: "the hockey board ... should be
+made a multi-sports board ... all the boards should be multi-sport"): run_multisport.py calls look() and
+grade() here, started by .github/workflows/multisport.yml (Oracle VM clock). Files and format are unchanged
+(output/ice_hockey/ih_<date>.json; the bots read them). This file still runs on its own. No steam (order 50).
 """
 from __future__ import annotations
 
@@ -29,7 +32,7 @@ from engine import ice_hockey as ih  # noqa: E402
 SCOREBOARD = ROOT / "data" / "ice_hockey" / "scoreboard.json"
 
 
-def look(now: datetime, write: bool = True) -> None:
+def look(now: datetime, write: bool = True) -> str:
     rows = ih.fetch_sportybet()
     mb = ih.fetch_matchbook()
     try:
@@ -47,8 +50,9 @@ def look(now: datetime, write: bool = True) -> None:
                           f"chance {p['fair']:.0%} value {p['value']:+.1%} [{p['source']}]")
     else:
         seen, added = ih.update(rows, mb, model, now)
-    print(f"ice hockey look {now:%Y-%m-%d %H:%MZ}: SportyBet {len(rows)} games, Matchbook {len(mb)}, "
-          f"in window {seen}, new picks {added}")
+    line = (f"ice_hockey: SportyBet {len(rows)} games, Matchbook {len(mb)}, in window {seen}, new picks {added}, "
+            f"NHL model {'on' if model else 'PENDING'}")
+    return line
 
 
 def grade(now: datetime) -> dict:
@@ -105,7 +109,7 @@ def main() -> None:
             if a.telegram:
                 send(text)
         return
-    look(now, write=not a.dry)
+    print(look(now, write=not a.dry))
 
 
 if __name__ == "__main__":

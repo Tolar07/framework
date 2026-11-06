@@ -15,7 +15,7 @@ from engine import multisport as ms  # noqa: E402
 def _games(n=200):
     t = ["A", "B", "C", "D"]
     return [{"home": t[i % 4], "away": t[(i + 1) % 4], "kickoff_utc": f"2026-01-01T{i // 60:02d}:{i % 60:02d}",
-             "winner": 1 if i % 3 else 2} for i in range(n)]
+             "winner": 1 if i % 3 else 2, "league": ["ENGLAND: Premiership", "FRANCE: Top 14"][i % 2]} for i in range(n)]
 
 
 def test_pending_until_scored():
@@ -25,7 +25,8 @@ def test_pending_until_scored():
 def test_scores_both_and_matches_live_learn():
     games = _games()
     live = {"ratings": {}, "games": {}, "seen": [], "brier": [0.0, 0]}
-    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0}
+    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0,
+          "lg_ratings": {}, "lg_games": {}, "lg_n": 0, "lg_live_sq": 0.0, "lg_sq": 0.0}
     n = hes.learn("rugby", st, games, live)
     ms.learn(live, games)
     assert n == len(games)
@@ -39,12 +40,31 @@ def test_live_table_untouched_and_idempotent():
     games = _games(60)
     live = {"ratings": {}, "games": {}, "seen": [], "brier": [0.0, 0]}
     before = copy.deepcopy(live)
-    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0}
+    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0,
+          "lg_ratings": {}, "lg_games": {}, "lg_n": 0, "lg_live_sq": 0.0, "lg_sq": 0.0}
     hes.learn("rugby", st, games, live)
     assert live == before
     assert hes.learn("rugby", st, games, live) == 0
 
 
 def test_other_sports_ignored():
-    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0}
+    st = {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0,
+          "lg_ratings": {}, "lg_games": {}, "lg_n": 0, "lg_live_sq": 0.0, "lg_sq": 0.0}
     assert hes.learn("darts", st, _games(10), {"ratings": {}, "games": {}}) == 0
+
+
+def test_league_edge_mapping():
+    assert hes.league_edge("rugby", "FRANCE: Top 14") == 200.0
+    assert hes.league_edge("rugby", "EUROPE: Champions Cup") == 130.0
+    assert hes.league_edge("rugby", "WORLD: Test matches") == 70.0     # unknown league -> flat edge
+    assert hes.league_edge("darts", "x") is None
+
+
+def test_per_league_scored_and_pending():
+    assert hes.summary("rugby", hes.load("nope_sport"))["per_league"]["status"] == "PENDING"
+    live = {"ratings": {}, "games": {}, "seen": [], "brier": [0.0, 0]}
+    st = hes.load("nope_sport")
+    hes.learn("rugby", st, _games(), live)
+    pl = hes.summary("rugby", st)["per_league"]
+    assert pl["status"] == "RECORD" and pl["scored"] == st["n"]
+    assert abs(st["lg_live_sq"] - st["live_sq"]) < 1e-9

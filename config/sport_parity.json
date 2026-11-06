@@ -25,6 +25,7 @@
    "status": "n/a",
    "note": "ice hockey goals model (order 50); basketball is priced from the sharp line and engine/nba_projection.py"
   },
+  "engine/hockey_league_study.py": {"status": "todo", "priority": 3, "note": "which hockey leagues beyond NHL can get their own model, record only (order 50); basketball equivalent (per-league readiness for world basketball) not built yet"},
   "engine/hockey_recal.py": {
    "status": "twin",
    "basketball": "engine/nba_recal.py",

@@ -142,3 +142,17 @@ c:/
 
 # bot repos checked out by universe.yml for monitor/bot_grader.py (private ledgers; never committed here)
 .bots/
+
+# >>> data lives in framework-data
+# Architect 2026-10-30/2026-11-05: the picks, boards, records and memory are private (Tolar07/framework-data,
+# monitor/fdata.py). Only code (*.py) under these folders stays in this public repo.
+/output/**
+!/output/**/
+!/output/**/*.py
+/memory/**
+!/memory/**/
+!/memory/**/*.py
+/data/**
+!/data/**/
+!/data/**/*.py
+# <<< data lives in framework-data

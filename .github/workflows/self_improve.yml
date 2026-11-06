@@ -37,8 +37,6 @@ jobs:
           fetch-depth: 0
           filter: blob:none
       - name: Check out the private data (Tolar07/framework-data)
-        # not fatal while framework still holds the data: no key = today's behaviour
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data
@@ -69,7 +67,7 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "weekly self-improvement review $(date -u +%Y-%m-%d) [skip ci]" memory/self_improvement.json memory/inputs_gate.json
-          git add backtest/SELF_IMPROVEMENT.md memory/self_improvement.json backtest/INPUTS_STUDY.md memory/inputs_gate.json || true
+          git add backtest/SELF_IMPROVEMENT.md backtest/INPUTS_STUDY.md 2>/dev/null || true
           if git diff --staged --quiet; then exit 0; fi
           git commit -q -m "weekly self-improvement review $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3 4; do

@@ -108,6 +108,7 @@ print("price check of picks already sent (value gone / withdrawn, once): OK")
 assert w.next_round(datetime(2026, 10, 21, 21, 7, 30, tzinfo=UTC)).minute == 15
 assert w.next_round(datetime(2026, 10, 21, 21, 45, 0, tzinfo=UTC)).minute == 0
 os.environ.pop("GITHUB_ACTIONS", None)
+w.fdata.enabled = lambda: False                  # never touch the real framework-data from a test
 assert not w.in_actions() and w.persist(now) == "not saved (outside GitHub Actions)"
 assert w.night_key(datetime(2026, 10, 21, 23, 30, tzinfo=UTC)) == "2026-10-22"
 assert w.night_key(datetime(2026, 10, 24, 17, 0, tzinfo=UTC)) == "2026-10-25", "a matinee belongs to its night's board"

@@ -29,8 +29,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
-        # not fatal while framework still holds the data: no key = today's behaviour
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data
@@ -58,7 +56,7 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "match study + tactical profiles $(date -u +%Y-%m-%d) [skip ci]" data/match_study data/tactics memory/tactics_lessons.json memory/match_study_log.jsonl memory/why_record.jsonl
-          git add data/match_study data/tactics memory/tactics_lessons.json memory/match_study_log.jsonl memory/why_record.jsonl backtest/TACTICS_STUDY.md || true
+          git add backtest/TACTICS_STUDY.md 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "::warning::match study: nothing new"
             exit 0

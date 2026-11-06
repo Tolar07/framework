@@ -276,7 +276,7 @@
   },
   "engine/scout.py": {
    "status": "covers",
-   "note": "handles basketball itself"
+   "note": "handles basketball itself: NBA and world basketball / NCAA boards are scouted (scout_nba_ / scout_wb_), starters out confirmed by ESPN (NBA) sign bb_pick_effect, recorded only"
   },
   "engine/sharp_value.py": {
    "status": "twin",
@@ -734,11 +734,6 @@
    "priority": 1
   },
   {
-   "feature": "scout (Gemini + Search) on world basketball / NCAA picks",
-   "nba_has": "engine/scout.py",
-   "priority": 1
-  },
-  {
    "feature": "Gemini reasoning verdicts on world basketball / NCAA picks",
    "nba_has": "engine/reasoning.py",
    "priority": 2
@@ -764,9 +759,9 @@
    "priority": 2
   },
   {
-   "feature": "scout effects signed on NBA picks (football's pick_effect; NBA absences recorded only)",
-   "nba_has": "engine/scout.py",
-   "priority": 1
+   "feature": "ESPN injury feed for NCAA / EuroLeague (the scout's world-basketball absences stay unconfirmed, effect 0, until one exists)",
+   "nba_has": "data/nba_players.py",
+   "priority": 2
   }
  ]
 }

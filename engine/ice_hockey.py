@@ -19,7 +19,7 @@ The world basketball board's method (engine/world_basketball.py), with hockey's 
     is graded after the game: the paper record that learns from all markets, bet or not.
 NO STEAM (order 50): nothing here reads or follows price moves to pick.
 
-Written to output/ice_hockey/ih_<kick-off UTC date>.json; graded by run_hockey.py --grade
+Written to output/ice_hockey/ih_<kick-off UTC date>.json; graded by run_multisport.py (the multi-sport board, via run_hockey.py)
 from Flashscore (sport 4: periods 1-3 = regulation, final incl. OT/SO).
 """
 from __future__ import annotations

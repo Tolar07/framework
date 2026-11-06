@@ -149,7 +149,8 @@ def build(legs: list[dict]) -> dict:
             size = -(-len(ranked) // -(-len(ranked) // MEGA_MAX_LEGS))
             for i in range(0, len(ranked), size):
                 g = ranked[i:i + size]
-                if len(g) >= 2:
+                taken = {frozenset(x["legs"]) for sec in ("safe3", "clv_accas", "accas") for x in out[sec]}
+                if len(g) >= 2 and frozenset(x["event_id"] for x in g) not in taken:   # never the same slip twice
                     out["megas"].append(_slip(f"Basketball Mega {len(out['megas']) + 1}", g))
     return out
 

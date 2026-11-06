@@ -106,12 +106,20 @@ def test_run_nba_builds_the_board():
     assert run_nba._board_slips(None) == []
 
 
+def test_mega_never_repeats_an_acca():
+    """A window of 2 legs makes one 2-leg acca; its mega would be the same slip, so there is none."""
+    t0 = datetime(2026, 11, 7, 22, 0, tzinfo=UTC)
+    b = bb.build(bb.legs_for(NOW, START, START + timedelta(hours=24), [_p(1, t0), _p(2, t0 + timedelta(minutes=30))], []))
+    assert [s["codes"] for s in b["accas"]] == [["C1", "C2"]] and b["megas"] == []
+
+
 def main() -> None:
     test_legs_one_window_one_slip_kind()
     test_sections_like_football()
     test_windows_never_mix_evening_and_midnight()
     test_make_books_freezes_and_renders()
     test_run_nba_builds_the_board()
+    test_mega_never_repeats_an_acca()
     print("basketball_board_test OK")
 
 

@@ -197,6 +197,29 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
     return notes
 
 
+def team_news(now: datetime, games: list[tuple], sent: list[dict], state: dict) -> list[str]:
+    """RECORD-ONLY (framework #329): per sent pick, does the NBA injury report hurt or help it
+    (engine/nba_team_news.py)? Records every verdict; returns alert lines only for changes.
+    Never drops or restakes a pick, and never stops the watch."""
+    try:
+        from data import nba_players as npl
+        from engine import nba_team_news as ntn
+        rows = npl.load_log()
+        notes, seen = [], state.setdefault("news", {})
+        for _stage, e, _tip, _ht, _at, g in games:
+            mine = [p for p in sent if p.get("event_id") == e.get("eventId")]
+            if not mine:
+                continue
+            blob = npl.summary(g.id, False)
+            verdicts = ntn.assess_game(rows, g.home, g.away, None if blob is None else npl.injuries(blob), mine)
+            ntn.record(night_key(_tip), now.isoformat(), f"{g.away}@{g.home}", verdicts)
+            notes += ntn.changes(verdicts, seen)
+        return notes
+    except Exception as e:  # noqa: BLE001 - news is recorded only; it never stops the watch
+        print(f"  team news skipped: {e}")
+        return []
+
+
 def render(now: datetime, run_id: str, picks: list[dict], lags: list[str], gone: list[str] | None = None) -> str:
     L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.UK):%H:%M} UK time", ""]
@@ -249,6 +272,7 @@ def run_round(now: datetime, send: bool = True) -> str:
         board = _load(LEDGER_DIR / f"nba_{day}.json", {"picks": []})
         sent = board.get("picks", []) + doc["picks"]
         all_gone += price_check(items, state, {p["event_id"]: p for p in sent})
+        all_gone += team_news(now, items, sent, state)
         # a game whose sent pick died is open again — once: a replacement takes it
         replaced = {p["event_id"] for p in doc["picks"] if "REPLACES" in (p.get("reason") or "")}
         taken = {p["event_id"] for p in sent} - (set(state.get("reopen", [])) - replaced)
@@ -338,7 +362,7 @@ def sync() -> None:
 def persist(now: datetime) -> str:
     """Save to framework and to the private framework-data (monitor/fdata.py)."""
     # framework-data first: framework's pull below may drop files
-    fd = fdata.save(["output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow"],
+    fd = fdata.save(["output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow", "output/nba_team_news"],
                     f"nba watch {now:%H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)
     return f"{fw} · {fd}" if fd else fw
@@ -347,7 +371,7 @@ def persist(now: datetime) -> str:
 def _persist_framework(now: datetime) -> str:
     if not in_actions():
         return "not saved (outside GitHub Actions)"
-    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow")
+    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets", "output/nba_shadow", "output/nba_team_news")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"nba watch {now:%H:%M} [skip ci]")

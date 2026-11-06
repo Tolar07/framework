@@ -1,6 +1,8 @@
 """
-MULTI-SPORT BOARDS runner (standing order 50; engine/multisport.py). Ice hockey runs on its own
-board (run_hockey.py).
+THE MULTI-SPORT BOARD runner (standing order 50; engine/multisport.py). Every rollout sport, ice hockey
+included (Architect 2026-11-06: "all the boards should be multi-sport"): hockey keeps its own NHL model and
+files (engine/ice_hockey.py via run_hockey.py, output/ice_hockey/ih_<date>.json), run, graded and reported
+here with the rest.
 
   python run_multisport.py                 look: every sport, every side of every game in the next
                                            24 h recorded, new value picks frozen (paper until live)
@@ -27,8 +29,15 @@ sys.path.insert(0, str(ROOT))
 
 from engine import multisport as ms  # noqa: E402
 
+import run_hockey as rh  # noqa: E402
+
+HOCKEY = "ice_hockey"
+ALL_SPORTS = [HOCKEY, *ms.SPORTS]
+
 
 def look(sport: str, now: datetime, write: bool = True) -> str:
+    if sport == HOCKEY:
+        return rh.look(now, write)
     rows = ms.fetch_sportybet(sport)
     mb = ms.fetch_matchbook(sport)
     elo = ms.load_elo(sport)
@@ -47,6 +56,8 @@ def look(sport: str, now: datetime, write: bool = True) -> str:
 
 
 def grade(sport: str, now: datetime) -> dict:
+    if sport == HOCKEY:
+        return rh.grade(now)
     today = now.date()
     days = [today - timedelta(days=k) for k in range(7, -1, -1)]
     events = ms.results_days(sport, days, today)
@@ -89,14 +100,14 @@ def send(text: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sport", choices=sorted(ms.SPORTS), default=None)
+    ap.add_argument("--sport", choices=sorted(ALL_SPORTS), default=None)
     ap.add_argument("--grade", action="store_true")
     ap.add_argument("--report", action="store_true")
     ap.add_argument("--telegram", action="store_true")
     ap.add_argument("--dry", action="store_true")
     a = ap.parse_args()
     now = datetime.now(UTC)
-    sports = [a.sport] if a.sport else list(ms.SPORTS)
+    sports = [a.sport] if a.sport else list(ALL_SPORTS)
     lines = []
     for s in sports:
         try:
@@ -108,7 +119,7 @@ def main() -> None:
             lines.append(f"{s}: PENDING ({type(e).__name__}: {str(e)[:100]})")
         print(lines[-1], flush=True)
     if a.report and a.telegram:
-        send("MULTI-SPORT SHADOW (paper until each sport's live date)\n" + "\n".join(lines))
+        send("MULTI-SPORT BOARD, every sport incl. ice hockey (paper until each sport's live date)\n" + "\n".join(lines))
 
 
 if __name__ == "__main__":

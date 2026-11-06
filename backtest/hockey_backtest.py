@@ -10,7 +10,7 @@ docs/obsidian-vault/Trading-Agent-Knowledge-Bridge.md §1); the best is picked o
 season and reported on the LATER ones only.
 
 No free historical closing odds were found for hockey, so this measures accuracy, not return;
-return and closing-line value come from the shadow board's own graded record (run_hockey.py).
+return and closing-line value come from the shadow board's own graded record (run_hockey.py, run by the multi-sport board).
 
   python backtest/hockey_backtest.py            writes backtest/ICE_HOCKEY_STUDY.md
 """

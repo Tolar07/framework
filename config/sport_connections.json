@@ -377,12 +377,12 @@
    "oracle_clock": {
     "status": "external",
     "repo": "Tolar07/matchbook-agent",
-    "ref": "ice_hockey.yml (#195)"
+    "ref": "multisport.yml (ice_hockey.yml retired 2026-11-06)"
    },
    "private_data": {
     "status": "done",
     "paths": [
-     ".github/workflows/ice_hockey.yml"
+     ".github/workflows/multisport.yml"
     ]
    },
    "matchbook_paper": {

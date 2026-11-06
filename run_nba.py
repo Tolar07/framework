@@ -227,21 +227,31 @@ def _sel(p: dict) -> dict:
             "specifier": p["specifier"], "outcomeId": p["outcome_id"]}
 
 
-def book(picks: list[dict]) -> list[dict]:
-    """Own code per pick; returns the night's accas [{name, code, legs, odds}]."""
+def book(picks: list[dict]) -> None:
+    """Own code per pick. The night's accas are the ONE basketball set (basketball_accas below)."""
     from pipeline.sportybet_booking import create_booking_code
     for p in picks:
         code, _url, _ = create_booking_code([_sel(p)])
         p["code"] = code
-    accas = []
-    for i, group in enumerate(split_accas(picks)):
-        code, _url, _ = create_booking_code([_sel(p) for p in group])
-        odds = 1.0
-        for p in group:
-            odds *= p["price"]
-        accas.append({"name": f"NBA acca {'AB'[i]}", "code": code, "legs": [p["event_id"] for p in group],
-                      "odds": round(odds, 2), "result": None})
-    return accas
+
+
+def _book_many(sels: list[dict]) -> str | None:
+    from pipeline.sportybet_booking import create_booking_code
+    return create_booking_code(sels)[0]
+
+
+def basketball_accas(now: datetime, night: date, picks: list[dict], book_many=_book_many,
+                     folder: Path | None = None) -> list[dict]:
+    """ONE BASKETBALL (Architect 2026-11-06 18:35 UK: NBA and every other league are one board; all picks +
+    the two halves by tip-off, booked with this morning board). The NBA night's slips from its NBA picks and
+    every world basketball / NCAA pick of the same window, frozen in output/world_basketball/acca_<night>.json,
+    which the bots place on the night's date. [] when fewer than 2 legs or the booking failed (the world
+    basketball look books it 2 h before tip-off instead)."""
+    from engine import world_basketball as wbb
+    start = night_start(night)
+    doc = wbb.combined_accas(now, night.isoformat(), start, start + timedelta(hours=24), picks, book_many,
+                             **({"folder": folder} if folder else {}))
+    return (doc or {}).get("accas") or []
 
 
 def grade_accas(doc: dict) -> bool:
@@ -467,13 +477,16 @@ def main() -> int:
         print(f"  NBA board for {board_date} already built — resending it (use --rebuild to replace)")
     else:
         run_id = _run_id(now)
-        accas = book(picks) if picks else []
+        if picks:
+            book(picks)
+        accas = basketball_accas(now, night, picks)       # NBA + world basketball, one set (2026-11-06)
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": None, "accas": accas, "picks": picks,
+                                      "mega_code": None, "accas": [], "basketball_accas": accas,
+                                      "picks": picks,
                                       "picks_dropped": dropped,
                                       "study": study, "players": players}, indent=1),
                           encoding="utf-8")

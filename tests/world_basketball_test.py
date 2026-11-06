@@ -168,6 +168,40 @@ def test_night_three_accas():
         assert not (d / "acca_2026-11-06.json").exists()
 
 
+def test_one_basketball_set_nba_plus_world():
+    """Architect 2026-11-06 18:35: NBA and every other league are one board; the morning NBA board books the
+    night's slips (all + 2 halves by tip-off) from NBA + world basketball picks of the NBA night window."""
+    start = datetime(2026, 11, 7, 10, 0, tzinfo=UTC)
+    now = datetime(2026, 11, 7, 6, 47, tzinfo=UTC)
+    nba = [{**_pick(i, datetime(2026, 11, 8, 0, 30 * i, tzinfo=UTC), code="N"), "event_id": f"sr:match:n{i}"}
+           for i in range(2)]
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        (d / "wb_2026-11-07.json").write_text(json.dumps({"date": "2026-11-07", "picks": [
+            _pick(1, datetime(2026, 11, 7, 18, 0, tzinfo=UTC)),                  # EuroLeague evening: in
+            _pick(2, datetime(2026, 11, 7, 23, 0, tzinfo=UTC)),
+            _pick(3, datetime(2026, 11, 7, 9, 0, tzinfo=UTC))]}), encoding="utf-8")   # before 10:00 UTC: out
+        (d / "wb_2026-11-08.json").write_text(json.dumps({"date": "2026-11-08", "picks": [
+            _pick(4, datetime(2026, 11, 8, 11, 0, tzinfo=UTC))]}), encoding="utf-8")  # next night: out
+        n = iter(["ALL", "A1", "B1"])
+        seen = []
+        doc = wb.combined_accas(now, "2026-11-07", start, start + timedelta(hours=24), nba,
+                                lambda s: seen.append(s) or next(n), folder=d)
+        assert [(a["key"], a["codes"]) for a in doc["accas"]] == [
+            ("all", ["C1", "C2", "N0", "N1"]), ("A", ["C1", "C2"]), ("B", ["N0", "N1"])]
+        assert json.loads((d / "acca_2026-11-07.json").read_text(encoding="utf-8"))["code"] == "ALL"
+        again = wb.combined_accas(now, "2026-11-07", start, start + timedelta(hours=24), nba, lambda s: 1 / 0, folder=d)
+        assert again["code"] == "ALL" and len(seen) == 3                       # frozen: never rebooked
+        assert wb.night_accas(datetime(2026, 11, 7, 16, 30, tzinfo=UTC), d, book=lambda s: 1 / 0) == []   # no fallback
+    with tempfile.TemporaryDirectory() as t:                                   # one leg: nothing booked
+        assert wb.combined_accas(now, "2026-11-07", start, start + timedelta(hours=24), nba[:1], lambda s: "X",
+                                 folder=Path(t)) is None
+    import run_nba
+    with tempfile.TemporaryDirectory() as t:
+        got = run_nba.basketball_accas(now, start.date(), nba, book_many=lambda s: "K", folder=Path(t))
+        assert [a["code"] for a in got] == ["K"]                                # 2 legs: the all-picks slip only
+
+
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
@@ -176,6 +210,7 @@ def main() -> None:
     test_describe()
     test_night_acca_all_picks_once()
     test_night_three_accas()
+    test_one_basketball_set_nba_plus_world()
     print("world_basketball_test OK")
 
 

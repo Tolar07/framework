@@ -343,7 +343,7 @@ def render(doc: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
-def grade_wb(obs: dict, results: dict, folder: Path | None = None) -> int:
+def grade_wb(obs: dict, results: dict, folder: Path | None = None, picks_dir: Path | None = None) -> int:
     """BASKETBALL INHERITS THE NBA (Architect 2026-11-06 18:07 UK: "NBA and basketball, they're the same
     thing ... inherit all its attributes of NBA"). Like run_nba.grade / grade_accas, every world basketball /
     NCAA pick gets its result, score and closing value written into its own wb_<date>.json, and each night's
@@ -351,6 +351,10 @@ def grade_wb(obs: dict, results: dict, folder: Path | None = None) -> int:
     from engine import world_basketball as wbb
     folder = folder or wbb.OUT_DIR
     graded, res_by_event = 0, {}
+    for _d, nba in _picks("nba", picks_dir or PICKS_DIR):      # NBA legs of the one basketball set (18:35)
+        for p in nba.get("picks") or []:
+            if p.get("event_id") and p.get("result"):
+                res_by_event[p["event_id"]] = {"push": "void"}.get(p["result"], p["result"])
     for day, doc in wbb.load_all(folder):
         changed = False
         for p in doc.get("picks") or []:

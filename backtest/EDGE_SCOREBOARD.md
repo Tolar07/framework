@@ -2,11 +2,11 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-06T12:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.6% over 60
+Built 2026-11-06T12:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.6% over 60
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
-| baseline: every SportyBet side at its last price *(baseline)* | 5538 | 46% | -11.1% ± 1.8% | PENDING (0) | -8.5% ± 0.1% (5538) | 2% |
+| baseline: every SportyBet side at its last price *(baseline)* | 5630 | 46% | -11.3% ± 1.8% | PENDING (0) | -8.5% ± 0.1% (5630) | 2% |
 | board family: Asian handicap | 19 | 74% | -9.2% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away goals | 7 | 71% | -12.9% ± 22.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away win to nil | 3 | 67% | -19.0% ± 40.5% | PENDING (0) | PENDING (0) | PENDING |
@@ -52,10 +52,10 @@ Built 2026-11-06T12:13Z. Edge: 0 strategies ready for the Architect; board singl
 | nba market: 68 | 87 | 61% | +18.1% ± 10.2% | -3.8% (10) | -3.5% ± 2.0% (10) | 30% |
 | nba: board picks | 94 | 61% | +16.5% ± 9.8% | -3.8% (10) | -3.5% ± 2.0% (10) | 30% |
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 37 | 78% | +2.3% ± 9.0% | -2.2% (60) | -2.3% ± 0.3% (60) | 10% |
-| venue: board singles at the better book *(baseline)* | 37 | 78% | +2.4% ± 9.0% | -2.2% (60) | -2.2% ± 0.3% (60) | 10% |
+| venue: board singles at the better book *(baseline)* | 37 | 78% | +2.4% ± 9.0% | -2.2% (60) | -2.3% ± 0.3% (60) | 10% |
 | venue: same singles at SportyBet *(baseline)* | 37 | 78% | -0.5% ± 8.7% | -4.5% (60) | -4.6% ± 0.3% (60) | 2% |
-| world basketball: NCAA, Regular Season | 8 | 62% | +12.4% ± 33.1% | +7.9% (13) | -5.1% ± 2.0% (8) | 25% |
-| world basketball: all leagues | 8 | 62% | +12.4% ± 33.1% | +7.9% (13) | -5.1% ± 2.0% (8) | 25% |
+| world basketball: NCAA, Regular Season | 8 | 62% | +12.4% ± 33.1% | +7.7% (14) | -5.1% ± 2.0% (8) | 25% |
+| world basketball: all leagues | 8 | 62% | +12.4% ± 33.1% | +7.7% (14) | -5.1% ± 2.0% (8) | 25% |
 
 ## Promotion (step 7)
 
@@ -114,5 +114,5 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 
 Starts from the exchange's fair chance and learns only what it misses (`engine/residual_model.py`), walk-forward by day.
 
-- **every SportyBet side, exchange at first look**: no information beyond the exchange yet; 5575 rows; out-of-sample log-loss gain -0.00026 ± 0.00063 over 4144
+- **every SportyBet side, exchange at first look**: no information beyond the exchange yet; 5667 rows; out-of-sample log-loss gain -0.00018 ± 0.00062 over 4236
 - **board picks: our model vs the exchange**: COLLECTING (37 of 200 graded rows); 37 rows

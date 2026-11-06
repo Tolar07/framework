@@ -450,10 +450,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/AMERICAN_FOOTBALL_STUDY.md"
+    ],
+    "note": "NFL 2006-2026 vs closing moneylines (nflverse); live rule -7.2%/bet held-out 2016-26. College football: shadow record only (no free closing odds)."
    },
    "scout_reasoning": {
     "status": "todo",

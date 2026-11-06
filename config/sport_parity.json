@@ -25,7 +25,11 @@
    "status": "n/a",
    "note": "ice hockey goals model (order 50); basketball is priced from the sharp line and engine/nba_projection.py"
   },
-  "engine/hockey_recal.py": {"status": "twin", "basketball": "engine/nba_recal.py", "note": "ice hockey nightly model-vs-exchange blend check, record only (order 50)"},
+  "engine/hockey_recal.py": {
+   "status": "twin",
+   "basketball": "engine/nba_recal.py",
+   "note": "ice hockey nightly model-vs-exchange blend check, record only (order 50)"
+  },
   "engine/ice_hockey.py": {
    "status": "n/a",
    "note": "ice hockey board (order 50); basketball's equivalent is engine/world_basketball.py"
@@ -726,6 +730,10 @@
   "run_nba.py": {
    "status": "covers",
    "note": "handles basketball itself"
+  },
+  "engine/hockey_league_study.py": {
+   "status": "n/a",
+   "note": "ice hockey: which leagues beyond the NHL get their own goals model (#338, record only); basketball's leagues are covered by engine/world_basketball.py"
   }
  },
  "basketball_gaps": [

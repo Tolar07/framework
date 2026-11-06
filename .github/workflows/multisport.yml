@@ -60,6 +60,9 @@ jobs:
             report) python run_multisport.py --report --telegram ;;
             *) echo "unknown mode $MODE"; exit 1 ;;
           esac
+      - name: Connection gaps (config/sport_connections.json; fails when a live sport has a bot gap)
+        if: github.event.inputs.mode == 'grade'
+        run: python monitor/connections_check.py
       - name: Save to the private data (framework-data)
         if: always()
         run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport || true

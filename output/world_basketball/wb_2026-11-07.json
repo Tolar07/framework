@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-07",
+ "picks": [
+  {
+   "sb_event_id": "sr:match:73116028",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Texas AM Aggies",
+   "away": "Northern Kentucky Norse",
+   "ko": "2026-11-07T01:00:00Z",
+   "pick": "Northern Kentucky Norse +26.5",
+   "key": "B:223|hcp=-26.5|Away (+26.5)",
+   "price": 1.8,
+   "fair": 0.5839,
+   "value": 0.0509,
+   "source": "espn Draft Kings",
+   "line_total": 169.5,
+   "line_spread": -24.5,
+   "market_id": "223",
+   "specifier": "hcp=-26.5",
+   "outcome": "Away (+26.5)",
+   "outcome_id": "1715",
+   "code": "KKPXYQ",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": true
+   },
+   "chance": 0.5839,
+   "tip": "2026-11-07T01:00:00Z",
+   "event_id": "sr:match:73116028",
+   "at": "2026-11-06T01:13Z",
+   "result": null
+  }
+ ]
+}

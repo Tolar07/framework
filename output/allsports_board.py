@@ -238,6 +238,11 @@ def render(day: str, now: datetime | None = None, run_id: str = "local", out: Pa
     if not only:
         cards = [c for c in (scorecard(s, data) for s, _l, _e in SECTIONS if s != "basketball") if c]
         L += [_RULE, "SCORECARD (paper + live, since 5 Nov)"] + (cards or [PENDING])
+        from monitor import (
+            betfair_check as bfc,  # every live Betfair bet: closing price + wins vs prices
+        )
+        L += ["", _RULE, "BETFAIR CHECK (every live bet, all sports)"] + bfc.lines(
+            bfc.check(bfc.settled(bots / "betfair-agent" / "ledger")))
         L += ["", "Not on Betfair: " + "; ".join(f"{s.replace('_', ' ')} ({w})" for s, w in NOT_ON_BETFAIR.items()),
               "Football is on the football board (Matchbook + SportyBet)."]
     return "\n".join(L)

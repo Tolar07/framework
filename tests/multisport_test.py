@@ -61,9 +61,8 @@ def test_elo_learns_and_scores():
 
 
 def test_paper_switch_and_covers():
-    assert ms.is_paper("american_football", "2026-11-18") and not ms.is_paper("american_football", "2026-11-19")
-    assert ms.is_paper("table_tennis", "2026-12-09") and not ms.is_paper("table_tennis", "2026-12-10")
-    assert ms.is_paper("baseball", "2030-01-01"), "season_opening is not a date: stays paper until set"
+    for sp in ("american_football", "table_tennis", "tennis", "baseball"):
+        assert ms.is_paper(sp, "2026-11-11") and not ms.is_paper(sp, "2026-11-12"), "all live 12 Nov (Architect 06-11)"
 
 
 def test_update_freezes_and_records():

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-06T01:13Z",
+ "built_at": "2026-11-06T01:43Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54",
  "groups": [
   {
@@ -362,7 +362,7 @@
    "n_entry": 22,
    "gap_entry": -0.0569,
    "n_clv": 22,
-   "clv": -0.0564,
+   "clv": -0.0565,
    "clv_se": 0.0052,
    "beat": 0.0
   },
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0564,
+   "clv": -0.0565,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439

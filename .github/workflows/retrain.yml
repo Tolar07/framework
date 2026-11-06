@@ -69,12 +69,18 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python engine/nba_recal.py || echo "NBA refit failed — football retrain unaffected"
 
+      - name: Ice hockey blend check (recorded only, engine/hockey_recal.py)
+        if: steps.once.outputs.skip != '1'
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python engine/hockey_recal.py || echo "hockey blend check failed — football retrain unaffected"
+
       - name: Save
         if: steps.once.outputs.skip != '1'
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          python3 monitor/fdata.py save "retrain $(date -u +%Y-%m-%d) [skip ci]" memory/retrain_log.jsonl memory/calibration_live.json memory/nba_retrain_log.jsonl memory/nba_calibration_live.json data/nba_lineups
+          python3 monitor/fdata.py save "retrain $(date -u +%Y-%m-%d) [skip ci]" memory/retrain_log.jsonl memory/calibration_live.json memory/nba_retrain_log.jsonl memory/nba_calibration_live.json memory/hockey_retrain_log.jsonl data/nba_lineups
           if git diff --staged --quiet; then echo "retrain files unchanged"; exit 0; fi
           git commit -q -m "retrain $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do

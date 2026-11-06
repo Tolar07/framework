@@ -13,14 +13,14 @@
   },
   "btts": {
    "a": 0.1448,
-   "adopted": "2026-11-05T03:31:35Z",
-   "b": 0.6514,
-   "brier_after": 0.24717,
-   "brier_before": 0.24718,
+   "adopted": "2026-11-06T03:31:33Z",
+   "b": 0.6513,
+   "brier_after": 0.24686,
+   "brier_before": 0.24686,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 209
+   "n_holdout": 214
   },
   "dc_12": {
    "a": 0.2799,
@@ -68,14 +68,14 @@
   },
   "home": {
    "a": 0.1651,
-   "adopted": "2026-11-05T03:31:35Z",
+   "adopted": "2026-11-06T03:31:33Z",
    "b": 1.3032,
-   "brier_after": 0.229,
-   "brier_before": 0.229,
+   "brier_after": 0.22892,
+   "brier_before": 0.22892,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 209
+   "n_holdout": 214
   },
   "over_1.5": {
    "a": 0.5482,
@@ -100,17 +100,17 @@
    "n_holdout": 197
   },
   "over_3.5": {
-   "a": -0.1853,
-   "adopted": "2026-11-05T03:31:35Z",
-   "b": 0.5735,
-   "brier_after": 0.22177,
-   "brier_before": 0.22177,
+   "a": -0.1856,
+   "adopted": "2026-11-06T03:31:33Z",
+   "b": 0.5732,
+   "brier_after": 0.22172,
+   "brier_before": 0.22172,
    "choice": "refit",
    "holdout_from": "2026-10-31",
    "n_fit": 763,
-   "n_holdout": 209
+   "n_holdout": 214
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-11-05T03:31:35Z"
+ "updated": "2026-11-06T03:31:33Z"
 }

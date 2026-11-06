@@ -211,6 +211,10 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "engine/nba_team_news.py": {
+   "status": "covers",
+   "note": "handles basketball itself: NBA injury report per pick (framework #329)"
+  },
   "engine/nba_shadow.py": {
    "status": "covers",
    "note": "handles basketball itself"
@@ -330,9 +334,9 @@
    "priority": 3
   },
   "engine/team_news.py": {
-   "status": "todo",
-   "note": "NBA team news per pick: injury report / late scratch hurts or helps THIS pick (side, total, team total)",
-   "priority": 1
+   "status": "twin",
+   "note": "NBA team news per pick: injury report hurts or helps THIS pick (side, total, team total); recorded only, alerts in monitor/nba_watch.py",
+   "basketball": "engine/nba_team_news.py"
   },
   "engine/tip_board.py": {
    "status": "todo",

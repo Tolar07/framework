@@ -48,6 +48,7 @@ NATIVE_URL = os.getenv("GEMINI_NATIVE_URL", "https://generativelanguage.googleap
 
 BATCH = 6
 BUDGET_S = float(os.getenv("SCOUT_BUDGET_S", "300"))
+WB_DIR = ROOT / "output" / "world_basketball"
 WAIT_429_S = 45
 MAX_UNBET = 20
 DIRECTIONS = ("home", "away", "draw", "over", "under", "none")
@@ -73,9 +74,16 @@ PROMPT_FOOTBALL = PROMPT_BODY.format(
              '"role": "goalkeeper|defender|midfielder|forward", "status": "out|doubtful"}]',
     extra='"over"/"under" mean 2.5 goals in regular time. "absences": only REGULAR STARTERS reported missing for this '
           'match by a named source; [] if none.')
-PROMPT_NBA = PROMPT_BODY.format(sport="NBA", dirs="home|away|none", absences="",
-                                extra='Direction is the side to win the game (overtime counts).')
+BB_ABSENCES = (', "absences": [{"player": "full name", "team": "home|away", '
+               '"role": "starter|rotation", "status": "out|doubtful"}]')
+BB_EXTRA = ('Direction is the side to win the game (overtime counts). "absences": only STARTERS or key rotation '
+            'players reported missing for this game by a named source; [] if none.')
+PROMPT_NBA = PROMPT_BODY.format(sport="NBA", dirs="home|away|none", absences=BB_ABSENCES, extra=BB_EXTRA)
+PROMPT_WB = PROMPT_BODY.format(sport="basketball (EuroLeague, other leagues, NCAA)", dirs="home|away|none",
+                               absences=BB_ABSENCES, extra=BB_EXTRA)
 ROLES = ("goalkeeper", "defender", "midfielder", "forward")
+BB_ROLES = ("starter", "rotation")      # basketball: a regular starter / a rotation player (no positions)
+BB_SPORTS = ("nba", "world_basketball")
 
 
 # ---------------------------------------------------------------- inputs
@@ -98,8 +106,22 @@ def nba_fixtures(board: dict) -> list[dict]:
     return list(seen.values())
 
 
+def wb_fixtures(doc: dict) -> list[dict]:
+    """World basketball / NCAA paper board (output/world_basketball/wb_<date>.json) -> scout fixtures."""
+    seen: dict[str, dict] = {}
+    for p in doc.get("picks") or []:
+        if not (p.get("home") and p.get("away")):
+            continue
+        fx = f"{p['home']} v {p['away']}"
+        if fx not in seen:
+            seen[fx] = {"id": len(seen), "fixture": fx, "home": p["home"], "away": p["away"],
+                        "league": p.get("comp") or "basketball", "kickoff_utc": p.get("tip") or p.get("ko"),
+                        "sport": "world_basketball"}
+    return list(seen.values())
+
+
 # ---------------------------------------------------------------- cleaning
-def clean(row: dict, allowed: tuple = DIRECTIONS) -> Optional[dict]:
+def clean(row: dict, allowed: tuple = DIRECTIONS, roles: tuple = ROLES) -> Optional[dict]:
     """One model answer -> {finding, direction, confidence, sources}, or None when unusable (HR35)."""
     if not isinstance(row, dict):
         return None
@@ -117,7 +139,7 @@ def clean(row: dict, allowed: tuple = DIRECTIONS) -> Optional[dict]:
             continue
         team, role = str(x.get("team") or "").lower(), str(x.get("role") or "").lower()
         status, name = str(x.get("status") or "").lower(), str(x.get("player") or "").strip()
-        if team in ("home", "away") and role in ROLES and status in ("out", "doubtful") and len(name) > 2:
+        if team in ("home", "away") and role in roles and status in ("out", "doubtful") and len(name) > 2:
             absences.append({"player": name[:60], "team": team, "role": role, "status": status,
                              "confirmed_by": None})
     srcs = [str(u)[:300] for u in (row.get("sources") or []) if isinstance(u, str) and u.startswith("http")][:5]
@@ -157,7 +179,9 @@ def scout(fxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] 
           sleep: Callable = time.sleep) -> dict:
     """{"members": {...}, "fixtures": [record, ...]}. Never raises; a fixture nobody answered is absent."""
     sport = fxs[0]["sport"] if fxs else "football"
-    prompt, allowed = (PROMPT_NBA, NBA_DIRECTIONS) if sport == "nba" else (PROMPT_FOOTBALL, DIRECTIONS)
+    prompt, allowed = ((PROMPT_NBA, NBA_DIRECTIONS) if sport == "nba" else
+                       (PROMPT_WB, NBA_DIRECTIONS) if sport == "world_basketball" else (PROMPT_FOOTBALL, DIRECTIONS))
+    roles = BB_ROLES if sport in BB_SPORTS else ROLES
     info: dict = {}
     got: dict = {}                                     # fixture id -> (cleaned, via)
     try:
@@ -214,7 +238,7 @@ def scout(fxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] 
                     if ans:
                         break
             for i, f in ans.items():
-                c = clean(f, allowed)
+                c = clean(f, allowed, roles)
                 if c and isinstance(i, int):
                     got[i] = (c, via)
     except Exception as e:  # noqa: BLE001 — the scout must never break the run
@@ -237,16 +261,18 @@ def build(day: str, fxs: list[dict], board_at: Optional[str] = None, **kw) -> di
 
 
 def run(dates: list[str], force: bool = False, ledger_dir: Path = LEDGER_DIR, out_dir: Path = OUT_DIR,
-        news_folder: Optional[Path] = None, fm=None, **kw) -> list[str]:
-    """Scout each date's football and NBA board. Never raises; returns the lines to print."""
+        news_folder: Optional[Path] = None, fm=None, wb_dir: Path = WB_DIR, injuries=None, **kw) -> list[str]:
+    """Scout each date's football, NBA and world-basketball board. Never raises; returns the lines to print.
+    injuries(board, doc) -> {fixture: [names ESPN lists as out]} for NBA (None = ESPN's game page)."""
     if not enabled():
         return ["scout: switched off (SCOUT_ENABLED=0)"]
     lines = []
     for d in dates:
         for sport, src, dst in (("football", f"picks_{d}.json", f"scout_{d}.json"),
-                                ("nba", f"nba_{d}.json", f"scout_nba_{d}.json")):
+                                ("nba", f"nba_{d}.json", f"scout_nba_{d}.json"),
+                                ("world_basketball", f"wb_{d}.json", f"scout_wb_{d}.json")):
             try:
-                path = ledger_dir / src
+                path = (wb_dir if sport == "world_basketball" else ledger_dir) / src
                 if not path.exists():
                     continue
                 board = json.loads(path.read_text(encoding="utf-8"))
@@ -255,7 +281,8 @@ def run(dates: list[str], force: bool = False, ledger_dir: Path = LEDGER_DIR, ou
                 old = json.loads(before) if before else None
                 fresh = old is None or force or old.get("picks_generated_at") != board.get("generated_at")
                 if fresh:                           # one web search per board (evening + morning refresh)
-                    fxs = football_fixtures(board) if sport == "football" else nba_fixtures(board)
+                    fxs = (football_fixtures(board) if sport == "football" else
+                           wb_fixtures(board) if sport == "world_basketball" else nba_fixtures(board))
                     if not fxs:
                         continue
                     doc = build(d, fxs, board_at=board.get("generated_at"), **kw)
@@ -267,15 +294,18 @@ def run(dates: list[str], force: bool = False, ledger_dir: Path = LEDGER_DIR, ou
                     for fx, fresh_news in fotmob_news(board, doc, fm).items():
                         news[fx] = {**(news.get(fx) or {}), "absent": fresh_news["absent"]}
                     n_conf = confirm_doc(doc, news)
+                elif sport == "nba":                 # ESPN's injury report for the game confirms a starter out
+                    n_conf = confirm_bb_doc(doc, (injuries or espn_out)(board, doc))
                 else:
-                    n_conf = 0
+                    n_conf = 0                      # NCAA / world: no injury feed yet, stays unconfirmed (PENDING)
                 if not fresh and json.dumps(doc, indent=1, ensure_ascii=False) == before:
                     continue                        # nothing new: no write, no line
                 out_dir.mkdir(parents=True, exist_ok=True)
                 out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
                 calls = sum(1 for f in doc["fixtures"] if f["direction"] != "none")
                 lines.append(f"scout {sport} {d}: {len(doc['fixtures'])}/{doc['asked']} answered · {calls} calls"
-                             + (f" · {n_conf} absences confirmed by FotMob" if sport == "football" else "")
+                             + (f" · {n_conf} absences confirmed by {'FotMob' if sport == 'football' else 'ESPN'}"
+                                   if sport in ("football", "nba") else "")
                              + ("" if fresh else " (re-checked, no new search)"))
             except Exception as e:  # noqa: BLE001
                 lines.append(f"scout {sport} {d}: failed: {type(e).__name__}: {e}")
@@ -452,6 +482,82 @@ def single_effect(s: dict, out_dir: Optional[Path] = None, before: Optional[str]
         return 0
 
 
+# ---------------------------------------------------------------- basketball confirmation and effect
+def espn_out(board: dict, doc: dict) -> dict:
+    """{fixture: [player names ESPN's game page lists as Out]} for the NBA board. {} per game on any failure."""
+    out: dict = {}
+    try:
+        from data import nba_players as NP
+        by_id = {p.get("home", "") + " v " + p.get("away", ""): p.get("espn_id") for p in board.get("picks") or []}
+        for r in doc.get("fixtures") or []:
+            eid = by_id.get(r.get("fixture"))
+            blob = NP.summary(str(eid), False) if eid else None
+            if blob:
+                out[r["fixture"]] = [i["name"] for lst in NP.injuries(blob).values() for i in lst
+                                     if str(i.get("status", "")).lower() == "out"]
+    except Exception:  # noqa: BLE001
+        pass
+    return out
+
+
+def confirm_bb(rec: dict, out_names: Optional[list], now: Optional[datetime] = None) -> int:
+    """Mark each scout absence the injury feed also lists as Out, with the time first confirmed.
+    out_names None = no feed for this game: nothing changes (PENDING, HR35)."""
+    if out_names is None:
+        return 0
+    n = 0
+    for ab in rec.get("absences") or []:
+        hit = any(same_player(x, ab["player"]) for x in out_names)
+        if hit and ab.get("status") == "out":
+            if not ab.get("confirmed_by"):
+                ab["confirmed_by"], ab["confirmed_at"] = "ESPN", _stamp(now)
+            n += 1
+        elif ab.get("confirmed_by") and not hit:
+            ab["confirmed_by"] = ab["confirmed_at"] = None
+    return n
+
+
+def confirm_bb_doc(doc: dict, news: dict) -> int:
+    return sum(confirm_bb(r, news.get(r.get("fixture")), None) for r in doc.get("fixtures") or [])
+
+
+def bb_pick_effect(market_id: str, outcome_name: str, absences: list[dict], before: Optional[str] = None) -> int:
+    """Basketball twin of pick_effect: +1 a confirmed starter out helps the pick, -1 hurts it, 0 otherwise.
+    A starter out: his side weaker (winner 219 / handicap 223), the game total lower (225). Recorded only."""
+    cut = _t(before)
+    o, mid = str(outcome_name or "").strip().lower(), str(market_id or "")
+    score = 0
+    for ab in absences or []:
+        if not ab.get("confirmed_by") or ab.get("role") != "starter":
+            continue
+        at = _t(ab.get("confirmed_at"))
+        if cut is not None and (at is None or at > cut):
+            continue
+        if mid in ("219", "223"):
+            backs_home = o.startswith("home")
+            if not (backs_home or o.startswith("away")):
+                continue
+            score += -1 if (ab["team"] == "home") == backs_home else +1
+        elif mid == "225":
+            score += +1 if o.startswith("under") else -1 if o.startswith("over") else 0
+    return (score > 0) - (score < 0)
+
+
+def bb_effect_for(pick: dict, day: str, sport: str = "nba", out_dir: Optional[Path] = None,
+                  before: Optional[str] = None) -> int:
+    """The scout's confirmed effect on one NBA / world-basketball pick (board dict). Never raises."""
+    try:
+        if not enabled():
+            return 0
+        name = f"scout_nba_{day}.json" if sport == "nba" else f"scout_wb_{day}.json"
+        doc = json.loads(((out_dir or OUT_DIR) / name).read_text(encoding="utf-8"))
+        fx = f"{pick.get('home')} v {pick.get('away')}"
+        ab = next((r.get("absences") or [] for r in doc.get("fixtures") or [] if r.get("fixture") == fx), [])
+        return bb_pick_effect(pick.get("market_id"), pick.get("outcome"), ab, before)
+    except Exception:  # noqa: BLE001
+        return 0
+
+
 # ---------------------------------------------------------------- grading
 def outcome(sport: str, direction: str, score: str) -> Optional[bool]:
     """Did the direction's outcome happen? score = 'home-away' (football: regular time). None = can't say."""
@@ -475,6 +581,8 @@ def _result_index(sport: str, day: str, ledger_dir: Path) -> dict:
             d = json.loads((ledger_dir / f"picks_{day}.json").read_text(encoding="utf-8"))
             rows = (d.get("rated") or []) + (d.get("singles") or [])
             return {r["fixture"]: r["ft"] for r in rows if r.get("fixture") and r.get("ft")}
+        if sport == "world_basketball":
+            return {}                       # the wb board stores won/lost only, no final score: PENDING (HR35)
         d = json.loads((ledger_dir / f"nba_{day}.json").read_text(encoding="utf-8"))
         return {f"{p['home']} v {p['away']}": p["score"] for p in (d.get("picks") or []) + (d.get("picks_dropped") or [])
                 if p.get("score") and p.get("stage", "regular") == "regular"}

@@ -229,6 +229,47 @@ assert S.pick_effect("SB:29||No", ab) == -1
 assert S.pick_effect("SB:29||No", ab, before="2026-11-04T06:47:00Z") == 0, "board built before the confirmation"
 assert S.pick_effect("SB:29||No", ab, before="2026-11-04T13:00:00Z") == -1
 
+# ── basketball inherits the scout (framework #333): NBA + world basketball / NCAA ──
+wb = {"picks": [{"home": "Olympiacos", "away": "Real Madrid", "comp": "EuroLeague", "ko": "2026-11-06T18:30:00Z"},
+                {"home": "Olympiacos", "away": "Real Madrid", "comp": "EuroLeague"},
+                {"home": "Duke", "away": "Kansas", "comp": "NCAA"}]}
+fx = S.wb_fixtures(wb)
+assert [f["fixture"] for f in fx] == ["Olympiacos v Real Madrid", "Duke v Kansas"] and fx[0]["sport"] == "world_basketball"
+row = {"direction": "home", "confidence": 0.6, "absences": [
+    {"player": "Sasha Vezenkov", "team": "home", "role": "starter", "status": "out"},
+    {"player": "X Keeper", "team": "away", "role": "goalkeeper", "status": "out"}]}
+c = S.clean(row, S.NBA_DIRECTIONS, S.BB_ROLES)
+assert [a["player"] for a in c["absences"]] == ["Sasha Vezenkov"], "football roles dropped for basketball"
+assert S.clean({"direction": "draw", "confidence": 0.5}, S.NBA_DIRECTIONS, S.BB_ROLES) is None
+star = {"player": "Sasha Vezenkov", "team": "home", "role": "starter", "status": "out", "confirmed_by": None}
+rec = {"fixture": "A v B", "absences": [star]}
+assert S.confirm_bb(rec, None) == 0 and star["confirmed_by"] is None, "no feed: PENDING"
+assert S.confirm_bb(rec, ["Other Guy"]) == 0
+assert S.pick_effect("SB:1||Home", [star]) == 0
+assert S.bb_pick_effect("219", "Home", [star]) == 0, "unconfirmed moves nothing"
+assert S.confirm_bb(rec, ["S. Vezenkov"]) == 1 and star["confirmed_by"] == "ESPN"
+assert S.bb_pick_effect("219", "Home", [star]) == -1 and S.bb_pick_effect("219", "Away", [star]) == 1
+assert S.bb_pick_effect("223", "Home (-3.5)", [star]) == -1
+assert S.bb_pick_effect("225", "Under 160.5", [star]) == 1 and S.bb_pick_effect("225", "Over 160.5", [star]) == -1
+assert S.bb_pick_effect("68", "Over 80.5", [star]) == 0, "other markets untouched"
+star["confirmed_at"] = "2026-11-06T12:00:00Z"
+assert S.bb_pick_effect("219", "Home", [star], before="2026-11-06T06:00:00Z") == 0, "board built before confirmation"
+assert S.bb_pick_effect("219", "Home", [{**star, "team": "away"}]) == 1
+assert S.bb_pick_effect("219", "Home", [{**star, "role": "rotation"}]) == 0, "only starters sign"
+with tempfile.TemporaryDirectory() as td:
+    td = Path(td)
+    (td / "scout_wb_2026-11-06.json").write_text(json.dumps({"fixtures": [{"fixture": "Duke v Kansas", "absences": [star]}]}))
+    assert S.bb_effect_for({"home": "Duke", "away": "Kansas", "market_id": "219", "outcome": "Home"},
+                           "2026-11-06", "wb", td) == -1
+    assert S.bb_effect_for({"home": "No", "away": "Game", "market_id": "219", "outcome": "Home"}, "2026-11-06", "wb", td) == 0
+    # run(): the wb board is scouted into scout_wb_<date>.json, offline, with no injury feed
+    wbd, out = td / "wb", td / "out"
+    wbd.mkdir()
+    (wbd / "wb_2026-11-06.json").write_text(json.dumps({**wb, "generated_at": "t"}))
+    lines = S.run(["2026-11-06"], ledger_dir=td, out_dir=out, wb_dir=wbd, keys={}, get=fake_get, post=lambda *a, **k: R({}))
+    assert (out / "scout_wb_2026-11-06.json").exists() or lines, lines
+    assert S.grade(out, td, td / "rec.json") == 0, "wb has no score on its board: stays PENDING"
+
 # ── recorded only: nothing in the scout touches picks, stakes or gates ───────
 src = Path(ROOT, "engine", "scout.py").read_text()
 for banned in ("stake_pct", "assert_paper_only", "variant_selection", "booking_tracker", "constitution"):

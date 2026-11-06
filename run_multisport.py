@@ -28,6 +28,7 @@ ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
 from engine import multisport as ms  # noqa: E402
+from engine import home_edge_shadow as hes  # noqa: E402
 
 import run_hockey as rh  # noqa: E402
 
@@ -62,6 +63,10 @@ def grade(sport: str, now: datetime) -> dict:
     days = [today - timedelta(days=k) for k in range(7, -1, -1)]
     events = ms.results_days(sport, days, today)
     elo = ms.load_elo(sport)
+    shadow_st = hes.load(sport)
+    if sport in hes.EDGE:                       # record-only candidate, scored before the live Elo learns
+        hes.learn(sport, shadow_st, events, elo)
+        hes.save(sport, shadow_st)
     learned = ms.learn(elo, events)
     ms.save_elo(sport, elo)
     n = 0
@@ -73,6 +78,8 @@ def grade(sport: str, now: datetime) -> dict:
             ms.path_for(sport, day).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
             n += k
     sb = ms.scoreboard(ms.load_all(sport), elo)
+    if sport in hes.EDGE:
+        sb["home_edge_shadow"] = hes.summary(sport, shadow_st)
     sb.update({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "games_settled_now": n, "elo_learned_now": learned})
     p = ms.DATA_DIR / sport / "scoreboard.json"
     p.parent.mkdir(parents=True, exist_ok=True)

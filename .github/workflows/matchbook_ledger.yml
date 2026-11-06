@@ -30,8 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
-        # not fatal while framework still holds the data: no key = today's behaviour
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data
@@ -88,7 +86,6 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "Matchbook evidence $(date -u +%Y-%m-%d) [skip ci]" data/matchbook
-          git add data/matchbook || true
           if git diff --staged --quiet; then echo "Matchbook evidence unchanged"; exit 0; fi
           git commit -q -m "Matchbook evidence $(date -u +%Y-%m-%d) [skip ci]"
           if ! git pull --rebase -q origin main; then
@@ -110,7 +107,6 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]" data/sportybet
-          git add data/sportybet || true
           if git diff --staged --quiet; then echo "SportyBet evidence unchanged"; exit 0; fi
           git commit -q -m "SportyBet evidence $(date -u +%Y-%m-%d) [skip ci]"
           if ! git pull --rebase -q origin main; then

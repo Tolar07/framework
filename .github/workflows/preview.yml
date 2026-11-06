@@ -30,7 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data
@@ -84,7 +83,6 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch -q origin main && git reset -q --hard origin/main || { sleep $((attempt * 5)); continue; }
             mkdir -p output/preview && cp -r "$RUNNER_TEMP/preview_keep/." output/preview/
-            git add output/preview
             git diff --staged --quiet && exit 0
             git commit -q -m "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
             git push -q origin HEAD:main && exit 0

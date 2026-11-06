@@ -25,8 +25,6 @@ jobs:
         with:
           ref: main          # the board run commits its board to main
       - name: Check out the private data (Tolar07/framework-data)
-        # not fatal while framework still holds the data: no key = today's behaviour
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data

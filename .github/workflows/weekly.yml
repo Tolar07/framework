@@ -22,8 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
-        # not fatal while framework still holds the data: no key = today's behaviour
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data
@@ -59,7 +57,7 @@ jobs:
           git config user.name "olp-xdv-bot"
           git config user.email "bot@users.noreply.github.com"
           python3 monitor/fdata.py save "ai review $(date -u +%Y-%m-%d) [skip ci]" memory/hypotheses.jsonl memory/strategy_queue.jsonl
-          git add memory/hypotheses.jsonl memory/strategy_queue.jsonl research/RESULTS.md 2>/dev/null || true
+          git add research/RESULTS.md 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -q -m "ai review $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do
@@ -74,7 +72,6 @@ jobs:
           git config user.name "olp-xdv-bot"
           git config user.email "bot@users.noreply.github.com"
           python3 monitor/fdata.py save "CLV scorecard $(date -u +%Y-%m-%d) [skip ci]" output/scorecard/latest.txt
-          git add output/scorecard/latest.txt
           git diff --cached --quiet && exit 0
           git commit -q -m "CLV scorecard $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do

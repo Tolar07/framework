@@ -76,9 +76,10 @@ def test_conflicting_nba_log_and_clv_still_save_the_picks():
         assert "saved to main" in out, out
         main = d / "check"
         git(d, "clone", "-q", "-c", "core.autocrlf=false", str(origin), str(main))
-        assert (main / "output/picks/picks_2026-10-15.json").exists(), "the board's picks reached main"
+        # step D (2026-11-05): picks and NBA looks are private (framework-data via fdata.py), never public main
+        assert not (main / "output/picks/picks_2026-10-15.json").exists(), "the board's picks reached PUBLIC main"
         nba = (main / "output/nba_markets/2026-10-14.jsonl").read_text(encoding="utf-8")
-        assert '"board"' in nba and '"watch"' in nba, f"union kept both sides' NBA looks: {nba}"
+        assert '"board"' not in nba, "this run's NBA looks reached PUBLIC main"
         assert '"board"' in (main / "clv/clv_log.json").read_text(encoding="utf-8"), "this run's CLV log kept"
 
 

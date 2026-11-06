@@ -27,7 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check out the private data (Tolar07/framework-data)
-        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: Tolar07/framework-data

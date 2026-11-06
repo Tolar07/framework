@@ -235,6 +235,19 @@ def book(picks: list[dict]) -> None:
         p["code"] = code
 
 
+def nba_accas(picks: list[dict]) -> list[dict]:
+    """The NBA board's own accas (split_accas, tip-off order) on nights outside the two test nights."""
+    accas = []
+    for i, group in enumerate(split_accas(picks)):
+        code = _book_many([_sel(p) for p in group])
+        odds = 1.0
+        for p in group:
+            odds *= p["price"]
+        accas.append({"name": f"NBA acca {'AB'[i]}", "code": code, "legs": [p["event_id"] for p in group],
+                      "odds": round(odds, 2), "result": None})
+    return accas
+
+
 def _book_many(sels: list[dict]) -> str | None:
     from pipeline.sportybet_booking import create_booking_code
     return create_booking_code(sels)[0]
@@ -479,13 +492,18 @@ def main() -> int:
         run_id = _run_id(now)
         if picks:
             book(picks)
-        accas = basketball_accas(now, night, picks)       # NBA + world basketball, one set (2026-11-06)
+        from engine import world_basketball as wbb
+        test_night = night.isoformat() in wbb.TEST_NIGHTS
+        # the Architect's two test nights (2026-11-06/07): NBA + world basketball on one set, no NBA-only accas;
+        # every other night the NBA board's own accas stand until the basketball board replaces them
+        accas = basketball_accas(now, night, picks) if test_night else nba_accas(picks)
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": None, "accas": [], "basketball_accas": accas,
+                                      "mega_code": None, "accas": [] if test_night else accas,
+                                      "basketball_accas": accas if test_night else [],
                                       "picks": picks,
                                       "picks_dropped": dropped,
                                       "study": study, "players": players}, indent=1),

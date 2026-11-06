@@ -674,4 +674,16 @@ _sp50 = [s["sport"] for s in _ro["sports"]]
 assert _sp50[0] == "ice_hockey" and len(_sp50) == len(set(_sp50)) >= 8, "Order 50: hockey first, 8+ sports"
 assert "Multi-sport rollout" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
 
+# Order 51: the decision layer's caps (Architect 2026-11-06); changing them needs the Architect
+_c51 = _json50.loads((ROOT / "config" / "decision_caps.json").read_text(encoding="utf-8"))
+_sm = _c51["stake_multiplier"]
+assert (_sm["min"], _sm["max"], _sm["step"], _sm["baseline"]) == (0.5, 1.5, 0.25, 1.0), "Order 51: stake x0.5-1.5"
+assert _c51["value_threshold"]["band"] == [0.5, 2.0], "Order 51: value bar 0.5x-2x of default"
+assert _c51["master_switch_var"] == "DECISIONS_AUTO", "Order 51: one switch undoes everything"
+assert (_c51["rollback"]["min_bets_after"], _c51["rollback"]["roi_below"]) == (20, -0.10), "Order 51: undo bar"
+_src51 = (ROOT / "engine" / "decisions.py").read_text(encoding="utf-8")
+for _f in ("ARCHITECT_SIGNOFF =", "CLV_GATE =", "assert_paper_only", "LOSS_STOP"):
+    assert _f not in _src51, f"Order 51: the decision layer must not touch {_f}"
+assert "Decision layer" in (ROOT / "STANDING_ORDERS.md").read_text(encoding="utf-8")
+
 print("standing_orders_test: OK — all Architect standing orders hold")

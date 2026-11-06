@@ -275,9 +275,25 @@ def model_chances(row: dict, elo: dict) -> dict[str, float]:
 
 
 # ── picking ─────────────────────────────────────────────────────────────────────────────────
+_DECISIONS: dict | None = None
+
+
+def _decided_bar(key: str, default: float) -> float:
+    """The value bar the decision layer set for this sport|market (order 51), inside its caps; default if none."""
+    global _DECISIONS
+    try:
+        from engine import decisions as dec
+        if _DECISIONS is None:
+            _DECISIONS = dec.load_state()
+        return dec.value_threshold(_DECISIONS, key, default)
+    except Exception:  # noqa: BLE001 - no decision state = the default bar
+        return default
+
+
 def qualifies(key: str, price: float, p: float) -> float | None:
     value = price * p - 1
     need = MIN_VALUE if split_key(key)[1] in WINNER_MARKETS else LINE_VALUE
+    need = _decided_bar(f"{split_key(key)[0]}|{split_key(key)[1]}", need)   # order 51: the decision layer's bar
     return value if BAND[0] <= price <= BAND[1] and p >= 0.50 and need <= value <= MAX_VALUE else None
 
 

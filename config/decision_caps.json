@@ -1,0 +1,11 @@
+{
+ "_about": "DECISION CAPS (standing order 51; Architect 2026-11-06 05:51 UK: \"stake size ... rung 3 within the range. Market and league versus real money ... handle it. Per market value ... handle it. I can still undo it later ... undo everything\"). The ONLY limits the decision layer (engine/decisions.py) works inside. Changing this file needs the Architect's instruction; tests/standing_orders_test.py guards it. Master undo: repo variable DECISIONS_AUTO=0 returns every decision to its baseline (multiplier 1, nothing moved to paper, default thresholds) on the next run.",
+ "master_switch_var": "DECISIONS_AUTO",
+ "stake_multiplier": {"rung": 3, "baseline": 1.0, "min": 0.5, "max": 1.5, "step": 0.25,
+                      "min_bets": 30, "up_roi": 0.05, "down_roi": -0.10, "cooldown_days": 7},
+ "real_or_paper": {"rung": 3, "min_bets": 30, "to_paper_roi": -0.15, "to_real_roi": 0.05, "cooldown_days": 7},
+ "value_threshold": {"rung": 3, "band": [0.5, 2.0], "min_sides": 50, "candidates": [0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.10],
+                     "cooldown_days": 7},
+ "rollback": {"min_bets_after": 20, "roi_below": -0.10},
+ "never": ["the CLV gate", "ARCHITECT_SIGNOFF", "the capital bright line", "the loss stop / limits switches", "the 6% Kelly cap", "these caps"]
+}

@@ -857,6 +857,60 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
     return "\n".join(out)
 
 
+def decision_inputs(graded: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Graded singles for engine/decisions.py: real ones by bot | market side, the board's paper picks by
+    market side (the evidence a paper group needs to come back)."""
+    from engine import decisions as dec
+    real, paper = [], []
+    for b in graded:
+        if len(b.get("legs") or []) != 1 or b.get("profit") is None:
+            continue
+        key = b["legs"][0].get("key")
+        if b["paper"] and b["bot"] == "board":
+            paper.append({"group": dec.group_of(key), "stake_gbp": 1.0, "profit_gbp": float(b["profit"]),
+                          "date": b["date"]})
+        elif not b["paper"]:
+            real.append({"group": dec.group_of(key, b["bot"]), "stake_gbp": _gbp(b, "stake"),
+                         "profit_gbp": _gbp(b, "profit"), "date": b["date"]})
+    return real, paper
+
+
+def board_sides() -> tuple[dict, dict]:
+    """Graded sides of the hockey / multi-sport boards for the value-bar decisions: {sport|market: [(value, won,
+    price)]} and each market's default bar."""
+    from engine import ice_hockey as ih
+    from engine import multisport as ms
+    sides: dict = defaultdict(list)
+    defaults: dict = {}
+    docs = [("ice_hockey", d) for _day, d in ih.load_all()]
+    docs += [(sp, d) for sp in ms.SPORTS for _day, d in ms.load_all(sp)]
+    for sport, doc in docs:
+        for g in (doc.get("games") or {}).values():
+            for key, s in (g.get("sides") or {}).items():
+                first = s.get("first") or {}
+                if s.get("won") is None or not first.get("fair") or not first.get("price"):
+                    continue
+                mid = key[2:].split("|")[0] if sport == "ice_hockey" else ms.split_key(key)[1]
+                k = f"{sport}|{mid}"
+                p, f = float(first["price"]), float(first["fair"])
+                if not (1.20 <= p <= 2.00 and f >= 0.50):
+                    continue
+                sides[k].append((p * f - 1, int(s["won"]), p))
+                win = mid in (ih.RESULT_MARKETS if sport == "ice_hockey" else ms.WINNER_MARKETS)
+                defaults[k] = (ih.MIN_VALUE if win else ih.LINE_VALUE) if sport == "ice_hockey" else \
+                    (ms.MIN_VALUE if win else ms.LINE_VALUE)
+    return dict(sides), defaults
+
+
+def run_decisions(graded: list[dict], now: datetime) -> dict:
+    from engine import decisions as dec
+    real, paper = decision_inputs(graded)
+    sides, defaults = board_sides()
+    res = dec.run(real, paper, sides, defaults, now)
+    res["line"] = dec.report_line(res)
+    return res
+
+
 def weekly_summary(bets: list[dict], today: str) -> str:
     """Sunday: market sides and rules to switch on or off, from 30 days of grades.
     Suggestions only; nothing here changes what the bots stake."""
@@ -959,9 +1013,22 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append(f"scorecard: {len(card['rows'])} rule/market rows, {len(card['proposals'])} proposals")
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"scorecard not built: {type(e).__name__}")
+    decisions_line = ""
+    try:      # the decision layer (standing order 51): stakes x0.5-1.5, real/paper, value bars; with undo
+        res = run_decisions(graded, now)
+        decisions_line = res["line"]
+        notes.append(f"decisions: {len(res['made'])} made, {len(res['undone'])} undone")
+        if res["undone"] and not dry:
+            send("DECISION UNDONE (automatic)\n" + "\n".join(
+                f"- {d['key']}: back to {d['to']} ({d['evidence'].get('roi_since', 0):+.0%} on "
+                f"{d['evidence'].get('bets_since')} bets since)" for d in res["undone"]))
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"decisions not run: {type(e).__name__}: {str(e)[:80]}")
     due = today if force_report else report_day(now)
     if due:
         text = build_report(graded, due, tally)
+        if decisions_line:
+            text += "\n\n" + decisions_line
         if learning:
             text += "\n\n" + learning
         if scorecard_line:

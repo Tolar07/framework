@@ -1,6 +1,10 @@
 {
  "_about": "Sport parity (Architect 2026-11-05: 'all the things that have been done for football should apply to basketball ... more like an inheritance thing'). Every framework module is listed with what basketball has of it. tests/sport_parity_test.py fails when a module is missing, so a new football feature cannot merge without saying what basketball gets: covers / twin <module> / todo <priority> / shared / n/a <reason>.",
  "modules": {
+  "engine/decisions.py": {
+   "status": "shared",
+   "note": "decision layer (order 51): stakes, real/paper, value bars for every sport and bot inside the caps, with undo"
+  },
   "monitor/connections_check.py": {
    "status": "shared",
    "note": "lists every sport's connection gaps (config/sport_connections.json, Architect 2026-11-06 'no gaps')"

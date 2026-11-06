@@ -60,6 +60,15 @@ def test_elo_learns_and_scores():
     assert p is not None and p > 0.8
 
 
+def test_player_names_meet_flashscore():
+    """SportyBet 'Shelton, Ben' and Flashscore 'Shelton B.' are one Elo key (0 Elo chances before 06-11)."""
+    assert ms.norm("Shelton, Ben") == ms.norm("Shelton B.") == "shelton b"
+    assert ms.norm("De Minaur, Alex") == ms.norm("De Minaur A.")
+    assert ms.norm("Velez Sarsfield") == "velez sarsfield", "teams unchanged"
+    elo = {"ratings": {"shelton b": 1700.0, "paul t": 1500.0}, "games": {"shelton b": 9, "paul t": 9}}
+    assert ms.elo_p(elo, "Shelton, Ben", "Paul, Tommy") > 0.7
+
+
 def test_paper_switch_and_covers():
     for sp in ("american_football", "table_tennis", "tennis", "baseball"):
         assert ms.is_paper(sp, "2026-11-11") and not ms.is_paper(sp, "2026-11-12"), "all live 12 Nov (Architect 06-11)"

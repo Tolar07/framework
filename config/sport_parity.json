@@ -731,6 +731,14 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "output/allsports_board.py": {
+   "status": "covers",
+   "note": "the Betfair board (Architect 06-11): every sport except football, basketball section first (NBA + world + NCAA)"
+  },
+  "run_allsports.py": {
+   "status": "covers",
+   "note": "runner of the Betfair board; basketball is one of its sections"
+  },
   "engine/hockey_league_study.py": {
    "status": "n/a",
    "note": "ice hockey: which leagues beyond the NHL get their own goals model (#338, record only); basketball's leagues are covered by engine/world_basketball.py"

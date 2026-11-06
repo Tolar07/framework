@@ -740,6 +740,10 @@
    "status": "covers",
    "note": "runner of the Betfair board; basketball is one of its sections"
   },
+  "monitor/betfair_check.py": {
+   "status": "covers",
+   "note": "every live Betfair bet, every sport incl. basketball (nba): closing price + wins vs prices"
+  },
   "engine/hockey_league_study.py": {
    "status": "n/a",
    "note": "ice hockey: which leagues beyond the NHL get their own goals model (#338, record only); basketball's leagues are covered by engine/world_basketball.py"

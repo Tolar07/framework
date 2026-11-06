@@ -16,6 +16,22 @@ from pathlib import Path
 from engine import multisport as ms
 
 EDGE = {"rugby": 70.0}      # Elo points added to the home side's rating in the CANDIDATE only
+# Second candidate: per-league home edge (backtest/RUGBY_COMBINED_STUDY.md, held-out 2020-2025 Brier 0.1844 vs 0.1965
+# for the flat +70). Matched on words in the Flashscore league name; any other league keeps the flat edge.
+LEAGUE_EDGE = {"rugby": [("champions", 130.0), ("premiership", 130.0), ("top 14", 200.0), ("urc", 160.0),
+                         ("united rugby", 160.0)]}
+
+
+def league_edge(sport: str, league: str | None) -> float | None:
+    """Per-league edge for this game, the flat edge when the league is unknown, None for a sport with no edge."""
+    base = EDGE.get(sport)
+    if base is None:
+        return None
+    name = (league or "").lower()
+    for key, e in LEAGUE_EDGE.get(sport, []):
+        if key in name:
+            return e
+    return base
 
 
 def path(sport: str) -> Path:
@@ -24,9 +40,13 @@ def path(sport: str) -> Path:
 
 def load(sport: str) -> dict:
     try:
-        return json.loads(path(sport).read_text(encoding="utf-8"))
+        st = json.loads(path(sport).read_text(encoding="utf-8"))
+        for k, v in (("lg_ratings", {}), ("lg_games", {}), ("lg_n", 0), ("lg_live_sq", 0.0), ("lg_sq", 0.0)):
+            st.setdefault(k, v)
+        return st
     except (OSError, ValueError):
-        return {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0}
+        return {"ratings": {}, "games": {}, "seen": [], "n": 0, "live_sq": 0.0, "cand_sq": 0.0,
+                "lg_ratings": {}, "lg_games": {}, "lg_n": 0, "lg_live_sq": 0.0, "lg_sq": 0.0}
 
 
 def save(sport: str, st: dict) -> None:
@@ -60,16 +80,30 @@ def learn(sport: str, st: dict, games: list[dict], live_elo: dict) -> int:
                 st["n"] += 1
                 st["live_sq"] += (pl - y) ** 2
                 st["cand_sq"] += (_p(rh, ra, edge) - y) ** 2
+        # per-league candidate: its own rating table, scored on the games where it AND the live Elo are rated
+        lgE = league_edge(sport, g.get("league"))
+        lh, la = st["lg_ratings"].get(h, ms.ELO_START), st["lg_ratings"].get(a, ms.ELO_START)
+        if st["lg_games"].get(h, 0) >= ms.MIN_GAMES and st["lg_games"].get(a, 0) >= ms.MIN_GAMES:
+            pl = ms.elo_p(live, g["home"], g["away"])
+            if pl is not None:
+                st["lg_n"] += 1
+                st["lg_live_sq"] += (pl - y) ** 2
+                st["lg_sq"] += (_p(lh, la, lgE) - y) ** 2
+        el = _p(lh, la, lgE)
+        st["lg_ratings"][h] = round(lh + ms.ELO_K * (y - el), 2)
+        st["lg_ratings"][a] = round(la - ms.ELO_K * (y - el), 2)
+        st["lg_games"][h] = st["lg_games"].get(h, 0) + 1
+        st["lg_games"][a] = st["lg_games"].get(a, 0) + 1
         e = _p(rh, ra, edge)
         st["ratings"][h] = round(rh + ms.ELO_K * (y - e), 2)
         st["ratings"][a] = round(ra - ms.ELO_K * (y - e), 2)
         st["games"][h] = st["games"].get(h, 0) + 1
         st["games"][a] = st["games"].get(a, 0) + 1
         # keep the live-side copy moving so later games in this batch see the same pre-game live chance
-        lh, la = live["ratings"].get(h, ms.ELO_START), live["ratings"].get(a, ms.ELO_START)
-        eL = _p(lh, la, 0.0)
-        live["ratings"][h] = round(lh + ms.ELO_K * (y - eL), 2)
-        live["ratings"][a] = round(la - ms.ELO_K * (y - eL), 2)
+        vh, va = live["ratings"].get(h, ms.ELO_START), live["ratings"].get(a, ms.ELO_START)
+        eL = _p(vh, va, 0.0)
+        live["ratings"][h] = round(vh + ms.ELO_K * (y - eL), 2)
+        live["ratings"][a] = round(va - ms.ELO_K * (y - eL), 2)
         live["games"][h] = live["games"].get(h, 0) + 1
         live["games"][a] = live["games"].get(a, 0) + 1
         seen.add(gid)
@@ -81,7 +115,11 @@ def learn(sport: str, st: dict, games: list[dict], live_elo: dict) -> int:
 def summary(sport: str, st: dict) -> dict:
     n = st["n"]
     if not n:
-        return {"status": "PENDING", "edge": EDGE.get(sport), "scored": 0}
+        return {"status": "PENDING", "edge": EDGE.get(sport), "scored": 0, "per_league": {"status": "PENDING", "scored": 0}}
     lb, cb = st["live_sq"] / n, st["cand_sq"] / n
+    m = st.get("lg_n", 0)
+    pl = ({"status": "RECORD", "scored": m, "live_brier": round(st["lg_live_sq"] / m, 4),
+           "candidate_brier": round(st["lg_sq"] / m, 4), "candidate_better": st["lg_sq"] < st["lg_live_sq"]}
+          if m else {"status": "PENDING", "scored": 0})
     return {"status": "RECORD", "edge": EDGE.get(sport), "scored": n, "live_brier": round(lb, 4),
-            "candidate_brier": round(cb, 4), "candidate_better": cb < lb}
+            "candidate_brier": round(cb, 4), "candidate_better": cb < lb, "per_league": pl}

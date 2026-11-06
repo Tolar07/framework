@@ -148,7 +148,10 @@ def betfair_line(p: dict, sport: str, bf: dict, now: datetime) -> str:
         return f"Betfair (paper): £{b.get('stake')} @{b.get('price')}{res}"
     if rec.get("paper"):
         q = rec["paper"]
-        why = " (football on paper)" if (q.get("sport") or "football") == "football" else ""
+        why = (f" (no edge at Betfair's price: {q['net_edge']:+.1%} after commission)" if q.get("edge_paper")
+               and isinstance(q.get("net_edge"), (int, float)) else
+               " (no edge at Betfair's price)" if q.get("edge_paper") else
+               " (football on paper)" if (q.get("sport") or "football") == "football" else "")
         return f"Betfair: on paper @{q.get('price')}{why}"
     if rec.get("skip"):
         return f"Betfair: skipped — {str(rec['skip'])[:70]}"

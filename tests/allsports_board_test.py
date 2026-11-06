@@ -42,6 +42,7 @@ def fixture(td: Path) -> tuple[Path, Path, Path]:
         "bets": [{"code": "TN1", "sport": "tennis", "mode": "live", "stake": 1.0, "price": 1.74, "size_matched": 1.0,
                   "avg_price": 1.74, "result": "WON", "pnl": 0.72},
                  {"code": "FB1", "sport": "football", "mode": "live", "stake": 1, "size_matched": 1}],
+        "paper_rules": [{"code": "TN2", "sport": "tennis", "price": 1.42, "edge_paper": True, "net_edge": -0.021}],
         "skipped": {"TN3": "Shelton v Paul: price 1.15 < 1.2"}})
     w(bots / "betfair-agent" / "ledger" / "heartbeat.json", {"wallet": 24.5})
     w(data / "multisport" / "tennis" / "scoreboard.json", {"picks": 3, "won": 2, "pnl": 1.1, "clv_fair_avg": 0.012,
@@ -58,7 +59,7 @@ def test_board_sections_status_and_study_lines():
     assert "1 placed · 1 matched · 1 settled £+0.72 · wallet £24.50" in text, "football bets not counted"
     assert "Ben Shelton v Tommy Paul" in text and "Betfair: matched £1.00 @1.74 · won £+0.72" in text
     assert "Betfair: skipped — Shelton v Paul: price 1.15" in text
-    assert "Betfair: waits (bets from 17:00, 3 h before)" in text, "20:00 UTC = 20:00 UK, window from 17:00"
+    assert "Betfair: on paper @1.42 (no edge at Betfair's price: -2.1% after commission)" in text
     assert "DARTS — 0 picks" in text and "Gerwyn Price v Michael Smith: Home @1.60" in text
     assert "@9.00" not in text, "study lines keep to the pick price range"
     assert "Betfair: — (Betfair lists no table tennis)" in text

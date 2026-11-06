@@ -35,7 +35,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FD = ROOT / ".fdata"
 STATE = FD / ".git" / "olp-fdata-base.json"
-DATA_DIRS = ("output", "memory", "data")
+# backtest/, clv/ and research/ added 2026-11-06 (Architect: the study reports, the CLV log and the research results
+# are private too); their *.py code stays in the public framework like every other folder's.
+DATA_DIRS = ("output", "memory", "data", "backtest", "clv", "research")
 MAX_GONE = 5
 AUTHOR = ("-c", "user.name=olp-xdv-agent",
           "-c", "user.email=olp-xdv-agent@users.noreply.github.com")

@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-06T05:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 58
+Built 2026-11-06T06:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 58
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|

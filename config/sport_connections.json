@@ -1,0 +1,1517 @@
+{
+ "_about": "SPORT CONNECTIONS (Architect 2026-11-06 00:13: 'Everything inherits everything. Just like an organogram where there's a bidirectional connection between everybody ... I don't want any gap where, in case this bot goes live, there is now a gap because the bot did not do certain study or did not learn something or is not connected to one thing'). Every sport x every capability football and basketball have, with where it lives. done = framework file(s) that exist and name the sport; external = another Tolar07 repo; todo = the issue building it and its due date; n/a = the venue does not list the sport (reason). tests/sport_connections_test.py fails when a sport or capability is missing; monitor/connections_check.py lists the gaps and fails the run when a live-blocking gap is still open on or after the sport's live date.",
+ "capabilities": {
+  "board": "daily board of picks with SportyBet codes",
+  "every_side_record": "every side of every market recorded and graded, bet or not (learns from all markets)",
+  "grading": "results settled per market",
+  "clv": "closing-line value on every pick",
+  "model_learning": "the model learns/refits from results",
+  "backtest": "walk-forward backtest written to backtest/",
+  "scout_reasoning": "scout + reasoning step reads each pick",
+  "team_news_lineups": "injuries / line-ups / starting goalie or pitcher flag picks",
+  "experiments": "experiment engine competes strategies on the sport's slot",
+  "self_improvement": "weekly self-improvement loop asks what to do better for the sport",
+  "bot_grader": "every bot bet on the sport graded in the framework sweep",
+  "daily_report": "the sport in the 23:02 UK private report",
+  "whatsapp_mirror": "board and results mirrored on WhatsApp (Tolar07/olp-whatsapp)",
+  "live_tracker": "live tracker follows the sport's picks in play",
+  "oracle_clock": "runs on the Oracle VM clock (matchbook-agent oracle_clock/schedule.json)",
+  "private_data": "data saved to Tolar07/framework-data",
+  "matchbook_paper": "Matchbook bot paper bets on the sport",
+  "matchbook_live": "Matchbook bot stakes the sport (unified rules)",
+  "betfair_paper": "Betfair bot paper bets on the sport",
+  "betfair_live": "Betfair bot stakes the sport (unified rules)",
+  "sportybet_paper": "SportyBet bot paper bets on the sport",
+  "sportybet_live": "SportyBet bot places the sport from booking codes"
+ },
+ "live_blocking": [
+  "matchbook_live",
+  "betfair_live",
+  "sportybet_live"
+ ],
+ "sports": {
+  "football": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "run_daily.py",
+     "output/produce_bet.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/universe.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/picks_ledger.py",
+     "data/flashscore_results.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "news_check.py",
+     "engine/picks_ledger.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/retrain.py",
+     "engine/learning.py"
+    ]
+   },
+   "backtest": {
+    "status": "done",
+    "paths": [
+     "backtest/BOTH_SIDES_STUDY.md",
+     "backtest/MARKET_STUDY.md"
+    ]
+   },
+   "scout_reasoning": {
+    "status": "done",
+    "paths": [
+     "engine/scout.py",
+     "engine/reasoning.py"
+    ]
+   },
+   "team_news_lineups": {
+    "status": "done",
+    "paths": [
+     "engine/team_news.py",
+     "news_check.py"
+    ]
+   },
+   "experiments": {
+    "status": "done",
+    "paths": [
+     "engine/experiments.py"
+    ]
+   },
+   "self_improvement": {
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py"
+    ]
+   },
+   "bot_grader": {
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
+   },
+   "daily_report": {
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
+   },
+   "whatsapp_mirror": {
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py"
+   },
+   "live_tracker": {
+    "status": "done",
+    "paths": [
+     "monitor/live_tracker.py"
+    ]
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "oracle_clock/schedule.json daily.yml"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     "monitor/fdata.py"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/paper.py"
+   },
+   "matchbook_live": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/framework_feed.py"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/challenger.py"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py"
+   },
+   "sportybet_paper": {
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "sportybet/place.py"
+   },
+   "sportybet_live": {
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "sportybet/place.py"
+   }
+  },
+  "basketball": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "run_nba.py",
+     "engine/world_basketball.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/universe.py",
+     "engine/nba_shadow.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "run_nba.py",
+     "monitor/edge_scoreboard.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "run_nba.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/nba_recal.py",
+     "engine/nba_projection.py"
+    ]
+   },
+   "backtest": {
+    "status": "done",
+    "paths": [
+     "backtest/NBA_STUDY.md",
+     "backtest/NCAA_STUDY.md"
+    ]
+   },
+   "scout_reasoning": {
+    "status": "done",
+    "paths": [
+     "engine/scout.py",
+     "engine/reasoning.py"
+    ]
+   },
+   "team_news_lineups": {
+    "status": "done",
+    "paths": [
+     "data/nba_players.py"
+    ]
+   },
+   "experiments": {
+    "status": "done",
+    "paths": [
+     "engine/experiments.py"
+    ]
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12",
+    "note": "self_improve.py does not name basketball"
+   },
+   "bot_grader": {
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
+   },
+   "daily_report": {
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
+   },
+   "whatsapp_mirror": {
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py"
+   },
+   "live_tracker": {
+    "status": "done",
+    "paths": [
+     "monitor/nba_live.py"
+    ]
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "oracle_clock/schedule.json nba_live.yml"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     "monitor/fdata.py"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/paper.py NBA-ALL"
+   },
+   "matchbook_live": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_nba / fetch_wb"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/challenger.py"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "feed.nba_singles / wb_singles"
+   },
+   "sportybet_paper": {
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "sportybet/place.py"
+   },
+   "sportybet_live": {
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "sportybet/place.py wb_"
+   }
+  },
+  "ice_hockey": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/ice_hockey.py",
+     "run_hockey.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/ice_hockey.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/ice_hockey.py",
+     "run_hockey.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/ice_hockey.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/hockey_model.py"
+    ]
+   },
+   "backtest": {
+    "status": "done",
+    "paths": [
+     "backtest/ICE_HOCKEY_STUDY.md"
+    ]
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "ice_hockey.yml (#195)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/ice_hockey.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/hockey.py (#196)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "american_football": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "snooker": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "darts": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "volleyball": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "table_tennis": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "n/a",
+    "reason": "table tennis is not listed on Betfair (catalogue 2026-11-06)"
+   },
+   "betfair_live": {
+    "status": "n/a",
+    "reason": "table tennis is not listed on Betfair (catalogue 2026-11-06)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "cricket": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "rugby": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "tennis": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  },
+  "baseball": {
+   "board": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "every_side_record": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "grading": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py",
+     "run_multisport.py"
+    ]
+   },
+   "clv": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "model_learning": {
+    "status": "done",
+    "paths": [
+     "engine/multisport.py"
+    ]
+   },
+   "backtest": {
+    "status": "todo",
+    "issue": "framework#352",
+    "due": "2026-11-12",
+    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+   },
+   "scout_reasoning": {
+    "status": "todo",
+    "issue": "framework#353",
+    "due": "2026-11-12"
+   },
+   "team_news_lineups": {
+    "status": "todo",
+    "issue": "framework#354",
+    "due": "2026-11-12"
+   },
+   "experiments": {
+    "status": "todo",
+    "issue": "framework#355",
+    "due": "2026-11-12"
+   },
+   "self_improvement": {
+    "status": "todo",
+    "issue": "framework#356",
+    "due": "2026-11-12"
+   },
+   "bot_grader": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "daily_report": {
+    "status": "todo",
+    "issue": "framework#357",
+    "due": "2026-11-12"
+   },
+   "whatsapp_mirror": {
+    "status": "todo",
+    "issue": "olp-whatsapp (framework#358)",
+    "due": "2026-11-12"
+   },
+   "live_tracker": {
+    "status": "todo",
+    "issue": "framework#359",
+    "due": "2026-11-12"
+   },
+   "oracle_clock": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "multisport.yml (#198)"
+   },
+   "private_data": {
+    "status": "done",
+    "paths": [
+     ".github/workflows/multisport.yml"
+    ]
+   },
+   "matchbook_paper": {
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "matchbook_live/multisport.py (#198)"
+   },
+   "matchbook_live": {
+    "status": "todo",
+    "issue": "matchbook-agent#197",
+    "due": "2026-11-12"
+   },
+   "betfair_paper": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py multi_picks + run.py paper_rules (#21)"
+   },
+   "betfair_live": {
+    "status": "external",
+    "repo": "Tolar07/betfair-agent",
+    "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
+   },
+   "sportybet_paper": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12",
+    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+   },
+   "sportybet_live": {
+    "status": "todo",
+    "issue": "sportybet-agent#86",
+    "due": "2026-11-12"
+   }
+  }
+ }
+}

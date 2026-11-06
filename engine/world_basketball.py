@@ -125,11 +125,24 @@ def _book(sel: dict) -> str | None:
         return None
 
 
+def _book_many(sels: list[dict]) -> str | None:
+    """One SportyBet booking code for several selections (an acca). Same rules as _book."""
+    import os
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return None
+    try:
+        from pipeline.sportybet_booking import create_booking_code
+        return create_booking_code(sels)[0]
+    except Exception:  # noqa: BLE001 — not booked: retried on the next look
+        return None
+
+
 def path_for(day: str, folder: Path = OUT_DIR) -> Path:
     return folder / f"wb_{day}.json"
 
 
-def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR, book=_book) -> int:
+def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = OUT_DIR, book=_book,
+           book_many=_book_many) -> int:
     """Freeze a pick for every non-NBA basketball game that newly qualifies. Returns how many."""
     bb = [e for e in events if e.get("_sport") == "basketball"]
     docs: dict[str, dict] = {}
@@ -180,7 +193,60 @@ def update(rows: list[dict], events: list[dict], now: datetime, folder: Path = O
         if doc["picks"]:
             folder.mkdir(parents=True, exist_ok=True)
             path_for(day, folder).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+    night_accas(now, folder, book=book_many)
     return added
+
+
+# ALL-PICKS ACCA (the Architect, 2026-11-06 17:28 UK: "the framework just produces singles for this basketball
+# games ... if it places the single, they should also make an ACCA, you know, all 13 in one [slip] ... and then
+# place it"). A night is tip-offs from 12:00 UTC to 12:00 UTC the next day (the bots' night, sportybet-agent
+# wb_night). From the first look within ACCA_LEAD of the night's first tip-off, every pick with a code that has
+# not started goes on ONE slip, booked once and frozen in acca_<night>.json; the bots place that code. The
+# singles are unchanged. Told before deciding: 13 legs at 54-65% each win about 1 time in 1,000.
+ACCA_LEAD = timedelta(hours=2)
+
+
+def night_of(tip: datetime) -> str:
+    return (tip - timedelta(hours=12)).strftime("%Y-%m-%d")
+
+
+def acca_path(night: str, folder: Path = OUT_DIR) -> Path:
+    return folder / f"acca_{night}.json"
+
+
+def night_accas(now: datetime, folder: Path = OUT_DIR, book=_book_many) -> list[str]:
+    """Book and freeze each night's all-picks acca once it is due. Returns the nights booked now."""
+    nights: dict[str, list[tuple[datetime, dict]]] = {}
+    for _, doc in load_all(folder):
+        for x in doc.get("picks") or []:
+            tip = ex._dt(x.get("tip") or x.get("ko"))
+            if tip is not None and x.get("code") and x.get("outcome_id") and x.get("market_id"):
+                nights.setdefault(night_of(tip), []).append((tip, x))
+    made = []
+    for night, legs in sorted(nights.items()):
+        path = acca_path(night, folder)
+        if path.exists():                                   # frozen: booked once a night
+            continue
+        legs = sorted([(t, x) for t, x in legs if t > now], key=lambda tx: tx[0])
+        if len(legs) < 2 or legs[0][0] - now > ACCA_LEAD:
+            continue
+        sels = [{"eventId": x["event_id"], "marketId": x["market_id"], "specifier": x.get("specifier") or "",
+                 "outcomeId": x["outcome_id"]} for _, x in legs]
+        code = book(sels)
+        if not code:
+            continue                                        # PENDING: retried on the next look
+        odds = chance = 1.0
+        for _, x in legs:
+            odds *= float(x.get("price") or 1.0)
+            chance *= float(x.get("chance") or 0.0)
+        doc = {"night": night, "name": f"Basketball acca (all {len(legs)} picks)", "code": code,
+               "legs": [x["event_id"] for _, x in legs], "codes": [x["code"] for _, x in legs],
+               "odds": round(odds, 2), "chance": round(chance, 5), "first_tip": legs[0][1].get("tip"),
+               "booked_at": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None}
+        folder.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+        made.append(night)
+    return made
 
 
 def load_all(folder: Path = OUT_DIR) -> list[tuple[str, dict]]:

@@ -100,12 +100,58 @@ def test_describe():
     assert wb.describe("B:68|total=80.5|Under 80.5", "A", "B") == "1st half Under 80.5 points"
 
 
+def _pick(i, tip, code="C", price=1.8, chance=0.6):
+    return {"event_id": f"sr:match:{i}", "market_id": "223", "specifier": "hcp=-20.5", "outcome_id": "1715",
+            "code": f"{code}{i}", "price": price, "chance": chance, "tip": tip.strftime("%Y-%m-%dT%H:%M:%SZ")}
+
+
+def test_night_acca_all_picks_once():
+    """Architect 2026-11-06: every pick of the night on ONE slip as well as the singles, booked once
+    from ACCA_LEAD before the night's first tip-off (12:00-12:00 UTC night), started games left off."""
+    n0 = datetime(2026, 11, 6, 19, 0, tzinfo=UTC)
+    first = datetime(2026, 11, 6, 22, 0, tzinfo=UTC)
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        (d / "wb_2026-11-06.json").write_text(json.dumps({"date": "2026-11-06", "picks": [
+            _pick(1, first), _pick(2, first + timedelta(hours=1, minutes=30)),
+            _pick(9, datetime(2026, 11, 6, 9, 0, tzinfo=UTC))]}), encoding="utf-8")     # the night before
+        (d / "wb_2026-11-07.json").write_text(json.dumps({"date": "2026-11-07", "picks": [
+            _pick(3, datetime(2026, 11, 7, 3, 30, tzinfo=UTC)), {**_pick(4, datetime(2026, 11, 7, 2, 0, tzinfo=UTC)),
+                                                                  "code": None},       # no code: not on the slip
+            _pick(5, datetime(2026, 11, 7, 13, 0, tzinfo=UTC))]}), encoding="utf-8")    # the next night
+        seen = []
+        book = lambda s: seen.append(s) or "ACC1"                                           # noqa: E731
+        assert wb.night_accas(n0, d, book=book) == []                                       # 3 h before: not yet
+        assert wb.night_accas(n0 + timedelta(hours=1), d, book=lambda s: None) == []        # booking down: retried
+        assert not (d / "acca_2026-11-06.json").exists()
+        assert wb.night_accas(n0 + timedelta(hours=1), d, book=book) == ["2026-11-06"]
+        a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
+        assert a["code"] == "ACC1" and a["codes"] == ["C1", "C2", "C3"] and a["result"] is None
+        assert a["legs"] == ["sr:match:1", "sr:match:2", "sr:match:3"] and a["odds"] == round(1.8 ** 3, 2)
+        assert seen[0][0] == {"eventId": "sr:match:1", "marketId": "223", "specifier": "hcp=-20.5",
+                              "outcomeId": "1715"}
+        assert wb.night_accas(n0 + timedelta(hours=2), d, book=book) == [] and len(seen) == 1   # frozen
+        late = datetime(2026, 11, 6, 22, 30, tzinfo=UTC)                                    # first game started
+        with tempfile.TemporaryDirectory() as t2:
+            d2 = Path(t2)
+            for f in d.glob("wb_*.json"):
+                (d2 / f.name).write_text(f.read_text(encoding="utf-8"), encoding="utf-8")
+            assert wb.night_accas(late, d2, book=book) == ["2026-11-06"]
+            assert json.loads((d2 / "acca_2026-11-06.json").read_text(encoding="utf-8"))["codes"] == ["C2", "C3"]
+    assert wb.night_of(datetime(2026, 11, 7, 11, 59, tzinfo=UTC)) == "2026-11-06"
+    assert wb.night_of(datetime(2026, 11, 7, 12, 0, tzinfo=UTC)) == "2026-11-07"
+    import os
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        assert wb._book_many([{"eventId": "x"}]) is None                                    # never calls SportyBet here
+
+
 def main() -> None:
     test_picks_value_and_freezes()
     test_skips_nba_far_games_thin_books_and_no_value()
     test_pick_is_bot_ready()
     test_staked_fields_backfill_and_retry()
     test_describe()
+    test_night_acca_all_picks_once()
     print("world_basketball_test OK")
 
 

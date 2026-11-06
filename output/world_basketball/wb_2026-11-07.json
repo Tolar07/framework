@@ -31,6 +31,37 @@
    "event_id": "sr:match:73116028",
    "at": "2026-11-06T01:13Z",
    "result": null
+  },
+  {
+   "sb_event_id": "sr:match:73805926",
+   "country": "USA",
+   "comp": "NCAA, Regular Season",
+   "home": "Georgia Tech Yellow Jackets",
+   "away": "Georgia Southern Eagles",
+   "ko": "2026-11-07T00:00:00Z",
+   "pick": "Georgia Southern Eagles +20.5",
+   "key": "B:223|hcp=-20.5|Away (+20.5)",
+   "price": 1.64,
+   "fair": 0.6508,
+   "value": 0.0673,
+   "source": "espn DraftKings",
+   "line_total": 156.5,
+   "line_spread": -16.5,
+   "market_id": "223",
+   "specifier": "hcp=-20.5",
+   "outcome": "Away (+20.5)",
+   "outcome_id": "1715",
+   "code": "PM64Y2",
+   "venues": {
+    "sportybet": true,
+    "matchbook": true,
+    "betfair_market": true
+   },
+   "chance": 0.6508,
+   "tip": "2026-11-07T00:00:00Z",
+   "event_id": "sr:match:73805926",
+   "at": "2026-11-06T03:22Z",
+   "result": null
   }
  ]
 }

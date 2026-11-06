@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-06T03:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 55
+Built 2026-11-06T03:22Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 55
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -54,8 +54,8 @@ Built 2026-11-06T03:13Z. Edge: 0 strategies ready for the Architect; board singl
 | venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.1% (55) | -2.0% ± 0.3% (55) | 11% |
 | venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.0% (55) | -1.9% ± 0.2% (55) | 11% |
 | venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.5% (55) | -4.4% ± 0.3% (55) | 2% |
-| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +8.0% (12) | -4.7% ± 1.9% (8) | 25% |
-| world basketball: all leagues | 0 | PENDING | PENDING | +8.0% (12) | -4.7% ± 1.9% (8) | 25% |
+| world basketball: NCAA, Regular Season | 0 | PENDING | PENDING | +7.9% (13) | -5.0% ± 2.0% (8) | 25% |
+| world basketball: all leagues | 0 | PENDING | PENDING | +7.9% (13) | -5.0% ± 2.0% (8) | 25% |
 
 ## Promotion (step 7)
 
@@ -107,8 +107,8 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
 | nba market: 68 | COLLECTING (85 of 200) | 85 | -3.5% | — | — |
 | nba: board picks | COLLECTING (92 of 200) | 92 | -3.5% | — | — |
-| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -4.7% | — | — |
-| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -4.7% | — | — |
+| world basketball: NCAA, Regular Season | COLLECTING (0 of 200) | 0 | -5.0% | — | — |
+| world basketball: all leagues | COLLECTING (0 of 200) | 0 | -5.0% | — | — |
 
 ## Residual model (step 6)
 

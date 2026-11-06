@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-06T03:13Z",
+ "built_at": "2026-11-06T03:22Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 55",
  "groups": [
   {
@@ -82,7 +82,7 @@
    "n_entry": 49,
    "gap_entry": -0.0435,
    "n_clv": 49,
-   "clv": -0.0432,
+   "clv": -0.0431,
    "clv_se": 0.0026,
    "beat": 0.0204
   },
@@ -362,7 +362,7 @@
    "n_entry": 23,
    "gap_entry": -0.0575,
    "n_clv": 23,
-   "clv": -0.0577,
+   "clv": -0.0578,
    "clv_se": 0.0047,
    "beat": 0.0
   },
@@ -642,7 +642,7 @@
    "n_entry": 55,
    "gap_entry": -0.0207,
    "n_clv": 55,
-   "clv": -0.0199,
+   "clv": -0.0198,
    "clv_se": 0.0026,
    "beat": 0.1091
   },
@@ -656,7 +656,7 @@
    "n_entry": 55,
    "gap_entry": -0.0202,
    "n_clv": 55,
-   "clv": -0.0194,
+   "clv": -0.0193,
    "clv_se": 0.0025,
    "beat": 0.1091
   },
@@ -681,11 +681,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 12,
-   "gap_entry": 0.0804,
+   "n_entry": 13,
+   "gap_entry": 0.0794,
    "n_clv": 8,
-   "clv": -0.0472,
-   "clv_se": 0.0194,
+   "clv": -0.0495,
+   "clv_se": 0.0197,
    "beat": 0.25
   },
   {
@@ -695,11 +695,11 @@
    "hit": null,
    "roi": null,
    "roi_se": null,
-   "n_entry": 12,
-   "gap_entry": 0.0804,
+   "n_entry": 13,
+   "gap_entry": 0.0794,
    "n_clv": 8,
-   "clv": -0.0472,
-   "clv_se": 0.0194,
+   "clv": -0.0495,
+   "clv_se": 0.0197,
    "beat": 0.25
   }
  ],
@@ -744,7 +744,7 @@
    "name": "board family: Double chance",
    "status": "COLLECTING (90 of 200)",
    "n": 90,
-   "clv": -0.0432,
+   "clv": -0.0431,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": 0.0197
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0577,
+   "clv": -0.0578,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -1104,7 +1104,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0472,
+   "clv": -0.0495,
    "p_value": null,
    "bh_pass": false,
    "roi": null
@@ -1113,7 +1113,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (0 of 200)",
    "n": 0,
-   "clv": -0.0472,
+   "clv": -0.0495,
    "p_value": null,
    "bh_pass": false,
    "roi": null

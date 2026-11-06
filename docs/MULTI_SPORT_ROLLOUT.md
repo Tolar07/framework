@@ -42,21 +42,21 @@ same way `config/sport_parity.json` does for basketball.
 
 ## Calendar
 
-Architect 2026-11-05 23:34: every sport's shadow (paper) practice runs from 5 Nov; live dates stay one a week.
+Architect 2026-11-05 23:34: every sport's shadow (paper) practice runs from 5 Nov; **Amended 2026-11-06 00:01: every sport goes live on 12 Nov** ("they all go live next week").
 Ice hockey: `engine/ice_hockey.py` (NHL goals model). Every other sport: `engine/multisport.py` (Matchbook
 exchange fair price + an Elo model per sport learned from every finished Flashscore game).
 
-| # | Sport | Shadow week | Live from | Model starting point |
+| # | Sport | Shadow | Live from | Model planned (built today: hockey NHL goals model; every other sport Matchbook fair price + Elo) |
 |---|---|---|---|---|
 | 1 | Ice hockey (NHL, SHL, Liiga, NL, DEL, KHL) | 5-11 Nov | 12 Nov | Poisson/Dixon-Coles goals model (3-way 60 min + totals), starting goalie as the key input |
-| 2 | American football (NFL, NCAAF, CFL) | from 5 Nov | 19 Nov | Efficiency ratings (EPA/play), spread/total like basketball handicaps |
-| 3 | Snooker | from 5 Nov | 26 Nov | Player Elo + frame win rate, frame handicaps/totals |
-| 4 | Darts | from 5 Nov | 3 Dec | Player ratings from three-dart average and checkout % |
-| 5 | Volleyball / table tennis (no Setka Cup, TT Cup, Liga Pro, Elite Series) | from 5 Nov | 10 Dec | Set/point win-rate models |
-| 6 | Cricket | from 5 Nov | 17 Dec | Ball-by-ball simulation by format |
-| 7 | Rugby (union + league) | from 5 Nov | 24 Dec | Points model + ratings, handicaps/totals |
-| 8 | Tennis (ATP, WTA, Challenger, ITF) | from 5 Nov | 31 Dec | Surface Elo + serve/return point model |
-| 9 | Baseball (MLB, NPB, KBO, winter leagues) | from 5 Nov | MLB Opening Day | Starting-pitcher model (Statcast) |
+| 2 | American football (NFL, NCAAF, CFL) | from 5 Nov | 12 Nov | Efficiency ratings (EPA/play), spread/total like basketball handicaps |
+| 3 | Snooker | from 5 Nov | 12 Nov | Player Elo + frame win rate, frame handicaps/totals |
+| 4 | Darts | from 5 Nov | 12 Nov | Player ratings from three-dart average and checkout % |
+| 5 | Volleyball / table tennis (no Setka Cup, TT Cup, Liga Pro, Elite Series) | from 5 Nov | 12 Nov | Set/point win-rate models |
+| 6 | Cricket | from 5 Nov | 12 Nov | Ball-by-ball simulation by format |
+| 7 | Rugby (union + league) | from 5 Nov | 12 Nov | Points model + ratings, handicaps/totals |
+| 8 | Tennis (ATP, WTA, Challenger, ITF) | from 5 Nov | 12 Nov | Surface Elo + serve/return point model |
+| 9 | Baseball (MLB, NPB, KBO, winter leagues) | from 5 Nov | 12 Nov | Starting-pitcher model (Statcast) |
 
 Table tennis excludes leagues with known integrity problems (Setka Cup and similar).
 

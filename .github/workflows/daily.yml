@@ -295,7 +295,6 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "daily board $(date -u +%Y-%m-%d) [skip ci]" output/boards output/picks output/nba_ladders output/nba_markets output/nba_shadow memory data/survivor data/european data/cups data/nba_lineups data/sharp
-          git add clv/clv_log.json 2>/dev/null || true
           # Picks ledger (what the board recommended + its graded results).
           # AI Survivor lineage (population + every pick, graded in place).
           # European club results archive (data/european_archive.py).
@@ -303,13 +302,9 @@ jobs:
           # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
           # NBA player box scores + the season log behind the line-up sheets (data/nba_players.py).
           # Every SportyBet NBA market at every look (engine/nba_markets.py) + the NBA studies.
-          git add backtest/NBA_MARKET_STUDY.md backtest/NBA_LADDER_STUDY.md 2>/dev/null || true
-          git add backtest/NBA_PROJECTION_STUDY.md 2>/dev/null || true
           # The NBA shadow board (engine/nba_shadow.py): shadow markets side by side, graded
-          git add backtest/NBA_SHADOW.md backtest/NBA_BLEND_STUDY.md 2>/dev/null || true
           # The parallel sharp-value list and its grades (monitor/sharp_list.py)
           # and the record by price band the board's footer points at (order 3).
-          git add backtest/PRICE_BAND_STUDY.md 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
           # 2026-10-15 (Architect: "fix the conflict ... make sure everything is

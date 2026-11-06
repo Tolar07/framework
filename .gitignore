@@ -155,4 +155,13 @@ c:/
 /data/**
 !/data/**/
 !/data/**/*.py
+/backtest/**
+!/backtest/**/
+!/backtest/**/*.py
+/clv/**
+!/clv/**/
+!/clv/**/*.py
+/research/**
+!/research/**/
+!/research/**/*.py
 # <<< data lives in framework-data

@@ -80,7 +80,7 @@ def test_conflicting_nba_log_and_clv_still_save_the_picks():
         assert not (main / "output/picks/picks_2026-10-15.json").exists(), "the board's picks reached PUBLIC main"
         nba = (main / "output/nba_markets/2026-10-14.jsonl").read_text(encoding="utf-8")
         assert '"board"' not in nba, "this run's NBA looks reached PUBLIC main"
-        assert '"board"' in (main / "clv/clv_log.json").read_text(encoding="utf-8"), "this run's CLV log kept"
+        assert '"board"' not in (main / "clv/clv_log.json").read_text(encoding="utf-8"),             "this run's CLV log reached PUBLIC main (it is private since 2026-11-06)"
 
 
 if __name__ == "__main__":

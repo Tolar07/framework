@@ -56,7 +56,6 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           python3 monitor/fdata.py save "match study + tactical profiles $(date -u +%Y-%m-%d) [skip ci]" data/match_study data/tactics memory/tactics_lessons.json memory/match_study_log.jsonl memory/why_record.jsonl
-          git add backtest/TACTICS_STUDY.md 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "::warning::match study: nothing new"
             exit 0

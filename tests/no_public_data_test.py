@@ -9,11 +9,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ("output/", "memory/", "data/")
+DATA = ("output/", "memory/", "data/", "backtest/", "clv/", "research/")
 
 
 def main() -> int:
-    tracked = subprocess.run(["git", "ls-files", "--", "output", "memory", "data"], cwd=ROOT,  # noqa: S603,S607
+    tracked = subprocess.run(["git", "ls-files", "--", "output", "memory", "data", "backtest", "clv", "research"], cwd=ROOT,  # noqa: S603,S607
                              capture_output=True, text=True, check=True).stdout.split()
     public = [f for f in tracked if not f.endswith(".py")]
     assert not public, f"data tracked in the public framework: {public[:5]}"
@@ -26,7 +26,7 @@ def main() -> int:
         for line in s.splitlines():
             if re.match(r"\s*git add ", line) and "fdata" not in line:
                 toks = line.split("git add ", 1)[1].split()
-                bad = [t for t in toks if t.startswith(DATA)]
+                bad = [t for t in toks if t.startswith(DATA) and not t.endswith(".py")]
                 assert not bad, f"{wf.name}: public git add of data {bad}"
     print("no public data: OK")
     return 0

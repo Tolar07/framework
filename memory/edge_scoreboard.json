@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-05T23:43Z",
+ "built_at": "2026-11-06T00:13Z",
  "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.4% over 54",
  "groups": [
   {
@@ -362,8 +362,8 @@
    "n_entry": 22,
    "gap_entry": -0.0569,
    "n_clv": 22,
-   "clv": -0.0552,
-   "clv_se": 0.0054,
+   "clv": -0.0557,
+   "clv_se": 0.0052,
    "beat": 0.0
   },
   {
@@ -376,7 +376,7 @@
    "n_entry": 54,
    "gap_entry": -0.045,
    "n_clv": 54,
-   "clv": -0.0438,
+   "clv": -0.0439,
    "clv_se": 0.0028,
    "beat": 0.0185
   },
@@ -642,7 +642,7 @@
    "n_entry": 54,
    "gap_entry": -0.0204,
    "n_clv": 54,
-   "clv": -0.0191,
+   "clv": -0.0192,
    "clv_se": 0.0026,
    "beat": 0.1111
   },
@@ -656,8 +656,8 @@
    "n_entry": 54,
    "gap_entry": -0.0199,
    "n_clv": 54,
-   "clv": -0.0186,
-   "clv_se": 0.0024,
+   "clv": -0.0187,
+   "clv_se": 0.0025,
    "beat": 0.1111
   },
   {
@@ -670,7 +670,7 @@
    "n_entry": 54,
    "gap_entry": -0.045,
    "n_clv": 54,
-   "clv": -0.0438,
+   "clv": -0.0439,
    "clv_se": 0.0028,
    "beat": 0.0185
   },
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0552,
+   "clv": -0.0557,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -933,7 +933,7 @@
    "name": "board: football singles",
    "status": "NO EDGE YET",
    "n": 1198,
-   "clv": -0.0438,
+   "clv": -0.0439,
    "p_value": 1.0,
    "bh_pass": false,
    "roi": -0.0346

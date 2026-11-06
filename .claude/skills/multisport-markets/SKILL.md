@@ -1,0 +1,188 @@
+---
+name: multisport-markets
+description: |
+  How the betting markets of the multi-sport rollout work (ice hockey, American football, snooker, darts, volleyball,
+  table tennis, cricket, rugby, tennis, baseball), what moves each price, which model fits each sport's scoring, and the
+  record-only experiments that turn this into better framework prices. Built from practitioner videos, cross-checked,
+  plus the framework's own NFL backtest (framework#373).
+  Use when: improving or judging a multi-sport model (engine/multisport.py, engine/ice_hockey.py, backtest/*_backtest.py),
+  adding a market for one of these sports, choosing how much weight the Elo gets against the exchange price, reading a
+  multi-sport shadow result, or planning work on framework#352-#359.
+  Don't use when: football (soccer) or NBA (use `sports-betting-edge`, which also holds the general CLV / edge / Kelly
+  rules this skill relies on); stock or FX trading (`trading-bot-training`).
+metadata:
+  version: "1.0.0"
+  built: "2026-11-06 with youtube-to-skill (autonomous research mode), Architect: understand the sports, the markets and the betting behind them so we can update our models"
+  sources:
+    - "Thomas Buckland — Building a 5.9% ROI Tennis Totals Model Live (Pinnacle Closing Lines) (https://www.youtube.com/watch?v=T0l9zEjGwHs), 2026-11-06, transcript + 12 frames checked"
+    - "Unabated — Sports Betting Edges Explained & How to Identify Them (https://www.youtube.com/watch?v=CcxbQ58TVms), watched 2026-11-06"
+    - "Unabated — Pro Sports Bettors Don't Pick Winners (https://www.youtube.com/watch?v=KpNwHBJikoM), 2026-11-06"
+    - "Betting Talk — Exploiting bookie mistakes in NHL period moneyline splits (https://www.youtube.com/watch?v=tekaizJuE_M), 2026-11-06"
+    - "OddsJam — How to Bet the NHL (https://www.youtube.com/watch?v=jk-Y8hSgezA), 2026-11-06"
+    - "Sports Betting Education — Using line movement to figure out what the sharps are betting (https://www.youtube.com/watch?v=dH1aAt_6uM8), 2026-11-06"
+    - "Pinnacle / Circles Off — How to Bet on Tennis, the complete introductory guide (https://www.youtube.com/watch?v=voh72lD6RDo), 2026-11-06"
+    - "The Action Network — How To Bet Darts (https://www.youtube.com/watch?v=5laezeG01F8), 2026-11-06"
+    - "Dumpster Darts — Matchplay 1st round betting tips using stats (https://www.youtube.com/watch?v=ddPmNW8bjCg), 2026-11-06"
+    - "Caan Berry Pro Trader — The Cricket Betting Strategy That Actually Works (https://www.youtube.com/watch?v=eZvWUAgShAA), 2026-11-06"
+    - "Outlier — The Sharp Way to Bet First 5 Innings Moneyline (https://www.youtube.com/watch?v=lWAail5Bj_8), 2026-11-06"
+    - "OddsShopper — 5 Golden Rules for Betting MLB (https://www.youtube.com/watch?v=zMaZ0i1vp7s), 2026-11-06"
+    - "Underdog Chance — How My MLB Betting Model Finds Value Bets (https://www.youtube.com/watch?v=vn4c7mSEtDk), 2026-11-06"
+    - "Investor Bet — NRL margin bets (https://www.youtube.com/watch?v=iYhIFCK4v_0), 2026-11-06"
+    - "Bet in Ireland — Snooker betting explained (https://www.youtube.com/watch?v=vA8piHgz0GY) and Rugby betting types (https://www.youtube.com/watch?v=K_qlNZEzC74), 2026-11-06"
+---
+
+# multisport-markets
+
+The framework's multi-sport board prices every new sport the same way: one win-probability Elo (`engine/multisport.py`,
+K 24, 8-game minimum) blended with the exchange's fair price. The videos and our own NFL backtest say that is the weakest
+way to price most of these sports. This skill says what each market actually is and what to test instead.
+
+## Activation rules
+
+- Any change to `engine/multisport.py`, `engine/ice_hockey.py`, `engine/elo.py` as used by a rollout sport, or a new
+  `backtest/<SPORT>_backtest.py`.
+- Choosing the Elo-vs-price blend weight (`ANCHOR`) or an edge bar for a rollout sport.
+- Adding a market for a rollout sport (periods, sets, frames, legs, handicaps, totals, props).
+- Reading a multi-sport shadow scoreboard (`data/multisport/<sport>/scoreboard.json`) or a sport study.
+- Work on framework#352-#359 (backtests, scout/reasoning, team news, experiments, grader, WhatsApp, live tracker).
+
+## Step-by-step
+
+1. **Start top-down, not bottom-up.** For every rollout sport the exchange price (Matchbook, Betfair) is the source of
+   truth. The edge is a slow book (SportyBet) away from that truth, not our Elo beating the sharp price. Originating
+   your own numbers is the hardest path, and practitioners say you can't expect to originate in more than one sport
+   (Unabated "winners" @ 01:33, 02:03; "edges" @ 06:47). Our NFL backtest agrees: on 2016-26 held out, the live rule
+   (25% Elo + 75% price, edge >= 4 pts) **loses 7.2% per bet** at NFL closing prices, and its Brier (0.2119) is worse
+   than the closing price's own (0.2107).
+   - So: before any Elo weight goes above 0 for a sport, it must beat the exchange price on held-out games (Brier and
+     return), every try counted. Default the weight to the price.
+2. **Price the format, not just the winner.** In set/leg/frame/point sports, a player's per-unit edge compounds over the
+   format: the longer the match, the more often the better player wins.
+   - Tennis: betting every Grand Slam (best-of-5) favourite since 2010 was profitable, while every underdog lost about
+     14% (Pinnacle @ 01:32, citing their own blog study).
+   - Darts: underdogs bark in short early-round formats, "in the longer formats those dogs don't bark as much"
+     (Action Network @ 04:09).
+   - Build per unit: p = chance to win one point/leg/frame (or hold/break on serve), then the exact match chance for
+     that format. Best-of-n sets or first-to-n legs: P(win) = sum over k = 0..n-1 of C(n-1+k, k) p^n (1-p)^k for
+     first-to-n. A tennis set needs the hold/break Markov chain with the tiebreak. Then compare with the price.
+   - Applies to: tennis, table tennis (best-of-5/7 games to 11), volleyball (best-of-5 sets to 25/15), darts (legs and
+     sets), snooker (first to n frames).
+2b. **Tennis totals: an under bias, and model the hit rate, not the mean.** On Pinnacle's closing main line 2022-25,
+   overs landed 48.5% at a ~50% no-vig price: blind overs -6.1%, blind unders -0.9% (Bo3 13,072 and Bo5 2,009
+   matches) (Buckland frame @ 05:02, confirmed). The average total beats the line by ~1.2 games yet overs lose: a third
+   set adds 8-13 games, so a few long matches lift the mean (frame @ 05:02, shown only). So grade totals by hit rate
+   and ROI at the taken price, never by mean margin. Clay plays more overs (slower), indoor hard fewest; hot weather
+   leans under vs the market (Buckland @ 06:30, 09:48, said).
+   - **Method that survived a sealed hold-out:** seal the latest year before forming any theory; build theories on
+     the rest; trust no cut under ~1,000 training bets (300-bet cuts at 12-15% ROI are noise); judge each theory
+     against the blind baseline (e.g. blind unders), not zero; look at the hold-out 2-3 times at most (Buckland @ 04:09,
+     09:19, 19:12). His overfit theory went +14% training -> -21% on 2026; the robust one +5.9% -> +6.9% on 272 bets
+     (frame @ 15:05, confirmed). Challenger and WTA versions failed their hold-out (@ 16:24).
+   - The point/serve Markov model "gives you exactly the market" (@ 07:50): use the format model of step 2 to price
+     derived markets and to check slow books against the exchange, not as an edge on its own.
+3. **Ice hockey periods are the reverse of other US sports.** In NFL, NBA, college basketball and MLB the favourite is
+   the biggest favourite early (first half, first quarter, first innings). In the NHL the favourite is the **smallest**
+   favourite in the first period and larger in periods 2 and 3 (Betting Talk @ 00:33-02:06, calculator samples: 57.3%
+   home -> largest edge period 3; 62% -> 1st period only -122, 3rd period -184).
+   - Books that copy the US rule overprice the 1st-period favourite. Example: Colorado -195 full game -> fair 1st-period
+     underdog about +139, a book offered +150 (@ 02:37).
+   - Test: derive the fair per-period price from the exchange's full-game price and grade SportyBet's period prices
+     against it (shadow).
+4. **Baseball: price by the starting pitcher, weighted by his innings.**
+   - First 5 innings (F5) is decided by the two starting pitchers and the top of the line-ups; the bullpen barely
+     matters there (Outlier @ 02:33, 05:41).
+   - Full game: the starter's quality for the innings he usually lasts (about 5-6 now), the bullpen for the rest, each
+     against the opposing line-up's split by pitcher hand; blend the last 30 days with the season (Underdog Chance
+     @ 10:29-14:08).
+   - Park, weather, wind and umpire move totals, and books already price them in; the edge is a pitcher who suits
+     the conditions better than his line implies (OddsShopper @ 01:34-03:06).
+5. **Model margins, not just winners, for handicap and margin markets** (American football, rugby). A win chance
+   says nothing about a -10.5 handicap. Fit the margin distribution (key numbers in the NFL: 3 and 7) and price each
+   band from it. Team "margin trends" from one season are small samples (NRL video @ 01:01-06:15): treat them as
+   hypotheses and count every try.
+6. **Cricket is conditions-first.** Totals depend on venue, pitch type (green helps seam, dusty helps spin, flat
+   helps batting, slow and low is hard to score on) and format (IPL first innings usually 170-190 by venue)
+   (Caan Berry @ 00:35, 02:37-03:08). Price totals per venue and format; cricket is bowler-versus-batter, so the
+   winner market moves on momentum in play.
+7. **Darts and snooker: form and stage.** Use recent averages across the last Players Championships (form) and
+   per-player TV-stage vs floor performance; free data at DartsConnect and dartsoracle.com (Dumpster Darts @ 00:37-02:10,
+   06:57). Snooker markets: match winner, frame handicap, total frames, century, first frame (Bet in Ireland @ 01:36).
+   Both need the format conversion in step 2.
+8. **Timing.** Lines are least efficient early and most efficient at the close (OddsShopper @ 04:08). Sharp books move
+   first; the slow book lags (line-movement video @ 01:02-02:38, a claim). For every rollout sport, record the price
+   at decision, at placement and at close (the CLV split in `sports-betting-edge`). An edge that only exists against
+   an early SportyBet price is a timing edge, and it is lost if the bot places late.
+9. **Write the experiment as record-only.** Each idea above becomes a shadow column graded on the sport's shadow
+   record: walk-forward, every try counted, held-out reporting, 2% commission, PENDING until the sample is big enough
+   (HR35). Promotion follows the shadow-promotion rule; stakes and live switches stay with the Architect.
+
+## Best practices
+
+- Default to the exchange price; let the Elo earn weight on held-out games (Unabated "edges" @ 06:47; framework#373).
+- Price the format: per-unit probability -> exact match probability (Pinnacle @ 01:32; Action Network @ 04:09).
+- In the NHL, check 1st-period favourites at books that apply the US "biggest early" rule (Betting Talk @ 02:37).
+- In MLB, F5 = starting pitchers; full game = innings-weighted starter + bullpen by hand (Outlier @ 02:33;
+  Underdog Chance @ 13:07).
+- Shop every price and record where each bet was available; most of a top-down edge is price (OddsShopper @ 05:40;
+  OddsJam NHL @ 01:32).
+- Small-sample "trends" (team margins, head-to-heads) are hypotheses, never rules (NRL video; Pinnacle @ 02:34 on
+  head-to-head sample size).
+
+## Common mistakes
+
+- **One Elo for every sport.** A win-probability Elo ignores format, serve, pitchers, periods and margins. Spot it
+  when a long-format favourite is priced the same as a short-format one, or when handicap prices are built from a
+  win chance.
+- **Blending in a model that loses to the close.** Spot it in the held-out Brier: model worse than price = weight 0.
+- **Copying the US "biggest favourite early" rule to hockey.** Spot it on 1st-period prices.
+- **Treating park/weather as an edge.** Books price them; only the pitcher-specific interaction is an edge.
+- **Trusting tipster videos.** Most results for volleyball, table tennis and snooker were "99% accuracy" or "fixed
+  match" channels: not sources. Several method videos also sell tools or courses (OddsJam, Outlier, OddsShopper,
+  Underdog Chance, the line-movement tipster): their methods are kept, their claims of profit are not.
+
+## Quality check before a multi-sport model change is trusted
+
+- [ ] Compared with the exchange's fair price on held-out games (Brier and return at that price), not only with a
+      baseline.
+- [ ] Every setting tried is counted and reported; the tuning and test periods don't overlap.
+- [ ] Format, periods, pitchers or margins handled where the sport has them (steps 2-6).
+- [ ] Decision, placement and closing prices recorded (timing).
+- [ ] Record-only until the sample is big enough; no stake, threshold or live switch changed (Architect).
+
+## House rules (OLP XDV)
+
+- Record-only / shadow first; promotion only under the pre-approved shadow-promotion rule with an undo switch.
+- Stakes, edge bars, thresholds, live dates and money rules are the Architect's (the 12 Nov go-live stands; this
+  skill improves the prices, it does not stop or start a sport).
+- HR35 / HR59: a study without data reads PENDING; every number traces to a script run.
+- No steam on money.
+
+## Evidence table
+
+| Claim | Source @ time | Status |
+|---|---|---|
+| Top-down (sharp source of truth vs slow books) is how most winners win; originating is the hardest | Unabated "winners" @ 02:03; "edges" @ 06:47 | said only (two videos, same channel) |
+| Can't expect to originate in more than one sport | Unabated "winners" @ 01:33 | said only |
+| Elo blend loses to the NFL close (-7.2%/bet, Brier 0.2119 vs 0.2107, 2016-26 held out) | framework#373 backtest | confirmed (our data) |
+| Long-format favourites win more: Grand Slam favourites profitable since 2010, underdogs -14% | Pinnacle @ 01:32 | said only (cites a Pinnacle study) |
+| Darts underdogs bark in short formats, less in long | Action Network @ 04:09 | said only; agrees with tennis (independent) |
+| NHL 1st-period favourite is the smallest; books misapply the US rule | Betting Talk @ 01:04-02:37 | said with calculator numbers (frames not viewed) |
+| F5 decided by starting pitchers; bullpen irrelevant for F5 | Outlier @ 02:33, 05:41 | said; agrees with Underdog Chance's innings weighting |
+| Starter weighted by innings pitched, bullpen for the rest, split by hand, 30-day + season blend | Underdog Chance @ 10:29-14:08 | said only (sells the model) |
+| Park/weather priced in; pitcher-condition fit is the edge; lines most efficient at close | OddsShopper @ 01:34-04:08 | said only (sells a tool) |
+| IPL 1st innings usually 170-190 by venue; pitch type drives scoring | Caan Berry @ 00:35, 02:37 | said only (promotes a betting platform) |
+| Team margin bands from one NRL season | Investor Bet @ 01:01-06:15 | said only, small samples (hypothesis) |
+| Tennis totals under bias at the Pinnacle close (over -6.1%, under -0.9%, 2022-25) | Buckland frame @ 05:02 | confirmed (said + shown) |
+| Mean total beats the line yet overs lose (skewed distribution: model hit rate) | Buckland frame @ 05:02 | shown only |
+| Overfit cut +14% -> -21% on sealed 2026; robust cut +5.9% -> +6.9% (272 bets) | Buckland frame @ 15:05 | confirmed |
+| Trust no cut under ~1,000 bets; compare to the blind baseline; 2-3 hold-out looks max | Buckland @ 09:19, 19:12 | said only |
+| A point/serve Markov model reproduces the market | Buckland @ 07:50 | said only; **qualifies** step 2 (format model = pricing tool, not an edge by itself) |
+| "Never devig a line" | Buckland @ 05:03 | **contradicted** by our practice of devigging for a fair chance: both hold. Judge a bet by its ROI at the price actually taken; devig only to read the market's chance |
+| Volleyball / table tennis betting methods | (none credible found) | not used |
+
+**Not checked in this version:** four method videos were blocked by YouTube rate limits (Circles Off "How Sharp
+Bettors Turn a Projection Into a Price", OddsJam NFL models, Bet Angel tennis, Smart Betting Club with Ed Hawkins on
+cricket). Frames were viewed only for the Buckland tennis video (12 frames); the others are transcript-only. Next
+version: add the four and frame-check the NHL calculator numbers. Data sources named: bettingiscool (Pinnacle closing
+lines, tennis), OnCourt (tennis database, paid), DartsConnect and dartsoracle.com (darts), Cricsheet (cricket), nflverse
+(NFL closing lines), Retrosheet (MLB results).

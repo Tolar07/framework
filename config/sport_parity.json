@@ -211,6 +211,10 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "engine/nba_absence_impact.py": {
+   "status": "covers",
+   "note": "handles basketball itself: NBA absence impact, twin of squad_depth (framework #330)"
+  },
   "engine/nba_team_news.py": {
    "status": "covers",
    "note": "handles basketball itself: NBA injury report per pick (framework #329)"
@@ -299,9 +303,9 @@
    "note": "football shots on target"
   },
   "engine/squad_depth.py": {
-   "status": "todo",
-   "note": "does an NBA absence really hurt THIS pick (minutes share, on/off: backtest/NBA_ONOFF_STUDY.md)",
-   "priority": 1
+   "status": "twin",
+   "note": "does an NBA absence really hurt: already-out and rotation weights, priced-in line move, record-only (framework #330)",
+   "basketball": "engine/nba_absence_impact.py"
   },
   "engine/squad_profile.py": {
    "status": "todo",

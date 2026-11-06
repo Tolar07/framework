@@ -660,10 +660,14 @@
    "status": "shared",
    "note": "/routines covers every workflow"
   },
+  "output/telegram_nba.py": {
+   "status": "covers",
+   "note": "the basketball side of the Telegram commands itself"
+  },
   "output/telegram_commands.py": {
-   "status": "todo",
-   "note": "/board, /why, /status must show the NBA board and world-basketball picks",
-   "priority": 1
+   "status": "twin",
+   "note": "/board nba, /board basketball, /why nba <n>, and an NBA block in /status",
+   "basketball": "output/telegram_nba.py"
   },
   "pipeline/odds.py": {
    "status": "twin",

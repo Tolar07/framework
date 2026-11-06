@@ -22,10 +22,10 @@ SECURITY MODEL — read this before extending it
      the same reasoning that put the phase gate in code rather than in prose.
 
 COMMANDS
-  /board     re-send today's board
+  /board     re-send today's board; /board nba = tonight's NBA board, /board basketball = world + NCAA picks
   /status    Phase 3 gate progress
   /verify    yesterday's graded results
-  /why <n>   full reasoning for fixture n on today's board
+  /why <n>   full reasoning for fixture n on today's board; /why nba <n> = an NBA pick (chance, blend, record)
   /log       Home v Away | Market | price [| YYYY-MM-DD]  -> CL-LIVE paper leg (HR46)
   /note      free text                          -> corrections log (blueprint 2.7)
   /debrief   full framework status
@@ -57,6 +57,7 @@ except ImportError:
 from config import PHASE, PHASE_LABEL, PAPER_PHASE, CAPITAL_ENABLED
 from clv.clv_logger import CLVLog
 from output.notify import send_telegram, HONEST_CAVEAT
+from output import telegram_nba as _nba
 
 STATE_DIR = Path(__file__).parent.parent / "memory"
 OFFSET_FILE = STATE_DIR / "telegram_offset.json"
@@ -138,10 +139,15 @@ def cmd_status(_: str) -> str:
         "A leg only counts once its CLOSING price exists, which is after the "
         "match. Legs logged today will count tomorrow.",
     ]
-    return "\n".join(lines)
+    return "\n".join(lines + [_nba.nba_status()])
 
 
-def cmd_board(_: str) -> str:
+def cmd_board(arg: str = "") -> str:
+    sport, _rest = _nba.split_sport(arg)
+    if sport == "nba":
+        return _nba.nba_board(BOARD_DIR)
+    if sport == "basketball":
+        return _nba.world_board()
     p = BOARD_DIR / f"board_{date.today().isoformat()}.txt"
     if not p.exists():
         boards = sorted(BOARD_DIR.glob("board_*.txt"))
@@ -163,9 +169,12 @@ def cmd_verify(_: str) -> str:
 
 def cmd_why(arg: str) -> str:
     """Full stacked block for one fixture on today's board."""
+    sport, rest = _nba.split_sport(arg)
+    if sport == "nba":
+        return _nba.explain(rest)
     arg = arg.strip()
     if not arg.isdigit():
-        return "Usage: /why 2   (the number of a fixture in PART 1)"
+        return "Usage: /why 2   (the number of a fixture in PART 1; /why nba 2 for an NBA pick)"
     text = cmd_board("")
     marker = f"\n{arg}. "
     if marker not in text:

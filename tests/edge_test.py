@@ -223,17 +223,23 @@ def test_world_basketball_graded_like_nba():
         results = {"e1": {"__res__": {"h": 80, "a": 70}},            # away +20.5 covers
                    "e2": {"__res__": {"h": 70, "a": 70}}}            # 140 < 150.5: lost; e3 not finished
         obs = {"2026-11-07": {"events": {"e1": {"k": {"B:223|hcp=-20.5|Away (+20.5)": {"p1": 0.6}}}}}}
-        assert sc.grade_wb(obs, results, d) == 2
+        assert sc.grade_wb(obs, results, d, picks_dir=d) == 2
         got = json.loads((d / "wb_2026-11-07.json").read_text(encoding="utf-8"))["picks"]
         assert [(p["result"], p.get("score")) for p in got] == [("won", "80-70"), ("lost", "70-70"), (None, None)]
         assert got[0]["close_value"] == round(0.6 * 1.8 - 1, 4) and got[1]["close_value"] is None
         a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
         assert (a["result"], [x["result"] for x in a["accas"]]) == ("lost", ["lost", "lost", None])
         results["e3"] = {"__res__": {"h": 75, "a": 70}}                # 145 > 140.5: won
-        assert sc.grade_wb(obs, results, d) == 1
+        assert sc.grade_wb(obs, results, d, picks_dir=d) == 1
         a = json.loads((d / "acca_2026-11-06.json").read_text(encoding="utf-8"))
         assert [x["result"] for x in a["accas"]] == ["lost", "lost", "won"]
-        assert sc.grade_wb(obs, results, d) == 0                        # graded once
+        assert sc.grade_wb(obs, results, d, picks_dir=d) == 0           # graded once
+        (d / "acca_2026-11-07.json").write_text(json.dumps(                # one set: NBA + world legs
+            {"night": "2026-11-07", "legs": ["n1", "e3"], "result": None}), encoding="utf-8")
+        (d / "nba_2026-11-08.json").write_text(json.dumps({"picks": [{"event_id": "n1", "result": "won"}]}),
+                                               encoding="utf-8")
+        sc.grade_wb(obs, results, d, picks_dir=d)
+        assert json.loads((d / "acca_2026-11-07.json").read_text(encoding="utf-8"))["result"] == "won"
 
 
 def main() -> None:

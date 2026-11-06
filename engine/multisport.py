@@ -213,7 +213,16 @@ def load_elo(sport: str) -> dict:
 
 
 def norm(name: str) -> str:
-    return ex.norm(name or "")
+    """One key per player or team for Elo. SportyBet writes players 'Shelton, Ben'; Flashscore (which Elo
+    learns from) writes 'Shelton B.' (key 'shelton b'). Before 2026-11-06 SportyBet's form became
+    'shelton ben', so no player was ever found and Elo gave 0 chances on every board. Team names (no
+    comma) are unchanged."""
+    s = name or ""
+    if s.count(",") == 1:
+        last, first = (x.strip() for x in s.split(","))
+        first = ex.norm(first)
+        return f"{ex.norm(last)} {first[:1]}".strip()
+    return ex.norm(s)
 
 
 def elo_p(elo: dict, home: str, away: str) -> float | None:

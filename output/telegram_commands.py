@@ -22,7 +22,9 @@ SECURITY MODEL — read this before extending it
      the same reasoning that put the phase gate in code rather than in prose.
 
 COMMANDS
-  /board     re-send today's board; /board nba = tonight's NBA board, /board basketball = world + NCAA picks
+  /board     re-send today's board; /board nba = tonight's NBA board, /board basketball = world + NCAA picks;
+             /board allsports = the Betfair board (every sport except football); /board tennis (hockey, darts ...)
+             = one sport's full list
   /status    Phase 3 gate progress
   /verify    yesterday's graded results
   /why <n>   full reasoning for fixture n on today's board; /why nba <n> = an NBA pick (chance, blend, record)
@@ -143,6 +145,13 @@ def cmd_status(_: str) -> str:
 
 
 def cmd_board(arg: str = "") -> str:
+    from output import allsports_board as _ab      # the Betfair board: every sport except football (06-11)
+    a = (arg or "").strip().lower()
+    if a in ("allsports", "all", "betfair", "sports"):
+        return _ab.latest()
+    one = _ab.sport_alias(a)
+    if one and one != "basketball":
+        return _ab.render(datetime.now(_ab.UK).date().isoformat(), only=one)[:_ab.MAX_CHARS]
     sport, _rest = _nba.split_sport(arg)
     if sport == "nba":
         return _nba.nba_board(BOARD_DIR)

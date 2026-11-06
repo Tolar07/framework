@@ -750,6 +750,10 @@
   "monitor/betfair_check.py": {
    "status": "covers",
    "note": "every live Betfair bet, every sport incl. basketball (nba): closing price + wins vs prices"
+  },
+  "engine/basketball_board.py": {
+   "status": "covers",
+   "note": "basketball's own football-style board: NBA + every league, singles / 50+ / CLV accas / accas / megas / value, same-window slips, all staked (Architect 2026-11-06 19:06, #403)"
   }
  },
  "basketball_gaps": [

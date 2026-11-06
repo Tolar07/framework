@@ -235,17 +235,22 @@ def book(picks: list[dict]) -> None:
         p["code"] = code
 
 
-def nba_accas(picks: list[dict]) -> list[dict]:
-    """The NBA board's own accas (split_accas, tip-off order) on nights outside the two test nights."""
-    accas = []
-    for i, group in enumerate(split_accas(picks)):
-        code = _book_many([_sel(p) for p in group])
-        odds = 1.0
-        for p in group:
-            odds *= p["price"]
-        accas.append({"name": f"NBA acca {'AB'[i]}", "code": code, "legs": [p["event_id"] for p in group],
-                      "odds": round(odds, 2), "result": None})
-    return accas
+def basketball_board(now: datetime, night: date, picks: list[dict], book_many=None,
+                     folder: Path | None = None, wb_folder: Path | None = None) -> dict | None:
+    """The night's basketball board (engine/basketball_board.py): NBA picks + every world basketball / NCAA
+    pick of the NBA night, every football section, booked once and frozen in basketball_<night>.json."""
+    from engine import basketball_board as bbd
+    from engine import world_basketball as wbb
+    start = night_start(night)
+    wb_docs = [doc for _d, doc in wbb.load_all(**({"folder": wb_folder} if wb_folder else {}))]
+    return bbd.make(now, night.isoformat(), start, start + timedelta(hours=24), picks, wb_docs,
+                    book_many or _book_many, **({"folder": folder} if folder else {}))
+
+
+def _board_slips(board: dict | None) -> list[dict]:
+    from engine import basketball_board as bbd
+    return [{"name": s["name"], "code": s.get("code"), "legs": s["legs"], "odds": s["odds"]}
+            for s in (bbd.slips(board) if board else [])]
 
 
 def _book_many(sels: list[dict]) -> str | None:
@@ -494,16 +499,22 @@ def main() -> int:
             book(picks)
         from engine import world_basketball as wbb
         test_night = night.isoformat() in wbb.TEST_NIGHTS
-        # the Architect's two test nights (2026-11-06/07): NBA + world basketball on one set, no NBA-only accas;
-        # every other night the NBA board's own accas stand until the basketball board replaces them
-        accas = basketball_accas(now, night, picks) if test_night else nba_accas(picks)
+        # the Architect's two test nights (2026-11-06/07): the all + 2 halves test slips; no NBA-only accas
+        # on any night since the basketball board (below) carries basketball's accas
+        accas = basketball_accas(now, night, picks) if test_night else []
+        # THE BASKETBALL BOARD (Architect 2026-11-06 19:06, framework #403): NBA + every league as one sport,
+        # every football section, booked with this morning board. It replaces the NBA-only accas.
+        bboard = basketball_board(now, night, picks)
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
+        if bboard:
+            from engine import basketball_board as bbd
+            text = text.rstrip("\n") + "\n\n" + "\n".join(bbd.render(bboard))
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": None, "accas": [] if test_night else accas,
-                                      "basketball_accas": accas if test_night else [],
+                                      "mega_code": None, "accas": [],
+                                      "basketball_accas": accas + _board_slips(bboard),
                                       "picks": picks,
                                       "picks_dropped": dropped,
                                       "study": study, "players": players}, indent=1),

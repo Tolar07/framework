@@ -348,6 +348,7 @@ def grade_wb(obs: dict, results: dict, folder: Path | None = None, picks_dir: Pa
     thing ... inherit all its attributes of NBA"). Like run_nba.grade / grade_accas, every world basketball /
     NCAA pick gets its result, score and closing value written into its own wb_<date>.json, and each night's
     accas (acca_<night>.json) are won when every leg won, lost as soon as one leg lost. Returns picks graded."""
+    from engine import basketball_board as bbd  # the basketball board's slips (#403) too
     from engine import world_basketball as wbb
     folder = folder or wbb.OUT_DIR
     graded, res_by_event = 0, {}
@@ -380,13 +381,18 @@ def grade_wb(obs: dict, results: dict, folder: Path | None = None, picks_dir: Pa
             graded, changed = graded + 1, True
         if changed:
             wbb.path_for(day, folder).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
-    for f in sorted(folder.glob("acca_*.json")) if folder.exists() else []:
+    files = [(f, lambda d: [d, *(d.get("accas") or [])])
+             for f in (sorted(folder.glob("acca_*.json")) if folder.exists() else [])]
+    pdir = picks_dir or PICKS_DIR
+    files += [(f, lambda d: [s for sec in bbd.SECTIONS for s in d.get(sec) or []])
+              for f in (sorted(pdir.glob("basketball_20*.json")) if pdir.exists() else [])]
+    for f, slips_of in files:
         try:
             doc = json.loads(f.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             continue
         changed = False
-        for a in [doc, *(doc.get("accas") or [])]:
+        for a in slips_of(doc):
             if a.get("result") or not a.get("legs"):
                 continue
             legs = [res_by_event.get(e) for e in a["legs"]]

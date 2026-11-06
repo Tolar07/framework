@@ -80,8 +80,7 @@ def text(d: dict) -> str:
         for s in slips:
             L.append(f"  {s['name']} {s['code']} @{s['odds']}: {s['result'].upper()}  "
                      + "; ".join(f"{x['leg'].split(':')[0]} {x.get('score') or ''} {x['result']}" for x in s["legs"]))
-    return "
-".join(L)
+    return "\n".join(L)
 
 
 if __name__ == "__main__":

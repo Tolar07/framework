@@ -4,14 +4,14 @@ p = w × sharp-line model + (1 − w) × SportyBet fair (margin removed). w lear
 
 | Group | w used | w fitted | outcomes learn / test | log loss model · blend · SportyBet | picks, model only | picks, blend | |
 |---|---:|---:|---|---|---|---|---|
-| 1st half handicap | 0.00 | 0.00 | 1206 / 1452 | 0.6708 · 0.6679 · 0.6679 | 2 · +0.0% ± 100.0% | — | blend beats the model on the later half |
-| 1st half total | 1.00 | 0.45 | 1206 / 1452 | 0.6671 · 0.6684 · 0.6788 | 63 · +4.9% ± 12.3% | 22 · +24.0% ± 20.5% | model alone holds |
-| 1st quarter total | 1.00 | — | — | — | — | — | too few outcomes (110 / 132) |
-| 2nd half | 0.40 | 0.40 | 2288 / 2728 | 0.7130 · 0.6906 · 0.6801 | 58 · -22.9% ± 12.6% | 1 · -100.0% | blend beats the model on the later half |
-| handicap | 0.00 | 0.00 | 2866 / 3440 | 0.6031 · 0.5960 · 0.5960 | 4 · -55.2% ± 44.8% | — | blend beats the model on the later half |
-| quarter handicap | 1.00 | 0.00 | 2200 / 2640 | 0.6862 · 0.6869 · 0.6869 | 5 · +15.0% ± 47.0% | — | model alone holds |
-| quarter total Q2-Q4 | 0.00 | 0.00 | 298 / 356 | 0.7035 · 0.6940 · 0.6940 | 116 · -1.8% ± 8.9% | — | blend beats the model on the later half |
-| team period points | 0.65 | 0.65 | 2200 / 2640 | 0.6780 · 0.6778 · 0.6836 | 171 · +0.3% ± 7.4% | 75 · +16.6% ± 11.1% | blend beats the model on the later half |
-| team total | 0.70 | 0.70 | 1100 / 1320 | 0.6942 · 0.6927 · 0.6895 | — | — | blend beats the model on the later half |
-| total | 1.00 | 1.00 | 3080 / 3696 | 0.6359 · 0.6359 · 0.6348 | — | — | model alone holds |
-| winner | 1.00 | — | — | — | — | — | too few outcomes (110 / 132) |
+| 1st half handicap | 0.00 | 0.00 | 1228 / 1474 | 0.6699 · 0.6671 · 0.6671 | 2 · +0.0% ± 100.0% | — | blend beats the model on the later half |
+| 1st half total | 1.00 | 0.35 | 1228 / 1474 | 0.6584 · 0.6657 · 0.6768 | 64 · +9.4% ± 12.2% | 1 · +100.0% | model alone holds |
+| 1st quarter total | 1.00 | — | — | — | — | — | too few outcomes (112 / 134) |
+| 2nd half | 0.50 | 0.50 | 2332 / 2772 | 0.7105 · 0.6907 · 0.6764 | 59 · -24.4% ± 12.4% | 11 · -47.0% ± 27.4% | blend beats the model on the later half |
+| handicap | 0.00 | 0.00 | 2918 / 3492 | 0.6081 · 0.6015 · 0.6015 | 4 · -55.2% ± 44.8% | — | blend beats the model on the later half |
+| quarter handicap | 1.00 | 0.00 | 2240 / 2680 | 0.6866 · 0.6876 · 0.6876 | 5 · +15.0% ± 47.0% | — | model alone holds |
+| quarter total Q2-Q4 | 0.00 | 0.00 | 304 / 360 | 0.7022 · 0.6938 · 0.6938 | 116 · -0.3% ± 8.8% | — | blend beats the model on the later half |
+| team period points | 1.00 | 0.50 | 2240 / 2680 | 0.6737 · 0.6762 · 0.6834 | 175 · +4.6% ± 7.3% | 16 · +22.0% ± 24.4% | model alone holds |
+| team total | 1.00 | 1.00 | 1120 / 1340 | 0.6928 · 0.6928 · 0.6885 | — | — | model alone holds |
+| total | 1.00 | 1.00 | 3136 / 3752 | 0.6333 · 0.6333 · 0.6324 | — | — | model alone holds |
+| winner | 1.00 | — | — | — | — | — | too few outcomes (112 / 134) |

@@ -2,76 +2,76 @@
 
 Each game's last look before tip-off, every outcome settled from ESPN's final and quarter scores. *Landed* = how often it won; *fair* = SportyBet's own chance (its prices, margin removed); *return* = £1 flat on every outcome at SportyBet's price. Landed above fair on a side = SportyBet under-prices it. Written by `backtest/nba_market_study.py`. A study, not a selector.
 
-Games with a look: 176 · graded (ESPN final): 174
+Games with a look: 185 · graded (ESPN final): 176
 
 ## Regular
 
 | Market | outcomes | landed | fair | return | short side (<2.00): n · landed · fair · return | long side (≥2.00): n · landed · fair · return |
 |---|---:|---:|---:|---:|---|---|
-| Player points N+ | 27871 | 21.1% | 30.3% | -44.8% | 5827 · 54.0% · 64.8% · -16.7% | 22044 · 12.4% · 21.2% · -52.2% |
-| Player rebounds N+ | 13141 | 23.0% | 30.5% | -37.7% | 2898 · 57.9% · 66.1% · -12.4% | 10243 · 13.2% · 20.4% · -44.9% |
-| Player assists N+ | 8405 | 30.7% | 40.7% | -33.9% | 2826 · 62.7% · 73.6% · -15.3% | 5579 · 14.4% · 24.1% · -43.4% |
-| Player 3-pointers N+ | 7158 | 18.8% | 27.0% | -47.8% | 1128 · 55.4% · 65.8% · -16.2% | 6030 · 11.9% · 19.8% · -53.7% |
-| Total points (incl. OT) | 6534 | 50.0% | 50.0% | -3.5% | 3468 · 63.7% · 63.3% · -3.1% | 3066 · 34.5% · 35.0% · -4.0% |
-| Handicap (incl. OT) | 6306 | 50.0% | 50.0% | -5.9% | 3298 · 69.1% · 67.7% · -2.0% | 3008 · 29.0% · 30.6% · -10.2% |
-| Player points O/U | 3302 | 50.0% | 50.0% | -7.4% | 3208 · 50.1% · 50.1% · -7.4% | 94 · 46.8% · 45.7% · -4.9% |
-| Player rebounds O/U | 3124 | 50.0% | 50.0% | -7.7% | 2219 · 53.0% · 52.3% · -6.4% | 905 · 42.7% · 44.3% · -10.9% |
-| Player 3-pointers O/U | 2744 | 50.0% | 50.0% | -7.6% | 1708 · 55.5% · 55.1% · -6.8% | 1036 · 40.9% · 41.5% · -8.9% |
-| 1st half total | 2658 | 50.0% | 50.0% | -4.3% | 1468 · 56.5% · 57.8% · -6.9% | 1190 · 42.0% · 40.4% · -1.0% |
-| 1st half handicap | 2658 | 50.0% | 50.0% | -4.4% | 1467 · 57.6% · 58.3% · -5.9% | 1191 · 40.6% · 39.8% · -2.7% |
-| Player assists O/U | 2590 | 50.0% | 50.0% | -7.9% | 1743 · 54.6% · 53.2% · -5.3% | 847 · 40.6% · 43.4% · -13.4% |
-| 2nd half total (reg.) | 2508 | 50.0% | 50.0% | -5.2% | 1476 · 54.1% · 56.7% · -10.5% | 1032 · 44.1% · 40.4% · +2.4% |
-| 2nd half handicap (reg.) | 2508 | 50.0% | 50.0% | -4.9% | 1384 · 58.7% · 58.7% · -4.9% | 1124 · 39.3% · 39.3% · -4.9% |
-| Home team points (incl. OT) | 1210 | 50.0% | 50.0% | -4.8% | 742 · 53.4% · 53.3% · -4.7% | 468 · 44.7% · 44.8% · -5.1% |
-| Away team points (incl. OT) | 1210 | 50.0% | 50.0% | -4.2% | 742 · 52.3% · 53.4% · -6.4% | 468 · 46.4% · 44.7% · -0.8% |
-| Quarter handicap Q4 | 1210 | 50.0% | 50.0% | -4.0% | 700 · 53.6% · 55.1% · -7.2% | 510 · 45.1% · 43.0% · +0.4% |
-| Quarter handicap Q3 | 1210 | 50.0% | 50.0% | -5.0% | 711 · 55.4% · 54.7% · -3.6% | 499 · 42.3% · 43.3% · -7.0% |
-| Quarter handicap Q2 | 1210 | 50.0% | 50.0% | -4.6% | 717 · 53.7% · 54.6% · -6.3% | 493 · 44.6% · 43.3% · -2.1% |
-| Quarter handicap Q1 | 1210 | 50.0% | 50.0% | -5.2% | 736 · 53.3% · 54.4% · -7.6% | 474 · 44.9% · 43.1% · -1.6% |
-| Home team 1st half points | 1210 | 50.0% | 50.0% | -4.4% | 699 · 54.4% · 55.2% · -6.1% | 511 · 44.0% · 42.9% · -2.0% |
-| Away team 1st half points | 1210 | 50.0% | 50.0% | -5.3% | 703 · 56.5% · 55.2% · -2.8% | 507 · 41.0% · 42.8% · -8.8% |
-| Home team quarter points Q1 | 1210 | 50.0% | 50.0% | -4.8% | 688 · 56.0% · 57.3% · -7.7% | 522 · 42.1% · 40.3% · -1.1% |
-| Away team quarter points Q1 | 1210 | 50.0% | 50.0% | -5.0% | 690 · 57.0% · 57.4% · -6.1% | 520 · 40.8% · 40.2% · -3.6% |
-| Half time / full time | 1089 | 11.1% | 11.1% | -27.5% | 68 · 55.9% · 51.2% · -12.3% | 1021 · 8.1% · 8.4% · -28.5% |
-| Quarter 1X2 Q1 | 363 | 33.3% | 33.3% | -6.9% | 127 · 52.0% · 55.3% · -13.1% | 236 · 23.3% · 21.5% · -3.5% |
-| Quarter 1X2 Q2 | 363 | 33.3% | 33.3% | +1.9% | 129 · 52.7% · 53.1% · -8.2% | 234 · 22.6% · 22.4% · +7.5% |
-| Quarter 1X2 Q3 | 363 | 33.3% | 33.3% | -9.4% | 130 · 59.2% · 54.5% · +0.8% | 233 · 18.9% · 21.5% · -15.1% |
-| Quarter 1X2 Q4 | 363 | 33.3% | 33.3% | -0.8% | 131 · 51.1% · 50.8% · -6.1% | 232 · 23.3% · 23.5% · +2.2% |
-| 1st half 1X2 | 363 | 33.3% | 33.3% | -8.8% | 126 · 61.1% · 58.3% · -1.1% | 237 · 18.6% · 20.1% · -12.9% |
-| 1X2 (regulation) | 363 | 33.3% | 33.3% | -5.5% | 121 · 64.5% · 62.3% · -3.2% | 242 · 17.8% · 18.9% · -6.7% |
-| 2nd half 1X2 (reg.) | 342 | 33.3% | 33.3% | -30.0% | 124 · 63.7% · 55.7% · +7.6% | 218 · 16.1% · 20.6% · -51.4% |
-| Winner (incl. OT) | 242 | 50.0% | 50.0% | -10.4% | 126 · 68.3% · 65.2% · +0.9% | 116 · 30.2% · 33.5% · -22.6% |
-| Quarter total Q3 | 242 | 50.0% | 50.0% | -4.8% | 223 · 50.7% · 50.2% · -3.9% | 19 · 42.1% · 47.7% · -15.8% |
-| Quarter total Q1 | 242 | 50.0% | 50.0% | -5.7% | 242 · 50.0% · 50.0% · -5.7% | — |
-| Quarter total Q2 | 242 | 50.0% | 50.0% | -4.6% | 228 · 48.7% · 50.1% · -7.6% | 14 · 71.4% · 47.8% · +42.9% |
-| Total points (regulation) | 242 | 50.0% | 50.0% | -4.4% | 154 · 55.2% · 52.2% · +1.7% | 88 · 40.9% · 46.2% · -15.0% |
-| Quarter odd/even Q1 | 242 | 50.0% | 50.0% | -5.0% | 242 · 50.0% · 50.0% · -5.0% | — |
-| Quarter odd/even Q2 | 242 | 50.0% | 50.0% | -5.0% | 242 · 50.0% · 50.0% · -5.0% | — |
-| Quarter odd/even Q3 | 242 | 50.0% | 50.0% | -5.0% | 242 · 50.0% · 50.0% · -5.0% | — |
-| Quarter odd/even Q4 | 242 | 50.0% | 50.0% | -5.0% | 242 · 50.0% · 50.0% · -5.0% | — |
-| Odd/even (incl. OT) | 242 | 50.0% | 50.0% | -4.9% | 242 · 50.0% · 50.0% · -4.9% | — |
-| 1st half odd/even | 242 | 50.0% | 50.0% | -5.0% | 242 · 50.0% · 50.0% · -5.0% | — |
-| Overtime yes/no | 240 | 50.0% | 50.0% | -12.9% | 120 · 94.2% · 92.4% · -2.9% | 120 · 5.8% · 7.6% · -22.9% |
-| 1st half draw no bet | 234 | 50.0% | 50.0% | -4.5% | 125 · 62.4% · 60.3% · -0.8% | 109 · 35.8% · 38.2% · -8.8% |
-| Quarter draw no bet Q1 | 230 | 50.0% | 50.0% | -4.2% | 131 · 52.7% · 57.5% · -13.4% | 99 · 46.5% · 40.0% · +8.0% |
-| Quarter draw no bet Q3 | 230 | 50.0% | 50.0% | -6.1% | 131 · 62.6% · 57.0% · +5.0% | 99 · 33.3% · 40.7% · -20.7% |
-| Draw no bet (regulation) | 228 | 50.0% | 50.0% | -11.4% | 123 · 66.7% · 64.3% · -2.0% | 105 · 30.5% · 33.3% · -22.4% |
-| 2nd half odd/even (reg.) | 228 | 50.0% | 50.0% | -5.0% | 228 · 50.0% · 50.0% · -5.0% | — |
-| Quarter draw no bet Q2 | 226 | 50.0% | 50.0% | -5.1% | 134 · 55.2% · 55.2% · -5.0% | 92 · 42.4% · 42.4% · -5.3% |
-| Quarter draw no bet Q4 | 226 | 50.0% | 50.0% | -4.3% | 149 · 51.7% · 52.8% · -6.7% | 77 · 46.8% · 44.7% · +0.3% |
-| 2nd half draw no bet (reg.) | 226 | 50.0% | 50.0% | -6.1% | 128 · 63.3% · 57.7% · +5.0% | 98 · 32.7% · 39.9% · -20.7% |
-| 3-pointers made 1X2 | 207 | 33.3% | 33.3% | -22.6% | 72 · 62.5% · 57.0% · -1.8% | 135 · 17.8% · 20.7% · -33.7% |
-| Assists 1X2 | 198 | 33.3% | 33.3% | -16.4% | 73 · 56.2% · 58.9% · -13.5% | 125 · 20.0% · 18.4% · -18.0% |
-| Rebounds 1X2 | 198 | 33.3% | 33.3% | -25.0% | 74 · 52.7% · 58.8% · -20.1% | 124 · 21.8% · 18.1% · -27.9% |
-| Quarter total Q4 | 170 | 50.0% | 50.0% | -4.4% | 149 · 48.3% · 50.3% · -8.4% | 21 · 61.9% · 47.7% · +23.8% |
-| Team 3-pointers made total | 138 | 50.0% | 50.0% | -8.4% | 138 · 50.0% · 50.0% · -8.4% | — |
-| Home 3-pointers made | 138 | 50.0% | 50.0% | -8.1% | 134 · 50.7% · 50.1% · -6.8% | 4 · 25.0% · 45.7% · -49.8% |
-| Away 3-pointers made | 138 | 50.0% | 50.0% | -7.8% | 130 · 48.5% · 50.3% · -11.4% | 8 · 75.0% · 45.5% · +51.7% |
-| Total assists | 132 | 50.0% | 50.0% | -8.5% | 132 · 50.0% · 50.0% · -8.5% | — |
-| Home 2-pointers made | 128 | 50.0% | 50.0% | -8.6% | 128 · 50.0% · 50.0% · -8.6% | — |
-| Away 2-pointers made | 128 | 50.0% | 50.0% | -8.1% | 128 · 50.0% · 50.0% · -8.1% | — |
-| Team 2-pointers made total | 110 | 50.0% | 50.0% | -8.6% | 110 · 50.0% · 50.0% · -8.6% | — |
-| Total rebounds | 86 | 50.0% | 50.0% | -8.6% | 86 · 50.0% · 50.0% · -8.6% | — |
+| Player points N+ | 28326 | 21.1% | 30.3% | -44.7% | 5922 · 53.9% · 64.8% · -16.8% | 22404 · 12.4% · 21.2% · -52.1% |
+| Player rebounds N+ | 13369 | 23.0% | 30.5% | -37.6% | 2949 · 58.0% · 66.1% · -12.3% | 10420 · 13.1% · 20.4% · -44.8% |
+| Player assists N+ | 8563 | 30.8% | 40.8% | -33.7% | 2882 · 62.9% · 73.6% · -15.1% | 5681 · 14.5% · 24.1% · -43.1% |
+| Player 3-pointers N+ | 7277 | 18.8% | 27.1% | -47.8% | 1149 · 55.5% · 65.8% · -16.0% | 6128 · 11.9% · 19.8% · -53.8% |
+| Total points (incl. OT) | 6642 | 50.0% | 50.0% | -3.6% | 3525 · 63.8% · 63.3% · -2.9% | 3117 · 34.4% · 35.0% · -4.3% |
+| Handicap (incl. OT) | 6410 | 50.0% | 50.0% | -5.6% | 3352 · 68.9% · 67.7% · -2.4% | 3058 · 29.3% · 30.6% · -9.1% |
+| Player points O/U | 3358 | 50.0% | 50.0% | -7.4% | 3262 · 50.1% · 50.1% · -7.5% | 96 · 46.9% · 45.7% · -4.7% |
+| Player rebounds O/U | 3178 | 50.0% | 50.0% | -7.7% | 2256 · 53.1% · 52.3% · -6.3% | 922 · 42.5% · 44.3% · -11.2% |
+| Player 3-pointers O/U | 2790 | 50.0% | 50.0% | -7.6% | 1737 · 55.6% · 55.1% · -6.7% | 1053 · 40.8% · 41.5% · -9.1% |
+| 1st half total | 2702 | 50.0% | 50.0% | -4.4% | 1492 · 56.7% · 57.8% · -6.5% | 1210 · 41.7% · 40.4% · -1.7% |
+| 1st half handicap | 2702 | 50.0% | 50.0% | -4.5% | 1492 · 57.7% · 58.3% · -5.7% | 1210 · 40.5% · 39.8% · -3.0% |
+| Player assists O/U | 2638 | 50.0% | 50.0% | -7.9% | 1775 · 54.6% · 53.2% · -5.2% | 863 · 40.6% · 43.4% · -13.5% |
+| 2nd half total (reg.) | 2552 | 50.0% | 50.0% | -5.5% | 1501 · 54.7% · 56.7% · -9.6% | 1051 · 43.3% · 40.4% · +0.5% |
+| 2nd half handicap (reg.) | 2552 | 50.0% | 50.0% | -5.0% | 1408 · 58.9% · 58.7% · -4.5% | 1144 · 39.1% · 39.3% · -5.5% |
+| Home team points (incl. OT) | 1230 | 50.0% | 50.0% | -4.9% | 754 · 53.6% · 53.3% · -4.3% | 476 · 44.3% · 44.8% · -5.8% |
+| Away team points (incl. OT) | 1230 | 50.0% | 50.0% | -4.2% | 754 · 52.3% · 53.4% · -6.5% | 476 · 46.4% · 44.7% · -0.7% |
+| Quarter handicap Q4 | 1230 | 50.0% | 50.0% | -4.0% | 712 · 53.5% · 55.1% · -7.3% | 518 · 45.2% · 43.0% · +0.6% |
+| Quarter handicap Q3 | 1230 | 50.0% | 50.0% | -4.9% | 723 · 55.3% · 54.7% · -3.7% | 507 · 42.4% · 43.3% · -6.7% |
+| Quarter handicap Q2 | 1230 | 50.0% | 50.0% | -4.6% | 729 · 53.6% · 54.6% · -6.4% | 501 · 44.7% · 43.3% · -1.9% |
+| Quarter handicap Q1 | 1230 | 50.0% | 50.0% | -5.2% | 748 · 53.2% · 54.4% · -7.7% | 482 · 45.0% · 43.1% · -1.4% |
+| Home team 1st half points | 1230 | 50.0% | 50.0% | -4.4% | 711 · 54.3% · 55.2% · -6.2% | 519 · 44.1% · 42.9% · -1.8% |
+| Away team 1st half points | 1230 | 50.0% | 50.0% | -5.3% | 714 · 56.4% · 55.2% · -2.8% | 516 · 41.1% · 42.8% · -8.7% |
+| Home team quarter points Q1 | 1230 | 50.0% | 50.0% | -4.9% | 698 · 56.0% · 57.3% · -7.7% | 532 · 42.1% · 40.4% · -1.2% |
+| Away team quarter points Q1 | 1230 | 50.0% | 50.0% | -5.1% | 701 · 57.1% · 57.4% · -5.9% | 529 · 40.6% · 40.2% · -3.9% |
+| Half time / full time | 1107 | 11.1% | 11.1% | -24.8% | 68 · 55.9% · 51.2% · -12.3% | 1039 · 8.2% · 8.5% · -25.6% |
+| Quarter 1X2 Q1 | 369 | 33.3% | 33.3% | -7.3% | 129 · 51.9% · 55.2% · -13.0% | 240 · 23.3% · 21.6% · -4.2% |
+| Quarter 1X2 Q2 | 369 | 33.3% | 33.3% | +1.3% | 131 · 53.4% · 53.1% · -6.7% | 238 · 22.3% · 22.5% · +5.7% |
+| Quarter 1X2 Q3 | 369 | 33.3% | 33.3% | -9.9% | 132 · 59.8% · 54.4% · +2.0% | 237 · 18.6% · 21.6% · -16.5% |
+| Quarter 1X2 Q4 | 369 | 33.3% | 33.3% | -1.4% | 133 · 51.1% · 50.8% · -6.1% | 236 · 23.3% · 23.5% · +1.3% |
+| 1st half 1X2 | 369 | 33.3% | 33.3% | -3.2% | 128 · 60.9% · 58.2% · -1.2% | 241 · 18.7% · 20.1% · -4.4% |
+| 1X2 (regulation) | 369 | 33.3% | 33.3% | -6.1% | 123 · 65.0% · 62.1% · -1.9% | 246 · 17.5% · 18.9% · -8.2% |
+| 2nd half 1X2 (reg.) | 348 | 33.3% | 33.3% | -30.2% | 126 · 64.3% · 55.7% · +8.7% | 222 · 15.8% · 20.7% · -52.2% |
+| Winner (incl. OT) | 246 | 50.0% | 50.0% | -10.4% | 128 · 68.8% · 65.0% · +2.0% | 118 · 29.7% · 33.7% · -23.9% |
+| Quarter total Q3 | 246 | 50.0% | 50.0% | -4.8% | 227 · 50.7% · 50.2% · -3.9% | 19 · 42.1% · 47.7% · -15.8% |
+| Quarter total Q1 | 246 | 50.0% | 50.0% | -5.7% | 246 · 50.0% · 50.0% · -5.7% | — |
+| Quarter total Q2 | 246 | 50.0% | 50.0% | -4.7% | 231 · 48.9% · 50.1% · -7.1% | 15 · 66.7% · 47.8% · +33.3% |
+| Total points (regulation) | 246 | 50.0% | 50.0% | -4.4% | 157 · 55.4% · 52.1% · +2.1% | 89 · 40.4% · 46.3% · -16.0% |
+| Quarter odd/even Q1 | 246 | 50.0% | 50.0% | -5.0% | 246 · 50.0% · 50.0% · -5.0% | — |
+| Quarter odd/even Q2 | 246 | 50.0% | 50.0% | -5.0% | 246 · 50.0% · 50.0% · -5.0% | — |
+| Quarter odd/even Q3 | 246 | 50.0% | 50.0% | -5.0% | 246 · 50.0% · 50.0% · -5.0% | — |
+| Quarter odd/even Q4 | 246 | 50.0% | 50.0% | -5.0% | 246 · 50.0% · 50.0% · -5.0% | — |
+| Odd/even (incl. OT) | 246 | 50.0% | 50.0% | -4.9% | 246 · 50.0% · 50.0% · -4.9% | — |
+| 1st half odd/even | 246 | 50.0% | 50.0% | -5.0% | 246 · 50.0% · 50.0% · -5.0% | — |
+| Overtime yes/no | 244 | 50.0% | 50.0% | -13.5% | 122 · 94.3% · 92.4% · -2.8% | 122 · 5.7% · 7.6% · -24.2% |
+| 1st half draw no bet | 236 | 50.0% | 50.0% | -4.5% | 127 · 62.2% · 60.1% · -0.9% | 109 · 35.8% · 38.2% · -8.8% |
+| Quarter draw no bet Q1 | 234 | 50.0% | 50.0% | -4.1% | 134 · 52.2% · 57.4% · -14.0% | 100 · 47.0% · 40.1% · +9.1% |
+| Quarter draw no bet Q3 | 234 | 50.0% | 50.0% | -6.1% | 134 · 62.7% · 56.9% · +5.3% | 100 · 33.0% · 40.8% · -21.5% |
+| Draw no bet (regulation) | 232 | 50.0% | 50.0% | -11.5% | 125 · 67.2% · 64.1% · -0.8% | 107 · 29.9% · 33.5% · -23.9% |
+| 2nd half odd/even (reg.) | 232 | 50.0% | 50.0% | -5.0% | 232 · 50.0% · 50.0% · -5.0% | — |
+| Quarter draw no bet Q2 | 230 | 50.0% | 50.0% | -5.2% | 137 · 55.5% · 55.1% · -4.4% | 93 · 41.9% · 42.5% · -6.3% |
+| Quarter draw no bet Q4 | 230 | 50.0% | 50.0% | -4.3% | 152 · 52.0% · 52.7% · -6.0% | 78 · 46.2% · 44.7% · -1.0% |
+| 2nd half draw no bet (reg.) | 230 | 50.0% | 50.0% | -6.2% | 131 · 63.4% · 57.6% · +5.3% | 99 · 32.3% · 39.9% · -21.5% |
+| 3-pointers made 1X2 | 213 | 33.3% | 33.3% | -23.1% | 74 · 62.2% · 57.1% · -2.8% | 139 · 18.0% · 20.7% · -34.0% |
+| Assists 1X2 | 201 | 33.3% | 33.3% | -16.8% | 74 · 56.8% · 58.9% · -12.5% | 127 · 19.7% · 18.4% · -19.3% |
+| Rebounds 1X2 | 201 | 33.3% | 33.3% | -25.1% | 76 · 52.6% · 58.6% · -19.6% | 125 · 21.6% · 18.0% · -28.5% |
+| Quarter total Q4 | 172 | 50.0% | 50.0% | -4.4% | 151 · 48.3% · 50.3% · -8.4% | 21 · 61.9% · 47.7% · +23.8% |
+| Team 3-pointers made total | 142 | 50.0% | 50.0% | -8.5% | 142 · 50.0% · 50.0% · -8.5% | — |
+| Away 3-pointers made | 142 | 50.0% | 50.0% | -7.9% | 133 · 48.9% · 50.3% · -10.8% | 9 · 66.7% · 45.5% · +34.9% |
+| Home 3-pointers made | 140 | 50.0% | 50.0% | -8.1% | 136 · 50.7% · 50.1% · -6.8% | 4 · 25.0% · 45.7% · -49.8% |
+| Total assists | 134 | 50.0% | 50.0% | -8.4% | 134 · 50.0% · 50.0% · -8.4% | — |
+| Home 2-pointers made | 132 | 50.0% | 50.0% | -8.6% | 132 · 50.0% · 50.0% · -8.6% | — |
+| Away 2-pointers made | 132 | 50.0% | 50.0% | -8.0% | 132 · 50.0% · 50.0% · -8.0% | — |
+| Team 2-pointers made total | 114 | 50.0% | 50.0% | -8.5% | 114 · 50.0% · 50.0% · -8.5% | — |
+| Total rebounds | 88 | 50.0% | 50.0% | -8.6% | 88 · 50.0% · 50.0% · -8.6% | — |
 
 ## Preseason (starters rested — a weak test)
 
@@ -91,15 +91,15 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 
 | Market | board / shadow | picks | won | stated chance | return ± se |
 |---|---|---:|---:|---:|---|
-| 1st half total | board | 727 | 62% | 68% | +2.3% ± 3.0% |
-| 2nd half total (reg.) | board | 697 | 52% | 66% | -12.7% ± 3.2% |
-| Home team 1st half points | board | 306 | 56% | 62% | -1.5% ± 5.0% |
-| Away team 1st half points | board | 295 | 65% | 63% | +13.9% ± 4.9% |
-| Home team quarter points Q1 | board | 121 | 61% | 62% | +5.3% ± 7.8% |
-| Away team quarter points Q1 | board | 115 | 63% | 62% | +10.7% ± 8.0% |
-| Quarter total Q3 | board | 97 | 51% | 59% | -4.1% ± 9.7% |
-| Quarter total Q1 | board | 94 | 56% | 58% | +6.7% ± 9.7% |
-| Quarter total Q2 | board | 67 | 51% | 60% | -3.3% ± 11.7% |
+| 1st half total | board | 740 | 62% | 68% | +3.5% ± 3.0% |
+| 2nd half total (reg.) | board | 711 | 53% | 66% | -11.6% ± 3.2% |
+| Home team 1st half points | board | 312 | 56% | 62% | -1.7% ± 5.0% |
+| Away team 1st half points | board | 302 | 66% | 63% | +15.3% ± 4.8% |
+| Home team quarter points Q1 | board | 125 | 62% | 62% | +5.8% ± 7.6% |
+| Away team quarter points Q1 | board | 118 | 64% | 62% | +12.7% ± 7.9% |
+| Quarter total Q3 | board | 99 | 52% | 59% | -2.2% ± 9.6% |
+| Quarter total Q1 | board | 96 | 56% | 58% | +6.4% ± 9.6% |
+| Quarter total Q2 | board | 68 | 51% | 60% | -2.1% ± 11.6% |
 | Quarter total Q4 | board | 57 | 49% | 58% | -6.4% ± 12.7% |
 | Quarter handicap Q2 | board | 17 | 59% | 60% | +3.5% ± 21.8% |
 | Handicap (incl. OT) | board | 13 | 38% | 62% | -36.2% ± 23.4% |
@@ -111,51 +111,51 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 
 | Market | side | outcomes | landed | fair | return |
 |---|---|---:|---:|---:|---:|
-| Away 2-pointers made | over | 64 | 43.8% | 49.8% | -19.2% |
-| Away 2-pointers made | under | 64 | 56.2% | 50.2% | +3.0% |
-| Away 3-pointers made | over | 69 | 46.4% | 49.7% | -13.9% |
-| Away 3-pointers made | under | 69 | 53.6% | 50.3% | -1.6% |
-| Home 2-pointers made | over | 64 | 43.8% | 49.9% | -19.8% |
-| Home 2-pointers made | under | 64 | 56.2% | 50.1% | +2.7% |
-| Home 3-pointers made | over | 69 | 49.3% | 49.7% | -8.9% |
-| Home 3-pointers made | under | 69 | 50.7% | 50.3% | -7.2% |
-| Player 3-pointers O/U | over | 1372 | 45.7% | 47.1% | -10.3% |
-| Player 3-pointers O/U | under | 1372 | 54.3% | 52.9% | -4.9% |
-| Player assists O/U | over | 1295 | 46.5% | 48.5% | -11.7% |
-| Player assists O/U | under | 1295 | 53.5% | 51.5% | -4.2% |
-| Player points O/U | over | 1651 | 48.1% | 49.7% | -10.4% |
-| Player points O/U | under | 1651 | 51.9% | 50.3% | -4.3% |
-| Player rebounds O/U | over | 1562 | 49.0% | 48.7% | -7.0% |
-| Player rebounds O/U | under | 1562 | 51.0% | 51.3% | -8.4% |
-| Team 2-pointers made total | over | 55 | 38.2% | 50.0% | -30.2% |
-| Team 2-pointers made total | under | 55 | 61.8% | 50.0% | +13.0% |
-| Team 3-pointers made total | over | 69 | 43.5% | 49.9% | -20.2% |
-| Team 3-pointers made total | under | 69 | 56.5% | 50.1% | +3.4% |
-| Total assists | over | 66 | 42.4% | 49.6% | -21.6% |
-| Total assists | under | 66 | 57.6% | 50.4% | +4.7% |
-| Total rebounds | over | 43 | 30.2% | 50.0% | -44.8% |
-| Total rebounds | under | 43 | 69.8% | 50.0% | +27.6% |
+| Away 2-pointers made | over | 66 | 43.9% | 49.8% | -18.7% |
+| Away 2-pointers made | under | 66 | 56.1% | 50.2% | +2.7% |
+| Away 3-pointers made | over | 71 | 46.5% | 49.7% | -13.9% |
+| Away 3-pointers made | under | 71 | 53.5% | 50.3% | -1.9% |
+| Home 2-pointers made | over | 66 | 43.9% | 49.8% | -19.3% |
+| Home 2-pointers made | under | 66 | 56.1% | 50.2% | +2.2% |
+| Home 3-pointers made | over | 70 | 50.0% | 49.7% | -7.6% |
+| Home 3-pointers made | under | 70 | 50.0% | 50.3% | -8.5% |
+| Player 3-pointers O/U | over | 1395 | 45.7% | 47.2% | -10.3% |
+| Player 3-pointers O/U | under | 1395 | 54.3% | 52.8% | -4.9% |
+| Player assists O/U | over | 1319 | 46.6% | 48.5% | -11.5% |
+| Player assists O/U | under | 1319 | 53.4% | 51.5% | -4.4% |
+| Player points O/U | over | 1679 | 48.0% | 49.7% | -10.6% |
+| Player points O/U | under | 1679 | 52.0% | 50.3% | -4.2% |
+| Player rebounds O/U | over | 1589 | 49.0% | 48.6% | -7.0% |
+| Player rebounds O/U | under | 1589 | 51.0% | 51.4% | -8.4% |
+| Team 2-pointers made total | over | 57 | 36.8% | 50.0% | -32.6% |
+| Team 2-pointers made total | under | 57 | 63.2% | 50.0% | +15.6% |
+| Team 3-pointers made total | over | 71 | 43.7% | 49.8% | -19.9% |
+| Team 3-pointers made total | under | 71 | 56.3% | 50.2% | +2.9% |
+| Total assists | over | 67 | 43.3% | 49.6% | -19.9% |
+| Total assists | under | 67 | 56.7% | 50.4% | +3.1% |
+| Total rebounds | over | 44 | 29.5% | 50.0% | -46.0% |
+| Total rebounds | under | 44 | 70.5% | 50.0% | +28.9% |
 
 ## Seen, not settled (rule not confirmed — PENDING)
 
-- 1st half draw no bet: 8 outcomes
+- 1st half draw no bet: 10 outcomes
 - 2nd half 1X2 (reg.): 21 outcomes
 - 2nd half draw no bet (reg.): 16 outcomes
 - 2nd half handicap (reg.): 154 outcomes
 - 2nd half odd/even (reg.): 14 outcomes
 - 2nd half total (reg.): 154 outcomes
-- Any team to lead by [967]: 720 outcomes
-- Any team to win all quarters [1199]: 242 outcomes
-- Any team to win both halves [1197]: 242 outcomes
-- Any team total maximum consecutive points [964]: 242 outcomes
-- Any team winning margin (incl. overtime) [849]: 777 outcomes
+- Any team to lead by [967]: 732 outcomes
+- Any team to win all quarters [1199]: 246 outcomes
+- Any team to win both halves [1197]: 246 outcomes
+- Any team total maximum consecutive points [964]: 246 outcomes
+- Any team winning margin (incl. overtime) [849]: 791 outcomes
 - Atlanta Hawks to lead by [965]: 18 outcomes
 - Atlanta Hawks to lead by [966]: 36 outcomes
 - Atlanta Hawks to win all quarters [1313]: 6 outcomes
 - Atlanta Hawks to win all quarters [1314]: 12 outcomes
 - Atlanta Hawks total maximum consecutive points [962]: 6 outcomes
 - Atlanta Hawks total maximum consecutive points [963]: 12 outcomes
-- Away Team to Win Both Halves [49]: 242 outcomes
+- Away Team to Win Both Halves [49]: 246 outcomes
 - Boston Celtics to lead by [965]: 30 outcomes
 - Boston Celtics to lead by [966]: 18 outcomes
 - Boston Celtics to win all quarters [1313]: 10 outcomes
@@ -205,18 +205,18 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Detroit Pistons total maximum consecutive points [962]: 6 outcomes
 - Detroit Pistons total maximum consecutive points [963]: 10 outcomes
 - Draw no bet (regulation): 14 outcomes
-- Golden State Warriors to lead by [965]: 24 outcomes
+- Golden State Warriors to lead by [965]: 30 outcomes
 - Golden State Warriors to lead by [966]: 24 outcomes
-- Golden State Warriors to win all quarters [1313]: 8 outcomes
+- Golden State Warriors to win all quarters [1313]: 10 outcomes
 - Golden State Warriors to win all quarters [1314]: 6 outcomes
-- Golden State Warriors total maximum consecutive points [962]: 8 outcomes
+- Golden State Warriors total maximum consecutive points [962]: 10 outcomes
 - Golden State Warriors total maximum consecutive points [963]: 8 outcomes
-- Handicap (including OT) & Total (including OT) [1174]: 484 outcomes
-- Handicap : [14]: 363 outcomes
-- Highest Scoring Half [52]: 228 outcomes
-- Highest scoring quarter - Over/Under [1193]: 242 outcomes
-- Highest scoring quarter [234]: 605 outcomes
-- Home Team to Win Both Halves [48]: 242 outcomes
+- Handicap (including OT) & Total (including OT) [1174]: 492 outcomes
+- Handicap : [14]: 369 outcomes
+- Highest Scoring Half [52]: 231 outcomes
+- Highest scoring quarter - Over/Under [1193]: 246 outcomes
+- Highest scoring quarter [234]: 615 outcomes
+- Home Team to Win Both Halves [48]: 246 outcomes
 - Houston Rockets to lead by [965]: 30 outcomes
 - Houston Rockets to lead by [966]: 24 outcomes
 - Houston Rockets to win all quarters [1313]: 10 outcomes
@@ -241,7 +241,7 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Los Angeles Lakers to win all quarters [1314]: 8 outcomes
 - Los Angeles Lakers total maximum consecutive points [962]: 10 outcomes
 - Los Angeles Lakers total maximum consecutive points [963]: 8 outcomes
-- Lowest scoring quarter - Over/Under [1195]: 242 outcomes
+- Lowest scoring quarter - Over/Under [1195]: 246 outcomes
 - Memphis Grizzlies to lead by [965]: 24 outcomes
 - Memphis Grizzlies to lead by [966]: 24 outcomes
 - Memphis Grizzlies to win all quarters [1313]: 8 outcomes
@@ -249,11 +249,11 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Memphis Grizzlies total maximum consecutive points [962]: 8 outcomes
 - Memphis Grizzlies total maximum consecutive points [963]: 8 outcomes
 - Miami Heat to lead by [965]: 24 outcomes
-- Miami Heat to lead by [966]: 24 outcomes
+- Miami Heat to lead by [966]: 30 outcomes
 - Miami Heat to win all quarters [1313]: 8 outcomes
-- Miami Heat to win all quarters [1314]: 8 outcomes
+- Miami Heat to win all quarters [1314]: 10 outcomes
 - Miami Heat total maximum consecutive points [962]: 8 outcomes
-- Miami Heat total maximum consecutive points [963]: 8 outcomes
+- Miami Heat total maximum consecutive points [963]: 10 outcomes
 - Milwaukee Bucks to lead by [965]: 24 outcomes
 - Milwaukee Bucks to lead by [966]: 24 outcomes
 - Milwaukee Bucks to win all quarters [1313]: 4 outcomes
@@ -285,22 +285,22 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Oklahoma City Thunder total maximum consecutive points [962]: 8 outcomes
 - Oklahoma City Thunder total maximum consecutive points [963]: 8 outcomes
 - Orlando Magic to lead by [965]: 24 outcomes
-- Orlando Magic to lead by [966]: 18 outcomes
+- Orlando Magic to lead by [966]: 24 outcomes
 - Orlando Magic to win all quarters [1313]: 8 outcomes
-- Orlando Magic to win all quarters [1314]: 4 outcomes
+- Orlando Magic to win all quarters [1314]: 6 outcomes
 - Orlando Magic total maximum consecutive points [962]: 8 outcomes
-- Orlando Magic total maximum consecutive points [963]: 6 outcomes
+- Orlando Magic total maximum consecutive points [963]: 8 outcomes
 - Philadelphia ers to lead by [965]: 30 outcomes
 - Philadelphia ers to lead by [966]: 24 outcomes
 - Philadelphia ers to win all quarters [1313]: 10 outcomes
 - Philadelphia ers to win all quarters [1314]: 8 outcomes
 - Philadelphia ers total maximum consecutive points [962]: 10 outcomes
 - Philadelphia ers total maximum consecutive points [963]: 8 outcomes
-- Phoenix Suns to lead by [965]: 18 outcomes
+- Phoenix Suns to lead by [965]: 24 outcomes
 - Phoenix Suns to lead by [966]: 18 outcomes
-- Phoenix Suns to win all quarters [1313]: 6 outcomes
+- Phoenix Suns to win all quarters [1313]: 8 outcomes
 - Phoenix Suns to win all quarters [1314]: 4 outcomes
-- Phoenix Suns total maximum consecutive points [962]: 6 outcomes
+- Phoenix Suns total maximum consecutive points [962]: 8 outcomes
 - Phoenix Suns total maximum consecutive points [963]: 6 outcomes
 - Player 3-pointers N+: 46 outcomes
 - Player 3-pointers O/U: 20 outcomes
@@ -310,7 +310,7 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Player points O/U: 28 outcomes
 - Player rebounds N+: 103 outcomes
 - Player rebounds O/U: 24 outcomes
-- Point range [298]: 1044 outcomes
+- Point range [298]: 1056 outcomes
 - Portland Trail Blazers to lead by [965]: 12 outcomes
 - Portland Trail Blazers to lead by [966]: 30 outcomes
 - Portland Trail Blazers to win all quarters [1313]: 4 outcomes
@@ -321,7 +321,7 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Quarter draw no bet Q2: 16 outcomes
 - Quarter draw no bet Q3: 12 outcomes
 - Quarter draw no bet Q4: 16 outcomes
-- Race to  points (incl. overtime) [230]: 968 outcomes
+- Race to  points (incl. overtime) [230]: 984 outcomes
 - Sacramento Kings to lead by [965]: 18 outcomes
 - Sacramento Kings to lead by [966]: 24 outcomes
 - Sacramento Kings to win all quarters [1313]: 2 outcomes
@@ -334,16 +334,16 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - San Antonio Spurs to win all quarters [1314]: 4 outcomes
 - San Antonio Spurs total maximum consecutive points [962]: 12 outcomes
 - San Antonio Spurs total maximum consecutive points [963]: 4 outcomes
-- Smart Combo [820002]: 275 outcomes
-- Team to win all quarters [1203]: 363 outcomes
-- Team to win both halves [1201]: 363 outcomes
+- Smart Combo [820002]: 285 outcomes
+- Team to win all quarters [1203]: 369 outcomes
+- Team to win both halves [1201]: 369 outcomes
 - Toronto Raptors to lead by [965]: 18 outcomes
 - Toronto Raptors to lead by [966]: 30 outcomes
 - Toronto Raptors to win all quarters [1313]: 6 outcomes
 - Toronto Raptors to win all quarters [1314]: 10 outcomes
 - Toronto Raptors total maximum consecutive points [962]: 6 outcomes
 - Toronto Raptors total maximum consecutive points [963]: 10 outcomes
-- Total (over-exact-under) [297]: 363 outcomes
+- Total (over-exact-under) [297]: 369 outcomes
 - Utah Jazz to lead by [965]: 30 outcomes
 - Utah Jazz to lead by [966]: 18 outcomes
 - Utah Jazz to win all quarters [1313]: 8 outcomes
@@ -356,17 +356,17 @@ Every outcome the sharp line prices (board markets and the SHADOW ones in engine
 - Washington Wizards to win all quarters [1314]: 8 outcomes
 - Washington Wizards total maximum consecutive points [962]: 8 outcomes
 - Washington Wizards total maximum consecutive points [963]: 8 outcomes
-- Winner & Over/Under (incl. overtime) [292]: 484 outcomes
-- Winning margin (incl. overtime) [290]: 2361 outcomes
-- X & Over/Under [37]: 726 outcomes
-- nd quarter - last point [960]: 242 outcomes
-- nd quarter - winning margin [301]: 333 outcomes
-- rd quarter - winning margin [301]: 333 outcomes
-- st free throw scored [961]: 242 outcomes
-- st half handicap & st half total [1178]: 484 outcomes
-- st half x & st half total [1177]: 726 outcomes
-- st quarter - last point [960]: 242 outcomes
-- st quarter - winning margin [301]: 333 outcomes
-- st quarter handicap & st quarter total [1176]: 484 outcomes
-- st quarter x & st quarter total [1175]: 726 outcomes
-- th quarter - winning margin [301]: 333 outcomes
+- Winner & Over/Under (incl. overtime) [292]: 492 outcomes
+- Winning margin (incl. overtime) [290]: 2403 outcomes
+- X & Over/Under [37]: 738 outcomes
+- nd quarter - last point [960]: 246 outcomes
+- nd quarter - winning margin [301]: 339 outcomes
+- rd quarter - winning margin [301]: 339 outcomes
+- st free throw scored [961]: 246 outcomes
+- st half handicap & st half total [1178]: 492 outcomes
+- st half x & st half total [1177]: 738 outcomes
+- st quarter - last point [960]: 246 outcomes
+- st quarter - winning margin [301]: 339 outcomes
+- st quarter handicap & st quarter total [1176]: 492 outcomes
+- st quarter x & st quarter total [1175]: 738 outcomes
+- th quarter - winning margin [301]: 339 outcomes

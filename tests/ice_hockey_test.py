@@ -122,3 +122,31 @@ if __name__ == "__main__":
         if name.startswith("test_"):
             fn()
     print("ice_hockey_test: OK")
+
+
+def test_hockey_recal_pending_then_ok():
+    from engine import hockey_recal as hr
+    assert hr.check([])["status"] == "PENDING"
+    rows = []
+    for i in range(300):
+        won = i % 2
+        rows.append({"day": f"2026-11-{1 + i // 20:02d}", "key": "k", "model": 0.7 if won else 0.3,
+                     "fair": 0.5, "won": won})
+    res = hr.check(rows)
+    assert res["status"] == "OK" and res["tries"] == 11
+    assert res["w"] == 1.0 and res["blend_beats_exchange"]
+    assert res["fit"] >= hr.MIN_FIT and res["holdout"] >= hr.MIN_HOLDOUT
+
+
+def test_hockey_recal_reads_graded_record():
+    from engine import hockey_recal as hr
+    doc = {"games": {"1": {"sides": {
+        "x|1|1": {"first": {"model": 0.6, "fair": 0.5}, "won": True},
+        "x|1|2": {"first": {"model": None, "fair": 0.5}, "won": False},
+        "x|1|3": {"first": {"model": 0.2, "fair": 0.3}}}}}}
+    got = hr.sides_of([("2026-11-05", doc)])
+    assert len(got) == 1 and got[0]["won"] == 1
+    with tempfile.TemporaryDirectory() as td:
+        lg = Path(td) / "l.jsonl"
+        assert hr.run([("2026-11-05", doc)], log=lg)["status"] == "PENDING"
+        assert lg.read_text().count("\n") == 1

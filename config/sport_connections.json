@@ -391,9 +391,9 @@
     "ref": "matchbook_live/hockey.py (#196)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -406,15 +406,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "american_football": {
@@ -513,9 +512,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -528,15 +527,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "snooker": {
@@ -635,9 +633,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -650,15 +648,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "darts": {
@@ -757,9 +754,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -772,15 +769,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "volleyball": {
@@ -879,9 +875,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -894,15 +890,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "table_tennis": {
@@ -1001,9 +996,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "n/a",
@@ -1014,15 +1009,14 @@
     "reason": "table tennis is not listed on Betfair (catalogue 2026-11-06)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "cricket": {
@@ -1121,9 +1115,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -1136,15 +1130,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "rugby": {
@@ -1243,9 +1236,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -1258,15 +1251,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "tennis": {
@@ -1365,9 +1357,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -1380,15 +1372,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   },
   "baseball": {
@@ -1487,9 +1478,9 @@
     "ref": "matchbook_live/multisport.py (#198)"
    },
    "matchbook_live": {
-    "status": "todo",
-    "issue": "matchbook-agent#197",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/matchbook-agent",
+    "ref": "framework_feed.fetch_multisport + MS_KINDS, from live_from (#199)"
    },
    "betfair_paper": {
     "status": "external",
@@ -1502,15 +1493,14 @@
     "ref": "betfair/feed.py MS_TYPES, staked from live_from (#21)"
    },
    "sportybet_paper": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12",
-    "note": "the framework's own record holds each pick's SportyBet price + code and grades it"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "paper picks = the framework's own graded record; place.multi_night reads them (#88)"
    },
    "sportybet_live": {
-    "status": "todo",
-    "issue": "sportybet-agent#86",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/sportybet-agent",
+    "ref": "place.multi_night + plan(), from live_from (#88)"
    }
   }
  }

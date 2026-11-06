@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-06T10:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 60
+Built 2026-11-06T10:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 60
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -31,7 +31,7 @@ Built 2026-11-06T10:13Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: SB:37 | 2 | 0% | -100.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:547 | 24 | 62% | -23.6% ± 12.3% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:548 | 13 | 85% | +4.0% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
-| board: BTTS singles | 28 | 57% | -4.4% ± 16.1% | -5.5% (26) | -6.2% ± 0.4% (26) | 0% |
+| board: BTTS singles | 28 | 57% | -4.4% ± 16.1% | -5.5% (26) | -6.3% ± 0.4% (26) | 0% |
 | board: football singles | 1232 | 77% | -3.5% ± 1.5% | -4.5% (60) | -4.5% ± 0.2% (60) | 2% |
 | gap board timing: 1-6h before kick-off | 17 | 29% | -19.0% ± 33.7% | +3.4% (17) | +1.8% ± 1.1% (17) | 82% |
 | gap board timing: 24h+ before kick-off | 1 | 100% | +310.0% | +2.1% (1) | -14.0% (1) | 0% |
@@ -87,7 +87,7 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | board family: SB:37 | COLLECTING (2 of 200) | 2 | PENDING | — | — |
 | board family: SB:547 | COLLECTING (24 of 200) | 24 | PENDING | — | — |
 | board family: SB:548 | COLLECTING (13 of 200) | 13 | PENDING | — | — |
-| board: BTTS singles | COLLECTING (28 of 200) | 28 | -6.2% | — | — |
+| board: BTTS singles | COLLECTING (28 of 200) | 28 | -6.3% | — | — |
 | board: football singles | NO EDGE YET | 1232 | -4.5% | 1.0 | — |
 | gap board timing: 1-6h before kick-off | COLLECTING (17 of 200) | 17 | +1.8% | — | — |
 | gap board timing: 24h+ before kick-off | COLLECTING (1 of 200) | 1 | -14.0% | — | — |

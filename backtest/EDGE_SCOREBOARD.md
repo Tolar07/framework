@@ -2,7 +2,7 @@
 
 Written by `monitor/edge_scoreboard.py` (see its docstring). A pick is judged by whether its PRICE beat the Matchbook exchange's fair chance (no margin), at entry and at the exchange close, not by whether it won. RECORDED ONLY.
 
-Built 2026-11-06T03:43Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 55
+Built 2026-11-06T04:13Z. Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 56
 
 | Group | Graded | Won | Return ± se | Gap at entry (n) | CLV vs exchange close ± se (n) | Beat close |
 |---|---:|---:|---|---|---|---:|
@@ -11,7 +11,7 @@ Built 2026-11-06T03:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: Away goals | 7 | 71% | -12.9% ± 22.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Away win to nil | 3 | 67% | -19.0% ± 40.5% | PENDING (0) | PENDING (0) | PENDING |
 | board family: DC & total | 1 | 100% | +25.0% | PENDING (0) | PENDING (0) | PENDING |
-| board family: Double chance | 90 | 80% | +2.0% ± 5.4% | -4.3% (49) | -4.3% ± 0.3% (49) | 2% |
+| board family: Double chance | 90 | 80% | +2.0% ± 5.4% | -4.4% (50) | -4.3% ± 0.3% (50) | 2% |
 | board family: European handicap | 1 | 100% | +20.0% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home goals | 12 | 92% | +16.0% ± 10.8% | PENDING (0) | PENDING (0) | PENDING |
 | board family: Home win to nil | 6 | 33% | -59.2% ± 25.8% | PENDING (0) | PENDING (0) | PENDING |
@@ -32,7 +32,7 @@ Built 2026-11-06T03:43Z. Edge: 0 strategies ready for the Architect; board singl
 | board family: SB:547 | 24 | 62% | -23.6% ± 12.3% | PENDING (0) | PENDING (0) | PENDING |
 | board family: SB:548 | 13 | 85% | +4.0% ± 12.8% | PENDING (0) | PENDING (0) | PENDING |
 | board: BTTS singles | 28 | 57% | -4.4% ± 16.1% | -5.8% (23) | -5.8% ± 0.5% (23) | 0% |
-| board: football singles | 1198 | 77% | -3.5% ± 1.5% | -4.5% (55) | -4.5% ± 0.3% (55) | 2% |
+| board: football singles | 1198 | 77% | -3.5% ± 1.5% | -4.5% (56) | -4.5% ± 0.3% (56) | 2% |
 | gap board timing: 1-6h before kick-off | 7 | 57% | +71.4% ± 66.2% | +4.2% (7) | +2.8% ± 1.4% (7) | 86% |
 | gap board timing: 24h+ before kick-off | 1 | 100% | +310.0% | +2.1% (1) | -14.0% (1) | 0% |
 | gap board timing: 6-24h before kick-off | 17 | 18% | -51.5% ± 29.3% | +4.3% (17) | +4.0% ± 1.9% (17) | 65% |
@@ -51,11 +51,11 @@ Built 2026-11-06T03:43Z. Edge: 0 strategies ready for the Architect; board singl
 | nba market: 228 | 3 | 33% | -46.3% ± 53.7% | PENDING (0) | PENDING (0) | PENDING |
 | nba market: 68 | 85 | 60% | +16.2% ± 10.3% | -3.8% (10) | -3.5% ± 2.0% (10) | 30% |
 | nba: board picks | 92 | 60% | +14.7% ± 9.9% | -3.8% (10) | -3.5% ± 2.0% (10) | 30% |
-| venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.1% (55) | -2.0% ± 0.3% (55) | 11% |
-| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.0% (55) | -1.9% ± 0.2% (55) | 11% |
-| venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.5% (55) | -4.5% ± 0.3% (55) | 2% |
-| world basketball: NCAA, Regular Season | 5 | 60% | +9.2% ± 44.8% | +7.9% (13) | -5.0% ± 2.0% (8) | 25% |
-| world basketball: all leagues | 5 | 60% | +9.2% ± 44.8% | +7.9% (13) | -5.0% ± 2.0% (8) | 25% |
+| venue: board singles at Matchbook (after 2%) *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.1% (56) | -2.0% ± 0.3% (56) | 11% |
+| venue: board singles at the better book *(baseline)* | 11 | 82% | +8.1% ± 16.2% | -2.1% (56) | -2.0% ± 0.2% (56) | 11% |
+| venue: same singles at SportyBet *(baseline)* | 11 | 82% | +5.0% ± 15.7% | -4.5% (56) | -4.5% ± 0.3% (56) | 2% |
+| world basketball: NCAA, Regular Season | 5 | 60% | +9.2% ± 44.8% | +7.9% (13) | -5.1% ± 2.0% (8) | 25% |
+| world basketball: all leagues | 5 | 60% | +9.2% ± 44.8% | +7.9% (13) | -5.1% ± 2.0% (8) | 25% |
 
 ## Promotion (step 7)
 
@@ -107,8 +107,8 @@ READY FOR ARCHITECT = 200+ graded, CLV > 0 surviving Benjamini-Hochberg at q = 0
 | nba market: 228 | COLLECTING (3 of 200) | 3 | PENDING | — | — |
 | nba market: 68 | COLLECTING (85 of 200) | 85 | -3.5% | — | — |
 | nba: board picks | COLLECTING (92 of 200) | 92 | -3.5% | — | — |
-| world basketball: NCAA, Regular Season | COLLECTING (5 of 200) | 5 | -5.0% | — | — |
-| world basketball: all leagues | COLLECTING (5 of 200) | 5 | -5.0% | — | — |
+| world basketball: NCAA, Regular Season | COLLECTING (5 of 200) | 5 | -5.1% | — | — |
+| world basketball: all leagues | COLLECTING (5 of 200) | 5 | -5.1% | — | — |
 
 ## Residual model (step 6)
 

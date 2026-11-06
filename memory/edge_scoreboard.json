@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-06T03:43Z",
- "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 55",
+ "built_at": "2026-11-06T04:13Z",
+ "summary": "Edge: 0 strategies ready for the Architect; board singles CLV vs exchange close -4.5% over 56",
  "groups": [
   {
    "name": "baseline: every SportyBet side at its last price",
@@ -79,12 +79,12 @@
    "hit": 0.8,
    "roi": 0.0197,
    "roi_se": 0.0542,
-   "n_entry": 49,
-   "gap_entry": -0.0435,
-   "n_clv": 49,
+   "n_entry": 50,
+   "gap_entry": -0.0436,
+   "n_clv": 50,
    "clv": -0.0433,
    "clv_se": 0.0026,
-   "beat": 0.0204
+   "beat": 0.02
   },
   {
    "name": "board family: European handicap",
@@ -362,8 +362,8 @@
    "n_entry": 23,
    "gap_entry": -0.0575,
    "n_clv": 23,
-   "clv": -0.0577,
-   "clv_se": 0.0047,
+   "clv": -0.0583,
+   "clv_se": 0.0046,
    "beat": 0.0
   },
   {
@@ -373,12 +373,12 @@
    "hit": 0.7705,
    "roi": -0.0346,
    "roi_se": 0.0153,
-   "n_entry": 55,
-   "gap_entry": -0.0452,
-   "n_clv": 55,
+   "n_entry": 56,
+   "gap_entry": -0.0453,
+   "n_clv": 56,
    "clv": -0.0445,
-   "clv_se": 0.0028,
-   "beat": 0.0182
+   "clv_se": 0.0027,
+   "beat": 0.0179
   },
   {
    "name": "gap board timing: 1-6h before kick-off",
@@ -639,12 +639,12 @@
    "hit": 0.8182,
    "roi": 0.081,
    "roi_se": 0.1615,
-   "n_entry": 55,
-   "gap_entry": -0.0207,
-   "n_clv": 55,
-   "clv": -0.0199,
+   "n_entry": 56,
+   "gap_entry": -0.021,
+   "n_clv": 56,
+   "clv": -0.0202,
    "clv_se": 0.0026,
-   "beat": 0.1091
+   "beat": 0.1071
   },
   {
    "name": "venue: board singles at the better book",
@@ -653,12 +653,12 @@
    "hit": 0.8182,
    "roi": 0.081,
    "roi_se": 0.1615,
-   "n_entry": 55,
-   "gap_entry": -0.0202,
-   "n_clv": 55,
-   "clv": -0.0194,
+   "n_entry": 56,
+   "gap_entry": -0.0205,
+   "n_clv": 56,
+   "clv": -0.0197,
    "clv_se": 0.0025,
-   "beat": 0.1091
+   "beat": 0.1071
   },
   {
    "name": "venue: same singles at SportyBet",
@@ -667,12 +667,12 @@
    "hit": 0.8182,
    "roi": 0.05,
    "roi_se": 0.1567,
-   "n_entry": 55,
-   "gap_entry": -0.0452,
-   "n_clv": 55,
+   "n_entry": 56,
+   "gap_entry": -0.0453,
+   "n_clv": 56,
    "clv": -0.0445,
-   "clv_se": 0.0028,
-   "beat": 0.0182
+   "clv_se": 0.0027,
+   "beat": 0.0179
   },
   {
    "name": "world basketball: NCAA, Regular Season",
@@ -684,8 +684,8 @@
    "n_entry": 13,
    "gap_entry": 0.0794,
    "n_clv": 8,
-   "clv": -0.0497,
-   "clv_se": 0.0197,
+   "clv": -0.0506,
+   "clv_se": 0.0199,
    "beat": 0.25
   },
   {
@@ -698,8 +698,8 @@
    "n_entry": 13,
    "gap_entry": 0.0794,
    "n_clv": 8,
-   "clv": -0.0497,
-   "clv_se": 0.0197,
+   "clv": -0.0506,
+   "clv_se": 0.0199,
    "beat": 0.25
   }
  ],
@@ -924,7 +924,7 @@
    "name": "board: BTTS singles",
    "status": "COLLECTING (28 of 200)",
    "n": 28,
-   "clv": -0.0577,
+   "clv": -0.0583,
    "p_value": null,
    "bh_pass": false,
    "roi": -0.0439
@@ -1104,7 +1104,7 @@
    "name": "world basketball: NCAA, Regular Season",
    "status": "COLLECTING (5 of 200)",
    "n": 5,
-   "clv": -0.0497,
+   "clv": -0.0506,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.092
@@ -1113,7 +1113,7 @@
    "name": "world basketball: all leagues",
    "status": "COLLECTING (5 of 200)",
    "n": 5,
-   "clv": -0.0497,
+   "clv": -0.0506,
    "p_value": null,
    "bh_pass": false,
    "roi": 0.092

@@ -13,6 +13,10 @@
    "status": "n/a",
    "note": "multi-sport boards (order 50: American football, snooker, darts, volleyball, table tennis, cricket, rugby, tennis, baseball); basketball's equivalent is engine/world_basketball.py"
   },
+  "engine/home_edge_shadow.py": {
+   "status": "n/a",
+   "note": "record-only home-edge Elo shadow for rugby (#344); basketball has no multisport Elo"
+  },
   "run_multisport.py": {
    "status": "n/a",
    "note": "multi-sport boards runner (order 50); basketball has run_nba.py"

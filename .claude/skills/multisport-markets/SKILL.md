@@ -165,7 +165,7 @@ way to price most of these sports. This skill says what each market actually is 
 | Can't expect to originate in more than one sport | Unabated "winners" @ 01:33 | said only |
 | Elo blend loses to the NFL close (-7.2%/bet, Brier 0.2119 vs 0.2107, 2016-26 held out) | framework#373 backtest | confirmed (our data) |
 | Long-format favourites win more: Grand Slam favourites profitable since 2010, underdogs -14% | Pinnacle @ 01:32 | said only (cites a Pinnacle study) |
-| Darts underdogs bark in short formats, less in long | Action Network @ 04:09 | said only; agrees with tennis (independent) |
+| Darts underdogs bark in short formats, less in long | Action Network @ 04:09 | said only; agrees with tennis (independent) ; own test (`backtest/darts_format_underdog_study.py`, 94 rated WC matches 2026-11-07): not yet shown, 3 of 4 length buckets under 30 matches (PENDING), the 4-set bucket has underdogs winning 0.40 vs Elo 0.43 |
 | NHL 1st-period favourite is the smallest; books misapply the US rule | Betting Talk @ 01:04-02:37 | said with calculator numbers (frames not viewed) |
 | F5 decided by starting pitchers; bullpen irrelevant for F5 | Outlier @ 02:33, 05:41 | said; agrees with Underdog Chance's innings weighting |
 | Starter weighted by innings pitched, bullpen for the rest, split by hand, 30-day + season blend | Underdog Chance @ 10:29-14:08 | said only (sells the model) |

@@ -26,6 +26,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import random
 import shutil
 import subprocess
 import sys
@@ -239,6 +240,9 @@ def _not_ignored(rels: set[str]) -> set[str]:
     return rels - dropped
 
 
+SAVE_TRIES = 8   # 2026-11-07: 5 tries lost the 8 Nov evening board's data while other jobs pushed every minute
+
+
 def save(paths, message: str) -> str:
     """Commit what this job changed to framework-data and push.
     Says exactly what happened (HR35): a push that did not land is never 'saved'.
@@ -278,19 +282,28 @@ def save(paths, message: str) -> str:
         return "framework-data: nothing new to save"
     _git("commit", "-q", "-m", message)
     saved = False
-    for attempt in range(1, 6):
-        if _git("fetch", "-q", "origin", "main").returncode == 0:
+    why = ""
+    for attempt in range(1, SAVE_TRIES + 1):
+        f = _git("fetch", "-q", "origin", "main")
+        if f.returncode != 0:
+            why = "fetch: " + (f.stderr or "").strip()[-200:]
+        else:
             x = ["-X", "theirs"] if attempt >= 3 else []   # 3rd try on: this run's copy wins
-            if _git("rebase", "-q", *x, "FETCH_HEAD").returncode != 0:
+            rb = _git("rebase", "-q", *x, "FETCH_HEAD")
+            if rb.returncode != 0:
+                why = "rebase: " + (rb.stderr or "").strip()[-200:]
                 _git("rebase", "--abort")
-                time.sleep(attempt * 3)
+                time.sleep(attempt * 3 + random.random() * 5)  # noqa: S311 (backoff jitter)
                 continue
-        if _git("push", "-q", "origin", "HEAD:main").returncode == 0:
+        p = _git("push", "-q", "origin", "HEAD:main")
+        if p.returncode == 0:
             saved = True
             break
-        time.sleep(attempt * 3)
+        why = "push: " + (p.stderr or "").strip()[-200:]
+        # many jobs push here every minute: back off with jitter so two retries don't collide again
+        time.sleep(attempt * 3 + random.random() * 5)  # noqa: S311 (backoff jitter)
     if not saved:
-        return f"framework-data: NOT SAVED after {attempt} tries ({len(changed | gone)} file(s))"
+        return f"framework-data: NOT SAVED after {attempt} tries ({len(changed | gone)} file(s)); last error: {why}"
     # bring in what others pushed meanwhile, except files this job changed since
     head = _head()
     files = _tree(head)

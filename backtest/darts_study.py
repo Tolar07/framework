@@ -1,0 +1,73 @@
+"""
+Darts shadow-board study (framework#341, Week A; record-only). Writes backtest/DARTS_STUDY.md.
+
+No dated multi-season PDC results feed exists in the repo (HR35/HR59), so a 3-season backtest cannot be faked. What
+this does instead is read what the darts shadow board has actually recorded (engine.multisport) and report, walk-forward
+and honestly: how many graded sides and picks exist, the Elo walk-forward Brier against the 0.25 coin-flip baseline,
+and the days of data. Anything with too little data reads PENDING. Every try is counted (one scoreboard, one Elo).
+Nothing here changes a pick, stake, bar or the live switch.
+
+  python backtest/darts_study.py
+"""
+from __future__ import annotations
+
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+from engine import multisport as ms  # noqa: E402
+
+OUT = ROOT / "backtest" / "DARTS_STUDY.md"
+SPORT = "darts"
+MIN_SCORED = 100  # Elo Brier verdict needs at least this many scored games, else PENDING
+COIN_FLIP_BRIER = 0.25
+
+
+def summarise(docs: list[tuple[str, dict]], elo: dict | None) -> dict:
+    sb = ms.scoreboard(docs, elo)
+    e = sb.get("elo") or {}
+    scored, brier = e.get("scored", 0), e.get("walk_forward_brier")
+    if not scored or brier is None or scored < MIN_SCORED:
+        verdict = f"PENDING (needs {MIN_SCORED} scored games, has {scored})"
+    elif brier < COIN_FLIP_BRIER:
+        verdict = f"Elo beats a coin flip ({brier:.4f} < {COIN_FLIP_BRIER})"
+    else:
+        verdict = f"Elo does NOT beat a coin flip ({brier:.4f} >= {COIN_FLIP_BRIER})"
+    return {"days": len(docs), "first": docs[0][0] if docs else None, "last": docs[-1][0] if docs else None,
+            "sb": sb, "verdict": verdict}
+
+
+def render(s: dict, now: datetime) -> str:
+    sb, e = s["sb"], s["sb"].get("elo") or {}
+    lines = ["# Darts shadow study", "",
+             f"Made {now:%Y-%m-%d %H:%M} UTC by `backtest/darts_study.py` (framework#341). Record only.", "",
+             "A true 3-season walk-forward backtest vs the closing price needs a dated PDC results feed that does not "
+             "exist yet (PENDING, HR35/HR59). This reads what the shadow board has recorded so far.", "",
+             "## Shadow board so far", "",
+             f"- Board days: {s['days']} ({s['first'] or 'none'} to {s['last'] or 'none'})",
+             f"- Graded picks: {sb['picks']} (won {sb['won']}, paper P&L {sb['pnl']} units)",
+             f"- Average CLV vs fair close: {sb['clv_fair_avg'] if sb['clv_fair_avg'] is not None else 'PENDING'}",
+             f"- Players rated: {e.get('rated', 0)}; games learned: {e.get('games_learned', 0)}",
+             f"- Elo walk-forward Brier: {e.get('walk_forward_brier') or 'PENDING'} over {e.get('scored', 0)} scored games",
+             f"- Verdict: {s['verdict']}", "", "## Every side by market (all graded sides, not just picks)", "",
+             "| Market | Sides | Won | Flat-stake P&L |", "|---|---|---|---|"]
+    for mid, b in sorted(sb["all_sides_by_market"].items()):
+        lines.append(f"| {mid} | {b['sides']} | {b['won']} | {b['pnl']} |")
+    if not sb["all_sides_by_market"]:
+        lines.append("| PENDING | 0 | 0 | 0 |")
+    lines += ["", "Record only: nothing here changes a stake, a bar or the live switch.", ""]
+    return "\n".join(lines)
+
+
+def run(now: datetime | None = None) -> str:
+    docs = ms.load_all(SPORT)
+    text = render(summarise(docs, ms.load_elo(SPORT)), now or datetime.now(UTC))
+    OUT.write_text(text, encoding="utf-8")
+    return text
+
+
+if __name__ == "__main__":
+    print(run())

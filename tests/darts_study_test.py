@@ -1,3 +1,4 @@
+from pathlib import Path
 from datetime import UTC, datetime
 
 from backtest import darts_study as d
@@ -33,3 +34,10 @@ def test_calibration_buckets_and_pending():
     thin = d.calibration([("x", _doc())])
     assert all(c["actual"] is None for c in thin)
     assert "PENDING (<30)" in d.render(d.summarise([("x", _doc())], None), datetime(2026, 11, 7, tzinfo=UTC))
+
+
+def test_workflow_runs_darts_studies_on_grade_and_saves_them():
+    """#341: the studies read the private board, so they must run in the multisport workflow (not only locally)."""
+    wf = (Path(__file__).resolve().parent.parent / ".github" / "workflows" / "multisport.yml").read_text(encoding="utf-8")
+    assert "python backtest/darts_study.py" in wf and "python backtest/darts_format_study.py" in wf
+    assert "backtest/DARTS_STUDY.md" in wf

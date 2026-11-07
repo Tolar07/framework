@@ -577,16 +577,20 @@ def _slim(b: dict) -> dict:
 
 
 def write_back(graded: list[dict], now: datetime, root: Path | None = None) -> dict[str, int]:
-    """One graded file per bot per bet day; rewritten only when a grade changed."""
+    """One graded file per bot per bet day; rewritten only when a grade changed.
+    GRADE EVERYTHING, KEEP EVERYTHING (the Architect, 2026-11-07 17:43 UK: "Never leave anything ungraded ...
+    the framework needs every information to make decisions without me"): a bot's paper picks are kept too, in
+    graded/paper_<day>.json beside the real ones' graded/<day>.json. The bots' money readers (derisk) glob
+    20??-??-??.json only, so a paper grade never moves a real stake."""
     root = root or BOTS
     changed: dict[str, int] = defaultdict(int)
-    groups: dict[tuple[str, str], dict] = defaultdict(dict)
+    groups: dict[tuple[str, str, bool], dict] = defaultdict(dict)
     for b in graded:
         if b["bot"] in SIDECAR:
-            groups[(b["bot"], b["date"])][b["id"]] = _slim(b)
-    for (bot, day), bets in groups.items():
+            groups[(b["bot"], b["date"], bool(b.get("paper")))][b["id"]] = _slim(b)
+    for (bot, day, is_paper), bets in groups.items():
         repo, sub = SIDECAR[bot]
-        path = root / repo / sub / f"{day}.json"
+        path = root / repo / sub / (f"paper_{day}.json" if is_paper else f"{day}.json")
         old = _read(path) or {}
         if old.get("bets") == bets:
             continue
@@ -982,7 +986,7 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
     save_cache(cache)
     if dry:
         return " · ".join(notes)
-    changed = write_back(real, now)
+    changed = write_back(graded, now)            # real AND paper (paper_<day>.json); board slips stay in the report
     notes += push_repos(changed, now) if os.environ.get("GITHUB_ACTIONS") == "true" else \
         [f"graded files written for {', '.join(changed) or 'no repo'} (not pushed outside Actions)"]
     learning = ""

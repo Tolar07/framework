@@ -26,6 +26,39 @@ MIN_SCORED = 100  # Elo Brier verdict needs at least this many scored games, els
 COIN_FLIP_BRIER = 0.25
 
 
+BUCKETS = [(0.0, 0.25), (0.25, 0.4), (0.4, 0.55), (0.55, 0.7), (0.7, 1.01)]
+MIN_BUCKET = 30  # a bucket with fewer graded sides reads PENDING, never a verdict
+
+
+def calibration(docs: list[tuple[str, dict]]) -> list[dict]:
+    """Price-implied chance (1/first price) vs the share that actually won, per bucket, over every graded side.
+
+    Market-anchored check: if the price is calibrated, implied ~ actual. Raw implied (not de-vigged), so a small gap
+    equal to the overround is expected. Sides with no price or no result are skipped (HR35: missing reads PENDING).
+    """
+    acc = [[0, 0, 0.0] for _ in BUCKETS]  # n, won, sum implied
+    for _day, doc in docs:
+        for g in (doc.get("games") or {}).values():
+            for sd in (g.get("sides") or {}).values():
+                price = ((sd.get("first") or {}).get("price"))
+                won = sd.get("won")
+                if not price or price <= 1.0 or won is None:
+                    continue
+                q = 1.0 / price
+                for i, (lo, hi) in enumerate(BUCKETS):
+                    if lo <= q < hi:
+                        acc[i][0] += 1
+                        acc[i][1] += 1 if won else 0
+                        acc[i][2] += q
+                        break
+    out = []
+    for (lo, hi), (n, w, sq) in zip(BUCKETS, acc, strict=True):
+        ok = n >= MIN_BUCKET
+        out.append({"lo": lo, "hi": min(hi, 1.0), "n": n, "won": w,
+                    "implied": round(sq / n, 4) if ok else None, "actual": round(w / n, 4) if ok else None})
+    return out
+
+
 def summarise(docs: list[tuple[str, dict]], elo: dict | None) -> dict:
     sb = ms.scoreboard(docs, elo)
     e = sb.get("elo") or {}
@@ -37,7 +70,7 @@ def summarise(docs: list[tuple[str, dict]], elo: dict | None) -> dict:
     else:
         verdict = f"Elo does NOT beat a coin flip ({brier:.4f} >= {COIN_FLIP_BRIER})"
     return {"days": len(docs), "first": docs[0][0] if docs else None, "last": docs[-1][0] if docs else None,
-            "sb": sb, "verdict": verdict}
+            "sb": sb, "verdict": verdict, "calibration": calibration(docs)}
 
 
 def render(s: dict, now: datetime) -> str:
@@ -58,6 +91,12 @@ def render(s: dict, now: datetime) -> str:
         lines.append(f"| {mid} | {b['sides']} | {b['won']} | {b['pnl']} |")
     if not sb["all_sides_by_market"]:
         lines.append("| PENDING | 0 | 0 | 0 |")
+    lines += ["", "## Price calibration (implied chance vs actual win rate, all graded sides)", "",
+              "| Implied band | Sides | Won | Implied | Actual |", "|---|---|---|---|---|"]
+    for b in s.get("calibration", []):
+        imp = b["implied"] if b["implied"] is not None else f"PENDING (<{MIN_BUCKET})"
+        act = b["actual"] if b["actual"] is not None else "PENDING"
+        lines.append(f"| {b['lo']:.2f}-{b['hi']:.2f} | {b['n']} | {b['won']} | {imp} | {act} |")
     lines += ["", "Record only: nothing here changes a stake, a bar or the live switch.", ""]
     return "\n".join(lines)
 

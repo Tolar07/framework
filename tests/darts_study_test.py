@@ -22,3 +22,14 @@ def test_counts_and_brier_verdict():
     assert "beats a coin flip" in s["verdict"]
     elo["brier"] = [60.0, 200]
     assert "does NOT" in d.summarise([], elo)["verdict"]
+
+
+def test_calibration_buckets_and_pending():
+    games = {f"g{i}": {"sides": {"a": {"won": i % 2 == 0, "first": {"price": 2.0}}}} for i in range(40)}
+    games["bad"] = {"sides": {"a": {"won": None, "first": {"price": 2.0}}, "b": {"won": True, "first": {}}}}
+    cal = d.calibration([("2026-11-07", {"games": games})])
+    b = [c for c in cal if c["lo"] == 0.4][0]
+    assert b["n"] == 40 and b["won"] == 20 and b["implied"] == 0.5 and b["actual"] == 0.5
+    thin = d.calibration([("x", _doc())])
+    assert all(c["actual"] is None for c in thin)
+    assert "PENDING (<30)" in d.render(d.summarise([("x", _doc())], None), datetime(2026, 11, 7, tzinfo=UTC))

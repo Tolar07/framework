@@ -1175,10 +1175,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/rugby_backtest.py"
+    ],
+    "note": "Walk-forward Elo, 5898 games 2014-2025 (ESPN scores), held-out 2020-2025; no free historical closing odds, so no return figure. Report written to backtest/RUGBY_STUDY.md (private data, not in the public repo); more record-only studies: backtest/rugby_*_study.py (#344)."
    },
    "scout_reasoning": {
     "status": "todo",

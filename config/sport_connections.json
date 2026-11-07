@@ -1054,10 +1054,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/cricket_backtest.py"
+    ],
+    "note": "Walk-forward Elo, 6747 men's matches (T20 3530, ODI 2487, Test 730; Cricsheet results), held-out 2019-2026: Brier 0.2207 vs 0.2551 flat baseline, hit rate 63.6%; no free historical closing odds, so no return figure. Report in backtest/CRICKET_STUDY.md (private data, not in the public repo). Venue/pitch model is #385 (#343)."
    },
    "scout_reasoning": {
     "status": "todo",

@@ -91,6 +91,7 @@ jobs:
           python backtest/darts_holdout_study.py
           python backtest/darts_coldstart_study.py
           python backtest/darts_format_underdog_study.py
+          python backtest/darts_dated_study.py
       - name: Connection gaps (config/sport_connections.json; fails when a live sport has a bot gap)
         if: github.event.inputs.mode == 'grade'
         run: python monitor/connections_check.py

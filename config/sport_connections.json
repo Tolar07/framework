@@ -814,10 +814,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/volleyball_backtest.py"
+    ],
+    "note": "Walk-forward Elo on 13,499 NCAA women's matches 2016-2025 (ESPN set scores; the only free dated volleyball feed), held-out 2021-2025; accuracy only, no free closing odds. Report: backtest/VOLLEYBALL_TABLE_TENNIS_STUDY.md (#342). Pro leagues: no free feed found."
    },
    "scout_reasoning": {
     "status": "todo",

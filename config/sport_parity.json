@@ -575,6 +575,10 @@
    "note": "fixtures: ESPN NBA; world basketball: SportyBet list in monitor/edge_run.py",
    "basketball": "data/nba_source.py"
   },
+  "data/darts_results.py": {
+   "status": "n/a",
+   "note": "darts-only PDC World Championship results from Wikipedia brackets (#341); basketball results come from data/nba_source.py"
+  },
   "data/flashscore_results.py": {
    "status": "covers",
    "note": "handles basketball itself"

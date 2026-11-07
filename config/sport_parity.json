@@ -21,6 +21,10 @@
    "status": "n/a",
    "note": "multi-sport boards runner (order 50); basketball has run_nba.py"
   },
+  "data/darts_pl_results.py": {
+   "status": "n/a",
+   "note": "dated Premier League Darts results for the darts studies (order 50 multi-sport); basketball uses data/nba_source.py"
+  },
   "data/nhl_source.py": {
    "status": "n/a",
    "note": "NHL results for the ice hockey model (order 50 multi-sport); basketball uses data/nba_source.py"

@@ -140,6 +140,19 @@ side = json.loads((bots / "sportybet-agent/ledger/sportybet/graded/2026-10-31.js
 assert side["bets"]["1"]["result"] == "void" and side["bets"]["1"]["legs"][0]["source"] == "universe"
 assert bg.write_back(graded, now, root=bots) == {}, "unchanged grades are not rewritten"
 
+# GRADE EVERYTHING (Architect 2026-11-07): a bot's paper picks are graded AND kept, apart from the real bets
+(sb / "rules" / "ledger.json").write_text(json.dumps({"bets": [], "paper": [
+    {"at": "2026-10-31T09:00:00+00:00", "rule": "edge", "status": "paper", "code": "ABC123",
+     "stake": 1000, "odds": 1.41}]}))
+pbets = [b for b in bg.sportybet_bets(bots / "sportybet-agent", "2026-10-25", cache) if b["paper"]]
+assert [b["kind"] for b in pbets] == ["rule edge (paper)"]
+pg = [bg.grade_slip(b, G, defaultdict(int), now) for b in pbets]
+assert "sportybet-agent" in bg.write_back(pg, now, root=bots)
+pside = json.loads((bots / "sportybet-agent/ledger/sportybet/graded/paper_2026-10-31.json").read_text(encoding="utf-8"))
+assert list(pside["bets"].values())[0]["kind"] == "rule edge (paper)", "paper grades are kept"
+real_side = json.loads((bots / "sportybet-agent/ledger/sportybet/graded/2026-10-31.json").read_text(encoding="utf-8"))
+assert not any("paper" in b["kind"] for b in real_side["bets"].values()), "paper never mixes into the real file"
+
 text = bg.build_report(graded, "2026-10-31", {"disagree": 1})
 for part in ("TODAY", "LAST 7 DAYS", "LAST 30 DAYS", "BY MARKET AND SIDE", "BY RULE AND SLIP TYPE",
              "Matchbook:", "Betfair:", "SportyBet acct 1:", "Total:", "per £", "Could not grade yet: 0 bets",

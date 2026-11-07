@@ -41,3 +41,9 @@ def test_workflow_runs_darts_studies_on_grade_and_saves_them():
     wf = (Path(__file__).resolve().parent.parent / ".github" / "workflows" / "multisport.yml").read_text(encoding="utf-8")
     assert "python backtest/darts_study.py" in wf and "python backtest/darts_format_study.py" in wf
     assert "backtest/DARTS_STUDY.md" in wf
+
+
+def test_feed_probe_is_in_report_and_unscored():
+    from backtest import darts_study as ds
+    assert all(scored == 0 for _, _, scored, _ in ds.FEED_PROBE)
+    assert "Results-feed probe" in "".join(ds.feed_probe_lines())

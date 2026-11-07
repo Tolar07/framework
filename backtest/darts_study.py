@@ -73,6 +73,20 @@ def summarise(docs: list[tuple[str, dict]], elo: dict | None) -> dict:
             "sb": sb, "verdict": verdict, "calibration": calibration(docs)}
 
 
+# Probed 2026-11-07 (framework#341): TheSportsDB PDC Darts (league 4554), seasons 2022-2025, free key.
+# Only tournament-day rows (15/season): no players, no scores. Not a usable results feed, so the backtest stays PENDING.
+FEED_PROBE = [("TheSportsDB PDC Darts (4554), 2022-2025", 60, 0,
+               "tournament-day rows only: no players, no scores")]
+
+
+def feed_probe_lines() -> list[str]:
+    out = ["## Results-feed probe (why the 3-season backtest is PENDING)", "",
+           "| Source | Events | With a score | Finding |", "|---|---|---|---|"]
+    for src, n, scored, note in FEED_PROBE:
+        out.append(f"| {src} | {n} | {scored} | {note} |")
+    return out + [""]
+
+
 def render(s: dict, now: datetime) -> str:
     sb, e = s["sb"], s["sb"].get("elo") or {}
     lines = ["# Darts shadow study", "",
@@ -97,6 +111,7 @@ def render(s: dict, now: datetime) -> str:
         imp = b["implied"] if b["implied"] is not None else f"PENDING (<{MIN_BUCKET})"
         act = b["actual"] if b["actual"] is not None else "PENDING"
         lines.append(f"| {b['lo']:.2f}-{b['hi']:.2f} | {b['n']} | {b['won']} | {imp} | {act} |")
+    lines += [""] + feed_probe_lines()[:-1]
     lines += ["", "Record only: nothing here changes a stake, a bar or the live switch.", ""]
     return "\n".join(lines)
 

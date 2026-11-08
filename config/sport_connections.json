@@ -601,10 +601,12 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/snooker_backtest.py",
+     "data/snooker_results.py"
+    ],
+    "note": "Walk-forward Elo, 6,579 WST matches 2019-20..2025-26 (Wikipedia draws, dated by event start), held-out 2024-25 on: Brier 0.2257 / log loss 0.6433 / hit 63.8% vs coin 0.25; no free closing odds, accuracy only. 12 tries. Report backtest/SNOOKER_STUDY.md (#352)."
    },
    "scout_reasoning": {
     "status": "done",
@@ -736,10 +738,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/darts_backtest.py"
+    ],
+    "note": "Walk-forward Elo, 1,692 PDC matches (World Championship 2020-26, Premier League + majors 2023-26 via the #457 dated feeds), held-out 2025 on: board setting picked, Brier 0.2278 / log loss 0.6479 / hit 63.2% vs coin 0.25; no free closing odds, accuracy only. 9 tries. Report backtest/DARTS_BACKTEST_STUDY.md (#352)."
    },
    "scout_reasoning": {
     "status": "done",
@@ -1007,10 +1010,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/table_tennis_backtest.py"
+    ],
+    "note": "Walk-forward Elo on the only free dated bulk file (SCORE/Kaggle Setka Cup, 7,850 matches, Jun-Jul 2022; a league the board excludes; one month, not 3 seasons): board setting picked, held-out Brier 0.2425 / log loss 0.6777 / hit 57.4% vs coin 0.25. WTT/ITTF results need a login; no free closing odds. 12 tries. Report backtest/TABLE_TENNIS_STUDY.md (#352)."
    },
    "scout_reasoning": {
     "status": "done",
@@ -1412,10 +1416,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/tennis_backtest.py"
+    ],
+    "note": "ATP+WTA 2019-2025 vs Pinnacle close (tennis-data.co.uk), tuned 2019-22, held-out 2023-25 (13,483): Elo log loss 0.6274, market-anchored 0.6059 vs Pinnacle 0.5956; flat bets -10 to -11%. Report backtest/TENNIS_STUDY.md (#345, #352)."
    },
    "scout_reasoning": {
     "status": "done",
@@ -1547,10 +1552,11 @@
     ]
    },
    "backtest": {
-    "status": "todo",
-    "issue": "framework#352",
-    "due": "2026-11-12",
-    "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
+    "status": "done",
+    "paths": [
+     "backtest/baseball_backtest.py"
+    ],
+    "note": "MLB 2019-2025, 15,733 games vs the median pre-game bookmaker close (ESPN scoreboard + odds record), tuned 2019-22, held-out 2023-25 (7,399): team Elo log loss 0.6820, market-anchored 0.6772 vs close 0.6759; no information beyond the price. 40 tries. Report backtest/BASEBALL_STUDY.md (#352)."
    },
    "scout_reasoning": {
     "status": "done",

@@ -269,6 +269,12 @@ def save(paths, message: str) -> str:
         gone = set()
     if not changed and not gone:
         return "framework-data: nothing new to save"
+    # No line-ending conversion in this checkout: a file stored with CRLF while .gitattributes says eol=lf
+    # otherwise shows as modified on every checkout, the rebase below stops ("You have unstaged changes")
+    # and nothing is saved (2026-11-08: picks_2026-11-09 lost on three board runs). Bytes are kept as written.
+    info = FD / ".git" / "info"
+    info.mkdir(parents=True, exist_ok=True)
+    (info / "attributes").write_text("* -text\n", encoding="utf-8")
     # commit on the commit the job read, so the rebase below is a real 3-way merge
     _git("reset", "-q", "--hard", base)
     for r in changed:

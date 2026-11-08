@@ -485,6 +485,11 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "monitor/multisport_live.py": {
+   "status": "twin",
+   "note": "live tracker for every rollout sport (order 50, framework#359)",
+   "basketball": "monitor/nba_live.py"
+  },
   "monitor/nba_watch.py": {
    "status": "covers",
    "note": "handles basketball itself"

@@ -196,8 +196,9 @@ def prompt_for(sport: str) -> str:
     note = (f"{LABEL.get(sport, sport).upper()} notes: model_chance is the framework's chance (\"source\" says from "
             "where: the Matchbook exchange's de-margined price, or 75% SportyBet + 25% the sport's own Elo), so it is "
             "already a market view; \"value_pts\" is how far the SportyBet price sits above it. \"scout\" is what a "
-            "web search found for the fixture (unconfirmed unless it names a source). Missing facts: keep the "
-            "model's view.\n\n")
+            "web search found for the fixture (unconfirmed unless it names a source); \"team_news\" is the sport's "
+            "own fetched team news (starting goalie / pitcher, QB report, team sheet, XI, withdrawal) with its "
+            "level. Missing facts: keep the model's view.\n\n")
     return p.replace("PICKS:\n", note + "PICKS:\n")
 
 
@@ -234,8 +235,10 @@ def say(r: dict | None) -> str:
             + (f", value against the exchange close {cv:+.1%}" if cv is not None else ""))
 
 
-def context(sport: str, picks: list[dict], scout_doc: dict | None, records: dict) -> list[dict]:
+def context(sport: str, picks: list[dict], scout_doc: dict | None, records: dict,
+            team_news: dict | None = None) -> list[dict]:
     found = {r.get("fixture"): r for r in (scout_doc or {}).get("fixtures") or []}
+    team_news = team_news or {}
     out = []
     for i, p in enumerate(picks):
         price, ch = p.get("price"), p.get("chance") if p.get("chance") is not None else p.get("fair")
@@ -250,6 +253,8 @@ def context(sport: str, picks: list[dict], scout_doc: dict | None, records: dict
             "market_family": fam, "framework_record_in_family": say(records.get(fam)), "pool": False,
             "scout": ({"finding": sc.get("finding"), "direction": sc.get("direction"),
                        "absences": sc.get("absences"), "sources": sc.get("sources")} if sc else None),
+            # the sport's own team news (engine/ms_team_news.py, framework#354): fetched, recorded-only flag
+            "team_news": team_news.get(pick_id(p)),
         })
     return out
 
@@ -301,7 +306,8 @@ def reason_day(sport: str, day: str, doc: dict, scout_doc: dict | None = None, o
         {x["id"]: x for x in old.get("picks") or [] if x.get("verdict") in R.VERDICTS}
     picks = real_picks(doc)
     todo = [p for p in picks if pick_id(p) not in done]
-    rows = context(sport, todo, scout_doc, family_records(sport, ms_dir, ih_dir))
+    from engine import ms_team_news as TN  # inside: ms_team_news imports this module
+    rows = context(sport, todo, scout_doc, family_records(sport, ms_dir, ih_dir), TN.lines_for_context(sport, day))
     answers: dict = {}
     note = None
     model = None

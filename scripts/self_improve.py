@@ -19,6 +19,16 @@ writes the answers down — no LLM needed for these:
      data we already hold), each written as a framework issue labelled
      `self-improvement` (one per title, never duplicated).
 
+ (e) EVERY SPORT (framework#356, order 50: every sport inherits football + basketball) -
+     the same question for basketball (NBA + world basketball / NCAA) and each rollout sport
+     (ice hockey and engine/multisport.SPORTS): its graded record (data/ice_hockey/scoreboard.json,
+     data/multisport/<sport>/scoreboard.json, the NBA and world basketball picks), its experiment
+     slot (memory/strategies.json) and its model's walk-forward Brier. Each sport gets at most ONE
+     proposal a week with ONE buildable deliverable from data already held (a study script + report,
+     a grading fix, a promotion for the Architect). Too little graded yet = PENDING, never an issue:
+     a proposal is never blocked on data that does not exist. Opened as `self-improvement` issues
+     (one per title); an open one gets this week's numbers as a comment instead of a duplicate.
+
  (d) SEARCH, BUILD, MERGE, TELL (order 49) — the workflow's second job is a
      fresh Claude Code run (Sonnet, GitHub Actions): it searches the web for
      what strong models use, opens what's lacking as issues, builds the top
@@ -218,6 +228,161 @@ def proposals(inputs: list[dict], loops: list[dict]) -> list[dict]:
     return sorted(out, key=lambda x: -x["ev"])
 
 
+# -- (e) every sport (framework#356) ----------------------------------------------------------
+MIN_PICKS = 30            # graded picks before the picks' CLV is judged
+MIN_SIDES = 100           # graded sides before "the board makes no picks" is a finding, not noise
+MIN_BRIER_N = 200         # walk-forward scored games before the model's Brier is judged
+COIN_BRIER = 0.25         # a 50/50 guess on a two-way winner market
+
+
+def rollout_sports() -> list[str]:
+    """Basketball, ice hockey and every engine/multisport.SPORTS entry (the order-50 rollout)."""
+    from engine import multisport as ms
+    return ["basketball", "ice_hockey", *ms.SPORTS]
+
+
+def _label(sport: str) -> str:
+    return sport.replace("_", " ").capitalize()
+
+
+def _read(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _graded(picks: list[dict], clv_key: str) -> dict:
+    g = [p for p in picks if p.get("result") in ("won", "lost") and p.get("price")]
+    clv = [p[clv_key] for p in g if p.get(clv_key) is not None]
+    return {"picks": len(g), "won": sum(p["result"] == "won" for p in g),
+            "pnl": round(sum((p["price"] - 1) if p["result"] == "won" else -1.0 for p in g), 3),
+            "clv_avg": round(sum(clv) / len(clv), 4) if clv else None, "clv_n": len(clv)}
+
+
+def sport_record(sport: str, root: Path | None = None) -> dict:
+    """One sport's graded record: picks, won, return (1 unit), value vs close, graded sides, model Brier.
+    Basketball = the NBA board's regular-season picks + world basketball / NCAA picks (close_value);
+    the rollout sports = their board's scoreboard (written by run_hockey.py / run_multisport.py --grade)."""
+    root = root or ROOT
+    if sport == "basketball":
+        picks: list[dict] = []
+        boards = 0
+        for f in sorted((root / "output" / "picks").glob("nba_2*.json")):
+            boards += 1
+            picks += [p for p in _read(f).get("picks") or [] if p.get("stage") != "preseason"]
+        for f in sorted((root / "output" / "world_basketball").glob("wb_*.json")):
+            boards += 1
+            picks += _read(f).get("picks") or []
+        return {"sport": sport, "boards": boards, "scoreboard": "output/picks/nba_*.json + output/world_basketball/",
+                **_graded(picks, "close_value"), "sides": None, "brier": None, "brier_n": 0}
+    if sport == "ice_hockey":
+        rel, boards = "data/ice_hockey/scoreboard.json", len(list((root / "output" / "ice_hockey").glob("ih_*.json")))
+    else:
+        rel = f"data/multisport/{sport}/scoreboard.json"
+        boards = len(list((root / "output" / "multisport" / sport).glob("ms_*.json")))
+    sb = _read(root / rel)
+    elo = sb.get("elo") or {}
+    by = sb.get("all_sides_by_market") or {}
+    return {"sport": sport, "boards": boards, "scoreboard": rel if sb else None, "picks": sb.get("picks", 0),
+            "won": sb.get("won", 0), "pnl": sb.get("pnl", 0), "clv_avg": sb.get("clv_fair_avg"),
+            "clv_n": sb.get("picks", 0), "sides": sum(b.get("sides", 0) for b in by.values()) if sb else None,
+            "brier": elo.get("walk_forward_brier"), "brier_n": elo.get("scored") or 0}
+
+
+def _flagged(sport: str, root: Path) -> list[tuple[str, dict]]:
+    """Experiment-engine shadows on the sport's slot that passed the promotion test (memory/strategies.json)."""
+    reg = _read(root / "memory" / "strategies.json")
+    slot = "nba" if sport == "basketball" else sport
+    st = reg.get("standings") or {}
+    return [(n, st.get(n) or {}) for n in reg.get("flagged") or [] if (st.get(n) or {}).get("slot") == slot]
+
+
+def _where(sport: str) -> str:
+    if sport == "basketball":
+        return "`output/picks/nba_*.json`, `output/world_basketball/`"
+    if sport == "ice_hockey":
+        return "`data/ice_hockey/`, `output/ice_hockey/`"
+    return f"`data/multisport/{sport}/`, `output/multisport/{sport}/`"
+
+
+def sport_question(sport: str, root: Path | None = None) -> dict:
+    """'What do I need to do better?' for one sport: the record, the answer, and at most one proposal
+    with ONE buildable deliverable (never a proposal that waits on data the framework does not hold)."""
+    root = root or ROOT
+    r = sport_record(sport, root)
+    lab, up = _label(sport), sport.upper()
+    rec = (f"{r['picks']} graded picks (won {r['won']}, {r['pnl']:+.2f}u"
+           + (f", value vs close {r['clv_avg']:+.1%} over {r['clv_n']}" if r.get("clv_avg") is not None else "")
+           + ")" + (f", {r['sides']} graded sides" if r.get("sides") is not None else "")
+           + (f", model walk-forward Brier {r['brier']} over {r['brier_n']}" if r.get("brier") is not None else ""))
+    data_note = (f" Data: {_where(sport)} (private, laid over the workspace by `python monitor/fdata.py pull`). "
+                 "RECORD-ONLY: nothing here changes a pick rule, stake or threshold.")
+    prop = None
+    flagged = _flagged(sport, root)
+    if r["boards"] == 0:
+        answer = "no board file yet: PENDING (the board has not run for this sport)"
+    elif sport != "basketball" and not r["scoreboard"]:
+        answer = f"{r['boards']} board files but no scoreboard: the grading run is not writing it"
+        prop = {"title": f"{lab}: the grading run writes no scoreboard - fix it at source", "ev": 6.0, "kind": "fix",
+                "body": f"Deliverable: find why the nightly grading (`run_multisport.py --grade` / `run_hockey.py "
+                        f"--grade`) leaves no scoreboard for {sport} although {r['boards']} board files exist, fix it, "
+                        "and add a test that grading one saved board file writes the scoreboard. Done when the next "
+                        "grading run writes it." + data_note}
+    elif flagged:
+        n, row = flagged[0]
+        answer = f"experiment shadow '{n}' passed the promotion test on the {sport} slot"
+        prop = {"title": f"{lab}: experiment shadow '{n}' beats the board's own picks - Architect decision",
+                "ev": 4.5, "kind": "promote",
+                "body": f"engine/experiments.py: {row.get('vs_live')}; counted {(row.get('counted') or {}).get('n')} "
+                        "bets. Deliverable: a short report in this issue of what wiring it into the board would "
+                        "change (picks kept / dropped over the graded record). Wiring it is the Architect's decision."
+                        + data_note}
+    elif r["picks"] == 0 and (r.get("sides") or 0) >= MIN_SIDES:
+        answer = f"the board made no graded pick from {r['sides']} graded sides: which gate stops every side?"
+        prop = {"title": f"{lab}: the board makes no picks - study which gate removes every side (record-only)",
+                "ev": 5.0, "kind": "study",
+                "body": f"{lab} has {r['sides']} graded sides and {r['picks']} graded picks. Deliverable: "
+                        f"`backtest/sport_gate_study.py --sport {sport}` (one script for every sport; create it if "
+                        f"missing) writing `backtest/{up}_GATE_STUDY.md`: for every graded side, the first board gate "
+                        "that removes it (price band 1.20-2.00, chance 50%+, value bar, exchange quote / liquidity, "
+                        "value cap) and how each removed group did at its first price (won rate, return per unit, "
+                        "value vs close), plus a test of the gate counter. Done when the report is merged."
+                        + data_note}
+    elif r["picks"] < MIN_PICKS:
+        answer = f"{r['picks']}/{MIN_PICKS} graded picks: PENDING, collecting (no proposal until the record is big enough)"
+    elif r.get("clv_avg") is not None and r["clv_avg"] < 0:
+        answer = f"picks lose to the close ({r['clv_avg']:+.1%} over {r['clv_n']}): where is the value lost?"
+        prop = {"title": f"{lab}: picks lose to the closing price - split value vs close by market and price band",
+                "ev": 4.0, "kind": "study",
+                "body": f"{lab}: {rec}. Deliverable: `backtest/sport_clv_study.py --sport {sport}` (one script for "
+                        f"every sport; create it if missing) writing `backtest/{up}_CLV_STUDY.md`: the graded picks' "
+                        "value vs close by market, price band, competition and source (exchange / model), with the "
+                        "standard error of each cell, plus a test. Done when the report is merged." + data_note}
+    elif ((r.get("brier") or 0) >= COIN_BRIER and r["brier_n"] >= MIN_BRIER_N
+          and not (root / "backtest" / f"{up}_K_STUDY.md").exists()):
+        answer = f"the model's walk-forward Brier {r['brier']} is no better than a coin over {r['brier_n']} games"
+        prop = {"title": f"{lab}: the Elo is no better than a coin walk-forward - tune K and the start rating",
+                "ev": 3.0, "kind": "study",
+                "body": f"{lab}: {rec}. Deliverable: `backtest/{sport}_k_study.py` writing `backtest/{up}_K_STUDY.md`: "
+                        "walk-forward Brier over the learned games for K in 8-48 and start ratings, against the "
+                        "exchange's fair price where held, plus a test. Done when the report is merged." + data_note}
+    else:
+        answer = "on track: picks hold value against the close; keep grading"
+    return {"sport": sport, "record": r, "summary": rec, "answer": answer, "proposal": prop}
+
+
+def audit_sports(root: Path | None = None) -> list[dict]:
+    out = []
+    for sp in rollout_sports():
+        try:
+            out.append(sport_question(sp, root))
+        except Exception as e:  # noqa: BLE001 - one unreadable sport never hides the others
+            out.append({"sport": sp, "record": {}, "summary": "NO DATA - PENDING", "answer": f"unreadable ({e})",
+                        "proposal": None})
+    return out
+
+
 def position(loops: list[dict], card: dict | None = None) -> dict:
     """Where am I: the bots' per-rule CLV scorecard (monitor/rule_scorecard.py, written nightly by
     bot_grader) plus the loops with no new evidence. Missing scorecard reads PENDING (HR35)."""
@@ -231,7 +396,16 @@ def position(loops: list[dict], card: dict | None = None) -> dict:
             "multiplicity": card.get("multiplicity"), "built_at": card.get("built_at")}
 
 
-def render(inputs, loops, props, when, pos: dict | None = None) -> str:
+def render_sports(sports: list[dict]) -> list[str]:
+    L = ["", "## (e) Every sport: what do I need to do better?", "",
+         "| sport | graded record | answer | proposal |", "|---|---|---|---|"]
+    for q in sports:
+        p = q.get("proposal")
+        L.append(f"| {q['sport']} | {q['summary']} | {q['answer']} | {p['title'] if p else '-'} |")
+    return L
+
+
+def render(inputs, loops, props, when, pos: dict | None = None, sports: list[dict] | None = None) -> str:
     L = [f"# SELF-IMPROVEMENT REVIEW — {when}", "",
          "Written weekly by `scripts/self_improve.py` (`self_improve.yml`): what the model uses, which "
          "learning loops produced tested evidence this week, and what to do better, ranked by expected "
@@ -261,6 +435,8 @@ def render(inputs, loops, props, when, pos: dict | None = None) -> str:
             L += [f"- {p['kind']}: {p['line']} (EV {p['ev']})" for p in pos.get("proposals") or []]
         if pos.get("stalled_loops"):
             L.append("Loops with no new evidence: " + ", ".join(pos["stalled_loops"]))
+    if sports is not None:
+        L += render_sports(sports)
     return "\n".join(L) + "\n"
 
 
@@ -294,6 +470,37 @@ def open_issues(props: list[dict], top: int = 5) -> list[str]:
     return made
 
 
+def open_sport_issues(sports: list[dict], when: str) -> list[str]:
+    """One issue per sport proposal (framework#356): opened once by title; an open one gets this week's
+    numbers as a comment instead of a duplicate; one closed as not planned is never re-opened."""
+    repo = os.environ.get("GITHUB_REPOSITORY", "Tolar07/framework")
+    props = [q["proposal"] for q in sports if q.get("proposal")]
+    if not props:
+        return []
+    _gh("label", "create", LABEL, "-R", repo, "--color", "5319e7", "--description",
+        "weekly self-improvement proposals", "--force")
+    open_ = {x["title"]: x["number"] for x in json.loads(_gh("issue", "list", "-R", repo, "--state", "open", "--label",
+                                                             LABEL, "--limit", "200", "--json", "title,number") or "[]")}
+    dropped = {x["title"] for x in json.loads(_gh("issue", "list", "-R", repo, "--state", "closed", "--label", LABEL,
+                                                  "--limit", "300", "--json", "title,stateReason") or "[]")
+               if x.get("stateReason") == "NOT_PLANNED"}
+    made = []
+    for p in props:
+        if p["title"] in dropped:
+            continue
+        if p["title"] in open_:
+            _gh("issue", "comment", str(open_[p["title"]]), "-R", repo, "--body",
+                f"Weekly self-improvement review {when}: still open. {p['body']}")
+            continue
+        body = (f"{p['body']}\n\nWeekly self-improvement review, section (e) every sport "
+                "(backtest/SELF_IMPROVEMENT.md). One deliverable; build it record-only with a test.\n\n---\n"
+                "_Generated by [Claude Code](https://claude.ai/code)_")
+        url = _gh("issue", "create", "-R", repo, "--title", p["title"], "--label", LABEL, "--body", body)
+        if url:
+            made.append(url.strip())
+    return made
+
+
 def architect_note(note_path: Path | None = None, review: dict | None = None) -> str:
     """The weekly message to the Architect: the build step's own summary when it
     wrote one, else the review's question, stalls and top proposals."""
@@ -312,6 +519,9 @@ def architect_note(note_path: Path | None = None, review: dict | None = None) ->
     lacking = [r["input"] for r in review.get("inputs", []) if r.get("status") in ("MISSING", "CONTEXT")]
     if lacking:
         L.append("Not yet used as a model input: " + ", ".join(lacking))
+    work = [f"{q['sport']}: {q['answer']}" for q in review.get("sports", []) if q.get("proposal")]
+    if work:
+        L.append("Sports with something to do better: " + "; ".join(work))
     L.append("")
     L.append("Proposals (best first):")
     L += [f"{i}. {p['title']}" for i, p in enumerate(review.get("proposals", [])[:5], 1)] or ["none"]
@@ -335,10 +545,14 @@ def main(argv: list[str] | None = None) -> int:
     inputs, loops = audit_inputs(), audit_loops()
     props = proposals(inputs, loops)
     pos = position(loops)
-    OUT_MD.write_text(render(inputs, loops, props, when, pos), encoding="utf-8")
+    sports = audit_sports()
+    OUT_MD.write_text(render(inputs, loops, props, when, pos, sports), encoding="utf-8")
     made = open_issues(props) if a.issues else []
-    OUT_JSON.write_text(json.dumps({"reviewed": when, "inputs": inputs, "loops": loops,
-                                    "proposals": props, "position": pos, "issues_opened": made}, indent=1), encoding="utf-8")
+    if a.issues:
+        made += open_sport_issues(sports, when)
+    OUT_JSON.write_text(json.dumps({"reviewed": when, "inputs": inputs, "loops": loops, "proposals": props,
+                                    "position": pos, "sports": sports, "issues_opened": made}, indent=1),
+                        encoding="utf-8")
     print(OUT_MD.read_text(encoding="utf-8"))
     if made:
         print("issues opened:", *made, sep="\n  ")

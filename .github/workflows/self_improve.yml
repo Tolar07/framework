@@ -105,7 +105,9 @@ jobs:
             1. ASK: "What do I need to do to improve performance and the framework?"
             2. SEARCH: use WebSearch / WebFetch for what strong football (and NBA) prediction
                models use now: inputs, methods, calibration, data sources. Compare that with
-               section (a) of backtest/SELF_IMPROVEMENT.md and the code. For anything that is
+               section (a) of backtest/SELF_IMPROVEMENT.md and the code. Section (e) asks the
+               same question for EVERY sport (basketball and each rollout sport, framework#356);
+               its per-sport issues are already opened by the review job, one deliverable each. For anything that is
                lacking and not already an open `self-improvement` issue, open one
                (`gh issue create --label self-improvement`) with the source URL, why it should
                help and how to test it walk-forward. At most 3 new issues a week.

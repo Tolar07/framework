@@ -225,10 +225,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12",
-    "note": "self_improve.py does not name basketball"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -355,9 +356,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -486,9 +489,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -616,9 +621,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -746,9 +753,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -877,9 +886,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -1007,9 +1018,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -1136,9 +1149,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -1267,9 +1282,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -1397,9 +1414,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",
@@ -1527,9 +1546,11 @@
     ]
    },
    "self_improvement": {
-    "status": "todo",
-    "issue": "framework#356",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "scripts/self_improve.py",
+     "tests/self_improve_sports_test.py"
+    ]
    },
    "bot_grader": {
     "status": "done",

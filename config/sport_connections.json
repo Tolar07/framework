@@ -367,9 +367,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -493,9 +493,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -618,9 +618,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -743,9 +743,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -869,9 +869,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -994,9 +994,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -1118,9 +1118,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -1244,9 +1244,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -1369,9 +1369,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",
@@ -1494,9 +1494,9 @@
     ]
    },
    "whatsapp_mirror": {
-    "status": "todo",
-    "issue": "olp-whatsapp (framework#358)",
-    "due": "2026-11-12"
+    "status": "external",
+    "repo": "Tolar07/olp-whatsapp",
+    "ref": "mirror.py ms_todo (MS_BOARDS)"
    },
    "live_tracker": {
     "status": "done",

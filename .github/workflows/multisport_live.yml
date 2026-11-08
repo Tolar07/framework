@@ -1,0 +1,63 @@
+name: OLP XDV multi-sport live tracker
+
+# framework#359 (Architect 2026-11-06: "Everything inherits everything ... no gaps"; 2026-11-08: "Do not
+# skip a task"). Every rollout sport's board picks (ice hockey, American football, snooker, darts,
+# volleyball, table tennis, cricket, rugby, tennis, baseball) followed in play, as live.yml follows the
+# football matchday and nba_live.yml the NBA night: ONE job (monitor/multisport_live.py) looks at the
+# Flashscore live feed (ESPN for NHL / NFL / NCAAF / MLB) every 120 s and sends the Architect one
+# Telegram per round that has an event (start, each period / set / innings ended, final) with where
+# each pick stands. Snapshots are saved to data/study/multisport/<day>/ as the loop goes.
+#
+# The rollout sports play round the clock, so the Oracle VM clock starts this every few hours; a run
+# that finds an older loop going exits at once, one with nothing starting within 3 h exits, and a job
+# nearing the 6-hour limit hands off to a fresh run.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+    inputs:
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
+
+permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # commit the live snapshots as the loop goes
+
+# No concurrency group, deliberately (as live.yml): the single-loop guard does the job.
+
+jobs:
+  multisport-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Follow every rollout sport's picks and report each event
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          # The Architect's own chat only (order 33), as the football and NBA live trackers.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          HANDOFF:            ${{ github.event.inputs.handoff }}
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          ARGS=""
+          if [ "$HANDOFF" = "true" ]; then ARGS="--handoff"; fi
+          python monitor/multisport_live.py $ARGS

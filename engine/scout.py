@@ -22,6 +22,10 @@ confidence: the probability that the direction's outcome happens (0 < p < 1); no
 If Gemini is off (no key / 429 on every model) the panel's free NVIDIA then OpenRouter ":free" members
 answer from the framework's own data, with no search (via says which; sources stay empty).
 
+Every rollout sport too (framework#353): ice hockey and the multisport boards are scouted by
+engine/multisport_reasoning.py with each sport's own question (starting goalie, starting pitcher, quarterback,
+playing XI, team sheets, line-ups, player withdrawals) into scout_ms_<sport>_<date>.json, graded here.
+
 Saved to output/reasoning/scout_<date>.json (and scout_nba_<date>.json), beside the verdicts. Re-searched once per
 board (evening + morning refresh); in between, absences are re-checked against FotMob without a search.
 grade() scores each directional call against the result into memory/scout_record.json; summary_line()
@@ -176,12 +180,16 @@ def _fallback(name: str, get: Callable, post: Callable, key: str, prompt: str, r
 
 def scout(fxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] = None,
           post: Optional[Callable] = None, clock: Callable = time.monotonic,
-          sleep: Callable = time.sleep) -> dict:
-    """{"members": {...}, "fixtures": [record, ...]}. Never raises; a fixture nobody answered is absent."""
+          sleep: Callable = time.sleep, prompt: Optional[str] = None, allowed: Optional[tuple] = None,
+          roles: Optional[tuple] = None) -> dict:
+    """{"members": {...}, "fixtures": [record, ...]}. Never raises; a fixture nobody answered is absent.
+    prompt / allowed / roles: a sport's own question (the multi-sport rollout, engine/multisport_reasoning.py:
+    ice hockey's starting goalie, baseball's starting pitcher, ...); None = football's, the NBA's or basketball's."""
     sport = fxs[0]["sport"] if fxs else "football"
-    prompt, allowed = ((PROMPT_NBA, NBA_DIRECTIONS) if sport == "nba" else
-                       (PROMPT_WB, NBA_DIRECTIONS) if sport == "world_basketball" else (PROMPT_FOOTBALL, DIRECTIONS))
-    roles = BB_ROLES if sport in BB_SPORTS else ROLES
+    p0, a0 = ((PROMPT_NBA, NBA_DIRECTIONS) if sport == "nba" else
+              (PROMPT_WB, NBA_DIRECTIONS) if sport == "world_basketball" else (PROMPT_FOOTBALL, DIRECTIONS))
+    prompt, allowed = prompt or p0, allowed or a0
+    roles = roles or (BB_ROLES if sport in BB_SPORTS else ROLES)
     info: dict = {}
     got: dict = {}                                     # fixture id -> (cleaned, via)
     try:
@@ -583,11 +591,33 @@ def _result_index(sport: str, day: str, ledger_dir: Path) -> dict:
             return {r["fixture"]: r["ft"] for r in rows if r.get("fixture") and r.get("ft")}
         if sport == "world_basketball":
             return {}                       # the wb board stores won/lost only, no final score: PENDING (HR35)
+        if sport in MS_SPORTS:              # ice hockey and the multisport boards (engine/multisport_reasoning.py)
+            return ms_results(sport, day)
         d = json.loads((ledger_dir / f"nba_{day}.json").read_text(encoding="utf-8"))
         return {f"{p['home']} v {p['away']}": p["score"] for p in (d.get("picks") or []) + (d.get("picks_dropped") or [])
                 if p.get("score") and p.get("stage", "regular") == "regular"}
     except (OSError, ValueError, KeyError):
         return {}
+
+
+MS_SPORTS = ("ice_hockey", "american_football", "snooker", "darts", "volleyball", "table_tennis",
+             "cricket", "rugby", "tennis", "baseball")
+
+
+def ms_results(sport: str, day: str) -> dict:
+    """fixture -> '1-0' / '0-1' / '0-0' (who won) from a graded ice hockey or multisport board (the side to win
+    is all a multi-sport scout call says; a hockey shootout counts for its winner). Ungraded games are absent."""
+    from engine import multisport_reasoning as MR
+    doc = MR.load_board(sport, day) or {}
+    out = {}
+    for g in (doc.get("games") or {}).values():
+        res = g.get("result") or {}
+        fin = res.get("final") or []
+        win = res.get("winner") or ((1 if fin[0] > fin[1] else 2 if fin[1] > fin[0] else 0) if len(fin) == 2 else None)
+        if win is None or not g.get("home"):
+            continue
+        out[f"{g['home']} v {g['away']}"] = {1: "1-0", 2: "0-1"}.get(win, "0-0")
+    return out
 
 
 def load_record(path: Path = RECORD) -> dict:

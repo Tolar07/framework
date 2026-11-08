@@ -7,7 +7,9 @@ placed, and send one daily report". Grading is by GAME + MARKET + SIDE, never by
 booking code: a SportyBet code is only opened (SportyBet's public share API) to
 read its legs, and each leg is settled on the framework's own graded results in
 data/universe with engine/full_markets (football), engine/half (first half) or
-engine/nba_markets (basketball). So live-trimmed codes, MEGAs, the EDGE/VALUE
+engine/nba_markets (basketball), and every rollout sport (ice hockey and the
+multisport boards, framework#357: see "rollout sports" below) on the framework's
+own graded board of that sport. So live-trimmed codes, MEGAs, the EDGE/VALUE
 rule bets, steam and in-play bets and the BTTS-day singles all grade the same
 way. Accas are graded leg by leg, then the slip.
 
@@ -64,6 +66,7 @@ sys.path.insert(0, str(ROOT))
 
 from engine import full_markets as fm  # noqa: E402
 from engine import half  # noqa: E402
+from engine import multisport as ms  # noqa: E402
 
 UK = ZoneInfo("Europe/London")
 BOTS = Path(os.environ.get("BOT_LEDGERS_DIR") or ROOT / ".bots")
@@ -104,8 +107,9 @@ def _alike(a: str, b: str) -> float:
 class Games:
     """data/universe's graded games of the window, by SportyBet event id and by kick-off day."""
 
-    def __init__(self, since: str, folder: Path | None = None):
+    def __init__(self, since: str, folder: Path | None = None, rollout: RolloutGames | None = None):
         folder = folder or GRADED_DIR
+        self.rollout = rollout if rollout is not None else RolloutGames(since)
         self.by_id: dict[str, dict] = {}
         self.by_day: dict[str, list[dict]] = defaultdict(list)
         for p in sorted(folder.glob("graded_*.jsonl*")):
@@ -140,6 +144,155 @@ class Games:
                 if s > score:
                     best, score = c, s
         return best if score >= 1.5 else None
+
+
+# ── rollout sports (order 50; framework#357) ─────────────────────────────────
+# Ice hockey and the nine multisport-board sports, graded on the framework's OWN graded boards
+# (output/ice_hockey/ih_<day>.json via engine/ice_hockey.py, output/multisport/<sport>/ms_<day>.json via
+# engine/multisport.py, both graded by run_multisport.py from Flashscore). A bot leg on one of them carries
+# the key the bots use, "MS:<sport>:<SportyBet market id>|<specifier>|<outcome>" (Matchbook fw_key, Betfair
+# sb_market); a SportyBet code decoded from the share API gets the same key from its sport id.
+ROLLOUT_SPORTS: tuple[str, ...] = ("ice_hockey", *ms.SPORTS)
+SB_SPORT_IDS = {"sr:sport:4": "ice_hockey", **{f"sr:sport:{v['sb']}": k for k, v in ms.SPORTS.items()}}
+IH_DIR = ROOT / "output" / "ice_hockey"
+MS_DIR = ROOT / "output" / "multisport"
+IH_MARKETS = ("1", "406", "410", "18", "16", "14", "29")
+SPORT_NAMES = {"football": "Football", "basketball": "Basketball", "ice_hockey": "Ice hockey",
+               "american_football": "American football", "snooker": "Snooker", "darts": "Darts",
+               "volleyball": "Volleyball", "table_tennis": "Table tennis", "cricket": "Cricket",
+               "rugby": "Rugby", "tennis": "Tennis", "baseball": "Baseball"}
+MS_MARKET_NAMES = {"186": "Winner", "219": "Winner", "251": "Winner", "340": "Winner", "406": "Winner",
+                   "1": "1X2", "60": "1st half 1X2", "10": "Double chance", "11": "Draw no bet",
+                   "16": "Handicap", "223": "Handicap", "256": "Handicap", "187": "Game handicap",
+                   "188": "Set handicap", "493": "Frame handicap", "237": "Point handicap", "14": "3-way handicap",
+                   "18": "Total", "225": "Total", "258": "Total", "189": "Total games", "494": "Total frames",
+                   "238": "Total points", "202": "Set winner"}
+IH_MARKET_NAMES = {"1": "1X2 (60 min)", "406": "Winner incl. OT", "410": "Handicap incl. OT",
+                   "18": "Total (60 min)", "16": "Handicap (60 min)", "14": "3-way handicap", "29": "Both teams score"}
+
+
+def rollout_key(key: str | None) -> tuple[str, str, str, str] | None:
+    """'MS:tennis:186||Home' (or 'tennis:186||Home') -> ('tennis', '186', '', 'Home'); None for any other sport."""
+    k = (key or "").removeprefix("MS:")
+    sport, sep, rest = k.partition(":")
+    if not sep or sport not in ROLLOUT_SPORTS:
+        return None
+    mid, spec, out = (rest.split("|") + ["", ""])[:3]
+    return sport, mid, spec, out
+
+
+def ms_key(sport: str, mid: str, spec: str, out: str) -> str:
+    return f"MS:{sport}:{mid}|{spec or ''}|{out or ''}"
+
+
+def _board_side(sport: str, mid: str, spec: str, out: str) -> str:
+    """The side's key on the sport's own board: 'H:406||Home' (ice hockey), 'tennis:186||Home' (multisport)."""
+    return f"{'H' if sport == 'ice_hockey' else sport}:{mid}|{spec}|{out}"
+
+
+def _player(name: str) -> str:
+    """'Monteiro, Thiago' (SportyBet) and 'Thiago Monteiro' (the exchanges) compare alike."""
+    return ms.match_name(name or "")
+
+
+def _read_json(p: Path):
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+class RolloutGames:
+    """Every game of the rollout sports' boards (graded or not), by (sport, SportyBet event id) and by day."""
+
+    def __init__(self, since: str, ih_dir: Path | None = None, ms_dir: Path | None = None):
+        ih_dir, ms_dir = ih_dir or IH_DIR, ms_dir or MS_DIR
+        self.by_id: dict[tuple[str, str], dict] = {}
+        self.by_day: dict[tuple[str, str], list[dict]] = defaultdict(list)
+        self.picks: list[tuple[str, str, dict]] = []
+        files = [("ice_hockey", f) for f in sorted(ih_dir.glob("ih_20??-??-??.json"))]
+        files += [(sp, f) for sp in ms.SPORTS for f in sorted((ms_dir / sp).glob("ms_20??-??-??.json"))]
+        for sport, f in files:
+            day = f.stem[3:]
+            if day < since[:10]:
+                continue
+            doc = _read_json(f) or {}
+            for gid, g in (doc.get("games") or {}).items():
+                g = {**g, "id": gid, "sport": sport}
+                self.by_id[(sport, gid)] = g
+                self.by_day[(sport, (g.get("ko") or day)[:10])].append(g)
+            self.picks += [(sport, day, x) for x in doc.get("picks") or [] if isinstance(x, dict)]
+
+    def find(self, leg: dict, sport: str) -> dict | None:
+        g = self.by_id.get((sport, leg.get("event_id") or ""))
+        if g or not (leg.get("home") and leg.get("away") and leg.get("ko")):
+            return g
+        try:
+            d0 = date.fromisoformat(str(leg["ko"])[:10])
+        except ValueError:
+            return None
+        best, score = None, 0.0
+        for off in (0, -1, 1):
+            for c in self.by_day.get((sport, (d0 + timedelta(days=off)).isoformat()), []):
+                s = (_alike(_player(leg["home"]), _player(c.get("home") or ""))
+                     + _alike(_player(leg["away"]), _player(c.get("away") or "")))
+                if s > score:
+                    best, score = c, s
+        return best if score >= 1.5 else None
+
+
+def settle_rollout(sport: str, mid: str, spec: str, out: str, g: dict) -> str | None:
+    """'won' / 'lost' / 'void' for one side of a graded rollout game, None while ungraded or the rule is unknown.
+    The board's own settlement of the side first (run_multisport.py wrote it), else the sport's rule on the result."""
+    r = g.get("result")
+    if not r:
+        return None
+    s = (g.get("sides") or {}).get(_board_side(sport, mid, spec, out))
+    if s is not None and "won" in s:
+        w = s["won"]
+    elif sport == "ice_hockey":
+        from engine import hockey_model as hm
+        if not r.get("reg") or not r.get("final"):
+            return None
+        w = hm.settle(mid, spec, out, tuple(r["reg"]), tuple(r["final"]))
+    else:
+        if not r.get("final"):
+            return None
+        w = ms.settle(sport, mid, spec, out, r)
+    if w is None:
+        known = IH_MARKETS if sport == "ice_hockey" else tuple(ms.SPORTS[sport]["markets"].split(","))
+        return "void" if mid in known else None
+    return "won" if w else "lost"
+
+
+def rollout_board_bets(rg: RolloutGames, since: str) -> list[dict]:
+    """The rollout boards' own picks as paper (1 unit each, like the football board's slips): SportyBet's paper
+    for these sports IS the framework's graded record (sportybet-agent #88), so the report shows it per sport."""
+    out = []
+    for sport, day, p in rg.picks:
+        if day < since or not p.get("market_id"):
+            continue
+        key = ms_key(sport, str(p["market_id"]), p.get("specifier") or "", p.get("outcome") or "")
+        out.append({"bot": "board", "cur": "unit", "date": day, "kind": f"{sport} board", "stake": 1.0,
+                    "id": p.get("code") or f"{sport}:{p.get('sb_event_id')}", "odds": float(p.get("price") or 0),
+                    "paper": True, "rollout": True,
+                    "legs": [{"event_id": p.get("sb_event_id"), "home": p.get("home"), "away": p.get("away"),
+                              "ko": p.get("ko"), "sport": sport, "price": p.get("price"), "key": key}]})
+    return out
+
+
+def leg_sport(leg: dict) -> str:
+    rk = rollout_key(leg.get("key"))
+    if rk:
+        return rk[0]
+    if leg.get("sport") in SPORT_NAMES:
+        return leg["sport"]
+    return "basketball" if str(leg.get("key") or "").startswith("NBA:") else "football"
+
+
+def bet_sport(bet: dict) -> str:
+    sports = {leg_sport(x) for x in bet.get("legs") or []}
+    return sports.pop() if len(sports) == 1 else ("mixed" if sports else "unknown")
 
 
 # ── settling one leg ─────────────────────────────────────────────────────────
@@ -184,6 +337,9 @@ def grade_leg(leg: dict, games: Games, tally: dict) -> dict:
     """The leg with result ('won' / 'lost' / 'void' / None) and source filled in."""
     out = dict(leg)
     key = leg.get("key") or ""
+    rk = rollout_key(key)
+    if rk:
+        return _grade_rollout_leg(out, rk, games, tally)
     g = games.find(leg) if key else None
     if g is not None:
         out["game"] = g["id"]               # one id per match across the bots (point 6 exposure line)
@@ -215,6 +371,32 @@ def grade_leg(leg: dict, games: Games, tally: dict) -> dict:
         out.update(result=leg["own"], source="exchange")
         return out
     out.update(result=None, source=("no market" if not key else "no game found" if g is None
+                                    else "rule unknown"))
+    return out
+
+
+def _grade_rollout_leg(out: dict, rk: tuple[str, str, str, str], games: Games, tally: dict) -> dict:
+    """A rollout-sport leg: the sport's own graded board, then SportyBet's settlement, then the exchange's."""
+    sport = rk[0]
+    g = games.rollout.find(out, sport)
+    if g is not None:
+        out["game"] = f"{sport}:{g['id']}"
+    res = settle_rollout(*rk, g) if g is not None else None
+    sb_res = _sb_settled(out.get("sb"))
+    if res is not None:
+        if sb_res is not None and sb_res != res:
+            tally["disagree"] += 1
+            out.update(result=sb_res, source=f"sportybet ({sport} board said {res})")
+        else:
+            out.update(result=res, source=f"{sport} board")
+        return out
+    if sb_res is not None:
+        out.update(result=sb_res, source="sportybet")
+        return out
+    if out.get("own"):
+        out.update(result=out["own"], source="exchange")
+        return out
+    out.update(result=None, source=("no game found" if g is None else "not graded yet" if not g.get("result")
                                     else "rule unknown"))
     return out
 
@@ -291,15 +473,19 @@ def _fetch_code(code: str) -> dict | None:
 def legs_from_share(data: dict) -> list[dict]:
     legs = []
     for o in data.get("outcomes") or []:
-        nba = (o.get("sport") or {}).get("id") == "sr:sport:2"
+        sid = (o.get("sport") or {}).get("id")
+        nba = sid == "sr:sport:2"
+        roll = SB_SPORT_IDS.get(sid)             # a rollout sport (framework#357)
         ko = datetime.fromtimestamp(int(o.get("estimateStartTime") or 0) / 1000, UTC)
         for m in o.get("markets") or []:
             for oc in m.get("outcomes") or []:
+                key = (ms_key(roll, str(m.get("id")), m.get("specifier") or "", oc.get("desc") or "") if roll else
+                       f"{'NBA' if nba else 'SB'}:{m.get('id')}|{m.get('specifier') or ''}|{oc.get('desc')}")
                 legs.append({
                     "event_id": o.get("eventId"), "home": o.get("homeTeamName"),
                     "away": o.get("awayTeamName"), "ko": ko.strftime("%Y-%m-%dT%H:%MZ"),
-                    "sport": "basketball" if nba else "football",
-                    "key": f"{'NBA' if nba else 'SB'}:{m.get('id')}|{m.get('specifier') or ''}|{oc.get('desc')}",
+                    "sport": roll or ("basketball" if nba else "football"),
+                    "key": key,
                     "price": float(oc.get("odds") or 0) or None,
                     "sb": {"ended": o.get("matchStatus") == "Ended", "mstatus": m.get("status"),
                            "win": oc.get("isWinning"), "refund": oc.get("refundFactor"),
@@ -402,6 +588,9 @@ def sportybet_bets(repo: Path, since: str, cache: dict, board: dict | None = Non
     for b in bets:
         if "legs" not in b:
             b["legs"] = code_legs(b["code"], cache) or []
+        sp = bet_sport(b)
+        if sp in ROLLOUT_SPORTS and b["kind"] == "nba":   # the placer files rollout singles under "nba"
+            b["kind"] = sp
     return bets
 
 
@@ -415,6 +604,13 @@ def _mb_key(r: dict) -> tuple[str | None, str, str, str]:
         home, _, away = ev.partition(" vs ")
     sport = "basketball" if nba else "football"
     fk = r.get("fw_key") or ""
+    if "|MS:" in fk:                          # a rollout sport: "<date>|<home> v <away>|MS:<sport>:<market>|.."
+        key = fk[fk.index("|MS:") + 1:]
+        fixture = fk.split("|")[1]
+        if " v " in fixture:
+            home, _, away = fixture.partition(" v ")
+        rk = rollout_key(key)
+        return key, home, away, rk[0] if rk else sport
     for tag in ("|SB:", "|NBA:"):
         if tag in fk:
             return fk[fk.index(tag) + 1:], home, away, sport
@@ -481,7 +677,47 @@ def matchbook_bets(repo: Path, since: str) -> list[dict]:
                         "kind": f"{r.get('source') or name.split('_')[0]} (paper)",
                         "stake": float(r.get("stake_gbp") or 1), "odds": float(r.get("odds") or 0), "paper": True,
                         "legs": [{"home": home.strip(), "away": away.strip(), "ko": ko, "sport": sport, "key": key}]})
+    out += matchbook_rollout_paper(repo, since)
     return out
+
+
+def matchbook_rollout_paper(repo: Path, since: str) -> list[dict]:
+    """Matchbook's £1 paper backs on the rollout sports (matchbook-agent hockey.py / multisport.py):
+    'IH|<event>|H:<market>|..' and 'MS|<sport>|<event>|<sport>:<market>|..' records."""
+    out = []
+    for name in ("hockey_paper.jsonl", "multisport_paper.jsonl"):
+        for n, r in enumerate(_jsonl(repo / "ledger" / name)):
+            raw = str(r.get("key") or "")
+            if raw.startswith("IH|"):
+                sport, side = "ice_hockey", raw.split("|", 2)[-1].removeprefix("H:")
+            elif raw.startswith("MS|"):
+                sport = r.get("sport") or raw.split("|")[1]
+                side = raw.split("|", 3)[-1].partition(":")[2]
+            else:
+                continue
+            ko = r.get("ko") or ""
+            day = _uk_day(ko) if ko else str(r.get("date") or "")
+            if not day or day < since or sport not in ROLLOUT_SPORTS:
+                continue
+            own = r.get("result") if r.get("result") in ("won", "lost", "void") else None
+            out.append({"bot": "matchbook", "cur": "GBP", "date": day, "id": f"{name}-{n}",
+                        "kind": f"{sport} (paper)", "stake": 1.0, "odds": float(r.get("odds") or 0), "paper": True,
+                        "legs": [{"event_id": r.get("sb_event_id"), "home": r.get("home"), "away": r.get("away"),
+                                  "ko": ko, "sport": sport, "key": f"MS:{sport}:{side}", "own": own}]})
+    return out
+
+
+BF_OWN = {"WON": "won", "LOST": "lost", "VOIDED": "void", "VOID": "void"}
+
+
+def _bf_sport(b: dict) -> str:
+    sp = b.get("sport")
+    return "basketball" if sp == "nba" else sp if sp in ROLLOUT_SPORTS else "football"
+
+
+def _bf_own_code(code: str) -> bool:
+    """Betfair's own id for a rollout pick with no SportyBet code ('TENNIS-sr:match:1'): nothing to decode."""
+    return "-" in code
 
 
 def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
@@ -496,13 +732,26 @@ def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
             legs = (code_legs(b["code"].split("/")[0], cache) if b.get("code") else None) or []
             if len(legs) != 1:
                 home, _, away = (b.get("fixture") or "").partition(" v ")
-                legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"),
-                         "sport": "basketball" if b.get("sport") == "nba" else "football"}]
+                legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"), "sport": _bf_sport(b)}]
             out.append({"bot": "betfair", "cur": "GBP", "date": day, "id": f"paper-{b.get('code')}",
                         "kind": f"{b.get('section') or '?'} {b.get('rule') or ''} (paper)".strip(),
                         "stake": float(b.get("stake") or 0), "odds": float(b.get("price") or 0),
                         "paper": True, "legs": legs})
-        for b in _rows(d):
+        for n, b in enumerate(_rows(d)):
+            if b.get("mode") != "live" and b.get("sport") in ROLLOUT_SPORTS:
+                # a rollout sport on paper (betfair-agent #21): graded and kept too (order 53)
+                ko = b.get("kickoff_utc") or ""
+                day = _uk_day(ko) if ko else p.stem[6:]
+                if day < since:
+                    continue
+                st = (b.get("result") or "").upper()
+                home, _, away = (b.get("fixture") or "").partition(" v ")
+                out.append({"bot": "betfair", "cur": "GBP", "date": day, "id": f"paper-{p.stem[6:]}-{n}",
+                            "kind": f"{b.get('section') or b['sport']} (paper)", "stake": float(b.get("stake") or 0),
+                            "odds": float(b.get("price") or 0), "paper": True,
+                            "legs": [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"),
+                                      "sport": b["sport"], "own": BF_OWN.get(st)}]})
+                continue
             if b.get("mode") != "live" or not b.get("bet_id"):   # paper rows are the bot's own study
                 continue
             ko = b.get("kickoff_utc") or ""
@@ -511,11 +760,11 @@ def betfair_bets(repo: Path, since: str, cache: dict) -> list[dict]:
                 continue
             st = (b.get("result") or "").upper()
             own = {"WON": "won", "LOST": "lost", "VOIDED": "void", "VOID": "void"}.get(st)
-            legs = (code_legs(b["code"].split("/")[0], cache) if b.get("code") else None) or []
+            code = str(b.get("code") or "").split("/")[0]
+            legs = (code_legs(code, cache) if code and not _bf_own_code(code) else None) or []
             if len(legs) != 1:
                 home, _, away = (b.get("fixture") or "").partition(" v ")
-                legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"),
-                         "sport": "basketball" if b.get("sport") == "nba" else "football"}]
+                legs = [{"home": home, "away": away, "ko": ko, "key": b.get("sb_market"), "sport": _bf_sport(b)}]
             legs[0] = {**legs[0], "own": own}
             out.append({
                 "bot": "betfair", "cur": "GBP", "date": day, "id": str(b["bet_id"]),
@@ -681,6 +930,11 @@ def _bot_lines(bets: list[dict], since: str, today: str) -> list[str]:
 def _label(key: str | None) -> tuple[str, str]:
     if not key:
         return "?", "?"
+    rk = rollout_key(key)
+    if rk:
+        sport, mid, _spec, out = rk
+        names = IH_MARKET_NAMES if sport == "ice_hockey" else MS_MARKET_NAMES
+        return f"{SPORT_NAMES[sport]} {names.get(mid, 'market ' + mid)}", re.sub(r"[\d.:+-]+", "N", out).strip()
     if key.startswith("NBA:"):
         mid, _, rest = key[4:].partition("|")
         side = rest.rsplit("|", 1)[-1]
@@ -704,6 +958,42 @@ def _table(groups: dict, min_n: int = 3, top: int = 8) -> list[str]:
     rows.sort(reverse=True)
     pick = rows if len(rows) <= 2 * top else rows[:top] + rows[-top:]
     return [f"{n}: {k} bets, {w} won, {_money(p, 'GBP')} ({r:+.0%})" for r, n, k, w, p in pick]
+
+
+def sport_lines(bets: list[dict], since: str, today: str) -> list[str]:
+    """THE 23:02 REPORT, ONE LINE PER SPORT (framework#357): football, basketball and every rollout sport (always
+    listed, so a sport with nothing graded says so): the bots' real money, the bots' paper and the board's own
+    picks (units), each graded on that sport's results, plus what is still open."""
+    by: dict[str, list[dict]] = defaultdict(list)
+    for b in bets:
+        if since <= b["date"] <= today:
+            by[bet_sport(b)].append(b)
+    out = []
+    for sport in ("football", "basketball", *ROLLOUT_SPORTS, "mixed"):
+        bs = by.get(sport) or []
+        done = [b for b in bs if b.get("profit") is not None]
+        real = [b for b in done if not b["paper"]]
+        paper = [b for b in done if b["paper"] and b["bot"] != "board"]
+        board = [b for b in done if b["bot"] == "board"]
+        parts = []
+        if real:
+            st, pr = sum(_gbp(b, "stake") for b in real), sum(_gbp(b, "profit") for b in real)
+            parts.append(f"real {len(real)} bets, {sum(b['result'] == 'won' for b in real)} won, "
+                         f"{_money(pr, 'GBP')} ({pr / st if st else 0:+.0%})")
+        if paper:
+            st, pr = sum(_gbp(b, "stake") for b in paper), sum(_gbp(b, "profit") for b in paper)
+            parts.append(f"bots' paper {len(paper)}, {sum(b['result'] == 'won' for b in paper)} won, "
+                         f"{_money(pr, 'GBP')} ({pr / st if st else 0:+.0%})")
+        if board:
+            pr = sum(b["profit"] for b in board)
+            parts.append(f"board {len(board)} picks, {sum(b['result'] == 'won' for b in board)} won, "
+                         f"{pr:+.2f} units")
+        still = sum(1 for b in bs if b.get("profit") is None and b["bot"] != "board")
+        if still:
+            parts.append(f"{still} bot bets open")
+        if parts or sport in ROLLOUT_SPORTS:
+            out.append(f"{SPORT_NAMES.get(sport, sport.title())}: " + ("; ".join(parts) or "nothing graded yet"))
+    return out
 
 
 def market_side(bets: list[dict]) -> dict:
@@ -827,6 +1117,7 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
         out.append(cov)
     out += ["", "LAST 7 DAYS"] + _bot_lines(bets, d7, today)
     out += ["", "LAST 30 DAYS"] + _bot_lines(bets, d30, today)
+    out += ["", "BY SPORT (30 days: real £, bots' paper £, board picks in units)"] + sport_lines(bets, d30, today)
     out += ["", "BY MARKET AND SIDE (singles, all bots, 30 days, £)"] + (_table(market_side(last30)) or ["none yet"])
     types = slip_types(last30)
     out += ["", "BY RULE AND SLIP TYPE (real money, 30 days, £)"]
@@ -871,6 +1162,8 @@ def decision_inputs(graded: list[dict]) -> tuple[list[dict], list[dict]]:
             continue
         key = b["legs"][0].get("key")
         if b["paper"] and b["bot"] == "board":
+            if b.get("rollout"):        # the rollout boards' own picks: reported and kept, not decision evidence
+                continue
             paper.append({"group": dec.group_of(key), "stake_gbp": 1.0, "profit_gbp": float(b["profit"]),
                           "date": b["date"]})
         elif not b["paper"]:
@@ -958,10 +1251,11 @@ def report_day(now: datetime) -> str | None:
 
 
 # ── the run ──────────────────────────────────────────────────────────────────
-def collect(today: str, cache: dict) -> list[dict]:
+def collect(today: str, cache: dict, rollout: RolloutGames | None = None) -> list[dict]:
     since = _days(today, WINDOW + 2)
     bets: list[dict] = []
     paper = board_bets(since)
+    paper += rollout_board_bets(rollout if rollout is not None else RolloutGames(since), since)
     if (BOTS / "sportybet-agent").exists():
         bets += sportybet_bets(BOTS / "sportybet-agent", since, cache,
                                {b["id"].upper(): b["kind"] for b in paper})
@@ -975,8 +1269,9 @@ def collect(today: str, cache: dict) -> list[dict]:
 def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
     today = now.astimezone(UK).date().isoformat()
     cache = load_cache()
-    bets = collect(today, cache)
-    games = Games(_days(today, WINDOW + 3))
+    rollout = RolloutGames(_days(today, WINDOW + 3))
+    bets = collect(today, cache, rollout)
+    games = Games(_days(today, WINDOW + 3), rollout=rollout)
     tally: dict[str, int] = defaultdict(int)
     graded = [grade_slip(b, games, tally, now) for b in bets]
     real = [b for b in graded if not b["paper"]]

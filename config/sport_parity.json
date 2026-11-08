@@ -490,6 +490,11 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "monitor/multisport_live.py": {
+   "status": "twin",
+   "note": "live tracker for every rollout sport (order 50, framework#359)",
+   "basketball": "monitor/nba_live.py"
+  },
   "monitor/nba_watch.py": {
    "status": "covers",
    "note": "handles basketball itself"
@@ -771,6 +776,10 @@
   "engine/basketball_board.py": {
    "status": "covers",
    "note": "basketball's own football-style board: NBA + every league, singles / 50+ / CLV accas / accas / megas / value, same-window slips, all staked (Architect 2026-11-06 19:06, #403)"
+  },
+  "engine/multisport_reasoning.py": {
+   "status": "n/a",
+   "note": "scout + reasoning for the multi-sport rollout boards (framework#353, order 50); basketball's is engine/reasoning.py reason_nba + engine/scout.py (scout_nba_ / scout_wb_)"
   }
  },
  "basketball_gaps": [

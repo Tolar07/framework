@@ -11,6 +11,14 @@ board SLOT:
   safe3    TABLE 3A 50%+ accas
   nba      the NBA board's picks (order 41; Architect 2026-10-20: "The way we are
            treating football, that's how NBA should be treated too")
+  <sport>  one slot per multi-sport rollout sport (framework#355, order 50: every
+           sport "inherits football + basketball"): ice_hockey, american_football,
+           snooker, darts, volleyball, table_tennis, cricket, rugby, tennis,
+           baseball. Strategies compete on the sport board's graded picks
+           (output/ice_hockey/, output/multisport/<sport>/) plus one every-game
+           rule scored over the graded sides. RECORD-ONLY: the sport boards pick
+           by value alone and read no live rule, so a shadow that passes the
+           promotion test below is FLAGGED to the Architect once, never swapped in.
 
 Board strategies are SUBSET rules: they keep or drop the board's own picks /
 slips, never invent new ones, and a dropped pick or slip is still recorded in
@@ -75,6 +83,17 @@ LEAGUE_CAP = 4          # S9: singles a league a day (REASONING_IDEAS_STUDY.md /
 RETIRED = {"S9 4 a league"}
 NBA_WINNER = {"219"}                                  # moneyline (incl. OT)
 NBA_FULL_GAME = {"219", "223", "225", "227", "228"}   # winner, handicap, total, team totals (incl. OT)
+
+# Multi-sport slots (framework#355): one per rollout sport, record-only (see the docstring).
+SPORT_SLOTS = ("ice_hockey", "american_football", "snooker", "darts", "volleyball", "table_tennis",
+               "cricket", "rugby", "tennis", "baseball")
+SPORT_CODE = {"ice_hockey": "IH", "american_football": "AF", "snooker": "SN", "darts": "DA", "volleyball": "VB",
+              "table_tennis": "TT", "cricket": "CR", "rugby": "RU", "tennis": "TE", "baseball": "BB"}
+DEFAULT.update({sp: f"{SPORT_CODE[sp]}0 {sp.replace('_', ' ')} board picks" for sp in SPORT_SLOTS})
+SPORT_WINNER = {"1", "186", "219", "251", "340", "406"}   # engine/multisport.WINNER_MARKETS + hockey 1X2 / winner
+SPORT_SINCE = "2026-11-08"                                 # the day the sport rules were written down
+SPORT_BAND = (1.20, 2.00)                                  # the sport boards' price band
+RECORD_WHY = "record-only: the sport boards pick by value alone and read no live rule (framework#355)"
 
 
 def enabled() -> bool:
@@ -235,6 +254,64 @@ def _nba_rules() -> list[Strategy]:
     ]
 
 
+def sport_leg(p: dict) -> dict:
+    """A sport board pick (output/ice_hockey/ih_<date>.json, output/multisport/<sport>/ms_<date>.json) -> leg.
+    Its CLV is the board's own measure: value against the closing exchange fair (`clv_fair`)."""
+    return {"fixture": f"{p.get('home')} v {p.get('away')}", "market": str(p.get("market_id") or ""),
+            "price": p.get("price"), "chance": p.get("chance") or p.get("fair"), "value": p.get("value"),
+            "source": str(p.get("source") or ""), "result": p.get("result"), "clv": p.get("clv_fair")}
+
+
+def _side_market(key: str) -> str:
+    """'tennis:186||Home' / 'H:406||Home' -> '186' / '406'."""
+    return key.split(":", 1)[-1].split("|")[0]
+
+
+def favourite_legs(doc: dict, winner: str) -> list[dict]:
+    """Every graded game's favourite on the sport's winner market (shortest first price inside the band):
+    the every-game paper rule, scored over the graded sides, bet or not."""
+    out = []
+    for g in (doc.get("games") or {}).values():
+        sides = [(k, v) for k, v in (g.get("sides") or {}).items()
+                 if _side_market(k) == winner and v.get("won") is not None and (v.get("first") or {}).get("price")]
+        if not sides:
+            continue
+        k, v = min(sides, key=lambda kv: kv[1]["first"]["price"])
+        price = v["first"]["price"]
+        if not SPORT_BAND[0] <= price <= SPORT_BAND[1]:
+            continue
+        fair = (v.get("last") or {}).get("fair")
+        out.append({"fixture": f"{g.get('home')} v {g.get('away')}", "market": winner, "price": price,
+                    "chance": (v.get("first") or {}).get("fair"), "value": None, "source": "every side",
+                    "result": "won" if v["won"] else "lost", "clv": round(price * fair - 1, 4) if fair else None})
+    return out
+
+
+def _sport_rules(sport: str) -> list[Strategy]:
+    c, w, label = SPORT_CODE[sport], SPORT_SINCE, sport.replace("_", " ")
+    return [
+        Strategy(DEFAULT[sport], sport, f"every pick the {label} board makes (order 50)", _all, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}1 {label}: winner only", sport, f"{label} picks on the winner market",
+                 lambda x, _c: x["market"] in SPORT_WINNER, since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}2 {label}: lines only", sport, f"{label} picks on a handicap, total or other line",
+                 lambda x, _c: x["market"] not in SPORT_WINNER, since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}3 {label}: value +8% or more", sport, f"{label} picks at least 8% over the fair price",
+                 lambda x, _c: (x["value"] or 0) >= 0.08, since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}4 {label}: price 1.20-1.50", sport, f"{label} picks priced 1.20-1.50",
+                 _band(1.20, 1.50), since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}5 {label}: price 1.50-2.00", sport, f"{label} picks priced 1.50-2.00",
+                 _band(1.50, 2.01), since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}6 {label}: exchange-priced only", sport,
+                 f"{label} picks whose fair price came from the Matchbook exchange (not the model blend)",
+                 lambda x, _c: x["source"] == "matchbook", since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}7 {label}: chance 60%+", sport, f"{label} picks the fair price gives 60% or more",
+                 lambda x, _c: (x["chance"] or 0) >= 0.60, since=w, wireable=False, why_not=RECORD_WHY),
+        Strategy(f"{c}8 {label}: every-game favourite", sport,
+                 f"the favourite on the winner market of every graded {label} game, priced 1.20-2.00",
+                 _all, since=w, wireable=False, why_not=RECORD_WHY, extra={"sides": True}),
+    ]
+
+
 def _universe_rules() -> list[Strategy]:
     from engine import paper_book as pb
     out = [Strategy(f"U:{n}", "singles", f"paper rule — {d}", universe=n, since=pb.SINCE.get(n, ""),
@@ -282,7 +359,8 @@ def _research_rules(path: Path = QUEUE) -> list[Strategy]:
 
 
 def strategies() -> list[Strategy]:
-    out = _board_rules() + _nba_rules() + _universe_rules() + _research_rules()
+    out = _board_rules() + _nba_rules() + [st for sp in SPORT_SLOTS for st in _sport_rules(sp)]
+    out += _universe_rules() + _research_rules()
     try:                                     # item 2: the slip-killer rule, if built
         extra = _postmortem().strategies()
     except ImportError:
@@ -300,9 +378,34 @@ def _verdicts(day: str, folder: Path) -> dict:
     return {(x.get("fixture"), x.get("market")): x.get("verdict") for x in doc.get("picks", [])}
 
 
-def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR) -> list[dict]:
-    """[{day, legs, slips: {slot: [{name, odds, result, legs}]}}], oldest first,
-    from the live ledgers (superseded ones are left out, as in the scorecard)."""
+def sport_docs(sport: str, ih_dir: Path | None = None, ms_dir: Path | None = None) -> list[tuple[str, dict]]:
+    """[(day, board doc)] for one rollout sport: engine/ice_hockey.load_all or engine/multisport.load_all."""
+    try:
+        if sport == "ice_hockey":
+            from engine import ice_hockey as ih
+            return ih.load_all(ih_dir or ih.OUT_DIR)
+        from engine import multisport as ms
+        return ms.load_all(sport, ms_dir or ms.OUT_DIR)
+    except Exception:  # noqa: BLE001 — an unreadable sport scores as empty, the others still run
+        return []
+
+
+def sport_winner(sport: str) -> str:
+    """The market that settles on who wins: hockey 406 (incl. OT), else engine/multisport.SPORTS[...]['winner']."""
+    if sport == "ice_hockey":
+        return "406"
+    try:
+        from engine import multisport as ms
+        return str(ms.SPORTS[sport]["winner"])
+    except Exception:  # noqa: BLE001
+        return ""
+
+
+def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR,
+              ih_dir: Path | None = None, ms_dir: Path | None = None) -> list[dict]:
+    """[{day, legs, slips: {slot: [{name, odds, result, legs}]}, nba, sports, sport_sides}], oldest
+    first, from the live ledgers (superseded ones are left out, as in the scorecard). `sports` /
+    `sport_sides`: {sport: legs} for each rollout sport's board picks / every-game favourites."""
     days = []
     for path in sorted(picks_dir.glob("picks_*.json")):
         try:
@@ -326,6 +429,14 @@ def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR) 
             continue
         d = by_day.setdefault(doc["date"], {"day": doc["date"], "legs": [], "slips": {"accas": [], "safe3": []}})
         d["nba"] = [nba_leg(p) for p in doc.get("picks", []) + doc.get("picks_dropped", [])]
+    out_dir = picks_dir.parent                           # output/: the sport boards sit beside output/picks/
+    for sport in SPORT_SLOTS:                            # framework#355: every rollout sport's own slot
+        winner = sport_winner(sport)
+        for day, doc in sport_docs(sport, ih_dir or out_dir / "ice_hockey", ms_dir or out_dir / "multisport"):
+            day = doc.get("date") or day
+            d = by_day.setdefault(day, {"day": day, "legs": [], "slips": {"accas": [], "safe3": []}})
+            d.setdefault("sports", {})[sport] = [sport_leg(p) for p in doc.get("picks") or []]
+            d.setdefault("sport_sides", {})[sport] = favourite_legs(doc, winner)
     return sorted(by_day.values(), key=lambda d: d["day"])
 
 
@@ -344,6 +455,14 @@ def nba_bet(lg: dict, day: str) -> dict | None:
         return None
     won = lg["result"] == "won"
     return {"day": day, "won": int(won), "pnl": (lg["price"] - 1) if won else -1.0, "clv": lg["close_value"]}
+
+
+def sport_bet(lg: dict, day: str) -> dict | None:
+    """A graded sport board pick or every-game favourite (a void is no bet)."""
+    if lg["result"] not in ("won", "lost") or not lg["price"]:
+        return None
+    won = lg["result"] == "won"
+    return {"day": day, "won": int(won), "pnl": (lg["price"] - 1) if won else -1.0, "clv": lg["clv"]}
 
 
 def slip_bet(s: dict, day: str) -> dict | None:
@@ -371,6 +490,9 @@ def board_bets(st: Strategy, days: list[dict], contexts: dict | None = None) -> 
             bets = [single_bet(lg, d["day"]) for lg in d["legs"] if keep(lg, ctx)]
         elif st.slot == "nba":
             bets = [nba_bet(lg, d["day"]) for lg in d.get("nba", []) if keep(lg, ctx)]
+        elif st.slot in SPORT_SLOTS:
+            pool = d.get("sport_sides" if st.extra.get("sides") else "sports", {}).get(st.slot, [])
+            bets = [sport_bet(lg, d["day"]) for lg in pool if keep(lg, ctx)]
         else:
             bets = [slip_bet(s, d["day"]) for s in d["slips"][st.slot]
                     if all(lg is None or keep(lg, ctx) for lg in s["legs"])]
@@ -466,6 +588,8 @@ def load_registry(path: Path = REGISTRY) -> dict:
     reg.setdefault("last_change", {})
     for slot in SLOTS:
         reg["live"].setdefault(slot, DEFAULT[slot])
+    for slot in SPORT_SLOTS:                 # record-only: always the board's own picks
+        reg["live"][slot] = DEFAULT[slot]
     return reg
 
 
@@ -478,9 +602,9 @@ def evaluate(days: list[dict], universe: dict[str, list[dict]], reg: dict, today
     bets = {s.name: (universe.get(s.name, []) if s.universe else board_bets(s, days, contexts)) for s in sts}
     events: list[dict] = []
     standings: dict[str, dict] = {}
-    for slot in SLOTS:
+    for slot in SLOTS + SPORT_SLOTS:
         live_name = reg["live"].get(slot, DEFAULT[slot])
-        if live_name not in by_name or live_name in RETIRED:   # removed or retired: back to the default
+        if slot in SPORT_SLOTS or live_name not in by_name or live_name in RETIRED:   # record-only / retired
             live_name = reg["live"][slot] = DEFAULT[slot]
         live = by_name[live_name]
         qualified: list[tuple] = []
@@ -554,6 +678,14 @@ def brief(reg: dict) -> str:
         if lead:
             s += f"; best shadow {lead[0]} ({lead[1]['n']} bets, {lead[1]['roi']:+.0%})"
         parts.append(s)
+    sports = []                              # framework#355: the record-only sport slots with graded bets
+    for slot in SPORT_SLOTS:
+        lc = (st.get(DEFAULT[slot]) or {}).get("counted") or {}
+        if lc.get("n"):
+            sports.append(f"{slot} {lc['n']} bets {lc['roi']:+.0%}" if lc.get("roi") is not None else
+                          f"{slot} {lc['n']} bets")
+    if sports:
+        parts.append("sports (record-only): " + ", ".join(sports))
     return " · ".join(parts)
 
 

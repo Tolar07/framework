@@ -345,9 +345,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -469,9 +471,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -592,9 +596,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -715,9 +721,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -839,9 +847,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -962,9 +972,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -1084,9 +1096,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -1208,9 +1222,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -1331,9 +1347,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",
@@ -1454,9 +1472,11 @@
     "due": "2026-11-12"
    },
    "experiments": {
-    "status": "todo",
-    "issue": "framework#355",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/experiments.py",
+     "tests/experiment_sports_test.py"
+    ]
    },
    "self_improvement": {
     "status": "todo",

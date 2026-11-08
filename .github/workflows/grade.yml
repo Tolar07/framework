@@ -1,0 +1,47 @@
+name: OLP XDV grade picks (no board)
+
+# Grades every past picks ledger (order 53, "grade everything") WITHOUT building
+# or sending a board: monitor/grade_run.py runs the same grade_all step the
+# board run does first. For re-grading after a grader fix (8 Nov 2026) - the
+# board's duplicate guard is never involved, nothing goes to Telegram.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: olp-xdv-daily          # never alongside a board run writing the same ledgers
+  cancel-in-progress: false
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Grade
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/grade_run.py | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python3 monitor/fdata.py save "picks graded $(date -u +%Y-%m-%d\ %H:%M) [skip ci]" output/picks

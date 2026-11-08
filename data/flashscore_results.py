@@ -30,6 +30,10 @@ _FEED = "https://local-global.flashscore.ninja/2/x/feed/f_1_{offset}_1_en-uk_1"
 _CACHE = Path(__file__).parent / "cache" / "flashscore"
 _FALLBACK_SIGN = "SW9D1eZo"
 FINISHED_REGULAR = "3"          # AC stage code: finished in 90 minutes
+# AC stage codes: 10 = after extra time, 11 = after penalties; 4 = postponed,
+# 5 = cancelled (both with no score). Read from the feed 1-8 Nov 2026.
+EXTRA_TIME = ("10", "11")
+POSTPONED = ("4", "5")
 
 
 def _get(url: str, headers: dict) -> str:
@@ -74,18 +78,29 @@ def parse_feed(text: str, sport: int = 1) -> list[dict]:
             hg, ag = int(kv["AG"]), int(kv["AH"])
         except (KeyError, ValueError):
             hg = ag = None
+        stage = kv.get("AC")
+        h90, a90 = _ninety(stage, hg, ag, kv.get("AT"), kv.get("AU"))
         ev = {
             "league": league or "",
             "home": kv.get("AE", ""), "away": kv.get("AF", ""),
             "fthg": hg, "ftag": ag,
-            "finished_regular": finished and kv.get("AC") == FINISHED_REGULAR and hg is not None,
-            # first half = full time - second half (BC/BD are the SECOND-half
+            "finished_regular": finished and stage == FINISHED_REGULAR and hg is not None,
+            # first half = 90-minute score - second half (BC/BD are the SECOND-half
             # goals; checked on 37 of 37 matches against football-data's
-            # half-time scores, 2026-10-05). None when the feed omits them.
-            "fh_home": _first_half(hg, kv.get("BC")),
-            "fh_away": _first_half(ag, kv.get("BD")),
-            "finished_other": finished and kv.get("AC") != FINISHED_REGULAR,
-            "stage": kv.get("AC"),
+            # half-time scores, 2026-10-05). None when the feed omits them. After
+            # extra time it is taken from the 90-minute score, not the final one
+            # (8 Nov 2026: Hornchurch v Blackpool read HT 1-1 from the 1-2 aet
+            # final; it was 1-0, BBC).
+            "fh_home": _first_half(h90 if stage in EXTRA_TIME else hg, kv.get("BC")),
+            "fh_away": _first_half(a90 if stage in EXTRA_TIME else ag, kv.get("BD")),
+            # Decided after 90 minutes (extra time, penalties, awarded). A
+            # postponed / cancelled game (stage 4 / 5) carries no score and is
+            # neither: it stays pending until it is played, never "no 90-min result".
+            "finished_other": finished and stage != FINISHED_REGULAR and hg is not None,
+            # The 90-minute score: AT/AU (regular time). After extra time it is
+            # what bets settle on; None when the feed gives none.
+            "ft90_home": h90, "ft90_away": a90,
+            "stage": stage,
             "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
         if sport == 3:
@@ -93,6 +108,29 @@ def parse_feed(text: str, sport: int = 1) -> list[dict]:
             ev["h1_away"] = _basketball_half(kv.get("BB"), kv.get("BD"))
         out.append(ev)
     return out
+
+
+def _ninety(stage: str | None, hg: int | None, ag: int | None,
+            at: str | None, au: str | None) -> tuple[int | None, int | None]:
+    """The 90-minute score. Finished in 90 minutes: the final score. After extra
+    time or penalties: AT/AU, the feed's regular-time score. Checked 2026-11-08 on
+    every finished game of 1-7 Nov: AT/AU equals the final on all 4,339 games
+    decided in 90 minutes, and on the 36 that went further it is never above the
+    final (Hornchurch v Blackpool: AT/AU 1-1, final 1-2 aet = BBC "1-1 at the end
+    of 90 minutes"). None when the feed gives no AT/AU or it fails that check."""
+    if hg is None or ag is None:
+        return None, None
+    if stage == FINISHED_REGULAR:
+        return hg, ag
+    if stage not in EXTRA_TIME:
+        return None, None
+    try:
+        h, a = int(at), int(au)        # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None, None
+    if not (0 <= h <= hg and 0 <= a <= ag):
+        return None, None
+    return h, a
 
 
 def _basketball_half(p1: Optional[str], p2: Optional[str]) -> Optional[int]:
@@ -170,12 +208,28 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         (r"^istanbul bb$", "basaksehir"), (r"^istanbul basaksehir$", "basaksehir"),
         # 26 Oct 2026: two 25 Oct singles stayed PENDING on these ('VfL 1899
         # Osnabruck' v 'VfL Osnabruck'; SportyBet's 'Sp Lisbon' v 'Sporting CP').
-        (r"^vfl 1899 osnabruck$", "vfl osnabruck"), (r"^sporting lisbon$", "sporting cp")]
+        (r"^vfl 1899 osnabruck$", "vfl osnabruck"), (r"^sporting lisbon$", "sporting cp"),
+        # 8 Nov 2026: board picks of 24 Oct - 7 Nov stayed ungraded on these
+        # (football-data / SportyBet spelling v Flashscore and FotMob). Each one
+        # checked against both sources' names on the day.
+        (r"^ein frankfurt$", "eintracht frankfurt"),                      # FS + FM 'Eintracht Frankfurt'
+        (r"^(paris sg|psg|paris saint germain)$", "paris saint germain"),  # FS 'PSG', FM 'Paris Saint-Germain'
+        (r"^(m gladbach|b monchengladbach|borussia monchengladbach)$", "monchengladbach"),
+        (r"^(kuopion palloseura|kups)$", "kups"),                         # FS + FM 'KuPS'
+        # Turkish Cup 28 Oct 2026 (TFF fixture list): the Eskisehir club is
+        # FotMob's 'Anadolu Universitesi'; Halide Edip Adivarspor was renamed
+        # Beyoglu Yeni Carsi in 2021.
+        (r"^arnavutkoy belediyesi genclik ve spor$", "arnavutkoy belediyespor"),
+        (r"^eskisehir anadolu spor faaliyetleri as$", "anadolu universitesi"),
+        (r"^(halide edip adivarspor|beyoglu yeni carsi( futbol kulubu| spor faaliyetleri as)?)$",
+         "beyoglu yeni carsi")]
 
 
 def norm(name: str) -> str:
-    # Strip accents first ('Cádiz' -> 'cadiz', 'Leganés' -> 'leganes').
-    n = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    # Strip accents first ('Cádiz' -> 'cadiz', 'Leganés' -> 'leganes'). Turkish
+    # dotless 'ı' has no accent to strip and was dropped ('Çarşı' -> 'cars').
+    n = (name or "").replace("ı", "i")
+    n = unicodedata.normalize("NFKD", n).encode("ascii", "ignore").decode()
     n = n.lower().replace("&", " and ").replace("utd", "united")
     n = re.sub(r"[^a-z0-9 ]", " ", n)
     n = _DROP.sub(" ", n)
@@ -237,6 +291,8 @@ def find_result(events: list[dict], home: str, away: str,
             continue
         if abs((d - d0).days) > 1:
             continue
+        if ev.get("stage") in POSTPONED and ev.get("fthg") is None:
+            continue                     # postponed / cancelled: the replayed game is the one
         if (_SECOND_XI.search(f'{ev["home"]} {ev["away"]}')
                 and not _SECOND_XI.search(f"{home} {away}")):
             continue                     # a youth / women's game, not ours

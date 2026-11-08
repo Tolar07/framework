@@ -448,6 +448,11 @@
    "status": "shared",
    "note": "framework-data storage"
   },
+  "monitor/grade_run.py": {
+   "status": "twin",
+   "note": "grade-only run of the football picks ledgers (grade.yml); the NBA ledger is graded by run_nba.py",
+   "basketball": "run_nba.py"
+  },
   "monitor/json_log.py": {
    "status": "shared",
    "note": "logging"

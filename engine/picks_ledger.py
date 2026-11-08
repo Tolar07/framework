@@ -281,8 +281,17 @@ def _settle_90_bounds(market: str, ev: dict) -> Optional[str]:
     lies between the two, goal by goal; when the pick settles the SAME way for
     every score in that range it is settled — never a guess (HR35). E.g. HT
     1-1, final 1-2 (aet): 90' was 1-1 or 1-2, and "Macclesfield win to nil —
-    no" wins either way. None when the range allows both outcomes."""
+    no" wins either way. None when the range allows both outcomes.
+    When Flashscore gives the 90-minute score itself (`ft90_home/away`, its
+    regular-time score) the pick is settled on it: 8 Nov 2026, two FA Cup ties
+    that went to extra time held two 7 Nov accas open as "no 90-min result"."""
     from engine import half
+    h90, a90 = ev.get("ft90_home"), ev.get("ft90_away")
+    if h90 is not None and a90 is not None:
+        if half.is_first_half(market):
+            return half.settle(market, ev.get("fh_home"), ev.get("fh_away"))
+        out = _settle(market, h90, a90)
+        return None if out == "unknown" else out
     fh, fa = ev.get("fh_home"), ev.get("fh_away")
     th, ta = ev.get("fthg"), ev.get("ftag")
     if fh is None or fa is None or th is None or ta is None:
@@ -293,6 +302,12 @@ def _settle_90_bounds(market: str, ev: dict) -> Optional[str]:
         return half.settle(market, fh, fa)
     outs = {_settle(market, h, a) for h in range(fh, th + 1) for a in range(fa, ta + 1)}
     return outs.pop() if len(outs) == 1 and "unknown" not in outs else None
+
+
+def _ft90(ev: dict) -> str | None:
+    """'h-a' at 90 minutes for a game decided after them, when the feed gives it."""
+    h, a = ev.get("ft90_home"), ev.get("ft90_away")
+    return f"{h}-{a}" if h is not None and a is not None else None
 
 
 def _fotmob_event(matches: list[dict], home: str, away: str, fotmob_id=None) -> Optional[dict]:
@@ -376,6 +391,7 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
                     res90 = _settle_90_bounds(s["market"], ev) or "no-90min-result"
                     if res90 != s["result"]:
                         s["result"] = res90
+                        s["ft"] = _ft90(ev) or s.get("ft")
                         changed += 1
             if s.get("study"):
                 continue                # paper only: not a board single
@@ -400,6 +416,7 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
                         res90 = _settle_90_bounds(leg["market"], ev) or "no-90min-result"
                         if res90 != leg["result"]:
                             leg["result"] = res90
+                            leg["ft"] = _ft90(ev) or leg.get("ft")
                             changed += 1
         for cmb in doc.get("combined", []):
             kind = cmb["of"]
@@ -431,14 +448,14 @@ def grade_all(events: list[dict], today: Optional[str] = None, fotmob_day=None) 
         recent = doc["date"] >= (date.fromisoformat(today)
                                  - timedelta(days=RATED_GRADE_DAYS)).isoformat()
         for r in rated:
-            if r["ft"] is None and recent:
+            if r["ft"] in (None, "no-90min-result") and recent:
                 day = r["kickoff"] or doc["date"]
                 ev = find(_events_near(by_day, day), r["home"], r["away"], day, r.get("fotmob_id"))
                 if ev and ev["finished_regular"]:
                     r["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
                     changed += 1
-                elif ev and ev["finished_other"]:
-                    r["ft"] = "no-90min-result"
+                elif ev and ev["finished_other"] and (_ft90(ev) or "no-90min-result") != r["ft"]:
+                    r["ft"] = _ft90(ev) or "no-90min-result"
                     changed += 1
             rated_done += r["ft"] is not None
         if changed:

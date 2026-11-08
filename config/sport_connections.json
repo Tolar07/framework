@@ -372,9 +372,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -496,9 +498,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -619,9 +623,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -742,9 +748,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -866,9 +874,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -989,9 +999,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -1111,9 +1123,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -1235,9 +1249,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -1358,9 +1374,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",
@@ -1481,9 +1499,11 @@
     "due": "2026-11-12"
    },
    "live_tracker": {
-    "status": "todo",
-    "issue": "framework#359",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/multisport_live.py",
+     ".github/workflows/multisport_live.yml"
+    ]
    },
    "oracle_clock": {
     "status": "external",

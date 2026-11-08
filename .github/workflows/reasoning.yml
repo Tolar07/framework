@@ -65,7 +65,8 @@ jobs:
           PANEL_NVIDIA_MODEL: ${{ vars.PANEL_NVIDIA_MODEL }}
           PANEL_OPENROUTER_MODEL: ${{ vars.PANEL_OPENROUTER_MODEL }}
           VERDICT_PANEL: ${{ vars.VERDICT_PANEL || '1' }}
-          SCOUT_ENABLED: ${{ vars.SCOUT_ENABLED || '1' }}   # Architect 2026-11-03: scout section (web/X team news), RECORDED ONLY; variable 0 = off
+          SCOUT_ENABLED: ${{ vars.SCOUT_ENABLED || '1' }}
+          MS_REASONING: ${{ vars.MS_REASONING || '1' }}     # framework#353: every rollout sport scouted + judged, ADVISORY (recorded only); 0 = off   # Architect 2026-11-03: scout section (web/X team news), RECORDED ONLY; variable 0 = off
           PYTHONIOENCODING: utf-8
           FORCE: ${{ inputs.force && '--force' || '' }}
         run: python monitor/reasoning_run.py $FORCE ${{ github.event.inputs.date && format('--date {0}', github.event.inputs.date) || '' }}
@@ -74,7 +75,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          python3 monitor/fdata.py save "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json memory/panel_prompts.json memory/scout_record.json
+          python3 monitor/fdata.py save "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json memory/panel_record.json output/facts memory/fact_record.json memory/learned_weights.json memory/panel_prompts.json memory/scout_record.json memory/ms_reasoning_record.json
           if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
           git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           for i in 1 2 3; do

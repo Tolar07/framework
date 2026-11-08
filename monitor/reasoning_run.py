@@ -117,6 +117,19 @@ def main(argv: list[str] | None = None) -> int:
             print(f"scout graded: {SC.grade()} new · {SC.summary_line()}")
     except Exception as e:  # noqa: BLE001
         print(f"scout failed (ignored): {type(e).__name__}: {e}")
+    # every rollout sport (framework#353, order 50): ice hockey and the multisport boards are scouted and
+    # judged like football and the NBA (engine/multisport_reasoning.py), ADVISORY and recorded only; their scout
+    # calls are graded by SC.grade() above on the next run, their verdicts in memory/ms_reasoning_record.json.
+    # MS_REASONING=0 switches it off. Wrapped: it can never fail the verdict record or the save step.
+    try:
+        from engine import multisport_reasoning as MR
+        for line in MR.run(dates, force=a.force):
+            print(line)
+        msrec = MR.record()
+        MR.RECORD.write_text(json.dumps(msrec, indent=1), encoding="utf-8")
+        print(MR.summary_line(msrec))
+    except Exception as e:  # noqa: BLE001
+        print(f"multi-sport reasoning failed (ignored): {type(e).__name__}: {e}")
     # step 3 (2026-11-01): one model, fitted on the graded picks, decides how much each member and
     # each fact counts; judged walk-forward against the market. Recorded only
     try:     # import inside: a missing dependency must never fail the run before its save step

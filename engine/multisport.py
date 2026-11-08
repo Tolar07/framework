@@ -44,6 +44,11 @@ MIN_VALUE, LINE_VALUE, MAX_VALUE = 0.03, 0.05, 0.25
 LIQ = 10.0
 ANCHOR = 0.75
 ELO_K, ELO_START, MIN_GAMES = 24.0, 1500.0, 8
+# WARM-UP PICKS (Architect 2026-11-08 23:17: "allow picks for them ... if the engine does not get warmed up ... it
+# does not learn, it does not retrain"; then: real money at the bots' MINIMUM stake from the live date). A game with
+# no value pick gets its best side inside the band (chance 50%+) as a pick marked warm=True, no value bar, at most
+# WARM_MAX per sport and day. Bots stake warm picks at their minimum only. Repo variable MS_WARM=0 turns it off.
+WARM_MAX = 10
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
@@ -328,6 +333,36 @@ def candidates(row: dict, idx: dict, model: dict[str, float]) -> list[dict]:
     return out
 
 
+def warm_enabled() -> bool:
+    return os.environ.get("MS_WARM", "1") != "0"
+
+
+def warm_candidate(row: dict, idx: dict, model: dict[str, float]) -> dict | None:
+    """The side nearest to value when no side clears the bar: chance from Matchbook, else 75% SportyBet + 25%
+    model, else SportyBet with its margin removed; price inside BAND and chance 50%+. No value bar."""
+    best = None
+    for key, price in row["sides"].items():
+        if not BAND[0] <= price <= BAND[1]:
+            continue
+        b = quote(key, idx)
+        q = devig(key, row["sides"])
+        if b and b.get("p"):
+            p, src = b["p"], "matchbook"
+        elif key in model and q is not None:
+            p, src = ANCHOR * q + (1 - ANCHOR) * model[key], "elo (75% SportyBet)"
+        elif q is not None:
+            p, src = q, "SportyBet, margin removed"
+        else:
+            continue
+        if p < 0.50:
+            continue
+        v = price * p - 1
+        if best is None or v > best["value"]:
+            best = {"key": key, "price": price, "fair": round(p, 4), "value": round(v, 4), "source": src,
+                    "warm": True}
+    return best
+
+
 def describe(key: str, home: str, away: str) -> str:
     _s, mid, spec, out = split_key(key)
     o = out.strip()
@@ -397,6 +432,8 @@ def update(sport: str, rows: list[dict], mb_events: list[dict], elo: dict, now: 
                                      "specifier": have["specifier"], "outcomeId": have["outcome_id"]})
             continue
         best = max(candidates(r, idx, model), key=lambda c: c["value"], default=None)
+        if best is None and warm_enabled() and sum(1 for x in doc["picks"] if x.get("warm")) < WARM_MAX:
+            best = warm_candidate(r, idx, model)
         if best is None:
             continue
         _s, mid, spec, out = split_key(best["key"])
@@ -594,9 +631,13 @@ def load_all(sport: str, folder: Path = OUT_DIR) -> list[tuple[str, dict]]:
 
 
 def scoreboard(docs: list[tuple[str, dict]], elo: dict | None = None) -> dict:
-    picks = [p for _d, doc in docs for p in doc.get("picks") or [] if p.get("result") in ("won", "lost")]
+    graded = [p for _d, doc in docs for p in doc.get("picks") or [] if p.get("result") in ("won", "lost")]
+    picks = [p for p in graded if not p.get("warm")]          # the value picks' own record
+    warm = [p for p in graded if p.get("warm")]
     sb: dict = {"picks": len(picks), "won": sum(p["result"] == "won" for p in picks),
-                "pnl": round(sum(p["pnl"] for p in picks), 3)}
+                "pnl": round(sum(p["pnl"] for p in picks), 3),
+                "warm": {"picks": len(warm), "won": sum(p["result"] == "won" for p in warm),
+                         "pnl": round(sum(p["pnl"] for p in warm), 3)}}
     clv = [p["clv_fair"] for p in picks if p.get("clv_fair") is not None]
     sb["clv_fair_avg"] = round(sum(clv) / len(clv), 4) if clv else None
     by: dict[str, dict] = {}

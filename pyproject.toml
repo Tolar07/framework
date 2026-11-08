@@ -55,6 +55,7 @@ follow_imports = "silent"
 # legacy/ (2026-10-03) is out of scope.
 files = [
     "engine/experiments.py",
+    "engine/multisport_reasoning.py",
     "monitor/experiment_run.py",
     "engine/leg_postmortem.py",
     "data/football_data_source.py",

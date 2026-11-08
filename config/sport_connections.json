@@ -335,9 +335,12 @@
     ]
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -461,9 +464,12 @@
     "note": "NFL 2006-2026 vs closing moneylines (nflverse); live rule -7.2%/bet held-out 2016-26. College football: shadow record only (no free closing odds)."
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -586,9 +592,12 @@
     "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -711,9 +720,12 @@
     "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -837,9 +849,12 @@
     "note": "Walk-forward Elo on 13,499 NCAA women's matches 2016-2025 (ESPN set scores; the only free dated volleyball feed), held-out 2021-2025; accuracy only, no free closing odds. Report: backtest/VOLLEYBALL_TABLE_TENNIS_STUDY.md (#342). Pro leagues: no free feed found."
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -962,9 +977,12 @@
     "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -1086,9 +1104,12 @@
     "note": "Walk-forward Elo, 6747 men's matches (T20 3530, ODI 2487, Test 730; Cricsheet results), held-out 2019-2026: Brier 0.2207 vs 0.2551 flat baseline, hit rate 63.6%; no free historical closing odds, so no return figure. Report in backtest/CRICKET_STUDY.md (private data, not in the public repo). Venue/pitch model is #385 (#343)."
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -1212,9 +1233,12 @@
     "note": "Walk-forward Elo, 5898 games 2014-2025 (ESPN scores), held-out 2020-2025; no free historical closing odds, so no return figure. Report written to backtest/RUGBY_STUDY.md (private data, not in the public repo); more record-only studies: backtest/rugby_*_study.py (#344)."
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -1337,9 +1361,12 @@
     "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",
@@ -1462,9 +1489,12 @@
     "note": "Elo walk-forward Brier recorded from now; historical odds backtest (tennis-data.co.uk for tennis) to build"
    },
    "scout_reasoning": {
-    "status": "todo",
-    "issue": "framework#353",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/multisport_reasoning.py",
+     "engine/scout.py",
+     "monitor/reasoning_run.py"
+    ]
    },
    "team_news_lineups": {
     "status": "todo",

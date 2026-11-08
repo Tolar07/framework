@@ -355,14 +355,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -477,14 +479,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -598,14 +602,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -719,14 +725,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -841,14 +849,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -962,14 +972,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -1082,14 +1094,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -1204,14 +1218,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -1325,14 +1341,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",
@@ -1446,14 +1464,16 @@
     "due": "2026-11-12"
    },
    "bot_grader": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "daily_report": {
-    "status": "todo",
-    "issue": "framework#357",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "monitor/bot_grader.py"
+    ]
    },
    "whatsapp_mirror": {
     "status": "todo",

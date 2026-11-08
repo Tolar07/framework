@@ -43,6 +43,7 @@ RESULT_MARKETS = ("1", "406")
 MIN_VALUE, LINE_VALUE, MAX_VALUE = 0.03, 0.05, 0.25
 LIQ = 10.0
 ANCHOR = 0.75                     # order 18: chance = 75% SportyBet (de-vigged) + 25% model
+WARM_MAX = 10                     # warm-up picks per day (Architect 2026-11-08; see engine/multisport.py)
 MARKET_IDS = "1,406,410,18,16,14,29"
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
          "?sportId=sr:sport:4&marketId=" + MARKET_IDS + "&pageSize=100&pageNum={page}")
@@ -228,6 +229,32 @@ def candidates(row: dict, idx: dict[str, dict], model: dict[str, float]) -> list
     return out
 
 
+def warm_candidate(row: dict, idx: dict[str, dict], model: dict[str, float]) -> dict | None:
+    """Warm-up pick (engine/multisport.warm_candidate): the side nearest to value, price in BAND, chance 50%+."""
+    best = None
+    for key, price in row["sides"].items():
+        if not BAND[0] <= price <= BAND[1]:
+            continue
+        c = canonical(key)
+        b = idx.get(c) if c else None
+        q = devig(key, row["sides"])
+        if b and b.get("p"):
+            p, src = b["p"], "matchbook"
+        elif key in model and q is not None:
+            p, src = ANCHOR * q + (1 - ANCHOR) * model[key], "nhl model (75% SportyBet)"
+        elif q is not None:
+            p, src = q, "SportyBet, margin removed"
+        else:
+            continue
+        if p < 0.50:
+            continue
+        v = price * p - 1
+        if best is None or v > best["value"]:
+            best = {"key": key, "price": price, "fair": round(p, 4), "value": round(v, 4), "source": src,
+                    "warm": True}
+    return best
+
+
 def describe(key: str, home: str, away: str) -> str:
     mid, spec, out = (key[2:].split("|") + ["", ""])[:3]
     o = out.strip()
@@ -310,6 +337,8 @@ def update(rows: list[dict], mb_events: list[dict], nhl: NHL | None, now: dateti
                                      "specifier": have["specifier"], "outcomeId": have["outcome_id"]})
             continue
         best = max(candidates(r, idx, model), key=lambda c: c["value"], default=None)
+        if best is None and os.environ.get("MS_WARM", "1") != "0"                 and sum(1 for x in doc["picks"] if x.get("warm")) < WARM_MAX:
+            best = warm_candidate(r, idx, model)
         if best is None:
             continue
         mid, spec, out = (best["key"][2:].split("|") + ["", ""])[:3]
@@ -421,9 +450,13 @@ def load_all(folder: Path = OUT_DIR) -> list[tuple[str, dict]]:
 
 def scoreboard(docs: list[tuple[str, dict]]) -> dict:
     """Picks W-L, return at 1 unit, CLV; and every graded side by market (the paper record)."""
-    picks = [p for _d, doc in docs for p in doc.get("picks") or [] if p.get("result") in ("won", "lost")]
+    graded = [p for _d, doc in docs for p in doc.get("picks") or [] if p.get("result") in ("won", "lost")]
+    picks = [p for p in graded if not p.get("warm")]          # the value picks' own record
+    warm = [p for p in graded if p.get("warm")]
     sb: dict = {"picks": len(picks), "won": sum(p["result"] == "won" for p in picks),
-                "pnl": round(sum(p["pnl"] for p in picks), 3)}
+                "pnl": round(sum(p["pnl"] for p in picks), 3),
+                "warm": {"picks": len(warm), "won": sum(p["result"] == "won" for p in warm),
+                         "pnl": round(sum(p["pnl"] for p in warm), 3)}}
     clv = [p["clv_fair"] for p in picks if p.get("clv_fair") is not None]
     sb["clv_fair_avg"] = round(sum(clv) / len(clv), 4) if clv else None
     by: dict[str, dict] = {}

@@ -996,6 +996,53 @@ def sport_lines(bets: list[dict], since: str, today: str) -> list[str]:
     return out
 
 
+def value_watch_lines(today: str, ih_dir: Path = IH_DIR, ms_dir: Path = MS_DIR) -> list[str]:
+    """NEW SPORTS VALUE WATCH (Architect 2026-11-08: keep the value rule, show what it sees). For each rollout
+    sport, today's board: games watched, the best value any side reached against its fair price (Matchbook, else
+    75% SportyBet + 25% model) inside the pick rule's price band and 50% chance, and the bar it had to clear.
+    Read-only: it changes no pick, bar or stake."""
+    from engine import ice_hockey as ih
+    out = []
+    for sport in ROLLOUT_SPORTS:
+        hockey = sport == "ice_hockey"
+        path = ih_dir / f"ih_{today}.json" if hockey else ms_dir / sport / f"ms_{today}.json"
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            out.append(f"{SPORT_NAMES.get(sport, sport)}: no board today")
+            continue
+        mod = ih if hockey else ms
+        best = None
+        for g in (doc.get("games") or {}).values():
+            prices = {k: (s.get("last") or s.get("first") or {}).get("price") for k, s in (g.get("sides") or {}).items()}
+            for key, s in (g.get("sides") or {}).items():
+                look = s.get("last") or s.get("first") or {}
+                price, p = look.get("price"), look.get("fair")
+                if price is None:
+                    continue
+                if p is None and look.get("model") is not None:
+                    q = mod.devig(key, prices)
+                    p = None if q is None else mod.ANCHOR * q + (1 - mod.ANCHOR) * look["model"]
+                if p is None or not (mod.BAND[0] <= price <= mod.BAND[1] and p >= 0.50):
+                    continue
+                mid = key[2:].split("|")[0] if hockey else ms.split_key(key)[1]
+                winner = mid in (ih.RESULT_MARKETS if hockey else ms.WINNER_MARKETS)
+                v = price * p - 1
+                if best is None or v > best[0]:
+                    bar = mod._decided_bar(f"{sport}|{mid}", mod.MIN_VALUE if winner else mod.LINE_VALUE)
+                    best = (v, bar, g, key, price)
+        games, picks = len(doc.get("games") or {}), len(doc.get("picks") or [])
+        name = SPORT_NAMES.get(sport, sport)
+        if best is None:
+            out.append(f"{name}: {games} games, {picks} picks; no side in the price band with a fair price")
+            continue
+        v, bar, g, key, price = best
+        side = ih.describe(key, g.get("home", ""), g.get("away", "")) if hockey else             ms.describe(key, g.get("home", ""), g.get("away", ""))
+        out.append(f"{name}: {games} games, {picks} picks; best value {v:+.1%} vs bar {bar:.1%} "
+                   f"({side} @ {price}, {g.get('home')} v {g.get('away')})")
+    return out
+
+
 def market_side(bets: list[dict]) -> dict:
     g: dict[str, list[dict]] = defaultdict(list)
     for b in bets:
@@ -1118,6 +1165,12 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
     out += ["", "LAST 7 DAYS"] + _bot_lines(bets, d7, today)
     out += ["", "LAST 30 DAYS"] + _bot_lines(bets, d30, today)
     out += ["", "BY SPORT (30 days: real £, bots' paper £, board picks in units)"] + sport_lines(bets, d30, today)
+    try:                    # recorded only: never blocks the report
+        vw = value_watch_lines(today)
+    except Exception:  # noqa: BLE001
+        vw = []
+    if vw:
+        out += ["", "NEW SPORTS VALUE WATCH (today's boards: best value seen vs the bar)"] + vw
     out += ["", "BY MARKET AND SIDE (singles, all bots, 30 days, £)"] + (_table(market_side(last30)) or ["none yet"])
     types = slip_types(last30)
     out += ["", "BY RULE AND SLIP TYPE (real money, 30 days, £)"]

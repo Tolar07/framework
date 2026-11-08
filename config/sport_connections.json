@@ -344,9 +344,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "starting goalie: ESPN probable v NHL club starts"
    },
    "experiments": {
     "status": "done",
@@ -477,9 +480,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "NFL starting QB on the ESPN injury report (NCAA: no free report, PENDING)"
    },
    "experiments": {
     "status": "done",
@@ -609,9 +615,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "withdrawals from our own SportyBet looks + scout"
    },
    "experiments": {
     "status": "done",
@@ -741,9 +750,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "withdrawals from our own SportyBet looks + scout"
    },
    "experiments": {
     "status": "done",
@@ -874,9 +886,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "no free line-up feed: scout finding noted, level NO NEWS"
    },
    "experiments": {
     "status": "done",
@@ -1006,9 +1021,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "withdrawals from our own SportyBet looks + scout"
    },
    "experiments": {
     "status": "done",
@@ -1137,9 +1155,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "ESPN playing XI confirms scout absences"
    },
    "experiments": {
     "status": "done",
@@ -1270,9 +1291,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "ESPN team sheets v the previous match's XV"
    },
    "experiments": {
     "status": "done",
@@ -1402,9 +1426,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "withdrawals from our own SportyBet looks + scout"
    },
    "experiments": {
     "status": "done",
@@ -1534,9 +1561,12 @@
     ]
    },
    "team_news_lineups": {
-    "status": "todo",
-    "issue": "framework#354",
-    "due": "2026-11-12"
+    "status": "done",
+    "paths": [
+     "engine/ms_team_news.py",
+     "monitor/ms_team_news_run.py"
+    ],
+    "note": "MLB probable starting pitcher (ESPN), scratch = change"
    },
    "experiments": {
     "status": "done",

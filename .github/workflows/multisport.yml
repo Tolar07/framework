@@ -76,6 +76,14 @@ jobs:
             board)  python run_allsports.py --send ;;
             *) echo "unknown mode $MODE"; exit 1 ;;
           esac
+      - name: Team news / line-ups for every rollout sport (record-only; framework#354)
+        # starting goalie (NHL), starting pitcher (MLB), QB injury report (NFL), team sheets (rugby), playing XI
+        # (cricket), withdrawals (tennis, darts, snooker, table tennis): flags in output/ms_team_news/, never on a board
+        if: github.event.inputs.mode == 'look' || github.event.inputs.mode == '' || github.event.inputs.mode == 'grade'
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/ms_team_news_run.py ${{ github.event.inputs.mode == 'grade' && '--record' || '' }}
       - name: Darts studies on the recorded board (record-only; framework#341)
         if: github.event.inputs.mode == 'grade'
         continue-on-error: true
@@ -112,4 +120,4 @@ jobs:
         run: python monitor/connections_check.py
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport output/ice_hockey data/ice_hockey output/boards backtest/DARTS_STUDY.md backtest/DARTS_FORMAT_STUDY.md backtest/DARTS_HISTORY_STUDY.md backtest/DARTS_SCORE_STUDY.md backtest/DARTS_MARGIN_ELO_STUDY.md backtest/DARTS_K_STUDY.md backtest/DARTS_COLDSTART_STUDY.md backtest/DARTS_FORMAT_UNDERDOG_STUDY.md backtest/DARTS_DATED_STUDY.md backtest/DARTS_DATED_CALIBRATION_STUDY.md backtest/DARTS_DATED_TEMP_STUDY.md backtest/DARTS_H2H_STUDY.md backtest/DARTS_NIGHT_STUDY.md backtest/DARTS_SIDE_STUDY.md backtest/DARTS_TOTALS_STUDY.md backtest/DARTS_CALIBRATION_STUDY.md backtest/DARTS_YEAR_DECAY_STUDY.md backtest/DARTS_HOLDOUT_STUDY.md backtest/DARTS_FORM_STUDY.md backtest/DARTS_HANDICAP_STUDY.md backtest/DARTS_FINALNIGHT_STUDY.md backtest/DARTS_WCPRIOR_STUDY.md backtest/DARTS_REST_STUDY.md backtest/DARTS_CLOSE_STUDY.md backtest/DARTS_STREAK_STUDY.md backtest/DARTS_MAJORS_STUDY.md backtest/DARTS_TALLY_STUDY.md || true
+        run: python3 monitor/fdata.py save "multisport ${{ github.event.inputs.mode || 'look' }} $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/multisport data/multisport output/ice_hockey data/ice_hockey output/boards output/ms_team_news memory/ms_team_news_record.json backtest/DARTS_STUDY.md backtest/DARTS_FORMAT_STUDY.md backtest/DARTS_HISTORY_STUDY.md backtest/DARTS_SCORE_STUDY.md backtest/DARTS_MARGIN_ELO_STUDY.md backtest/DARTS_K_STUDY.md backtest/DARTS_COLDSTART_STUDY.md backtest/DARTS_FORMAT_UNDERDOG_STUDY.md backtest/DARTS_DATED_STUDY.md backtest/DARTS_DATED_CALIBRATION_STUDY.md backtest/DARTS_DATED_TEMP_STUDY.md backtest/DARTS_H2H_STUDY.md backtest/DARTS_NIGHT_STUDY.md backtest/DARTS_SIDE_STUDY.md backtest/DARTS_TOTALS_STUDY.md backtest/DARTS_CALIBRATION_STUDY.md backtest/DARTS_YEAR_DECAY_STUDY.md backtest/DARTS_HOLDOUT_STUDY.md backtest/DARTS_FORM_STUDY.md backtest/DARTS_HANDICAP_STUDY.md backtest/DARTS_FINALNIGHT_STUDY.md backtest/DARTS_WCPRIOR_STUDY.md backtest/DARTS_REST_STUDY.md backtest/DARTS_CLOSE_STUDY.md backtest/DARTS_STREAK_STUDY.md backtest/DARTS_MAJORS_STUDY.md backtest/DARTS_TALLY_STUDY.md || true

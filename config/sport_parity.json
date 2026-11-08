@@ -780,6 +780,14 @@
   "engine/multisport_reasoning.py": {
    "status": "n/a",
    "note": "scout + reasoning for the multi-sport rollout boards (framework#353, order 50); basketball's is engine/reasoning.py reason_nba + engine/scout.py (scout_nba_ / scout_wb_)"
+  },
+  "engine/ms_team_news.py": {
+   "status": "n/a",
+   "note": "team news / line-ups for the multi-sport rollout boards (framework#354); basketball's is engine/nba_team_news.py"
+  },
+  "monitor/ms_team_news_run.py": {
+   "status": "n/a",
+   "note": "runner of engine/ms_team_news.py (multisport.yml); basketball's team news runs from the NBA loop"
   }
  },
  "basketball_gaps": [

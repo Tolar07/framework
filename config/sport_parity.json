@@ -419,6 +419,10 @@
    "status": "shared",
    "note": "starts the board runs; the NBA board is built in the morning slot of the same daily.yml"
   },
+  "monitor/acca_singles_paper.py": {
+   "status": "covers",
+   "note": "grades the basketball board's accas (basketball_<date>.json) beside football's"
+  },
   "monitor/bot_grader.py": {
    "status": "covers",
    "note": "handles basketball itself"

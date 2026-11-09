@@ -1377,6 +1377,13 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append(f"scorecard: {len(card['rows'])} rule/market rows, {len(card['proposals'])} proposals")
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"scorecard not built: {type(e).__name__}")
+    acca_singles_line = ""
+    try:      # the Architect's acca + singles staking, graded on paper on every board acca (2026-11-09)
+        from monitor import acca_singles_paper
+        acca_singles_line = acca_singles_paper.run(today)["report_line"]
+        notes.append("acca + singles paper challenger graded")
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"acca + singles paper not built: {type(e).__name__}")
     decisions_line = ""
     try:      # the decision layer (standing order 51): stakes x0.5-1.5, real/paper, value bars; with undo
         res = run_decisions(graded, now)
@@ -1397,6 +1404,8 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
             text += "\n\n" + learning
         if scorecard_line:
             text += "\n\n" + scorecard_line
+        if acca_singles_line:
+            text += "\n\n" + acca_singles_line
         if timing_line:
             text += "\n\n" + timing_line
         try:      # the edge scoreboard (monitor/edge_scoreboard.py): CLV vs the exchange close, promotion

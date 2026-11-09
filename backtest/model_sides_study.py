@@ -121,7 +121,7 @@ def join(picks: dict, games: list[dict]) -> list[tuple[dict, dict]]:
     return out
 
 
-def records(date: str, picks: dict, games: list[dict]) -> list[dict]:
+def records(date: str, picks: dict, games: list[dict], floor: float = BARS[0]) -> list[dict]:
     recs = []
     for r, g in join(picks, games):
         m = grid(r["scores"])
@@ -136,7 +136,7 @@ def records(date: str, picks: dict, games: list[dict]) -> list[dict]:
             if won is None:                         # a push or a market the rules can't settle
                 continue
             ch = chance(k, m)
-            if ch is None or ch < BARS[0]:
+            if ch is None or ch < floor:
                 continue
             recs.append({"date": date, "fixture": r["fixture"], "key": k, "market": market_of(k),
                          "side": side_of(k), "chance": round(ch, 4), "price": price, "won": int(won)})

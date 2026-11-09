@@ -1358,6 +1358,11 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append(f"challengers read for {len(rows)} bot ledger(s)")
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"challengers not read: {type(e).__name__}")
+    try:      # framework#378: settled vs pending legs and the grader's mislabel rate, record-only
+        from monitor import settlement_audit
+        settlement_audit.save(settlement_audit.audit(BOTS, SIDECAR))
+    except Exception as e:  # noqa: BLE001 — never blocks grading or the report
+        notes.append(f"settlement audit not written: {type(e).__name__}")
     scorecard_line = ""
     timing_line = ""
     try:      # Matchbook (early) v Betfair (3 h before) on the same picks, by CLV (#259): record-only

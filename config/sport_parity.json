@@ -431,6 +431,10 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "monitor/settlement_audit.py": {
+   "status": "covers",
+   "note": "reads the bot grader's sidecars, basketball legs included"
+  },
   "monitor/bot_learning.py": {
    "status": "todo",
    "note": "the bots' NBA paper challengers fed back",

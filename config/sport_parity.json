@@ -423,6 +423,10 @@
    "status": "covers",
    "note": "grades the basketball board's accas (basketball_<date>.json) beside football's"
   },
+  "monitor/goals_experiment.py": {
+   "status": "n/a",
+   "note": "football BTTS and Over/Under 2.5 report; basketball has no BTTS, its totals are covered by the NBA study modules"
+  },
   "monitor/bot_grader.py": {
    "status": "covers",
    "note": "handles basketball itself"

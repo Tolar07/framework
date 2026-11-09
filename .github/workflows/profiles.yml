@@ -59,6 +59,12 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python monitor/squad_profiles.py
 
+      - name: Every club's signings and departures (FotMob transfers, 2026-11-09 plan step 5)
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/transfers.py
+
       - name: Refit the cross-league strength ratings
         continue-on-error: true
         env:

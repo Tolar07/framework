@@ -1396,6 +1396,13 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append("goals experiment block built")
     except Exception as e:  # noqa: BLE001 - never blocks grading or the report
         notes.append(f"goals experiment not built: {type(e).__name__}")
+    value_line = ""
+    try:      # 30-day ROI + CLV of the board's singles: judged by price, not hit rate (2026-11-09 plan step 6)
+        from monitor import value_line as vl
+        value_line = vl.run(today)["report_line"]
+        notes.append("value line built")
+    except Exception as e:  # noqa: BLE001 - never blocks grading or the report
+        notes.append(f"value line not built: {type(e).__name__}")
     stakes_line = ""
     try:      # second-half stakes shadow, record-only (framework #494)
         from monitor import second_half_shadow
@@ -1417,6 +1424,8 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
     due = today if force_report else report_day(now)
     if due:
         text = build_report(graded, due, tally)
+        if value_line:
+            text += "\n\n" + value_line
         if decisions_line:
             text += "\n\n" + decisions_line
         if learning:

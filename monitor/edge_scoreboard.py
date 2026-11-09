@@ -55,6 +55,8 @@ MIN_TEST_N = 30
 BH_Q = 0.05
 MB_COMMISSION = 0.02
 GAP_STEPS = (0.02, 0.03, 0.05)
+NEWS_EDGE = 0.10        # missing-share edge (away - home) at which the lineups favour a side
+GAP_MIN_NEWS = 0.02     # a side priced over the exchange at the confirmed-lineup look
 _ALIAS = {"BTTS_YES": "SB:29||Yes", "OVER_2_5": "SB:18|total=2.5|Over 2.5"}
 
 
@@ -225,6 +227,17 @@ def collect(obs: dict[str, dict], results: dict[str, dict], picks_dir: Path = PI
                 if rec.get("s0") and rec.get("p0"):
                     model_rows.append({"day": day, "key": key, "sport": sport, "price": rec["s0"],
                                        "p": rec["p0"], "won": won, "h": rec.get("h0")})
+                c = rec.get("c")    # news move (2026-11-09 plan step 4): the look at confirmed lineups
+                if c and c.get("s") and c.get("p") is not None:
+                    crow = {"price": c["s"], "won": won, "p_entry": c["p"], "p_close": rec.get("p1")}
+                    add("news move: every side at confirmed lineups", crow, "baseline")
+                    me = c.get("me")
+                    fav = ("SB:1||Home" if me >= NEWS_EDGE else "SB:1||Away" if me <= -NEWS_EDGE else None) \
+                        if isinstance(me, (int, float)) else None
+                    if fav and key == fav:
+                        add(f"news move: side the lineups favour (missing edge {NEWS_EDGE:.0%}+)", crow)
+                    if c["s"] * c["p"] - 1 >= GAP_MIN_NEWS:
+                        add("news move: a side over the exchange at confirmed lineups", crow)
                 x = rec.get("x")
                 if not x:
                     continue

@@ -357,7 +357,11 @@ def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
     # Lazy imports keep the module dependency one-way (both free sources import
     # the shared FixtureOdds/MarketQuote from here), avoiding an import cycle.
     from pipeline.odds_sportybet import fetch_odds_sportybet
-    from pipeline.odds_footballdata import fetch_odds_footballdata
+    from pipeline.odds_footballdata import (
+        EXTRA_COUNTRY,
+        fetch_extra_footballdata,
+        fetch_odds_footballdata,
+    )
 
     # 1) SportyBet (free, primary)
     sb_answered = False
@@ -370,9 +374,11 @@ def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
     except Exception as e:  # noqa: BLE001 — degrade to the next free source
         flags.append(f"{league}: SportyBet fetch failed ({e}) — trying football-data")
 
-    # 2) football-data fixtures (free)
+    # 2) football-data fixtures (free). The Extra-schema leagues (Danish Superliga,
+    #    Ekstraklasa) are not in fixtures.csv; their file is new_league_fixtures.csv.
     try:
-        fixtures, ff = fetch_odds_footballdata(league)
+        fixtures, ff = (fetch_extra_footballdata if league in EXTRA_COUNTRY
+                        else fetch_odds_footballdata)(league)
         flags += ff
         if fixtures:
             return fixtures, flags

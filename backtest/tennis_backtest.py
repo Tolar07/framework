@@ -101,8 +101,11 @@ def parse(rows: list[dict], tour: str) -> list[dict]:
         a, b = (w, lo) if a_first else (lo, w)
         pa, pb = (pw, pl) if a_first else (pl, pw)
         qa, qb = (aw, al) if a_first else (al, aw)
+        wr, lr = num(r.get("WRank")), num(r.get("LRank"))
+        ra, rb = (wr, lr) if a_first else (lr, wr)
         out.append({"day": day, "tour": tour, "surface": str(r.get("Surface", "")), "a": str(a), "b": str(b),
-                    "y": 1.0 if a_first else 0.0, "pa": pa, "pb": pb, "qa": qa, "qb": qb})
+                    "y": 1.0 if a_first else 0.0, "pa": pa, "pb": pb, "qa": qa, "qb": qb,
+                    "ra": ra, "rb": rb})
     return out
 
 

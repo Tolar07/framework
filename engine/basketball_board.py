@@ -19,6 +19,10 @@ picks file's section names, so the bots map it the way they map football:
   alts        [] - football's alts are alternative markets of the same match; basketball has no priced
               alternative-market legs until the every-market record (#394) prices them
   value       picks priced VALUE_MIN+ over the sharp fair price (singles, already placed)
+  fullgame_accas  accas built only from full-game legs (moneyline / handicap / total) by the same bars, so
+              Matchbook (multiples refuse half / quarter legs) has accas it can place. Own section: SportyBet's
+              placer reads only safe3 / clv_accas / accas / megas / alts, so these are NOT staked there.
+              BB_FULLGAME_ACCAS=0 builds none (record-only undo)
 
 WHY THESE BARS, NOT FOOTBALL'S NUMBERS: football's accas take 75%+ legs to a combined 2.00-3.00. Basketball
 picks are value lines at ~54-65% priced ~1.6-2.0, so two legs already pass 3.00 and no leg reaches 75%. The
@@ -35,6 +39,7 @@ from the NBA ledgers and the world basketball files (monitor/edge_scoreboard.gra
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -47,8 +52,15 @@ SAFE_LEGS, CLV_LEGS, ACCA_LEGS = 3, 4, 2
 SAFE_MIN_CHANCE = 0.60
 MEGA_MAX_LEGS = 26              # SportyBet won't take more on one slip (as football)
 VALUE_MIN = 0.10
-SECTIONS = ("singles", "safe3", "clv_accas", "accas", "megas", "alts", "value")
-SLIP_SECTIONS = ("safe3", "clv_accas", "accas", "megas", "alts")
+SECTIONS = ("singles", "safe3", "clv_accas", "accas", "megas", "alts", "value", "fullgame_accas")
+SLIP_SECTIONS = ("safe3", "clv_accas", "accas", "megas", "alts", "fullgame_accas")
+# FULL-GAME ACCAS (Architect 2026-11-08: Matchbook places basketball accas as multiples; they take only full-game
+# moneyline (219), handicap (223) and total (225), overtime included, and refuse 1st-half / quarter legs). The same
+# bars and shapes as the board's own slips (50+, CLV, 2-leg accas), built from full-game legs only, in a section of
+# their own that SportyBet's placer does not read (it stakes bb_<section> for its fixed list only).
+FULLGAME_MARKETS = ("219", "223", "225")
+FULLGAME_NAMES = {"safe3": "Basketball Full-game 50+ #{n}", "clv_accas": "Basketball Full-game CLV acca {n}",
+                  "accas": "Basketball Full-game Acca {n}"}
 
 
 def path_for(night: str, folder: Path = PICKS_DIR) -> Path:
@@ -67,15 +79,23 @@ def _edge(x: dict) -> float:
     return float(x.get("chance") or 0) * float(x.get("price") or 0) - 1
 
 
+def fullgame_on() -> bool:
+    """On unless repo variable BB_FULLGAME_ACCAS is 0 (record-only undo: no full-game accas are built)."""
+    return (os.environ.get("BB_FULLGAME_ACCAS") or "").strip() != "0"
+
+
 def legs_for(now: datetime, start: datetime, end: datetime, nba_picks: list[dict],
-             wb_docs: list[dict]) -> list[dict]:
+             wb_docs: list[dict], markets: tuple[str, ...] | None = None) -> list[dict]:
     """The night's legs: NBA picks + world basketball picks tipping in [start, end), not started, bookable,
-    one per game (NBA first), in tip-off order."""
+    one per game (NBA first), in tip-off order. `markets` keeps only those SportyBet market ids (before the
+    one-per-game pick, so a game whose first pick is a half total still gives its full-game pick)."""
     out: dict[str, dict] = {}
     world = [x for d in wb_docs for x in d.get("picks") or []]
     for league, xs in (("NBA", nba_picks), (None, world)):
         for x in xs:
             t = _tip(x)
+            if markets is not None and str(x.get("market_id")) not in markets:
+                continue
             if (t is None or not start <= t < end or t <= now or not x.get("code") or not x.get("outcome_id")
                     or not x.get("market_id") or not x.get("event_id")):
                 continue
@@ -155,6 +175,29 @@ def build(legs: list[dict]) -> dict:
     return out
 
 
+def _sig(s: dict) -> frozenset:
+    return frozenset((d["event_id"], str(d["market_id"]), d["specifier"], str(d["outcome_id"]))
+                     for d in s["leg_detail"])
+
+
+def build_fullgame(full_legs: list[dict], existing: dict[str, list[dict]]) -> list[dict]:
+    """Full-game-only accas from the full-game legs, by the board's own rules (build): per window the 3
+    strongest 60%+ legs as 50+, the 4 best-value as a CLV acca, then 2-leg accas, best value first; a game in
+    one of them at most. No megas. A slip with exactly the legs of one already on the board is left out."""
+    b = build(full_legs)
+    have = {_sig(s) for sec in SLIP_SECTIONS for s in existing.get(sec) or []}
+    out: list[dict] = []
+    counts = {"safe3": 0, "clv_accas": 0, "accas": 0}
+    for sec in ("safe3", "clv_accas", "accas"):
+        for s in b[sec]:
+            if _sig(s) in have:
+                continue
+            s["name"] = FULLGAME_NAMES[sec].format(n=_letters(counts[sec]) if sec != "safe3" else counts[sec] + 1)
+            counts[sec] += 1
+            out.append(s)
+    return out
+
+
 def book_all(board: dict, book_many) -> bool:
     """Book every multi-leg slip (a one-leg slip keeps its pick's own code). False if any failed."""
     ok = True
@@ -181,6 +224,8 @@ def make(now: datetime, night: str, start: datetime, end: datetime, nba_picks: l
     if len(legs) < 2:
         return None
     board = build(legs)
+    board["fullgame_accas"] = (build_fullgame(legs_for(now, start, end, nba_picks, wb_docs, FULLGAME_MARKETS), board)
+                               if fullgame_on() else [])
     booked = book_all(board, book_many)
     doc = {"date": night, "sport": "basketball", "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
            "window_minutes": int(WINDOW.total_seconds() // 60), "all_booked": booked,
@@ -199,9 +244,10 @@ def render(doc: dict) -> list[str]:
     """The board's lines: each section's slips with codes, as football's board lists them."""
     labels = {"safe3": "50+ ACCAS (3 strongest legs)", "clv_accas": "CLV ACCAS (most value vs the sharp price)",
               "accas": "ACCAS (2 legs, best value)", "megas": "MEGAS (every pick of one tip-off window)",
-              "value": "VALUE SINGLES (10%+ over fair)"}
+              "value": "VALUE SINGLES (10%+ over fair)",
+              "fullgame_accas": "FULL-GAME ACCAS (moneyline / handicap / total only: what Matchbook multiples take)"}
     L = ["=" * 34, f"BASKETBALL BOARD {doc['date']} - NBA + every league", "=" * 34]
-    for sec in ("safe3", "clv_accas", "accas", "megas", "value"):
+    for sec in ("safe3", "clv_accas", "accas", "megas", "fullgame_accas", "value"):
         if not doc.get(sec):
             continue
         L += ["", labels[sec]]

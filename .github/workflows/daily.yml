@@ -217,6 +217,8 @@ jobs:
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
+          # full-game basketball accas for Matchbook multiples; 0 = record-only off (engine/basketball_board.py)
+          BB_FULLGAME_ACCAS:  ${{ vars.BB_FULLGAME_ACCAS }}
         run: |
           if [ "$SCHEDULE" = "47 5 * * *" ] || [ "$SCHEDULE" = "47 6 * * *" ] || [ "$SLOT_INPUT" = "morning" ]; then
             python run_nba.py --night "$(date -u +%F)"

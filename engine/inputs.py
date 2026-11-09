@@ -26,13 +26,22 @@ MatchResult is adapted by `from_results`); xG rows come from data/match_study.
                   and a stakes gap: a side "has something to play for" when it
                   is in the top TABLE_TOP or bottom TABLE_BOTTOM places, counted
                   only once the league is TABLE_LATE of the way through.
+  second_half(...)  the Architect's second-half question (2026-11-09): once both
+                  clubs have played everyone once, what the first half says —
+                  this season's first meeting of the pair (goal difference and
+                  goals, from today's home side's view), each side's points
+                  and goal difference per game, and STAKES: a side is "live"
+                  when a title / Europe / relegation line is within reach
+                  (REACH_SHARE of the points left) on either side of it, and
+                  in a dead rubber when none is.
 """
 from __future__ import annotations
 
 import math
 from collections import defaultdict
+from collections.abc import Iterable
 from datetime import date
-from typing import Any, Iterable, Optional
+from typing import Any
 
 H2H_HALF_LIFE = 730
 H2H_MAX_YEARS = 6
@@ -44,6 +53,9 @@ TABLE_MIN_PLAYED = 5
 TABLE_TOP = 3
 TABLE_BOTTOM = 3
 TABLE_LATE = 0.6        # share of the season played before the stakes gap counts
+EURO_LINE = 4           # places that count as "Europe" (a generic line; leagues differ)
+RELEG_N = 3             # relegation places
+REACH_SHARE = 0.5       # a line is in reach when the gap <= this share of 3 x games left
 
 
 def from_results(results: Iterable[Any]) -> list[dict]:
@@ -72,7 +84,7 @@ def _days(a: str, b: str) -> int:
     return (date.fromisoformat(b[:10]) - date.fromisoformat(a[:10])).days
 
 
-def h2h(hist: History, home: str, away: str, day: str) -> Optional[dict]:
+def h2h(hist: History, home: str, away: str, day: str) -> dict | None:
     meets = [m for m in hist.by_pair.get(frozenset((home, away)), [])
              if m["date"] < day and _days(m["date"], day) <= 365 * H2H_MAX_YEARS][-H2H_MAX:]
     if not meets:
@@ -92,7 +104,7 @@ def _pts(m: dict, team: str) -> tuple[int, int, int]:
     return (3 if gf > ga else 1 if gf == ga else 0), gf - ga, gf + ga
 
 
-def form(hist: History, team: str, day: str, venue: Optional[str] = None, n: int = FORM_N) -> Optional[dict]:
+def form(hist: History, team: str, day: str, venue: str | None = None, n: int = FORM_N) -> dict | None:
     ms = [m for m in hist.by_team.get(team, []) if m["date"] < day
           and (venue is None or (venue == "home") == (m["home"] == team))][-n:]
     if len(ms) < 3:
@@ -135,11 +147,11 @@ def table_asof(hist: History, day: str) -> dict[str, dict]:
     return t
 
 
-def table_features(hist: History, home: str, away: str, day: str) -> dict[str, Optional[float]]:
+def table_features(hist: History, home: str, away: str, day: str) -> dict[str, float | None]:
     """Motivation / table candidates for one fixture (None = table too thin)."""
     t = table_asof(hist, day)
     h, a = t.get(home), t.get(away)
-    out: dict[str, Optional[float]] = {"table_ppg_gap": None, "table_stakes": None}
+    out: dict[str, float | None] = {"table_ppg_gap": None, "table_stakes": None}
     if not h or not a or min(h["played"], a["played"]) < TABLE_MIN_PLAYED:
         return out
     out["table_ppg_gap"] = h["pts"] / h["played"] - a["pts"] / a["played"]
@@ -151,9 +163,9 @@ def table_features(hist: History, home: str, away: str, day: str) -> dict[str, O
     return out
 
 
-def fixture_features(hist: History, home: str, away: str, day: str) -> dict[str, Optional[float]]:
+def fixture_features(hist: History, home: str, away: str, day: str) -> dict[str, float | None]:
     """The candidate inputs for one fixture (None = not enough history)."""
-    out: dict[str, Optional[float]] = {}
+    out: dict[str, float | None] = {}
     h = h2h(hist, home, away, day)
     out["h2h_gd"] = h["gd"] if h else None
     out["h2h_goals"] = h["goals"] if h else None
@@ -167,7 +179,56 @@ def fixture_features(hist: History, home: str, away: str, day: str) -> dict[str,
     return out
 
 
-def xg_form(rows: list[dict], team_id: str, day: str, n: int = XG_N) -> Optional[dict]:
+def stakes(t: dict[str, dict], team: str) -> dict | None:
+    """Which lines `team` is playing for, from a table_asof table (double
+    round robin assumed: 2 x (size - 1) games). live = any line within reach
+    from either side; None when the team is not in the table."""
+    r = t.get(team)
+    if not r:
+        return None
+    n = r["size"]
+    left = max(0, 2 * (n - 1) - r["played"])
+    reach = REACH_SHARE * 3 * left
+    by_rank = {v["rank"]: v["pts"] for v in t.values()}
+    lines = {"title": 1, "europe": EURO_LINE, "survival": n - RELEG_N}
+    out = {"games_left": left, "lines": []}
+    for name, k in lines.items():
+        if not (1 <= k < n) or k not in by_rank or (k + 1) not in by_rank:
+            continue
+        # inside the line: can it be caught? outside: can it get in?
+        gap = r["pts"] - by_rank[k + 1] if r["rank"] <= k else by_rank[k] - r["pts"]
+        if gap <= reach:
+            out["lines"].append(name)
+    out["live"] = bool(out["lines"])
+    return out
+
+
+def second_half(hist: History, home: str, away: str, day: str) -> dict[str, float | None]:
+    """Second-half-of-season inputs for one fixture. Everything is None until
+    both clubs have played at least size - 1 league games (everyone once)."""
+    keys = ("rev_gd", "rev_goals", "half_ppg_gap", "half_gd_gap", "motive_gap", "dead_count")
+    out: dict[str, float | None] = dict.fromkeys(keys)
+    t = table_asof(hist, day)
+    h, a = t.get(home), t.get(away)
+    if not h or not a or min(h["played"], a["played"]) < h["size"] - 1:
+        return out
+    start = season_start(day)
+    meets = [m for m in hist.by_pair.get(frozenset((home, away)), []) if start <= m["date"] < day]
+    if meets:
+        m = meets[-1]
+        sign = 1 if m["home"] == home else -1
+        out["rev_gd"] = float(sign * (m["hg"] - m["ag"]))
+        out["rev_goals"] = float(m["hg"] + m["ag"])
+    out["half_ppg_gap"] = h["pts"] / h["played"] - a["pts"] / a["played"]
+    out["half_gd_gap"] = h["gd"] / h["played"] - a["gd"] / a["played"]
+    sh, sa = stakes(t, home), stakes(t, away)
+    if sh and sa:
+        out["motive_gap"] = float(sh["live"]) - float(sa["live"])
+        out["dead_count"] = float((not sh["live"]) + (not sa["live"]))
+    return out
+
+
+def xg_form(rows: list[dict], team_id: str, day: str, n: int = XG_N) -> dict | None:
     """rows: data/match_study records sorted by ko."""
     got = []
     for r in rows:

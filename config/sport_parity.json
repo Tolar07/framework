@@ -9,6 +9,10 @@
    "status": "shared",
    "note": "lists every sport's connection gaps (config/sport_connections.json, Architect 2026-11-06 'no gaps')"
   },
+  "engine/hockey_periods.py": {
+   "status": "n/a",
+   "note": "ice hockey period split; basketball halves and quarters are priced by engine/nba_value.py"
+  },
   "engine/multisport.py": {
    "status": "n/a",
    "note": "multi-sport boards (order 50: American football, snooker, darts, volleyball, table tennis, cricket, rugby, tennis, baseball); basketball's equivalent is engine/world_basketball.py"
@@ -145,6 +149,10 @@
    "status": "twin",
    "note": "recent form: last-10 minutes and points per player, team pace",
    "basketball": "engine/nba_projection.py"
+  },
+  "engine/format_prob.py": {
+   "status": "n/a",
+   "note": "match-format maths for set/leg/frame sports (tennis, darts, volleyball, table tennis); basketball has no sets or legs"
   },
   "engine/freeze.py": {
    "status": "twin",

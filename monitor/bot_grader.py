@@ -1396,6 +1396,13 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append("goals experiment block built")
     except Exception as e:  # noqa: BLE001 - never blocks grading or the report
         notes.append(f"goals experiment not built: {type(e).__name__}")
+    stakes_line = ""
+    try:      # second-half stakes shadow, record-only (framework #494)
+        from monitor import second_half_shadow
+        stakes_line = second_half_shadow.run(today)["report_line"]
+        notes.append("second-half stakes shadow built")
+    except Exception as e:  # noqa: BLE001 - never blocks grading or the report
+        notes.append(f"second-half stakes shadow not built: {type(e).__name__}")
     decisions_line = ""
     try:      # the decision layer (standing order 51): stakes x0.5-1.5, real/paper, value bars; with undo
         res = run_decisions(graded, now)
@@ -1420,6 +1427,8 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
             text += "\n\n" + acca_singles_line
         if goals_line:
             text += "\n\n" + goals_line
+        if stakes_line:
+            text += "\n\n" + stakes_line
         if timing_line:
             text += "\n\n" + timing_line
         try:      # the edge scoreboard (monitor/edge_scoreboard.py): CLV vs the exchange close, promotion

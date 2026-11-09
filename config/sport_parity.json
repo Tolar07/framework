@@ -439,6 +439,11 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "monitor/second_half_shadow.py": {
+   "status": "todo",
+   "note": "NBA stakes shadow: play-off / play-in race vs teams out of it (tanking), late season, record-only",
+   "priority": 3
+  },
   "monitor/settlement_audit.py": {
    "status": "covers",
    "note": "reads the bot grader's sidecars, basketball legs included"

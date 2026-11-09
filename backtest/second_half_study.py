@@ -32,7 +32,13 @@ promotion path with verdict ADDS INFORMATION on both Brier and log loss
 (standing promotion rule 2026-11-04). Writes backtest/SECOND_HALF_STUDY.md
 and memory/second_half_gate.json (framework-data).
 
-    python backtest/second_half_study.py
+    python backtest/second_half_study.py                       top leagues, market average
+    python backtest/second_half_study.py --leagues lower       lower / smaller leagues
+    python backtest/second_half_study.py --book b365           Bet365 alone (a soft book)
+
+Step 1 of the 2026-11-09 plan: the first half may be priced in at the market
+average yet not at a soft book or in a smaller league, so the same test runs
+on each. A run other than the default writes SECOND_HALF_STUDY_<leagues>_<book>.md.
 """
 from __future__ import annotations
 
@@ -50,6 +56,8 @@ from engine import walkforward as wf  # noqa: E402
 
 OUT = ROOT / "backtest" / "SECOND_HALF_STUDY.md"
 GATE = ROOT / "memory" / "second_half_gate.json"
+LOWER = ("2. Bundesliga", "La Liga 2", "Serie B", "Ligue 2", "League One", "League Two",
+         "National League", "Turkish Super Lig", "Greek Super League")
 LEAGUES = ("Premier League", "Championship", "La Liga", "Serie A", "Bundesliga", "Ligue 1",
            "Eredivisie", "Primeira Liga", "Scottish Premiership", "Belgian Pro League")
 SEASONS = ("1819", "1920", "2021", "2122", "2223", "2324", "2425", "2526")
@@ -107,13 +115,16 @@ def money(scored: list[tuple]) -> dict:
     return {"market": side(False), "with_feature": side(True)}
 
 
-def collect(load=None) -> tuple[dict, dict]:
+def collect(load=None, leagues: tuple = LEAGUES, book: str = "market_avg") -> tuple[dict, dict]:
     if load is None:
-        from data.football_data_source import load_league as load
+        from data.football_data_source import load_league as fd_load
+
+        def load(lg, s):
+            return fd_load(lg, s, book_preference=(book,))
     rows: dict[tuple, list] = {(o, f, seg): [] for o in OUTCOMES for f in FEATS for seg in ("all", "late")}
     close_b: dict[str, list] = {o: [] for o in OUTCOMES}
     cover: dict[str, Any] = {"league_seasons": 0, "second_half": 0, "with_first_meeting": 0}
-    for lg in LEAGUES:
+    for lg in leagues:
         for s in SEASONS:
             try:
                 ms, _ = load(lg, s)
@@ -158,11 +169,11 @@ def collect(load=None) -> tuple[dict, dict]:
     return res, cover
 
 
-def write(res: dict, cover: dict) -> str:
+def write(res: dict, cover: dict, leagues: tuple = LEAGUES, book: str = "market_avg") -> str:
     L = ["# SECOND-HALF STUDY — does the first half of the season beat the price for the return game?", "",
          "Written by `backtest/second_half_study.py` (Architect 2026-11-09). Second-half games only (both clubs "
-         "have played everyone once), " + ", ".join(LEAGUES) + f"; seasons {SEASONS[0]}-{SEASONS[-1]}. "
-         "Baseline: the market's opening price, de-vigged. Each input's weight is fitted on earlier days only. "
+         "have played everyone once), " + ", ".join(leagues) + f"; seasons {SEASONS[0]}-{SEASONS[-1]}. "
+         f"Baseline: the opening price of `{book}`, de-vigged. Each input's weight is fitted on earlier days only. "
          "Gain > 0 = the input helped; a verdict needs 100+ scored matches and 2 standard errors. Money: bets at "
          f"chance x opening >= {1 + EDGE:.2f}, ROI at the opening price, CLV = opening / closing - 1.", "",
          f"Coverage: {cover['league_seasons']} league-seasons, {cover['second_half']} second-half matches, "
@@ -199,13 +210,23 @@ def write(res: dict, cover: dict) -> str:
     return "\n".join(L) + "\n"
 
 
-def main() -> None:
-    res, cover = collect()
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(write(res, cover), encoding="utf-8")
-    GATE.parent.mkdir(parents=True, exist_ok=True)
-    GATE.write_text(json.dumps({"cover": cover, "results": res}, indent=1, sort_keys=True), encoding="utf-8")
-    print(OUT.read_text(encoding="utf-8"))
+def main(argv: list[str] | None = None) -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--leagues", choices=("top", "lower"), default="top")
+    ap.add_argument("--book", choices=("market_avg", "b365", "pinnacle"), default="market_avg")
+    a = ap.parse_args(argv)
+    leagues = LEAGUES if a.leagues == "top" else LOWER
+    res, cover = collect(leagues=leagues, book=a.book)
+    out, gate = OUT, GATE
+    if (a.leagues, a.book) != ("top", "market_avg"):
+        out = OUT.with_name(f"SECOND_HALF_STUDY_{a.leagues}_{a.book}.md")
+        gate = GATE.with_name(f"second_half_gate_{a.leagues}_{a.book}.json")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(write(res, cover, leagues, a.book), encoding="utf-8")
+    gate.parent.mkdir(parents=True, exist_ok=True)
+    gate.write_text(json.dumps({"cover": cover, "results": res}, indent=1, sort_keys=True), encoding="utf-8")
+    print(out.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

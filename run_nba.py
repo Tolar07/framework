@@ -166,10 +166,12 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
                          f"{abs(sb_p - sharp_p):.0%} on the winner — stale or mismatched, skipped")
             continue
         found, suspect = nv.candidates(e, g)
-        study.append({"tip": tip.isoformat(), "stage": stage, "home": e.get("homeTeamName"),
+        study.append({"tip": tip.isoformat(), "stage": stage, "event_id": e.get("eventId"), "home": e.get("homeTeamName"),
                       "away": e.get("awayTeamName"), "lines": nv.study_lines(e, g),
                       # recorded for the player-built projection (engine/nba_projection.py)
                       "espn_id": g.id, "sb_main": proj.sportybet_main(e),
+                      # the game's best full-game leg for the full-game accas (nba_value.fullgame_leg)
+                      "fullgame_leg": nv.fullgame_leg(e, g),
                       "sharp": {"total": g.total, "spread": g.spread,
                                 "open_total": g.open_total, "open_spread": g.open_spread},
                       # margin / total bands, graded by the scorecard (engine/nba_shape.py)
@@ -236,7 +238,8 @@ def book(picks: list[dict]) -> None:
 
 
 def basketball_board(now: datetime, night: date, picks: list[dict], book_many=None,
-                     folder: Path | None = None, wb_folder: Path | None = None) -> dict | None:
+                     folder: Path | None = None, wb_folder: Path | None = None,
+                     study: list[dict] | None = None) -> dict | None:
     """The night's basketball board (engine/basketball_board.py): NBA picks + every world basketball / NCAA
     pick of the NBA night, every football section, booked once and frozen in basketball_<night>.json."""
     from engine import basketball_board as bbd
@@ -244,7 +247,8 @@ def basketball_board(now: datetime, night: date, picks: list[dict], book_many=No
     start = night_start(night)
     wb_docs = [doc for _d, doc in wbb.load_all(**({"folder": wb_folder} if wb_folder else {}))]
     return bbd.make(now, night.isoformat(), start, start + timedelta(hours=24), picks, wb_docs,
-                    book_many or _book_many, **({"folder": folder} if folder else {}))
+                    book_many or _book_many, **({"folder": folder} if folder else {}),
+                    nba_pool=bbd.pool_legs(study or []))
 
 
 def _board_slips(board: dict | None) -> list[dict]:
@@ -504,7 +508,7 @@ def main() -> int:
         accas = basketball_accas(now, night, picks) if test_night else []
         # THE BASKETBALL BOARD (Architect 2026-11-06 19:06, framework #403): NBA + every league as one sport,
         # every football section, booked with this morning board. It replaces the NBA-only accas.
-        bboard = basketball_board(now, night, picks)
+        bboard = basketball_board(now, night, picks, study=study)
         text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         if bboard:
             from engine import basketball_board as bbd

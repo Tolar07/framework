@@ -862,7 +862,11 @@
    "status": "covers",
    "note": "/board basketball shows the world basketball board"
   },
-  "backtest/nba_study.py": {
+  "backtest/nba_fullgame_replay.py": {
+   "status": "n/a",
+   "note": "replay of the NBA full-game acca legs; world basketball / NCAA picks already carry full-game legs (basketball_board.legs_for), nothing to replay"
+  },
+ "backtest/nba_study.py": {
    "status": "twin",
    "basketball": "backtest/ncaa_study.py",
    "note": "can the method work: NCAA study fitted the NCAA line shapes"

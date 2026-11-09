@@ -160,6 +160,15 @@ way to price most of these sports. This skill says what each market actually is 
 - HR35 / HR59: a study without data reads PENDING; every number traces to a script run.
 - No steam on money.
 
+## Result: baseball starter model (framework#382, 2026-11-09)
+
+`engine/mlb_pitcher.py` + `backtest/mlb_pitcher_backtest.py` (record-only). Held-out 2023-25, 7412 games: a starter model
+(opponents' first-5 runs per start, shrunk) scores log loss 0.6868 vs 0.6879 with starters blanked vs 0.6759 for the
+close; blended 50% with the close 0.6793. Starters help a hair, but nothing beats the price: price baseball off the
+exchange. F5 grading vs the base rate only (0.6907 vs 0.6914); F5 price test PENDING until an F5 moneyline is recorded.
+Needs real pitcher quality (FIP/xFIP, hand splits) to do better. Idea source: issue #382 (Outlier @ 02:33, 05:41;
+Underdog Chance @ 10:29-14:08; OddsShopper @ 01:34-03:06). YouTube research this run: skipped (idea already sourced).
+
 ## Evidence table
 
 | Claim | Source @ time | Status |

@@ -88,6 +88,9 @@ way to price most of these sports. This skill says what each market actually is 
      underdog about +139, a book offered +150 (@ 02:37).
    - Test: derive the fair per-period price from the exchange's full-game price and grade SportyBet's period prices
      against it (shadow).
+   - Built (framework#381): `engine/hockey_periods.py` turns a full-game 1X2 exchange price into fair per-period
+     prices (Poisson rates fitted to the 60-min 1X2, assumed period goal shares 31/34.5/34.5%, an ASSUMPTION until
+     period scores are recorded). SportyBet's feed carries no period market yet, so the grade reads PENDING.
 4. **Baseball: price by the starting pitcher, weighted by his innings.**
    - First 5 innings (F5) is decided by the two starting pitchers and the top of the line-ups; the bullpen barely
      matters there (Outlier @ 02:33, 05:41).

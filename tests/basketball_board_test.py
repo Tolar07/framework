@@ -154,7 +154,65 @@ def test_fullgame_accas_skip_a_slip_already_on_the_board():
     assert bb.build_fullgame(legs, {"safe3": [], "clv_accas": [], "accas": []}) != []   # nothing on board: built
 
 
+def test_nba_pool_legs_fill_the_full_game_accas():
+    """NBA games whose pick is a half line still give a full-game leg (the study's `fullgame_leg`): they fill the
+    full-game accas, get their own code, read plain for Matchbook; BB_FULLGAME_NBA=0 leaves them out."""
+    import os
+    from engine import nba_value as nv
+    t0 = datetime(2026, 11, 8, 0, 0, tzinfo=UTC)
+    half = [_p(i, t0 + timedelta(minutes=5 * i), chance=0.70, market_id="68", specifier="total=110.5",
+               pick="Over 110.5") for i in range(4)]
+    leg = {"market_id": "223", "specifier": "hcp=-4.5", "outcome": "Home (-4.5)", "outcome_id": "1714",
+           "price": 1.85, "chance": 0.55, "ev": 0.0175}
+    study = [{"event_id": f"sr:match:{i}", "home": f"H{i}", "away": f"A{i}", "tip": half[i]["tip"],
+              "fullgame_leg": leg} for i in range(4)] + [{"event_id": "sr:match:9", "fullgame_leg": None}]
+    pool = bb.pool_legs(study)
+    assert len(pool) == 4 and pool[0]["pick"] == "H0 (-4.5) handicap" and pool[0]["code"] is None
+    assert bb.plain_pick(pool[0]) == "H0 -4.5"
+    assert bb.plain_pick({"pick": "Boston Celtics to win (incl. OT)"}) == "Boston Celtics"
+    assert bb.plain_pick({"pick": "Over 220.5 points (incl. OT)"}) == "Over 220.5 points"
+    booked = []
+
+    def book(sels):
+        booked.append(sels)
+        return f"K{len(booked)}"
+    args = (NOW, "2026-11-07", START, START + timedelta(hours=24), half, [], book)
+    with tempfile.TemporaryDirectory() as t:
+        doc = bb.make(*args, folder=Path(t), nba_pool=pool)
+    fg = doc["fullgame_accas"]
+    assert [s["name"] for s in fg] == ["Basketball Full-game CLV acca A"]
+    assert all(d["code"] and d["market_id"] == "223" and d["pick"].endswith("-4.5") for d in fg[0]["leg_detail"])
+    assert fg[0]["codes"] == [d["code"] for d in fg[0]["leg_detail"]] and fg[0]["code"]
+    assert fg[0]["leg_detail"][0]["chance"] == 0.55
+    assert nv.fullgame_leg({"markets": []}, None) is None
+    os.environ["BB_FULLGAME_NBA"] = "0"
+    try:
+        with tempfile.TemporaryDirectory() as t:
+            assert bb.make(*args, folder=Path(t), nba_pool=pool)["fullgame_accas"] == []
+    finally:
+        del os.environ["BB_FULLGAME_NBA"]
+
+
+def test_fullgame_leg_uses_the_boards_own_bars():
+    """nv.fullgame_leg: only 219/223/225, BAND and MIN_CHANCE kept, no value bar, never a stale-looking line."""
+    from types import SimpleNamespace
+    from engine import nba_value as nv
+    sharp = SimpleNamespace(ml_home=1.5, ml_away=2.6, spread=-5.5, total=220.5)
+    ev = {"markets": [
+        {"id": "219", "status": 0, "outcomes": [{"desc": "Home", "odds": 1.45, "id": "1"},
+                                                {"desc": "Away", "odds": 2.6, "id": "2"}]},
+        {"id": "68", "status": 0, "specifier": "total=110.5",
+         "outcomes": [{"desc": "Over 110.5", "odds": 1.9, "id": "3"}, {"desc": "Under 110.5", "odds": 1.9, "id": "4"}]}]}
+    leg = nv.fullgame_leg(ev, sharp)
+    assert leg and leg["market_id"] == "219" and leg["outcome"] == "Home" and leg["chance"] >= nv.MIN_CHANCE
+    assert leg["ev"] < 0                                       # the bookmaker's margin is shown, not hidden
+    ev["markets"][0]["status"] = 2                              # closed line: nothing
+    assert nv.fullgame_leg(ev, sharp) is None
+
+
 def main() -> None:
+    test_nba_pool_legs_fill_the_full_game_accas()
+    test_fullgame_leg_uses_the_boards_own_bars()
     test_fullgame_accas_only_full_game_legs()
     test_fullgame_accas_skip_a_slip_already_on_the_board()
     test_legs_one_window_one_slip_kind()

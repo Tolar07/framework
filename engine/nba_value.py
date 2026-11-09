@@ -338,6 +338,44 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
     return picks, suspect
 
 
+FULLGAME_MARKETS = ("219", "223", "225")      # winner, handicap, total: all incl. overtime
+
+
+def fullgame_leg(event: dict, sharp) -> Optional[dict]:
+    """The one FULL-GAME leg (moneyline / handicap / total) of a game best fit for an acca, or None.
+
+    Basketball accas on Matchbook take only these three markets, but the board's pick of a game is its single
+    best-value line, which is mostly a 1st-half / quarter line. This leg is chosen by the board's own pricing
+    (fair_chance blended with SportyBet's own two-way price, same BAND and MIN_CHANCE, nothing lowered) but WITHOUT
+    the value bar: nobody stakes it alone, it only fills an acca. Its value over the price is usually slightly
+    negative (the bookmaker's margin): it is recorded as `ev`, never hidden. Highest value first, then chance."""
+    best = None
+    for m in event.get("markets", []):
+        mid = str(m.get("id"))
+        if mid not in FULLGAME_MARKETS or not is_open(m):
+            continue
+        spec = m.get("specifier") or ""
+        twin = [(o.get("desc", ""), o.get("odds")) for o in m.get("outcomes", [])]
+        for o in m.get("outcomes", []):
+            try:
+                price = float(o.get("odds"))
+            except (TypeError, ValueError):
+                continue
+            if not (BAND[0] <= price <= BAND[1]) or o.get("id") is None:
+                continue
+            p = blended(fair_chance(mid, spec, o.get("desc", ""), sharp), mid, spec, sb_fair(twin, o.get("desc", "")))
+            if p is None or p < MIN_CHANCE:
+                continue
+            ev = p * price - 1
+            if ev > MAX_EV:
+                continue                           # too good to be true: a stale line, as for a pick
+            row = {"market_id": mid, "specifier": spec, "outcome": o.get("desc", ""), "outcome_id": o.get("id"),
+                   "price": price, "chance": round(p, 4), "fair_price": round(1 / p, 3), "ev": round(ev, 4)}
+            if best is None or (row["ev"], row["chance"]) > (best["ev"], best["chance"]):
+                best = row
+    return best
+
+
 STUDY_BAND = (1.20, 3.00)
 
 

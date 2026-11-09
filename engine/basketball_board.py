@@ -23,6 +23,12 @@ picks file's section names, so the bots map it the way they map football:
               Matchbook (multiples refuse half / quarter legs) has accas it can place. Own section: SportyBet's
               placer reads only safe3 / clv_accas / accas / megas / alts, so these are NOT staked there.
               BB_FULLGAME_ACCAS=0 builds none (record-only undo)
+              NBA full-game legs (Architect 2026-11-09: "get more full games market"): the NBA board's pick of a
+              game is its best-value line, mostly a 1st-half / quarter line, so few full-game legs reached this
+              section. Every NBA game also carries its best full-game leg (nba_value.fullgame_leg: the board's own
+              chance, BAND and MIN_CHANCE, no value bar) in the board's study, and those fill this section's leg
+              pool. They sit at fair price minus the bookmaker's margin: no edge is claimed.
+              BB_FULLGAME_NBA=0 leaves them out (record-only undo)
 
 WHY THESE BARS, NOT FOOTBALL'S NUMBERS: football's accas take 75%+ legs to a combined 2.00-3.00. Basketball
 picks are value lines at ~54-65% priced ~1.6-2.0, so two legs already pass 3.00 and no leg reaches 75%. The
@@ -40,10 +46,12 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timedelta
 from pathlib import Path
 
 from engine import exchange as ex
+from engine import nba_value as nv
 
 ROOT = Path(__file__).resolve().parent.parent
 PICKS_DIR = ROOT / "output" / "picks"
@@ -84,11 +92,32 @@ def fullgame_on() -> bool:
     return (os.environ.get("BB_FULLGAME_ACCAS") or "").strip() != "0"
 
 
+def nba_pool_on() -> bool:
+    """On unless repo variable BB_FULLGAME_NBA is 0 (record-only undo: NBA full-game legs not added to the pool)."""
+    return (os.environ.get("BB_FULLGAME_NBA") or "").strip() != "0"
+
+
+def pool_legs(study: list[dict]) -> list[dict]:
+    """Pick-shaped NBA full-game legs from the night's study lines (each game's `fullgame_leg`). No code yet:
+    one is booked only for a leg that lands on a slip (make)."""
+    out = []
+    for g in study:
+        x = g.get("fullgame_leg")
+        if not x or not g.get("event_id"):
+            continue
+        pick = nv.display(x, g.get("home") or "", g.get("away") or "")
+        out.append({**x, "event_id": g["event_id"], "home": g.get("home"), "away": g.get("away"), "tip": g.get("tip"),
+                    "pick": pick, "code": None, "source": "nba_fullgame_pool"})
+    return out
+
+
 def legs_for(now: datetime, start: datetime, end: datetime, nba_picks: list[dict],
-             wb_docs: list[dict], markets: tuple[str, ...] | None = None) -> list[dict]:
+             wb_docs: list[dict], markets: tuple[str, ...] | None = None,
+             nba_pool: list[dict] | None = None) -> list[dict]:
     """The night's legs: NBA picks + world basketball picks tipping in [start, end), not started, bookable,
     one per game (NBA first), in tip-off order. `markets` keeps only those SportyBet market ids (before the
-    one-per-game pick, so a game whose first pick is a half total still gives its full-game pick)."""
+    one-per-game pick, so a game whose first pick is a half total still gives its full-game pick).
+    `nba_pool`: extra NBA full-game legs (no code yet) for games whose picks gave no full-game leg."""
     out: dict[str, dict] = {}
     world = [x for d in wb_docs for x in d.get("picks") or []]
     for league, xs in (("NBA", nba_picks), (None, world)):
@@ -100,6 +129,11 @@ def legs_for(now: datetime, start: datetime, end: datetime, nba_picks: list[dict
                     or not x.get("market_id") or not x.get("event_id")):
                 continue
             out.setdefault(str(x["event_id"]), {**x, "_tip": t, "league": league or x.get("comp")})
+    for x in nba_pool or []:
+        t = _tip(x)
+        if t is None or not start <= t < end or t <= now or str(x["event_id"]) in out:
+            continue
+        out[str(x["event_id"])] = {**x, "_tip": t, "league": "NBA"}
     return sorted(out.values(), key=lambda x: x["_tip"])
 
 
@@ -180,11 +214,21 @@ def _sig(s: dict) -> frozenset:
                      for d in s["leg_detail"])
 
 
+def plain_pick(x: dict) -> str:
+    """The leg's pick text in the plain form Matchbook's multiples read (world basketball's own): "Team +1.5",
+    "Team", "Over 220.5 points". The NBA board words the same legs "Team (-4.5) handicap", "Team to win (incl. OT)",
+    "Over 220.5 points (incl. OT)"."""
+    t = (x.get("pick") or "").strip()
+    t = re.sub(r"^(.+?)\s+\(([-+]?\d+(?:\.\d+)?)\)\s+handicap$", r"\1 \2", t)
+    t = re.sub(r"\s+to win(?:\s+\(incl\.? (?:OT|overtime)\))?$", "", t, flags=re.I)
+    return re.sub(r"\s+\(incl\.? (?:OT|overtime)\)$", "", t, flags=re.I)
+
+
 def build_fullgame(full_legs: list[dict], existing: dict[str, list[dict]]) -> list[dict]:
     """Full-game-only accas from the full-game legs, by the board's own rules (build): per window the 3
     strongest 60%+ legs as 50+, the 4 best-value as a CLV acca, then 2-leg accas, best value first; a game in
     one of them at most. No megas. A slip with exactly the legs of one already on the board is left out."""
-    b = build(full_legs)
+    b = build([{**x, "pick": plain_pick(x)} for x in full_legs])
     have = {_sig(s) for sec in SLIP_SECTIONS for s in existing.get(sec) or []}
     out: list[dict] = []
     counts = {"safe3": 0, "clv_accas": 0, "accas": 0}
@@ -214,7 +258,7 @@ def book_all(board: dict, book_many) -> bool:
 
 
 def make(now: datetime, night: str, start: datetime, end: datetime, nba_picks: list[dict], wb_docs: list[dict],
-         book_many, folder: Path = PICKS_DIR) -> dict | None:
+         book_many, folder: Path = PICKS_DIR, nba_pool: list[dict] | None = None) -> dict | None:
     """Build, book and freeze the night's basketball board; the kept file if already made (never rebooked).
     None when fewer than 2 legs. A slip whose booking failed keeps code None (PENDING, never placed)."""
     path = path_for(night, folder)
@@ -224,8 +268,15 @@ def make(now: datetime, night: str, start: datetime, end: datetime, nba_picks: l
     if len(legs) < 2:
         return None
     board = build(legs)
-    board["fullgame_accas"] = (build_fullgame(legs_for(now, start, end, nba_picks, wb_docs, FULLGAME_MARKETS), board)
-                               if fullgame_on() else [])
+    pool = nba_pool if nba_pool_on() else None
+    board["fullgame_accas"] = (build_fullgame(legs_for(now, start, end, nba_picks, wb_docs, FULLGAME_MARKETS, pool),
+                                              board) if fullgame_on() else [])
+    for s in board["fullgame_accas"]:             # a pool leg has no code of its own yet: book its single now
+        s["codes"] = [c or book_many([{"eventId": d["event_id"], "marketId": d["market_id"],
+                                       "specifier": d["specifier"], "outcomeId": d["outcome_id"]}])
+                      for d, c in zip(s["leg_detail"], s["codes"])]
+        for d, c in zip(s["leg_detail"], s["codes"]):
+            d["code"] = c
     booked = book_all(board, book_many)
     doc = {"date": night, "sport": "basketball", "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
            "window_minutes": int(WINDOW.total_seconds() // 60), "all_booked": booked,

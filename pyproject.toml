@@ -57,6 +57,8 @@ files = [
     "engine/experiments.py",
     "engine/multisport_reasoning.py",
     "engine/ms_team_news.py",
+    "engine/sport_calendar.py",
+    "monitor/calendar_run.py",
     "monitor/experiment_run.py",
     "engine/leg_postmortem.py",
     "data/football_data_source.py",

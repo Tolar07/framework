@@ -1,0 +1,21 @@
+{
+ "_about": "KNOWN RECURRING RULES for engine/sport_calendar.py (Architect 2026-11-08 23:52: 'the system needs to understand all the calendar for each sport and each upcoming event'). These are LABELLED DEFAULTS, not dates: they only name a window the fetched data already shows (e.g. a club pause in a FIFA month is labelled 'international break'), or say what usually happens when no source covers the period (confidence low, source 'default rule'). Fetched data always wins. No date in the calendar comes from this file.",
+ "football": {
+  "fifa_window_months": [3, 6, 9, 10, 11],
+  "winter_break_months": [12, 1, 2],
+  "pause_min_gap_days": 10,
+  "national_keywords": ["nations league", "friendly international", "world cup", "qualification", "africa cup of nations", "copa america", "euro ", "gold cup", "asian cup"],
+  "youth_keywords": ["u17", "u19", "u20", "u21", "u23", "women"]
+ },
+ "basketball": {"all_star_month": 2, "pause_min_gap_days": 3},
+ "ice_hockey": {"pause_min_gap_days": 3},
+ "american_football": {"season_months": [9, 10, 11, 12, 1, 2]},
+ "baseball": {"off_season_months": [11, 12, 1, 2, 3], "note": "MLB Opening Day is usually late March; winter leagues (Caribbean) play Nov-Jan"},
+ "tennis": {"off_season_months": [12], "note": "tour season ends with the ATP/WTA Finals and the Davis Cup / Billie Jean King Cup finals in November; the new season starts in the first week of January"},
+ "darts": {"note": "the PDC World Championship usually runs mid-December to early January"},
+ "snooker": {"note": "the World Championship is usually mid-April to early May"},
+ "rugby": {"test_window_months": [7, 11], "note": "November internationals (Autumn Nations Series) pause the club leagues for some rounds"},
+ "cricket": {"note": "the Big Bash League usually runs mid-December to late January"},
+ "major_keywords": ["world championship", "world cup", "finals", "masters", "grand slam", "uk championship", "champion of champions", "players championship", "davis cup", "billie jean king", "big bash", "autumn nations", "six nations", "all-star", "nba cup", "super bowl", "stanley cup", "world series", "olympic"],
+ "national_keywords_any_sport": ["international", "nations", "test match", "test series", "world cup", "davis cup", "billie jean king"]
+}

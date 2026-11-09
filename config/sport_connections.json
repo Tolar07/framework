@@ -22,7 +22,8 @@
   "betfair_paper": "Betfair bot paper bets on the sport",
   "betfair_live": "Betfair bot stakes the sport (unified rules)",
   "sportybet_paper": "SportyBet bot paper bets on the sport",
-  "sportybet_live": "SportyBet bot places the sport from booking codes"
+  "sportybet_live": "SportyBet bot places the sport from booking codes",
+  "sport_calendar": "the sport's calendar: next 21 days of fixtures by competition, breaks / off-season / tournaments detected from fetched data, expected-volume label, calendar note per pick, COMING UP in the 23:02 report"
  },
  "live_blocking": [
   "matchbook_live",
@@ -161,6 +162,13 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "sportybet/place.py"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py",
+     "monitor/calendar_run.py"
+    ]
    }
   },
   "basketball": {
@@ -294,6 +302,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "sportybet/place.py wb_"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "ice_hockey": {
@@ -429,6 +443,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "american_football": {
@@ -565,6 +585,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "snooker": {
@@ -702,6 +728,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "darts": {
@@ -838,6 +870,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "volleyball": {
@@ -974,6 +1012,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "table_tennis": {
@@ -1108,6 +1152,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "cricket": {
@@ -1244,6 +1294,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "rugby": {
@@ -1380,6 +1436,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "tennis": {
@@ -1516,6 +1578,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   },
   "baseball": {
@@ -1652,6 +1720,12 @@
     "status": "external",
     "repo": "Tolar07/sportybet-agent",
     "ref": "place.multi_night + plan(), from live_from (#88)"
+   },
+   "sport_calendar": {
+    "status": "done",
+    "paths": [
+     "engine/sport_calendar.py"
+    ]
    }
   }
  }

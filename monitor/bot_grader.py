@@ -1384,6 +1384,13 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
         notes.append("acca + singles paper challenger graded")
     except Exception as e:  # noqa: BLE001 — never blocks grading or the report
         notes.append(f"acca + singles paper not built: {type(e).__name__}")
+    goals_line = ""
+    try:      # BTTS yes/no + Over/Under 2.5 experiment block, record-only (issue #349)
+        from monitor import goals_experiment
+        goals_line = goals_experiment.run(today)["report_line"]
+        notes.append("goals experiment block built")
+    except Exception as e:  # noqa: BLE001 - never blocks grading or the report
+        notes.append(f"goals experiment not built: {type(e).__name__}")
     decisions_line = ""
     try:      # the decision layer (standing order 51): stakes x0.5-1.5, real/paper, value bars; with undo
         res = run_decisions(graded, now)
@@ -1406,6 +1413,8 @@ def run(now: datetime, force_report: bool = False, dry: bool = False) -> str:
             text += "\n\n" + scorecard_line
         if acca_singles_line:
             text += "\n\n" + acca_singles_line
+        if goals_line:
+            text += "\n\n" + goals_line
         if timing_line:
             text += "\n\n" + timing_line
         try:      # the edge scoreboard (monitor/edge_scoreboard.py): CLV vs the exchange close, promotion

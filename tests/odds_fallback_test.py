@@ -54,6 +54,22 @@ def test_chain_falls_back_to_footballdata_when_sportybet_empty() -> None:
         "chain must fall back to football-data when SportyBet yields nothing"
 
 
+def test_chain_uses_new_league_file_for_extra_league() -> None:
+    # An Extra-schema league (Ekstraklasa) must fall back to new_league_fixtures.csv,
+    # not hit the main-schema fetch that can only say "not in fixtures.csv".
+    sbo.fetch_odds_sportybet = lambda _lg: ([], ["sportybet empty"])
+    orig_rows = fdo._load_new_league_rows
+    fdo._load_new_league_rows = lambda: ([
+        {"Country": "Poland", "Home": "Legia", "Away": "Lech", "Date": "04/10/2026",
+         "Time": "17:00", "AvgH": "2.10", "AvgD": "3.40", "AvgA": "3.50"}], ["stubbed new rows"])
+    try:
+        fx, flags = odds.fetch_odds_chained("Ekstraklasa")
+    finally:
+        fdo._load_new_league_rows = orig_rows
+    assert len(fx) == 1 and fx[0].source.startswith("football-data"), (fx, flags)
+    assert not any("not in football-data fixtures.csv" in f for f in flags), flags
+
+
 def test_chain_prefers_sportybet() -> None:
     # SportyBet is the primary free source: when it yields fixtures, it wins and
     # neither football-data nor the metered API is consulted.
@@ -122,6 +138,7 @@ def main() -> None:
         test_extra_league_returns_nothing()
         test_covered_league_parses()
         test_chain_falls_back_to_footballdata_when_sportybet_empty()
+        test_chain_uses_new_league_file_for_extra_league()
         # fresh function refs before the "prefers SportyBet" case
         fdo.fetch_odds_footballdata = orig_fallback
         test_chain_prefers_sportybet()

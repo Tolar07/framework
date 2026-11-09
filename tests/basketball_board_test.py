@@ -113,7 +113,50 @@ def test_mega_never_repeats_an_acca():
     assert [s["codes"] for s in b["accas"]] == [["C1", "C2"]] and b["megas"] == []
 
 
+def test_fullgame_accas_only_full_game_legs():
+    """Full-game accas (Matchbook multiples take only 219/223/225): built from full-game legs by the board's own
+    rules, never from 1st-half / quarter legs, in their own section; identical slips are not repeated; switch."""
+    import os
+    t0 = datetime(2026, 11, 8, 0, 0, tzinfo=UTC)
+    half = [_p(i, t0 + timedelta(minutes=5 * i), chance=0.70, market_id="68", specifier="total=110.5",
+               pick="Over 110.5") for i in range(4)]                       # strongest legs, but 1st-half totals
+    full = [_p(10 + i, t0 + timedelta(minutes=5 * i), chance=0.56, ev=0.01) for i in range(4)]
+    args = (NOW, "2026-11-07", START, START + timedelta(hours=24), half + full, [])
+    with tempfile.TemporaryDirectory() as t:
+        doc = bb.make(*args, lambda s: "F1", folder=Path(t))
+    fg = doc["fullgame_accas"]
+    assert [s["name"] for s in fg] == ["Basketball Full-game CLV acca A"]       # 4 legs, none 60%+: no 50+
+    assert {d["market_id"] for s in fg for d in s["leg_detail"]} <= set(bb.FULLGAME_MARKETS)
+    assert fg[0]["code"] == "F1" and fg[0]["spread_minutes"] <= 90
+    assert not any(d["market_id"] == "68" for s in fg for d in s["leg_detail"])
+    assert fg[0] in bb.slips(doc) and "FULL-GAME ACCAS" in chr(10).join(bb.render(doc))
+    assert "fullgame_accas" not in ("safe3", "clv_accas", "accas", "megas", "alts")   # SportyBet's BB_SECTIONS
+    # a game whose first pick is a half total still gives its own full-game pick
+    both = [_p(1, t0, market_id="68", specifier="total=110.5", pick="Over 110.5"), _p(1, t0)]
+    assert [x["market_id"] for x in bb.legs_for(NOW, START, START + timedelta(hours=24), both, [],
+                                                bb.FULLGAME_MARKETS)] == ["223"]
+    # record-only switch
+    os.environ["BB_FULLGAME_ACCAS"] = "0"
+    try:
+        with tempfile.TemporaryDirectory() as t:
+            assert bb.make(*args, lambda s: "F1", folder=Path(t))["fullgame_accas"] == []
+    finally:
+        del os.environ["BB_FULLGAME_ACCAS"]
+
+
+def test_fullgame_accas_skip_a_slip_already_on_the_board():
+    """All picks full-game: the board's own slips already are full-game; no identical slip is added."""
+    t0 = datetime(2026, 11, 8, 0, 0, tzinfo=UTC)
+    legs = bb.legs_for(NOW, START, START + timedelta(hours=24),
+                       [_p(i, t0 + timedelta(minutes=5 * i), chance=0.62) for i in range(5)], [])
+    board = bb.build(legs)
+    assert bb.build_fullgame(legs, board) == []
+    assert bb.build_fullgame(legs, {"safe3": [], "clv_accas": [], "accas": []}) != []   # nothing on board: built
+
+
 def main() -> None:
+    test_fullgame_accas_only_full_game_legs()
+    test_fullgame_accas_skip_a_slip_already_on_the_board()
     test_legs_one_window_one_slip_kind()
     test_sections_like_football()
     test_windows_never_mix_evening_and_midnight()

@@ -609,6 +609,14 @@
    "status": "n/a",
    "note": "darts-only PDC World Championship results from Wikipedia brackets (#341); basketball results come from data/nba_source.py"
   },
+  "engine/format_prob.py": {
+   "status": "n/a",
+   "note": "best-of-N / win-by-two format maths for tennis and table tennis shadows (#380); basketball has no set formats"
+  },
+  "engine/hockey_periods.py": {
+   "status": "n/a",
+   "note": "ice hockey period split calculator and shadow grade (#381); basketball quarters are covered by the NBA quarter markets"
+  },
   "data/snooker_results.py": {
    "status": "n/a",
    "note": "dated World Snooker Tour draw results (Wikipedia) for the snooker walk-forward backtest (#352); basketball uses data/nba_source.py"

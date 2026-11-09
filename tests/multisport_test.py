@@ -95,6 +95,23 @@ def test_update_freezes_and_records():
         assert set(doc["games"]["e1"]["sides"]) == set(row["sides"]), "every side recorded"
 
 
+def test_simulated_games_never_picked():
+    """2026-11-09: warm-up picks put SportyBet 'Simulated Reality League' cricket on the board and the bot staked it."""
+    assert ms.simulated({"country": "Simulated Reality League", "comp": "Big Bash League SRL",
+                         "home": "Sydney Sixers SRL", "away": "Brisbane Heat SRL"})
+    assert ms.simulated({"country": "England", "comp": "Premier League", "home": "Arsenal SRL", "away": "Chelsea SRL"})
+    assert not ms.simulated({"country": "Australia", "comp": "Big Bash League", "home": "Sydney Sixers",
+                             "away": "Brisbane Heat"})
+    now = datetime(2026, 11, 9, 2, tzinfo=UTC)
+    row = {"id": "s1", "sport": "cricket", "country": "Simulated Reality League", "comp": "Premier League SRL",
+           "home": "Lucknow Super Giants SRL", "away": "Mumbai Indians SRL", "ko": "2026-11-09T04:00:00Z",
+           "sides": {"cricket:340||Home": 1.75, "cricket:340||Away": 2.0}, "oids": {"cricket:340||Home": "4"}}
+    elo = {"ratings": {}, "games": {}, "seen": [], "brier": [0.0, 0]}
+    with tempfile.TemporaryDirectory() as td:
+        assert ms.update("cricket", [row], [], elo, now, folder=Path(td), book=lambda s: "X") == (0, 0)
+        assert not (Path(td) / "cricket" / "ms_2026-11-09.json").exists()
+
+
 def test_flashscore_parse():
     feed = ("SA÷2¬~ZA÷ATP - SINGLES: Paris¬~AA÷x¬AD÷1793988000¬AB÷3¬AC÷3¬AS÷1¬AE÷Paul T.¬AF÷Halys Q.¬AG÷2¬AH÷0¬"
             "BA÷7¬BB÷6¬BC÷6¬BD÷4¬~")

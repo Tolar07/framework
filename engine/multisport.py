@@ -391,6 +391,15 @@ def _book(sel: dict) -> str | None:
         return None
 
 
+def simulated(r: dict) -> bool:
+    """SportyBet's virtual 'Simulated Reality League' games (computer-simulated copies of real fixtures, team names
+    ending in ' SRL'). Never a pick: no real match, nothing for the model to know. Found 2026-11-09 when warm-up
+    picks put 7 SRL cricket games on the board and SportyBet staked 4 of them."""
+    text = " ".join(str(r.get(k) or "") for k in ("country", "comp", "home", "away")).lower()
+    return ("simulated reality" in text or "(srl)" in text
+            or any(str(r.get(k) or "").strip().lower().endswith(" srl") for k in ("comp", "home", "away")))
+
+
 def path_for(sport: str, day: str, folder: Path = OUT_DIR) -> Path:
     return folder / sport / f"ms_{day}.json"
 
@@ -403,7 +412,7 @@ def update(sport: str, rows: list[dict], mb_events: list[dict], elo: dict, now: 
     at = now.strftime("%Y-%m-%dT%H:%MZ")
     for r in rows:
         ko = ex._dt(r.get("ko"))
-        if ko is None or not now < ko <= now + WINDOW or not r["sides"]:
+        if ko is None or not now < ko <= now + WINDOW or not r["sides"] or simulated(r):
             continue
         seen += 1
         day = ko.strftime("%Y-%m-%d")

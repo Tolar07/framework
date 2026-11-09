@@ -178,9 +178,28 @@ def say_matchbook(r: Optional[dict]) -> str:
     return f"{word}: Matchbook {n} bets, won {won} vs {exp:.1f} expected{clv_s}"
 
 
+def _calendar_note(cal: Optional[dict], s: dict) -> Optional[str]:
+    """The sport calendar's note for one single (engine/sport_calendar.py): advisory, recorded only."""
+    try:
+        from engine import sport_calendar as CAL
+        return CAL.note_for(cal, "football", s.get("league") or "", s.get("kickoff_utc") or "",
+                            s.get("fixture") or "", s.get("home") or "", s.get("away") or "")
+    except Exception:  # noqa: BLE001 — a missing calendar never stops the reasoning step
+        return None
+
+
+def _calendar() -> Optional[dict]:
+    try:
+        from engine import sport_calendar as CAL
+        return CAL.load_latest()
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def context(singles: list[dict]) -> list[dict]:
     fw, mb = family_records()
     paper = paper_records()
+    cal = _calendar()
     out = []
     for i, s in enumerate(singles):
         fam = _family(s.get("market") or "")
@@ -205,6 +224,9 @@ def context(singles: list[dict]) -> list[dict]:
             # teams' profiles, the pick's chance on it, and a better-fitting
             # market when there is one
             "tactical_matchup": s.get("matchup"),
+            # the sport calendar (engine/sport_calendar.py): e.g. "first club game after the international
+            # break", fetched dates only; advisory
+            "calendar": _calendar_note(cal, s),
         })
     return out
 

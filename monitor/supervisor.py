@@ -175,7 +175,8 @@ def last_run(repo: str, token: str, wf: str, branch: str | None = "main") -> str
 
 def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
            runs: dict[str, str], subscribers: int | None = None,
-           knowledge: dict | None = None, basketball: dict | None = None) -> str:
+           knowledge: dict | None = None, basketball: dict | None = None,
+           volume: tuple[bool, str] | None = None) -> str:
     """The one Telegram status. Problems first, each with ⚠.
 
     subscribers: how many subscriber chats the TELEGRAM_SUBSCRIBER_CHAT_IDS
@@ -244,6 +245,8 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
             ok.append(_lp.line(json.loads(_lp.OUT.read_text(encoding="utf-8"))))
     except Exception as e:  # noqa: BLE001 — a status line, never a failed check
         ok.append(f"experiments / post-mortem: unreadable ({e})")
+    if volume is not None:           # the sport calendar: a thin / empty board in a break is expected
+        (ok if volume[0] else bad).append("calendar: " + volume[1])
     if basketball is not None:       # framework #331: basketball inherits the daily check
         b_bad, b_ok = basketball_lines(basketball, runs)
         bad += b_bad
@@ -251,6 +254,17 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])
+
+
+def _volume(day: str, stats: dict) -> tuple[bool, str] | None:
+    """(expected, text) for the football board's pick count from the sport calendar; None when unreadable."""
+    try:
+        from engine import sport_calendar as CAL
+        if day == "?":
+            return None
+        return CAL.board_label(CAL.load_latest(day), "football", day, int((stats or {}).get("picks") or 0))
+    except Exception:  # noqa: BLE001 — a status line, never a failed check
+        return None
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -284,7 +298,7 @@ def main(argv: list[str] | None = None) -> int:
                      "last_run": (lambda r: r[-1] if r else {})(read_runs(last=1))}
         text = report(day, name, a.run_conclusion, facts, stats, runs,
                       subscribers=len(notify.subscriber_chats()), knowledge=knowledge,
-                      basketball=basketball_facts(day))
+                      basketball=basketball_facts(day), volume=_volume(day, stats))
     except Exception as e:  # noqa: BLE001
         text = f"🛡 SUPERVISOR — could not complete its check ({e})"
     print(text)

@@ -1153,6 +1153,17 @@ def betfair_coverage(day: str, root: Path | None = None) -> str | None:
     return f"Betfair singles covered: {len(live)} of {total}" + (f"; missed - {why}" if why else "")
 
 
+def coming_up(today: str) -> list[str]:
+    """COMING UP (next 14 days): one line per sport from the sport calendar (engine/sport_calendar.py:
+    international breaks, Nations League, NBA Cup, NFL byes, tournaments, off-seasons). Never blocks the report."""
+    try:
+        from engine import sport_calendar as CAL
+        lines = CAL.coming_up_lines(CAL.load_latest(today), today, 14)
+    except Exception:  # noqa: BLE001
+        return []
+    return ["", "COMING UP (next 14 days, sport calendar)"] + lines if lines else []
+
+
 def build_report(bets: list[dict], today: str, tally: dict) -> str:
     d7, d30 = _days(today, 7), _days(today, WINDOW)
     last30 = [b for b in bets if d30 <= b["date"] <= today]
@@ -1171,6 +1182,7 @@ def build_report(bets: list[dict], today: str, tally: dict) -> str:
         vw = []
     if vw:
         out += ["", "NEW SPORTS VALUE WATCH (today's boards: best value seen vs the bar)"] + vw
+    out += coming_up(today)
     out += ["", "BY MARKET AND SIDE (singles, all bots, 30 days, £)"] + (_table(market_side(last30)) or ["none yet"])
     types = slip_types(last30)
     out += ["", "BY RULE AND SLIP TYPE (real money, 30 days, £)"]

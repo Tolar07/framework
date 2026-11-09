@@ -54,6 +54,14 @@ jobs:
             backtest/cache
           key: olp-xdv-data-${{ github.run_id }}
           restore-keys: olp-xdv-data-
+      - name: Sport calendar, every sport, next 21 days (record-only; engine/sport_calendar.py)
+        # international breaks, Nations League, cup rounds, NBA Cup, NFL weeks / byes, tournaments, off-seasons,
+        # from ESPN + Flashscore fetched now; read by the supervisor, the reasoning step and the 23:02 report
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/calendar_run.py
       - name: Build the preview boards (dry runs, nothing sent)
         env:
           ODDS_API_KEY:     ${{ secrets.ODDS_API_KEY }}
@@ -76,7 +84,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          python3 monitor/fdata.py save "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/preview || true
+          python3 monitor/fdata.py save "preview boards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/preview output/calendar || true
           # keep a copy of the previews, then for each attempt put them on top of the LATEST main
           # (a rebase conflicts when another preview run changed the same files: run 41640772565)
           rm -rf "$RUNNER_TEMP/preview_keep"; cp -r output/preview "$RUNNER_TEMP/preview_keep"

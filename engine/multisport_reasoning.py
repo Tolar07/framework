@@ -235,10 +235,33 @@ def say(r: dict | None) -> str:
             + (f", value against the exchange close {cv:+.1%}" if cv is not None else ""))
 
 
+def _cal_note(cal: dict | None, sport: str, p: dict) -> str | None:
+    try:
+        from engine import sport_calendar as CAL
+        return CAL.note_for(cal, sport, p.get("comp") or "", p.get("ko") or "", fixture(p),
+                            p.get("home") or "", p.get("away") or "")
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _empty_label(sport: str, day: str) -> str:
+    """' · 0 picks — expected (off-season ...)' from the sport calendar, or '' (never raises)."""
+    try:
+        from engine import sport_calendar as CAL
+        return " · " + CAL.board_label(CAL.load_latest(), sport, day, 0)[1]
+    except Exception:  # noqa: BLE001
+        return ""
+
+
 def context(sport: str, picks: list[dict], scout_doc: dict | None, records: dict,
             team_news: dict | None = None) -> list[dict]:
     found = {r.get("fixture"): r for r in (scout_doc or {}).get("fixtures") or []}
     team_news = team_news or {}
+    try:
+        from engine import sport_calendar as CAL
+        cal = CAL.load_latest()
+    except Exception:  # noqa: BLE001 — no calendar: the note is None
+        cal = None
     out = []
     for i, p in enumerate(picks):
         price, ch = p.get("price"), p.get("chance") if p.get("chance") is not None else p.get("fair")
@@ -255,6 +278,8 @@ def context(sport: str, picks: list[dict], scout_doc: dict | None, records: dict
                        "absences": sc.get("absences"), "sources": sc.get("sources")} if sc else None),
             # the sport's own team news (engine/ms_team_news.py, framework#354): fetched, recorded-only flag
             "team_news": team_news.get(pick_id(p)),
+            # the sport calendar (engine/sport_calendar.py): back-to-back, major event, off-season; advisory
+            "calendar": _cal_note(cal, sport, p),
         })
     return out
 
@@ -439,7 +464,7 @@ def run(dates: list[str], force: bool = False, out_dir: Path = OUT_DIR, ms_dir: 
                 scout_kw = {k: v for k, v in kw.items() if k in ("keys", "get", "post", "clock", "sleep")}
                 sdoc, ns = scout_day(sport, d, doc, out_dir, force, **scout_kw)
                 if not real_picks(doc):
-                    lines.append(f"{sport} {d}: no picks · scout {ns} new findings")
+                    lines.append(f"{sport} {d}: no picks · scout {ns} new findings" + _empty_label(sport, d))
                     continue
                 reason_kw = {k: v for k, v in kw.items() if k in ("key", "get", "post", "now")}
                 rdoc, nr = reason_day(sport, d, doc, sdoc, out_dir, force, ms_dir=ms_dir, ih_dir=ih_dir, **reason_kw)

@@ -792,6 +792,14 @@
   "monitor/ms_team_news_run.py": {
    "status": "n/a",
    "note": "runner of engine/ms_team_news.py (multisport.yml); basketball's team news runs from the NBA loop"
+  },
+  "engine/sport_calendar.py": {
+   "status": "covers",
+   "note": "every sport's calendar (Architect 2026-11-08): football breaks / Nations League / cups and basketball NBA (breaks, NBA Cup, back-to-backs), NCAA, WNBA, EuroLeague from ESPN + Flashscore; record-only"
+  },
+  "monitor/calendar_run.py": {
+   "status": "shared",
+   "note": "runner of engine/sport_calendar.py for every sport (preview.yml)"
   }
  },
  "basketball_gaps": [

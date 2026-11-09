@@ -9,6 +9,7 @@
    "status": "shared",
    "note": "lists every sport's connection gaps (config/sport_connections.json, Architect 2026-11-06 'no gaps')"
   },
+<<<<<<< HEAD
   "engine/mlb_pitcher.py": {
    "status": "n/a",
    "note": "baseball starting-pitcher shadow (#382); basketball has no starting pitchers"
@@ -20,6 +21,11 @@
   "engine/format_prob.py": {
    "status": "n/a",
    "note": "tennis best-of-N format maths (#380); no basketball equivalent"
+=======
+  "engine/hockey_periods.py": {
+   "status": "n/a",
+   "note": "ice hockey period split; basketball halves and quarters are priced by engine/nba_value.py"
+>>>>>>> origin/main
   },
   "engine/multisport.py": {
    "status": "n/a",
@@ -157,6 +163,10 @@
    "status": "twin",
    "note": "recent form: last-10 minutes and points per player, team pace",
    "basketball": "engine/nba_projection.py"
+  },
+  "engine/format_prob.py": {
+   "status": "n/a",
+   "note": "match-format maths for set/leg/frame sports (tennis, darts, volleyball, table tennis); basketball has no sets or legs"
   },
   "engine/freeze.py": {
    "status": "twin",
@@ -620,6 +630,14 @@
   "data/darts_results.py": {
    "status": "n/a",
    "note": "darts-only PDC World Championship results from Wikipedia brackets (#341); basketball results come from data/nba_source.py"
+  },
+  "engine/format_prob.py": {
+   "status": "n/a",
+   "note": "best-of-N / win-by-two format maths for tennis and table tennis shadows (#380); basketball has no set formats"
+  },
+  "engine/hockey_periods.py": {
+   "status": "n/a",
+   "note": "ice hockey period split calculator and shadow grade (#381); basketball quarters are covered by the NBA quarter markets"
   },
   "data/snooker_results.py": {
    "status": "n/a",

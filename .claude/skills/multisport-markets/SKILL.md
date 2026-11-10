@@ -107,6 +107,9 @@ way to price most of these sports. This skill says what each market actually is 
    helps batting, slow and low is hard to score on) and format (IPL first innings usually 170-190 by venue)
    (Caan Berry @ 00:35, 02:37-03:08). Price totals per venue and format; cricket is bowler-versus-batter, so the
    winner market moves on momentum in play.
+   Built (framework#385, `backtest/cricket_venue_study.py`): a venue mean shrunk toward the format mean cuts the
+   first-innings error 40.1 -> 39.3 runs held-out 2019+ (T20 35.3 -> 34.4, ODI 56.6 -> 56.1); small, so record-only.
+   Pitch type, toss and line-ups are not in Cricsheet (PENDING). Best shrinkage sat at the grid edge (k=20): retry wider.
 7. **Darts and snooker: form and stage.** Use recent averages across the last Players Championships (form) and
    per-player TV-stage vs floor performance; free data at DartsConnect and dartsoracle.com (Dumpster Darts @ 00:37-02:10,
    06:57). Snooker markets: match winner, frame handicap, total frames, century, first frame (Bet in Ireland @ 01:36).

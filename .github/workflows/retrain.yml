@@ -83,12 +83,21 @@ jobs:
           python engine/ncaa_recal.py || echo "NCAA refit failed — football retrain unaffected"
           python backtest/ncaa_blend_study.py || echo "NCAA blend study failed — football retrain unaffected"
 
+      - name: NCAA player log, projection and on/off study (recorded only, framework#396)
+        if: steps.once.outputs.skip != '1'
+        timeout-minutes: 25
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python data/ncaa_players.py || echo "NCAA player log failed — football retrain unaffected"
+          python backtest/ncaa_projection_study.py || echo "NCAA projection study failed — football retrain unaffected"
+
       - name: Save
         if: steps.once.outputs.skip != '1'
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          python3 monitor/fdata.py save "retrain $(date -u +%Y-%m-%d) [skip ci]" memory/retrain_log.jsonl memory/calibration_live.json memory/nba_retrain_log.jsonl memory/nba_calibration_live.json memory/hockey_retrain_log.jsonl memory/ncaa_retrain_log.jsonl memory/ncaa_calibration_live.json data/nba_lineups data/ncaa_graded backtest/NCAA_BLEND_STUDY.md
+          python3 monitor/fdata.py save "retrain $(date -u +%Y-%m-%d) [skip ci]" memory/retrain_log.jsonl memory/calibration_live.json memory/nba_retrain_log.jsonl memory/nba_calibration_live.json memory/hockey_retrain_log.jsonl memory/ncaa_retrain_log.jsonl memory/ncaa_calibration_live.json data/nba_lineups data/ncaa_graded backtest/NCAA_BLEND_STUDY.md backtest/NCAA_PROJECTION_STUDY.md
           if git diff --staged --quiet; then echo "retrain files unchanged"; exit 0; fi
           git commit -q -m "retrain $(date -u +%Y-%m-%d) [skip ci]"
           for i in 1 2 3; do

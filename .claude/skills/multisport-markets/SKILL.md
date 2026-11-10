@@ -78,6 +78,11 @@ way to price most of these sports. This skill says what each market actually is 
      against the blind baseline (e.g. blind unders), not zero; look at the hold-out 2-3 times at most (Buckland @ 04:09,
      09:19, 19:12). His overfit theory went +14% training -> -21% on 2026; the robust one +5.9% -> +6.9% on 272 bets
      (frame @ 15:05, confirmed). Challenger and WTA versions failed their hold-out (@ 16:24).
+   - **Built (framework#386, `backtest/tennis_totals_study.py`, record only):** grades the shadow record's tennis
+     totals by hit rate and ROI at the taken price against blind unders, holds `judge_cut` (the sealed hold-out gate:
+     seal the latest year, >= 1,000 training bets, <= 3 looks, beat blind unders on the same hold-out bets), and shows
+     the skew from free results (2019-25 ATP+WTA, 31.6k matches): Bo3 mean games 22.5-23.1 vs median 21-22; a deciding
+     set (35.5% of Bo3 matches) adds ~10 games (19.0 -> 29.5); over 22.5 lands only ~42-44% in Bo3.
    - The point/serve Markov model "gives you exactly the market" (@ 07:50): use the format model of step 2 to price
      derived markets and to check slow books against the exchange, not as an edge on its own.
 3. **Ice hockey periods are the reverse of other US sports.** In NFL, NBA, college basketball and MLB the favourite is

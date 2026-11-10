@@ -138,6 +138,17 @@ def look(now: datetime) -> str:
             notify.send_telegram(wb_watch.render(alerts, now), chat_id=owner)   # the Architect only
     except Exception as e:  # noqa: BLE001 — the edge book is saved either way
         notes.append(f"wb line watch skipped ({str(e)[:60]})")
+    try:      # record-only world basketball team news per pick (engine/wb_team_news.py, framework#391)
+        from engine import wb_team_news
+        team_news = wb_team_news.run(now)
+        notes.append(f"wb team news: {len(team_news)} changes")
+        owner = (os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip() or os.environ.get("TELEGRAM_CHAT_ID", "").strip())
+        if team_news and owner and os.environ.get("GITHUB_ACTIONS") == "true":
+            from output import notify
+            body = "\n".join(f" - {n}" for n in team_news)
+            notify.send_telegram("OLP XDV - WORLD BASKETBALL TEAM NEWS (record-only)\n" + body, chat_id=owner)  # Architect only
+    except Exception as e:  # noqa: BLE001 — the edge book is saved either way
+        notes.append(f"wb team news skipped ({str(e)[:60]})")
     moved = eb.finalize(now)
     if moved:
         notes.append(f"finished days to git: {', '.join(moved)}")

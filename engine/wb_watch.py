@@ -42,8 +42,9 @@ def current_fair(pick: dict, row: dict, events: list[dict]) -> float | None:
     ko = ex._dt(pick.get("ko"))
     if str(pick.get("source", "")).startswith("espn"):
         try:
-            from engine import ncaa_lines as nl
             from datetime import timedelta
+
+            from engine import ncaa_lines as nl
             gs = nl.games(ko) + nl.games(ko - timedelta(days=1))
             g = nl.match(pick["home"], pick["away"], ko, gs)
             ln = nl.line(g) if g else None

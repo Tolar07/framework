@@ -76,8 +76,9 @@ expected line-ups, injuries and suspensions, rotation (cup ties, European nights
 travel, motivation (title race, relegation, dead rubber), weather for totals. This is what the
 model cannot see, and it is why you are here. Name what you found and where in the reasons.
 
-LEARN FROM YOUR RECORD: your own scorecard, your recent mistakes and the lessons you wrote for
-yourself come before the picks. Apply the lessons; do not repeat a mistake listed there.
+LEARN FROM YOUR RECORD: your own scorecard, the groups where your record differs from what the
+chances said, and the lessons you wrote for yourself come before the picks. Judge yourself on groups of
+picks, never on one game: a pick at 75% loses one time in four and that is not a mistake.
 
 Rules:
 - FACTS GIVEN (2026-10-24): "market_chance" is the sharp bookmaker's de-margined chance for the same
@@ -112,6 +113,30 @@ Return JSON only: {"picks": [{"id": <id>, "verdict": "back"|"lower"|"veto",
 
 PICKS:
 """
+# The two parts of the prompt that must match what is really happening in the call (2026-11-10: the Google
+# Search call had answered 429 on every model since it was built, so every verdict was made WITHOUT search
+# while the prompt said "search first ... name what you found"; and the stake cut has been off since 02-11
+# while the prompt said "your verdict now sets the stake"). _effective() swaps each for the true statement.
+SEARCH_PARA = PROMPT[PROMPT.index("SEARCH FIRST"):PROMPT.index("LEARN FROM YOUR RECORD")]
+NO_SEARCH_PARA = """NO WEB SEARCH IN THIS CALL: you cannot look anything up. Judge only from the context given
+for each pick. Do not mention a line-up, an injury, a suspension, news or weather that is not written in that
+pick's context (HR59); if the context has none, say so and keep the model's view.
+
+"""
+STAKE_LINE = "Your verdict now sets the stake: back = full, lower = 3/4, veto = 1/2."
+STAKE_LINE_OFF = ("Your verdict is recorded and graded against the result and the closing price; it sets no stake "
+                  "until your record shows your vetoes lose more often than your backs.")
+assert SEARCH_PARA in PROMPT and STAKE_LINE in PROMPT
+
+
+def _effective(prompt: str, grounded: bool) -> str:
+    """The prompt as it is true for THIS call: the search paragraph only when the call can search, the
+    stake sentence only while VERDICT_STAKES is on."""
+    if not grounded:
+        prompt = prompt.replace(SEARCH_PARA, NO_SEARCH_PARA)
+    if not VERDICT_STAKES:
+        prompt = prompt.replace(STAKE_LINE, STAKE_LINE_OFF)
+    return prompt
 
 
 # ---------------------------------------------------------------- context
@@ -253,7 +278,7 @@ def model_chain(get: Callable, key: str) -> list[str]:
         hits = [n for n in hits if want != "flash" or "lite" not in n]
         if hits:
             chain.append(max(hits, key=_version))
-    return list(dict.fromkeys(m for m in chain if m))
+    return list(dict.fromkeys(m for m in chain if m and m not in DEAD_MODELS))
 
 
 def pick_model(get: Callable, key: str) -> Optional[str]:
@@ -266,10 +291,52 @@ def _parse(text: str) -> dict:
     text = re.sub(r"```(?:json)?", "", text).strip()
     i = text.find("{")
     obj, _ = json.JSONDecoder().raw_decode(text[i:] if i >= 0 else text)
-    return {p.get("id"): p for p in obj.get("picks") or []}
+    return {_as_id(p.get("id")): p for p in obj.get("picks") or [] if isinstance(p, dict)}
+
+
+def _as_id(v):
+    """A pick id as the int it was sent as: some models answer "3" for 3, and that pick read PENDING."""
+    try:
+        return int(str(v).strip())
+    except (TypeError, ValueError):
+        return v
 
 
 SEARCH_LOG: list = []        # per batch: searches run, or why search failed (copied into the doc)
+DEAD_MODELS: set = set()     # listed by the account but answering 404: never tried again in this process
+NO_SEARCH: dict = {}         # model -> search calls refused (429): after SEARCH_TRIES it is not asked to search again
+SEARCH_TRIES = 2
+
+
+class ModelGone(RuntimeError):
+    """The account lists the model but the endpoint answers 404 (e.g. gemini-2.5-pro, 2026-11)."""
+
+
+def _api_error(r) -> Optional[str]:
+    """'429 RESOURCE_EXHAUSTED: <Google's own message>' for a refused call, None for a good one. The message
+    says WHY (a daily quota, a per-minute limit, search not offered on this key); it never holds the key,
+    which travels in a header."""
+    code = getattr(r, "status_code", 200)
+    if not isinstance(code, int) or code < 400:
+        return None
+    try:
+        e = (r.json() or {}).get("error") or {}
+        if isinstance(e, list):          # the OpenAI-compatible endpoint wraps it in a list
+            e = (e[0] or {}).get("error") or e[0] or {}
+        return f"{code} {e.get('status') or ''}: {str(e.get('message') or '')[:220]}".strip()
+    except Exception:  # noqa: BLE001 - no JSON body
+        return f"{code}"
+
+
+def _refuse(r, model: str) -> None:
+    """Raise for a refused call, with Google's reason in the text; a 404 marks the model dead."""
+    why = _api_error(r)
+    if why is None:
+        return
+    if why.startswith("404"):
+        DEAD_MODELS.add(model)
+        raise ModelGone(f"{model}: {why}")
+    raise RuntimeError(f"{model}: {why}")
 
 
 def _ask_grounded(post: Callable, key: str, model: str, rows: list[dict], prompt: str) -> dict:
@@ -277,6 +344,9 @@ def _ask_grounded(post: Callable, key: str, model: str, rows: list[dict], prompt
     r = post(f"{NATIVE_URL}/models/{model}:generateContent", headers={"x-goog-api-key": key}, timeout=180,
              json={"contents": [{"role": "user", "parts": [{"text": prompt + json.dumps(rows, ensure_ascii=False)}]}],
                    "tools": [{"google_search": {}}], "generationConfig": {"temperature": 0.2}})
+    if getattr(r, "status_code", 200) == 429:
+        NO_SEARCH[model] = NO_SEARCH.get(model, 0) + 1
+    _refuse(r, model)
     r.raise_for_status()
     cand = (r.json().get("candidates") or [{}])[0]
     parts = (cand.get("content") or {}).get("parts") or []
@@ -290,18 +360,22 @@ def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional
     """One batch: with Google Search first; without it (the OpenAI-compatible endpoint) if that fails."""
     import time
     sleep = sleep or time.sleep
-    if search:
+    if search and NO_SEARCH.get(model, 0) < SEARCH_TRIES:
         try:
-            return _ask_grounded(post, key, model, rows, prompt)
+            return _ask_grounded(post, key, model, rows, _effective(prompt, True))
+        except ModelGone:
+            raise                      # a dead model is dead on both endpoints: hand the batch to the next one
         except Exception as e:  # noqa: BLE001 — search refused or unparsable: judge without it
-            SEARCH_LOG.append({"model": model, "error": f"{type(e).__name__}: {str(e)[:160]}"})
+            SEARCH_LOG.append({"model": model, "error": f"{type(e).__name__}: {str(e)[:300]}"})
+    plain = _effective(prompt, False)  # no search in this call, and the prompt says so
     for attempt in range(3):           # the free tier answers 503/429 when busy: wait and retry
         r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
                  json={"model": model, "temperature": 0.2, "response_format": {"type": "json_object"},
-                       "messages": [{"role": "user", "content": prompt + json.dumps(rows, ensure_ascii=False)}]})
+                       "messages": [{"role": "user", "content": plain + json.dumps(rows, ensure_ascii=False)}]})
         if getattr(r, "status_code", 200) not in (429, 500, 502, 503, 504) or attempt == 2:
             break
         sleep(20 * (attempt + 1))
+    _refuse(r, model)
     r.raise_for_status()
     return _parse(r.json()["choices"][0]["message"]["content"])
 
@@ -398,8 +472,10 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
     get, post = get or requests.get, post or requests.post
     now = now or datetime.now(UTC)
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
-           "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": False,
-           "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)", "note": None, "picks": []}
+           "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": not VERDICT_STAKES,
+           "acts_on": ("stake: back x1, lower x0.75, veto x0.5 (never dropped)" if VERDICT_STAKES else
+                       "nothing: recorded and graded only (VERDICT_STAKES off since 2026-11-02; the advised "
+                       "factor is recorded beside each verdict)"), "note": None, "picks": []}
     sport = "football" if prompt is PROMPT else "nba"
     doc["prompt_version"] = prompt_version(prompt)
     prompt = teaching(sport) + prompt
@@ -408,7 +484,9 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
         doc["note"] = "NO DATA — PENDING: GEMINI_API_KEY not set"
     else:
         SEARCH_LOG.clear()
+        NO_SEARCH.clear()
         chain = model_chain(get, key)
+        doc["chain"] = chain             # for the cognitive core's fallbacks; removed before the document is returned
         doc["model"] = chain[0] if chain else None
         if not chain:
             doc["note"] = "NO DATA — PENDING: no Gemini model on this key"
@@ -416,6 +494,8 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
         for i in range(0, len(rows), BATCH) if chain else ():
             err = None
             for m in chain:          # a spent quota or a failure hands the batch to the next model
+                if m in DEAD_MODELS:
+                    continue
                 try:
                     answers.update(_ask(post, key, m, rows[i:i + BATCH], prompt=prompt))
                     used.append(m)
@@ -427,9 +507,12 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
                 doc["note"] = f"PARTLY PENDING: {type(err).__name__}: {str(err)[:160]}"
         if used:
             doc["model"] = ", ".join(dict.fromkeys(used))
+        elif chain:                  # nothing answered (or nothing to judge): never name a model that did no work
+            doc["model"] = next((m for m in chain if m not in DEAD_MODELS), None)
         doc["search"] = {"batches_searched": sum(1 for x in SEARCH_LOG if "searches" in x),
                          "queries": sum(x.get("searches", 0) for x in SEARCH_LOG),
-                         "errors": [x["error"] for x in SEARCH_LOG if "error" in x][:3]}
+                         "errors": list(dict.fromkeys(x["error"] for x in SEARCH_LOG if "error" in x))[:4],
+                         "dead_models": sorted(DEAD_MODELS)}
     for row, s in zip(rows, singles):
         doc["picks"].append({"fixture": s.get("fixture"), "market": s.get("market"),
                              "pick": row["pick"], "price": s.get("price"),
@@ -443,7 +526,9 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
             pk["anchored_chance"] = a
             pk["anchored_edge"] = round(a - 1 / float(s["price"]), 4)
     if os.getenv("COGNITIVE_CORE", "1").strip() != "0":
-        _cognitive(doc, singles, sport, key, post)
+        _cognitive(doc, singles, sport, key, post,
+                   models=[m for m in (doc.get("chain") or []) if m not in DEAD_MODELS and not m.endswith("pro")])
+    doc.pop("chain", None)
     # to-do #5: the verdict as a probability anchored on the sharp price, from a panel of free models
     # (engine/verdict_panel.py); shadow until it beats the live verdict on CLV and Brier out of sample
     if os.getenv("VERDICT_PANEL", "1").strip() != "0" and key:
@@ -453,13 +538,15 @@ def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str,
     return doc
 
 
-def _cognitive(doc: dict, singles: list[dict], sport: str, key: Optional[str], post: Callable) -> None:
+def _cognitive(doc: dict, singles: list[dict], sport: str, key: Optional[str], post: Callable,
+               models: Optional[list[str]] = None) -> None:
     """The cognitive core (engine/cognitive_core.py, to-do #3) on every pick: a "cognitive" block per
     pick. It moves the stake only with earned authority and COGNITIVE_STAKES on; otherwise it is
     advice, scored by grade_cognitive() until it earns the right."""
     from engine import cognitive_core as CC
     try:
-        cogs = CC.evaluate([CC.context_from_single(s, sport) for s in singles], key, post if key else None)
+        cogs = CC.evaluate([CC.context_from_single(s, sport) for s in singles], key, post if key else None,
+                           models=models)
     except Exception as e:  # noqa: BLE001 — the core never blocks the reasoning document
         doc["cognitive"] = {"error": f"{type(e).__name__}: {str(e)[:160]}"}
         return
@@ -470,6 +557,7 @@ def _cognitive(doc: dict, singles: list[dict], sport: str, key: Optional[str], p
     doc["cognitive"] = {"model": CC.model(), "stakes_on": CC.stakes_on(),
                         "verdicts": {v: sum(c["cio_verdict"] == v for c in cogs) for v in CC.VERDICTS},
                         "fallback": sum(c["source"] == "fallback" for c in cogs),
+                        "errors": list(dict.fromkeys(CC.ERRORS))[:4],
                         "authority": sum(c["mode"] == "authority" for c in cogs)}
 
 
@@ -698,6 +786,35 @@ def record_wb(out_dir: Path = OUT_DIR, wb_dir: Path = WB_DIR) -> dict:
 # self-improvement"). Every run shows the model its own scorecard, its recent mistakes with the reasons
 # it gave, and the lessons it wrote for itself; once a day reflect() rewrites those lessons from the
 # graded record. Lessons live in memory/reasoning_lessons.json, so they persist from run to run.
+def ledger_index(d: dict) -> dict:
+    """{(fixture, market): {result, ft, clv, price}} for everything a football verdict is given on: the board's
+    singles, the value singles (graded on their one leg) and the rated pool's legs (settled here from the
+    fixture's regular-time score). Until 2026-11-10 only the singles were looked up, so 238 of 893 verdicts
+    (178 pool legs, 60 value legs) were never graded (standing order 53: grade everything)."""
+    out: dict = {}
+    for r in d.get("rated") or []:
+        ft = str(r.get("ft") or "")
+        try:
+            hg, ag = (int(x) for x in ft.split("-"))
+        except ValueError:
+            continue
+        from engine.picks_ledger import _settle
+        for leg in r.get("pool") or []:
+            try:
+                got = _settle(leg[0], hg, ag)
+            except Exception:  # noqa: BLE001 — a market the settler cannot read stays ungraded
+                continue
+            if got in ("won", "lost"):
+                out[(r.get("fixture"), leg[0])] = {"result": got, "ft": ft}
+    for v in d.get("value") or []:
+        legs = v.get("alt_legs") or [] if isinstance(v, dict) else []
+        if len(legs) == 1 and legs[0].get("result"):
+            out[(legs[0].get("fixture"), legs[0].get("market"))] = legs[0]
+    for x in d.get("singles") or []:                 # a single's own grade wins: it carries the closing price too
+        out[(x.get("fixture"), x.get("market"))] = x
+    return out
+
+
 def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR,
                     with_pending: bool = False) -> list[dict]:
     """Every past verdict with its result, oldest first: date, fixture, pick, verdict, chances, reasons, won."""
@@ -714,10 +831,11 @@ def graded_verdicts(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir
                    f"NBA:{p.get('market_id')}|{p.get('specifier') or ''}|{p.get('outcome')}"): p
                   for p in (d.get("picks") or []) + (d.get("picks_dropped") or [])}
         else:
-            by = {(s.get("fixture"), s.get("market")): s for s in d.get("singles") or []}
+            by = ledger_index(d)
         for x in r.get("picks") or []:
             s = by.get((x.get("fixture"), x.get("market"))) or {}
-            if (x.get("verdict") in VERDICTS or (with_pending and x.get("cognitive")))                     and s.get("result") in ("won", "lost"):
+            if (x.get("verdict") in VERDICTS or (with_pending and x.get("cognitive"))) \
+                    and s.get("result") in ("won", "lost"):
                 out.append({"date": r["date"], "fixture": x.get("fixture"), "pick": x.get("pick"),
                             "market": x.get("market"), "cognitive": x.get("cognitive"), "ft": s.get("ft"),
                             "price": x.get("price"), "verdict": x["verdict"], "model_chance": x.get("model_chance"),
@@ -744,6 +862,56 @@ def mistakes(rows: list[dict], n: int = MISTAKES_SHOWN) -> list[dict]:
     return bad[-n:]
 
 
+EVIDENCE_MIN_N = 20              # a group needs this many graded verdicts ...
+EVIDENCE_MIN_Z = 2.0             # ... and to sit this many standard errors from what the model's chances said
+
+
+def _row_family(sport: str, market: str) -> str:
+    if sport == "football":
+        return _family(market or "")
+    return nba_family(str(market or "").split(":", 1)[-1].split("|", 1)[0])
+
+
+def _flat_return(rows: list[dict]) -> Optional[float]:
+    """Flat-stake return over the rows that HAVE a price (a pool leg has none: counting its win as -1 would
+    be an invented loss)."""
+    g = [r for r in rows if r.get("price")]
+    return sum((float(r["price"]) - 1) if r["won"] else -1 for r in g) / len(g) if g else None
+
+
+def evidence(rows: list[dict], sport: str = "football") -> list[dict]:
+    """Groups of graded verdicts (by verdict, by market family, by family x verdict) whose wins differ from the
+    wins the model's own chances expected by EVIDENCE_MIN_Z standard errors over EVIDENCE_MIN_N+ picks. This,
+    not a list of single results, is what the reasoning step may learn from: a pick at 75% loses one time in
+    four, so "you said BACK and it LOST" is not evidence of a mistake. Strongest first; often empty, and an
+    empty list means the record does not yet support any rule."""
+    import math
+    groups: dict = {}
+    for r in rows:
+        if r.get("model_chance") is None:
+            continue
+        fam = _row_family(sport, r.get("market") or "")
+        for k in ((f"verdict {r['verdict']}",), (f"family {fam}",), (f"family {fam}", f"verdict {r['verdict']}")):
+            groups.setdefault(" x ".join(k), []).append(r)
+    out = []
+    for name, g in groups.items():
+        var = sum(float(r["model_chance"]) * (1 - float(r["model_chance"])) for r in g)
+        if len(g) < EVIDENCE_MIN_N or var <= 0:
+            continue
+        won, exp = sum(r["won"] for r in g), sum(float(r["model_chance"]) for r in g)
+        z = (won - exp) / math.sqrt(var)
+        if abs(z) >= EVIDENCE_MIN_Z:
+            out.append({"group": name, "n": len(g), "won": won, "expected": round(exp, 1), "z": round(z, 2)})
+    return sorted(out, key=lambda e: -abs(e["z"]))
+
+
+def say_evidence(ev: list[dict]) -> list[str]:
+    return [f"- {e['group']}: {e['won']}/{e['n']} won against {e['expected']} expected by the model's chances "
+            f"({e['z']:+.1f} standard errors: the picks there "
+            f"{'won MORE often than their chances said' if e['z'] > 0 else 'won LESS often than their chances said'})"
+            for e in ev]
+
+
 def load_lessons(path: Path = LESSONS) -> dict:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -761,9 +929,10 @@ def teaching(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path 
         if g:
             won = sum(r["won"] for r in g)
             said = [r["ai_chance"] for r in g if r["ai_chance"] is not None]
-            ret = sum((float(r["price"] or 0) - 1) if r["won"] else -1 for r in g) / len(g)
+            ret = _flat_return(g)
+            ret_s = f"; flat return {ret:+.1%}" if ret is not None else ""
             lines.append(f"- {v}: {won}/{len(g)} won ({won / len(g):.0%}); you said {sum(said) / len(said):.0%} "
-                         f"on average; flat return {ret:+.1%}" if said else f"- {v}: {won}/{len(g)} won")
+                         f"on average{ret_s}" if said else f"- {v}: {won}/{len(g)} won")
     if not rows:
         lines.append("- nothing graded yet")
     else:
@@ -772,12 +941,17 @@ def teaching(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path 
         if hit["veto"] >= hit["back"] and sum(r["verdict"] == "veto" for r in rows) >= 10:
             lines.append("- WARNING: your vetoes win as often as your backs. Your vetoes are not finding losers yet; "
                          "veto only on a concrete fact you found, and say which.")
-    bad = mistakes(rows)
-    if bad:
-        lines.append("YOUR RECENT MISTAKES (learn from these):")
-        for r in bad:
-            lines.append(f"- {r['date']} {r['fixture']} {r['pick']} @{r['price']}: you said {r['verdict'].upper()} "
-                         f"({r['reasons'][:160]}) -> it {'WON' if r['won'] else 'LOST'}")
+    # WHERE THE RECORD HAS EVIDENCE (2026-11-10). This replaced "YOUR RECENT MISTAKES", a list of single
+    # results ("you said BACK -> it LOST"). On 652 graded football verdicts no verdict group sat even 1.1
+    # standard errors from what the chances said, yet the list had taught 11 rules ("veto X when the identical
+    # matchup is in recent mistakes") and the verdict mix swung from 65% back to 90% lower in a week.
+    ev = evidence(rows, sport)
+    if rows:
+        lines.append(f"WHERE YOUR RECORD DIFFERS FROM THE CHANCES ({EVIDENCE_MIN_N}+ verdicts, "
+                     f"{EVIDENCE_MIN_Z:g}+ standard errors):")
+        lines += say_evidence(ev) or ["- nowhere yet: no group of your verdicts wins more or less often than "
+                                      "the model's chances said. Single lost picks are not mistakes; do not "
+                                      "build rules from them."]
     les = (load_lessons(lessons_path).get(sport) or {}).get("lessons") or []
     if les:
         lines.append("YOUR LESSONS (written by you from your record; apply them):")
@@ -793,16 +967,23 @@ def teaching(sport: str = "football", out_dir: Path = OUT_DIR, ledger_dir: Path 
 
 
 REFLECT = """You are the reasoning step of a betting model, reviewing your own graded verdicts so you
-improve. Below: your verdicts with what happened, and your current lessons. Write the lessons that
-would have made you right more often: short, concrete, testable rules ("a veto on team news alone
-won 8 of 10: only veto when a starter is confirmed out"). Keep a current lesson only if the record
-supports it; drop or rewrite one the record contradicts. At most {n} lessons. Return JSON only:
-{{"lessons": ["...", ...], "summary": "<one sentence on what changed>"}}
+improve. Below: the EVIDENCE (every group of your verdicts whose wins differ from what the model's chances
+expected by 2+ standard errors over 20+ picks), your current lessons, and the verdicts themselves.
+
+Write lessons ONLY from the EVIDENCE list: one short, testable rule per group, quoting its numbers
+("family Double chance x verdict veto: 45/54 won against 42.9 expected: my vetoes there do not find losers,
+so veto only on a confirmed absence"). A pick at 75% loses one time in four: a single lost pick, or a
+handful, is NOT evidence and must not become a rule. Drop every current lesson that no group in the
+EVIDENCE list supports. If the EVIDENCE list is empty, return no lessons. At most {n} lessons.
+Return JSON only: {{"lessons": ["...", ...], "summary": "<one sentence on what changed>"}}
+
+EVIDENCE:
+{evidence}
 
 CURRENT LESSONS:
 {lessons}
 
-GRADED VERDICTS (oldest first):
+GRADED VERDICTS (oldest first, for wording only):
 {rows}
 """
 
@@ -820,7 +1001,15 @@ def reflect(sport: str, key: Optional[str] = None, get: Optional[Callable] = Non
     rows = graded_verdicts(sport, out_dir, ledger_dir)
     if not key or not rows or cur.get("date") == now.date().isoformat() or cur.get("graded") == len(rows):
         return None
-    text = REFLECT.format(n=MAX_LESSONS, lessons="\n".join(f"- {x}" for x in cur.get("lessons") or []) or "(none yet)",
+    ev = evidence(rows, sport)
+    entry = {"date": now.date().isoformat(), "graded": len(rows), "evidence": ev}
+    hist = (cur.get("history") or []) + [{"date": entry["date"], "graded": len(rows), "n": 0}]
+    if not ev:                           # nothing the record supports: no model call, and no rules from noise
+        return {**entry, "model": None, "lessons": [],
+                "summary": "no group of verdicts differs from the model's chances by 2+ standard errors over "
+                           "20+ picks, so there is nothing to learn a rule from yet",
+                "history": hist[-60:]}
+    text = REFLECT.format(n=MAX_LESSONS, evidence="\n".join(say_evidence(ev)), lessons="\n".join(f"- {x}" for x in cur.get("lessons") or []) or "(none yet)",
                           rows="\n".join(f"{r['date']} {r['fixture']} | {r['pick']} @{r['price']} | model "
                                          f"{r['model_chance']} you {r['ai_chance']} | {r['verdict']} | "
                                          f"{r['reasons'][:140]} | {'WON' if r['won'] else 'LOST'}"
@@ -836,7 +1025,7 @@ def reflect(sport: str, key: Optional[str] = None, get: Optional[Callable] = Non
             les = [str(x)[:240] for x in got.get("lessons") or [] if str(x).strip()][:MAX_LESSONS]
             if not les:
                 continue
-            return {"date": now.date().isoformat(), "graded": len(rows), "model": m, "lessons": les,
+            return {**entry, "model": m, "lessons": les,
                     "summary": str(got.get("summary") or "")[:300],
                     "history": ((cur.get("history") or []) + [{"date": now.date().isoformat(),
                                                                "graded": len(rows), "n": len(les)}])[-60:]}
@@ -885,7 +1074,7 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: 
             p = json.loads((ledger_dir / f"picks_{r['date']}.json").read_text(encoding="utf-8"))
         except (OSError, ValueError, KeyError):
             continue
-        sing = {(s.get("fixture"), s.get("market")): s for s in p.get("singles") or []}
+        sing = ledger_index(p)
         for x in r.get("picks") or []:
             s = sing.get((x.get("fixture"), x.get("market"))) or {}
             got = s.get("result")
@@ -901,8 +1090,10 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: 
             by[v] = {"n": 0}
             continue
         won = sum(1 for r in g if r[1])
-        by[v] = {"n": len(g), "won": won, "hit": round(won / len(g), 3),
-                 "flat_return": round(sum((r[2] - 1) if r[1] else -1 for r in g) / len(g), 4),
+        priced = [r for r in g if r[2] > 0]        # a pool leg has no bookmaker price: out of the return, in the rest
+        by[v] = {"n": len(g), "won": won, "hit": round(won / len(g), 3), "priced": len(priced),
+                 "flat_return": round(sum((r[2] - 1) if r[1] else -1 for r in priced) / len(priced), 4)
+                 if priced else 0.0,
                  "model_said": round(sum(r[3] or 0 for r in g) / len(g), 3),
                  "ai_said": round(sum(r[4] or 0 for r in g) / len(g), 3)}
     for v in VERDICTS:

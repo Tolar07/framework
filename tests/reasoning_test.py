@@ -46,7 +46,8 @@ def test_reason_picks_newest_stable_flash_lite_and_cleans_answers():
     doc = R.reason(PICKS, key="k", get=get, post=post_ok, now=NOW)
     assert doc["model"] == "gemini-3.0-flash-lite"
     assert [p["verdict"] for p in doc["picks"]] == ["veto", "back"]
-    assert doc["advisory"] is False and doc["note"] is None
+    assert doc["advisory"] is True and doc["note"] is None      # verdict stakes off: it acts on nothing
+    assert doc["acts_on"].startswith("nothing")
     assert [p["stake_factor"] for p in doc["picks"]] == [1.0, 1.0]   # verdict stakes off (Architect 02-11)
     assert [p["advised_stake_factor"] for p in doc["picks"]] == [0.5, 1.0]   # what the verdict advised, recorded
 
@@ -218,16 +219,110 @@ def _graded_dir(d):
     return out, led
 
 
-def test_teaching_shows_record_mistakes_and_lessons():
+def test_teaching_shows_record_evidence_and_lessons_never_single_results():
     with tempfile.TemporaryDirectory() as d:
         out, led = _graded_dir(d)
         les = Path(d) / "lessons.json"
         les.write_text(json.dumps({"football": {"lessons": ["veto only on a confirmed absence"]}}))
         t = R.teaching("football", out, led, les)
         assert "2 graded verdicts" in t and "veto: 1/1 won" in t
-        assert "YOUR RECENT MISTAKES" in t and "A v B" in t and "rotation feared" in t and "-> it WON" in t
-        assert "C v D" not in t.split("YOUR RECENT MISTAKES")[1].split("YOUR LESSONS")[0]   # a right call
+        # a veto that won is ONE result, not a mistake: no single game is shown, and the text says so
+        assert "YOUR RECENT MISTAKES" not in t and "rotation feared" not in t and "-> it WON" not in t
+        assert "WHERE YOUR RECORD DIFFERS FROM THE CHANCES" in t and "nowhere yet" in t
         assert "veto only on a confirmed absence" in t
+
+
+def _rows(n, verdict, chance, won, market="SB:10||Home or Away"):
+    return [dict(verdict=verdict, model_chance=chance, ai_chance=chance, won=i < won, market=market, price=1.3,
+                 date="2026-10-19", fixture=f"F{i}", pick="p", reasons="") for i in range(n)]
+
+
+def test_evidence_needs_twenty_verdicts_and_two_standard_errors():
+    # 25 vetoes at 50%: 24 won. Expected 12.5, sd 2.5 -> z = +4.6: evidence that these vetoes find no losers
+    ev = R.evidence(_rows(25, "veto", 0.5, 24))
+    assert {e["group"] for e in ev} == {"verdict veto", "family Double chance", "family Double chance x verdict veto"}
+    assert ev[0]["n"] == 25 and ev[0]["won"] == 24 and ev[0]["z"] > 4
+    assert "won MORE often than their chances said" in R.say_evidence(ev)[0]
+    assert R.evidence(_rows(19, "veto", 0.5, 19)) == []                 # too few, however lopsided
+    assert R.evidence(_rows(100, "back", 0.75, 74)) == []               # 74/100 at 75%: exactly what was said
+    assert R.evidence(_rows(100, "back", 0.75, 60))[0]["z"] < -2        # 60/100 at 75%: over-rated
+
+
+def test_pool_and_value_verdicts_are_graded_too():
+    with tempfile.TemporaryDirectory() as d:
+        out, led = Path(d) / "out", Path(d) / "led"
+        out.mkdir()
+        led.mkdir()
+        doc = {"date": "2026-10-19", "picks": [
+            {"fixture": "A v B", "market": "SB:10||Home or Away", "pick": "A or B", "price": 1.3, "verdict": "back",
+             "model_chance": 0.8, "ai_chance": 0.8},
+            {"fixture": "P v Q", "market": "SB:18|total=4.5|Under 4.5", "pick": "Under 4.5", "price": None,
+             "verdict": "veto", "model_chance": 0.85, "ai_chance": 0.7, "pool": True},
+            {"fixture": "E v F", "market": "SB:1||Home", "pick": "E to win", "price": 1.9, "verdict": "lower",
+             "model_chance": 0.6, "ai_chance": 0.55, "code": "VAL111"}]}
+        (out / "reasoning_2026-10-19.json").write_text(json.dumps(doc))
+        ledger = {"date": "2026-10-19", "singles": [dict(PICKS["singles"][0], result="lost", ft="1-1")],
+                  "rated": [{"fixture": "P v Q", "ft": "2-1", "pool": [["SB:18|total=4.5|Under 4.5", 0.85]]},
+                            {"fixture": "X v Y", "pool": [["SB:1||Home", 0.9]]}],                    # not played yet
+                  "value": [{"code": "VAL111", "alt_legs": [{"fixture": "E v F", "market": "SB:1||Home",
+                                                              "price": 1.9, "result": "won", "ft": "2-0"}]}]}
+        (led / "picks_2026-10-19.json").write_text(json.dumps(ledger))
+        rows = R.graded_verdicts("football", out, led)
+        assert [(r["fixture"], r["won"]) for r in rows] == [("A v B", False), ("P v Q", True), ("E v F", True)]
+        rec = R.record(out, led, Path(d) / "rec.json")
+        assert rec["graded"] == 3
+        # the pool leg has no price: its win is in the count and the Brier score, never in the flat return
+        assert rec["by_verdict"]["veto"] == {"n": 1, "won": 1, "hit": 1.0, "priced": 0, "flat_return": 0.0,
+                                             "model_said": 0.85, "ai_said": 0.7}
+        assert rec["by_verdict"]["lower"]["flat_return"] == 0.9 and rec["brier"]["n"] == 3
+
+
+class Refused(Resp):
+    def __init__(self, code, status, message):
+        super().__init__({"error": {"code": code, "status": status, "message": message}})
+        self.status_code = code
+
+    def raise_for_status(self):
+        raise RuntimeError(f"{self.status_code}")
+
+
+def test_no_search_call_says_so_and_a_dead_model_is_not_tried_again():
+    R.DEAD_MODELS.clear()
+
+    def get_pro(url, **kw):
+        return Resp({"data": [{"id": "models/gemini-3.0-pro"}, {"id": "models/gemini-3.0-flash-lite"}]})
+    seen, prompts = [], []
+
+    def post(url, json=None, **kw):
+        import json as j
+        model = (json or {}).get("model") or url.split("/models/")[1].split(":")[0]
+        seen.append((model, ":generateContent" in url))
+        if "pro" in model:
+            return Refused(404, "NOT_FOUND", "models/gemini-3.0-pro is not found for API version v1beta")
+        if ":generateContent" in url:
+            return Refused(429, "RESOURCE_EXHAUSTED", "Quota exceeded for metric: search_grounding, limit: 0")
+        if "reasoning step of a football betting model" in json["messages"][0]["content"]:
+            prompts.append(json["messages"][0]["content"])     # the verdict call (the panel asks through post too)
+        ans = {"picks": [{"id": "0", "verdict": "back", "ai_chance": 0.8, "confidence": 0.3, "reasons": "x"}]}
+        return Resp({"choices": [{"message": {"content": j.dumps(ans)}}]})
+    old = R.BATCH
+    R.BATCH = 1                                   # two batches, so the second one shows what was remembered
+    try:
+        doc = R.reason(PICKS, key="k", get=get_pro, post=post, now=NOW)
+    finally:
+        R.BATCH = old
+    # batch 1: the dead model is asked once (no second, search-less try on it); the next model's search is refused
+    # with Google's own reason, and it answers without search. Batch 2: the dead model is skipped.
+    assert seen[:3] == [("gemini-3.0-pro", True), ("gemini-3.0-flash-lite", True), ("gemini-3.0-flash-lite", False)]
+    assert ("gemini-3.0-pro", True) not in seen[3:] and ("gemini-3.0-pro", False) not in seen
+    assert doc["model"] == "gemini-3.0-flash-lite" and doc["search"]["dead_models"] == ["gemini-3.0-pro"]
+    assert doc["search"]["queries"] == 0 and "limit: 0" in doc["search"]["errors"][0]
+    assert doc["picks"][0]["verdict"] == "back"             # the id came back as "0": still matched
+    # the model is never told to search, or to name what it found, in a call that cannot search
+    assert prompts and all("NO WEB SEARCH IN THIS CALL" in t and "SEARCH FIRST" not in t for t in prompts)
+    assert all("sets no stake" in t and "now sets the stake" not in t for t in prompts)
+    assert "SEARCH FIRST" in R._effective(R.PROMPT, True)
+    R.DEAD_MODELS.clear()
 
 
 def test_reflect_rewrites_lessons_once_a_day_and_keeps_old_ones_on_failure():
@@ -239,9 +334,29 @@ def test_reflect_rewrites_lessons_once_a_day_and_keeps_old_ones_on_failure():
             import json as j
             return Resp({"choices": [{"message": {"content": j.dumps(
                 {"lessons": ["only veto on a confirmed absence"], "summary": "vetoes on rumour won"})}}]})
-        got = R.reflect("football", key="k", get=get, post=post_les, now=NOW, out_dir=out, ledger_dir=led,
+        # two graded verdicts are no evidence: the old lessons are cleared WITHOUT asking a model for rules
+        les.write_text(json.dumps({"football": {"lessons": ["a rule from one game"], "date": "2026-10-01"}}))
+
+        def never(*a, **k):
+            raise AssertionError("no evidence, so no model call")
+        got = R.reflect("football", key="k", get=get, post=never, now=NOW, out_dir=out, ledger_dir=led,
                         lessons_path=les)
+        assert got["lessons"] == [] and got["graded"] == 2 and got["evidence"] == [] and "nothing to learn" in got["summary"]
+        # with a group the record supports, the model writes the lessons and is shown the evidence
+        asked = []
+
+        def post_ev(url, json=None, **kw):
+            asked.append(json["messages"][0]["content"])
+            return post_les(url, json=json, **kw)
+        orig = R.evidence
+        R.evidence = lambda rows, sport="football": [{"group": "verdict veto", "n": 25, "won": 24, "expected": 12.5, "z": 4.6}]
+        try:
+            got = R.reflect("football", key="k", get=get, post=post_ev, now=NOW, out_dir=out, ledger_dir=led,
+                            lessons_path=les)
+        finally:
+            R.evidence = orig
         assert got["lessons"] == ["only veto on a confirmed absence"] and got["graded"] == 2
+        assert "verdict veto: 24/25 won against 12.5 expected" in asked[0]
         les.write_text(json.dumps({"football": got}))                   # the runner saves it
         assert R.reflect("football", key="k", get=get, post=post_les, now=NOW, out_dir=out, ledger_dir=led,
                          lessons_path=les) is None                       # once a day
@@ -250,8 +365,12 @@ def test_reflect_rewrites_lessons_once_a_day_and_keeps_old_ones_on_failure():
             raise ConnectionError("down")
         les2 = Path(d) / "l2.json"
         les2.write_text(json.dumps({"football": {"lessons": ["old"], "date": "2026-10-01", "graded": 1}}))
-        assert R.reflect("football", key="k", get=get, post=boom, now=NOW, out_dir=out, ledger_dir=led,
-                         lessons_path=les2) is None                      # failed: nothing to save, old ones stay
+        R.evidence = lambda rows, sport="football": [{"group": "verdict veto", "n": 25, "won": 24, "expected": 12.5, "z": 4.6}]
+        try:
+            assert R.reflect("football", key="k", get=get, post=boom, now=NOW, out_dir=out, ledger_dir=led,
+                             lessons_path=les2) is None                  # failed: nothing to save, old ones stay
+        finally:
+            R.evidence = orig
 
 
 def test_model_chain_strongest_first_and_falls_back():

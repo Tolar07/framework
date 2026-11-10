@@ -295,15 +295,18 @@ def teaching(sport: str, rows: list[dict]) -> str:
         g = [r for r in rows if r["verdict"] == v]
         if g:
             won = sum(r["won"] for r in g)
-            ret = sum((float(r["price"] or 0) - 1) if r["won"] else -1 for r in g) / len(g)
-            lines.append(f"- {v}: {won}/{len(g)} won; flat return {ret:+.1%}")
+            ret = R._flat_return(g)
+            lines.append(f"- {v}: {won}/{len(g)} won" + (f"; flat return {ret:+.1%}" if ret is not None else ""))
     if not rows:
         lines.append("- nothing graded yet")
-    bad = R.mistakes(rows)
-    if bad:
-        lines.append("YOUR RECENT MISTAKES (learn from these):")
-        lines += [f"- {r['date']} {r['fixture']} {r['pick']} @{r['price']}: you said {r['verdict'].upper()} "
-                  f"({str(r['reasons'])[:160]}) -> it {'WON' if r['won'] else 'LOST'}" for r in bad]
+    else:
+        # groups with evidence, not single results (engine/reasoning.evidence, 2026-11-10): a lost pick at 75%
+        # is not a mistake, and a list of them taught football's verdicts rules fitted to noise
+        ev = [e for e in R.evidence([{**r, "market": ""} for r in rows], "football") if e["group"].startswith("verdict")]
+        lines.append(f"WHERE YOUR RECORD DIFFERS FROM THE CHANCES ({R.EVIDENCE_MIN_N}+ verdicts, "
+                     f"{R.EVIDENCE_MIN_Z:g}+ standard errors):")
+        lines += R.say_evidence(ev) or ["- nowhere yet. Single lost picks are not mistakes; do not build rules "
+                                        "from them."]
     return "\n".join(lines) + "\n\n"
 
 

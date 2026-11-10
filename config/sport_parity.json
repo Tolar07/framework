@@ -1,6 +1,15 @@
 {
  "_about": "Sport parity (Architect 2026-11-05: 'all the things that have been done for football should apply to basketball ... more like an inheritance thing'). Every framework module is listed with what basketball has of it. tests/sport_parity_test.py fails when a module is missing, so a new football feature cannot merge without saying what basketball gets: covers / twin <module> / todo <priority> / shared / n/a <reason>.",
  "modules": {
+  "data/euro_fixtures.py": {
+   "status": "n/a",
+   "note": "European club competitions (football); basketball has no midweek European football clash"
+  },
+  "data/transfers.py": {
+   "status": "todo",
+   "note": "NBA trades / signings before the deadline, weighted by player minutes, record-only",
+   "priority": 3
+  },
   "engine/decisions.py": {
    "status": "shared",
    "note": "decision layer (order 51): stakes, real/paper, value bars for every sport and bot inside the caps, with undo"
@@ -447,6 +456,11 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "monitor/second_half_shadow.py": {
+   "status": "todo",
+   "note": "NBA stakes shadow: play-off / play-in race vs teams out of it (tanking), late season, record-only",
+   "priority": 3
+  },
   "monitor/settlement_audit.py": {
    "status": "covers",
    "note": "reads the bot grader's sidecars, basketball legs included"
@@ -691,6 +705,11 @@
    "status": "twin",
    "note": "second fixture source",
    "basketball": "data/nba_source.py"
+  },
+  "monitor/value_line.py": {
+   "status": "todo",
+   "note": "NBA board picks in the 30-day value line (ROI + CLV vs the sharp close)",
+   "priority": 2
   },
   "scripts/clv_scorecard.py": {
    "status": "twin",

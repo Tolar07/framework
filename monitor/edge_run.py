@@ -11,6 +11,7 @@ RECORDED ONLY — nothing here picks, stakes or blocks.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -109,6 +110,15 @@ def look(now: datetime) -> str:
     days |= {r["ko"][:10] for r in rows}
     docs = {d: eb.load(d) for d in sorted(days)}
     stats = eb.update(docs, rows, events, now)
+    try:      # news move (2026-11-09 plan step 4): stamp prices when a lineup is confirmed
+        news: dict[str, dict] = {}
+        for d in sorted(days | {(now - timedelta(days=1)).strftime("%Y-%m-%d")}):
+            p = ROOT / "data" / "features" / f"news_{d}.json"
+            if p.exists():
+                news.update(json.loads(p.read_text(encoding="utf-8")))
+        notes.append(f"news move: {eb.mark_news(docs, news, now)} games stamped at confirmed lineups")
+    except Exception as e:  # noqa: BLE001 — the edge book is saved either way
+        notes.append(f"news move skipped ({str(e)[:60]})")
     for doc in docs.values():
         if doc["events"]:
             eb.save(doc)

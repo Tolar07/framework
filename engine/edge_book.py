@@ -168,6 +168,45 @@ def update(docs: dict[str, dict], rows: list[dict], events: list[dict], now: dat
     return stats
 
 
+def mark_news(docs: dict[str, dict], news: dict[str, dict], now: datetime) -> int:
+    """NEWS MOVE (Architect 2026-11-09 plan, step 4: be first with the team news). `news` is
+    {"home v away": data/features news snapshot} for the days in `docs`. The first look after a
+    football game's lineup is CONFIRMED stamps every side's record with c = {at, h, s, p, me}:
+    SportyBet's price and the exchange's fair chance at that moment, and the missing-share edge
+    (away share - home share; > 0 = the home side is the less weakened). The scoreboard then asks:
+    did SportyBet lag the exchange after the news, and does backing the side the lineups favour
+    beat the close? RECORDED ONLY. Returns how many games were stamped this look."""
+    from engine.name_match import same_club
+    confirmed = []
+    for key, snap in news.items():
+        if (snap or {}).get("lineup_type") != "confirmed" or " v " not in key:
+            continue
+        hs, as_ = snap.get("home_missing_share"), snap.get("away_missing_share")
+        me = round(as_ - hs, 4) if isinstance(hs, (int, float)) and isinstance(as_, (int, float)) else None
+        h, a = key.split(" v ", 1)
+        confirmed.append((h, a, me))
+    n = 0
+    for doc in docs.values():
+        for ev in doc.get("events", {}).values():
+            if (ev.get("sport") or "football") != "football" or not ev.get("k"):
+                continue
+            if any(r.get("c") for r in ev["k"].values()):
+                continue
+            ko = ex._dt(ev.get("ko"))
+            if ko is None or now >= ko:
+                continue
+            hit = [c for c in confirmed if same_club(ev.get("home") or "", c[0])
+                   and same_club(ev.get("away") or "", c[1])]
+            if len(hit) != 1:
+                continue
+            hours = round((ko - now).total_seconds() / 3600, 2)
+            for rec in ev["k"].values():
+                if rec.get("s1") and rec.get("p1") is not None:
+                    rec["c"] = {"at": _stamp(now), "h": hours, "s": rec["s1"], "p": rec["p1"], "me": hit[0][2]}
+            n += 1
+    return n
+
+
 def find(docs_by_day: dict[str, dict], event_id: str | None, home: str, away: str,
          day: str | None) -> dict | None:
     """One game's record: by SportyBet event id, else by both names on the day."""

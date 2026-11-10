@@ -213,7 +213,7 @@ def _search(post: Callable, key: str, model: str, rows: list[dict]) -> dict:
              json={"contents": [{"role": "user", "parts": [{"text": SEARCH_PROMPT + json.dumps(rows, ensure_ascii=False)}]}],
                    "tools": [{"google_search": {}}], "generationConfig": {"temperature": 0.1}})
     if getattr(r, "status_code", 200) == 429:
-        raise VP.RateLimited("gemini: 429")
+        raise VP.refused("gemini", r)
     r.raise_for_status()
     cand = (r.json().get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in ((cand.get("content") or {}).get("parts") or []))
@@ -293,7 +293,7 @@ def gather(singles: list[dict], keys: Optional[dict] = None, get: Optional[Calla
                 got, why = _search_retry(post, gkey, model, rows, sleep)
             if got is None:
                 if why == "429":
-                    info["gemini"]["status"] = "off for this run: 429 on every Gemini model"
+                    info["gemini"]["status"] = "off for this run: 429 on every Gemini model" + VP.why_refused("gemini")
                     break
                 info["gemini"]["status"] = f"partly failed: {why}"
                 continue

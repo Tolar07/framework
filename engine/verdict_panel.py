@@ -196,6 +196,30 @@ def member_key(name: str) -> str:
             or (os.getenv(spec["fallback_key"], "").strip() if spec.get("fallback_key") else ""))
 
 
+LAST_REFUSAL: dict = {}      # member -> the provider's own words for its last 429 (quota named, limit, retry time)
+
+
+def refused(name: str, r) -> RateLimited:
+    """A 429 as RateLimited, keeping WHY (2026-11-10: Gemini's search call had answered 429 on every model, every
+    run, for two weeks, and every file recorded only "429"; nothing said whether a daily quota was spent or
+    the key has no search at all)."""
+    why = ""
+    try:
+        e = (r.json() or {}).get("error") or {}
+        if isinstance(e, list):
+            e = (e[0] or {}).get("error") or e[0] or {}
+        why = f"{e.get('status') or ''}: {str(e.get('message') or '')[:200]}".strip(": ")
+    except Exception:  # noqa: BLE001 — no JSON body
+        pass
+    LAST_REFUSAL[name] = why
+    return RateLimited(f"{name}: 429" + (f" ({why})" if why else ""))
+
+
+def why_refused(name: str) -> str:
+    """' (<reason>)' for a status line, or ''."""
+    return f" ({LAST_REFUSAL[name]})" if LAST_REFUSAL.get(name) else ""
+
+
 def _next_gemini(model: str) -> Optional[str]:
     """The next preferred Gemini model after `model` (each Gemini model has its own free quota), or None."""
     prefer = MEMBERS["gemini"]["prefer"]
@@ -236,7 +260,7 @@ def chat_json(name: str, model: str, key: str, content: str, post: Callable, tim
     r = post(MEMBERS[name]["base"] + "/chat/completions", headers={"Authorization": f"Bearer {key}"},
              json=body, timeout=timeout)
     if getattr(r, "status_code", 200) == 429:
-        raise RateLimited(f"{name}: 429")
+        raise refused(name, r)
     r.raise_for_status()
     got = r.json()
     if name == "openrouter" and charged(got) > 0:

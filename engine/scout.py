@@ -158,7 +158,7 @@ def _search(post: Callable, key: str, model: str, prompt: str, rows: list[dict])
              json={"contents": [{"role": "user", "parts": [{"text": prompt + json.dumps(slim, ensure_ascii=False)}]}],
                    "tools": [{"google_search": {}}], "generationConfig": {"temperature": 0.1}})
     if getattr(r, "status_code", 200) == 429:
-        raise VP.RateLimited("gemini: 429")
+        raise VP.refused("gemini", r)
     r.raise_for_status()
     cand = (r.json().get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in ((cand.get("content") or {}).get("parts") or []))
@@ -225,7 +225,7 @@ def scout(fxs: list[dict], keys: Optional[dict] = None, get: Optional[Callable] 
                             continue
                         nxt = VP._next_gemini(str(model))
                         if not nxt:
-                            info["gemini"]["status"] = "off for this run: 429 on every Gemini model"
+                            info["gemini"]["status"] = "off for this run: 429 on every Gemini model" + VP.why_refused("gemini")
                             break
                         model, waited = nxt, False
                         info["gemini"]["model"] = nxt

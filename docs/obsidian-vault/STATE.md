@@ -99,6 +99,35 @@ recoverable (no artifact); the codes are in the Architect's Telegram.
 
 **2026-11-02 — competitor app teardown + CLV consensus anchor (Architect: "what are the apps doing better ... build it ... carry on").** Reverse-engineered two rival betting apps with REA (pulled from the phone over adb; servers not probed): Odds Scanner AI (React Native, Payload CMS backend, a value-tips product) and ScoreAI (Capacitor, an AI chat over Opta data). Neither models on-device — both display server results. Lesson taken: give the CLV gate an independent second opinion. Merged to main — #252 freezes the published edge (`entry_fair_odds`/`entry_edge_pct` + decay to close), #255 adds the de-margined Betfair Exchange consensus edge on every logged pick (`entry_consensus_prob`/`entry_consensus_edge_pct`, wired into `run_daily.log_paper_legs` via `pipeline/sharp.py`), #256 prints model-edge vs consensus-edge vs decay in the Monday review. ALL SHADOW — nothing drives selection/stake/gate; promoting the consensus anchor to a selector is the Architect's call on the evidence #256 builds. Consensus covers main markets only (1X2/OU/DC), PENDING elsewhere. Committed with the pre-commit hook skipped (it sweeps the OUTER repo and dies on a corrupt untracked log object — a real fault worth fixing). **Reference:** `docs/obsidian-vault/Competitor App Teardown.md` (our analysis / information architecture; NOT their binaries or UI — IP). APKs re-pullable: `com.oddsscanner.ai` v1.0.5, `com.scoreai` v2.8.1.
 
+## 2026-11-10 — Reasoning step audit: what it was really doing, and what changed
+
+Architect: "remove every flaw in the code base, in the reasoning, especially the reasoning." Read
+`engine/reasoning.py`, `cognitive_core.py`, `verdict_panel.py`, `scout.py`, `fact_sheet.py` against the stored
+outputs (21 football boards, 893 verdicts). Found, with the numbers:
+
+- **Web search never ran.** Every reasoning, scout and fact-sheet file since the search was built (23 Oct) shows
+  0 searches: Gemini's search call answers 429 on every model, and `gemini-2.5-pro` (listed, not served) 404s.
+  The verdict prompt still said "search first ... name what you found". Now: the search paragraph is sent only in
+  a call that can search, a no-search call says so, a 404 model is not tried again, and Google's own reason for
+  a refusal is saved (`search.errors`, the scout / fact-sheet status) so the cause can be fixed.
+- **The verdict adds nothing yet.** 652 graded singles: vetoes won 77.8%, backs 74.6%; Brier 0.1823 v the plain
+  model's 0.1820; the AI's chance sits 1.1 pts under the model's with a spread of 1.3 pts.
+- **It was learning from noise.** "YOUR RECENT MISTAKES" listed single results (a back that lost, a veto that
+  won); no verdict group was even 1.1 standard errors from its chances, yet 11 rules had been written from them
+  and the mix swung from 65% back to 90% lower in a week. Now `evidence()`: only groups of 20+ verdicts sitting
+  2+ standard errors from what the chances said are shown, and `reflect()` writes lessons only from those (none
+  -> the lessons are cleared, no model call).
+- **238 of 893 verdicts were never graded** (pool legs and value legs; only singles were looked up).
+  `ledger_index()` grades them all (order 53). A pool leg has no price, so it is in the hit rate and Brier, not
+  the flat return.
+- **Cognitive core:** one refused call sent the batch to the deterministic fallback, silently (125 of 125 on
+  07-11). It now tries the other Gemini models and records why a call failed.
+- **Finding for the Architect (no rule changed):** the rated pool's 80%+ legs that are NOT the board's pick won
+  116 of 163 (71%) against 81% stated; away-team goal lines 11 of 26. They are the legs where the model
+  disagrees with the bookmaker, and the bookmaker is right more often.
+
+Still off / unchanged: `VERDICT_STAKES`, every stake, threshold and pick rule.
+
 ## 2026-10-26 — Kickoff-cohort accas (Architect 18:20–18:30 UK)
 
 Every multi-leg slip is now built inside one 30-minute kickoff window (`engine/cohorts.py`); a sparse window merges only with the next one if it starts ≤ 60 min later, else its games stay singles. Inside each window the existing acca rules are unchanged. Each slip in `picks_<date>.json` carries `cohort_id`, `cohort_merged`, `earliest_kickoff_utc`, `latest_kickoff_utc`, `spread_minutes` and `leg_detail` for the live ticket monitor / rebooking session. Combined MEGA codes and the all-day board code are booked only when a kind's slips share one window. Standing order row added (ID pending). Replay of the real 2026-10-27 board: on main Acca A ran 17:30–19:45 and Mega 2 17:00–19:45; with cohorts every slip sits in one window. Test: `tests/cohort_accas_test.py` (simulated 57-fixture day 12:00–00:00).

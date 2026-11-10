@@ -165,13 +165,26 @@ POSTMORTEM_SCHEMA = {"type": "OBJECT", "properties": {
     "required": ["failure_mode", "lesson"]}
 
 
-def _gemini_json(post: Callable, key: str, prompt: str, schema: dict, timeout: int = 120) -> dict:
+ERRORS: list = []            # why a debate call failed this run (copied into the reasoning document)
+
+
+def _gemini_json(post: Callable, key: str, prompt: str, schema: dict, timeout: int = 120,
+                 use_model: Optional[str] = None) -> dict:
     """One structured-JSON call. The key goes in the x-goog-api-key header: in the URL it would
     leak into request logs."""
-    r = post(f"{NATIVE_URL}/models/{model()}:generateContent", headers={"x-goog-api-key": key}, timeout=timeout,
+    r = post(f"{NATIVE_URL}/models/{use_model or model()}:generateContent", headers={"x-goog-api-key": key},
+             timeout=timeout,
              json={"contents": [{"role": "user", "parts": [{"text": prompt}]}],
                    "generationConfig": {"temperature": TEMPERATURE, "responseMimeType": "application/json",
                                         "responseSchema": schema}})
+    code = getattr(r, "status_code", 200)
+    if isinstance(code, int) and code >= 400:      # Google's own reason, not just the status
+        try:
+            e = (r.json() or {}).get("error") or {}
+            why = f"{code} {e.get('status') or ''}: {str(e.get('message') or '')[:200]}".strip()
+        except Exception:  # noqa: BLE001
+            why = str(code)
+        raise RuntimeError(why)
     r.raise_for_status()
     parts = (((r.json().get("candidates") or [{}])[0].get("content") or {}).get("parts")) or []
     return json.loads("".join(p.get("text", "") for p in parts))
@@ -185,10 +198,16 @@ def fallback(flags: list[str]) -> dict:
 
 
 def debate(ctxs: list[dict], key: Optional[str] = None, post: Optional[Callable] = None,
-           lessons_path: Path = LESSONS, clock: Callable = time.monotonic) -> list[dict]:
-    """The debate for each context (same order). Never raises: a failed batch falls back per pick."""
+           lessons_path: Path = LESSONS, clock: Callable = time.monotonic,
+           models: Optional[list[str]] = None) -> list[dict]:
+    """The debate for each context (same order). Never raises: a failed batch falls back per pick.
+    `models`: more Gemini models to try after model() when it refuses the batch (each has its own free quota).
+    Until 2026-11-10 one refused call sent the whole batch to the deterministic fallback, silently: 125 of
+    125 "core verdicts" on 07-11 were the fallback, graded as if the core had judged them."""
     key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
     out: list[dict] = []
+    ERRORS.clear()
+    chain = list(dict.fromkeys([model(), *(models or [])]))
     t0 = clock()
     for i in range(0, len(ctxs), BATCH):
         part = ctxs[i:i + BATCH]
@@ -202,10 +221,16 @@ def debate(ctxs: list[dict], key: Optional[str] = None, post: Optional[Callable]
         if key and post is not None:
             prompt = (DEBATE + ("PAST LESSONS:\n" + "\n".join(f"- {x}" for x in dict.fromkeys(les)) + "\n" if les else "")
                       + "\nPICKS:\n" + json.dumps(rows, ensure_ascii=False))
-            try:
-                got = {p.get("id"): p for p in _gemini_json(post, key, prompt, DEBATE_SCHEMA).get("picks") or []}
-            except Exception:  # noqa: BLE001 — the deterministic fallback below
-                got = {}
+            for m in list(chain):
+                try:
+                    got = {p.get("id"): p
+                           for p in _gemini_json(post, key, prompt, DEBATE_SCHEMA, use_model=m).get("picks") or []}
+                    break
+                except Exception as e:  # noqa: BLE001 — the next model, else the deterministic fallback below
+                    got = {}
+                    ERRORS.append(f"{m}: {type(e).__name__}: {str(e)[:220]}")
+                    if str(e).startswith("404") and len(chain) > 1:
+                        chain.remove(m)          # listed but not served: not asked again this run
         for j, c in enumerate(part):
             p = got.get(j)
             try:
@@ -268,12 +293,13 @@ def authority_table(history: list[dict]) -> dict:
 
 # ---------------------------------------------------------------- the whole judgement
 def evaluate(ctxs: list[dict], key: Optional[str] = None, post: Optional[Callable] = None,
-             record_path: Path = RECORD, lessons_path: Path = LESSONS) -> list[dict]:
+             record_path: Path = RECORD, lessons_path: Path = LESSONS,
+             models: Optional[list[str]] = None) -> list[dict]:
     """The cognitive verdict for each context: flags, missing, the debate, the firewalled probability,
     authority, and the probability/stake the bots should use."""
     for c in ctxs:
         c["flags"], c["missing"] = detect_regime_flags(c)
-    debates = debate(ctxs, key, post, lessons_path)
+    debates = debate(ctxs, key, post, lessons_path, models=models)
     history = load_history(record_path)
     on = stakes_on()
     out = []

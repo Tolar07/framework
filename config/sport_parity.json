@@ -432,6 +432,10 @@
    "note": "why each NBA pick won or lost",
    "priority": 2
   },
+  "engine/wb_watch.py": {
+   "status": "covers",
+   "note": "world basketball / NCAA line watch (framework#390): price drift, VALUE GONE, not offered per pick, record only"
+  },
   "engine/world_basketball.py": {
    "status": "covers",
    "note": "handles basketball itself"
@@ -877,12 +881,6 @@
    "issue": 393
   },
   {
-   "feature": "line watch (price drift, VALUE GONE) for world basketball picks",
-   "nba_has": "monitor/nba_watch.py",
-   "priority": 2,
-   "issue": 390
-  },
-  {
    "feature": "every-market record + period study for NCAA (halves) and FIBA (40-min) leagues",
    "nba_has": "engine/nba_markets.py backtest/nba_period_study.py",
    "priority": 2,
@@ -935,10 +933,9 @@
    "note": "reads the external NBA_Betting project, which models the NBA only"
   },
   "monitor/nba_watch.py": {
-   "status": "todo",
-   "priority": 1,
-   "issue": 390,
-   "note": "line watch before tip-off"
+   "status": "twin",
+   "basketball": "engine/wb_watch.py",
+   "note": "line watch: world basketball picks re-priced each edge look, VALUE GONE / not offered / line moved alerts, record only; star-out PENDING until an injury feed exists (#391)"
   },
   "engine/nba_team_news.py": {
    "status": "todo",

@@ -128,6 +128,16 @@ def look(now: datetime) -> str:
         notes.append(f"world basketball: {wb.update(rows, events, now)} new picks")
     except Exception as e:  # noqa: BLE001 — the edge book is saved either way
         notes.append(f"world basketball skipped ({str(e)[:60]})")
+    try:      # record-only world basketball line watch (engine/wb_watch.py, framework#390)
+        from engine import wb_watch
+        alerts = wb_watch.update(rows, events, now)
+        notes.append(f"wb line watch: {len(alerts)} alerts")
+        owner = (os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip() or os.environ.get("TELEGRAM_CHAT_ID", "").strip())
+        if alerts and owner and os.environ.get("GITHUB_ACTIONS") == "true":
+            from output import notify
+            notify.send_telegram(wb_watch.render(alerts, now), chat_id=owner)   # the Architect only
+    except Exception as e:  # noqa: BLE001 — the edge book is saved either way
+        notes.append(f"wb line watch skipped ({str(e)[:60]})")
     moved = eb.finalize(now)
     if moved:
         notes.append(f"finished days to git: {', '.join(moved)}")

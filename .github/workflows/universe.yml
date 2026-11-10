@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check out the private data (Tolar07/framework-data)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/framework-data
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
@@ -38,7 +38,7 @@ jobs:
       # bot's ledger. Not fatal: without a key that bot is simply not graded this run.
       - name: Check out the SportyBet bot's ledger
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/sportybet-agent
           ssh-key: ${{ secrets.BOT_LEDGER_KEY_SPORTYBET }}
@@ -46,7 +46,7 @@ jobs:
           fetch-depth: 1
       - name: Check out the Matchbook bot's ledger
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/matchbook-agent
           ssh-key: ${{ secrets.BOT_LEDGER_KEY_MATCHBOOK }}
@@ -54,7 +54,7 @@ jobs:
           fetch-depth: 1
       - name: Check out the Betfair bot's ledger
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/betfair-agent
           ssh-key: ${{ secrets.BOT_LEDGER_KEY_BETFAIR }}
@@ -64,13 +64,13 @@ jobs:
         env:
           FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
         run: python3 monitor/fdata.py pull
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Restore the ungraded games and Flashscore cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             data/cache/universe

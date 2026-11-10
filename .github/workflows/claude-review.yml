@@ -27,7 +27,7 @@ jobs:
       - name: No Claude key set — skipping review
         if: env.HAS_KEY != 'true'
         run: echo "Set ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN to switch on Claude reviews."
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: env.HAS_KEY == 'true'
         with:
           fetch-depth: 1

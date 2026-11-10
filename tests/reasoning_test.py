@@ -277,6 +277,29 @@ def test_pool_and_value_verdicts_are_graded_too():
         assert rec["by_verdict"]["lower"]["flat_return"] == 0.9 and rec["brier"]["n"] == 3
 
 
+def test_a_missing_settler_is_said_out_loud_not_hidden():
+    import builtins
+    real = builtins.__import__
+
+    def no_scipy(name, *a, **k):
+        if name.startswith("scipy") or (name == "engine" and a and a[2] and "full_markets" in a[2]):
+            raise ImportError("No module named 'scipy'")
+        return real(name, *a, **k)
+    saved = {k: sys.modules.pop(k) for k in list(sys.modules) if k == "engine.full_markets"}
+    R.SETTLE_ERROR.clear()
+    builtins.__import__ = no_scipy
+    try:
+        idx = R.ledger_index({"rated": [{"fixture": "P v Q", "ft": "2-1", "pool": [["SB:18|total=4.5|Under 4.5", 0.85]]}],
+                              "singles": [dict(PICKS["singles"][0], result="won")]})
+    finally:
+        builtins.__import__ = real
+        sys.modules.update(saved)
+    assert list(idx) == [("A v B", "SB:10||Home or Away")]              # singles still graded
+    assert R.SETTLE_ERROR and "scipy" in R.SETTLE_ERROR[0]
+    assert "POOL LEGS NOT GRADED" in R.summary_line({"graded": 1, "by_verdict": {}, "pool_not_graded": R.SETTLE_ERROR[0]})
+    R.SETTLE_ERROR.clear()
+
+
 class Refused(Resp):
     def __init__(self, code, status, message):
         super().__init__({"error": {"code": code, "status": status, "message": message}})

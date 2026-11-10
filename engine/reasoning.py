@@ -323,7 +323,7 @@ def _api_error(r) -> Optional[str]:
         e = (r.json() or {}).get("error") or {}
         if isinstance(e, list):          # the OpenAI-compatible endpoint wraps it in a list
             e = (e[0] or {}).get("error") or e[0] or {}
-        return f"{code} {e.get('status') or ''}: {str(e.get('message') or '')[:220]}".strip()
+        return f"{code} {e.get('status') or ''}: {' '.join(str(e.get('message') or '').split())[:700]}".strip()
     except Exception:  # noqa: BLE001 - no JSON body
         return f"{code}"
 
@@ -366,7 +366,7 @@ def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional
         except ModelGone:
             raise                      # a dead model is dead on both endpoints: hand the batch to the next one
         except Exception as e:  # noqa: BLE001 — search refused or unparsable: judge without it
-            SEARCH_LOG.append({"model": model, "error": f"{type(e).__name__}: {str(e)[:300]}"})
+            SEARCH_LOG.append({"model": model, "error": f"{type(e).__name__}: {str(e)[:760]}"})
     plain = _effective(prompt, False)  # no search in this call, and the prompt says so
     for attempt in range(3):           # the free tier answers 503/429 when busy: wait and retry
         r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
@@ -786,23 +786,40 @@ def record_wb(out_dir: Path = OUT_DIR, wb_dir: Path = WB_DIR) -> dict:
 # self-improvement"). Every run shows the model its own scorecard, its recent mistakes with the reasons
 # it gave, and the lessons it wrote for itself; once a day reflect() rewrites those lessons from the
 # graded record. Lessons live in memory/reasoning_lessons.json, so they persist from run to run.
+SETTLE_ERROR: list = []      # why pool legs could not be settled in this process (a missing package), once
+
+
+def _settler():
+    """The ledger's own settler, or None with the reason kept. It needs scipy (engine/full_markets); the first
+    run after pool legs were graded here (2026-11-10) ran in a job that installs only requests + numpy, and
+    a broad `except` hid the ImportError: 163 pool verdicts stayed ungraded with nothing saying so."""
+    try:
+        from engine import full_markets  # noqa: F401 — the import that needs scipy
+        from engine.picks_ledger import _settle
+        return _settle
+    except ImportError as e:
+        if not SETTLE_ERROR:
+            SETTLE_ERROR.append(f"{type(e).__name__}: {str(e)[:120]}")
+        return None
+
+
 def ledger_index(d: dict) -> dict:
     """{(fixture, market): {result, ft, clv, price}} for everything a football verdict is given on: the board's
     singles, the value singles (graded on their one leg) and the rated pool's legs (settled here from the
     fixture's regular-time score). Until 2026-11-10 only the singles were looked up, so 238 of 893 verdicts
     (178 pool legs, 60 value legs) were never graded (standing order 53: grade everything)."""
     out: dict = {}
-    for r in d.get("rated") or []:
+    settle = _settler()
+    for r in (d.get("rated") or []) if settle else []:
         ft = str(r.get("ft") or "")
         try:
             hg, ag = (int(x) for x in ft.split("-"))
         except ValueError:
             continue
-        from engine.picks_ledger import _settle
         for leg in r.get("pool") or []:
             try:
-                got = _settle(leg[0], hg, ag)
-            except Exception:  # noqa: BLE001 — a market the settler cannot read stays ungraded
+                got = settle(leg[0], hg, ag)
+            except (ValueError, KeyError, TypeError, IndexError):   # a market key the settler cannot read
                 continue
             if got in ("won", "lost"):
                 out[(r.get("fixture"), leg[0])] = {"result": got, "ft": ft}
@@ -1112,6 +1129,7 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR, record_path: 
     from engine import cognitive_core as CC
     hist = CC.load_history(record_path)
     return {"updated": datetime.now(UTC).date().isoformat(), "graded": len(rows), "by_verdict": by,
+            "pool_not_graded": SETTLE_ERROR[0] if SETTLE_ERROR else None,
             "brier": brier, "nba": record_nba(out_dir, ledger_dir),
             "cognitive_authority": CC.authority_table(hist), "cognitive_history": hist}
 
@@ -1130,5 +1148,7 @@ def summary_line(rec: dict) -> str:
         parts.append(f"Brier model {br['model']:.3f} vs AI {br['ai']:.3f}: {better}")
     nb = (rec.get("nba") or {}).get("by_verdict") or {}
     nba = [f"{v} {nb[v]['won']}/{nb[v]['n']} ({nb[v]['flat_return']:+.1%})" for v in VERDICTS if nb.get(v, {}).get("n")]
+    if rec.get("pool_not_graded"):          # a fault, said out loud (order 53: nothing left ungraded quietly)
+        parts.append(f"POOL LEGS NOT GRADED ({rec['pool_not_graded']})")
     return (f"Reasoning record ({rec.get('graded', 0)} graded): " + (" · ".join(parts) or "nothing graded yet")
             + f" · NBA ({(rec.get('nba') or {}).get('graded', 0)} graded): " + (" · ".join(nba) or "nothing graded yet"))

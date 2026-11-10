@@ -1,5 +1,5 @@
 """
-SPORT GATE STUDY (framework#511, #512, record-only): for every graded side of a multi-sport board, the FIRST board gate
+SPORT GATE STUDY (framework#511, #512, #340 snooker, record-only): for every graded side of a multi-sport board, the FIRST board gate
 that removes it, and how each removed group did at its first price.
 
 Gates, in the order the board applies them (engine/ice_hockey.qualifies + candidates):
@@ -13,7 +13,7 @@ The value bar here is the code default, not the decision layer's moving bar (ord
 Record only: nothing here changes a pick rule, stake, threshold or the live switch.
 
   python backtest/sport_gate_study.py --sport ice_hockey     writes backtest/ICE_HOCKEY_GATE_STUDY.md
-  python backtest/sport_gate_study.py --sport american_football   (and darts, volleyball, tennis ...)
+  python backtest/sport_gate_study.py --sport american_football   (and darts, volleyball, tennis, snooker ...)
 """
 from __future__ import annotations
 

@@ -14,8 +14,8 @@ or ESPN's line for NCAA) and the CURRENT SportyBet price:
   * LINE MOVED  - the sharp fair chance moved MOVE_P or more since the pick was frozen.
 Each alert is raised once per pick. Alerts go to the Architect's own chat, like the NBA watch.
 
-Star out before tip-off: no ESPN injury feed for NCAA / EuroLeague exists yet (framework#391), so the
-watch says so and reads PENDING for it (HR35); it never invents an absence.
+Star out before tip-off: NCAA picks get a team-news verdict from engine/wb_team_news.py (ESPN roster injuries,
+framework#391); EuroLeague / other leagues have no feed, so the watch reads PENDING for them (HR35).
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ from engine import exchange as ex
 from engine import world_basketball as wb
 
 MOVE_P = 0.05          # the sharp fair chance must move 5 points to count as a line move
-STAR_OUT = "PENDING (no injury feed for this league yet, framework#391)"
+STAR_OUT = "PENDING (NCAA: see wb_news_<day>.jsonl, engine/wb_team_news.py; other leagues: no injury feed, framework#391)"
 
 
 def watch_path(day: str, folder: Path = wb.OUT_DIR) -> Path:

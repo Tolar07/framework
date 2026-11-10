@@ -432,6 +432,10 @@
    "note": "why each NBA pick won or lost",
    "priority": 2
   },
+  "engine/wb_team_news.py": {
+   "status": "covers",
+   "note": "world basketball / NCAA team news per pick (framework#391): ESPN roster injuries, the NBA's HURT / HELPED verdict and absence weights, record only; other world leagues PENDING"
+  },
   "engine/wb_watch.py": {
    "status": "covers",
    "note": "world basketball / NCAA line watch (framework#390): price drift, VALUE GONE, not offered per pick, record only"
@@ -863,12 +867,6 @@
  },
  "basketball_gaps": [
   {
-   "feature": "team news / injuries for world basketball and NCAA picks",
-   "nba_has": "data/nba_players.py",
-   "priority": 1,
-   "issue": 391
-  },
-  {
    "feature": "Gemini reasoning verdicts on world basketball / NCAA picks",
    "nba_has": "engine/reasoning.py",
    "priority": 2,
@@ -893,10 +891,10 @@
    "issue": 396
   },
   {
-   "feature": "ESPN injury feed for NCAA / EuroLeague (the scout's world-basketball absences stay unconfirmed, effect 0, until one exists)",
+   "feature": "injury feed for EuroLeague / FIBA leagues (NCAA men's now has ESPN roster injuries, engine/wb_team_news.py; the other leagues stay PENDING, effect 0, until a feed exists)",
    "nba_has": "data/nba_players.py",
    "priority": 2,
-   "issue": 391
+   "issue": 516
   }
  ],
  "_about_nba_modules": "Basketball inherits the NBA (Architect 2026-11-06 18:07 UK: \"NBA and basketball, they're the same thing ... NBA is a league, basketball is a sport. So you should inherit all its attributes of NBA\"). Every NBA module (engine/monitor/output/backtest nba_*.py and run_nba.py) says what world basketball / NCAA has of it: covers / twin / todo (priority + open issue) / n/a (why). tests/sport_parity_test.py fails on an unlisted NBA module, so a new NBA feature cannot merge without saying what the rest of basketball gets. The bots already place world basketball singles at the NBA stakes and rules (2026-11-05).",
@@ -935,19 +933,17 @@
   "monitor/nba_watch.py": {
    "status": "twin",
    "basketball": "engine/wb_watch.py",
-   "note": "line watch: world basketball picks re-priced each edge look, VALUE GONE / not offered / line moved alerts, record only; star-out PENDING until an injury feed exists (#391)"
+   "note": "line watch: world basketball picks re-priced each edge look, VALUE GONE / not offered / line moved alerts, record only; star-out: NCAA verdicts in wb_news_<day>.jsonl (#391), other leagues PENDING"
   },
   "engine/nba_team_news.py": {
-   "status": "todo",
-   "priority": 1,
-   "issue": 391,
-   "note": "team news per pick"
+   "status": "twin",
+   "basketball": "engine/wb_team_news.py",
+   "note": "team news per pick: engine/wb_team_news.py gives NCAA picks the NBA's HURT / HELPED verdict from ESPN roster injuries (record-only); other world leagues PENDING, no feed"
   },
   "engine/nba_absence_impact.py": {
-   "status": "todo",
-   "priority": 1,
-   "issue": 391,
-   "note": "absence impact"
+   "status": "twin",
+   "basketball": "engine/wb_team_news.py",
+   "note": "absence impact: engine/wb_team_news.py weighs listed NCAA absences with nba_absence_impact.team_impact (raw v adjusted share, record-only)"
   },
   "monitor/nba_live.py": {
    "status": "todo",

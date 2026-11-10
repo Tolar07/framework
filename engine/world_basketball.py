@@ -331,7 +331,7 @@ def night_accas(now: datetime, folder: Path = OUT_DIR, book=_book_many) -> list[
 
 def load_all(folder: Path = OUT_DIR) -> list[tuple[str, dict]]:
     out = []
-    for f in sorted(folder.glob("wb_*.json")) if folder.exists() else []:
+    for f in sorted(folder.glob("wb_20*.json")) if folder.exists() else []:
         try:
             out.append((f.stem[3:], json.loads(f.read_text(encoding="utf-8"))))
         except (OSError, ValueError):

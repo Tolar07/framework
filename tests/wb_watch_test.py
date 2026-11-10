@@ -60,3 +60,13 @@ def test_update_writes_record_and_skips_started_games():
         assert len(alerts) == 1
         rec = json.loads((d / f"wb_watch_{day}.json").read_text(encoding="utf-8"))
         assert list(rec["picks"]) == ["sr:1"]
+
+
+def test_load_all_ignores_watch_record_files():
+    """wb_watch_<day>.json holds picks keyed by event id; load_all must read only the dated boards."""
+    from engine import world_basketball as wbb
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t)
+        (d / "wb_2026-11-05.json").write_text(json.dumps({"date": "2026-11-05", "picks": [PICK]}), encoding="utf-8")
+        (d / "wb_watch_2026-11-05.json").write_text(json.dumps({"picks": {"sr:1": {}}}), encoding="utf-8")
+        assert [day for day, _ in wbb.load_all(d)] == ["2026-11-05"]

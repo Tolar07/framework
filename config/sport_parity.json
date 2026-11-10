@@ -476,6 +476,10 @@
    "status": "n/a",
    "note": "football BTTS and Over/Under 2.5 report; basketball has no BTTS, its totals are covered by the NBA study modules"
   },
+  "monitor/full_universe_grade.py": {
+   "status": "n/a",
+   "note": "football ladder sides (BTTS, handicaps, double chance); basketball legs are graded by bot_grader via engine/nba_markets"
+  },
   "monitor/bot_grader.py": {
    "status": "covers",
    "note": "handles basketball itself"

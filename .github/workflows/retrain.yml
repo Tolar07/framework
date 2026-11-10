@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check out the private data (Tolar07/framework-data)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/framework-data
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
@@ -48,7 +48,7 @@ jobs:
             echo "skip=1" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         if: steps.once.outputs.skip != '1'
         with:
           python-version: "3.12"

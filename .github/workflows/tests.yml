@@ -20,9 +20,9 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check out the private data (Tolar07/framework-data)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/framework-data
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
@@ -34,7 +34,7 @@ jobs:
           git -C .fdata remote set-url --push origin DISABLED-tests-never-push
           python3 monitor/fdata.py pull
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip

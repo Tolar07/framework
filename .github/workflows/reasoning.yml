@@ -33,9 +33,9 @@ jobs:
     timeout-minutes: 60   # Google Search makes each batch slower (2026-10-23: 13 min for 55 picks); 2026-10-31: 30 cut off
                          # four runs once the panel + core answered again; they now have 10-min budgets each
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check out the private data (Tolar07/framework-data)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/framework-data
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
@@ -45,7 +45,7 @@ jobs:
         env:
           FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
         run: python3 monitor/fdata.py pull
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pip install -q requests numpy   # numpy: engine/learned_weights.py (step 3)

@@ -32,12 +32,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           filter: blob:none
       - name: Check out the private data (Tolar07/framework-data)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Tolar07/framework-data
           ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
@@ -47,7 +47,7 @@ jobs:
         env:
           FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
         run: python3 monitor/fdata.py pull
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -87,7 +87,7 @@ jobs:
       - name: No Claude key set — skipping the build
         if: env.HAS_KEY != 'true'
         run: echo "Set ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN to let the weekly review build its top proposal."
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: env.HAS_KEY == 'true'
         with:
           ref: main

@@ -432,6 +432,10 @@
    "status": "covers",
    "note": "world basketball / NCAA team news per pick (framework#391): ESPN roster injuries, the NBA's HURT / HELPED verdict and absence weights, record only; other world leagues PENDING"
   },
+  "engine/wb_markets.py": {
+   "status": "covers",
+   "note": "world basketball / NCAA every-market record (framework#394): the twin of engine/nba_markets.py, graded from ESPN halves by backtest/wb_market_study.py, record only; other leagues PENDING"
+  },
   "engine/wb_watch.py": {
    "status": "covers",
    "note": "world basketball / NCAA line watch (framework#390): price drift, VALUE GONE, not offered per pick, record only"
@@ -931,28 +935,24 @@
    "basketball": "monitor/wb_live.py"
   },
   "engine/nba_markets.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 394,
-   "note": "every-market record"
+   "status": "twin",
+   "basketball": "engine/wb_markets.py",
+   "note": "every-market record for NCAA / world basketball, record-only (#394)"
   },
   "engine/nba_shadow.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 394,
-   "note": "every-market shadow board"
+   "status": "twin",
+   "basketball": "backtest/wb_market_study.py",
+   "note": "shadow board: the live bars on every ESPN-priced NCAA market, on paper in the study (#394)"
   },
   "backtest/nba_market_study.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 394,
-   "note": "market study"
+   "status": "twin",
+   "basketball": "backtest/wb_market_study.py",
+   "note": "per-market landed vs fair for NCAA, graded from halves (#394)"
   },
   "backtest/nba_period_study.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 394,
-   "note": "period study (NCAA halves, FIBA 40 min)"
+   "status": "twin",
+   "basketball": "backtest/wb_market_study.py",
+   "note": "NCAA 1st-half share study; FIBA 4x10 PENDING (no period-score feed) (#394)"
   },
   "engine/nba_recal.py": {
    "status": "todo",

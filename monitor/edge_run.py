@@ -138,6 +138,11 @@ def look(now: datetime) -> str:
             notify.send_telegram(wb_watch.render(alerts, now), chat_id=owner)   # the Architect only
     except Exception as e:  # noqa: BLE001 — the edge book is saved either way
         notes.append(f"wb line watch skipped ({str(e)[:60]})")
+    try:      # record-only world basketball every-market record (engine/wb_markets.py, framework#394)
+        from engine import wb_markets
+        notes.append(f"wb markets: {wb_markets.update(rows, now)} looks recorded")
+    except Exception as e:  # noqa: BLE001 — the edge book is saved either way
+        notes.append(f"wb markets skipped ({str(e)[:60]})")
     try:      # record-only world basketball team news per pick (engine/wb_team_news.py, framework#391)
         from engine import wb_team_news
         team_news = wb_team_news.run(now)

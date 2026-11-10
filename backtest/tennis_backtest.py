@@ -105,7 +105,9 @@ def parse(rows: list[dict], tour: str) -> list[dict]:
         ra, rb = (wr, lr) if a_first else (lr, wr)
         out.append({"day": day, "tour": tour, "surface": str(r.get("Surface", "")), "a": str(a), "b": str(b),
                     "y": 1.0 if a_first else 0.0, "pa": pa, "pb": pb, "qa": qa, "qb": qb,
-                    "ra": ra, "rb": rb, "bo": int(num(r.get("Best of")) or 3)})
+                    "ra": ra, "rb": rb, "bo": int(num(r.get("Best of")) or 3),
+                    "series": str(r.get("Series", "")).strip(), "round": str(r.get("Round", "")).strip(),
+                    "court": str(r.get("Court", "")).strip()})
     return out
 
 

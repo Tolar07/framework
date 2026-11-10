@@ -43,3 +43,12 @@ def test_every_side_counted_once():
 def test_report_has_every_gate():
     md = sg.report("ice_hockey", sg.study(_doc({"H:1||Home": _s(1.80, fair=0.60)}), CFG))
     assert all(g in md for g in sg.GATES) and "PENDING" in md
+
+
+def test_multisport_wiring_and_market_split():
+    cfg = sg._cfg("american_football")
+    f = sg.first_gate
+    assert f("american_football:219||Home", 1.80, 0.55, "matchbook", cfg) == "value bar"      # winner bar +3%
+    assert f("american_football:219||Home", 1.80, 0.58, "matchbook", cfg) == "passes all gates"
+    assert f("american_football:18|t=5|Over", 1.80, 0.58, "matchbook", cfg) == "value bar"   # line bar +5%
+    assert f("american_football:219||Home", 2.40, 0.60, "matchbook", cfg) == "band"

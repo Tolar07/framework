@@ -1,5 +1,5 @@
 """
-SPORT GATE STUDY (framework#511, record-only): for every graded side of a multi-sport board, the FIRST board gate
+SPORT GATE STUDY (framework#511, #512, record-only): for every graded side of a multi-sport board, the FIRST board gate
 that removes it, and how each removed group did at its first price.
 
 Gates, in the order the board applies them (engine/ice_hockey.qualifies + candidates):
@@ -13,6 +13,7 @@ The value bar here is the code default, not the decision layer's moving bar (ord
 Record only: nothing here changes a pick rule, stake, threshold or the live switch.
 
   python backtest/sport_gate_study.py --sport ice_hockey     writes backtest/ICE_HOCKEY_GATE_STUDY.md
+  python backtest/sport_gate_study.py --sport american_football   (and darts, volleyball, tennis ...)
 """
 from __future__ import annotations
 
@@ -27,11 +28,17 @@ GATES = ("band", "chance", "value bar", "exchange/model", "value cap", "passes a
 
 
 def _cfg(sport: str) -> dict:
-    """Board constants and graded docs for one sport. Only ice hockey so far; others plug in here."""
+    """Board constants and graded docs for one sport. Ice hockey has its own board; every sport in engine.multisport.SPORTS shares the other one."""
     if sport == "ice_hockey":
         from engine import ice_hockey as m
         return {"band": m.BAND, "result": m.RESULT_MARKETS, "min": m.MIN_VALUE, "line": m.LINE_VALUE,
-                "max": m.MAX_VALUE, "anchor": m.ANCHOR, "docs": m.load_all, "devig": m.devig}
+                "max": m.MAX_VALUE, "anchor": m.ANCHOR, "docs": m.load_all, "devig": m.devig,
+                "mkt": lambda key: key[2:].split("|")[0]}
+    from engine import multisport as ms          # every other sport of the rollout shares one board (engine/multisport.py)
+    if sport in ms.SPORTS:
+        return {"band": ms.BAND, "result": ms.WINNER_MARKETS, "min": ms.MIN_VALUE, "line": ms.LINE_VALUE,
+                "max": ms.MAX_VALUE, "anchor": ms.ANCHOR, "docs": lambda: ms.load_all(sport), "devig": ms.devig,
+                "mkt": lambda key: ms.split_key(key)[1]}
     raise SystemExit(f"sport {sport!r} not wired yet (PENDING)")
 
 
@@ -54,7 +61,7 @@ def first_gate(key: str, price: float, p, src, cfg: dict) -> str:
         return "band"
     if p is None or p < 0.50:
         return "chance"
-    need = cfg["min"] if key[2:].split("|")[0] in cfg["result"] else cfg["line"]
+    need = cfg["min"] if cfg["mkt"](key) in cfg["result"] else cfg["line"]
     value = price * p - 1
     if value < need:
         return "value bar"

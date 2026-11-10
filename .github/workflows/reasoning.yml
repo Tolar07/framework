@@ -48,7 +48,9 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install -q requests numpy   # numpy: engine/learned_weights.py (step 3)
+      # requirements.txt (numpy, scipy, requests): grading a pool verdict settles its market key through
+      # engine/full_markets.py, which needs scipy; with only requests + numpy those verdicts stayed ungraded
+      - run: pip install -q -r requirements.txt
 
       - name: Reason over today's and tomorrow's picks
         env:

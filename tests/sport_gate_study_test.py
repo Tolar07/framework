@@ -52,3 +52,11 @@ def test_multisport_wiring_and_market_split():
     assert f("american_football:219||Home", 1.80, 0.58, "matchbook", cfg) == "passes all gates"
     assert f("american_football:18|t=5|Over", 1.80, 0.58, "matchbook", cfg) == "value bar"   # line bar +5%
     assert f("american_football:219||Home", 2.40, 0.60, "matchbook", cfg) == "band"
+
+
+def test_snooker_wired_on_shared_board():
+    cfg = sg._cfg("snooker")
+    f = sg.first_gate
+    assert f("snooker:186||Home", 1.80, 0.55, "matchbook", cfg) == "value bar"
+    assert f("snooker:186||Home", 1.80, 0.58, "matchbook", cfg) == "passes all gates"
+    assert f("snooker:186||Home", 1.80, 0.40, "matchbook", cfg) == "chance"

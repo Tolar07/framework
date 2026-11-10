@@ -281,6 +281,14 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "data/ncaa_players.py": {
+   "status": "covers",
+   "note": "NCAA men's player box scores + pre-tip line per finished game, the NCAA twin of data/nba_players.py (#396), record only"
+  },
+  "engine/ncaa_projection.py": {
+   "status": "covers",
+   "note": "NCAA player-built projection and gate, the NCAA twin of engine/nba_projection.py + engine/nba_gate.py (#396), record only; gate closed while CLV is PENDING"
+  },
   "engine/ncaa_recal.py": {
    "status": "covers",
    "note": "the NCAA twin of engine/nba_recal.py (#395)"
@@ -969,28 +977,24 @@
    "note": "NCAA handicap-shape model vs ESPN moneyline blend, walk-forward, record only (#395); other world leagues have no graded sharp line yet"
   },
   "engine/nba_projection.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 396,
-   "note": "player-built projection"
+   "status": "twin",
+   "basketball": "engine/ncaa_projection.py",
+   "note": "walk-forward player-built NCAA total from ESPN box scores (hindsight line-up, labelled), record only (#396)"
   },
   "engine/nba_gate.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 396,
-   "note": "projection gate"
+   "status": "twin",
+   "basketball": "engine/ncaa_projection.py",
+   "note": "NCAA gate: Brier + log loss vs the sharp line on the same total lines, then CLV; closed while CLV is PENDING (#396)"
   },
   "backtest/nba_projection_study.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 396,
-   "note": "projection study"
+   "status": "twin",
+   "basketball": "backtest/ncaa_projection_study.py",
+   "note": "NCAA projection study to backtest/NCAA_PROJECTION_STUDY.md, record only (#396)"
   },
   "backtest/nba_onoff_study.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 396,
-   "note": "teammate on/off study"
+   "status": "twin",
+   "basketball": "backtest/ncaa_projection_study.py",
+   "note": "NCAA teammate on/off study (the NBA study run on the NCAA player log), record only (#396)"
   },
   "engine/nba_ladder.py": {
    "status": "todo",

@@ -73,6 +73,24 @@ def test_feature_tests_must_name_a_known_feature():
     assert "bet_rule" in A.spec_text()
 
 
+def test_a_429_steps_to_the_next_gemini_model_and_failures_are_reported():
+    seen = []
+
+    def post(url, json=None, **kw):
+        seen.append(json["model"])
+        if json["model"] == "gemini-3.5-flash-lite":
+            return Resp({}, 429)
+        return Resp({"choices": [{"message": {"content": __import__("json").dumps(
+            {"hypotheses": [{"idea": "a", "test": {"kind": "bet_rule", "market": "dc:1x"}}]})}}]})
+    errs: list = []
+    new, who = A.propose(date(2026, 11, 2), [], post, get, keys=KEYS, errors=errs)
+    assert seen == ["gemini-3.5-flash-lite", "gemini-3.5-flash"] and who == "gemini:gemini-3.5-flash"
+    assert len(new) == 1 and errs == ["gemini:gemini-3.5-flash-lite: 429"]
+    errs = []
+    A.propose(date(2026, 11, 2), [], lambda *a, **k: Resp({}, 500), get, keys=KEYS, errors=errs)
+    assert any("RuntimeError" in e for e in errs) and len(errs) >= 3
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

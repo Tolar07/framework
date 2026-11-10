@@ -152,8 +152,9 @@ def clean_test(t: object) -> Optional[dict]:
 
 
 def propose(today: date, hyps: list[dict], post: Callable, get: Callable,
-            keys: Optional[dict] = None) -> tuple[list[dict], str]:
-    """(new hypothesis lines, which model wrote them). Never raises."""
+            keys: Optional[dict] = None, errors: Optional[list] = None) -> tuple[list[dict], str]:
+    """(new hypothesis lines, which model wrote them). Never raises. `errors` collects why a model failed."""
+    errors = errors if errors is not None else []
     keys = keys if keys is not None else {n: VP.member_key(n) for n in VP.MEMBERS}
     existing = [{"id": h.get("id"), "idea": h.get("idea"), "test": h.get("test"), "status": h.get("status"),
                  "verdict": h.get("verdict")} for h in hyps]
@@ -165,13 +166,24 @@ def propose(today: date, hyps: list[dict], post: Callable, get: Callable,
         key = keys.get(name) or ""
         model = VP.pick_model(name, get, key) if key else None
         if not model:
+            errors.append(f"{name}: {'no key' if not key else 'no usable model'}")
             continue
-        try:
-            obj = VP.chat_json(name, model, key, content, post, timeout=180)
-            who = f"{name}:{model}"
+        tried = 0
+        while model and tried < 3:        # a 429 steps to the member's next model, as the panel does (the
+            tried += 1                    # review gave up on the first one, so it proposed nothing for 8 days)
+            try:
+                obj = VP.chat_json(name, model, key, content, post, timeout=180)
+                who = f"{name}:{model}"
+                break
+            except VP.RateLimited:
+                errors.append(f"{name}:{model}: 429")
+                model = (VP._next_free(model, get) if name == "openrouter"
+                         else VP._next_gemini(model) if name == "gemini" else None)
+            except Exception as e:  # noqa: BLE001 — next member, but say why (it was swallowed silently)
+                errors.append(f"{name}:{model}: {type(e).__name__}: {str(e)[:120]}")
+                break
+        if obj:
             break
-        except Exception:  # noqa: BLE001 — next member
-            continue
     if not obj:
         return [], who
     seen = [json.dumps(h.get("test"), sort_keys=True) for h in hyps]
@@ -202,7 +214,10 @@ def main(argv: list[str] | None = None, post: Optional[Callable] = None, get: Op
         get, post = get or requests.get, post or requests.post
     today = datetime.now(UTC).date()
     hyps = runner.load()
-    new, who = propose(today, hyps, post, get)
+    errors: list = []
+    new, who = propose(today, hyps, post, get, errors=errors)
+    for e in errors:
+        print(f"  model failed - {e}")
     print(f"ai review ({who}): {len(new)} new hypothesis(es)"
           + "".join(f"\n  {h['id']}: {h['idea']} {json.dumps(h['test'])}" for h in new))
     if a.dry_run or not new:

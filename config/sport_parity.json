@@ -24,11 +24,11 @@
   },
   "engine/format_prob.py": {
    "status": "n/a",
-   "note": "tennis best-of-N format maths (#380); no basketball equivalent"
+   "note": "best-of-N / win-by-two format maths for tennis and table tennis shadows (#380); basketball has no set formats"
   },
   "engine/hockey_periods.py": {
    "status": "n/a",
-   "note": "ice hockey period split; basketball halves and quarters are priced by engine/nba_value.py"
+   "note": "ice hockey period split calculator and shadow grade (#381); basketball quarters are covered by the NBA quarter markets"
   },
   "engine/multisport.py": {
    "status": "n/a",
@@ -166,10 +166,6 @@
    "status": "twin",
    "note": "recent form: last-10 minutes and points per player, team pace",
    "basketball": "engine/nba_projection.py"
-  },
-  "engine/format_prob.py": {
-   "status": "n/a",
-   "note": "match-format maths for set/leg/frame sports (tennis, darts, volleyball, table tennis); basketball has no sets or legs"
   },
   "engine/freeze.py": {
    "status": "twin",
@@ -647,14 +643,6 @@
    "status": "n/a",
    "note": "darts-only PDC World Championship results from Wikipedia brackets (#341); basketball results come from data/nba_source.py"
   },
-  "engine/format_prob.py": {
-   "status": "n/a",
-   "note": "best-of-N / win-by-two format maths for tennis and table tennis shadows (#380); basketball has no set formats"
-  },
-  "engine/hockey_periods.py": {
-   "status": "n/a",
-   "note": "ice hockey period split calculator and shadow grade (#381); basketball quarters are covered by the NBA quarter markets"
-  },
   "data/snooker_results.py": {
    "status": "n/a",
    "note": "dated World Snooker Tour draw results (Wikipedia) for the snooker walk-forward backtest (#352); basketball uses data/nba_source.py"
@@ -863,15 +851,13 @@
   "monitor/calendar_run.py": {
    "status": "shared",
    "note": "runner of engine/sport_calendar.py for every sport (preview.yml)"
+  },
+  "monitor/wb_live.py": {
+   "status": "covers",
+   "note": "world basketball / NCAA live tracker (twin of nba_live.py)"
   }
  },
  "basketball_gaps": [
-  {
-   "feature": "live tracker for world basketball / NCAA picks",
-   "nba_has": "monitor/nba_live.py",
-   "priority": 2,
-   "issue": 393
-  },
   {
    "feature": "every-market record + period study for NCAA (halves) and FIBA (40-min) leagues",
    "nba_has": "engine/nba_markets.py backtest/nba_period_study.py",
@@ -911,7 +897,7 @@
    "status": "n/a",
    "note": "replay of the NBA full-game acca legs; world basketball / NCAA picks already carry full-game legs (basketball_board.legs_for), nothing to replay"
   },
- "backtest/nba_study.py": {
+  "backtest/nba_study.py": {
    "status": "twin",
    "basketball": "backtest/ncaa_study.py",
    "note": "can the method work: NCAA study fitted the NCAA line shapes"
@@ -940,10 +926,9 @@
    "note": "absence impact: engine/wb_team_news.py weighs listed NCAA absences with nba_absence_impact.team_impact (raw v adjusted share, record-only)"
   },
   "monitor/nba_live.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 393,
-   "note": "live tracker"
+   "status": "twin",
+   "note": "live tracker: world basketball / NCAA picks followed live (framework#393); NCAA via ESPN, other leagues read NO LIVE FEED - PENDING",
+   "basketball": "monitor/wb_live.py"
   },
   "engine/nba_markets.py": {
    "status": "todo",

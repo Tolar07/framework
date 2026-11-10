@@ -1,0 +1,68 @@
+name: OLP XDV world basketball live tracker
+
+# framework#393 (Architect 2026-11-06: "NBA and basketball ... inherit all its attributes of NBA"). The world
+# basketball / NCAA picks (output/world_basketball/wb_<day>.json) followed live as nba_live.yml follows the NBA:
+# ONE job (monitor/wb_live.py) polls ESPN's college scoreboard every 120 s and tells the Architect's own chat of
+# each tip-off, half time, overtime and final with where each pick stands. Leagues with no free feed read
+# NO LIVE FEED - PENDING once. Single-loop guard, 3 h early exit and 5.5 h hand-off as nba_live.yml.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+    inputs:
+      night:
+        description: "Night (YYYY-MM-DD). Blank = the current one."
+        required: false
+        default: ""
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
+
+permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # commit the live snapshots as the night goes
+
+# No concurrency group, deliberately (as live.yml): the single-loop guard does the job.
+
+jobs:
+  wb-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v4
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Follow the world basketball picks and report each event
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          # The Architect's own chat only (order 33), as the football live tracker.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          NIGHT_INPUT:        ${{ github.event.inputs.night }}
+          HANDOFF:            ${{ github.event.inputs.handoff }}
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          ARGS=""
+          if [ -n "$NIGHT_INPUT" ]; then
+            if ! [[ "$NIGHT_INPUT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+              echo "invalid night '$NIGHT_INPUT' (want YYYY-MM-DD)"; exit 1
+            fi
+            ARGS="--night $NIGHT_INPUT"
+          fi
+          if [ "$HANDOFF" = "true" ]; then ARGS="$ARGS --handoff"; fi
+          python monitor/wb_live.py $ARGS

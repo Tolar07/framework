@@ -26,11 +26,13 @@ def _cdf(x: float, mean: float, sd: float) -> float:
     return 0.5 * (1 + math.erf((x - mean) / (sd * math.sqrt(2))))
 
 
-def shape(total: float | None, spread: float | None) -> dict | None:
-    """Bands from the sharp total and home spread, or None without both (HR35)."""
+def shape(total: float | None, spread: float | None, msd: float | None = None,
+          tsd: float | None = None) -> dict | None:
+    """Bands from the sharp total and home spread, or None without both (HR35). msd / tsd default to the
+    NBA curves; the world-basketball twin (engine/wb_ladder.py) passes the NCAA ones."""
     if total is None or spread is None:
         return None
-    m, msd, tsd = -spread, nv.MARGIN_SD, nv.TOTAL_SD   # read now: season refits apply
+    m, msd, tsd = -spread, msd or nv.MARGIN_SD, tsd or nv.TOTAL_SD   # read now: season refits apply
     tie = _cdf(0.5, m, msd) - _cdf(-0.5, m, msd)        # no ties in the NBA (overtime)
     margin = {}
     for lo, hi in MARGIN_BANDS:

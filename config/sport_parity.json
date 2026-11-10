@@ -448,6 +448,10 @@
    "status": "covers",
    "note": "world basketball / NCAA every-market record (framework#394): the twin of engine/nba_markets.py, graded from ESPN halves by backtest/wb_market_study.py, record only; other leagues PENDING"
   },
+  "engine/wb_ladder.py": {
+   "status": "covers",
+   "note": "world basketball / NCAA points ladders + game shape (framework#397): twin of nba_ladder / nba_shape on the recorded market pages, record only; EuroLeague / FIBA centre check PENDING (no sharp line)"
+  },
   "engine/wb_watch.py": {
    "status": "covers",
    "note": "world basketball / NCAA line watch (framework#390): price drift, VALUE GONE, not offered per pick, record only"
@@ -997,22 +1001,19 @@
    "note": "NCAA teammate on/off study (the NBA study run on the NCAA player log), record only (#396)"
   },
   "engine/nba_ladder.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 397,
-   "note": "points ladders"
+   "status": "twin",
+   "basketball": "engine/wb_ladder.py",
+   "note": "ladders read from the recorded NCAA / world-league market pages, NBA fit reused, record only (#397)"
   },
   "backtest/nba_ladder_study.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 397,
-   "note": "ladder study"
+   "status": "twin",
+   "basketball": "backtest/wb_ladder_study.py",
+   "note": "implied v measured NCAA spread and centre v sharp line, record only (#397)"
   },
   "engine/nba_shape.py": {
-   "status": "todo",
-   "priority": 3,
-   "issue": 397,
-   "note": "game shape"
+   "status": "twin",
+   "basketball": "engine/wb_ladder.py",
+   "note": "game shape on the NCAA curves (nba_shape.shape with NCAA sds), label only (#397)"
   }
  }
 }

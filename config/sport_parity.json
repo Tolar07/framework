@@ -305,7 +305,7 @@
   },
   "engine/reasoning.py": {
    "status": "covers",
-   "note": "handles basketball itself"
+   "note": "handles basketball itself: reason_nba (NBA board) and reason_wb (world basketball / NCAA board, record-only, framework#392)"
   },
   "engine/residual_model.py": {
    "status": "covers",
@@ -866,12 +866,6 @@
   }
  },
  "basketball_gaps": [
-  {
-   "feature": "Gemini reasoning verdicts on world basketball / NCAA picks",
-   "nba_has": "engine/reasoning.py",
-   "priority": 2,
-   "issue": 392
-  },
   {
    "feature": "live tracker for world basketball / NCAA picks",
    "nba_has": "monitor/nba_live.py",

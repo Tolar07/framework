@@ -70,6 +70,30 @@ def main(argv: list[str] | None = None) -> int:
         print(f"NBA {d}: {len(doc['picks'])} picks · model {doc['model']} · "
               + ", ".join(f"{p['verdict']} {p['pick']}" for p in doc["picks"])
               + (f" · {doc['note']}" if doc["note"] else ""))
+    # world basketball / NCAA board too (framework#392): same judgement, RECORD-ONLY (stake_factor stays 1.0)
+    for d in dates:
+        try:
+            src = R.WB_DIR / f"wb_{d}.json"
+            if not src.exists():
+                continue
+            board = json.loads(src.read_text(encoding="utf-8"))
+            if not board.get("picks"):
+                continue
+            out = R.OUT_DIR / f"reasoning_wb_{d}.json"
+            # the wb board has no generated_at: it is re-reasoned when its pick count changes (new games freeze in)
+            board["generated_at"] = f"n={len(board['picks'])}"
+            if out.exists() and not a.force:
+                old = json.loads(out.read_text(encoding="utf-8"))
+                if R.reasoned_already(old, board, R.PROMPT_WB):
+                    print(f"WB {d}: already reasoned for this board")
+                    continue
+            doc = R.reason_wb(board, now=now)
+            out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+            print(f"WB {d}: {len(doc['picks'])} picks · model {doc['model']} · "
+                  + ", ".join(f"{p['verdict']} {p['pick']}" for p in doc["picks"])
+                  + (f" · {doc['note']}" if doc["note"] else ""))
+        except Exception as e:  # noqa: BLE001 — record-only: never fails the verdict record or the save step
+            print(f"WB {d}: failed (ignored): {type(e).__name__}: {e}")
     # the cognitive core grades its own past verdicts (history + post-mortem lessons) before the record
     print(f"cognitive core: {R.grade_cognitive(now=now)} newly graded")
     from engine import verdict_panel as VP     # to-do #5: the panel's out-of-sample record

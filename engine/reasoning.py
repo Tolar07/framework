@@ -586,6 +586,113 @@ def record_nba(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
     return {"graded": len(rows), "by_verdict": out}
 
 
+# ---------------------------------------------------------------- world basketball / NCAA (framework#392; Architect
+# 2026-11-06: "NBA and basketball, they're the same thing ... inherit all its attributes of NBA"). Same judgement as
+# reason_nba on the paper board output/world_basketball/wb_<date>.json -> output/reasoning/reasoning_wb_<date>.json.
+# RECORD-ONLY: advisory, stake_factor stays 1.0 whatever the verdict says (the advised factor is recorded beside it).
+WB_DIR = ROOT / "output" / "world_basketball"
+PROMPT_WB = PROMPT_NBA.replace("an NBA betting model", "a basketball betting model (EuroLeague, other leagues, NCAA)").replace(
+    "NBA notes: model_chance is the sharp bookmaker's line (ESPN BET) with its margin removed, so it is already a "
+    "market view;", "Basketball notes: model_chance is the fair chance from the sharp line with its margin removed, "
+    "so it is already a market view;")
+
+
+def wb_family(market_id) -> str:
+    return NBA_FAMILY.get(str(market_id), "NBA other").replace("NBA", "basketball")
+
+
+def wb_key(p: dict) -> str:
+    return f"WB:{p.get('market_id')}|{p.get('specifier') or ''}|{p.get('outcome')}"
+
+
+def wb_records(wb_dir: Path = WB_DIR) -> dict:
+    """{family: {n, won, flat_return, close_value}} — graded world basketball / NCAA board picks."""
+    g: dict = {}
+    for f in sorted(wb_dir.glob("wb_2*.json")) if wb_dir.exists() else []:
+        try:
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        for p in doc.get("picks") or []:
+            if p.get("result") not in ("won", "lost") or not p.get("price"):
+                continue
+            r = g.setdefault(wb_family(p.get("market_id")), {"n": 0, "won": 0, "ret": 0.0, "cv": []})
+            r["n"] += 1
+            r["won"] += p["result"] == "won"
+            r["ret"] += (float(p["price"]) - 1) if p["result"] == "won" else -1.0
+            if p.get("close_value") is not None:
+                r["cv"].append(float(p["close_value"]))
+    return {k: {"n": v["n"], "won": v["won"], "flat_return": round(v["ret"] / v["n"], 4),
+                "close_value": round(sum(v["cv"]) / len(v["cv"]), 4) if v["cv"] else None}
+            for k, v in g.items()}
+
+
+def say_wb(r: Optional[dict]) -> str:
+    if not r or not r.get("n"):
+        return "TOO FEW: no graded world-basketball / NCAA picks in this family yet"
+    return say_nba(r).replace("NBA board", "world-basketball board")
+
+
+def wb_context(picks: list[dict], wb_dir: Path = WB_DIR) -> list[dict]:
+    rec = wb_records(wb_dir)
+    out = []
+    for i, p in enumerate(picks):
+        price, ch = p.get("price"), p.get("chance")
+        fam = wb_family(p.get("market_id"))
+        out.append({
+            "id": i, "fixture": f"{p.get('home')} v {p.get('away')}", "tip_utc": p.get("tip") or p.get("ko"),
+            "league": p.get("comp"), "pick": p.get("pick"), "price": price, "model_chance": ch,
+            "break_even_chance": round(1 / float(price), 4) if price else None,
+            "value_pts": round(100 * float(p["value"]), 1) if p.get("value") is not None else None,
+            "market_family": fam, "pool": False,
+            "framework_record_in_family": say_wb(rec.get(fam)),
+        })
+    return out
+
+
+def reason_wb(wb_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
+              post: Optional[Callable] = None, now: Optional[datetime] = None, wb_dir: Path = WB_DIR) -> dict:
+    """The reasoning document for one world basketball / NCAA board (wb_<date>.json). Advisory, record-only."""
+    picks = wb_doc.get("picks") or []
+    doc = _reason(wb_doc, picks, wb_context(picks, wb_dir), PROMPT_WB, key, get, post, now)
+    doc["sport"], doc["advisory"] = "world_basketball", True
+    doc["acts_on"] = "nothing: record-only (stake_factor 1.0 for every verdict)"
+    for x, p in zip(doc["picks"], picks):
+        x["fixture"], x["market"] = f"{p.get('home')} v {p.get('away')}", wb_key(p)
+        x["stake_factor"] = 1.0
+    return doc
+
+
+def record_wb(out_dir: Path = OUT_DIR, wb_dir: Path = WB_DIR) -> dict:
+    """World basketball verdicts against their graded results, and close_value per verdict."""
+    rows, cvs = [], {v: [] for v in VERDICTS}
+    for f in sorted(out_dir.glob("reasoning_wb_*.json")):
+        try:
+            r = json.loads(f.read_text(encoding="utf-8"))
+            d = json.loads((wb_dir / f"wb_{r['date']}.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError, KeyError):
+            continue
+        by = {(f"{p.get('home')} v {p.get('away')}", wb_key(p)): p for p in d.get("picks") or []}
+        for x in r.get("picks") or []:
+            p = by.get((x.get("fixture"), x.get("market"))) or {}
+            if x.get("verdict") not in VERDICTS:
+                continue
+            if p.get("close_value") is not None:
+                cvs[x["verdict"]].append(float(p["close_value"]))
+            if p.get("result") in ("won", "lost"):
+                rows.append((x["verdict"], p["result"] == "won", float(p.get("price") or 0)))
+    out: dict = {}
+    for v in VERDICTS:
+        g = [r for r in rows if r[0] == v]
+        out[v] = {"n": len(g)}
+        if g:
+            won = sum(1 for r in g if r[1])
+            out[v].update(won=won, flat_return=round(sum((r[2] - 1) if r[1] else -1 for r in g) / len(g), 4))
+        if cvs[v]:
+            out[v]["close_value"] = round(sum(cvs[v]) / len(cvs[v]), 4)
+    return {"graded": len(rows), "by_verdict": out}
+
+
 # ---------------------------------------------------------------- learning (the Architect, 2026-10-23:
 # "the whole point of the whole reasoning is for it to be able to improve on its mistakes ... recursive
 # self-improvement"). Every run shows the model its own scorecard, its recent mistakes with the reasons

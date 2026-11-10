@@ -281,6 +281,10 @@
    "status": "covers",
    "note": "handles basketball itself"
   },
+  "engine/ncaa_recal.py": {
+   "status": "covers",
+   "note": "the NCAA twin of engine/nba_recal.py (#395)"
+  },
   "engine/ncaa_lines.py": {
    "status": "covers",
    "note": "handles basketball itself"
@@ -955,16 +959,14 @@
    "note": "NCAA 1st-half share study; FIBA 4x10 PENDING (no period-score feed) (#394)"
   },
   "engine/nba_recal.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 395,
-   "note": "nightly recalibration"
+   "status": "twin",
+   "basketball": "engine/ncaa_recal.py",
+   "note": "nightly refit of the NCAA widths, biases and 1st-half share on this season's graded games, adopted only when held-out games are predicted better, record only (#395)"
   },
   "backtest/nba_blend_study.py": {
-   "status": "todo",
-   "priority": 2,
-   "issue": 395,
-   "note": "blend study"
+   "status": "twin",
+   "basketball": "backtest/ncaa_blend_study.py",
+   "note": "NCAA handicap-shape model vs ESPN moneyline blend, walk-forward, record only (#395); other world leagues have no graded sharp line yet"
   },
   "engine/nba_projection.py": {
    "status": "todo",

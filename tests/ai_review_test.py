@@ -91,6 +91,29 @@ def test_a_429_steps_to_the_next_gemini_model_and_failures_are_reported():
     assert any("RuntimeError" in e for e in errs) and len(errs) >= 3
 
 
+def test_an_empty_answer_steps_on_and_is_reported():
+    import json as _j
+
+    def post(url, json=None, **kw):
+        if "generativelanguage" in url:
+            return Resp({"choices": [{"message": {"content": "{}"}}]})
+        return Resp({"choices": [{"message": {"content": _j.dumps(
+            {"hypotheses": [{"idea": "a", "test": {"kind": "bet_rule", "market": "dc:1x"}}]})}}]})
+    errs: list = []
+    new, who = A.propose(date(2026, 11, 2), [], post, get, keys=KEYS, errors=errs)
+    assert who.startswith("nvidia:") and len(new) == 1
+    assert any("without a hypotheses list" in e for e in errs)
+
+
+def test_is_due_only_when_no_proposal_in_six_days():
+    ai = lambda d: {"id": "H1", "added": d, "source": f"ai-review {d} (x)"}  # noqa: E731
+    today = date(2026, 11, 11)
+    assert A.is_due(today, [])
+    assert A.is_due(today, [ai("2026-11-02"), {"added": "2026-11-10", "source": "manual"}])
+    assert not A.is_due(today, [ai("2026-11-09")])
+    assert not A.is_due(today, [ai("2026-11-05")])
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

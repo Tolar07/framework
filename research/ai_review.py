@@ -172,8 +172,12 @@ def propose(today: date, hyps: list[dict], post: Callable, get: Callable,
         while model and tried < 3:        # a 429 steps to the member's next model, as the panel does (the
             tried += 1                    # review gave up on the first one, so it proposed nothing for 8 days)
             try:
-                obj = VP.chat_json(name, model, key, content, post, timeout=180)
-                who = f"{name}:{model}"
+                got = VP.chat_json(name, model, key, content, post, timeout=180)
+                if not isinstance(got, dict) or not isinstance(got.get("hypotheses"), list):
+                    # an empty / off-format answer used to read as "no ideas" with no reason given
+                    errors.append(f"{name}:{model}: answered without a hypotheses list")
+                    break
+                obj, who = got, f"{name}:{model}"
                 break
             except VP.RateLimited:
                 errors.append(f"{name}:{model}: 429")
@@ -205,15 +209,29 @@ def propose(today: date, hyps: list[dict], post: Callable, get: Callable,
     return out, who
 
 
+DUE_DAYS = 6
+
+
+def is_due(today: date, hyps: list[dict], days: int = DUE_DAYS) -> bool:
+    """True when no ai-review hypothesis was added in the last `days` days. A weekly run that every free
+    model refused (429) leaves this True, so a daily `--if-due` run retries instead of waiting a week."""
+    added = [str(h.get("added") or "") for h in hyps if str(h.get("source") or "").startswith("ai-review")]
+    return not added or max(added) < (today - timedelta(days=days)).isoformat()
+
+
 def main(argv: list[str] | None = None, post: Optional[Callable] = None, get: Optional[Callable] = None) -> int:
     ap = argparse.ArgumentParser(description="AI weekly review -> hypotheses")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--if-due", action="store_true", help="only run when no proposal landed in the last 6 days")
     a = ap.parse_args(argv)
     if get is None or post is None:
         import requests
         get, post = get or requests.get, post or requests.post
     today = datetime.now(UTC).date()
     hyps = runner.load()
+    if a.if_due and not is_due(today, hyps):
+        print("ai review: a proposal landed within the last 6 days - not due")
+        return 0
     errors: list = []
     new, who = propose(today, hyps, post, get, errors=errors)
     for e in errors:

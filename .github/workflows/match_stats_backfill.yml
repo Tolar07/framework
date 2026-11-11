@@ -42,7 +42,7 @@ jobs:
       - name: Backfill from FotMob
         env:
           PYTHONIOENCODING: utf-8
-        run: python data/match_stats.py --backfill ${{ inputs.limit && format('--limit={0}', inputs.limit) || '' }}
+        run: python -m data.match_stats --backfill ${{ inputs.limit && format('--limit={0}', inputs.limit) || '' }}
       - name: Save to the private data (framework-data)
         if: always()
         run: python3 monitor/fdata.py save "match stats backfill $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/match_stats data/match_players || true

@@ -291,6 +291,7 @@ def load(folder: Path = STATS_DIR) -> list[dict]:
 
 if __name__ == "__main__":
     import sys as _sys
+    _sys.path.insert(0, str(ROOT))       # run as a script: make the framework's packages importable
     if "--backfill" in _sys.argv:
         n_lim = None
         for a in _sys.argv:

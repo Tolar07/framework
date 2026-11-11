@@ -37,6 +37,11 @@ def game(total, spread=-1.5, ml=(1.87, 1.95)):
 
 from data import matchbook_prices as _mbp  # noqa: E402
 _mbp.nba_events = lambda get=None: []        # offline: no Matchbook listing in the test
+# Pin the model's price: in CI the live learning files (framework-data memory/nba_blend.json, rebuilt by every
+# daily board) are laid over the workspace, and a blend weight that leans on SportyBet's own price removes the
+# value this test builds. 2026-11-11 11:11 the "total" weight fell to 0.1 and this test went red on every PR.
+from engine import nba_value as _nv  # noqa: E402
+_nv.BLEND = {}                               # model only, whatever today's blend is
 
 # round 1: sharp total 231.5 = SportyBet's line -> no value; first line recorded
 state, taken = {}, set()

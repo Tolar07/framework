@@ -1,5 +1,5 @@
 """
-Football match events for today's and tomorrow's rated fixtures, and the grade of past days (framework #555).
+Football match stats predicted for today's and tomorrow's rated fixtures, and the grade of past days (framework #555).
 RECORD-ONLY: writes output/events/ and nothing else; no pick, stake or board reads it.
 
     python monitor/events_run.py [--date YYYY-MM-DD]     (events.yml, started by the Oracle VM clock)
@@ -32,7 +32,7 @@ PICKS = ROOT / "output" / "picks"
 OUT = ROOT / "output" / "events"
 STUDY = ROOT / "backtest" / "EVENT_MODEL_STUDY.md"
 GRADE_DAYS = 10
-MAIN_LINE = {"yellow": 4.5, "fouls": 22.5, "corners": 9.5, "shots": 23.5, "sot": 8.5}
+MAIN_LINE = {k: v[len(v) // 2] for k, v in em.LINES.items()}      # the middle line of each count
 
 
 def published() -> list[str]:
@@ -82,24 +82,30 @@ def grade(rows: list[dict], today: str) -> dict:
             for ev, e in g.get("events", {}).items():
                 if ev not in st:
                     continue
-                s = rec.setdefault(ev, {"games": 0, "lean_right": 0, "brier": 0.0, "mean_pred": 0.0, "mean_obs": 0.0})
+                s = rec.setdefault(ev, {"games": 0, "lean_right": 0, "brier": 0.0, "mean_pred": 0.0, "mean_obs": 0.0,
+                                        "abs_error": 0.0, "lined": 0})
                 total = st[ev][0] + st[ev][1]
                 s["games"] += 1
                 s["mean_pred"] += e.get("total", 0.0)
                 s["mean_obs"] += total
+                s["abs_error"] += abs(e.get("home", 0) - st[ev][0]) + abs(e.get("away", 0) - st[ev][1])
                 if ev == "red":
                     y, p = int(total > 0), e["chance_any"]
-                else:
+                elif ev in MAIN_LINE and str(MAIN_LINE[ev]) in e.get("over", {}):
                     line = MAIN_LINE[ev]
                     y, p = int(total > line), e["over"][str(line)]
+                else:
+                    continue
+                s["lined"] += 1
                 s["brier"] += (p - y) ** 2
                 s["lean_right"] += int((p >= 0.5) == bool(y))
     for s in rec.values():
-        n = max(s["games"], 1)
-        s["brier"] = round(s["brier"] / n, 4)
+        n, nl = max(s["games"], 1), max(s["lined"], 1)
+        s["brier"] = round(s["brier"] / nl, 4) if s["lined"] else None
+        s["lean_right_pct"] = round(s["lean_right"] / nl, 3) if s["lined"] else None
         s["mean_pred"] = round(s["mean_pred"] / n, 2)
         s["mean_obs"] = round(s["mean_obs"] / n, 2)
-        s["lean_right_pct"] = round(s["lean_right"] / n, 3)
+        s["abs_error"] = round(s["abs_error"] / (2 * n), 2)
     return {"graded_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%MZ"), "days": GRADE_DAYS, "events": rec}
 
 
@@ -126,7 +132,7 @@ def main(argv=None) -> int:
         print(f"{day}: {len(doc['games'])} games, both teams paired in {found}, events {allowed}")
     g = grade(rows, uk.isoformat())
     (OUT / "grades.json").write_text(json.dumps(g, indent=1) + "\n", encoding="utf-8")
-    print("graded:", {k: (v["games"], v["brier"]) for k, v in g["events"].items()})
+    print("graded:", {k: (v["games"], v["brier"], v["abs_error"]) for k, v in g["events"].items()})
     return 0
 
 

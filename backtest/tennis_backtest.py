@@ -97,14 +97,16 @@ def parse(rows: list[dict], tour: str) -> list[dict]:
             continue                      # retirements / walkovers: the price was for a full match
         day = (datetime(1899, 12, 30) + timedelta(days=d)).strftime("%Y-%m-%d")
         aw, al = num(r.get("AvgW")), num(r.get("AvgL"))
+        mw, ml = num(r.get("MaxW")), num(r.get("MaxL"))
         a_first = str(w) < str(lo)
         a, b = (w, lo) if a_first else (lo, w)
         pa, pb = (pw, pl) if a_first else (pl, pw)
         qa, qb = (aw, al) if a_first else (al, aw)
+        xa, xb = (mw, ml) if a_first else (ml, mw)       # best price across the books (None when absent)
         wr, lr = num(r.get("WRank")), num(r.get("LRank"))
         ra, rb = (wr, lr) if a_first else (lr, wr)
         out.append({"day": day, "tour": tour, "surface": str(r.get("Surface", "")), "a": str(a), "b": str(b),
-                    "y": 1.0 if a_first else 0.0, "pa": pa, "pb": pb, "qa": qa, "qb": qb,
+                    "y": 1.0 if a_first else 0.0, "pa": pa, "pb": pb, "qa": qa, "qb": qb, "xa": xa, "xb": xb,
                     "ra": ra, "rb": rb, "bo": int(num(r.get("Best of")) or 3),
                     "series": str(r.get("Series", "")).strip(), "round": str(r.get("Round", "")).strip(),
                     "court": str(r.get("Court", "")).strip()})

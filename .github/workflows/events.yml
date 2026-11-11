@@ -49,6 +49,12 @@ jobs:
         run: |
           python backtest/player_study.py || true
           python monitor/players_run.py || true
+      - name: Basketball player events and grade (framework #558, shadow; nothing published until the study lets a stat through)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python backtest/basketball_events_study.py || true
+          python monitor/basketball_events_run.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true

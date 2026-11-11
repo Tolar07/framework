@@ -165,3 +165,19 @@ YouTube check on 2026-11-11: search found one method video, https://www.youtube.
 @ 03:17 (Kie Millett: Poisson goals model on home/away attack and concede rates; "no perfect number of games, build
 several windows"). It has nothing player-level, so it only backs the existing team-level approach and the habit of
 testing more than one window length; no search turned up a practitioner video on player rates.
+
+## Basketball player events (framework #558, engine/basketball_events.py)
+
+Same rule as football: player numbers must add up to the team model. Recipe built and tested: expected minutes
+(0.6 x last 10 + 0.4 x season, x chance of playing from the injury list) x the player's per-minute rate shrunk to the
+league with 100 pseudo-minutes; players' points scaled (clipped 0.7-1.4) to sum to `engine/nba_projection.py`'s team
+points; Over / Under by negative binomial with the variance-to-mean ratio measured by the study (points 3.45, rebounds
+1.55, assists 1.34, threes 1.44 on the first run). Baseline to beat: the player's last-10 average. First walk-forward
+(`backtest/basketball_events_study.py`, 634 scored games, 3 weeks of season): the model does NOT beat last-10 on points
+or threes (MAE and log loss), and wins log loss but not MAE on rebounds and assists, so nothing is published; all
+output is `shadow`. Re-run as the season fills; the rule is both scores must win.
+YouTube check on 2026-11-11: Excel LADZ, https://www.youtube.com/watch?v=2GBgkaHL5YU @ 07:08 (expected stat =
+season average x minutes share x pace factor x home factor x opponent-allowed factor), @ 26:44 (Poisson for rebounds and
+assists), @ 31:12 (points by simulating 2-pointers, 3-pointers and free throws separately). Transcript read; frames not
+cross-checked. Ideas not yet built (next shadow candidates, each one more test to count): the opponent-allowed factor per
+stat (team rebounds / assists / points conceded vs league) and a per-shot-type points simulation.

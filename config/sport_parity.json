@@ -899,6 +899,14 @@
    "status": "todo",
    "note": "daily runner + grading of engine/event_model.py; basketball twin with #558",
    "priority": 2
+  },
+  "engine/basketball_events.py": {
+   "status": "covers",
+   "note": "NBA player events (points, rebounds, assists, threes with SportyBet over/under chances; players' points add up to engine/nba_projection.py's team points), record-only shadow (#558). Twin of engine/player_model.py. World basketball / NCAA: team level only until player box scores are logged (see basketball_gaps)"
+  },
+  "monitor/basketball_events_run.py": {
+   "status": "covers",
+   "note": "daily runner + grading of engine/basketball_events.py (#558); the basketball twin of monitor/players_run.py"
   }
  },
  "basketball_gaps": [
@@ -919,6 +927,12 @@
    "nba_has": "data/nba_players.py",
    "priority": 2,
    "issue": 516
+  },
+  {
+   "feature": "player events (points, rebounds, assists, threes) for world basketball and NCAA: player box scores are not logged for them, team level only",
+   "nba_has": "engine/basketball_events.py",
+   "priority": 3,
+   "issue": 558
   }
  ],
  "_about_nba_modules": "Basketball inherits the NBA (Architect 2026-11-06 18:07 UK: \"NBA and basketball, they're the same thing ... NBA is a league, basketball is a sport. So you should inherit all its attributes of NBA\"). Every NBA module (engine/monitor/output/backtest nba_*.py and run_nba.py) says what world basketball / NCAA has of it: covers / twin / todo (priority + open issue) / n/a (why). tests/sport_parity_test.py fails on an unlisted NBA module, so a new NBA feature cannot merge without saying what the rest of basketball gets. The bots already place world basketball singles at the NBA stakes and rules (2026-11-05).",

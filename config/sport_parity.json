@@ -885,6 +885,16 @@
    "note": "football match events (cards, red card, fouls, corners, shots, SOT), record-only (#555); basketball twin = player and game events from engine/nba_projection.py (#558)",
    "priority": 2
   },
+  "engine/player_model.py": {
+   "status": "todo",
+   "note": "football player predictions from the predicted XI (card chance, fouls, tackles, shots, SOT, anytime scorer), record-only shadow (#557); basketball twin = player events from engine/nba_projection.py (#558)",
+   "priority": 2
+  },
+  "monitor/players_run.py": {
+   "status": "todo",
+   "note": "daily runner + grading of engine/player_model.py; basketball twin with #558",
+   "priority": 2
+  },
   "monitor/events_run.py": {
    "status": "todo",
    "note": "daily runner + grading of engine/event_model.py; basketball twin with #558",

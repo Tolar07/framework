@@ -43,6 +43,12 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python monitor/events_run.py
+      - name: Player predictions and grade (framework #557, shadow; PENDING until the study has 4 weeks of players)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python backtest/player_study.py || true
+          python monitor/players_run.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events backtest/EVENT_MODEL_STUDY.md || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md || true

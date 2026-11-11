@@ -151,3 +151,17 @@ with Betfair (about 3 h before kick-off) and reports early-minus-late CLV with a
 Record-only; a `timing` proposal opens only at 100+ pairs with a band that excludes 0. Re-watched Unabated "CLV wrong"
 (https://www.youtube.com/watch?v=MIkpsiJzbcA @ 00:28 "CLV is more guidepost than gospel") on 2026-11-04: it adds nothing
 beyond the three tests above, so the table is unchanged.
+
+## Football player events (framework #557, engine/player_model.py)
+
+Player numbers must add up to the team model, or they are two models that disagree. The recipe built and tested here:
+per-90 rate of the player, shrunk to his position group with 900 pseudo-minutes, times his expected minutes (mean of his
+last 10 starts), scaled so the XI sums to the team total of `engine/event_model.py` x the starters' historical share;
+cards also x the referee's strictness (cards per match against the league, shrunk with 10 matches); anytime-scorer chance
+= 1 - exp(-team xG x his share of the XI's expected shots on target). Baseline to beat: his own season per-90 rate x
+minutes. A stat FotMob does not give is absent, never 0. Published only when `backtest/player_study.py` (walk-forward,
+one-matchday purge gap) beats the baseline; PENDING until about 4 weeks of player lines exist.
+YouTube check on 2026-11-11: search found one method video, https://www.youtube.com/watch?v=24e_Z4WHR48 @ 00:34 and
+@ 03:17 (Kie Millett: Poisson goals model on home/away attack and concede rates; "no perfect number of games, build
+several windows"). It has nothing player-level, so it only backs the existing team-level approach and the habit of
+testing more than one window length; no search turned up a practitioner video on player rates.

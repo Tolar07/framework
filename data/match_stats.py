@@ -104,11 +104,11 @@ def referee(details: dict) -> dict | None:
 
 def players(details: dict, home_id=None) -> list[dict]:
     """One flat line per player who has stats: every FotMob stat key -> value (and key_total for x/y stats)."""
-    out = []
+    out: list[dict] = []
     for p in ((details.get("content") or {}).get("playerStats") or {}).values():
         if not isinstance(p, dict):
             continue
-        row = {"id": p.get("id"), "name": p.get("name"), "team_id": p.get("teamId"), "team": p.get("teamName"),
+        row: dict = {"id": p.get("id"), "name": p.get("name"), "team_id": p.get("teamId"), "team": p.get("teamName"),
                "gk": bool(p.get("isGoalkeeper"))}
         if home_id is not None:
             row["side"] = "home" if p.get("teamId") == home_id else "away"
@@ -124,7 +124,7 @@ def players(details: dict, home_id=None) -> list[dict]:
         out.append(row)
     # cards come from the match events, not the player stat sheet
     events = (((details.get("content") or {}).get("matchFacts") or {}).get("events") or {}).get("events") or []
-    by_id = {r["id"]: r for r in out}
+    by_id: dict = {r["id"]: r for r in out}
     for e in events:
         if e.get("type") != "Card" or e.get("playerId") not in by_id:
             continue

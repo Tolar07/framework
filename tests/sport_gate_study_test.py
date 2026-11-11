@@ -60,3 +60,18 @@ def test_snooker_wired_on_shared_board():
     assert f("snooker:186||Home", 1.80, 0.55, "matchbook", cfg) == "value bar"
     assert f("snooker:186||Home", 1.80, 0.58, "matchbook", cfg) == "passes all gates"
     assert f("snooker:186||Home", 1.80, 0.40, "matchbook", cfg) == "chance"
+
+
+def test_tennis_wired_and_gate_order():
+    """framework#547: tennis shares the multi-sport board; each side lands on exactly one, the first, gate."""
+    cfg = sg._cfg("tennis")
+    f = sg.first_gate
+    assert f("tennis:186||Home", 2.20, 0.60, "matchbook", cfg) == "band"
+    assert f("tennis:186||Home", 1.61, 0.45, "matchbook", cfg) == "chance"
+    assert f("tennis:186||Home", 1.61, 0.58, "matchbook", cfg) == "value bar"
+    assert f("tennis:186||Home", 1.61, 0.70, "sportybet", cfg) == "exchange/model"
+    assert f("tennis:186||Home", 1.61, 0.65, "matchbook", cfg) == "passes all gates"
+    sides = {"tennis:186||Home": _s(1.61, fair=0.65, won=True), "tennis:186||Away": _s(2.30, fair=0.40, won=False)}
+    res = sg.study(_doc(sides), cfg)
+    assert sum(b["n"] for b in res.values()) == 2
+    assert res["passes all gates"]["n"] == 1 and res["band"]["n"] == 1

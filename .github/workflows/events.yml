@@ -1,0 +1,48 @@
+name: OLP XDV match events
+
+# Football match events for today's and tomorrow's rated fixtures (framework #555): cards, red card, fouls,
+# corners, shots, shots on target, anchored to the board's own expected goals; and the grade of past days.
+# monitor/events_run.py, engine/event_model.py, evidence backtest/EVENT_MODEL_STUDY.md.
+# RECORDED ONLY (shadow): nothing here picks, stakes or blocks. Read by the Control Room app's match pages.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: events
+  cancel-in-progress: false
+
+jobs:
+  events:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Re-run the walk-forward study (decides which counts are published; about 10 s)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/event_study.py
+      - name: Predict and grade
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/events_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events backtest/EVENT_MODEL_STUDY.md || true

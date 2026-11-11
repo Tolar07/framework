@@ -1,0 +1,48 @@
+name: OLP XDV match stats backfill
+
+# Fills in every team stat by half, the referee and every player's line for match stats saved before
+# 2026-11-11 (framework #556), from FotMob. Started by hand; safe to run again (filled lines are skipped).
+# The daily collector (universe.yml -> data/match_stats.py) saves all of it for new matches.
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "most matches to fill this run (empty = all)"
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: match-stats-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Backfill from FotMob
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/match_stats.py --backfill ${{ inputs.limit && format('--limit={0}', inputs.limit) || '' }}
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "match stats backfill $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/match_stats data/match_players || true

@@ -82,4 +82,42 @@ prof = json.loads(mss.PROFILES.read_text(encoding="utf-8"))
 assert prof["Croatia"]["matches"] == 4 and abs(prof["Croatia"]["finishing"] - (1 - 1.84)) < 1e-9
 print("study + team profiles: OK")
 
+# every team stat by period, the referee, and every player with his cards from the match events (#556)
+det = {"general": {"homeTeam": {"id": 1}},
+       "content": {"stats": {"Periods": {
+           "All": {"stats": [{"key": "shots", "stats": [{"key": "shots", "stats": [None, None]},
+                                                        {"key": "blocked_shots", "stats": [4, 3]},
+                                                        {"key": "accurate_passes", "stats": ["325 (78%)", "257 (73%)"]}]},
+                             {"key": "defense", "stats": [{"key": "matchstats.headers.tackles", "stats": [15, 23]}]}]},
+           "FirstHalf": {"stats": [{"key": "shots", "stats": [{"key": "blocked_shots", "stats": [1, 2]}]}]}}},
+           "matchFacts": {"infoBox": {"Referee": {"text": "A Ref", "id": 9, "country": "X"}},
+                          "events": {"events": [{"type": "Card", "card": "Yellow", "time": 22, "playerId": 7},
+                                                {"type": "Card", "card": "Red", "time": 80, "playerId": 7}]}},
+           "playerStats": {"7": {"id": 7, "name": "P", "teamId": 1, "teamName": "H", "isGoalkeeper": False,
+                                 "stats": [{"stats": {"Fouls": {"key": "fouls", "stat": {"value": 3}},
+                                                      "Tackles": {"key": "matchstats.headers.tackles", "stat": {"value": 2}},
+                                                      "Passes": {"key": "accurate_passes", "stat": {"value": 16, "total": 22}}}}]},
+                           "8": {"id": 8, "name": "Q", "teamId": 2, "teamName": "A", "isGoalkeeper": True, "stats": []}}}}
+full = ms.parse_full(det)
+assert full["all"] == {"blocked_shots": [4.0, 3.0], "accurate_passes": [325.0, 257.0], "tackles": [15.0, 23.0]}, full
+assert full["h1"] == {"blocked_shots": [1.0, 2.0]}
+assert ms.referee(det) == {"name": "A Ref", "id": 9, "country": "X"}
+pl = {p["id"]: p for p in ms.players(det, ms.home_team_id(det))}
+assert pl[7]["side"] == "home" and pl[8]["side"] == "away" and pl[8]["gk"]
+assert pl[7]["fouls"] == 3 and pl[7]["tackles"] == 2 and pl[7]["accurate_passes_total"] == 22
+assert pl[7]["yellow"] == 1 and pl[7]["red"] == 1 and pl[7]["card_minutes"] == [22, 80]
+print("every team stat by half, referee, player lines with cards: OK")
+
+# backfill fills old lines once and is safe to run again
+bf = Path(tempfile.mkdtemp())
+(bf / "ms").mkdir()
+(bf / "ms" / "2026-11.jsonl").write_text(json.dumps({"date": "2026-11-01", "home": "H", "away": "A", "fotmob_id": 5,
+                                                     "stats": {}}) + chr(10), encoding="utf-8")
+assert ms.backfill(bf / "ms", bf / "mp", pause=0, fetch=lambda fid: det) == (1, 0)
+assert ms.backfill(bf / "ms", bf / "mp", pause=0, fetch=lambda fid: det) == (0, 0)
+line = json.loads((bf / "ms" / "2026-11.jsonl").read_text(encoding="utf-8"))
+assert line["full"]["all"]["tackles"] == [15.0, 23.0] and line["referee"]["name"] == "A Ref"
+assert len((bf / "mp" / "2026-11.jsonl").read_text(encoding="utf-8").splitlines()) == 2
+print("backfill: OK")
+
 print("ALL MATCH-STATS TESTS PASSED")

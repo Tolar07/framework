@@ -135,13 +135,30 @@ def board_gate(text: str) -> Optional[str]:
     return None
 
 
+def _to_app_only(body: str, chat_id: Optional[str], level: Optional[str]) -> bool:
+    """The Architect 2026-11-11: everyday messages to HIS chat go to the Control Room app (phone
+    notifications) and Telegram carries only extreme events (output/notify_route.py, vendored from
+    olp-common). Subscriber chats are never touched: they get their codes on Telegram as before.
+    Undo: NOTIFY_ROUTE=telegram."""
+    own = {os.environ.get("TELEGRAM_CHAT_ID", "").strip(), os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()} - {""}
+    if not own or (chat_id or "").strip() not in own:
+        return False
+    try:
+        from output import notify_route
+        return not notify_route.route("framework", body, level)
+    except Exception:
+        return False
+
+
 def send_telegram(body: str, token: Optional[str] = None,
-                   chat_id: Optional[str] = None) -> tuple[bool, list[str]]:
+                   chat_id: Optional[str] = None, level: Optional[str] = None) -> tuple[bool, list[str]]:
     """Returns (ok, notes). Never raises — a delivery failure must not lose the
     board, which is written to disk regardless by the caller."""
     notes: list[str] = []
     token = token or os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = chat_id or os.environ.get("TELEGRAM_CHAT_ID")
+    if _to_app_only(body, chat_id, level):
+        return True, ["sent to the Control Room app (routine; Telegram carries extreme events only)"]
     if requests is None:
         return False, ["requests not installed — cannot send"]
     if not token or not chat_id:
@@ -207,11 +224,11 @@ def subscriber_chats() -> list[str]:
     return out
 
 
-def send_architect(body: str) -> tuple[bool, list[str]]:
+def send_architect(body: str, level: Optional[str] = None) -> tuple[bool, list[str]]:
     """The Architect's own chat only (order 33): everything that is not the
     board — heartbeat, pre-kickoff alerts, run alerts, the supervisor status,
     the weekly review. Subscribers never see it."""
-    return send_telegram(body)
+    return send_telegram(body, level=level)
 
 
 def send_subscribers(body: str) -> tuple[bool, list[str]]:

@@ -55,6 +55,12 @@ jobs:
         run: |
           python backtest/basketball_events_study.py || true
           python monitor/basketball_events_run.py || true
+      - name: Tennis match events and grade (framework #559, shadow; set scores, total games, tie-break)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python backtest/tennis_events_study.py || true
+          python monitor/tennis_events_run.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true

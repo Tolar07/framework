@@ -38,7 +38,15 @@ jobs:
           python-version: "3.12"
       - run: pip install -q -r requirements.txt
       - name: Headless browser for the JavaScript tip pages (statarea)
-        run: pip install -q playwright && python -m playwright install --with-deps chromium > /dev/null
+        # the runner's apt mirror DNS ("Temporary failure resolving security.ubuntu.com") failed two attempts in a row
+        # on 2026-11-11 (autofix matchbook-agent#277): retry the install, and as a last resort fetch just the browser
+        run: |
+          pip install -q playwright
+          for i in 1 2 3; do
+            python -m playwright install --with-deps chromium > /dev/null && exit 0
+            echo "playwright install --with-deps failed (attempt $i), retrying"; sleep 30
+          done
+          python -m playwright install chromium > /dev/null
       - name: Read, grade, study
         env:
           PYTHONIOENCODING: utf-8

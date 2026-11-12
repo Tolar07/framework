@@ -1,0 +1,45 @@
+name: OLP XDV stats claims proof
+
+# Are the statistics claims real (repeat out of sample) and does the price already know them? Ten seasons of
+# football-data.co.uk files, a sweep of every claim of the videos' shape with a holdout and a multiple-testing
+# correction, money at real pre-match prices (backtest/stats_claims_proof.py). RECORD ONLY. Monthly + manual.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stats-proof
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the feed reader needs
+        run: pip install -q requests numpy
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/stats_claims_proof.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "stats-proof $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" backtest/STATS_CLAIMS_PROOF.md output/stats_proof || true

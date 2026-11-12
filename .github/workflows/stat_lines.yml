@@ -1,0 +1,45 @@
+name: OLP XDV stat lines
+
+# SportyBet's own prices on corners (166), bookings (139) and 1st-half totals (68), saved before kick-off and graded
+# from the world_facts archive (engine/stat_lines.py), then backtest/stat_lines_study.py. RECORD ONLY: nothing here
+# picks, stakes or blocks. It answers whether the stats habits that repeat (backtest/stats_claims_proof.py) beat the price.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stat-lines
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the feed reader needs
+        run: pip install -q requests
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/stat_lines_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "stat-lines $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/stat_lines output/stat_lines || true

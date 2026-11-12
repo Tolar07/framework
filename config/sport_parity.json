@@ -941,6 +941,16 @@
    "status": "todo",
    "note": "runner of engine/world_facts.py; the basketball twin runs with it",
    "priority": 2
+  },
+  "engine/stat_lines.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "football: SportyBet corners / bookings / 1st-half total lines kept and graded. Basketball twin: SportyBet quarter and team totals already ride in engine/nba_markets.py; a graded record of those lines per quarter is the gap, record-only"
+  },
+  "monitor/stat_lines_run.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "runner of engine/stat_lines.py; the basketball twin runs with it"
   }
  },
  "basketball_gaps": [

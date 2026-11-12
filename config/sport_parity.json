@@ -762,6 +762,10 @@
    "status": "n/a",
    "note": "bet365 retired 2026-10-16"
   },
+  "output/notify_route.py": {
+   "status": "n/a",
+   "note": "routes every message the same way, any sport (vendored from olp-common)"
+  },
   "output/notify.py": {
    "status": "covers",
    "note": "handles basketball itself"

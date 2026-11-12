@@ -1,0 +1,8 @@
+{
+ "source": "Tolar07/olp-common",
+ "olp_common_commit": "b159647",
+ "note": "Do not edit these files here: edit olp-common and run tools/vendor.py.",
+ "files": {
+  "output/notify_route.py": "e51747520c3ae6b596b9bbdbcabb31c29cc6b302d0eb0adc932c975239e2b0de"
+ }
+}

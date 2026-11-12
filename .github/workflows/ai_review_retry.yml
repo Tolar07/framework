@@ -1,0 +1,49 @@
+name: OLP XDV AI review retry
+
+# The Monday AI weekly review (weekly.yml -> research/ai_review.py) asks free models for hypotheses.
+# When every free model refuses that morning (429 / empty answer) nothing lands and the learning-loop
+# watch goes red ("AI weekly review STALLED") until the next Monday. This run is the daily retry:
+# `--if-due` does nothing when a proposal landed in the last 6 days, so on a normal week it is a no-op.
+# 02:41 UTC, before the 03:11 learning watch. Ideas only: research/runner.py tests them walk-forward and
+# an accepted rule only becomes a SHADOW strategy. No stake, threshold or pick rule is touched.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests numpy scipy
+      - name: AI weekly review, only if no proposal landed in the last 6 days
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PANEL_GEMINI_API_KEY: ${{ secrets.PANEL_GEMINI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python research/ai_review.py --if-due
+          python research/runner.py
+          git config user.name "olp-xdv-bot"
+          git config user.email "bot@users.noreply.github.com"
+          python3 monitor/fdata.py save "ai review retry $(date -u +%Y-%m-%d) [skip ci]" memory/hypotheses.jsonl memory/strategy_queue.jsonl

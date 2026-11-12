@@ -1,0 +1,61 @@
+name: OLP XDV AI review retry
+
+# The AI weekly review (weekly.yml, Mondays) went 10 days with no new hypothesis because every free
+# model refused on its one Monday attempt; research/ai_review.py --if-due was added (#549) for a daily
+# retry but nothing ever ran it, so learning_watch.py went red. This runs it daily (04:19 UTC, started by
+# the Oracle VM clock): it does nothing when a proposal landed in the last 6 days. Ideas only: the
+# runner tests them walk-forward and an accepted rule is a SHADOW strategy at most.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-review-retry
+  cancel-in-progress: false
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}   # unset: framework's copy; fd: framework-data's
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests numpy scipy
+      - name: AI review, only if no proposal landed in the last 6 days
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PANEL_GEMINI_API_KEY: ${{ secrets.PANEL_GEMINI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python research/ai_review.py --if-due | tee "$RUNNER_TEMP/ai_review.txt"
+          grep -q "not due" "$RUNNER_TEMP/ai_review.txt" && exit 0
+          python research/runner.py
+          git config user.name "olp-xdv-bot"
+          git config user.email "bot@users.noreply.github.com"
+          python3 monitor/fdata.py save "ai review retry $(date -u +%Y-%m-%d) [skip ci]" memory/hypotheses.jsonl memory/strategy_queue.jsonl
+          git diff --cached --quiet && exit 0
+          git commit -q -m "ai review retry $(date -u +%Y-%m-%d) [skip ci]"
+          for i in 1 2 3; do
+            if git pull --rebase --autostash -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::ai review retry: could not save to main"; exit 1

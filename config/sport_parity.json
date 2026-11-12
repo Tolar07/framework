@@ -980,6 +980,10 @@
    "status": "todo",
    "priority": 3,
    "note": "runner of the football stats lists (#581-#584); the basketball twins run with it once built"
+  },
+  "engine/market_rates.py": {
+   "status": "covers",
+   "note": "one side-rate model for every market of every sport we cover: football and basketball from the SportyBet sweep, ten more sports and ice hockey from their boards (Architect 2026-11-12: run it for all the markets in all the sports)"
   }
  },
  "basketball_gaps": [

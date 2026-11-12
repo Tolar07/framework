@@ -12,7 +12,8 @@ board reads any of it. The lower-league paper board itself runs inside every uni
                                    the half-time score), top_home.json (most first-half goals per home game)
 3. Corner consistency (#583)       engine/corner_consistency.py -> output/corners/consistency.json
 4. Studies                         backtest/LEAGUE_PROFILE_STUDY.md, FIRST_HALF_STUDY.md,
-                                   CORNER_CONSISTENCY_STUDY.md, LOWER_LEAGUE_VALUE_STUDY.md
+                                   CORNER_CONSISTENCY_STUDY.md, LOWER_LEAGUE_VALUE_STUDY.md, and
+                                   MARKET_RATES_STUDY.md (every market of every sport we cover)
 Every step runs on its own: one failing never stops the others.
 """
 from __future__ import annotations
@@ -121,10 +122,12 @@ def main(argv: list[str] | None = None) -> int:
         import first_half_study
         import league_profile_study
         import lower_league_value_study
+        import market_rates_study
         flag = [] if fetch else ["--no-fetch"]
         for mod in (league_profile_study, first_half_study, corner_consistency_study):
             step(mod.__name__, lambda m=mod: f"{m.__name__}: exit {m.main(flag)}")
         step("lower_league_value_study", lambda: f"lower_league_value_study: exit {lower_league_value_study.main([])}")
+        step("market_rates_study", lambda: f"market_rates_study: exit {market_rates_study.main([])}")
     print("\n".join(steps))
     return 1 if all("FAILED" in s for s in steps) else 0
 

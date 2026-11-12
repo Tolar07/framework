@@ -15,6 +15,7 @@ from engine import corner_consistency as cc  # noqa: E402
 from engine import first_half as fh  # noqa: E402
 from engine import league_profile as lp  # noqa: E402
 from engine import lower_league_value as lv  # noqa: E402
+from engine import market_rates as mr  # noqa: E402
 from engine import stats_history as sh  # noqa: E402
 
 NOW = datetime(2026, 11, 12, 18, 0, tzinfo=UTC)
@@ -125,6 +126,26 @@ def test_paper_board_cycle():
     assert rec["all"]["graded"] == 1 and rec["all"]["ready_to_propose"] is False
     src = (ROOT / "engine" / "lower_league_value.py").read_text(encoding="utf-8")
     assert "output\" / \"picks" not in src and "multisport\" /" not in src  # never where a bot reads
+
+
+def test_market_rates_every_sport():
+    assert mr.norm_key("football", "SB:18|total=2.5|Over 2.5") == "SB:18|total=2.5|Over 2.5"   # fixed lines kept
+    assert mr.norm_key("tennis", "tennis:189|total=22.5|over 22.5") == "tennis:#|total=#|over #"
+    assert mr.family("basketball", "total|221.5|over") == "total|#"
+    assert abs(mr._devig("t:1||Home", {"t:1||Home": 1.8, "t:1||Away": 2.0}) - (1 / 1.8) / (1 / 1.8 + 1 / 2.0)) < 1e-9
+    assert mr._devig("t:1||Home", {"t:1||Home": 2.5, "t:1||Draw": 3.2, "t:1||Away": 2.9}) is None   # two-way only
+    r = mr.Rates()
+    g = {"sport": "volleyball", "league": "X: Y", "home": "A", "away": "B", "ko": "2026-11-01"}
+    assert r.predict("volleyball", "X: Y", "A", "B", "v:1||Home") is None                          # no league yet
+    for i in range(30):
+        r.add(dict(g, home="A" if i % 2 else "C", away="B" if i % 3 else "D",
+                   sides=[("v:1||Home", int(i % 4 != 0), 1.6, None), ("v:1||Away", int(i % 4 == 0), 2.3, None)]))
+    m = r.predict("volleyball", "X: Y", "A", "B", "v:1||Home")
+    assert m and 0 < m["p"] < 1 and m["league_n"] == 30 and m["teams"]
+    assert abs(m["league_rate"] - (22 + 1) / 32) < 1e-9
+    best = mr.best_side(r, g, [("v:1||Home", 1.9), ("v:1||Away", 9.0)])
+    assert best is None or best["key"] == "v:1||Home"                       # 9.0 is outside the price range
+    assert r.predict("volleyball", "X: Y", "A", "B", "v:1||Home")["p"] == m["p"]   # predicting adds nothing
 
 
 def main() -> None:

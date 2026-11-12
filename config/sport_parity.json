@@ -951,6 +951,39 @@
    "status": "todo",
    "priority": 3,
    "note": "runner of engine/stat_lines.py; the basketball twin runs with it"
+  },
+  "engine/stats_history.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "football match rows for the stats lists (football-data.co.uk half-time scores, corners, closing O/U 2.5; the SportyBet sweep's graded games). Basketball twin: the same loader over the sweep's graded basketball games and the NBA/ESPN results (quarter scores) (#581-#584)"
+  },
+  "engine/league_profile.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "football league profiles: BTTS, over 1.5/2.5, goals per game, first-half and late-goal shares (#581). Basketball twin: per league points per game, over rate on the posted total, first-half share of points, fourth-quarter share"
+  },
+  "engine/first_half.py": {
+   "status": "todo",
+   "priority": 2,
+   "note": "football first-half goals model, shadow (#582). Basketball twin: first-half total / 1st-quarter total model on the board's games (the half markets the bots already price), shadow"
+  },
+  "engine/corner_consistency.py": {
+   "status": "n/a",
+   "note": "football corners only (#583); basketball has no corners. The nearest count, team total points spread, is already in the NBA projection's variance"
+  },
+  "engine/lower_league_value.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "football lower-league value paper board (#584). Basketball twin: second-division basketball leagues SportyBet prices (totals / handicap) against a team points model, paper only"
+  },
+  "monitor/stats_lists_run.py": {
+   "status": "todo",
+   "priority": 3,
+   "note": "runner of the football stats lists (#581-#584); the basketball twins run with it once built"
+  },
+  "engine/market_rates.py": {
+   "status": "covers",
+   "note": "one side-rate model for every market of every sport we cover: football and basketball from the SportyBet sweep, ten more sports and ice hockey from their boards (Architect 2026-11-12: run it for all the markets in all the sports)"
   }
  },
  "basketball_gaps": [

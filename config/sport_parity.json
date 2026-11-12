@@ -984,6 +984,16 @@
   "engine/market_rates.py": {
    "status": "covers",
    "note": "one side-rate model for every market of every sport we cover: football and basketball from the SportyBet sweep, ten more sports and ice hockey from their boards (Architect 2026-11-12: run it for all the markets in all the sports)"
+  },
+  "data/espn_history.py": {
+   "status": "todo",
+   "priority": 2,
+   "note": "football: every match ESPN lists worldwide with goal/card minutes and match stats. Basketball twin: ESPN's basketball scoreboards (NBA, WNBA, NCAA, FIBA, world leagues) with quarter scores, record-only"
+  },
+  "engine/trend_atlas.py": {
+   "status": "todo",
+   "priority": 2,
+   "note": "football: every market's trend by league, team and season. Basketball twin: totals, quarter / half totals, team totals and handicap cover by league, team and season from the basketball history, record-only"
   }
  },
  "basketball_gaps": [

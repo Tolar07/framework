@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  issues: write     # a new EDGE CANDIDATE opens one build issue (monitor/edge_candidates.py)
 
 concurrency:
   group: sport-atlas
@@ -40,6 +41,11 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python backtest/sport_atlas_study.py
+      - name: Hand new edge candidates to the builder (monitor/edge_candidates.py)
+        env:
+          PYTHONIOENCODING: utf-8
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python monitor/edge_candidates.py
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "sport-atlas $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" backtest/SPORT_ATLAS_STUDY.md output/sport_atlas || true
+        run: python3 monitor/fdata.py save "sport-atlas $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" backtest/SPORT_ATLAS_STUDY.md output/sport_atlas memory/edge_candidates_seen.json || true

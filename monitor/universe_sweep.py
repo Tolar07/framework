@@ -123,6 +123,12 @@ def sweep(now: datetime) -> str:
         notes.append(xm.attach(graded))
     except Exception as e:  # noqa: BLE001 — never stops the archive
         notes.append(f"consistency skipped ({str(e)[:60]})")
+    try:
+        # PAPER ONLY (Architect 2026-11-12): AFCON / CAF qualifiers and the CAF club cups, rated and graded
+        from engine import africa_paper
+        notes.append(africa_paper.attach(pending, graded, now))
+    except Exception as e:  # noqa: BLE001 - never stops the archive
+        notes.append(f"africa paper skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
@@ -137,6 +143,7 @@ def persist(now: datetime) -> str:
     """Save to framework and to the private framework-data (monitor/fdata.py)."""
     # framework-data first: framework's pull below may drop files
     fd = fdata.save(["data/universe", "data/match_stats", "data/match_players", "data/teams", "data/features", "data/bots",
+                     "data/africa_paper", "output/africa_paper",        # the Africa paper board (private repo only)
                      "output/decisions", "memory/decisions.jsonl"],      # the decision layer (order 51)
                     f"universe {now:%Y-%m-%d %H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)

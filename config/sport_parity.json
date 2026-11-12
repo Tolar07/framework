@@ -10,6 +10,10 @@
    "note": "NBA trades / signings before the deadline, weighted by player minutes, record-only",
    "priority": 3
   },
+  "engine/africa_paper.py": {
+   "status": "n/a",
+   "note": "African football paper board (AFCON / CAF); no basketball counterpart in Africa is listed by SportyBet's sweep"
+  },
   "engine/decisions.py": {
    "status": "shared",
    "note": "decision layer (order 51): stakes, real/paper, value bars for every sport and bot inside the caps, with undo"

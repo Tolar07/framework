@@ -1,4 +1,4 @@
-name: OLP XDV AI review retry
+name: OLP XDV AI review
 
 # The Monday AI weekly review (weekly.yml -> research/ai_review.py) asks free models for hypotheses.
 # When every free model refuses that morning (429 / empty answer) nothing lands and the learning-loop

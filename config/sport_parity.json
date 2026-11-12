@@ -14,6 +14,10 @@
    "status": "n/a",
    "note": "African football paper board (AFCON / CAF); no basketball counterpart in Africa is listed by SportyBet's sweep"
   },
+  "engine/match_facts.py": {
+   "status": "covers",
+   "note": "Flashscore stats by period, form and head-to-head for every sport's board games; NBA and world basketball included (football has FotMob's)"
+  },
   "engine/decisions.py": {
    "status": "shared",
    "note": "decision layer (order 51): stakes, real/paper, value bars for every sport and bot inside the caps, with undo"
@@ -902,6 +906,10 @@
    "status": "todo",
    "note": "daily runner + grading of engine/player_model.py; basketball twin with #558",
    "priority": 2
+  },
+  "monitor/match_facts_run.py": {
+   "status": "covers",
+   "note": "runner of engine/match_facts.py (every sport except football, basketball included)"
   },
   "monitor/events_run.py": {
    "status": "todo",

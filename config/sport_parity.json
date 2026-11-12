@@ -931,6 +931,16 @@
   "monitor/tennis_events_run.py": {
    "status": "n/a",
    "note": "daily runner + grading of engine/tennis_events.py (#559); tennis only, the basketball twin is monitor/basketball_events_run.py"
+  },
+  "engine/world_facts.py": {
+   "status": "todo",
+   "note": "football: every finished match in the world with half-time score, stats by half and goal minutes. Basketball twin: every finished basketball game from Flashscore's sport-3 day feed with quarter scores and the stats tab (engine/match_facts.py reads board games only), record-only",
+   "priority": 2
+  },
+  "monitor/world_facts_run.py": {
+   "status": "todo",
+   "note": "runner of engine/world_facts.py; the basketball twin runs with it",
+   "priority": 2
   }
  },
  "basketball_gaps": [

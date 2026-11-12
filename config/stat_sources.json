@@ -1,0 +1,217 @@
+{
+ "_about": "Where the framework's statistics come from, and where they could. Checked by live request on the date in `checked` (Architect 2026-11-12: 'look for where you can get all the statistics'). Owned by the data analyst (.claude/agents/olp-xdv-data-analyst.md). status: in_use (a module reads it), ready (reachable, free, not read yet), key (needs a key the Architect would have to get), blocked (refuses automated reads: not used, never worked around). A new source is added here first, with what was actually seen.",
+ "checked": "2026-11-12",
+ "sources": [
+  {
+   "name": "Flashscore day feed",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "every match of a day in every competition: result, 90-minute score, half-time score",
+   "seen": "Sunday 8 Nov 2026: 1,396 football matches in 387 competitions, half-time score on 1,361",
+   "limits": "only 7 days back and forward; a history has to be collected day by day",
+   "read_by": [
+    "data/flashscore_results.py",
+    "engine/world_facts.py"
+   ]
+  },
+  {
+   "name": "Flashscore match feeds (stats, incidents, head-to-head)",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "about 40 team stats for the match and each half (expected goals, shots, corners, cards, fouls, possession), every goal's minute, each side's last matches and the head-to-head",
+   "seen": "stats tab on 20 of 40 finished matches spread across a day (corners on 18): Premier League, Argentina top flight, SAFF Championship yes; Austrian third tier no (half scores only)",
+   "limits": "two requests a match; one polite pass per run, never a crawl",
+   "read_by": [
+    "engine/world_facts.py",
+    "engine/match_facts.py"
+   ]
+  },
+  {
+   "name": "FotMob",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "match stats, shot map by situation, expected goals, lineups and unavailable players with market value, team season numbers with league rank, squads, coach, formation",
+   "seen": "read daily by the framework since October 2026",
+   "limits": "team news thin below the top leagues; matched to our fixtures by a strict two-name rule",
+   "read_by": [
+    "data/match_stats.py",
+    "data/match_study.py",
+    "data/team_profiles.py",
+    "data/fotmob.py"
+   ]
+  },
+  {
+   "name": "football-data.co.uk (main leagues)",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "results back 20+ seasons with half-time score, shots, shots on target, corners, fouls, cards and closing odds (1X2, over/under 2.5, Asian handicap) for 22 divisions in 11 countries",
+   "seen": "E0 2026-27: 100 matches with HTHG/HTAG, HC/AC, HY/AY, HF/AF, HST/AST and closing prices",
+   "limits": "updated twice a week; no cups",
+   "read_by": [
+    "data/football_data_source.py"
+   ]
+  },
+  {
+   "name": "football-data.co.uk (extra leagues)",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "results and closing 1X2 odds for 16 more countries (Argentina, Brazil, Japan, USA, Poland ...)",
+   "seen": "ARG.csv: 6,475 matches, full-time score and closing prices only",
+   "limits": "no half-time score, no corners, no cards",
+   "read_by": [
+    "data/football_data_source.py"
+   ]
+  },
+  {
+   "name": "ESPN public scoreboard and match summary",
+   "status": "in_use",
+   "cost": "free, no key",
+   "gives": "fixtures and status for 220 football competitions; per match 28 team stats (corners won, shots, fouls, cards, possession, passes, tackles) and goal minutes",
+   "seen": "Premier League 8 Nov 2026: summary with wonCorners, totalShots, foulsCommitted, yellowCards and a 15' goal",
+   "limits": "no expected goals; stats by half not given; a second source to cross-check corners and cards",
+   "read_by": [
+    "data/espn_fixtures.py"
+   ]
+  },
+  {
+   "name": "OpenLigaDB",
+   "status": "ready",
+   "cost": "free, no key, open licence",
+   "gives": "German leagues (Bundesliga, 2. Bundesliga, 3. Liga, cup): every goal's minute, half-time and final score, back many seasons",
+   "seen": "Bundesliga matchday 9, 2026-27 and 2025-26: 9 of 9 finished, goal minutes present",
+   "limits": "Germany only",
+   "read_by": []
+  },
+  {
+   "name": "StatsBomb open data",
+   "status": "ready",
+   "cost": "free (GitHub, attribution required)",
+   "gives": "event-by-event data (every pass, shot with expected goals, pressure) for chosen competitions",
+   "seen": "80 competition-seasons, newest 2025",
+   "limits": "historic and selective, not a live feed: for studying methods, not for daily numbers",
+   "read_by": []
+  },
+  {
+   "name": "football-data.org",
+   "status": "key",
+   "cost": "free key (12 competitions, 10 requests a minute)",
+   "gives": "fixtures, results with half-time score, scorers, standings",
+   "seen": "competition list answers without a key (192 listed); match data needs the key",
+   "limits": "top competitions only on the free plan",
+   "read_by": []
+  },
+  {
+   "name": "API-Football",
+   "status": "key",
+   "cost": "free key (100 requests a day, old seasons only)",
+   "gives": "1,100+ competitions: fixtures, events with minutes, team stats, lineups, odds",
+   "seen": "status call refuses without a key; the framework holds a free key used for history only",
+   "limits": "free plan serves seasons 2022-2024, so it is two years behind; current seasons are paid",
+   "read_by": [
+    "data/api_football_results.py"
+   ]
+  },
+  {
+   "name": "Understat",
+   "status": "ready",
+   "cost": "free, no key",
+   "gives": "expected goals and every shot with its minute for the big five leagues and Russia",
+   "seen": "page answers (200) but the embedded data was not found on the 2026 page: its layout has changed",
+   "limits": "six leagues; needs a new reader before it can be trusted; Flashscore and FotMob already give xG",
+   "read_by": []
+  },
+  {
+   "name": "ClubElo",
+   "status": "ready",
+   "cost": "free, no key",
+   "gives": "club ratings by date for European leagues",
+   "seen": "502 (server error) at the time of the check",
+   "limits": "Europe only; was down when checked",
+   "read_by": []
+  },
+  {
+   "name": "TheSportsDB",
+   "status": "in_use",
+   "cost": "free key for fixtures",
+   "gives": "fixtures and results for many sports",
+   "seen": "the results call refused the public test key (403) on the day of the check",
+   "limits": "match statistics are behind its paid tier",
+   "read_by": [
+    "data/thesportsdb_fixtures.py"
+   ]
+  },
+  {
+   "name": "Sofascore",
+   "status": "blocked",
+   "cost": "-",
+   "gives": "match statistics by half, incidents, player ratings, wide coverage",
+   "seen": "403 Forbidden to an automated request",
+   "limits": "refuses automated reads",
+   "read_by": []
+  },
+  {
+   "name": "FBref",
+   "status": "blocked",
+   "cost": "-",
+   "gives": "season and match tables by competition",
+   "seen": "403 with a browser check page",
+   "limits": "refuses automated reads",
+   "read_by": []
+  },
+  {
+   "name": "SoccerSTATS",
+   "status": "blocked",
+   "cost": "-",
+   "gives": "league tables of goal times, both-teams-to-score, half-time and corner numbers (the kind of ranking in the videos)",
+   "seen": "403 with a browser check page",
+   "limits": "refuses automated reads",
+   "read_by": []
+  },
+  {
+   "name": "FootyStats",
+   "status": "blocked",
+   "cost": "paid API exists",
+   "gives": "both-teams-to-score, corners, first-half and goals-by-minute tables for 1,500+ leagues",
+   "seen": "403 with a browser check page; it sells a data API",
+   "limits": "refuses automated reads; a paid plan would be the Architect's decision",
+   "read_by": []
+  }
+ ],
+ "stats": {
+  "half-time score, first-half goals": [
+   "Flashscore day feed",
+   "football-data.co.uk (main leagues)",
+   "OpenLigaDB"
+  ],
+  "both teams to score, goals per game by league": [
+   "Flashscore day feed",
+   "football-data.co.uk (main leagues)",
+   "football-data.co.uk (extra leagues)"
+  ],
+  "minute of every goal (late goals, early goals)": [
+   "Flashscore match feeds (stats, incidents, head-to-head)",
+   "OpenLigaDB",
+   "ESPN public scoreboard and match summary"
+  ],
+  "corners per match and per half": [
+   "Flashscore match feeds (stats, incidents, head-to-head)",
+   "FotMob",
+   "football-data.co.uk (main leagues)",
+   "ESPN public scoreboard and match summary"
+  ],
+  "cards and fouls": [
+   "Flashscore match feeds (stats, incidents, head-to-head)",
+   "FotMob",
+   "football-data.co.uk (main leagues)",
+   "ESPN public scoreboard and match summary"
+  ],
+  "expected goals": [
+   "Flashscore match feeds (stats, incidents, head-to-head)",
+   "FotMob"
+  ],
+  "closing prices to test a number against": [
+   "football-data.co.uk (main leagues)",
+   "football-data.co.uk (extra leagues)"
+  ]
+ }
+}

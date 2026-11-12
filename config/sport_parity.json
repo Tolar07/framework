@@ -994,6 +994,14 @@
    "status": "todo",
    "priority": 2,
    "note": "football: every market's trend by league, team and season. Basketball twin: totals, quarter / half totals, team totals and handicap cover by league, team and season from the basketball history, record-only"
+  },
+  "data/espn_sports_history.py": {
+   "status": "covers",
+   "note": "multi-sport history incl. NBA, WNBA and NCAA men's basketball (quarter scores + ESPN pre-game total / spread / moneyline)"
+  },
+  "engine/sport_atlas.py": {
+   "status": "covers",
+   "note": "trend atlas for every sport incl. basketball (NBA/WNBA/NCAA vs ESPN prices; world basketball vs SportyBet's own lines)"
   }
  },
  "basketball_gaps": [

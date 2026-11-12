@@ -1,0 +1,47 @@
+name: OLP XDV world facts
+
+# Every finished football match Flashscore lists (about 1,400 on a weekend day, 380+ competitions): the result
+# and half-time score, and for 150 matches a run the team stats by half (corners, shots, expected goals, cards)
+# and every goal's minute (engine/world_facts.py). RECORDED ONLY: nothing here picks, stakes or blocks. It is
+# the framework's own statistics store (private data repo), from which league profiles, first-half models and
+# corner tables are built and tested.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: world-facts
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the feed reader needs
+        run: pip install -q requests
+      - name: Read the world facts
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/world_facts_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "world facts $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/world_facts data/world_facts data/world_facts_detail || true

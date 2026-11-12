@@ -204,8 +204,9 @@ class Predictor:
     SHRINK = 8.0          # games of weight the league rate gets against a team's own record
     LEAGUE_PRIOR = 60.0
 
-    def __init__(self, markets: list[str]):
+    def __init__(self, markets: list[str], table: dict | None = None):
         self.markets = markets
+        self.table = table if table is not None else MARKETS     # any sport's market functions (engine/sport_atlas.py)
         self.team = defaultdict(lambda: [0, 0.0])     # (mk, team, venue, sk) -> [n, sum]
         self.league = defaultdict(lambda: [0, 0.0])   # (mk, lk, sk) -> [n, sum]
         self.glob = defaultdict(lambda: [0, 0.0])     # mk -> [n, sum]
@@ -238,7 +239,7 @@ class Predictor:
 
     def see(self, m):
         for mk in self.markets:
-            v = MARKETS[mk](m)
+            v = self.table[mk](m)
             if v is None:
                 continue
             for k in ((mk, m["hk"], "home", m["sk"]), (mk, m["ak"], "away", m["sk"])):

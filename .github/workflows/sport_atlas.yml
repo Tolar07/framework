@@ -1,0 +1,45 @@
+name: OLP XDV sport atlas
+
+# Trends and the price, every sport we have data for (engine/sport_atlas.py, backtest/sport_atlas_study.py): US sports
+# against ESPN's pre-game prices, tennis against Pinnacle's close, world basketball and football against SportyBet's own
+# price, plus each team's record against the price. RECORD ONLY. Weekly + manual.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sport-atlas
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the feed reader needs
+        run: pip install -q requests
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/sport_atlas_study.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "sport-atlas $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" backtest/SPORT_ATLAS_STUDY.md output/sport_atlas || true

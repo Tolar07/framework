@@ -1,0 +1,45 @@
+name: OLP XDV ESPN history
+
+# Every football match ESPN lists, worldwide, any competition (leagues, cups, FIFA and continental), from July 2023:
+# goal and card minutes, corners, fouls, shots (data/espn_history.py). Each run reads every date not read yet, so the
+# first run is the backfill and later runs are the last days. RECORD ONLY: feeds engine/trend_atlas.py.
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: espn-history
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the feed reader needs
+        run: pip install -q requests
+      - name: Run
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/espn_history.py --start 2023-07-01
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "espn-history $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/espn_matches || true

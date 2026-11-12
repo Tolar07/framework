@@ -1,10 +1,10 @@
-"""backtest/EVENT_MODELS_SCOPE.md (framework #560) ranks every sport the rollout covers, with scores that multiply."""
+"""docs/EVENT_MODELS_SCOPE.md (framework #560) ranks every sport the rollout covers, with scores that multiply."""
 from __future__ import annotations
 
 import re
 from pathlib import Path
 
-DOC = (Path(__file__).resolve().parent.parent / "backtest" / "EVENT_MODELS_SCOPE.md").read_text(encoding="utf-8")
+DOC = (Path(__file__).resolve().parent.parent / "docs" / "EVENT_MODELS_SCOPE.md").read_text(encoding="utf-8")
 SPORTS = ["Ice hockey", "Baseball", "American football", "Cricket", "Darts", "Snooker", "Volleyball", "Rugby",
           "Table tennis"]
 

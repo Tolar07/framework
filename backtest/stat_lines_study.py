@@ -197,7 +197,6 @@ def paper_picks(root: Path, rows: list[dict], today: str, gap: float = GAP) -> l
     """Trend picks for the games stat_lines has priced and not yet graded (data/stat_lines/pending.json).
     Teams are matched to ESPN team ids by the strict name rule (flashscore_results, unambiguous only)."""
     from data import flashscore_results as fr
-
     from engine import trend_atlas as ta
     pf = root / "data" / "stat_lines" / "pending.json"
     if not pf.exists() or not rows:

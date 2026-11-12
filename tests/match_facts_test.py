@@ -56,6 +56,7 @@ assert flat["Set 1"]["Aces"] == [{"v": 1.0}, {"v": 0.0}] and flat["Match"]["Brea
 hh = mf.parse_h2h(fx("hh_basketball.txt"))
 assert len(hh["home_last"]) == mf.LAST_N and len(hh["away_last"]) == mf.LAST_N and hh["h2h"]
 assert hh["home_last"][0]["home"] == "Adelaide" and hh["home_last"][0]["score"] == "106:78" and hh["home_last"][0]["res"] == "w"
+assert mf.parse_h2h("KA÷Overall¬~KB÷Last matches: A¬~KC÷1794033000¬KJ÷*A¬KK÷B¬KL÷3:2¬WIS÷wo¬~")["home_last"][0]["res"] == "w"
 assert all(r["home"] != "X" for k in hh for r in hh[k])                     # the venue tabs are not read
 assert mf.form_line(hh["home_last"])[:2] == "WL" and set(mf.form_line(hh["home_last"])) <= set("WLD?")
 assert hh["home_last"][0]["date"] >= hh["home_last"][1]["date"]

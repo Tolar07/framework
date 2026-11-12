@@ -168,7 +168,7 @@ def parse_h2h(text: str, last_n: int = LAST_N) -> dict:
             when = datetime.fromtimestamp(int(kv["KC"]), tz=UTC).strftime("%Y-%m-%d")
         except ValueError:
             continue
-        res = (kv.get("WIS") or "").lower()
+        res = (kv.get("WIS") or "").lower()[:1]             # "wo" / "lo" = won / lost after overtime
         out[key].append({"date": when, "comp": kv.get("KF") or kv.get("KI") or "",
                          "home": (kv.get("KJ") or "").lstrip("*"), "away": (kv.get("KK") or "").lstrip("*"),
                          "score": kv.get("KL") or "", "res": res if res in ("w", "l", "d") else None})

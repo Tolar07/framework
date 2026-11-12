@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install what the readers need
-        run: pip install -q requests
+        run: pip install -q requests numpy scipy   # numpy + scipy: the market-rates study reads the football ladder (engine/full_markets.py)
       - name: Build the lists and re-run the studies
         env:
           PYTHONIOENCODING: utf-8

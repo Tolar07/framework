@@ -24,10 +24,12 @@ from __future__ import annotations
 
 import gzip
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TENNIS_NOTE = ""          # why tennis is missing from a run, when it is (HR35: a gap is named, never silent)
 
 
 # ---------------------------------------------------------------- markets (yes = 1.0, no = 0.0, unknown = None)
@@ -145,12 +147,14 @@ def tennis_rows() -> list[dict]:
     """tennis-data.co.uk, ATP + WTA: sets won, set scores, Pinnacle close. The two players are put in name order
     (as backtest/tennis_backtest.py does), so 'home' = the first-named player; nothing about venue."""
     import re
-    import sys
     sys.path.insert(0, str(ROOT / "backtest"))
     import tennis_backtest as tb
+    global TENNIS_NOTE
     try:
         page = tb.fetch(tb.SITE + "alldata.php").decode("latin-1", "replace")
-    except Exception:  # noqa: BLE001 - tennis PENDING this run
+    except Exception as ex:  # noqa: BLE001 - tennis PENDING this run, with the reason
+        TENNIS_NOTE = f"tennis-data.co.uk not reached this run ({type(ex).__name__}: {str(ex)[:60]})"
+        print(TENNIS_NOTE, file=sys.stderr)
         return []
     out = []
     from datetime import datetime, timedelta

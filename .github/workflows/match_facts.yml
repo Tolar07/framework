@@ -1,0 +1,44 @@
+name: OLP XDV match facts
+
+# Every sport's board games except football (basketball, ice hockey, tennis and the other rollout sports):
+# Flashscore's STATS tab by period, each side's last matches and the head-to-head (engine/match_facts.py).
+# RECORDED ONLY: nothing here picks, stakes or blocks. Read by the Control Room app's match pages; every
+# finished game is archived for the models (data/match_facts/, private data repo).
+on:
+  # schedule: none - the Oracle VM clock starts this every 15 minutes (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: match-facts
+  cancel-in-progress: false
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Read the match facts
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/match_facts_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "match facts $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/match_facts data/match_facts || true

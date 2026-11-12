@@ -99,6 +99,18 @@ recoverable (no artifact); the codes are in the Architect's Telegram.
 
 **2026-11-02 — competitor app teardown + CLV consensus anchor (Architect: "what are the apps doing better ... build it ... carry on").** Reverse-engineered two rival betting apps with REA (pulled from the phone over adb; servers not probed): Odds Scanner AI (React Native, Payload CMS backend, a value-tips product) and ScoreAI (Capacitor, an AI chat over Opta data). Neither models on-device — both display server results. Lesson taken: give the CLV gate an independent second opinion. Merged to main — #252 freezes the published edge (`entry_fair_odds`/`entry_edge_pct` + decay to close), #255 adds the de-margined Betfair Exchange consensus edge on every logged pick (`entry_consensus_prob`/`entry_consensus_edge_pct`, wired into `run_daily.log_paper_legs` via `pipeline/sharp.py`), #256 prints model-edge vs consensus-edge vs decay in the Monday review. ALL SHADOW — nothing drives selection/stake/gate; promoting the consensus anchor to a selector is the Architect's call on the evidence #256 builds. Consensus covers main markets only (1X2/OU/DC), PENDING elsewhere. Committed with the pre-commit hook skipped (it sweeps the OUTER repo and dies on a corrupt untracked log object — a real fault worth fixing). **Reference:** `docs/obsidian-vault/Competitor App Teardown.md` (our analysis / information architecture; NOT their binaries or UI — IP). APKs re-pullable: `com.oddsscanner.ai` v1.0.5, `com.scoreai` v2.8.1.
 
+## 2026-11-12 — Match facts for every sport except football (Flashscore stats by period), record-only
+
+Architect: "aside football, all other sports don't show ... stats like this ... reverse engineer it in Flashscore
+... implement it in all the sports", with screenshots of Flashscore's STATS tab (basketball by quarter, ice
+hockey by period, tennis by set). `engine/match_facts.py` + `monitor/match_facts_run.py` + `match_facts.yml`
+(VM clock, every 15 min): each board game of every sport except football is paired with its Flashscore game
+(the live tracker's strict matcher) and its stats by period, each side's last matches and the head-to-head are
+saved to `output/match_facts/mf_<date>.json` (the Control Room match pages read it); every finished game with
+stats is appended once to `data/match_facts/<sport>/<month>.jsonl` for the models. First read 12 Nov: stats for
+basketball, ice hockey, tennis, baseball; Flashscore lists no stats for table tennis and has no page for most
+minor volleyball / cricket competitions (those read PENDING). Record only: no pick, stake or board reads it.
+
 ## 2026-11-11 — Match events model (cards, red card, fouls, corners, shots), record-only (#555)
 
 Architect asked for every prediction per match in the Control Room app (cards, fouls, red card, shots, players),

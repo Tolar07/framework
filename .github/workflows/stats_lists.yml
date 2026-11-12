@@ -1,0 +1,47 @@
+name: OLP XDV stats lists
+
+# The statistics lists (framework #581-#584, Architect 2026-11-12: "Stats are key"): league profiles (BTTS, goals,
+# first-half and late-goal shares), the first-half goals model (shadow, today's and tomorrow's board, graded on
+# half-time scores), the steadiest corner teams, and the four walk-forward studies that say whether any of it
+# beats the price. monitor/stats_lists_run.py. RECORD / SHADOW / PAPER ONLY: nothing here picks, stakes or blocks.
+# The lower-league value paper board itself runs inside every universe sweep (engine/lower_league_value.py).
+on:
+  # schedule: none - the Oracle VM clock starts this (matchbook-agent oracle_clock/schedule.json)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stats-lists
+  cancel-in-progress: false
+
+jobs:
+  lists:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the private data (Tolar07/framework-data)
+        uses: actions/checkout@v7
+        with:
+          repository: Tolar07/framework-data
+          ssh-key: ${{ secrets.FRAMEWORK_DATA_KEY }}
+          path: .fdata
+          fetch-depth: 1
+      - name: Lay the private data over the workspace (monitor/fdata.py)
+        env:
+          FDATA_SOURCE: ${{ vars.FDATA_SOURCE }}
+        run: python3 monitor/fdata.py pull
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install what the readers need
+        run: pip install -q requests
+      - name: Build the lists and re-run the studies
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/stats_lists_run.py
+      - name: Save to the private data (framework-data)
+        if: always()
+        run: python3 monitor/fdata.py save "stats lists $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/league_profiles output/first_half output/corners backtest/LEAGUE_PROFILE_STUDY.md backtest/FIRST_HALF_STUDY.md backtest/CORNER_CONSISTENCY_STUDY.md backtest/LOWER_LEAGUE_VALUE_STUDY.md || true

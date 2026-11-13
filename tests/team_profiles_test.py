@@ -143,4 +143,18 @@ assert not rd._shootout_under("SB:18|total=2.5|Over 2.5") and not rd._shootout_u
 assert not rd._shootout_under("SB:20|total=1.5|Under 1.5"), "team totals are not touched by order 43"
 print("order 43 shootout gate: OK")
 
+# National teams (2026-11-13): their own list, read by collect() with the clubs, never by the club-only readers
+assert not set(tp.NATIONAL_LEAGUE) & set(tp.FOTMOB_LEAGUE), "a national competition must not be a club league"
+assert not set(tp.NATIONAL_LEAGUE.values()) & set(tp.FOTMOB_LEAGUE.values())
+_seen = []
+_orig = (tp.league_teams, tp.TEAMS_DIR)
+import tempfile  # noqa: E402
+with tempfile.TemporaryDirectory() as _d:
+    tp.league_teams = lambda lid: _seen.append(lid) or []
+    tp.TEAMS_DIR = Path(_d)
+    tp.collect(pause=0)
+    tp.league_teams, tp.TEAMS_DIR = _orig
+assert set(_seen) == set(tp.FOTMOB_LEAGUE.values()) | set(tp.NATIONAL_LEAGUE.values()), "collect() reads both"
+print("national-team profiles: OK")
+
 print("ALL TEAM PROFILE TESTS PASSED")

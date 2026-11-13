@@ -26,7 +26,7 @@ match, so every run keeps a dated snapshot (data/teams/profiles_<date>.json.gz) 
 numbers can't be used to judge last week's games. A stat FotMob doesn't
 publish is absent, never 0 (HR35).
 
-    python data/team_profiles.py                 # every covered competition
+    python data/team_profiles.py                 # every covered competition + the national-team ones
     python data/team_profiles.py "Premier League" "Championship"
 """
 from __future__ import annotations
@@ -59,6 +59,18 @@ FOTMOB_LEAGUE = {
     "Swiss Super League": 69, "Danish Superliga": 46, "Ekstraklasa": 196, "Eliteserien": 59,
     "Allsvenskan": 67, "HNL": 252, "Champions League": 42, "Europa League": 73,
     "Conference League": 10216,
+}
+
+# National teams (Architect 2026-11-13: "What is the issue with the FotMob profile? ... build it"): a Nations
+# League or qualifier game read PENDING on the match page because no national team had a profile. FotMob ids
+# checked against FotMob's own names on 2026-11-13. Kept apart from FOTMOB_LEAGUE, so the club-only readers
+# (data/transfers.py, data/match_study.py) never see them; collect() reads both. A national team's season
+# numbers are its own competition's (FotMob's primaryLeagueId is that competition), so its style is set
+# against the other teams of the same competition.
+NATIONAL_LEAGUE = {
+    "UEFA Nations League A": 9806, "UEFA Nations League B": 9807, "UEFA Nations League C": 9808,
+    "UEFA Nations League D": 9809, "CONCACAF Nations League": 9821,
+    "Africa Cup of Nations Qualification": 10608, "Asian Cup": 290,
 }
 
 # Continental competitions: a team's stats are its domestic league's, so its
@@ -238,8 +250,9 @@ def collect(leagues: list[str] | None = None, pause: float = 0.35) -> dict:
     write data/teams/latest.json.gz plus a dated snapshot."""
     now = datetime.now(UTC)
     out: dict = {"fetched_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "source": "fotmob.com", "leagues": {}}
-    for league in leagues or list(FOTMOB_LEAGUE):
-        lid = FOTMOB_LEAGUE[league]
+    every = {**FOTMOB_LEAGUE, **NATIONAL_LEAGUE}
+    for league in leagues or list(every):
+        lid = every[league]
         try:
             teams = league_teams(lid)
         except Exception as e:  # noqa: BLE001 — one league failing never stops the rest

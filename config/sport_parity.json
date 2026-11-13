@@ -938,6 +938,14 @@
    "status": "n/a",
    "note": "Snooker exact frame score, total frames and frame handicap from the board Elo win chance, record-only shadow (#590); centuries PENDING (no break record); basketball has no frame ladder (quarter-share twin is engine/nfl_events.py)"
   },
+  "data/volleyball_sets.py": {
+   "status": "n/a",
+   "note": "ESPN NCAA women's volleyball points by set (record only, #591); basketball twin is data/nfl_quarters.py-style period scores in engine/basketball_events.py"
+  },
+  "engine/volleyball_events.py": {
+   "status": "n/a",
+   "note": "Volleyball set totals, set handicap and total points from the board Elo win chance (set-momentum ladder), record-only shadow (#591); basketball twin for points by period is engine/nfl_events.py / engine/basketball_events.py"
+  },
   "engine/cricket_events.py": {
    "status": "n/a",
    "note": "Cricket first-innings total, over-block runs and wickets, record-only shadow (#589); cricket has no basketball twin (innings, not quarters); the quarter-share idea twin is engine/nfl_events.py"

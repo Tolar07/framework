@@ -231,6 +231,8 @@ jobs:
           fi
           # the NBA studies: every SportyBet market against the results, and the ladder spreads
           python backtest/nba_market_study.py || true
+          # #569: secondary-market value by family at 1.60-2.60 (record only)
+          python backtest/nba_secondary_value.py || true
           # refit the model / SportyBet blend per market group (used only where it beats the model on
           # the later games; memory/nba_blend.json, read by engine/nba_value.py on the next run)
           python backtest/nba_blend_study.py > /dev/null || true

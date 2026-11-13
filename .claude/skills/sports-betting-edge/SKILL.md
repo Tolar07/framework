@@ -194,3 +194,17 @@ an IRLS clip at exp(6) silently broke the passes fit (counts ~400); always clip 
 Treat the list as candidates until more matches are paired; promotion is the Architect's gate.
 YouTube check on 2026-11-13: two searches (corners / cards / game-state models) returned only picks-of-the-day channels
 and no method video; nothing learned from video this run.
+
+## Player props: bet the median, not the mean (video, #569)
+Source: https://www.youtube.com/watch?v=oD4_mcRuHe4 (Unabated, "Profitable Prop Betting in 3 Easy Steps"; transcript
+read, frames not inspected - a talking-head video, so treat as untrusted and uncorroborated). Ideas:
+- @ 01:08-01:46: top-down (sharp line as source of truth) works for sides/totals because sharp books move those
+  lines; props have thin liquidity, so use trustworthy projections as the source of truth instead.
+- @ 04:08-05:49: a projection is a MEAN; a book's line is a MEDIAN. For right-skewed counts (rebounds, threes,
+  strikeouts) the mean sits above the median, so betting overs off a mean projection is on the wrong side of the
+  probability. Simulate the full distribution and compare the chance of over/under the line.
+- @ 07:36-07:47: big prop edges deserve suspicion; quarter-Kelly at most.
+Shadow use: when #558 lands, price player lines from a count distribution (Poisson / negative binomial) not a
+mean-vs-line comparison, and report in backtest/NBA_SECONDARY_VALUE.md (engine/nba_value is sharp-line based and
+does not price player props yet).
+

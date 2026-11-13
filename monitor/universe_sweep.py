@@ -141,6 +141,13 @@ def sweep(now: datetime) -> str:
         notes.append(list_picks.attach_universe(pending, graded, now))
     except Exception as e:  # noqa: BLE001 - never stops the archive
         notes.append(f"list test skipped ({str(e)[:60]})")
+    try:
+        # THE ANALYST (Architect 2026-11-13): list picks the framework's model agrees with are booked for the
+        # SportyBet bot at NGN 500; the rest graded on paper (engine/analyst.py). Undo: ANALYST_AGREE=0
+        from engine import analyst
+        notes.append(analyst.attach(now))
+    except Exception as e:  # noqa: BLE001 - never stops the archive
+        notes.append(f"analyst skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
@@ -158,6 +165,7 @@ def persist(now: datetime) -> str:
                      "data/africa_paper", "output/africa_paper",        # the Africa paper board (private repo only)
                      "data/lower_league_value", "output/lower_league_value",  # lower-league paper board (#584)
                      "data/list_picks", "output/list_picks",            # the live list test, full-time markets
+                     "data/analyst", "output/analyst", "memory/analyst_lessons.json",  # the analyst (2026-11-13)
                      "output/decisions", "memory/decisions.jsonl"],      # the decision layer (order 51)
                     f"universe {now:%Y-%m-%d %H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)

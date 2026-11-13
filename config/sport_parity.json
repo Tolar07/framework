@@ -1083,6 +1083,11 @@
    "status": "covers",
    "note": "the live list test (paper): one pick from each statistics list at SportyBet's price; the basketball lists are tested on the main total of the same sweep"
   },
+  "engine/analyst.py": {
+   "status": "todo",
+   "note": "the analyst: list picks the framework's football model agrees with are staked NGN 500 on SportyBet; basketball list picks (us_totals, wb_totals) are graded but read NO VIEW until the basketball board's total chance is joined in",
+   "priority": 2
+  },
   "monitor/edge_candidates.py": {
    "status": "shared",
    "note": "bridge from every sport's trend studies (football, basketball and the rest) to the experiment engine"

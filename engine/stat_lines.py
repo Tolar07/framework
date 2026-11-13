@@ -32,6 +32,8 @@ import time
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+from engine import sb_markets
+
 ROOT = Path(__file__).resolve().parents[1]
 DIR = ROOT / "data" / "stat_lines"
 MARKETS = {"68": "first_half", "166": "corners", "139": "bookings"}
@@ -207,6 +209,11 @@ def run(now: datetime | None = None, root: Path = ROOT, get=None, fetch_detail=N
     folder.mkdir(parents=True, exist_ok=True)
     pf = folder / "pending.json"
     pending = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else {}
+    # framework#567: the market catalogue and the model-vs-price value watch (engine/sb_markets.py), record only
+    wf, cf = folder / "wide_pending.json", folder / "market_catalogue.json"
+    wide = json.loads(wf.read_text(encoding="utf-8")) if wf.exists() else {}
+    cat = json.loads(cf.read_text(encoding="utf-8")) if cf.exists() else {}
+    games = sb_markets.load_games(root, now.strftime("%Y-%m-%d")) +         sb_markets.load_games(root, (now + timedelta(days=1)).strftime("%Y-%m-%d"))
     soon = []
     for page in range(1, 60):  # the feed is ordered by competition, not time: read it all
         try:
@@ -236,6 +243,16 @@ def run(now: datetime | None = None, root: Path = ROOT, get=None, fetch_detail=N
         ev.setdefault("homeTeamName", e.get("homeTeamName"))
         ev.setdefault("awayTeamName", e.get("awayTeamName"))
         lines = lines_of(ev)
+        try:
+            sb_markets.catalogue_update(cat, ev)
+            sb_markets.observe(wide, ev, now.strftime("%Y-%m-%dT%H:%MZ"), games)
+            if ev.get("eventId") in wide:
+                wide[ev["eventId"]].setdefault("ko", datetime.fromtimestamp(
+                    ev["estimateStartTime"] / 1000, tz=UTC).strftime("%Y-%m-%dT%H:%MZ"))
+                wide[ev["eventId"]].setdefault("home", ev.get("homeTeamName"))
+                wide[ev["eventId"]].setdefault("away", ev.get("awayTeamName"))
+        except Exception as exc:  # noqa: BLE001 - the watch never stops the recorder
+            print(f"sb_markets watch skipped ({type(exc).__name__}: {str(exc)[:80]})")
         looked += 1
         new += update(pending, ev, lines, now)
     done, gave_up = grade(pending, root, now, fetch_detail)
@@ -245,6 +262,9 @@ def run(now: datetime | None = None, root: Path = ROOT, get=None, fetch_detail=N
         with (gdir / f"{r['ko'][:7]}.jsonl").open("a", encoding="utf-8") as f:
             f.write(json.dumps(r, ensure_ascii=False, separators=(",", ":")) + "\n")
     pf.write_text(json.dumps(pending, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    sb_markets.settle_wide(wide, root, now, gdir / "wide", fetch_detail)
+    wf.write_text(json.dumps(wide, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    cf.write_text(json.dumps(cat, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
     return (f"stat lines: {len(soon)} games start within {int(WINDOW.total_seconds() // 3600)} h, {looked} pages read "
             f"({new} new); graded {len(done) - gave_up}, gave up {gave_up}, {len(pending)} waiting")
 

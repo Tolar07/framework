@@ -892,6 +892,11 @@
    "status": "covers",
    "note": "world basketball / NCAA live tracker (twin of nba_live.py)"
   },
+  "engine/sb_markets.py": {
+   "status": "todo",
+   "note": "SportyBet stat-market catalogue + model-vs-price value watch for football cards/corners/shots (#567); basketball twin = nba_markets.py player props vs engine/nba_projection.py (#558)",
+   "priority": 2
+  },
   "engine/event_model.py": {
    "status": "todo",
    "note": "football match events (cards, red card, fouls, corners, shots, SOT), record-only (#555); basketball twin = player and game events from engine/nba_projection.py (#558)",

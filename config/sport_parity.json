@@ -1102,6 +1102,10 @@
    "basketball": "backtest/wb_market_study.py",
    "note": "shadow board: the live bars on every ESPN-priced NCAA market, on paper in the study (#394)"
   },
+  "backtest/nba_secondary_value.py": {
+   "status": "n/a",
+   "note": "basketball is the source: NBA secondary-market value by family at 1.60-2.60 with CLV (#569, record only); football twin is engine/sb_markets.py (#567)"
+  },
   "backtest/nba_market_study.py": {
    "status": "twin",
    "basketball": "backtest/wb_market_study.py",

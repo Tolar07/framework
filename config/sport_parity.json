@@ -942,6 +942,14 @@
    "status": "n/a",
    "note": "ESPN NCAA women's volleyball points by set (record only, #591); basketball twin is data/nfl_quarters.py-style period scores in engine/basketball_events.py"
   },
+  "data/table_tennis_games.py": {
+   "status": "n/a",
+   "note": "Setka Cup table tennis points by game (record only, #594); basketball twin is period scores in engine/basketball_events.py"
+  },
+  "engine/table_tennis_events.py": {
+   "status": "n/a",
+   "note": "Table tennis game score, game totals and total points from the board Elo win chance (best-of-5 ladder reused from engine/volleyball_events.py), record-only shadow (#594); basketball has no game ladder"
+  },
   "engine/volleyball_events.py": {
    "status": "n/a",
    "note": "Volleyball set totals, set handicap and total points from the board Elo win chance (set-momentum ladder), record-only shadow (#591); basketball twin for points by period is engine/nfl_events.py / engine/basketball_events.py"

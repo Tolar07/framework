@@ -9,8 +9,8 @@ have the power to veto it and change it, but make some money decisions and show 
 not. ... Then everything should be updated on the app too, so I can see it on the app."
 
 LANES (paper records the framework already keeps, with a SportyBet event id and a market the desk can book):
-  list:<list>                 each list of the live list test (engine/list_picks.py). For the full-time lists the
-                              analyst also reads, the lane is the list's picks the framework did NOT agree with.
+  list:<list>                 each list of the live list test (engine/list_picks.py): the list's picks the
+                              framework did NOT agree with.
   analyst:disagree:<list>     the analyst's DISAGREE and NO VIEW picks of a list (engine/analyst.py). AGREE picks
   analyst:no_view:<list>      are already on money at NGN 500 by the Architect's own rule: never a desk lane, never
                               booked here.
@@ -141,7 +141,9 @@ def gather(root: Path = ROOT) -> tuple[dict, dict]:
     specific first), agree (the analyst agreed: never a desk pick)."""
     lanes: dict = {}
     picks: dict = {}
-    verdicts = _read(root / "data" / "analyst" / "state.json", {})
+    # the analyst's verdicts: the full-time book's and (since the analyst also reads the lines book) the lines book's
+    verdicts = {**_read(root / "data" / "analyst" / "state.json", {}),
+                **_read(root / "data" / "analyst" / "state_lines.json", {})}
     for source in ("universe", "lines"):
         book = lp.load_book(source, root / "data" / "list_picks")
         for lid, (title, src, market) in lp.LISTS.items():
@@ -150,17 +152,18 @@ def gather(root: Path = ROOT) -> tuple[dict, dict]:
             ok = market != "bb_over"
             lanes[f"list:{lid}"] = {"title": title, "bookable": ok,
                                     "why": None if ok else "no bookable basketball total market yet"}
-            if ok and source == "universe":
-                lanes[f"analyst:disagree:{lid}"] = {"title": f"{title} - framework disagrees", "bookable": True, "why": None}
-                lanes[f"analyst:no_view:{lid}"] = {"title": f"{title} - framework has no view", "bookable": True, "why": None}
         for pid, p in (book.get("picks") or {}).items():
             lid = p.get("list")
             if f"list:{lid}" not in lanes or not p.get("price"):
                 continue
-            verdict = (verdicts.get(pid) or {}).get("verdict") if source == "universe" else None
+            verdict = (verdicts.get(pid) or {}).get("verdict") if isinstance(verdicts.get(pid), dict) else None
             mine = [f"list:{lid}"]
-            if source == "universe" and lanes[f"list:{lid}"]["bookable"]:
-                mine.insert(0, f"analyst:{'disagree' if verdict == 'disagree' else 'no_view'}:{lid}")
+            if pid in verdicts and lanes[f"list:{lid}"]["bookable"]:      # a pick the analyst has looked at
+                kind = "disagree" if verdict == "disagree" else "no_view"
+                lanes.setdefault(f"analyst:{kind}:{lid}", {
+                    "title": f"{title} - framework {'disagrees' if kind == 'disagree' else 'has no view'}",
+                    "bookable": True, "why": None})
+                mine.insert(0, f"analyst:{kind}:{lid}")
             picks[pid] = {"pid": pid, "event": p.get("event"), "ko": p.get("ko"), "home": p.get("home"),
                           "away": p.get("away"), "pick": p.get("pick"), "price": p["price"],
                           "result": p["result"] if p.get("result") in (0, 1) else None, "sel": _list_sel(p.get("key")),

@@ -1008,6 +1008,14 @@
    "status": "covers",
    "note": "trend atlas for every sport incl. basketball (NBA/WNBA/NCAA vs ESPN prices; world basketball vs SportyBet's own lines)"
   },
+  "engine/stat_lists.py": {
+   "status": "covers",
+   "note": "statistics lists 7-21: football lists plus the basketball ones (US teams against the posted total, world basketball leagues against SportyBet's total)"
+  },
+  "engine/list_picks.py": {
+   "status": "covers",
+   "note": "the live list test (paper): one pick from each statistics list at SportyBet's price; the basketball lists are tested on the main total of the same sweep"
+  },
   "monitor/edge_candidates.py": {
    "status": "shared",
    "note": "bridge from every sport's trend studies (football, basketball and the rest) to the experiment engine"

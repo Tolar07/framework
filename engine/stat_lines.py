@@ -265,8 +265,14 @@ def run(now: datetime | None = None, root: Path = ROOT, get=None, fetch_detail=N
     sb_markets.settle_wide(wide, root, now, gdir / "wide", fetch_detail)
     wf.write_text(json.dumps(wide, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     cf.write_text(json.dumps(cat, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
+    try:
+        # PAPER ONLY (Architect 2026-11-12): the statistics lists tested on these lines (engine/list_picks.py)
+        from engine import list_picks
+        tail = " · " + list_picks.attach_lines(pending, done, now, root)
+    except Exception as e:  # noqa: BLE001 - never stops the recorder
+        tail = f" · list test skipped ({type(e).__name__}: {str(e)[:60]})"
     return (f"stat lines: {len(soon)} games start within {int(WINDOW.total_seconds() // 3600)} h, {looked} pages read "
-            f"({new} new); graded {len(done) - gave_up}, gave up {gave_up}, {len(pending)} waiting")
+            f"({new} new); graded {len(done) - gave_up}, gave up {gave_up}, {len(pending)} waiting" + tail)
 
 
 def flashscore_detail(match: dict) -> dict | None:

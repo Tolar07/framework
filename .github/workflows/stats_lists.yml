@@ -44,4 +44,4 @@ jobs:
         run: python monitor/stats_lists_run.py
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "stats lists $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/league_profiles output/first_half output/corners backtest/LEAGUE_PROFILE_STUDY.md backtest/FIRST_HALF_STUDY.md backtest/CORNER_CONSISTENCY_STUDY.md backtest/LOWER_LEAGUE_VALUE_STUDY.md backtest/MARKET_RATES_STUDY.md || true
+        run: python3 monitor/fdata.py save "stats lists $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/league_profiles output/first_half output/corners output/stat_lists backtest/LEAGUE_PROFILE_STUDY.md backtest/FIRST_HALF_STUDY.md backtest/CORNER_CONSISTENCY_STUDY.md backtest/LOWER_LEAGUE_VALUE_STUDY.md backtest/MARKET_RATES_STUDY.md || true

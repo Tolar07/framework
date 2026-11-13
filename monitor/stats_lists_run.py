@@ -116,6 +116,9 @@ def main(argv: list[str] | None = None) -> int:
     step("league profiles", lambda: lp.run(now, fetch=fetch))
     step("first half", lambda: first_half(now, fetch))
     step("corners", lambda: cc.run(now, fetch=fetch))
+    # lists 7-21 and the index the live list test picks from (engine/stat_lists.py, engine/list_picks.py)
+    from engine import stat_lists as sl
+    step("stat lists 7-21", lambda: sl.write(sl.build(now=now, tennis=fetch)))
     if "--no-studies" not in argv:
         sys.path.insert(0, str(ROOT / "backtest"))
         import corner_consistency_study

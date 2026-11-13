@@ -81,15 +81,20 @@ def test_promote_needs_30_graded_a_profit_and_a_win_rate_above_the_price():
     assert len(_dec(root)) == 1
 
 
-def test_no_decision_before_the_decide_hour_and_basketball_totals_never_promoted():
-    uni = {f"us_totals|{i}": _lp("us_totals", i, "bb_over", 2.0, 1) for i in range(40)}
-    root = _root(universe=uni, lines=_winners("team_corners"))
-    md.attach(NOW.replace(hour=3), root, CORNERS, CODE, votes_text="")
+def test_no_decision_before_the_decide_hour_and_basketball_totals_are_a_lane_too():
+    ko = _iso(NOW + timedelta(hours=2))
+    uni = {f"us_totals|{i}": {**_lp("us_totals", i, "bb_over", 2.0, 1 if i < 24 else 0), "line": 221.5,
+                              "sport": "basketball"} for i in range(40)}
+    uni["us_totals|new"] = {**_lp("us_totals", "new", "bb_over", 1.9, None, ko), "line": 218.5, "sport": "basketball"}
+    root = _root(universe=uni)
+    get = lambda u: _event("225", "total=218.5", "Over 218.5")  # noqa: E731
+    md.attach(NOW.replace(hour=3), root, get, CODE, votes_text="")
     assert _dec(root) == []
-    md.attach(NOW, root, CORNERS, CODE, votes_text="")
-    lanes = _state(root)["lanes"]
-    assert lanes["list:us_totals"]["stake"] == 0 and lanes["list:us_totals"]["bookable"] is False
-    assert "analyst:disagree:us_totals" not in lanes and lanes["list:team_corners"]["stake"] == 200
+    md.attach(NOW, root, get, CODE, votes_text="")
+    assert _state(root)["lanes"]["list:us_totals"]["stake"] == 200           # basketball inherits football
+    doc = json.loads((root / "output" / "money_desk" / f"stake_{ko[:10]}.json").read_text())
+    assert [(p["id"], p["market_id"], p["specifier"], p["sport"]) for p in doc["picks"]] == [
+        ("us_totals|new", "225", "total=218.5", "basketball")]
 
 
 def test_agree_picks_are_never_a_desk_lane_and_never_booked():

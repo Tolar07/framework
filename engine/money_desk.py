@@ -16,7 +16,7 @@ LANES (paper records the framework already keeps, with a SportyBet event id and 
                               booked here.
   lower:<gap band>            the lower-league value paper board (engine/lower_league_value.py), by gap band.
   africa:value                the Africa paper board's value picks (engine/africa_paper.py, national-team model).
-A lane whose market the desk cannot book (the basketball totals lists) is listed and never promoted.
+Basketball is inside: the two basketball totals lists are lanes like the football ones (SportyBet's basketball total).
 
 RULES (config/money_desk.json - the Architect's to change; no model is asked, it is arithmetic on the records):
   PROMOTE     paper -> NGN 200 a pick: 30+ graded paper picks, paper return above zero, and a win rate above the
@@ -77,7 +77,6 @@ DEFAULTS = {
     "book_window_h": 4,
     "decide_hour_utc": 6,
 }
-LINE_MARKET = {"first_half": "68", "corners": "166", "bookings": "139"}
 LOWER_SEL = {"BTTS Yes": ("29", "", "Yes"), "BTTS No": ("29", "", "No"),
              **{f"{s} {ln}": ("18", f"total={ln}", f"{s} {ln}") for s in ("Over", "Under") for ln in ("1.5", "2.5", "3.5")}}
 AFRICA_SEL = {"1": ("1", "", "Home"), "X": ("1", "", "Draw"), "2": ("1", "", "Away"),
@@ -122,13 +121,10 @@ def rules(root: Path = ROOT) -> dict:
 
 
 # ---------------------------------------------------------------- the lanes and their picks
-def _list_sel(key: str):
-    if key in an.VIEW:
-        return an.VIEW[key][3:6]
-    part = (key or "").split("|")
-    if len(part) == 3 and part[0] in LINE_MARKET:
-        return LINE_MARKET[part[0]], f"total={part[1]}", f"{part[2].title()} {part[1]}"
-    return None
+def _list_sel(key: str, line=None):
+    """A list pick's SportyBet market, specifier and outcome: the analyst's own table (full-time markets, 1st-half
+    goals, corners, bookings, the basketball total), so the desk and the analyst can never book a pick differently."""
+    return an._target(key or "", line)
 
 
 def _slug(text: str) -> str:
@@ -146,12 +142,10 @@ def gather(root: Path = ROOT) -> tuple[dict, dict]:
                 **_read(root / "data" / "analyst" / "state_lines.json", {})}
     for source in ("universe", "lines"):
         book = lp.load_book(source, root / "data" / "list_picks")
-        for lid, (title, src, market) in lp.LISTS.items():
+        for lid, (title, src, _market) in lp.LISTS.items():
             if src != source:
                 continue
-            ok = market != "bb_over"
-            lanes[f"list:{lid}"] = {"title": title, "bookable": ok,
-                                    "why": None if ok else "no bookable basketball total market yet"}
+            lanes[f"list:{lid}"] = {"title": title, "bookable": True, "why": None}
         for pid, p in (book.get("picks") or {}).items():
             lid = p.get("list")
             if f"list:{lid}" not in lanes or not p.get("price"):
@@ -166,7 +160,7 @@ def gather(root: Path = ROOT) -> tuple[dict, dict]:
                 mine.insert(0, f"analyst:{kind}:{lid}")
             picks[pid] = {"pid": pid, "event": p.get("event"), "ko": p.get("ko"), "home": p.get("home"),
                           "away": p.get("away"), "pick": p.get("pick"), "price": p["price"],
-                          "result": p["result"] if p.get("result") in (0, 1) else None, "sel": _list_sel(p.get("key")),
+                          "result": p["result"] if p.get("result") in (0, 1) else None, "sel": _list_sel(p.get("key"), p.get("line")),
                           "sport": p.get("sport", "football"), "list": lid, "title": title,
                           "agree": verdict == "agree", "lanes": [] if verdict == "agree" else mine}
     low = _read(root / "data" / "lower_league_value" / "book.json", {}).get("picks") or {}

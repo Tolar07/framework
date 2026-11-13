@@ -1084,9 +1084,8 @@
    "note": "the live list test (paper): one pick from each statistics list at SportyBet's price; the basketball lists are tested on the main total of the same sweep"
   },
   "engine/money_desk.py": {
-   "status": "todo",
-   "note": "the money desk: paper lanes (list test, analyst DISAGREE / NO VIEW, lower-league value, Africa value) go on small real SportyBet stakes by rule; the basketball totals lists (us_totals, wb_totals) are listed as lanes but never promoted until the desk can book SportyBet's basketball total market",
-   "priority": 2
+   "status": "covers",
+   "note": "the money desk: paper lanes go on small real SportyBet stakes by rule; the basketball totals lists (us_totals, wb_totals) and their analyst DISAGREE / NO VIEW picks are lanes like the football lists, booked on SportyBet's basketball total"
   },
   "engine/analyst.py": {
    "status": "covers",

@@ -170,6 +170,9 @@ def main(argv=None):
                "ice hockey (NHL)": "hockey", "baseball (MLB)": "baseball", "American football (NFL, college)": "american football",
                "tennis (ATP, WTA)": "tennis", "football": "sportybet football"}.get(sport)
         n = counts.get(key, 0) if key else "PENDING"
+        if key == "tennis" and not n:
+            n = "PENDING"
+            prices = f"{prices} - PENDING: {sa.TENNIS_NOTE or 'tennis not loaded this run'}"
         w(f"| {sport} | {n:,} | {hist} | {prices} | {where} |" if isinstance(n, int) else f"| {sport} | PENDING | {hist} | {prices} | {where} |")
     all_facts, cands, js = [], [], {"sports": {}}
     for sport, rs in sorted(by_sport.items()):

@@ -93,6 +93,10 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python backtest/volleyball_events_study.py || true
+      - name: Rugby events study (framework #593, shadow; first-half total points, tries, penalty goals)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/rugby_events_study.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/HOCKEY_EVENTS_STUDY.md backtest/BASEBALL_EVENTS_STUDY.md backtest/NFL_EVENTS_STUDY.md backtest/CRICKET_EVENTS_STUDY.md backtest/SNOOKER_EVENTS_STUDY.md backtest/DARTS_EVENTS_STUDY.md backtest/VOLLEYBALL_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/EVENT_XG_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/HOCKEY_EVENTS_STUDY.md backtest/BASEBALL_EVENTS_STUDY.md backtest/NFL_EVENTS_STUDY.md backtest/CRICKET_EVENTS_STUDY.md backtest/SNOOKER_EVENTS_STUDY.md backtest/DARTS_EVENTS_STUDY.md backtest/RUGBY_EVENTS_STUDY.md backtest/VOLLEYBALL_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/EVENT_XG_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true

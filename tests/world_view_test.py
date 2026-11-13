@@ -140,6 +140,33 @@ def test_each_job_keeps_its_own_files():
     assert rec["by_verdict"]["no_view"]["picks"] == 1                       # the lines pick is in the shared record
 
 
+def test_agreed_picks_also_go_on_as_one_acca():
+    """Architect 2026-11-13: "book it as single, book it as acca". One leg per game, frozen, never reused."""
+    from datetime import timedelta
+    book = {"picks": {}}
+    state: dict = {}
+    for i, (ev, ch, mins) in enumerate((("e1", 0.62, 60), ("e1", 0.70, 60), ("e2", 0.58, 80), ("e3", 0.66, 300))):
+        pid = f"l{i}|{ev}"
+        ko = (NOW + timedelta(minutes=mins)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        book["picks"][pid] = {"list": f"l{i}", "event": ev, "ko": ko, "home": f"H{ev}", "away": f"A{ev}",
+                              "pick": "Over 2.5", "price": 1.5, "result": None}
+        state[pid] = {"verdict": "agree", "chance": ch, "code": f"C{i}", "market_id": "18", "specifier": "total=2.5",
+                      "outcome_id": "12", "booked_price": 1.5}
+    state["l9|e4"] = {"verdict": "disagree", "chance": 0.4}
+    book["picks"]["l9|e4"] = {"list": "l9", "event": "e4", "ko": book["picks"]["l0|e1"]["ko"], "price": 2.0}
+    sent: list = []
+    accas: dict = {"accas": []}
+    assert an.build_accas(book, state, accas, NOW - timedelta(hours=3), lambda s: sent.append(s) or "AC1") == 0
+    assert an.build_accas(book, state, accas, NOW, lambda s: sent.append(s) or "AC1") == 1
+    [a] = accas["accas"]
+    assert a["code"] == "AC1" and sorted(a["legs"]) == ["l1|e1", "l2|e2", "l3|e3"]   # e1 once (the likelier leg)
+    assert len(sent[0]) == 3 and a["odds"] == round(1.5 ** 3, 2)
+    assert an.build_accas(book, state, accas, NOW, lambda s: "AC2") == 0             # nothing left: no second slip
+    files = an.acca_files(book, state, accas)
+    [doc] = files.values()
+    assert doc["stake_ngn"] == 500 and doc["accas"][0]["code"] == "AC1" and len(doc["accas"][0]["legs"]) == 3
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

@@ -46,7 +46,7 @@ jobs:
       # outage on the profiles must not cost the league ratings, and a stale
       # file is better than no file (the board degrades to "no profile read",
       # which order 43 already handles — it leaves the Under as it was).
-      - name: Rebuild every team's profile (29 competitions, FotMob)
+      - name: Rebuild every team's profile (29 club competitions + 7 national-team ones, FotMob)
         continue-on-error: true
         env:
           PYTHONIOENCODING: utf-8

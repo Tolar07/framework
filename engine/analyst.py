@@ -15,9 +15,10 @@ ranked trends of engine/stat_lists.py, at SportyBet's real price). For each one 
              code and written to output/analyst/agree_<kick-off date>.json; the SportyBet bot places it at NGN 500
              (sportybet-agent place.py ANALYST_STAKE). Frozen once decided: a later model run never takes it back.
   DISAGREE   the framework rates the game and gives that outcome under 50%. Kept on paper and graded.
-  NO VIEW    the framework does not rate the game (a league it does not model, or a market it has no number for:
-             1st-half goals, corners, bookings, basketball totals). Kept on paper and graded; looked at again on
-             every run until kick-off, in case a later board run rates the game.
+  NO VIEW    neither the board nor the framework's worldwide view (engine/world_view.py, 2026-11-13: goals and
+             1st-half goals in every SportyBet league, corners and bookings in every ESPN league, basketball totals)
+             has a number for the game (a team with too few games). Kept on paper and graded; looked at again on
+             every run until kick-off. Each verdict records its source ("board" first, then "world ...").
 
 Every pick is graded from the list test's own result (the same sweep grades it). The record is kept by verdict and
 by list in output/analyst/record.json - the trends database: each trend, how it did when the framework agreed and
@@ -64,6 +65,12 @@ VIEW = {
 }
 
 
+# WORLD VIEW (Architect 2026-11-13: "fix everything ... worldwide coverage"): when the board does not rate the game,
+# the framework's worldwide view gives the number (engine/world_view.py). ANALYST_WORLD=0 = board games only.
+WORLD_VIEW = (os.environ.get("ANALYST_WORLD") or "1").strip() != "0"
+WORLD_WITHIN = timedelta(hours=24)    # earlier, the board for that day may not be built yet: wait for it, not decide
+
+
 def enabled(env=os.environ) -> bool:
     return (env.get("ANALYST_AGREE") or "1").strip() != "0"
 
@@ -104,15 +111,48 @@ def framework_chance(key: str, row: dict | None) -> float | None:
     return None if p is None else round(p, 4)
 
 
-def selection(event: dict, key: str) -> dict | None:
+LINE_MARKETS = {"first_half": "68", "corners": "166", "bookings": "139"}   # engine/stat_lines.py MARKETS
+BB_TOTAL = "225"                                                           # engine/universe.py: basketball total
+
+
+def _line_str(x) -> str:
+    v = float(x)
+    return str(int(v)) if v == int(v) else str(v)
+
+
+def _target(key: str, line=None) -> tuple[str, str, str] | None:
+    """(SportyBet market id, specifier, outcome desc in lower case) for a pick key, or None."""
+    if key in VIEW:
+        return VIEW[key][3], VIEW[key][4], VIEW[key][5].lower()
+    try:
+        if key == "bb_over" and line is not None:
+            return BB_TOTAL, f"total={_line_str(line)}", f"over {_line_str(line)}"
+        mkt, ln, side = key.split("|")
+        return LINE_MARKETS[mkt], f"total={_line_str(ln)}", f"{side} {_line_str(ln)}"
+    except (KeyError, ValueError, TypeError):
+        return None
+
+
+def _desc_ok(desc: str, want: str) -> bool:
+    """SportyBet's outcome text against the wanted one: exact, or a total line with words around it."""
+    if desc == want:
+        return True
+    side, _sp, ln = want.partition(" ")
+    return bool(ln) and desc.startswith(side) and desc.split()[-1].replace(",", ".") == ln
+
+
+def selection(event: dict, key: str, line=None) -> dict | None:
     """The SportyBet selection for the pick on the match page, from SportyBet's own ids (never assumed), open
     markets only. None when the market or outcome is not there (the pick stays unbooked, HR35)."""
-    _f, _c, _x, mid, spec, out = VIEW[key]
+    target = _target(key, line)
+    if target is None:
+        return None
+    mid, spec, out = target
     for m in event.get("markets") or []:
         if str(m.get("id")) != mid or (m.get("specifier") or "") != spec or m.get("status") not in (None, 0, "0"):
             continue
         for o in m.get("outcomes") or []:
-            if (o.get("desc") or "").strip().lower() == out.lower() and o.get("id") is not None \
+            if _desc_ok((o.get("desc") or "").strip().lower(), out) and o.get("id") is not None \
                     and o.get("isActive", 1) in (1, "1", True, None):
                 try:
                     odds = float(o.get("odds"))
@@ -150,6 +190,7 @@ def review(book: dict, state: dict, now: datetime, root: Path = ROOT, get=None, 
     get, book_code = get or _sb_get, book_code or _book
     n = {"agree": 0, "disagree": 0, "booked": 0}
     rows_by_day: dict = {}
+    world = None
     for pid, p in (book.get("picks") or {}).items():
         s = state.setdefault(pid, {"verdict": None})
         ko = _ko(p)
@@ -161,18 +202,28 @@ def review(book: dict, state: dict, now: datetime, root: Path = ROOT, get=None, 
             day = p.get("date") or ko.strftime("%Y-%m-%d")
             if day not in rows_by_day:
                 rows_by_day[day] = rated_rows(day, root)
-            chance = framework_chance(p.get("key"), find_rated(p, rows_by_day[day]))
+            chance, source = framework_chance(p.get("key"), find_rated(p, rows_by_day[day])), "board"
+            if chance is None and WORLD_VIEW and ko - now <= WORLD_WITHIN:   # the day's board is built by then
+                if world is None:
+                    from engine.world_view import World
+                    world = World(root, now)
+                try:
+                    got = world.chance(p)
+                except Exception:  # noqa: BLE001 - an archive that cannot be read gives no view, never a guess
+                    got = None
+                if got is not None:
+                    chance, source = round(got[0], 4), got[1]
             if chance is None:
                 s["verdict"] = "no_view"
             else:
                 s.update({"verdict": "agree" if chance >= AGREE_BAR else "disagree", "chance": chance,
-                          "decided": now.strftime("%Y-%m-%dT%H:%MZ")})
+                          "source": source, "decided": now.strftime("%Y-%m-%dT%H:%MZ")})
                 n[s["verdict"]] += 1
         if (s.get("verdict") == "agree" and not s.get("code") and enabled() and ko is not None
                 and ko - BOOK_LEAD > now and s.get("tries", 0) < 6):
             s["tries"] = s.get("tries", 0) + 1
             try:
-                sel = selection((get(_EVENT.format(eid=p["event"])) or {}).get("data") or {}, p["key"])
+                sel = selection((get(_EVENT.format(eid=p["event"])) or {}).get("data") or {}, p["key"], p.get("line"))
             except Exception:  # noqa: BLE001 - SportyBet down: tried again next run
                 sel = None
             code = book_code(sel) if sel else None
@@ -214,29 +265,53 @@ def record(book: dict, state: dict) -> dict:
     ps = [(p, state.get(pid) or {}) for pid, p in (book.get("picks") or {}).items()]
     verdicts = ("agree", "disagree", "no_view")
     by = {v: lp._stats([p for p, s in ps if s.get("verdict") == v]) for v in verdicts}
+    sources = sorted({s.get("source") for _p, s in ps if s.get("source")})
+    by_source = {src: {v: lp._stats([p for p, s in ps if s.get("source") == src and s.get("verdict") == v])
+                       for v in ("agree", "disagree")} for src in sources}
     lists = {}
-    for lid, (title, src, _m) in lp.LISTS.items():
-        if src != "universe":
-            continue
+    for lid, (title, _src, _m) in lp.LISTS.items():
         lists[lid] = {"title": title, **{v: lp._stats([p for p, s in ps if p["list"] == lid and s.get("verdict") == v])
                                          for v in verdicts}}
     lessons = [{"list": lid, "title": x["title"], "graded": x["disagree"]["graded"], "roi": x["disagree"]["roi"],
                 "roi_low": x["disagree"].get("roi_low")} for lid, x in lists.items() if x["disagree"].get("ready")]
-    return {"agree_bar": AGREE_BAR, "stake_ngn": STAKE_NGN, "ready_n": lp.READY_N, "by_verdict": by,
+    return {"agree_bar": AGREE_BAR, "stake_ngn": STAKE_NGN, "ready_n": lp.READY_N, "by_verdict": by, "by_source": by_source,
             "lists": lists, "lessons": lessons,
             "note": "AGREE picks are staked NGN 500 on SportyBet account 1; DISAGREE and NO VIEW stay on paper. "
                     "A lesson is a list whose DISAGREE picks beat the price over 100+ graded (90% range above 0)."}
 
 
-def write(book: dict, state: dict, now: datetime, root: Path = ROOT) -> None:
+# Two jobs run the analyst, each on its own book and its OWN files, so one job's save never overwrites the other's
+# (a lost booking could be booked again under a second code and staked twice):
+#   universe sweep (3-hourly)  full-time markets   data/analyst/state.json        output/analyst/agree_<date>.json
+#   stat-lines run (hourly)    1st half, corners,  data/analyst/state_lines.json  output/analyst/agree_lines_<date>.json
+#                              bookings (their picks are made within 3 h of kick-off)
+# The universe sweep also writes the shared views (picks_<date>.json, record.json, lessons) from both states.
+STATE_FILE = {"universe": "state.json", "lines": "state_lines.json"}
+AGREE_PREFIX = {"universe": "agree_", "lines": "agree_lines_"}
+
+
+def _both(root: Path) -> tuple[dict, dict]:
+    """Both books' picks and both states, for the shared views."""
+    picks, state = {}, {}
+    for src in ("universe", "lines"):
+        picks.update(lp.load_book(src, root / "data" / "list_picks").get("picks") or {})
+        state.update(_read(root / "data" / "analyst" / STATE_FILE[src], {}))
+    return {"picks": picks}, state
+
+
+def write(book: dict, state: dict, now: datetime, root: Path = ROOT, source: str = "universe") -> None:
     (root / "data" / "analyst").mkdir(parents=True, exist_ok=True)
     out = root / "output" / "analyst"
     out.mkdir(parents=True, exist_ok=True)
-    (root / "data" / "analyst" / "state.json").write_text(json.dumps(state, separators=(",", ":")), encoding="utf-8")
+    (root / "data" / "analyst" / STATE_FILE[source]).write_text(json.dumps(state, separators=(",", ":")),
+                                                                encoding="utf-8")
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     for day, doc in agree_files(book, state).items():
-        (out / f"agree_{day}.json").write_text(json.dumps({"built": stamp, **doc}, ensure_ascii=False, indent=1),
-                                               encoding="utf-8")
+        (out / f"{AGREE_PREFIX[source]}{day}.json").write_text(
+            json.dumps({"built": stamp, **doc}, ensure_ascii=False, indent=1), encoding="utf-8")
+    if source != "universe":
+        return
+    book, state = _both(root)
     rec = record(book, state)
     (out / "record.json").write_text(json.dumps({"built": stamp, **rec}, ensure_ascii=False, indent=1),
                                      encoding="utf-8")
@@ -255,12 +330,13 @@ def write(book: dict, state: dict, now: datetime, root: Path = ROOT) -> None:
             encoding="utf-8")
 
 
-def attach(now: datetime, root: Path = ROOT, get=None, book_code=None) -> str:
-    """The universe sweep's hook, after the list test has added and graded its picks."""
-    book = lp.load_book("universe", root / "data" / "list_picks")
-    state = _read(root / "data" / "analyst" / "state.json", {})
+def attach(now: datetime, root: Path = ROOT, get=None, book_code=None, source: str = "universe") -> str:
+    """A job's hook, after the list test has added and graded its picks: the universe sweep (source "universe")
+    or the stat-lines run (source "lines")."""
+    book = lp.load_book(source, root / "data" / "list_picks")
+    state = _read(root / "data" / "analyst" / STATE_FILE[source], {})
     n = review(book, state, now, root, get, book_code)
-    write(book, state, now, root)
-    by = record(book, state)["by_verdict"]
-    return (f"analyst: {n['agree']} agree, {n['disagree']} disagree, {n['booked']} booked; graded agree "
+    write(book, state, now, root, source)
+    by = record(*_both(root))["by_verdict"]
+    return (f"analyst ({source}): {n['agree']} agree, {n['disagree']} disagree, {n['booked']} booked; graded agree "
             f"{by['agree']['graded']}, disagree {by['disagree']['graded']}, no view {by['no_view']['graded']}")

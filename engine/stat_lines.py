@@ -271,6 +271,13 @@ def run(now: datetime | None = None, root: Path = ROOT, get=None, fetch_detail=N
         tail = " · " + list_picks.attach_lines(pending, done, now, root)
     except Exception as e:  # noqa: BLE001 - never stops the recorder
         tail = f" · list test skipped ({type(e).__name__}: {str(e)[:60]})"
+    try:
+        # THE ANALYST (Architect 2026-11-13): these lines' list picks against the framework's view; agreed ones
+        # booked for the SportyBet bot at NGN 500 (engine/analyst.py, its own state file for this job)
+        from engine import analyst
+        tail += " · " + analyst.attach(now, root, source="lines")
+    except Exception as e:  # noqa: BLE001 - never stops the recorder
+        tail += f" · analyst skipped ({type(e).__name__}: {str(e)[:60]})"
     return (f"stat lines: {len(soon)} games start within {int(WINDOW.total_seconds() // 3600)} h, {looked} pages read "
             f"({new} new); graded {len(done) - gave_up}, gave up {gave_up}, {len(pending)} waiting" + tail)
 

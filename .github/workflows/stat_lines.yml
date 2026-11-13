@@ -39,7 +39,9 @@ jobs:
       - name: Run
         env:
           PYTHONIOENCODING: utf-8
+          ANALYST_AGREE: ${{ vars.ANALYST_AGREE }}
+          ANALYST_WORLD: ${{ vars.ANALYST_WORLD }}
         run: python monitor/stat_lines_run.py
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "stat-lines $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/stat_lines output/stat_lines data/list_picks output/list_picks || true
+        run: python3 monitor/fdata.py save "stat-lines $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" data/stat_lines output/stat_lines data/list_picks output/list_picks data/analyst/state_lines.json output/analyst || true

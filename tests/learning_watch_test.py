@@ -36,3 +36,22 @@ assert lw._or_grace(None, 2, _d(2026, 11, 10)) is None
 assert lw._or_grace("2026-11-09", 2, _d(2026, 11, 10)) == "2026-11-09"
 assert {"AI fact sheet", "verdict panel", "learned weights", "prompt contest", "AI weekly review"} <= {
     x[0] for x in lw.LOOPS}
+
+# match study through an international break (2026-11-13): no new matches, but the run checked
+import tempfile  # noqa: E402
+_real = lw._read
+lw._read = lambda rel: '{"checked": "2026-11-13"}' if rel.endswith("match_study_checked.json") else _real(rel)
+assert lw.newest_study() >= "2026-11-13", "a caught-up check counts as fresh evidence"
+lw._read = lambda rel: None if rel.endswith("match_study_checked.json") else _real(rel)
+assert lw.newest_study() != "2026-11-13"
+lw._read = _real
+from data import match_study as _ms  # noqa: E402
+from monitor import match_study_run as _msr  # noqa: E402
+_p = Path(tempfile.mkdtemp()) / "c.json"
+_ms.LAST.update(leagues_ok=False, unread=0)
+assert not _msr.mark_checked("2026-11-13", _p) and not _p.exists(), "a failed league page is not caught up"
+_ms.LAST.update(leagues_ok=True, unread=99)
+assert not _msr.mark_checked("2026-11-13", _p), "most pages unread is not caught up"
+_ms.LAST.update(leagues_ok=True, unread=18)
+assert _msr.mark_checked("2026-11-13", _p) and json.loads(_p.read_text())["checked"] == "2026-11-13"
+print("match study caught-up marker: OK")

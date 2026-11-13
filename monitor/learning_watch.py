@@ -103,7 +103,12 @@ def newest_why() -> str | None:
 
 def newest_study() -> str | None:
     rows = _jsonl(ROOT / "memory" / "match_study_log.jsonl")
-    return max((r.get("ko") or "")[:10] for r in rows) if rows else None
+    newest = max((r.get("ko") or "")[:10] for r in rows) if rows else None
+    # An international break has no new matches to study. match_study_run.py records the day it
+    # last found every FotMob league page loaded and nothing readable left unstudied; that day
+    # counts as evidence, so a break is not a stall but a run that stopped checking still is.
+    checked = _json(_read("memory/match_study_checked.json")).get("checked")
+    return max(newest or "", checked or "") or None
 
 
 def tactics_tested(text: str | None) -> int:

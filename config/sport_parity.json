@@ -946,6 +946,10 @@
    "status": "n/a",
    "note": "Volleyball set totals, set handicap and total points from the board Elo win chance (set-momentum ladder), record-only shadow (#591); basketball twin for points by period is engine/nfl_events.py / engine/basketball_events.py"
   },
+  "engine/darts_events.py": {
+   "status": "n/a",
+   "note": "Darts exact leg score, total legs and leg handicap from the board Elo win chance, record-only shadow (#592); 180s and checkouts PENDING (no per-visit record); basketball has no leg ladder"
+  },
   "engine/cricket_events.py": {
    "status": "n/a",
    "note": "Cricket first-innings total, over-block runs and wickets, record-only shadow (#589); cricket has no basketball twin (innings, not quarters); the quarter-share idea twin is engine/nfl_events.py"

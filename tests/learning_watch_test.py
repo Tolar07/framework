@@ -55,3 +55,17 @@ assert not _msr.mark_checked("2026-11-13", _p), "most pages unread is not caught
 _ms.LAST.update(leagues_ok=True, unread=18)
 assert _msr.mark_checked("2026-11-13", _p) and json.loads(_p.read_text())["checked"] == "2026-11-13"
 print("match study caught-up marker: OK")
+
+# collect() fills LAST (the crash of 2026-11-13 hid behind continue-on-error): stubbed FotMob, one page unread
+import tempfile as _tf  # noqa: E402
+_fm = _ms.league_matches
+_ms.league_matches = lambda lid: [{"id": "1", "ko": "2026-11-08T16:00:00Z", "finished": True}]
+import data.fotmob as _fotmob  # noqa: E402
+_md = _fotmob.match_details
+_fotmob.match_details = lambda i: {}
+try:
+    _n, _notes = _ms.collect(["Premier League"], Path(_tf.mkdtemp()), pause=0)
+finally:
+    _ms.league_matches, _fotmob.match_details = _fm, _md
+assert _n == 0 and _ms.LAST == {"leagues_ok": True, "unread": 1}, _ms.LAST
+print("match study collect() state: OK")

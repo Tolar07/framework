@@ -122,6 +122,8 @@ way to price most of these sports. This skill says what each market actually is 
    per-player TV-stage vs floor performance; free data at DartsConnect and dartsoracle.com (Dumpster Darts @ 00:37-02:10,
    06:57). Snooker markets: match winner, frame handicap, total frames, century, first frame (Bet in Ireland @ 01:36).
    Both need the format conversion in step 2.
+   Built (framework#590, `engine/snooker_events.py`, `backtest/snooker_events_study.py`): Elo win chance -> per-frame chance -> exact frame ladder gives correct score, total frames and handicap that agree with the board by construction.
+   Held-out 2024-07+, 1,542 matches (one matchday purged): exact score log loss 2.2400 vs 2.2551 for earlier same-length matches (gain +0.015, 2 s.e.); total frames over 0.5415 vs 0.5403 (no gain). Shrinking the Elo chance did not help (1.0 chosen of 4). Centuries PENDING: no break record stored.
 8. **Timing.** Lines are least efficient early and most efficient at the close (OddsShopper @ 04:08). Sharp books move
    first; the slow book lags (line-movement video @ 01:02-02:38, a claim). For every rollout sport, record the price
    at decision, at placement and at close (the CLV split in `sports-betting-edge`). An edge that only exists against

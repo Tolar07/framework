@@ -946,6 +946,14 @@
    "status": "n/a",
    "note": "Volleyball set totals, set handicap and total points from the board Elo win chance (set-momentum ladder), record-only shadow (#591); basketball twin for points by period is engine/nfl_events.py / engine/basketball_events.py"
   },
+  "data/rugby_events.py": {
+   "status": "n/a",
+   "note": "Rugby half scores and try / penalty-goal counts from ESPN, record-only data for #593; basketball has its own period data (data/nba_source.py)"
+  },
+  "engine/rugby_events.py": {
+   "status": "n/a",
+   "note": "Rugby first-half total points, tries and penalty goals from team points ratings (per-point event rates), record-only shadow (#593); basketball twin for points by period is engine/basketball_events.py"
+  },
   "engine/darts_events.py": {
    "status": "n/a",
    "note": "Darts exact leg score, total legs and leg handicap from the board Elo win chance, record-only shadow (#592); 180s and checkouts PENDING (no per-visit record); basketball has no leg ladder"

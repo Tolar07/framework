@@ -102,8 +102,12 @@ def newest_why() -> str | None:
 
 
 def newest_study() -> str | None:
+    """Newest studied match, or the last clean FotMob sweep when it is later: a sweep that read
+    every competition and found nothing new is a quiet source (international break), not a stall."""
     rows = _jsonl(ROOT / "memory" / "match_study_log.jsonl")
-    return max((r.get("ko") or "")[:10] for r in rows) if rows else None
+    newest = max((r.get("ko") or "")[:10] for r in rows) if rows else None
+    sweep = (_json(_read("data/match_study/last_sweep.json")).get("date") or "")[:10] or None
+    return max(newest, sweep) if newest and sweep else newest
 
 
 def tactics_tested(text: str | None) -> int:

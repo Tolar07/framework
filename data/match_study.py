@@ -235,12 +235,14 @@ def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: 
     from data import fotmob as fm
     from data.team_profiles import FOTMOB_LEAGUE
     seen, notes, total = seen_ids(folder), [], 0
+    swept = 0
     for league in leagues or list(FOTMOB_LEAGUE):
         try:
             todo = [m for m in league_matches(FOTMOB_LEAGUE[league]) if m["finished"] and m["id"] not in seen]
         except Exception as e:  # noqa: BLE001 — one competition failing never stops the rest
             notes.append(f"{league}: FotMob league page unavailable ({str(e)[:60]})")
             continue
+        swept += 1
         rows, failed = [], 0
         for m in todo:
             if total + len(rows) >= budget:
@@ -263,7 +265,19 @@ def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: 
         if failed:
             notes.append(f"{league}: {failed} match page(s) unread — retried next run")
         print(f"{league}: {len(rows)} new match(es) studied", flush=True)
+    if leagues is None and not any("league page unavailable" in n for n in notes):
+        write_sweep(folder, swept)
     return total, notes
+
+
+def write_sweep(folder: Path, leagues_read: int) -> None:
+    """Heartbeat: every competition's FotMob page was read today, so 'no new match'
+    means the source had none (an international break), not that the loop is stuck.
+    learning_watch reads it; a sweep with an unreadable league page writes nothing."""
+    from datetime import UTC, datetime
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "last_sweep.json").write_text(
+        json.dumps({"date": datetime.now(UTC).strftime("%Y-%m-%d"), "leagues": leagues_read}), encoding="utf-8")
 
 
 def load(folder: Path = STUDY_DIR) -> list[dict]:

@@ -36,3 +36,13 @@ assert lw._or_grace(None, 2, _d(2026, 11, 10)) is None
 assert lw._or_grace("2026-11-09", 2, _d(2026, 11, 10)) == "2026-11-09"
 assert {"AI fact sheet", "verdict panel", "learned weights", "prompt contest", "AI weekly review"} <= {
     x[0] for x in lw.LOOPS}
+
+# international break (2026-11-13): no new match, but a clean FotMob sweep today = quiet source, not a stall
+_real_jsonl, _real_read = lw._jsonl, lw._read
+lw._jsonl = lambda p: [{"ko": "2026-11-09T15:00"}]
+lw._read = lambda rel: '{"date": "2026-11-13"}' if rel.endswith("last_sweep.json") else None
+assert lw.newest_study() == "2026-11-13"
+lw._read = lambda rel: None
+assert lw.newest_study() == "2026-11-09", "no sweep file: the newest match decides"
+lw._jsonl, lw._read = _real_jsonl, _real_read
+print("learning watch: clean sweep during a break counts as evidence: OK")

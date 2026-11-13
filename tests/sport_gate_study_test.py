@@ -75,3 +75,17 @@ def test_tennis_wired_and_gate_order():
     res = sg.study(_doc(sides), cfg)
     assert sum(b["n"] for b in res.values()) == 2
     assert res["passes all gates"]["n"] == 1 and res["band"]["n"] == 1
+
+
+def test_table_tennis_wired_and_gate_order():
+    """framework#576: table tennis shares the multi-sport board; each side lands on exactly one, the first, gate."""
+    cfg = sg._cfg("table_tennis")
+    f = sg.first_gate
+    assert f("table_tennis:186||Home", 2.20, 0.60, "matchbook", cfg) == "band"
+    assert f("table_tennis:186||Home", 1.61, 0.45, "matchbook", cfg) == "chance"
+    assert f("table_tennis:186||Home", 1.61, 0.58, "matchbook", cfg) == "value bar"
+    assert f("table_tennis:186||Home", 1.61, 0.70, "sportybet", cfg) == "exchange/model"
+    assert f("table_tennis:186||Home", 1.61, 0.65, "matchbook", cfg) == "passes all gates"
+    sides = {"table_tennis:186||Home": _s(1.61, fair=0.65, won=True), "table_tennis:186||Away": _s(2.30, fair=0.40, won=False)}
+    res = sg.study(_doc(sides), cfg)
+    assert sum(b["n"] for b in res.values()) == 2

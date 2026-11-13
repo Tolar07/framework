@@ -40,7 +40,7 @@ from monitor import loop_util as lu  # noqa: E402
 
 WORKFLOW = "commands.yml"
 EVERY_MIN = 5
-SAVE_PATHS = ["clv/clv_log.json", "memory/"]
+SAVE_PATHS = ["clv/clv_log.json", "memory/", "output/money_desk", "data/money_desk"]   # /veto, /agree: the money desk
 
 
 def sync() -> None:

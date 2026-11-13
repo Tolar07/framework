@@ -33,6 +33,8 @@ COMMANDS
   /debrief   full framework status
   /proposals the losing-market watch's proposals (order 39)
   /lookup <team>, /picks [date]   the records, via scripts/olp_query.py
+  /desk, /veto MD-3, /agree MD-3   the money desk (engine/money_desk.py): its lanes and decisions; a veto undoes
+                            a decision at once, agree confirms it - the Architect's chat ONLY, like /approve
   /approve P3, /reject P3   decide a proposal — the Architect's chat ONLY,
              refused when TELEGRAM_CHAT_ID is unset (fails closed)
   /routines  every scheduled job across the bot repos (output/routines_cmd.py)
@@ -117,6 +119,8 @@ def cmd_help(_: str) -> str:
         "/lookup Arsenal — every pick and rated fixture for a team on record\n"
         "/picks or /picks 2026-10-03 — a day's picks and results\n"
         "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n"
+        "/desk — the money desk: lanes on money and its decisions\n"
+        "/veto MD-3 or /agree MD-3 — undo or confirm a money desk decision (your chat only)\n"
         "/routines — every scheduled job: last result, next run, what needs attention\n"
         "/run edge — start a scheduled job now (your chat only)\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
@@ -447,7 +451,24 @@ def _decide(arg: str, approve: bool, chat_id: Optional[str]) -> str:
     return loss_watch.decide(pid, approve)
 
 
+def cmd_desk(_: str) -> str:
+    from engine import money_desk
+    return money_desk.summary()
+
+
+def _desk_vote(arg: str, kind: str, chat_id: Optional[str]) -> str:
+    # FAILS CLOSED like /approve: a veto moves a lane on or off money, so only the Architect's own chat decides.
+    if not chat_id or chat_id not in _allowed():
+        return "REFUSED — money desk decisions are vetoed or agreed from the Architect's chat only."
+    did = arg.strip().split()[0] if arg.strip() else ""
+    if not did:
+        return f"Usage: /{kind} MD-3"
+    from engine import money_desk
+    return money_desk.vote(did, kind)
+
+
 HANDLERS = {
+    "/desk": cmd_desk,
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
@@ -478,6 +499,8 @@ def handle(text: str, chat_id: Optional[str] = None) -> str:
     cmd = low.split()[0] if low else ""
     if cmd in ("/approve", "/reject"):
         return _decide(stripped[len(cmd):], cmd == "/approve", chat_id)
+    if cmd in ("/veto", "/agree"):
+        return _desk_vote(stripped[len(cmd):], cmd[1:], chat_id)
     if cmd == "/run":
         # starts a scheduled job: the Architect's chat only, fails closed like /approve
         if not chat_id or chat_id not in _allowed():

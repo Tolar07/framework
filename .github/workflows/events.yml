@@ -43,6 +43,10 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python monitor/events_run.py
+      - name: Game-state study (framework #566, shadow; does the xG gap tie cards, corners, passes to the goals model)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/event_xg_study.py || true
       - name: Player predictions and grade (framework #557, shadow; PENDING until the study has 4 weeks of players)
         env:
           PYTHONIOENCODING: utf-8
@@ -63,4 +67,4 @@ jobs:
           python monitor/tennis_events_run.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/EVENT_XG_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true

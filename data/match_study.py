@@ -248,7 +248,6 @@ def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: 
             notes.append(f"{league}: FotMob league page unavailable ({str(e)[:60]})")
             LAST["leagues_ok"] = False
             continue
-        LAST["newest_finished"] = max([LAST["newest_finished"], *(m["ko"][:10] for m in todo)])
         rows, failed = [], 0
         for m in todo:
             if total + len(rows) >= budget:

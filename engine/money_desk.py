@@ -148,8 +148,9 @@ def gather(root: Path = ROOT) -> tuple[dict, dict]:
             lanes[f"list:{lid}"] = {"title": title, "bookable": True, "why": None}
         for pid, p in (book.get("picks") or {}).items():
             lid = p.get("list")
-            if f"list:{lid}" not in lanes or not p.get("price"):
+            if lid not in lp.LISTS or lp.LISTS[lid][1] != source or not p.get("price"):
                 continue
+            title = lp.LISTS[lid][0]
             verdict = (verdicts.get(pid) or {}).get("verdict") if isinstance(verdicts.get(pid), dict) else None
             mine = [f"list:{lid}"]
             if pid in verdicts and lanes[f"list:{lid}"]["bookable"]:      # a pick the analyst has looked at

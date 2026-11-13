@@ -109,6 +109,7 @@ def test_agree_picks_are_never_a_desk_lane_and_never_booked():
     md.attach(NOW, root, lambda u: _event("1", "", "Draw"), CODE, votes_text="")
     lanes = _state(root)["lanes"]
     assert lanes["analyst:disagree:draws"]["stake"] == 200 and lanes["analyst:disagree:draws"]["paper"]["graded"] == 40
+    assert lanes["analyst:disagree:draws"]["title"] == "Draw-heavy teams - framework disagrees"
     doc = json.loads((root / "output" / "money_desk" / f"stake_{ko[:10]}.json").read_text())
     assert [p["id"] for p in doc["picks"]] == ["draws|new"]                      # one stake, the specific lane
     assert doc["picks"][0]["lane"] in ("analyst:disagree:draws", "list:draws")

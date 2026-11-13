@@ -929,6 +929,15 @@
    "status": "covers",
    "note": "daily runner + grading of engine/basketball_events.py (#558); the basketball twin of monitor/players_run.py"
   },
+  "engine/nfl_events.py": {
+   "status": "twin",
+   "note": "NFL quarter totals, half totals and team totals from the NFL's own quarter shares, record-only shadow (#588). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",
+   "basketball": "engine/basketball_events.py"
+  },
+  "data/nfl_quarters.py": {
+   "status": "n/a",
+   "note": "NFL points by quarter from the ESPN scoreboard (#588); basketball's per-quarter history is data/nba_source.py and data/espn_sports_history.py"
+  },
   "engine/baseball_events.py": {
    "status": "twin",
    "note": "baseball runs per inning, first five innings and team totals from the MLB's own inning shares, record-only shadow (#587). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",

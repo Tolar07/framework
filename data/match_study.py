@@ -227,6 +227,11 @@ def append(rows: list[dict], folder: Path = STUDY_DIR) -> None:
                 f.write(json.dumps(r, separators=(",", ":"), ensure_ascii=False) + "\n")
 
 
+# What the last collect() saw, so the run can say "FotMob has nothing newer than what is studied"
+# (an international break) apart from "the study stopped reading".
+LAST: dict = {"leagues_ok": False, "unread": 0}
+
+
 def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: int = 4000,
             pause: float = 0.25) -> tuple[int, list[str]]:
     """Read every finished, not-yet-studied match of the covered competitions.
@@ -235,12 +240,15 @@ def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: 
     from data import fotmob as fm
     from data.team_profiles import FOTMOB_LEAGUE
     seen, notes, total = seen_ids(folder), [], 0
+    LAST.update(leagues_ok=True, unread=0)
     for league in leagues or list(FOTMOB_LEAGUE):
         try:
             todo = [m for m in league_matches(FOTMOB_LEAGUE[league]) if m["finished"] and m["id"] not in seen]
         except Exception as e:  # noqa: BLE001 — one competition failing never stops the rest
             notes.append(f"{league}: FotMob league page unavailable ({str(e)[:60]})")
+            LAST["leagues_ok"] = False
             continue
+        LAST["newest_finished"] = max([LAST["newest_finished"], *(m["ko"][:10] for m in todo)])
         rows, failed = [], 0
         for m in todo:
             if total + len(rows) >= budget:
@@ -260,6 +268,7 @@ def collect(leagues: list[str] | None = None, folder: Path = STUDY_DIR, budget: 
             time.sleep(pause)
         append(rows, folder)
         total += len(rows)
+        LAST["unread"] += failed
         if failed:
             notes.append(f"{league}: {failed} match page(s) unread — retried next run")
         print(f"{league}: {len(rows)} new match(es) studied", flush=True)

@@ -41,6 +41,21 @@ def logged_ids(path: Path = ts.STUDY_LOG) -> set[str]:
     return {json.loads(x)["fotmob_id"] for x in path.read_text(encoding="utf-8").splitlines() if x.strip()}
 
 
+CHECKED = ROOT / "memory" / "match_study_checked.json"
+MAX_UNREAD = 30   # lower-league pages FotMob has no stats for stay unread for ever; more than this = broken
+
+
+def mark_checked(today: str, path: Path = CHECKED) -> bool:
+    """Record that FotMob's league pages all loaded and nothing readable is left unstudied, so the
+    learning watch can tell an international break (no new matches) from a study that stopped
+    reading. Not written when a league page failed or too many match pages came back unread."""
+    ok = bool(ms.LAST["leagues_ok"]) and int(ms.LAST["unread"]) <= MAX_UNREAD
+    if ok:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"checked": today, "unread": ms.LAST["unread"]}), encoding="utf-8")
+    return ok
+
+
 def main(fetch: bool = True) -> int:
     today = datetime.now(UTC).strftime("%Y-%m-%d")
     if fetch:
@@ -48,6 +63,7 @@ def main(fetch: bool = True) -> int:
         print(f"match study: {n} new match(es) read")
         for x in notes:
             print("  ", x)
+        mark_checked(today)
     rows = ms.load()
     if not rows:
         print("match study: NO DATA — PENDING (nothing studied yet)")

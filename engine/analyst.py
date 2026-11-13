@@ -220,7 +220,7 @@ def review(book: dict, state: dict, now: datetime, root: Path = ROOT, get=None, 
                           "source": source, "decided": now.strftime("%Y-%m-%dT%H:%MZ")})
                 n[s["verdict"]] += 1
         if (s.get("verdict") == "agree" and not s.get("code") and enabled() and ko is not None
-                and ko - BOOK_LEAD > now and s.get("tries", 0) < 6):
+                and ko - BOOK_LEAD > now):
             s["tries"] = s.get("tries", 0) + 1
             try:
                 sel = selection((get(_EVENT.format(eid=p["event"])) or {}).get("data") or {}, p["key"], p.get("line"))
@@ -330,6 +330,98 @@ def write(book: dict, state: dict, now: datetime, root: Path = ROOT, source: str
             encoding="utf-8")
 
 
+# ANALYST ACCAS (the Architect, 2026-11-13: "book it as single, book it as acca"): the agreed picks also go on
+# together. Built only by the hourly stat-lines run (so one job owns the acca files), from BOTH jobs' agreed picks
+# that are booked as singles: when the soonest of the not-yet-used ones starts within ACCA_LEAD, every agreed pick
+# starting within ACCA_SPAN of now (one leg per game, the likeliest, at most ACCA_MAX legs) goes on one code, frozen.
+# A pick is in one acca at most; a lone pick stays a single. The SportyBet bot places each acca at NGN 500.
+ACCA_LEAD = timedelta(minutes=90)
+ACCA_SPAN = timedelta(hours=24)
+ACCA_MAX = 8
+ACCA_STATE = "accas.json"
+
+
+def _book_many(sels: list[dict]) -> str | None:
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return None
+    try:
+        from pipeline.sportybet_booking import create_booking_code
+        return create_booking_code([{k: s[k] for k in ("eventId", "marketId", "specifier", "outcomeId")}
+                                    for s in sels])[0]
+    except Exception:  # noqa: BLE001 - tried again next run
+        return None
+
+
+def build_accas(book: dict, state: dict, accas: dict, now: datetime, book_many=None) -> int:
+    """Book at most one new acca from the agreed, booked, unused picks; returns 1 when booked."""
+    if not enabled():
+        return 0
+    book_many = book_many or _book_many
+    used = {pid for a in accas.get("accas", []) for pid in a["legs"]}
+    best: dict = {}
+    for pid, p in (book.get("picks") or {}).items():
+        s = state.get(pid) or {}
+        ko = _ko(p)
+        if (s.get("verdict") != "agree" or not s.get("code") or not s.get("outcome_id") or pid in used
+                or ko is None or not (now + BOOK_LEAD < ko <= now + ACCA_SPAN)):
+            continue
+        ev = p.get("event")
+        if ev not in best or (s.get("chance") or 0) > (state[best[ev]].get("chance") or 0):
+            best[ev] = pid
+    legs = sorted(best.values(), key=lambda pid: -(state[pid].get("chance") or 0))[:ACCA_MAX]
+    if len(legs) < 2 or min(_ko(book["picks"][pid]) for pid in legs) > now + ACCA_LEAD:
+        return 0
+    sels = [{"eventId": book["picks"][pid]["event"], "marketId": state[pid]["market_id"],
+             "specifier": state[pid].get("specifier") or "", "outcomeId": state[pid]["outcome_id"]} for pid in legs]
+    code = book_many(sels)
+    if not code:
+        return 0
+    odds = 1.0
+    for pid in legs:
+        odds *= float(state[pid].get("booked_price") or book["picks"][pid].get("price") or 1.0)
+    first = min(book["picks"][pid]["ko"] for pid in legs)
+    accas.setdefault("accas", []).append({"code": code, "legs": legs, "odds": round(odds, 2), "ko": first,
+                                          "booked": now.strftime("%Y-%m-%dT%H:%MZ")})
+    return 1
+
+
+def acca_files(book: dict, state: dict, accas: dict) -> dict[str, dict]:
+    """{date of the first leg's kick-off: the bot's file} - every booked analyst acca with its legs."""
+    out: dict = {}
+    for a in accas.get("accas", []):
+        day = a["ko"][:10]
+        legs = [{"home": book["picks"][pid].get("home"), "away": book["picks"][pid].get("away"),
+                 "pick": book["picks"][pid].get("pick"), "ko": book["picks"][pid].get("ko"),
+                 "price": (state.get(pid) or {}).get("booked_price") or book["picks"][pid].get("price"),
+                 "chance": (state.get(pid) or {}).get("chance"), "source": (state.get(pid) or {}).get("source"),
+                 "list": book["picks"][pid].get("list"), "result": book["picks"][pid].get("result")}
+                for pid in a["legs"] if pid in book["picks"]]
+        res = [x["result"] for x in legs]
+        result = (None if any(r is None for r in res) else "void" if any(r == "void" for r in res)
+                  else int(all(r == 1 for r in res)))
+        doc = out.setdefault(day, {"date": day, "stake_ngn": STAKE_NGN, "accounts": ACCOUNTS, "accas": []})
+        doc["accas"].append({"code": a["code"], "name": f"Analyst acca ({len(legs)} legs)", "odds": a["odds"],
+                             "ko": a["ko"], "legs": legs, "result": result, "accounts": ACCOUNTS})
+    return out
+
+
+def attach_accas(now: datetime, root: Path = ROOT, book_many=None) -> str:
+    """The stat-lines run's acca step, after its own picks are reviewed."""
+    book, state = _both(root)
+    f = root / "data" / "analyst" / ACCA_STATE
+    accas = _read(f, {"accas": []})
+    n = build_accas(book, state, accas, now, book_many)
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(json.dumps(accas, separators=(",", ":")), encoding="utf-8")
+    out = root / "output" / "analyst"
+    out.mkdir(parents=True, exist_ok=True)
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    for day, doc in acca_files(book, state, accas).items():
+        (out / f"acca_{day}.json").write_text(json.dumps({"built": stamp, **doc}, ensure_ascii=False, indent=1),
+                                              encoding="utf-8")
+    return f"analyst accas: {n} booked, {len(accas.get('accas', []))} in all"
+
+
 def attach(now: datetime, root: Path = ROOT, get=None, book_code=None, source: str = "universe") -> str:
     """A job's hook, after the list test has added and graded its picks: the universe sweep (source "universe")
     or the stat-lines run (source "lines")."""
@@ -338,5 +430,11 @@ def attach(now: datetime, root: Path = ROOT, get=None, book_code=None, source: s
     n = review(book, state, now, root, get, book_code)
     write(book, state, now, root, source)
     by = record(*_both(root))["by_verdict"]
+    tail = ""
+    if source == "lines":                                      # the acca files have one owner: the hourly run
+        try:
+            tail = " · " + attach_accas(now, root)
+        except Exception as e:  # noqa: BLE001 - singles are already out; an acca failure never stops them
+            tail = f" · analyst accas skipped ({type(e).__name__})"
     return (f"analyst ({source}): {n['agree']} agree, {n['disagree']} disagree, {n['booked']} booked; graded agree "
-            f"{by['agree']['graded']}, disagree {by['disagree']['graded']}, no view {by['no_view']['graded']}")
+            f"{by['agree']['graded']}, disagree {by['disagree']['graded']}, no view {by['no_view']['graded']}" + tail)

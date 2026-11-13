@@ -934,6 +934,14 @@
    "note": "NFL quarter totals, half totals and team totals from the NFL's own quarter shares, record-only shadow (#588). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",
    "basketball": "engine/basketball_events.py"
   },
+  "engine/cricket_events.py": {
+   "status": "n/a",
+   "note": "Cricket first-innings total, over-block runs and wickets, record-only shadow (#589); cricket has no basketball twin (innings, not quarters); the quarter-share idea twin is engine/nfl_events.py"
+  },
+  "data/cricket_overs.py": {
+   "status": "n/a",
+   "note": "Cricsheet ball-by-ball first innings by over block (#589); read on the fly, nothing stored"
+  },
   "data/nfl_quarters.py": {
    "status": "n/a",
    "note": "NFL points by quarter from the ESPN scoreboard (#588); basketball's per-quarter history is data/nba_source.py and data/espn_sports_history.py"

@@ -929,6 +929,15 @@
    "status": "covers",
    "note": "daily runner + grading of engine/basketball_events.py (#558); the basketball twin of monitor/players_run.py"
   },
+  "engine/baseball_events.py": {
+   "status": "twin",
+   "note": "baseball runs per inning, first five innings and team totals from the MLB's own inning shares, record-only shadow (#587). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",
+   "basketball": "engine/basketball_events.py"
+  },
+  "data/mlb_innings.py": {
+   "status": "n/a",
+   "note": "MLB runs by inning from the StatsAPI linescore (#587); basketball's per-quarter history is data/nba_source.py and engine/match_facts.py"
+  },
   "engine/hockey_events.py": {
    "status": "twin",
    "note": "ice hockey goals and shots per period and team totals from the NHL's own period shares, record-only shadow (#586). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",

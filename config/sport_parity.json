@@ -929,6 +929,15 @@
    "status": "covers",
    "note": "daily runner + grading of engine/basketball_events.py (#558); the basketball twin of monitor/players_run.py"
   },
+  "engine/hockey_events.py": {
+   "status": "twin",
+   "note": "ice hockey goals and shots per period and team totals from the NHL's own period shares, record-only shadow (#586). Basketball twin: engine/basketball_events.py (player events) and the NBA quarter markets via engine/nba_projection.py",
+   "basketball": "engine/basketball_events.py"
+  },
+  "data/nhl_periods.py": {
+   "status": "n/a",
+   "note": "NHL per-period goals and shots on goal from the NHL play-by-play (#586); basketball's per-quarter history is data/nba_source.py and engine/match_facts.py"
+  },
   "engine/tennis_events.py": {
    "status": "n/a",
    "note": "tennis point -> game -> set -> match event model (set scores, total games, tie-break), record-only shadow (#559). Basketball twin: engine/basketball_events.py (player events) and engine/nba_projection.py (team points); tennis has no basketball analogue"

@@ -98,7 +98,8 @@ def test_universe_picks_are_made_graded_and_recorded_on_paper():
             game("e1", "Alpha", "Beta", ko, **{"ou2.5": [1.8, 2.0], "btts": [1.7, 2.1], "1x2": [2.0, 3.4, 3.6]}),
             game("e2", "Gamma FC", "Delta", ko, **{"ou2.5": [1.9, 1.9], "btts": [1.8, 1.95], "1x2": [2.5, 3.2, 2.8]}),
             game("e3", "Alpha U21", "Beta U21", ko, **{"ou2.5": [1.5, 2.5]}),          # youth: never picked
-            game("e4", "Alpha", "Beta", NOW - timedelta(hours=1), **{"ou2.5": [1.5, 2.5]}))}   # started: never
+            game("e4", "Alpha", "Beta", NOW - timedelta(hours=1), **{"ou2.5": [1.5, 2.5]}),    # started: never
+            game("e5", "Alpha", "Beta", NOW + timedelta(days=4), **{"ou2.5": [1.5, 2.5]}))}    # days away: not yet
         msg = lp.attach_universe(pend, [], NOW, root)
         assert "4 new" in msg, msg
         book = lp.load_book("universe", root / "data/list_picks")

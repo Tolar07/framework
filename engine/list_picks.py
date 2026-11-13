@@ -11,7 +11,7 @@ output/multisport/). Real stakes on a list are the Architect's decision, list by
 How a pick is made (same rule for every list, no judgement):
   - a list's ranked entries (its top CANDS teams or leagues) come from output/stat_lists/pick_index.json
     (engine/stat_lists.py, lists 7-21) and, for lists 1, 2, 4, 5, from their own files;
-  - each run looks at the games SportyBet is pricing that have not started; for each list it takes the game of the
+  - each run looks at the games SportyBet is pricing that start within HORIZON_H hours; for each list it takes the game of the
     best-ranked entry, at most one new pick a run and PER_DAY a day (by kick-off date), one pick per game per list;
   - the bet is the list's own claim (LISTS below), at the price SportyBet showed on that look;
   - it is graded from the same results the sweep and the stat-lines recorder already use.
@@ -41,6 +41,7 @@ BOOKS = ROOT / "data" / "list_picks"
 OUT = ROOT / "output" / "list_picks"
 INDEX = ROOT / "output" / "stat_lists" / "pick_index.json"
 PER_DAY = 3
+HORIZON_H = 36     # only games starting within this many hours: a price near kick-off, and the app shows the day
 READY_N = 100
 ACCA_LEGS = 4
 MIN_PRICE = 1.10
@@ -271,7 +272,7 @@ def add_picks(book: dict, rows: list[dict], now: datetime, idx: Index, source: s
             ko = datetime.fromisoformat(r["ko"].replace("Z", "+00:00"))
         except (KeyError, ValueError):
             continue
-        if ko > now and r.get("id") and r.get("home") and r.get("away") and not is_variant(r):
+        if now < ko <= now + timedelta(hours=HORIZON_H) and r.get("id") and r.get("home") and r.get("away") and not is_variant(r):
             live.append(r)
     live.sort(key=lambda r: r["ko"])
     new = 0

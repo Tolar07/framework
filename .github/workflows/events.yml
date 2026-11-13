@@ -65,6 +65,10 @@ jobs:
         run: |
           python backtest/tennis_events_study.py || true
           python monitor/tennis_events_run.py || true
+      - name: Ice hockey events study (framework #586, shadow; goals and shots per period, team totals)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python backtest/hockey_events_study.py || true
       - name: Save to the private data (framework-data)
         if: always()
-        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/EVENT_XG_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true
+        run: python3 monitor/fdata.py save "match events $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" output/events output/players output/basketball_events output/tennis_events backtest/tennis_events_fit.json backtest/TENNIS_EVENTS_STUDY.md backtest/HOCKEY_EVENTS_STUDY.md backtest/EVENT_MODEL_STUDY.md backtest/EVENT_XG_STUDY.md backtest/PLAYER_MODEL_STUDY.md backtest/BASKETBALL_EVENTS_STUDY.md data/nba_lineups/player_stats.jsonl || true

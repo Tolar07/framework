@@ -1083,6 +1083,10 @@
    "status": "covers",
    "note": "the live list test (paper): one pick from each statistics list at SportyBet's price; the basketball lists are tested on the main total of the same sweep"
   },
+  "engine/money_desk.py": {
+   "status": "covers",
+   "note": "the money desk: paper lanes go on small real SportyBet stakes by rule; the basketball totals lists (us_totals, wb_totals) and their analyst DISAGREE / NO VIEW picks are lanes like the football lists, booked on SportyBet's basketball total"
+  },
   "engine/analyst.py": {
    "status": "covers",
    "note": "the analyst: list picks the framework agrees with are staked NGN 500 on SportyBet; basketball list picks (us_totals, wb_totals) get the framework's worldwide basketball total view (engine/world_view.py) like football's goals view"

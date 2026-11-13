@@ -239,7 +239,7 @@ def _row(pid: str, p: dict, s: dict) -> dict:
     return {"id": pid, "list": p.get("list"), "title": p.get("title"), "date": p.get("date"), "ko": p.get("ko"),
             "home": p.get("home"), "away": p.get("away"), "country": p.get("country"), "comp": p.get("comp"),
             "pick": p.get("pick"), "price": p.get("price"), "verdict": s.get("verdict"), "chance": s.get("chance"),
-            "code": s.get("code"), "result": p.get("result"), "score": p.get("score")}
+            "source": s.get("source"), "sport": p.get("sport", "football"), "code": s.get("code"), "result": p.get("result"), "score": p.get("score")}
 
 
 def agree_files(book: dict, state: dict) -> dict[str, dict]:

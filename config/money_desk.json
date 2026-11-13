@@ -1,0 +1,10 @@
+{
+ "_about": "THE MONEY DESK's own rules (engine/money_desk.py; the Architect, 2026-11-13). The Architect can change any number here. The hard caps are NOT here and cannot be lifted from this file: NGN 1,000 a pick, 5 lanes on money, NGN 5,000 of desk stakes per UTC day, SportyBet account 1, singles only. Undo everything: framework repo variable MONEY_DESK=0.",
+ "promote": {"min_graded": 30, "min_roi": 0.0, "stake": 200},
+ "step_up": {"min_real_graded": 30, "min_roi": 0.05, "ladder": [200, 500, 1000], "cooldown_days": 7},
+ "back_to_paper": {"min_real_graded": 20, "max_roi": -0.15, "new_paper_needed": 30},
+ "veto_block_days": 14,
+ "book_lead_min": 20,
+ "book_window_h": 4,
+ "decide_hour_utc": 6
+}

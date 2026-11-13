@@ -148,6 +148,13 @@ def sweep(now: datetime) -> str:
         notes.append(analyst.attach(now))
     except Exception as e:  # noqa: BLE001 - never stops the archive
         notes.append(f"analyst skipped ({str(e)[:60]})")
+    try:
+        # THE MONEY DESK (Architect 2026-11-13): paper lanes go on small real stakes by rule, winners step up,
+        # losers go back to paper; every decision is his to veto (engine/money_desk.py). Undo: MONEY_DESK=0
+        from engine import money_desk
+        notes.append(money_desk.attach(now))
+    except Exception as e:  # noqa: BLE001 - never stops the archive
+        notes.append(f"money desk skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
@@ -166,6 +173,7 @@ def persist(now: datetime) -> str:
                      "data/lower_league_value", "output/lower_league_value",  # lower-league paper board (#584)
                      "data/list_picks", "output/list_picks",            # the live list test, full-time markets
                      "data/analyst", "output/analyst", "memory/analyst_lessons.json",  # the analyst (2026-11-13)
+                     "data/money_desk", "output/money_desk",            # the money desk (2026-11-13)
                      "output/decisions", "memory/decisions.jsonl"],      # the decision layer (order 51)
                     f"universe {now:%Y-%m-%d %H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)

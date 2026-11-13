@@ -88,6 +88,7 @@ jobs:
           NGN_PER_GBP: ${{ vars.NGN_PER_GBP }}   # the bot report's pound total; unset = 2,000
           ANALYST_AGREE: ${{ vars.ANALYST_AGREE }}   # 0 = the analyst books no new AGREE codes (engine/analyst.py)
           ANALYST_WORLD: ${{ vars.ANALYST_WORLD }}   # 0 = the analyst uses the board's view only (engine/world_view.py)
+          MONEY_DESK: ${{ vars.MONEY_DESK }}         # 0 = the money desk: no lane on money, nothing booked (engine/money_desk.py)
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"

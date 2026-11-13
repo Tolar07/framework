@@ -181,3 +181,16 @@ season average x minutes share x pace factor x home factor x opponent-allowed fa
 assists), @ 31:12 (points by simulating 2-pointers, 3-pointers and free throws separately). Transcript read; frames not
 cross-checked. Ideas not yet built (next shadow candidates, each one more test to count): the opponent-allowed factor per
 stat (team rebounds / assists / points conceded vs league) and a per-shot-type points simulation.
+
+## Match stats tied to the goals model's game state (framework #566, backtest/event_xg_study.py)
+
+Candidate (shadow): multiply the event model's mean for a side by exp(b0 + b1*(own xG - opp xG) + b2*(total xG - 2.7) +
+b3*(draw chance - 0.27)), fitted by ridge Poisson on earlier matches only. Pre-match xG for past matches comes from
+`output/picks/picks_<date>.json` `rated[].scores` paired with `data/match_stats` by day, league and STRONG names.
+First run (377 paired matches, 263 scored): wins on both scores for shots on target, corners, passes, accurate passes,
+fouls and red-card count, but by tiny margins (e.g. corners log score 2.378 vs 2.410); big chances, shots, box stats,
+saves and yellow cards do not win. Corners and shots gain with xG gap (+0.2 / +0.04..0.13 per goal of gap). Lessons:
+an IRLS clip at exp(6) silently broke the passes fit (counts ~400); always clip high enough for the largest count.
+Treat the list as candidates until more matches are paired; promotion is the Architect's gate.
+YouTube check on 2026-11-13: two searches (corners / cards / game-state models) returned only picks-of-the-day channels
+and no method video; nothing learned from video this run.

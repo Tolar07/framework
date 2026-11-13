@@ -135,6 +135,12 @@ def sweep(now: datetime) -> str:
         notes.append(lower_league_value.attach(pending, graded, now))
     except Exception as e:  # noqa: BLE001 - never stops the archive
         notes.append(f"lower-league paper skipped ({str(e)[:60]})")
+    try:
+        # PAPER ONLY (Architect 2026-11-12): one pick from each statistics list, at SportyBet's price, graded
+        from engine import list_picks
+        notes.append(list_picks.attach_universe(pending, graded, now))
+    except Exception as e:  # noqa: BLE001 - never stops the archive
+        notes.append(f"list test skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
@@ -151,6 +157,7 @@ def persist(now: datetime) -> str:
     fd = fdata.save(["data/universe", "data/match_stats", "data/match_players", "data/teams", "data/features", "data/bots",
                      "data/africa_paper", "output/africa_paper",        # the Africa paper board (private repo only)
                      "data/lower_league_value", "output/lower_league_value",  # lower-league paper board (#584)
+                     "data/list_picks", "output/list_picks",            # the live list test, full-time markets
                      "output/decisions", "memory/decisions.jsonl"],      # the decision layer (order 51)
                     f"universe {now:%Y-%m-%d %H:%M} [skip ci]") if fdata.enabled() else ""
     fw = _persist_framework(now)

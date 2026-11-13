@@ -202,7 +202,8 @@ def agree_files(book: dict, state: dict) -> dict[str, dict]:
         doc = out.setdefault(day, {"date": day, "stake_ngn": STAKE_NGN, "accounts": ACCOUNTS, "picks": []})
         doc["picks"].append({**_row(pid, p, s), "sb_event_id": p.get("event"), "market_id": s.get("market_id"),
                              "specifier": s.get("specifier"), "outcome_id": s.get("outcome_id"),
-                             "price": s.get("booked_price") or p.get("price"), "sport": p.get("sport", "football")})
+                             "price": s.get("booked_price") or p.get("price"), "sport": p.get("sport", "football"),
+                             "accounts": ACCOUNTS})
     for doc in out.values():
         doc["picks"].sort(key=lambda x: x.get("ko") or "")
     return out

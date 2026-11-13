@@ -81,6 +81,7 @@ def test_agree_is_booked_disagree_and_no_view_stay_on_paper():
     assert doc["stake_ngn"] == 500 and doc["accounts"] == [1]
     [p] = doc["picks"]
     assert p["code"] == "ABC123" and p["market_id"] == "18" and p["ko"] == KO and p["price"] == 1.85
+    assert p["accounts"] == [1]
     # frozen: a later model run that disagrees never takes the agreed pick back
     (root / "output/picks/picks_2026-11-14.json").write_text(json.dumps({"rated": [_rated(o25=0.10)]}))
     an.attach(NOW + timedelta(hours=3), root, get=lambda url: {"data": {}}, book_code=book_code)

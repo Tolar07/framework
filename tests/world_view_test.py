@@ -140,6 +140,29 @@ def test_each_job_keeps_its_own_files():
     assert rec["by_verdict"]["no_view"]["picks"] == 1                       # the lines pick is in the shared record
 
 
+def test_acca_drops_closed_legs_and_retries_without_the_weakest():
+    """14 Nov: one closed selection made SportyBet refuse the whole acca, so none went on."""
+    from datetime import timedelta
+    book, state = {"picks": {}}, {}
+    for i, (ev, ch) in enumerate((("e1", 0.7), ("e2", 0.65), ("e3", 0.6), ("e4", 0.55))):
+        pid = f"l{i}|{ev}"
+        book["picks"][pid] = {"list": "l", "event": ev, "key": "over25", "price": 1.5, "result": None,
+                              "ko": (NOW + timedelta(minutes=60)).strftime("%Y-%m-%dT%H:%M:%SZ")}
+        state[pid] = {"verdict": "agree", "chance": ch, "code": f"C{i}", "market_id": "18",
+                      "specifier": "total=2.5", "outcome_id": "12"}
+    open_m = {"id": "18", "specifier": "total=2.5", "status": 0, "outcomes": [{"id": "12", "desc": "Over 2.5"}]}
+    closed = dict(open_m, status=2)
+    get = lambda url: {"data": {"eventId": "x", "markets": [closed if "e2" in url else open_m]}}  # noqa: E731
+    tries: list = []
+
+    def book_many(sels):
+        tries.append(len(sels))
+        return "OK" if len(sels) == 2 else None                     # SportyBet refuses 3 legs, takes 2
+    accas: dict = {"accas": []}
+    assert an.build_accas(book, state, accas, NOW, book_many, get) == 1
+    assert tries == [3, 2] and accas["accas"][0]["legs"] == ["l0|e1", "l2|e3"]   # e2 closed, then e4 dropped
+
+
 def test_agreed_picks_also_go_on_as_one_acca():
     """Architect 2026-11-13: "book it as single, book it as acca". One leg per game, frozen, never reused."""
     from datetime import timedelta
@@ -156,12 +179,17 @@ def test_agreed_picks_also_go_on_as_one_acca():
     book["picks"]["l9|e4"] = {"list": "l9", "event": "e4", "ko": book["picks"]["l0|e1"]["ko"], "price": 2.0}
     sent: list = []
     accas: dict = {"accas": []}
-    assert an.build_accas(book, state, accas, NOW - timedelta(hours=3), lambda s: sent.append(s) or "AC1") == 0
-    assert an.build_accas(book, state, accas, NOW, lambda s: sent.append(s) or "AC1") == 1
+    page = {"data": {"eventId": "e", "markets": [{"id": "18", "specifier": "total=2.5", "status": 0,
+                                                  "outcomes": [{"id": "12", "desc": "Over 2.5", "odds": "1.5"}]}]}}
+    for pid in book["picks"]:
+        book["picks"][pid]["key"] = "over25"
+    get = lambda url: page  # noqa: E731
+    assert an.build_accas(book, state, accas, NOW - timedelta(hours=3), lambda s: sent.append(s) or "AC1", get) == 0
+    assert an.build_accas(book, state, accas, NOW, lambda s: sent.append(s) or "AC1", get) == 1
     [a] = accas["accas"]
     assert a["code"] == "AC1" and sorted(a["legs"]) == ["l1|e1", "l2|e2", "l3|e3"]   # e1 once (the likelier leg)
     assert len(sent[0]) == 3 and a["odds"] == round(1.5 ** 3, 2)
-    assert an.build_accas(book, state, accas, NOW, lambda s: "AC2") == 0             # nothing left: no second slip
+    assert an.build_accas(book, state, accas, NOW, lambda s: "AC2", get) == 0        # nothing left: no second slip
     files = an.acca_files(book, state, accas)
     [doc] = files.values()
     assert doc["stake_ngn"] == 500 and doc["accas"][0]["code"] == "AC1" and len(doc["accas"][0]["legs"]) == 3

@@ -35,6 +35,9 @@ COMMANDS
   /lookup <team>, /picks [date]   the records, via scripts/olp_query.py
   /desk, /veto MD-3, /agree MD-3   the money desk (engine/money_desk.py): its lanes and decisions; a veto undoes
                             a decision at once, agree confirms it - the Architect's chat ONLY, like /approve
+  /yt_ok SH-1114-L, /yt_veto SH-1114-L   the YouTube bot's review queue (Tolar07/youtube-agent): approve a video
+                            for publishing, or refuse it - the Architect's chat ONLY, like /approve. This file only
+                            records the vote (memory/youtube_votes.jsonl); the YouTube bot reads it
   /approve P3, /reject P3   decide a proposal — the Architect's chat ONLY,
              refused when TELEGRAM_CHAT_ID is unset (fails closed)
   /routines  every scheduled job across the bot repos (output/routines_cmd.py)
@@ -46,6 +49,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -121,6 +125,7 @@ def cmd_help(_: str) -> str:
         "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n"
         "/desk — the money desk: lanes on money and its decisions\n"
         "/veto MD-3 or /agree MD-3 — undo or confirm a money desk decision (your chat only)\n"
+        "/yt_ok SH-1114-L or /yt_veto SH-1114-L — approve or refuse a YouTube video (your chat only)\n"
         "/routines — every scheduled job: last result, next run, what needs attention\n"
         "/run edge — start a scheduled job now (your chat only)\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
@@ -467,6 +472,32 @@ def _desk_vote(arg: str, kind: str, chat_id: Optional[str]) -> str:
     return money_desk.vote(did, kind)
 
 
+# The YouTube bot's review queue (Tolar07/youtube-agent; the Architect, 2026-11-14: every video waits for his
+# approve or veto). The Control Room app is read-only, so each video there shows these two commands. A vote is one
+# line in the vote log, which the commands loop saves to the private data repo with the rest of the memory folder;
+# the Control Room status job hands it to the YouTube bot. Nothing else in the framework reads it.
+YT_VOTES_FILE = STATE_DIR / "youtube_votes.jsonl"
+_YT_ID = re.compile(r"^[A-Za-z]{2}-\d{4}-[A-Za-z]$")
+
+
+def _yt_vote(arg: str, kind: str, chat_id: Optional[str]) -> str:
+    # FAILS CLOSED like /approve: a vote puts a video on a public channel, so only the Architect's own chat decides.
+    if not chat_id or chat_id not in _allowed():
+        return "REFUSED — YouTube videos are approved or refused from the Architect's chat only."
+    vid = arg.strip().split()[0] if arg.strip() else ""
+    if not _YT_ID.match(vid):
+        return f"Usage: /yt_{kind} SH-1114-L (the id is on the video's card in the app's YouTube page)"
+    vid = vid.upper()
+    YT_VOTES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with YT_VOTES_FILE.open("a", encoding="utf-8") as f:
+        f.write(json.dumps({"id": vid, "vote": kind, "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")})
+                + "\n")
+    if kind == "ok":
+        return (f"APPROVED {vid}. The YouTube bot picks this up within about an hour and gives it a publish time. "
+                f"/yt_veto {vid} takes it back.")
+    return f"REFUSED {vid}. It stays private (it is taken back if it was already scheduled), and the plan learns from it."
+
+
 HANDLERS = {
     "/desk": cmd_desk,
     "/help": cmd_help, "/start": cmd_help,
@@ -501,6 +532,8 @@ def handle(text: str, chat_id: Optional[str] = None) -> str:
         return _decide(stripped[len(cmd):], cmd == "/approve", chat_id)
     if cmd in ("/veto", "/agree"):
         return _desk_vote(stripped[len(cmd):], cmd[1:], chat_id)
+    if cmd in ("/yt_ok", "/yt_veto"):
+        return _yt_vote(stripped[len(cmd):], cmd[4:], chat_id)
     if cmd == "/run":
         # starts a scheduled job: the Architect's chat only, fails closed like /approve
         if not chat_id or chat_id not in _allowed():

@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install what the feed reader needs
-        run: pip install -q requests
+        run: pip install -q -r requirements.txt   # the analyst books codes (pipeline.sportybet_booking needs the full set)
       - name: Run
         env:
           PYTHONIOENCODING: utf-8

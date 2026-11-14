@@ -352,11 +352,14 @@ def _book_many(sels: list[dict]) -> str | None:
         return None
 
 
-def build_accas(book: dict, state: dict, accas: dict, now: datetime, book_many=None) -> int:
-    """Book at most one new acca from the agreed, booked, unused picks; returns 1 when booked."""
+def build_accas(book: dict, state: dict, accas: dict, now: datetime, book_many=None, get=None) -> int:
+    """Book at most one new acca from the agreed, booked, unused picks; returns 1 when booked. Each leg is read
+    again on SportyBet's match page and kept only while its market is open (a closed selection makes SportyBet
+    refuse the whole slip: 14 Nov, Walsall v Barnet); if SportyBet still refuses, the weakest leg goes, then again."""
     if not enabled():
         return 0
     book_many = book_many or _book_many
+    get = get or _sb_get
     used = {pid for a in accas.get("accas", []) for pid in a["legs"]}
     best: dict = {}
     for pid, p in (book.get("picks") or {}).items():
@@ -371,14 +374,30 @@ def build_accas(book: dict, state: dict, accas: dict, now: datetime, book_many=N
     legs = sorted(best.values(), key=lambda pid: -(state[pid].get("chance") or 0))[:ACCA_MAX]
     if len(legs) < 2 or min(_ko(book["picks"][pid]) for pid in legs) > now + ACCA_LEAD:
         return 0
-    sels = [{"eventId": book["picks"][pid]["event"], "marketId": state[pid]["market_id"],
-             "specifier": state[pid].get("specifier") or "", "outcomeId": state[pid]["outcome_id"]} for pid in legs]
-    code = book_many(sels)
+    open_legs = []
+    for pid in legs:
+        p = book["picks"][pid]
+        try:
+            sel = selection((get(_EVENT.format(eid=p["event"])) or {}).get("data") or {}, p["key"], p.get("line"))
+        except Exception:  # noqa: BLE001 - page unreadable: the leg waits for the next acca, never a guess
+            sel = None
+        if sel:
+            open_legs.append((pid, sel))
+    code = None
+    while len(open_legs) >= 2 and not code:
+        code = book_many([{k: s[k] for k in ("eventId", "marketId", "specifier", "outcomeId")} for _p, s in open_legs])
+        if not code:
+            open_legs = open_legs[:-1]                     # SportyBet said no: drop the weakest leg and try again
     if not code:
         return 0
+    legs = [pid for pid, _s in open_legs]
+    for pid, s in open_legs:
+        if s.get("odds"):
+            state[pid]["acca_price"] = s["odds"]
     odds = 1.0
     for pid in legs:
-        odds *= float(state[pid].get("booked_price") or book["picks"][pid].get("price") or 1.0)
+        odds *= float(state[pid].get("acca_price") or state[pid].get("booked_price") or book["picks"][pid].get("price")
+                      or 1.0)
     first = min(book["picks"][pid]["ko"] for pid in legs)
     accas.setdefault("accas", []).append({"code": code, "legs": legs, "odds": round(odds, 2), "ko": first,
                                           "booked": now.strftime("%Y-%m-%dT%H:%MZ")})

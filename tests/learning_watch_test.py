@@ -43,7 +43,10 @@ _real = lw._read
 lw._read = lambda rel: '{"checked": "2026-11-13"}' if rel.endswith("match_study_checked.json") else _real(rel)
 assert lw.newest_study() >= "2026-11-13", "a caught-up check counts as fresh evidence"
 lw._read = lambda rel: None if rel.endswith("match_study_checked.json") else _real(rel)
+_real_jsonl = lw._jsonl
+lw._jsonl = lambda path: []  # isolate from the live match-study log (it now holds 2026-11-13 matches)
 assert lw.newest_study() != "2026-11-13"
+lw._jsonl = _real_jsonl
 lw._read = _real
 from data import match_study as _ms  # noqa: E402
 from monitor import match_study_run as _msr  # noqa: E402
